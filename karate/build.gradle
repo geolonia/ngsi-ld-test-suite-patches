@@ -1,0 +1,84 @@
+buildscript {
+    ext {
+        gradleVersionProperty = '5.6.2'
+        karateVersion = '0.9.5.RC5'
+        junitVersion = '5.4.0'
+    }
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/' }
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+group = "com.egm.datahub"
+version = "0.0.1"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+sourceSets {
+    test {
+        java {
+            // Excluding UIRunner files as these require the javafx libraries
+            // which are not shipped with OpenJDK. These UIRunner classes are
+            // classes that allow developers to run/debug karate tests via a UI
+            // and as such are not required for headless runs on jenkins server
+            // but can run happily via IDE of the developer without needed to be
+            // compiled by gradle.
+            srcDir file('src/test/java')
+            exclude '**/*UiRunner*.java'
+        }
+        resources {
+            // Using recommended karate project layout where karate feature files
+            // and associated javascript resources sit in same /test/java folders
+            // as their java counterparts.
+            srcDir file('src/test/java')
+            exclude '**/*.java'
+        }
+    }
+}
+
+dependencies {
+    testImplementation 'com.intuit.karate:karate-junit5:' + karateVersion
+    testImplementation 'com.intuit.karate:karate-apache:' + karateVersion
+    testImplementation 'net.masterthought:cucumber-reporting:3.8.0'
+
+    // still required until Karate 0.9.5 (https://github.com/intuit/karate/issues/823#issuecomment-509608205)
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:' + junitVersion
+}
+
+test {
+    // When running the test task, only run the base Test class which runs all cucumber tests in parallel.
+    include '**/*ApiTests*'
+
+    // To "activate" JUnit5 engine
+    useJUnitPlatform()
+
+    // Pull karate options into the runtime
+    systemProperty "karate.options", System.properties.getProperty("karate.options")
+    // Pull karate options into the JVM
+    systemProperty "karate.env", System.properties.getProperty("karate.env")
+    
+    // I would prefer having a way to automatically pass all datahub properties ...
+    // To be investigated later
+    systemProperty "datahub.authServer", System.properties.getProperty("datahub.authServer")
+    systemProperty "datahub.clientId", System.properties.getProperty("datahub.clientId")
+    systemProperty "datahub.clientSecret", System.properties.getProperty("datahub.clientSecret")
+    systemProperty "datahub.username", System.properties.getProperty("datahub.username")
+    systemProperty "datahub.password", System.properties.getProperty("datahub.password")
+
+    // Ensure tests are always run
+    outputs.upToDateWhen { false }
+    // attach debugger
+    if (System.getProperty('debug', 'false') == 'true') {
+        jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9009'
+    }
+}
+
+wrapper {
+    gradleVersion = gradleVersionProperty
+}

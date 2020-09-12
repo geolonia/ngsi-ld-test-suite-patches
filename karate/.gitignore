@@ -1,0 +1,14 @@
+.gradle
+
+# Ignore our production
+
+build
+target
+
+# VS Code generated files
+
+bin
+.classpath
+.project
+.settings
+.vscode
