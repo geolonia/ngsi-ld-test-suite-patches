@@ -3,6 +3,9 @@ Feature: Test implementation of POST /entities (6.4.3.1) with existing entity
 
 Background:
   * url urlBase
+  * def token = accessToken
+  * configure headers = read('classpath:headers.js')
+
   * def fixtures = callonce read('support/create-entity-fixture.feature')
   * def building = read('classpath:ngsi-ld/payloads/entities/building-minimal.jsonld')
 

@@ -5,6 +5,9 @@ Background:
   * url urlBase
   * def buildings = read('classpath:ngsi-ld/payloads/entities/buildings.json')
 
+  * def token = accessToken
+  * configure headers = read('classpath:headers.js')
+  
   * configure afterFeature =
     """
     function() {

@@ -7,11 +7,9 @@ Background:
 Scenario: Call the token endpoint to get an access token
 
 * path 'token'
-* form field grant_type = 'password'
+* form field grant_type = 'client_credentials'
 * form field client_id = clientId
 * form field client_secret = clientSecret
-* form field username = username
-* form field password = password
 * method post
 * status 200
 

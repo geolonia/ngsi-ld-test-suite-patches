@@ -6,14 +6,11 @@ function fn() {
   }
 
   var config = { // base config JSON
-    urlBase: 'http://localhost:8080/ngsi-ld/v1/',
+    urlBase: karate.properties['datahub.urlBase'],
     authServer: karate.properties['datahub.authServer'],
     clientId: karate.properties['datahub.clientId'],
-    clientSecret: karate.properties['datahub.clientSecret'],
-    username: karate.properties['datahub.username'],
-    password: karate.properties['datahub.password']
+    clientSecret: karate.properties['datahub.clientSecret']
   };
-  karate.log('using client id ' + config.clientId);
 
   if (env == 'integration') {
     config.urlBase = 'http://stellio-dev:8090/ngsi-ld/v1/';

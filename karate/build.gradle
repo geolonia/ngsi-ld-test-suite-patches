@@ -65,11 +65,10 @@ test {
     
     // I would prefer having a way to automatically pass all datahub properties ...
     // To be investigated later
+    systemProperty "datahub.urlBase", System.properties.getProperty("datahub.urlBase")
     systemProperty "datahub.authServer", System.properties.getProperty("datahub.authServer")
     systemProperty "datahub.clientId", System.properties.getProperty("datahub.clientId")
     systemProperty "datahub.clientSecret", System.properties.getProperty("datahub.clientSecret")
-    systemProperty "datahub.username", System.properties.getProperty("datahub.username")
-    systemProperty "datahub.password", System.properties.getProperty("datahub.password")
 
     // Ensure tests are always run
     outputs.upToDateWhen { false }

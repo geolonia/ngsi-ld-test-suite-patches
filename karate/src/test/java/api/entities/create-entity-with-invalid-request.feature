@@ -7,6 +7,9 @@ Background:
   * def buildingWithoutContext = read('classpath:ngsi-ld/payloads/entities/building-without-context.json')
   * configure charset = null
 
+  * def token = accessToken
+  * configure headers = read('classpath:headers.js')
+  
 Scenario: Create Building with unsupported Media type
     Given path 'entities'
     And request building
