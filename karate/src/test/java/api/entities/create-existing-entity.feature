@@ -6,6 +6,13 @@ Background:
   * def fixtures = callonce read('support/create-entity-fixture.feature')
   * def building = read('classpath:ngsi-ld/payloads/entities/building-minimal.jsonld')
 
+  * configure afterScenario =
+    """
+    function() {
+      karate.call('./support/delete-fixture-entity.feature', { uri: 'urn:ngsi-ld:Building:EGM-Office-409' });
+    }
+    """
+
 Scenario:
     Given path 'entities'
     And request building

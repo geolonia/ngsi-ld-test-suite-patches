@@ -5,6 +5,15 @@ Background:
   * url urlBase
   * def buildings = read('classpath:ngsi-ld/payloads/entities/buildings.json')
 
+  * configure afterFeature =
+    """
+    function() {
+      karate.call('./support/delete-fixture-entity.feature', { uri: 'urn:ngsi-ld:Building:EGM-Office-01' });
+      karate.call('./support/delete-fixture-entity.feature', { uri: 'urn:ngsi-ld:Building:EGM-Office-02' });
+      karate.call('./support/delete-fixture-entity.feature', { uri: 'urn:ngsi-ld:Building:EGM-Office-04' });
+    }
+    """
+
 Scenario Outline: Create Buildings with different payloads
     Given path 'entities'
     And request __row

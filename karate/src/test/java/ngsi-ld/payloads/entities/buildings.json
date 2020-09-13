@@ -1,6 +1,6 @@
 [
   {
-    "id": "urn:ngsi-ld:Building:3009ef20-9f62-41f5-bd66-92f041b428b1",
+    "id": "urn:ngsi-ld:Building:EGM-Office-01",
     "type": "Building",
     "@context": [
       "https://fiware.github.io/data-models/context.jsonld",
@@ -8,7 +8,7 @@
     ]
   },
   {
-    "id": "urn:ngsi-ld:Building:3009ef20-9f62-41f5-bd66-92f041b428b4",
+    "id": "urn:ngsi-ld:Building:EGM-Office-02",
     "type": "Building",
     "name": {
       "type": "Property",
@@ -34,7 +34,7 @@
     ]
   },
   {
-    "id": "urn:ngsi-ld:Building:3009ef20-9f62-41f5-bd66-92f041b428b2",
+    "id": "urn:ngsi-ld:Building:EGM-Office-03",
     "type": "Building",
     "locatedAt": {
       "type": "Relationship",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "id": "urn:ngsi-ld:Building:3009ef20-9f62-41f5-bd66-92f041b428b0",
+    "id": "urn:ngsi-ld:Building:EGM-Office-04",
     "type": "Building",
     "name": {
       "type": "Property",
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "id": "urn:ngsi-ld:Building:3009ef20-9f62-41f5-bd66-92f041b428b3",
+    "id": "urn:ngsi-ld:Building:EGM-Office-05",
     "type": "Building",
     "name": {
       "type": "Property",
