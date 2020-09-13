@@ -3,7 +3,7 @@ Feature: Generic feature to create an entity to be used as a fixture for a featu
 
 Background:
   * url urlBase
-  * def building = read('../../../../../../samples/building.jsonld')
+  * def building = read('classpath:ngsi-ld/payloads/entities/building-minimal.jsonld')
 
 Scenario:
     Given path 'entities'
