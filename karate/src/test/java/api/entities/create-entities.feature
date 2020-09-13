@@ -3,7 +3,7 @@ Feature: Test implementation of POST /entities (6.4.3.1) with different entity p
 
 Background:
   * url urlBase
-  * def buildings = read('../../../../../../samples/buildings.json')
+  * def buildings = read('classpath:ngsi-ld/payloads/entities/buildings.json')
 
 Scenario Outline: Create Buildings with different payloads
     Given path 'entities'

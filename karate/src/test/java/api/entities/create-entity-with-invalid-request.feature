@@ -3,8 +3,8 @@ Feature: Test implementation of POST /entities (6.4.3.1) with invalid request
 
 Background:
   * url urlBase
-  * def building = read('../../../../../../samples/building.jsonld')
-  * def buildingWithoutContext = read('../../../../../../samples/building-without-context.json')
+  * def building = read('classpath:ngsi-ld/payloads/entities/building.jsonld')
+  * def buildingWithoutContext = read('classpath:ngsi-ld/payloads/entities/building-without-context.json')
   * configure charset = null
 
 Scenario: Create Building with unsupported Media type

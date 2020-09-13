@@ -1,0 +1,101 @@
+[
+  {
+    "id": "urn:ngsi-ld:Building:3009ef20-9f62-41f5-bd66-92f041b428b1",
+    "type": "Building",
+    "@context": [
+      "https://fiware.github.io/data-models/context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
+    ]
+  },
+  {
+    "id": "urn:ngsi-ld:Building:3009ef20-9f62-41f5-bd66-92f041b428b4",
+    "type": "Building",
+    "name": {
+      "type": "Property",
+      "value": "Eiffel Tower"
+    },
+    "subCategory": {
+      "type": "Property",
+      "value": ["tourism"]
+    },
+    "airQualityLevel": {
+      "type": "Property",
+      "value": 4,
+      "unitCode": "C62",
+      "observedAt": "2020-09-09T16:40:00.000Z"
+    },
+    "almostFull": {
+      "type": "Property",
+      "value": false
+    },
+    "@context": [
+      "https://fiware.github.io/data-models/context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
+    ]
+  },
+  {
+    "id": "urn:ngsi-ld:Building:3009ef20-9f62-41f5-bd66-92f041b428b2",
+    "type": "Building",
+    "locatedAt": {
+      "type": "Relationship",
+      "object": "urn:ngsi-ld:City:Paris"
+    },
+    "@context": [
+      "https://fiware.github.io/data-models/context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
+    ]
+  },
+  {
+    "id": "urn:ngsi-ld:Building:3009ef20-9f62-41f5-bd66-92f041b428b0",
+    "type": "Building",
+    "name": {
+      "type": "Property",
+      "value": "Eiffel Tower"
+    },
+    "subCategory": {
+      "type": "Property",
+      "value": ["tourism"]
+    },
+    "location": {
+      "type": "GeoProperty",
+      "value": {
+        "type": "Point",
+        "coordinates": [13.3986, 52.5547]
+      }
+    },
+    "@context": [
+      "https://fiware.github.io/data-models/context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
+    ]
+  },
+  {
+    "id": "urn:ngsi-ld:Building:3009ef20-9f62-41f5-bd66-92f041b428b3",
+    "type": "Building",
+    "name": {
+      "type": "Property",
+      "value": "Eiffel Tower"
+    },
+    "subCategory": {
+      "type": "Property",
+      "value": ["tourism"]
+    },
+    "airQualityLevel": {
+      "type": "Property",
+      "value": 4,
+      "unitCode": "C62",
+      "observedAt": "2020-09-09T16:40:00.000Z",
+      "hasWeatherObserved": {
+        "type": "Relationship",
+        "object": "urn:ngsi-ld:Sensor:43a1af27-4aa7-44fe-bee9-fe76d56978a4"
+      }
+    },
+    "almostFull": {
+      "type": "Property",
+      "value": false
+    },
+    "@context": [
+      "https://fiware.github.io/data-models/context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
+    ]
+  }
+]
