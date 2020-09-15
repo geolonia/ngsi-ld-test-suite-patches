@@ -1,5 +1,6 @@
 @entities
 Feature: Test implementation of POST /entities (6.4.3.1) with different entity payloads
+    TP/NGSI-LD/ContextInformation/Provision/Entities/CreateEntity/SuccessCases
 
 Background:
   * url urlBase
@@ -17,11 +18,12 @@ Background:
     }
     """
 
-Scenario Outline: Create Buildings with different payloads
+Scenario Outline: Create some entities with different payloads
     Given path 'entities'
     And request __row
     And header Content-Type = 'application/ld+json'
     When method post
     Then status 201
+    And match header Location == '/ngsi-ld/v1/entities/' + __row.id
 Examples:
     | buildings |

@@ -1,5 +1,6 @@
 @entities
 Feature: Test implementation of POST /entities (6.4.3.1) with existing entity
+    TP/NGSI-LD/ContextInformation/Provision/Entities/CreateEntity/AlreadyExists
 
 Background:
   * url urlBase
@@ -16,9 +17,11 @@ Background:
     }
     """
 
-Scenario:
+Scenario: Check that you cannot create an entity if there is already one with the same identifier
     Given path 'entities'
     And request building
     And header Content-Type = 'application/ld+json'
     When method post
     Then status 409
+    And match response.type == 'https://uri.etsi.org/ngsi-ld/errors/AlreadyExists'
+    And match response.title == '#notnull'
