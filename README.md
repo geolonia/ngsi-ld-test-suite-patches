@@ -18,7 +18,7 @@
 * Install [Robot Framework Intellisense](https://marketplace.visualstudio.com/items?itemName=TomiTurtiainen.rf-intellisense)
 
 #### Checkout the base project   
-```$ git clone https://github.com/easy-global-market/isg-cim-tpdl-demo.git``` 
+```$ git clone git@forge.etsi.org:cim/ngsi-ld-test-suite.git```
 
 #### Install the project requirements
 Browse the base project root folder and execute the following command:   
