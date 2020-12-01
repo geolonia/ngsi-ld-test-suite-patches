@@ -7,6 +7,13 @@ Load Entity
 
     [return]    ${entity}
 
+Remove Entity Type
+    [Arguments]    ${entity}
+
+    ${invalid_entity}=    Delete Object From Json    ${entity}     $..type
+
+    [return]    ${invalid_entity}
+
 Generate Random Entity Id
     [Arguments]    ${id_prefix}
 

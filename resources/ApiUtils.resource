@@ -55,7 +55,15 @@ Batch Create Entities
     Output  response
     Set Test Variable  ${response}
 
-Batch Create Entities From File
+Batch Upsert Entities
+    [Arguments]  @{entities_to_be_upserted}     ${update_option}=replace
+    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    ${response}=  POST  ${batch_endpoint}?options=${update_option}  body=@{entities_to_be_upserted}  headers=${headers}
+    Output  request
+    Output  response
+    Set Test Variable  ${response}
+
+Batch Request Entities From File
     [Arguments]  ${filename}
     ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
     Create Session    BatchRequest      ${url}
