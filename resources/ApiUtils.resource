@@ -71,6 +71,14 @@ Batch Update Entities
     Output  response
     Set Test Variable  ${response}
 
+Batch Delete Entities
+    [Arguments]  @{entities_ids_to_be_deleted}
+    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    ${response}=  POST  ${batch_endpoint}  body=@{entities_ids_to_be_deleted}  headers=${headers}
+    Output  request
+    Output  response
+    Set Test Variable  ${response}
+
 Batch Request Entities From File
     [Arguments]  ${filename}
     ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
