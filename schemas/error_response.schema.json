@@ -1,0 +1,7 @@
+{
+    "required": [
+        "detail",
+        "type",
+        "title"
+    ]
+}
