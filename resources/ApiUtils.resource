@@ -63,6 +63,14 @@ Batch Upsert Entities
     Output  response
     Set Test Variable  ${response}
 
+Batch Update Entities
+    [Arguments]  @{entities_to_be_updated}           ${overwrite_option}=overwrite
+    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    ${response}=  POST  ${batch_endpoint}?options=${overwrite_option}  body=@{entities_to_be_updated}  headers=${headers}
+    Output  request
+    Output  response
+    Set Test Variable  ${response}
+
 Batch Request Entities From File
     [Arguments]  ${filename}
     ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
