@@ -13,6 +13,7 @@ Suite Setup      Setup Initial Entities
 
 *** Variable ***
 ${batch_endpoint}=    entityOperations/update
+${batch_delete_endpoint}=    entityOperations/delete
 ${endpoint}=    entities
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 
@@ -37,9 +38,7 @@ Update a batch of non existing and existing entities
     Check Response Status Code Set To  207
     Check Response Body Containing Batch Operation Result   ${expected_batch_operation_result}
 
-    #TODO call Batch Delete Entities
-    Delete Entity by Id  ${first_existing_entity_id}
-    Delete Entity by Id  ${second_existing_entity_id}
+    Batch Delete Entities       @{expected_successful_entities_ids}
 
 *** Keywords ***
 Setup Initial Entities

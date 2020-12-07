@@ -11,6 +11,7 @@ Library     Collections
 
 *** Variable ***
 ${batch_endpoint}=    entityOperations/create
+${batch_delete_endpoint}=    entityOperations/delete
 ${endpoint}=    entities
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 
@@ -31,9 +32,7 @@ Create a batch of minimal entities
     Check Response Status Code Set To  201
     Check Response Body Containing Array Of URIs set to   @{expected_entities_ids}
 
-    #TODO call Batch Delete Entities
-    Delete Entity by Id  ${first_entity_id}
-    Delete Entity by Id  ${second_entity_id}
+    Batch Delete Entities       @{expected_entities_ids}
 
 Create a batch of entities having only simple properties
     [Documentation]  Check that you can create a batch of entities having only simple properties
@@ -51,9 +50,7 @@ Create a batch of entities having only simple properties
     Check Response Status Code Set To  201
     Check Response Body Containing Array Of URIs set to  @{expected_entities_ids}
 
-    #TODO call Batch Delete Entities
-    Delete Entity by Id  ${first_entity_id}
-    Delete Entity by Id  ${second_entity_id}
+    Batch Delete Entities       @{expected_entities_ids}
 
 Create a batch of entities having multiple attributes
     [Documentation]  Check that you can create a batch of entities having multiple attributes
@@ -71,6 +68,4 @@ Create a batch of entities having multiple attributes
     Check Response Status Code Set To  201
     Check Response Body Containing Array Of URIs set to  @{expected_entities_ids}
 
-    #TODO call Batch Delete Entities
-    Delete Entity by Id  ${first_entity_id}
-    Delete Entity by Id  ${second_entity_id}
+    Batch Delete Entities       @{expected_entities_ids}

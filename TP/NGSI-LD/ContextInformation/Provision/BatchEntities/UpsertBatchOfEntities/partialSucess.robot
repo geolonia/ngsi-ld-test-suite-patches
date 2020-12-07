@@ -11,6 +11,7 @@ Library     Collections
 
 *** Variable ***
 ${batch_endpoint}=    entityOperations/upsert
+${batch_delete_endpoint}=    entityOperations/delete
 ${endpoint}=    entities
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 
@@ -37,6 +38,4 @@ Upsert a batch of two valid entities and one invalid entity
     Check Response Status Code Set To  207
     Check Response Body Containing Batch Operation Result   ${expected_batch_operation_result}
 
-    #TODO call Batch Delete Entities
-    Delete Entity by Id  ${first_entity_id}
-    Delete Entity by Id  ${second_entity_id}
+    Batch Delete Entities       @{expected_successful_entities_ids}

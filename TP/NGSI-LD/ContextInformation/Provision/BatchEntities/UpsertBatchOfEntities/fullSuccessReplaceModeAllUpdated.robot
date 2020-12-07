@@ -13,6 +13,7 @@ Suite Setup      Setup Initial Entities
 
 *** Variable ***
 ${batch_endpoint}=    entityOperations/upsert
+${batch_delete_endpoint}=    entityOperations/delete
 ${endpoint}=    entities
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 
@@ -29,9 +30,8 @@ Upsert a batch of existing entities
 
     Check Response Status Code Set To  204
 
-    #TODO call Batch Delete Entities
-    Delete Entity by Id  ${first_existing_entity_id}
-    Delete Entity by Id  ${second_existing_entity_id}
+    @{entities_ids_to_be_deleted}=  Create List   ${first_existing_entity_id}     ${second_existing_entity_id}
+    Batch Delete Entities       @{entities_ids_to_be_deleted}
 
 *** Keywords ***
 Setup Initial Entities

@@ -12,7 +12,7 @@ Library     Collections
 Suite Setup      Setup Initial Entities
 
 *** Variable ***
-${batch_endpoint}=    entityOperations/delete
+${batch_delete_endpoint}=    entityOperations/delete
 ${endpoint}=    entities
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 

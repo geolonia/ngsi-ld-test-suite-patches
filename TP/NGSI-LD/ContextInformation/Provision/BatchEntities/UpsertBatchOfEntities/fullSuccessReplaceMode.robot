@@ -13,6 +13,7 @@ Suite Setup      Setup Initial Entities
 
 *** Variable ***
 ${batch_endpoint}=    entityOperations/upsert
+${batch_delete_endpoint}=    entityOperations/delete
 ${endpoint}=    entities
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 
@@ -33,9 +34,7 @@ Upsert a batch of non existing entities
     Check Response Status Code Set To  201
     Check Response Body Containing Array Of URIs set to   @{expected_entities_ids}
 
-    #TODO call Batch Delete Entities
-    Delete Entity by Id  ${first_entity_id}
-    Delete Entity by Id  ${second_entity_id}
+    Batch Delete Entities       @{expected_entities_ids}
 
 Upsert a batch of non existing and existing entities
     [Documentation]  Check that you can upsert a batch of non existing and existing entities
@@ -53,10 +52,8 @@ Upsert a batch of non existing and existing entities
     Check Response Status Code Set To  201
     Check Response Body Containing Array Of URIs set to   @{expected_entities_ids}
 
-    #TODO call Batch Delete Entities
-    Delete Entity by Id  ${new_entity_id}
-    Delete Entity by Id  ${first_existing_entity_id}
-    Delete Entity by Id  ${second_existing_entity_id}
+    @{entities_ids_to_be_deleted}=  Create List   ${new_entity_id}     ${first_existing_entity_id}      ${second_existing_entity_id}
+    Batch Delete Entities       @{entities_ids_to_be_deleted}
 
 *** Keywords ***
 Setup Initial Entities
