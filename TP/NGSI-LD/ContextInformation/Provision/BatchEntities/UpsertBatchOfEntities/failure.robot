@@ -18,8 +18,8 @@ With invalid json document
 
     Batch Request Entities From File   batch/invalid-json-sample.jsonld
 
-    Check Response Status Code Set To  400
-    Check Response Body Containing Problem Details Element Containing Detail Element    ${response}
+    Check RL Response Status Code Set To  400
+    Check RL Response Body Containing Problem Details Element Containing Detail Element    ${response}
 
 With json-ld document containing a null value in any of its items
     [Documentation]  Check that you cannot upsert a batch of entities with a json-ld document containing a null value in any of its items
@@ -27,5 +27,5 @@ With json-ld document containing a null value in any of its items
 
     Batch Request Entities From File   batch/invalid-json-ld-sample.jsonld
 
-    Check Response Status Code Set To  400
-    Check Response Body Containing Problem Details Element Containing Detail Element    ${response}
+    Check RL Response Status Code Set To  400
+    Check RL Response Body Containing Problem Details Element Containing Detail Element    ${response}

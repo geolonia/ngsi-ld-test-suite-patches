@@ -19,8 +19,8 @@ With invalid json document
 
     Batch Request Entities From File   batch/invalid-json-sample.jsonld
 
-    Check Response Status Code Set To  400
-    Check Response Body Containing Problem Details Element Containing Detail Element    ${response}
+    Check RL Response Status Code Set To  400
+    Check RL Response Body Containing Problem Details Element Containing Detail Element    ${response}
 
 With json-ld document not syntactically correct according to the @context
     [Documentation]  Check that you cannot update a batch of entities with a json-ld document not syntactically correct according to the @context
@@ -29,5 +29,5 @@ With json-ld document not syntactically correct according to the @context
     #TODO: Use a json-ld document not syntactically correct according to the @context
     Batch Request Entities From File   batch/invalid-json-ld-sample.jsonld
 
-    Check Response Status Code Set To  400
-    Check Response Body Containing Problem Details Element Containing Detail Element    ${response}
+    Check RL Response Status Code Set To  400
+    Check RL Response Body Containing Problem Details Element Containing Detail Element    ${response}
