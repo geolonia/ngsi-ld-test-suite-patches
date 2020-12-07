@@ -2,8 +2,12 @@
 Variables    ./variables.py
 
 Library    REST    ${url}
+Library    RequestsLibrary
 
 *** Variables ***
+${BATCH_CREATE_ENDPOINT_PATH}   entityOperations/create
+${BATCH_DELETE_ENDPOINT_PATH}   entityOperations/delete
+${ENTITIES_ENDPOINT_PATH}       entities
 ${response}
 
 *** Keywords ***
@@ -33,7 +37,7 @@ Api DEL request
 
 Delete Entity by Id
     [Arguments]  ${id}
-    ${response}=  DELETE  ${endpoint}/${id}
+    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}/${id}
     Output  request
     Output  response
 
@@ -43,14 +47,14 @@ Create Entity
     ${entity}=    Update Value To Json    ${entity_payload}     $..id   ${entity_id}
 
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST  ${endpoint}  body=${entity}  headers=${headers}
+    ${response}=  POST  ${ENTITIES_ENDPOINT_PATH}  body=${entity}  headers=${headers}
     Output  request
     Output  response
 
 Batch Create Entities
     [Arguments]  @{entities_to_be_created}
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST  ${batch_endpoint}  body=@{entities_to_be_created}  headers=${headers}
+    ${response}=  POST  ${BATCH_CREATE_ENDPOINT_PATH}  body=@{entities_to_be_created}  headers=${headers}
     Output  request
     Output  response
     Set Test Variable  ${response}
@@ -74,7 +78,7 @@ Batch Update Entities
 Batch Delete Entities
     [Arguments]  @{entities_ids_to_be_deleted}
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST  ${batch_delete_endpoint}  body=@{entities_ids_to_be_deleted}  headers=${headers}
+    ${response}=  POST  ${BATCH_DELETE_ENDPOINT_PATH}  body=@{entities_ids_to_be_deleted}  headers=${headers}
     Output  request
     Output  response
     Set Test Variable  ${response}
@@ -84,5 +88,5 @@ Batch Request Entities From File
     ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
     Create Session    BatchRequest      ${url}
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST Request      BatchRequest   ${batch_endpoint}  data=${file_content}    headers=${headers}
-    Set Test Variable  ${response}      ${response.json()}
+    ${response}=  POST Request      BatchRequest   ${BATCH_CREATE_ENDPOINT_PATH}  data=${file_content}    headers=${headers}
+    Set Test Variable  ${response}
