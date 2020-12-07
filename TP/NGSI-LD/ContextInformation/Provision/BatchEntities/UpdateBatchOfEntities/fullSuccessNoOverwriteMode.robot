@@ -13,6 +13,7 @@ Suite Setup      Setup Initial Entities
 
 *** Variable ***
 ${batch_endpoint}=    entityOperations/update
+${batch_delete_endpoint}=    entityOperations/delete
 ${endpoint}=    entities
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 
@@ -29,9 +30,8 @@ Update a batch of entities with noOverwrite option
 
     Check Response Status Code Set To  204
 
-    #TODO call Batch Delete Entities
-    Delete Entity by Id  ${first_entity_id}
-    Delete Entity by Id  ${second_entity_id}
+    @{entities_ids_to_be_deleted}=  Create List   ${first_entity_id}     ${second_entity_id}
+    Batch Delete Entities       @{entities_ids_to_be_deleted}
 
 *** Keywords ***
 Setup Initial Entities

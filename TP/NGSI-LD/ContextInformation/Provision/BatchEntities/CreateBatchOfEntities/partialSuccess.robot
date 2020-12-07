@@ -13,6 +13,7 @@ Suite Setup      Setup Initial Entities
 
 *** Variable ***
 ${batch_endpoint}=    entityOperations/create
+${batch_delete_endpoint}=    entityOperations/delete
 ${endpoint}=    entities
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 
@@ -36,14 +37,11 @@ Create a batch of two valid entities and one invalid entity
     Check Response Status Code Set To  207
     Check Response Body Containing Batch Operation Result   ${expected_batch_operation_result}
 
-    #TODO call Batch Delete Entities
-    Delete Entity by Id  ${first_entity_id}
-    Delete Entity by Id  ${second_entity_id}
-    Delete Entity by Id  ${existing_entity_id}
-    
+    @{entities_ids_to_be_deleted}=  Create List   ${first_entity_id}     ${second_entity_id}    ${existing_entity_id}
+    Batch Delete Entities       @{entities_ids_to_be_deleted}
+
 *** Keywords ***
 Setup Initial Entities
     ${existing_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     Create Entity  building-minimal-sample.jsonld     ${existing_entity_id}
     Set Suite Variable  ${existing_entity_id}
-
