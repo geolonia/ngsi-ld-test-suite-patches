@@ -1,9 +1,8 @@
 *** Settings ***
 Documentation   Check that you cannot upsert a batch of entities with an invalid request
-Variables   ../../../../../../resources/variables.py
-Resource    ../../../../../../resources/ApiUtils.resource
-Resource    ../../../../../../resources/AssertionUtils.resource
-Resource    ../../../../../../resources/JsonUtils.resource
+Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource    ${EXECDIR}/resources/AssertionUtils.resource
+Resource    ${EXECDIR}/resources/JsonUtils.resource
 Library     RequestsLibrary
 Library     JSONLibrary
 Library     OperatingSystem

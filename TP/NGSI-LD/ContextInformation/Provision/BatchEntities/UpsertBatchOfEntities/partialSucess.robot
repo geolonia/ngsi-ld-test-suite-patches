@@ -1,9 +1,9 @@
 *** Settings ***
 Documentation   Check that you can upsert a batch of entities where some will succeed and others will fail
-Variables   ../../../../../../resources/variables.py
-Resource    ../../../../../../resources/ApiUtils.resource
-Resource    ../../../../../../resources/AssertionUtils.resource
-Resource    ../../../../../../resources/JsonUtils.resource
+Variables   ${EXECDIR}/resources/variables.py
+Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource    ${EXECDIR}/resources/AssertionUtils.resource
+Resource    ${EXECDIR}/resources/JsonUtils.resource
 Library     REST    ${url}
 Library     JSONLibrary
 Library     String

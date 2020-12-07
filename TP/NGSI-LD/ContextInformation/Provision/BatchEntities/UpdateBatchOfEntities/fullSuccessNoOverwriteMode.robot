@@ -1,9 +1,9 @@
 *** Settings ***
 Documentation   Check that you can update a batch of entities with noOverwrite option
-Variables   ../../../../../../resources/variables.py
-Resource    ../../../../../../resources/ApiUtils.resource
-Resource    ../../../../../../resources/AssertionUtils.resource
-Resource    ../../../../../../resources/JsonUtils.resource
+Variables   ${EXECDIR}/resources/variables.py
+Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource    ${EXECDIR}/resources/AssertionUtils.resource
+Resource    ${EXECDIR}/resources/JsonUtils.resource
 Library     REST    ${url}
 Library     JSONLibrary
 Library     String

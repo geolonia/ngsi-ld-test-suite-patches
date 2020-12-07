@@ -1,8 +1,8 @@
 *** Settings ***
 Documentation   Check that you cannot delete a batch of entities with an invalid request
-Variables   ../../../../../../resources/variables.py
-Resource    ../../../../../../resources/ApiUtils.resource
-Resource    ../../../../../../resources/AssertionUtils.resource
+Variables   ${EXECDIR}/resources/variables.py
+Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource    ${EXECDIR}/resources/AssertionUtils.resource
 Library     RequestsLibrary
 Library     JSONLibrary
 Library     OperatingSystem
