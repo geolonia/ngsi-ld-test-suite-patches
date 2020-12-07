@@ -20,7 +20,7 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 *** Test Case ***
 Upsert a batch of non existing entities
     [Documentation]  Check that you can upsert a batch of non existing entities
-    [Tags]  critical
+    [Tags]  mandatory
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
@@ -38,7 +38,7 @@ Upsert a batch of non existing entities
 
 Upsert a batch of non existing and existing entities
     [Documentation]  Check that you can upsert a batch of non existing and existing entities
-    [Tags]  critical
+    [Tags]  mandatory
 
     ${new_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${new_entity}=    Load Entity    building-minimal-sample.jsonld      ${new_entity_id}

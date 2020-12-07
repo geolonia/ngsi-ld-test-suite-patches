@@ -14,7 +14,7 @@ ${endpoint}=    entities
 *** Test Case ***
 With invalid json document
     [Documentation]  Check that you cannot upsert a batch of entities with an invalid json document
-    [Tags]  critical
+    [Tags]  mandatory
 
     Batch Request Entities From File   batch/invalid-json-sample.jsonld
 
@@ -23,7 +23,7 @@ With invalid json document
 
 With json-ld document containing a null value in any of its items
     [Documentation]  Check that you cannot upsert a batch of entities with a json-ld document containing a null value in any of its items
-    [Tags]  critical
+    [Tags]  mandatory
 
     Batch Request Entities From File   batch/invalid-json-ld-sample.jsonld
 

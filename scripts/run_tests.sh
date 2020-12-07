@@ -6,11 +6,11 @@ robot --outputdir ./results ./TP/NGSI-LD
 # run all tests with base url overriden
 robot --variable url:"URL_HERE" --outputdir ./results .
 
-# specify which tests are critical
-robot --critical critical --outputdir ./results .
+# specify which tests are mandatory
+robot --critical mandatory --outputdir ./results .
 
 # run by specific tag(s)
-robot --include critical --outputdir ./results .
+robot --include mandatory --outputdir ./results .
 
 # run specific test suite
 robot --outputdir ./results ./TP/NGSI-LD/ContextInformation

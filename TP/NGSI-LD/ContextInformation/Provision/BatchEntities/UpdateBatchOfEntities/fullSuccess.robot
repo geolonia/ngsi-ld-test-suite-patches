@@ -20,7 +20,7 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 *** Test Case ***
 Update a batch of entities
     [Documentation]  Check that you can update a batch of entities
-    [Tags]  critical
+    [Tags]  mandatory
 
     ${first_entity}=    Load Entity    building-relationship-of-property-sample.jsonld      ${first_entity_id}
     ${second_entity}=    Load Entity    building-relationship-of-property-sample.jsonld      ${second_entity_id}

@@ -20,7 +20,7 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 *** Test Case ***
 Upsert a batch of entities with update option
     [Documentation]  Check that you can upsert a batch of entities with update option
-    [Tags]  critical
+    [Tags]  mandatory
 
     ${new_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${new_entity}=    Load Entity    building-minimal-sample.jsonld      ${new_entity_id}

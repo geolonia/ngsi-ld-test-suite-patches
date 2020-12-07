@@ -18,7 +18,7 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 *** Test Case ***
 Upsert a batch of two valid entities and one invalid entity
     [Documentation]  Check that you can upsert a batch of two valid entities and one invalid entity
-    [Tags]  critical
+    [Tags]  mandatory
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=     Generate Random Entity Id    ${building_id_prefix}

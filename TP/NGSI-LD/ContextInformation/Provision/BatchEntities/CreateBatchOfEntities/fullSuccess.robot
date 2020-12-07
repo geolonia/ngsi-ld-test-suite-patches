@@ -13,7 +13,7 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 *** Test Case ***
 Create a batch of minimal entities
     [Documentation]  Check that you can create a batch of minimal entities
-    [Tags]  critical
+    [Tags]  mandatory
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
@@ -31,7 +31,7 @@ Create a batch of minimal entities
 
 Create a batch of entities having only simple properties
     [Documentation]  Check that you can create a batch of entities having only simple properties
-    [Tags]  critical
+    [Tags]  mandatory
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
@@ -49,7 +49,7 @@ Create a batch of entities having only simple properties
 
 Create a batch of entities having multiple attributes
     [Documentation]  Check that you can create a batch of entities having multiple attributes
-    [Tags]  critical
+    [Tags]  mandatory
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=     Generate Random Entity Id    ${building_id_prefix}

@@ -20,7 +20,7 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 *** Test Case ***
 Upsert a batch of existing entities
     [Documentation]  Check that you can upsert a batch of existing entities
-    [Tags]  critical
+    [Tags]  mandatory
 
     ${first_existing_entity}=    Load Entity    building-minimal-sample.jsonld      ${first_existing_entity_id}
     ${second_existing_entity}=    Load Entity    building-minimal-sample.jsonld      ${second_existing_entity_id}

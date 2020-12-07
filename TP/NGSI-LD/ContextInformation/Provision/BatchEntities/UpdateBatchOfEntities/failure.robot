@@ -15,7 +15,7 @@ ${endpoint}=    entities
 *** Test Case ***
 With invalid json document
     [Documentation]  Check that you cannot update a batch of entities with an invalid json document
-    [Tags]  critical
+    [Tags]  mandatory
 
     Batch Request Entities From File   batch/invalid-json-sample.jsonld
 
@@ -24,7 +24,7 @@ With invalid json document
 
 With json-ld document not syntactically correct according to the @context
     [Documentation]  Check that you cannot update a batch of entities with a json-ld document not syntactically correct according to the @context
-    [Tags]  critical
+    [Tags]  mandatory
 
     #TODO: Use a json-ld document not syntactically correct according to the @context
     Batch Request Entities From File   batch/invalid-json-ld-sample.jsonld

@@ -20,7 +20,7 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 *** Test Case ***
 Update a batch of non existing and existing entities
     [Documentation]  Check that you can update a batch of non existing and existing entities
-    [Tags]  critical
+    [Tags]  mandatory
 
     ${first_existing_entity}=    Load Entity    building-relationship-of-property-sample.jsonld      ${first_existing_entity_id}
     ${second_existing_entity}=    Load Entity    building-relationship-of-property-sample.jsonld      ${second_existing_entity_id}

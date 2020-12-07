@@ -15,7 +15,7 @@ ${endpoint}=    entities
 *** Test Case ***
 With invalid json document
     [Documentation]  Check that you cannot delete a batch of entities with an invalid json document
-    [Tags]  critical
+    [Tags]  mandatory
 
     Batch Request Entities From File   batch/invalid-json-sample.jsonld
 
@@ -24,7 +24,7 @@ With invalid json document
 
 With empty json document
     [Documentation]  Check that you cannot delete a batch of entities with an empty json document
-    [Tags]  critical
+    [Tags]  mandatory
 
     Batch Request Entities From File   batch/empty-sample.jsonld
 
