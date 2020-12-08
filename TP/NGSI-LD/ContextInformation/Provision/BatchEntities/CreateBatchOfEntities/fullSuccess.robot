@@ -3,9 +3,6 @@ Documentation   Check that you can create a batch of entities
 Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource    ${EXECDIR}/resources/AssertionUtils.resource
 Resource    ${EXECDIR}/resources/JsonUtils.resource
-Library     JSONLibrary
-Library     String
-Library     Collections
 
 Test Template  Create Batch Entity Scenarios
 

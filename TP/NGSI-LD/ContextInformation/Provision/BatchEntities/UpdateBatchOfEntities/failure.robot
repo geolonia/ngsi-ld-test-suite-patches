@@ -1,23 +1,14 @@
 *** Settings ***
 Documentation   Check that you cannot update a batch of entities with an invalid request
-Variables   ${EXECDIR}/resources/variables.py
 Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource    ${EXECDIR}/resources/AssertionUtils.resource
-Resource    ${EXECDIR}/resources/JsonUtils.resource
-Library     RequestsLibrary
-Library     JSONLibrary
-Library     OperatingSystem
-
-*** Variable ***
-${batch_endpoint}=    entityOperations/update
-${endpoint}=    entities
 
 *** Test Case ***
 With invalid json document
     [Documentation]  Check that you cannot update a batch of entities with an invalid json document
     [Tags]  mandatory
 
-    Batch Request Entities From File   batch/invalid-json-sample.jsonld
+    Batch Request Entities From File   update   filename=batch/invalid-json-sample.jsonld
 
     Check RL Response Status Code Set To  400
     Check RL Response Body Containing Problem Details Element Containing Detail Element    ${response}
@@ -27,7 +18,7 @@ With json-ld document not syntactically correct according to the @context
     [Tags]  mandatory
 
     #TODO: Use a json-ld document not syntactically correct according to the @context
-    Batch Request Entities From File   batch/invalid-json-ld-sample.jsonld
+    Batch Request Entities From File   update   filename=batch/invalid-json-ld-sample.jsonld
 
     Check RL Response Status Code Set To  400
     Check RL Response Body Containing Problem Details Element Containing Detail Element    ${response}

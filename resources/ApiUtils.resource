@@ -3,12 +3,17 @@ Variables    ./variables.py
 
 Library    REST    ${url}
 Library    RequestsLibrary
+Library    OperatingSystem
+Library    Collections
 
 *** Variables ***
 ${BATCH_CREATE_ENDPOINT_PATH}   entityOperations/create
+${BATCH_UPSERT_ENDPOINT_PATH}   entityOperations/upsert
+${BATCH_UPDATE_ENDPOINT_PATH}   entityOperations/update
 ${BATCH_DELETE_ENDPOINT_PATH}   entityOperations/delete
 ${ENTITIES_ENDPOINT_PATH}       entities
 ${response}
+&{BATCH_OPERATION_ENDPOINT_MAPPING}    create=${BATCH_CREATE_ENDPOINT_PATH}    upsert=${BATCH_UPSERT_ENDPOINT_PATH}    update=${BATCH_UPDATE_ENDPOINT_PATH}    delete=${BATCH_DELETE_ENDPOINT_PATH}
 
 *** Keywords ***
 Api POST request
@@ -62,7 +67,7 @@ Batch Create Entities
 Batch Upsert Entities
     [Arguments]  @{entities_to_be_upserted}     ${update_option}=replace
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST  ${batch_endpoint}?options=${update_option}  body=@{entities_to_be_upserted}  headers=${headers}
+    ${response}=  POST  ${BATCH_UPSERT_ENDPOINT_PATH}?options=${update_option}  body=@{entities_to_be_upserted}  headers=${headers}
     Output  request
     Output  response
     Set Test Variable  ${response}
@@ -70,7 +75,7 @@ Batch Upsert Entities
 Batch Update Entities
     [Arguments]  @{entities_to_be_updated}           ${overwrite_option}=overwrite
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST  ${batch_endpoint}?options=${overwrite_option}  body=@{entities_to_be_updated}  headers=${headers}
+    ${response}=  POST  ${BATCH_UPDATE_ENDPOINT_PATH}?options=${overwrite_option}  body=@{entities_to_be_updated}  headers=${headers}
     Output  request
     Output  response
     Set Test Variable  ${response}
@@ -84,9 +89,10 @@ Batch Delete Entities
     Set Test Variable  ${response}
 
 Batch Request Entities From File
-    [Arguments]  ${filename}
+    [Arguments]  ${batchOperation}      ${filename}
     ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
+    ${endpoint_url}=    Get From Dictionary     ${BATCH_OPERATION_ENDPOINT_MAPPING}     ${batchOperation}
     Create Session    BatchRequest      ${url}
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST Request      BatchRequest   ${BATCH_CREATE_ENDPOINT_PATH}  data=${file_content}    headers=${headers}
+    ${response}=  POST Request      BatchRequest   ${endpoint_url}  data=${file_content}    headers=${headers}
     Set Test Variable  ${response}

@@ -3,9 +3,6 @@ Documentation   Check that you can create a batch of entities where some will su
 Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource    ${EXECDIR}/resources/AssertionUtils.resource
 Resource    ${EXECDIR}/resources/JsonUtils.resource
-Library     JSONLibrary
-Library     String
-Library     Collections
 
 Suite Setup      Setup Initial Entities
 
