@@ -1,26 +1,18 @@
 *** Settings ***
 Documentation   Check that you can create a batch of entities where some will succeed and others will fail
-Variables   ../../../../../../resources/variables.py
-Resource    ../../../../../../resources/ApiUtils.resource
-Resource    ../../../../../../resources/AssertionUtils.resource
-Resource    ../../../../../../resources/JsonUtils.resource
-Library     REST    ${url}
-Library     JSONLibrary
-Library     String
-Library     Collections
+Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource    ${EXECDIR}/resources/AssertionUtils.resource
+Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 Suite Setup      Setup Initial Entities
 
 *** Variable ***
-${batch_endpoint}=    entityOperations/create
-${batch_delete_endpoint}=    entityOperations/delete
-${endpoint}=    entities
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 
 *** Test Case ***
 Create a batch of two valid entities and one invalid entity
     [Documentation]  Check that you can create a batch of two valid entities and one invalid entity
-    [Tags]  critical
+    [Tags]  mandatory
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=     Generate Random Entity Id    ${building_id_prefix}

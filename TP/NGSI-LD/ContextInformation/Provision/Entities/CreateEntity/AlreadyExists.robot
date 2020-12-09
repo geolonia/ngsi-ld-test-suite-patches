@@ -15,7 +15,7 @@ ${endpoint}=    entities
 *** Test Case ***
 AlreadyExists
     [Documentation]  Check that the IUT refuses to create an entity if one exists with the same identifier 
-    [Tags]  critical  
+    [Tags]  mandatory  
     Create Entity  building-minimal.jsonld
     Create Entity  building-minimal.jsonld
     Check HTTP Status Code Is  409

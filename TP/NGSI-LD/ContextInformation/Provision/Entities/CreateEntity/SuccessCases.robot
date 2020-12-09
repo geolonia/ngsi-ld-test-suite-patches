@@ -11,7 +11,7 @@ ${id}=  urn:ngsi-ld:Building:3009ef20-9f62-41f5-bd66-92f041b428b9
 *** Test Case ***
 SuccessCases_MinimalEntity
     [Documentation]  Create an entity with a JSON-LD payload containing the minimal information
-    [Tags]  critical
+    [Tags]  mandatory
     Create Entity  building-minimal.jsonld
     Check HTTP Status Code Is  201
     Delete Entity by Id  ${id}

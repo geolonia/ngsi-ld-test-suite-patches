@@ -4,6 +4,10 @@ Check Response Status Code Set To
     ${response_status}=  convert to string  ${response['status']}
     Should Be Equal  ${response_status}  ${expected_status}
 
+Check RL Response Status Code Set To
+    [Arguments]  ${expected_status}
+    Status Should Be    ${expected_status}     ${response}
+
 Check Response Body Containing Array Of URIs set to
     [Arguments]  @{expected_entities_ids}
     Lists Should Be Equal  ${expected_entities_ids}        ${response['body']}     ignore_order=True
@@ -27,6 +31,11 @@ Check Response Body Containing Batch Operation Result
 Check Response Body Containing Problem Details Element Containing Detail Element
     [Arguments]     ${response_body}
     Should Not Be Empty     ${response_body['detail']}
+
+Check RL Response Body Containing Problem Details Element Containing Detail Element
+    [Arguments]     ${response_body}
+    ${json_response_body}=    To Json     ${response_body.content}
+    Should Not Be Empty     ${json_response_body['detail']}
 
 Assert response status code
     [Arguments]     ${code}

@@ -1,3 +1,7 @@
+*** Settings ***
+Library     String
+Library     JSONLibrary
+
 *** Keywords ***
 Load Entity
     [Arguments]    ${entity_file_name}     ${entity_id}

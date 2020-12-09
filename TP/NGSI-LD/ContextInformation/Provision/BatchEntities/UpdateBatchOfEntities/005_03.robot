@@ -1,26 +1,18 @@
 *** Settings ***
 Documentation   Check that you can update a batch of entities where some will succeed and others will fail
-Variables   ../../../../../../resources/variables.py
-Resource    ../../../../../../resources/ApiUtils.resource
-Resource    ../../../../../../resources/AssertionUtils.resource
-Resource    ../../../../../../resources/JsonUtils.resource
-Library     REST    ${url}
-Library     JSONLibrary
-Library     String
-Library     Collections
+Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource    ${EXECDIR}/resources/AssertionUtils.resource
+Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 Suite Setup      Setup Initial Entities
 
 *** Variable ***
-${batch_endpoint}=    entityOperations/update
-${batch_delete_endpoint}=    entityOperations/delete
-${endpoint}=    entities
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 
 *** Test Case ***
 Update a batch of non existing and existing entities
     [Documentation]  Check that you can update a batch of non existing and existing entities
-    [Tags]  critical
+    [Tags]  mandatory
 
     ${first_existing_entity}=    Load Entity    building-relationship-of-property-sample.jsonld      ${first_existing_entity_id}
     ${second_existing_entity}=    Load Entity    building-relationship-of-property-sample.jsonld      ${second_existing_entity_id}
