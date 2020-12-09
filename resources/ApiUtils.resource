@@ -81,12 +81,12 @@ Batch Update Entities
     Set Test Variable  ${response}
 
 Batch Delete Entities
-    [Arguments]  @{entities_ids_to_be_deleted}
+    [Arguments]  @{entities_ids_to_be_deleted}  ${teardown}=False
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
     ${response}=  POST  ${BATCH_DELETE_ENDPOINT_PATH}  body=@{entities_ids_to_be_deleted}  headers=${headers}
     Output  request
     Output  response
-    Set Test Variable  ${response}
+    Run Keyword If     not ${teardown}       Set Test Variable  ${response}
 
 Batch Request Entities From File
     [Arguments]  ${batchOperation}      ${filename}

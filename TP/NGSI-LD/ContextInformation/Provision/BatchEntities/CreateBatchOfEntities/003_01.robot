@@ -4,7 +4,7 @@ Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource    ${EXECDIR}/resources/AssertionUtils.resource
 Resource    ${EXECDIR}/resources/JsonUtils.resource
 
-Test Template  Create Batch Entity Scenarios
+Test Template  Batch Create Entity Scenarios
 
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
@@ -12,10 +12,11 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 *** Test Cases ***                        FILENAME
 MinimalEntity                             building-minimal-sample.jsonld
 EntityWithSimpleProperties                building-simple-attributes-sample.jsonld
+EntityWithSimpleRelationships             building-relationship-sample.jsonld
 EntityWithRelationshipsProperties         building-relationship-of-property-sample.jsonld
 
 *** Keywords ***
-Create Batch Entity Scenarios
+Batch Create Entity Scenarios
     [Arguments]  ${filename}
     [Documentation]  Check that you can create a batch of entities
     [Tags]  mandatory   entityOperations

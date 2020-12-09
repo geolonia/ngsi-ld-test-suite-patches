@@ -3,21 +3,19 @@ Documentation   Check that you cannot upsert a batch of entities with an invalid
 Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource    ${EXECDIR}/resources/AssertionUtils.resource
 
-*** Test Case ***
-With invalid json document
-    [Documentation]  Check that you cannot upsert a batch of entities with an invalid json document
+Test Template  Batch Upsert Entity With Invalid Request Scenarios
+
+*** Test Cases ***                        FILENAME
+InvalidJson                               batch/invalid-json-sample.jsonld
+InvalidJsonLd                             batch/invalid-json-ld-sample.jsonld
+
+*** Keywords ***
+Batch Upsert Entity With Invalid Request Scenarios
+    [Arguments]  ${filename}
+    [Documentation]  Check that you cannot upsert a batch of entities with an invalid request
     [Tags]  mandatory
 
-    Batch Request Entities From File   upsert   filename=batch/invalid-json-sample.jsonld
-
-    Check RL Response Status Code Set To  400
-    Check RL Response Body Containing Problem Details Element Containing Detail Element    ${response}
-
-With json-ld document containing a null value in any of its items
-    [Documentation]  Check that you cannot upsert a batch of entities with a json-ld document containing a null value in any of its items
-    [Tags]  mandatory
-
-    Batch Request Entities From File   upsert   filename=batch/invalid-json-ld-sample.jsonld
+    Batch Request Entities From File   upsert   filename=${filename}
 
     Check RL Response Status Code Set To  400
     Check RL Response Body Containing Problem Details Element Containing Detail Element    ${response}

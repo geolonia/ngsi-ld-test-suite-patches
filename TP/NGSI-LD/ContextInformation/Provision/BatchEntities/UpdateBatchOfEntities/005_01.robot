@@ -5,27 +5,31 @@ Resource    ${EXECDIR}/resources/AssertionUtils.resource
 Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 Suite Setup      Setup Initial Entities
+Test Template  Batch Update Entity Scenarios
+Suite Teardown      Delete Initial Entities
 
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 
-*** Test Case ***
-Update a batch of entities
+*** Test Cases ***                        FILENAME
+EntityWithSimpleProperties                building-simple-attributes-sample.jsonld
+EntityWithSimpleRelationships             building-relationship-sample.jsonld
+EntityWithRelationshipsProperties         building-relationship-of-property-sample.jsonld
+
+*** Keywords ***
+Batch Update Entity Scenarios
+    [Arguments]  ${filename}
     [Documentation]  Check that you can update a batch of entities
     [Tags]  mandatory
 
-    ${first_entity}=    Load Entity    building-relationship-of-property-sample.jsonld      ${first_entity_id}
-    ${second_entity}=    Load Entity    building-relationship-of-property-sample.jsonld      ${second_entity_id}
+    ${first_entity}=    Load Entity    ${filename}      ${first_entity_id}
+    ${second_entity}=    Load Entity    ${filename}      ${second_entity_id}
     @{entities_to_be_updated}=  Create List   ${first_entity}     ${second_entity}
 
     Batch Update Entities   @{entities_to_be_updated}
 
     Check Response Status Code Set To  204
 
-    @{entities_ids_to_be_deleted}=  Create List   ${first_entity_id}     ${second_entity_id}
-    Batch Delete Entities       @{entities_ids_to_be_deleted}
-
-*** Keywords ***
 Setup Initial Entities
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
@@ -34,3 +38,7 @@ Setup Initial Entities
 
     Set Suite Variable  ${first_entity_id}
     Set Suite Variable  ${second_entity_id}
+
+Delete Initial Entities
+    @{entities_ids_to_be_deleted}=  Create List   ${first_entity_id}     ${second_entity_id}
+    Batch Delete Entities       @{entities_ids_to_be_deleted}       teardown=True
