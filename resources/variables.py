@@ -1,5 +1,6 @@
 def get_variables(arg=None):
     variables = {
-        'url': 'http://127.0.0.1:8082/ngsi-ld/v1'
+        'url': 'http://10.5.1.214:9090/ngsi-ld/v1',
+        'fiware_context': 'https://fiware.github.io/data-models/context.jsonld'
     }
     return variables
