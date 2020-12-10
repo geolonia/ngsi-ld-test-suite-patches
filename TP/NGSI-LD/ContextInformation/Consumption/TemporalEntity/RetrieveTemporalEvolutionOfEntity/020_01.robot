@@ -16,7 +16,7 @@ Retrieve the temporal evolution of an entity
 
     Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}
 
-    @{expected_temporal_attributes}=  Create List   fuelLevel   speed
+    @{expected_temporal_attributes}=  Create List   https://ngsi-ld-test-suite/context#speed   https://ngsi-ld-test-suite/context#fuelLevel
 
     Check Response Status Code Set To  200
     Check Response Body Containing EntityTemporal element       ${expected_temporal_attributes}

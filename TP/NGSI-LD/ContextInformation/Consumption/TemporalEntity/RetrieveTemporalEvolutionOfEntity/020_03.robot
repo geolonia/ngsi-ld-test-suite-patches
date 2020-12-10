@@ -15,7 +15,7 @@ Retrieve the temporal evolution of certain attributes of an entity
     [Tags]  mandatory
 
     @{temporal_attributes_to_be_retrieved}=  Create List   fuelLevel
-    Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}   attrs=${temporal_attributes_to_be_retrieved}    context=${fiware_context}
+    Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}   attrs=${temporal_attributes_to_be_retrieved}    context=${ngsild_test_suite_context}
 
     Check Response Status Code Set To  200
     Check Response Body Containing EntityTemporal element       ${temporal_attributes_to_be_retrieved}

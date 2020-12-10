@@ -17,7 +17,7 @@ Retrieve the temporal evolution of an entity with the simplified temporal repres
     [Tags]  mandatory
 
     @{options}=  Create List   temporalValues
-    Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}   options=${options}    context=${fiware_context}
+    Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}   options=${options}    context=${ngsild_test_suite_context}
 
     Check Response Status Code Set To  200
     Check Response Body Containing simplified temporal representation of EntityTemporal element       ${vehicle_expectation_file}    ${temporal_entity_representation_id}

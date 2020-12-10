@@ -14,7 +14,7 @@ Retrieve the temporal evolution of an entity using a context
     [Documentation]  Check that you can retrieve the temporal evolution of an entity using a context
     [Tags]  mandatory
 
-    Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}   context=${fiware_context}
+    Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}   context=${ngsild_test_suite_context}
 
     @{expected_temporal_attributes}=  Create List   speed   fuelLevel
 
