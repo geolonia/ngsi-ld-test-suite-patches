@@ -1,0 +1,7 @@
+{
+	"@context": {
+		"brandName": "https://ngsi-ld-test-suite/context#brandName",
+		"speed": "https://ngsi-ld-test-suite/context#speed",
+		"fuelLevel": "https://ngsi-ld-test-suite/context#fuelLevel"
+	}
+}
