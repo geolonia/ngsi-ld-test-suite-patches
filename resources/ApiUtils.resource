@@ -109,13 +109,15 @@ Create Temporal Representation Of Entity
     Output  response
 
 Retrieve Temporal Representation Of Entity
-    [Arguments]  ${temporal_entity_representation_id}   ${attrs}=${EMPTY}      ${context}=${EMPTY}
+    [Arguments]  ${temporal_entity_representation_id}   ${attrs}=${EMPTY}      ${options}=${EMPTY}      ${context}=${EMPTY}
     ${attrs_length} =  Get Length  ${attrs}
+    ${options_length} =  Get Length  ${options}
     &{headers}=  Create Dictionary
     &{params}=  Create Dictionary
 
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     Run Keyword If     ${attrs_length}>0       Set To Dictionary   ${params}       attrs=${attrs}
+    Run Keyword If     ${options_length}>0       Set To Dictionary   ${params}       options=${options}
 
     ${response}=  GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}      headers=${headers}      query=${params}
     Output  request

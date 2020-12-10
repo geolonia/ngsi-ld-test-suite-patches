@@ -39,6 +39,13 @@ Check Response Body Containing EntityTemporal element
         List Should Not Contain Duplicates      ${temporal_attribute}
     END
 
+Check Response Body Containing simplified temporal representation of EntityTemporal element
+    [Arguments]     ${filename}    ${temporal_entity_representation_id}
+    ${temporal_entity_representation_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/expectations/${filename}
+    ${temporal_entity_representation}=    Update Value To Json    ${temporal_entity_representation_payload}     $..id   ${temporal_entity_representation_id}
+
+    Dictionaries Should Be Equal    ${response['body']}    ${temporal_entity_representation}
+
 Check Response Body Containing Problem Details Element Containing Detail Element
     [Arguments]     ${response_body}
     Should Not Be Empty     ${response_body['detail']}
