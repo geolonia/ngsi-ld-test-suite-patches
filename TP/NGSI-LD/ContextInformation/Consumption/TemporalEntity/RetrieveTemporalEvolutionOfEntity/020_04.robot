@@ -22,7 +22,7 @@ Retrieve the temporal evolution of an entity matching the given NGSI-LD temporal
     [Documentation]  Check that you can retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
     [Tags]  mandatory
 
-    Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}   timerel=${timerel}      time=${time}    endTime=${endTime}
+    Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}   timerel=${timerel}      time=${time}    endTime=${endTime}  context=${ngsild_test_suite_context}
     
     Check Response Status Code Set To  200
     Check Response Body Containing EntityTemporal element       ${vehicle_expectation_file}    ${temporal_entity_representation_id}
