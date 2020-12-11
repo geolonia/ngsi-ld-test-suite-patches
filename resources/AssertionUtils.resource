@@ -1,3 +1,9 @@
+*** Settings ***
+Library     ${EXECDIR}/libraries/assertionUtils.py
+
+*** Variable ***
+${instance_id_regex_expr}=  root\\[.*\\]\\['instanceId'\\]
+
 *** Keywords ***
 Check Response Status Code Set To
     [Arguments]  ${expected_status}
@@ -29,22 +35,11 @@ Check Response Body Containing Batch Operation Result
     END
 
 Check Response Body Containing EntityTemporal element
-    [Arguments]     ${expected_temporal_attributes}
-    Should Not Be Empty     ${response['body']['id']}
-    Should Not Be Empty     ${response['body']['type']}
-    #Should Not Be Empty     ${response['body']['@context']}
-
-    FOR    ${expected_temporal_attribute}    IN    @{expected_temporal_attributes}
-        ${temporal_attribute}=    Get From Dictionary     ${response['body']}     ${expected_temporal_attribute}
-        List Should Not Contain Duplicates      ${temporal_attribute}
-    END
-
-Check Response Body Containing simplified temporal representation of EntityTemporal element
     [Arguments]     ${filename}    ${temporal_entity_representation_id}
     ${temporal_entity_representation_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/expectations/${filename}
     ${temporal_entity_representation}=    Update Value To Json    ${temporal_entity_representation_payload}     $..id   ${temporal_entity_representation_id}
-
-    Dictionaries Should Be Equal    ${response['body']}    ${temporal_entity_representation}
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${temporal_entity_representation}      ${instance_id_regex_expr}
+    Should Be True      ${comparaison_result}   msg=EntityTemporal Comparaison Failed
 
 Check Response Body Containing Problem Details Element Containing Detail Element
     [Arguments]     ${response_body}

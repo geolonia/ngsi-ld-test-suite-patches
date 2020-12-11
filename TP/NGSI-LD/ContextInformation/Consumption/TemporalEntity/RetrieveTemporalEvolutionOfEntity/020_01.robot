@@ -8,6 +8,8 @@ Suite Setup      Setup Initial Entities
 
 *** Variable ***
 ${vehicule_id_prefix}=  urn:ngsi-ld:Vehicle:
+${vehicle_payload_file}=  vehicule-temporal-representation-sample.jsonld
+${vehicle_expectation_file}=  vehicle-temporal-representation-020-01-expectation.jsonld
 
 *** Test Case ***
 Retrieve the temporal evolution of an entity
@@ -16,15 +18,13 @@ Retrieve the temporal evolution of an entity
 
     Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}
 
-    @{expected_temporal_attributes}=  Create List   https://ngsi-ld-test-suite/context#speed   https://ngsi-ld-test-suite/context#fuelLevel
-
     Check Response Status Code Set To  200
-    Check Response Body Containing EntityTemporal element       ${expected_temporal_attributes}
+    Check Response Body Containing EntityTemporal element       ${vehicle_expectation_file}    ${temporal_entity_representation_id}
 
     #TODO Call Delete Temporal Representation Of Entity
 
 *** Keywords ***
 Setup Initial Entities
     ${temporal_entity_representation_id}=     Generate Random Entity Id    ${vehicule_id_prefix}
-    Create Temporal Representation Of Entity  vehicule-temporal-representation-sample.jsonld     ${temporal_entity_representation_id}
+    Create Temporal Representation Of Entity  ${vehicle_payload_file}     ${temporal_entity_representation_id}
     Set Suite Variable  ${temporal_entity_representation_id}
