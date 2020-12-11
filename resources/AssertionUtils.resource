@@ -1,3 +1,9 @@
+*** Settings ***
+Library     ${EXECDIR}/libraries/assertionUtils.py
+
+*** Variable ***
+${instance_id_regex_expr}=  root\\[.*\\]\\['instanceId'\\]
+
 *** Keywords ***
 Check Response Status Code Set To
     [Arguments]  ${expected_status}
@@ -27,6 +33,13 @@ Check Response Body Containing Batch Operation Result
         List Should Contain Value       ${expected_failed_entities_ids}     ${response_error['entityId']}
         Should Not Be Empty     ${response_error['error']}
     END
+
+Check Response Body Containing EntityTemporal element
+    [Arguments]     ${filename}    ${temporal_entity_representation_id}
+    ${temporal_entity_representation_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/expectations/${filename}
+    ${temporal_entity_representation}=    Update Value To Json    ${temporal_entity_representation_payload}     $..id   ${temporal_entity_representation_id}
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${temporal_entity_representation}      ${instance_id_regex_expr}
+    Should Be True      ${comparaison_result}   msg=EntityTemporal Comparaison Failed
 
 Check Response Body Containing Problem Details Element Containing Detail Element
     [Arguments]     ${response_body}

@@ -12,6 +12,7 @@ ${BATCH_UPSERT_ENDPOINT_PATH}   entityOperations/upsert
 ${BATCH_UPDATE_ENDPOINT_PATH}   entityOperations/update
 ${BATCH_DELETE_ENDPOINT_PATH}   entityOperations/delete
 ${ENTITIES_ENDPOINT_PATH}       entities
+${TEMPORAL_ENTITIES_ENDPOINT_PATH}       temporal/entities
 ${response}
 &{BATCH_OPERATION_ENDPOINT_MAPPING}    create=${BATCH_CREATE_ENDPOINT_PATH}    upsert=${BATCH_UPSERT_ENDPOINT_PATH}    update=${BATCH_UPDATE_ENDPOINT_PATH}    delete=${BATCH_DELETE_ENDPOINT_PATH}
 
@@ -95,4 +96,33 @@ Batch Request Entities From File
     Create Session    BatchRequest      ${url}
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
     ${response}=  POST Request      BatchRequest   ${endpoint_url}  data=${file_content}    headers=${headers}
+    Set Test Variable  ${response}
+
+Create Temporal Representation Of Entity
+    [Arguments]  ${filename}    ${temporal_entity_representation_id}
+    ${temporal_entity_representation_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/${filename}
+    ${temporal_entity_representation}=    Update Value To Json    ${temporal_entity_representation_payload}     $..id   ${temporal_entity_representation_id}
+
+    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    ${response}=  POST  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}  body=${temporal_entity_representation}  headers=${headers}
+    Output  request
+    Output  response
+
+Retrieve Temporal Representation Of Entity
+    [Arguments]  ${temporal_entity_representation_id}   ${attrs}=${EMPTY}      ${options}=${EMPTY}      ${context}=${EMPTY}     ${timerel}=${EMPTY}      ${time}=${EMPTY}    ${endTime}=${EMPTY}
+    ${attrs_length} =  Get Length  ${attrs}
+    ${options_length} =  Get Length  ${options}
+    &{headers}=  Create Dictionary
+    &{params}=  Create Dictionary
+
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    Run Keyword If     ${attrs_length}>0       Set To Dictionary   ${params}       attrs=${attrs}
+    Run Keyword If     ${options_length}>0       Set To Dictionary   ${params}       options=${options}
+    Run Keyword If     '${timerel}'!=''       Set To Dictionary   ${params}    timerel=${timerel}
+    Run Keyword If     '${time}'!=''       Set To Dictionary   ${params}    time=${time}
+    Run Keyword If     '${endTime}'!=''       Set To Dictionary   ${params}    endTime=${endTime}
+
+    ${response}=  GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}      headers=${headers}      query=${params}
+    Output  request
+    Output  response
     Set Test Variable  ${response}
