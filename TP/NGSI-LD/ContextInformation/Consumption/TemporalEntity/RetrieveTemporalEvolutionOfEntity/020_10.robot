@@ -9,7 +9,7 @@ Suite Setup      Setup Initial Entities
 *** Variable ***
 ${vehicule_id_prefix}=  urn:ngsi-ld:Vehicle:
 ${vehicle_payload_file}=  vehicule-temporal-representation-sample.jsonld
-${vehicle_expectation_file}=  vehicle-simplified-temporal-representation-expectation.jsonld
+${vehicle_expectation_file}=  vehicle-temporal-representation-020-10-expectation.jsonld
 
 *** Test Case ***
 Retrieve the temporal evolution of an entity with the simplified temporal representation
