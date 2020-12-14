@@ -18,6 +18,10 @@ Check Response Body Containing Array Of URIs set to
     [Arguments]  @{expected_entities_ids}
     Lists Should Be Equal  ${expected_entities_ids}        ${response['body']}     ignore_order=True
 
+Check Response Body Containing an Attribute set to
+    [Arguments]  ${expected_attribute_name}
+    Should Not Be Empty     ${response['body']['${expected_attribute_name}']}
+
 Check Response Body Containing Batch Operation Result
     [Arguments]  ${expected_batch_operation_result}
     @{expected_successful_entities_ids}=    Get From Dictionary     ${expected_batch_operation_result}     success
@@ -41,11 +45,15 @@ Check Response Body Containing EntityTemporal element
     ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${temporal_entity_representation}      ${instance_id_regex_expr}
     Should Be True      ${comparaison_result}   msg=EntityTemporal Comparaison Failed
 
-Check Response Body Containing Problem Details Element Containing Detail Element
-    [Arguments]     ${response_body}
-    Should Not Be Empty     ${response_body['detail']}
+Check Response Body Containing ProblemDetails Element Containing Type Element set to
+    [Arguments]     ${response_body}    ${type}
+    Should Be Equal     ${response['body']['type']}    ${type}
 
-Check RL Response Body Containing Problem Details Element Containing Detail Element
+Check Response Body Containing ProblemDetails Element Containing Title Element
+    [Arguments]     ${response_body}
+    Should Not Be Empty     ${response['body']['title']}
+
+Check RL Response Body Containing ProblemDetails Element Containing Detail Element
     [Arguments]     ${response_body}
     ${json_response_body}=    To Json     ${response_body.content}
     Should Not Be Empty     ${json_response_body['detail']}

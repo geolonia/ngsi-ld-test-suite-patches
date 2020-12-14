@@ -11,10 +11,16 @@ ${BATCH_CREATE_ENDPOINT_PATH}   entityOperations/create
 ${BATCH_UPSERT_ENDPOINT_PATH}   entityOperations/upsert
 ${BATCH_UPDATE_ENDPOINT_PATH}   entityOperations/update
 ${BATCH_DELETE_ENDPOINT_PATH}   entityOperations/delete
+&{BATCH_OPERATION_ENDPOINT_MAPPING}    create=${BATCH_CREATE_ENDPOINT_PATH}    upsert=${BATCH_UPSERT_ENDPOINT_PATH}    update=${BATCH_UPDATE_ENDPOINT_PATH}    delete=${BATCH_DELETE_ENDPOINT_PATH}
 ${ENTITIES_ENDPOINT_PATH}       entities
 ${TEMPORAL_ENTITIES_ENDPOINT_PATH}       temporal/entities
+
+${CONTENT_TYPE_JSON}            application/json
+${CONTENT_TYPE_LD_JSON}         application/ld+json
+
+${ERROR_TYPE_BAD_REQUEST_DATA}      https://uri.etsi.org/ngsi-ld/errors/BadRequestData
+
 ${response}
-&{BATCH_OPERATION_ENDPOINT_MAPPING}    create=${BATCH_CREATE_ENDPOINT_PATH}    upsert=${BATCH_UPSERT_ENDPOINT_PATH}    update=${BATCH_UPDATE_ENDPOINT_PATH}    delete=${BATCH_DELETE_ENDPOINT_PATH}
 
 *** Keywords ***
 Api POST request
@@ -47,6 +53,16 @@ Delete Entity by Id
     Output  request
     Output  response
 
+Retrieve Entity by Id
+    [Arguments]  ${id}      ${accept}=${CONTENT_TYPE_LD_JSON}     ${context}=${EMPTY}
+    ${headers}=  Create Dictionary
+    Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}/${id}  headers=${headers}
+    Output  request
+    Output  response
+    Set Test Variable   ${response}
+
 Create Entity
     [Arguments]  ${filename}    ${entity_id}
     ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/${filename}
@@ -58,8 +74,10 @@ Create Entity
     Output  response
 
 Batch Create Entities
-    [Arguments]  @{entities_to_be_created}
-    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    [Arguments]  @{entities_to_be_created}      ${content_type}=${CONTENT_TYPE_LD_JSON}     ${context}=${EMPTY}
+    ${headers}=  Create Dictionary
+    Set To Dictionary   ${headers}   Content-Type    ${content_type}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${response}=  POST  ${BATCH_CREATE_ENDPOINT_PATH}  body=@{entities_to_be_created}  headers=${headers}
     Output  request
     Output  response

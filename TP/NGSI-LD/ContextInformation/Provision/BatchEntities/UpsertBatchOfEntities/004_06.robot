@@ -18,4 +18,4 @@ Batch Upsert Entity With Invalid Request Scenarios
     Batch Request Entities From File   upsert   filename=${filename}
 
     Check RL Response Status Code Set To  400
-    Check RL Response Body Containing Problem Details Element Containing Detail Element    ${response}
+    Check RL Response Body Containing ProblemDetails Element Containing Detail Element    ${response}
