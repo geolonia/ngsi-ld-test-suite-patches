@@ -19,6 +19,8 @@ ${CONTENT_TYPE_JSON}            application/json
 ${CONTENT_TYPE_LD_JSON}         application/ld+json
 
 ${ERROR_TYPE_BAD_REQUEST_DATA}      https://uri.etsi.org/ngsi-ld/errors/BadRequestData
+${ERROR_TYPE_INVALID_REQUEST}      https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
+${ERROR_TYPE_RESOURCE_NOT_FOUND}      https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
 
 ${response}
 
@@ -127,7 +129,7 @@ Create Temporal Representation Of Entity
     Output  response
 
 Retrieve Temporal Representation Of Entity
-    [Arguments]  ${temporal_entity_representation_id}   ${attrs}=${EMPTY}      ${options}=${EMPTY}      ${context}=${EMPTY}     ${timerel}=${EMPTY}      ${time}=${EMPTY}    ${endTime}=${EMPTY}
+    [Arguments]  ${temporal_entity_representation_id}   ${attrs}=${EMPTY}      ${options}=${EMPTY}      ${context}=${EMPTY}     ${timerel}=${EMPTY}      ${timeAt}=${EMPTY}    ${endTimeAt}=${EMPTY}    ${lastN}=${EMPTY}
     ${attrs_length} =  Get Length  ${attrs}
     ${options_length} =  Get Length  ${options}
     &{headers}=  Create Dictionary
@@ -137,10 +139,18 @@ Retrieve Temporal Representation Of Entity
     Run Keyword If     ${attrs_length}>0       Set To Dictionary   ${params}       attrs=${attrs}
     Run Keyword If     ${options_length}>0       Set To Dictionary   ${params}       options=${options}
     Run Keyword If     '${timerel}'!=''       Set To Dictionary   ${params}    timerel=${timerel}
-    Run Keyword If     '${time}'!=''       Set To Dictionary   ${params}    time=${time}
-    Run Keyword If     '${endTime}'!=''       Set To Dictionary   ${params}    endTime=${endTime}
+    Run Keyword If     '${timeAt}'!=''       Set To Dictionary   ${params}    timeAt=${timeAt}
+    Run Keyword If     '${endTimeAt}'!=''       Set To Dictionary   ${params}    endTimeAt=${endTimeAt}
+    Run Keyword If     '${lastN}'!=''       Set To Dictionary   ${params}    lastN=${lastN}
 
     ${response}=  GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}      headers=${headers}      query=${params}
     Output  request
     Output  response
     Set Test Variable  ${response}
+
+Delete Temporal Representation Of Entity
+    [Arguments]  ${temporal_entity_representation_id}
+
+    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
+    Output  request
+    Output  response
