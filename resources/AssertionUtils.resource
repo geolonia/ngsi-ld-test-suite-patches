@@ -46,17 +46,22 @@ Check Response Body Containing EntityTemporal element
     Should Be True      ${comparaison_result}   msg=EntityTemporal Comparaison Failed
 
 Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    [Arguments]     ${response_body}    ${type}
+    [Arguments]     ${response}    ${type}
     Should Be Equal     ${response['body']['type']}    ${type}
 
 Check Response Body Containing ProblemDetails Element Containing Title Element
-    [Arguments]     ${response_body}
+    [Arguments]     ${response}
     Should Not Be Empty     ${response['body']['title']}
 
-Check RL Response Body Containing ProblemDetails Element Containing Detail Element
-    [Arguments]     ${response_body}
-    ${json_response_body}=    To Json     ${response_body.content}
-    Should Not Be Empty     ${json_response_body['detail']}
+Check RL Response Body Containing ProblemDetails Element Containing Type Element set to
+    [Arguments]     ${response}    ${type}
+    ${json_response_body}=    To Json     ${response.content}
+    Should Be Equal     ${json_response_body['type']}    ${type}
+
+Check RL Response Body Containing ProblemDetails Element Containing Title Element
+    [Arguments]     ${response}
+    ${json_response_body}=    To Json     ${response.content}
+    Should Not Be Empty     ${json_response_body['title']}
 
 Assert response status code
     [Arguments]     ${code}

@@ -5,6 +5,7 @@ Resource    ${EXECDIR}/resources/AssertionUtils.resource
 Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 Suite Setup      Setup Initial Entities
+Suite Teardown      Delete Initial Entities
 
 *** Variable ***
 ${vehicule_id_prefix}=  urn:ngsi-ld:Vehicle:
@@ -21,10 +22,11 @@ Retrieve the temporal evolution of an entity using a context
     Check Response Status Code Set To  200
     Check Response Body Containing EntityTemporal element       ${vehicle_expectation_file}    ${temporal_entity_representation_id}
 
-    #TODO Call Delete Temporal Representation Of Entity
-
 *** Keywords ***
 Setup Initial Entities
     ${temporal_entity_representation_id}=     Generate Random Entity Id    ${vehicule_id_prefix}
     Create Temporal Representation Of Entity  ${vehicle_payload_file}     ${temporal_entity_representation_id}
     Set Suite Variable  ${temporal_entity_representation_id}
+
+Delete Initial Entities
+    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
