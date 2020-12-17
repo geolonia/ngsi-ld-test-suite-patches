@@ -45,6 +45,17 @@ Check Response Body Containing EntityTemporal element
     ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${temporal_entity_representation}      ${instance_id_regex_expr}
     Should Be True      ${comparaison_result}   msg=EntityTemporal Comparaison Failed
 
+Check Response Body Containing List Containing EntityTemporal elements
+    [Arguments]     ${filename}    ${temporal_entities_representation_ids}
+    ${temporal_entities_representation_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/expectations/${filename}
+    ${index}=    Set Variable    0
+    FOR    ${temporal_entity_representation_id}    IN    @{temporal_entities_representation_ids}
+        ${temporal_entities_representation_payload}=    Update Value To Json    ${temporal_entities_representation_payload}     $.[${index}]..id   ${temporal_entity_representation_id}
+        ${index}=    Evaluate    ${index} + 1
+    END
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${temporal_entities_representation_payload}      ${instance_id_regex_expr}
+    Should Be True      ${comparaison_result}   msg=EntityTemporal List Comparaison Failed
+
 Check Response Body Containing ProblemDetails Element Containing Type Element set to
     [Arguments]     ${response}    ${type}
     Should Be Equal     ${response['body']['type']}    ${type}

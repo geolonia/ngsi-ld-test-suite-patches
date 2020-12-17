@@ -9,7 +9,7 @@ Suite Teardown      Delete Initial Entities
 
 *** Variable ***
 ${vehicule_id_prefix}=  urn:ngsi-ld:Vehicle:
-${vehicle_payload_file}=  vehicule-temporal-representation-sample.jsonld
+${vehicle_payload_file}=  2020-08-vehicule-temporal-representation-sample.jsonld
 
 *** Test Case ***
 Retrieve the temporal evolution of non-existing entity attributes

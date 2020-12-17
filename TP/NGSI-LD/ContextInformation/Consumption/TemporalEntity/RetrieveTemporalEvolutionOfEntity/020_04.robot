@@ -10,12 +10,12 @@ Test Template  Retrieve the temporal evolution of an entity matching the given N
 
 *** Variable ***
 ${vehicule_id_prefix}=  urn:ngsi-ld:Vehicle:
-${vehicle_payload_file}=  vehicule-temporal-representation-sample.jsonld
+${vehicle_payload_file}=  2020-08-vehicule-temporal-representation-sample.jsonld
 
 *** Test Cases ***                        TIMEREL       TIMEAT                      ENDTIMEAT                   VEHICLE_EXPECTATION_FILE
-After                                     after         2018-08-01T13:03:00Z        ${EMPTY}                vehicle-temporal-representation-020-04-01-expectation.jsonld
-Before                                    before        2018-08-01T12:05:00Z        ${EMPTY}                vehicle-temporal-representation-020-04-02-expectation.jsonld
-Between                                   between       2018-08-01T12:00:00Z        2018-08-01T13:00:00Z    vehicle-temporal-representation-020-04-03-expectation.jsonld
+After                                     after         2020-08-01T13:03:00Z        ${EMPTY}                vehicle-temporal-representation-020-04-01-expectation.jsonld
+Before                                    before        2020-08-01T12:05:00Z        ${EMPTY}                vehicle-temporal-representation-020-04-02-expectation.jsonld
+Between                                   between       2020-08-01T12:00:00Z        2020-08-01T13:00:00Z    vehicle-temporal-representation-020-04-03-expectation.jsonld
 
 *** Keywords ***
 Retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query

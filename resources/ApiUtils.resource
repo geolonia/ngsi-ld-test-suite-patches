@@ -148,6 +148,32 @@ Retrieve Temporal Representation Of Entity
     Output  response
     Set Test Variable  ${response}
 
+Query Temporal Representation Of Entities
+    [Arguments]  ${context}=${EMPTY}     ${entity_types}=${EMPTY}   ${entity_ids}=${EMPTY}    ${entity_id_pattern}=${EMPTY}    ${ngsild_query}=${EMPTY}  ${georel}=${EMPTY}   ${geometry}=${EMPTY}    ${coordinates}=${EMPTY}    ${geoproperty}=${EMPTY}    ${timerel}=${EMPTY}      ${timeAt}=${EMPTY}     ${attrs}=${EMPTY}   ${lastN}=${EMPTY}
+    ${entity_types_length} =  Get Length  ${entity_types}
+    ${entity_ids_length} =  Get Length  ${entity_ids}
+    ${attrs_length} =  Get Length  ${attrs}
+    &{headers}=  Create Dictionary
+    &{params}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    Run Keyword If     ${entity_types_length}>0       Set To Dictionary   ${params}    type=${entity_types}
+    Run Keyword If     ${entity_ids_length}>0       Set To Dictionary   ${params}    id=${entity_ids}
+    Run Keyword If     '${timerel}'!=''       Set To Dictionary   ${params}    timerel=${timerel}
+    Run Keyword If     '${timeAt}'!=''       Set To Dictionary   ${params}    timeAt=${timeAt}
+    Run Keyword If     ${attrs_length}>0       Set To Dictionary   ${params}       attrs=${attrs}
+    Run Keyword If     '${lastN}'!=''       Set To Dictionary   ${params}    lastN=${lastN}
+    Run Keyword If     '${entity_id_pattern}'!=''       Set To Dictionary   ${params}    idPattern=${entity_id_pattern}
+    Run Keyword If     '${ngsild_query}'!=''       Set To Dictionary   ${params}    q=${ngsild_query}
+    Run Keyword If     '${georel}'!=''       Set To Dictionary   ${params}    georel=${georel}
+    Run Keyword If     '${geometry}'!=''       Set To Dictionary   ${params}    geometry=${geometry}
+    Run Keyword If     '${coordinates}'!=''       Set To Dictionary   ${params}    coordinates=${coordinates}
+    Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
+
+    ${response}=  GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}      headers=${headers}      query=${params}
+    Output  request
+    Output  response
+    Set Test Variable  ${response}
+
 Delete Temporal Representation Of Entity
     [Arguments]  ${temporal_entity_representation_id}
 
