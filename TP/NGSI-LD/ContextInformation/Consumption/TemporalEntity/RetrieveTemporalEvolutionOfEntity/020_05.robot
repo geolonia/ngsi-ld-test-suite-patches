@@ -10,7 +10,7 @@ Test Template  Retrieve the temporal evolution of the last N instances of entity
 
 *** Variable ***
 ${vehicule_id_prefix}=  urn:ngsi-ld:Vehicle:
-${vehicle_payload_file}=  vehicule-temporal-representation-multiple-instances-sample.jsonld
+${vehicle_payload_file}=  2020-08-vehicule-temporal-representation-multiple-instances-sample.jsonld
 
 *** Test Cases ***          LASTN     VEHICLE_EXPECTATION_FILE
 Retrieve Some Instances     ${10}        vehicle-temporal-representation-020-05-01-expectation.jsonld
