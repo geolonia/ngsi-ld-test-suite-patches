@@ -14,6 +14,7 @@ ${BATCH_DELETE_ENDPOINT_PATH}   entityOperations/delete
 &{BATCH_OPERATION_ENDPOINT_MAPPING}    create=${BATCH_CREATE_ENDPOINT_PATH}    upsert=${BATCH_UPSERT_ENDPOINT_PATH}    update=${BATCH_UPDATE_ENDPOINT_PATH}    delete=${BATCH_DELETE_ENDPOINT_PATH}
 ${ENTITIES_ENDPOINT_PATH}       entities
 ${TEMPORAL_ENTITIES_ENDPOINT_PATH}       temporal/entities
+${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}       temporal/entityOperations
 
 ${CONTENT_TYPE_JSON}            application/json
 ${CONTENT_TYPE_LD_JSON}         application/ld+json
@@ -149,7 +150,7 @@ Retrieve Temporal Representation Of Entity
     Set Test Variable  ${response}
 
 Query Temporal Representation Of Entities
-    [Arguments]  ${context}=${EMPTY}     ${entity_types}=${EMPTY}   ${entity_ids}=${EMPTY}    ${entity_id_pattern}=${EMPTY}    ${ngsild_query}=${EMPTY}  ${georel}=${EMPTY}   ${geometry}=${EMPTY}    ${coordinates}=${EMPTY}    ${geoproperty}=${EMPTY}    ${timerel}=${EMPTY}      ${timeAt}=${EMPTY}     ${attrs}=${EMPTY}   ${lastN}=${EMPTY}
+    [Arguments]  ${context}=${EMPTY}     ${entity_types}=${EMPTY}   ${entity_ids}=${EMPTY}    ${entity_id_pattern}=${EMPTY}    ${ngsild_query}=${EMPTY}  ${georel}=${EMPTY}   ${geometry}=${EMPTY}    ${coordinates}=${EMPTY}    ${geoproperty}=${EMPTY}    ${timerel}=${EMPTY}      ${timeAt}=${EMPTY}     ${attrs}=${EMPTY}   ${limit}=${EMPTY}   ${lastN}=${EMPTY}
     ${entity_types_length} =  Get Length  ${entity_types}
     ${entity_ids_length} =  Get Length  ${entity_ids}
     ${attrs_length} =  Get Length  ${attrs}
@@ -168,8 +169,19 @@ Query Temporal Representation Of Entities
     Run Keyword If     '${geometry}'!=''       Set To Dictionary   ${params}    geometry=${geometry}
     Run Keyword If     '${coordinates}'!=''       Set To Dictionary   ${params}    coordinates=${coordinates}
     Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
+    Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
 
     ${response}=  GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}      headers=${headers}      query=${params}
+    Output  request
+    Output  response
+    Set Test Variable  ${response}
+
+Query Temporal Representation Of Entities Via Post
+    [Arguments]  ${query_file_name}
+    ${headers}=  Create Dictionary
+    Set To Dictionary   ${headers}   Content-Type    ${CONTENT_TYPE_LD_JSON}
+    ${query_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/${query_file_name}
+    ${response}=  POST  ${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}/query  body=${query_payload}  headers=${headers}
     Output  request
     Output  response
     Set Test Variable  ${response}
