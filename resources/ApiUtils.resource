@@ -19,8 +19,10 @@ ${TEMPORAL_ENTITIES_ENDPOINT_PATH}       temporal/entities
 ${CONTENT_TYPE_JSON}            application/json
 ${CONTENT_TYPE_LD_JSON}         application/ld+json
 
-${ERROR_TYPE_BAD_REQUEST_DATA}      https://uri.etsi.org/ngsi-ld/errors/BadRequestData
-${ERROR_TYPE_INVALID_REQUEST}      https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
+#${ERROR_TYPE_BAD_REQUEST_DATA}      https://uri.etsi.org/ngsi-ld/errors/BadRequestData original
+${ERROR_TYPE_BAD_REQUEST_DATA}      http://uri.etsi.org/ngsi-ld/errors/BadRequestData
+#${ERROR_TYPE_INVALID_REQUEST}      https://uri.etsi.org/ngsi-ld/errors/InvalidRequest original
+${ERROR_TYPE_INVALID_REQUEST}      http://uri.etsi.org/ngsi-ld/errors/InvalidRequest
 ${ERROR_TYPE_RESOURCE_NOT_FOUND}      https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
 
 ${response}
@@ -124,6 +126,14 @@ Batch Delete Entities
     Output  request
     Output  response
     Run Keyword If     not ${teardown}       Set Test Variable  ${response}
+
+Request Entity From File
+    [Arguments]  ${filename}
+    ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
+    Create Session    OneRequest      ${url}
+    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    ${response}=  POST Request      OneRequest   ${ENTITIES_ENDPOINT_PATH}  data=${file_content}    headers=${headers}
+    Set Test Variable  ${response}
 
 Batch Request Entities From File
     [Arguments]  ${batchOperation}      ${filename}

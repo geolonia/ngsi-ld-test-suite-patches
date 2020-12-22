@@ -10,6 +10,10 @@ Check Response Status Code Set To
     ${response_status}=  convert to string  ${response['status']}
     Should Be Equal  ${response_status}  ${expected_status}
 
+Check RL Response Status Code Set To Expected Code
+    [Arguments]  ${expected_status}
+    Status Should Be    ${expected_status}     ${response}
+
 Check RL Response Status Code Set To
     [Arguments]  ${expected_status}
     Status Should Be    ${expected_status}     ${response}
