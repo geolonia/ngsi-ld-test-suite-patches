@@ -18,6 +18,11 @@ Check Response Body Containing Array Of URIs set to
     [Arguments]  @{expected_entities_ids}
     Lists Should Be Equal  ${expected_entities_ids}        ${response['body']}     ignore_order=True
 
+Check Response Headers Containing URI set to
+# upon success, the http response shall include a loication http header that countains the uri of the created entity resource
+    [Arguments]  ${expected_path}    ${expected_entity_id}
+    Should Be Equal  ${expected_path}${expected_entity_id}        ${response['headers']['location']}     ignore_order=True
+
 Check Response Body Containing an Attribute set to
     [Arguments]  ${expected_attribute_name}
     Should Not Be Empty     ${response['body']['${expected_attribute_name}']}
