@@ -6,8 +6,8 @@ Resource    ${EXECDIR}/resources/AssertionUtils.resource
 Test Template  Create Entity With Invalid Request Scenarios
 
 *** Test Cases ***                        FILENAME                              PROBLEM_TYPE                        EXPECTED_CODE
-InvalidJson                               invalid-json-sample.jsonld            ${ERROR_TYPE_INVALID_REQUEST}       406
-EmptyJson                                 empty-sample.jsonld                   ${ERROR_TYPE_BAD_REQUEST_DATA}      400
+002_01_InvalidJson                               invalid-json-sample.jsonld            ${ERROR_TYPE_INVALID_REQUEST}       406
+002_02_EmptyJson                                 empty-sample.jsonld                   ${ERROR_TYPE_BAD_REQUEST_DATA}      400
 
 *** Keywords ***
 Create Entity With Invalid Request Scenarios

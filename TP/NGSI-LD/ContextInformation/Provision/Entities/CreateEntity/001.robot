@@ -10,11 +10,11 @@ Test Template  Create Entity Scenarios
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 
 *** Test Cases ***                        FILENAME                                              CONTENT_TYPE
-MinimalEntity                             building-minimal-without-context-sample.jsonld        application/json
-EntityWithSimpleProperties                building-simple-attributes-sample.jsonld              application/ld+json
-EntityWithRelationshipsProperties         building-relationship-of-property-sample.jsonld       application/ld+json
-#EntityWithNoContext                       building-minimal-without-context-sample.jsonld        application/ld+json
-EntityWithLocationAttribute               building-location-attribute.jsonld                    application/ld+json
+001_01_MinimalEntity                             building-minimal-without-context-sample.jsonld        application/json
+001_02_EntityWithSimpleProperties                building-simple-attributes-sample.jsonld              application/ld+json
+001_03_EntityWithRelationshipsProperties         building-relationship-of-property-sample.jsonld       application/ld+json
+#001_04_EntityWithNoContext                       building-minimal-without-context-sample.jsonld        application/ld+json
+001_05_EntityWithLocationAttribute               building-location-attribute.jsonld                    application/ld+json
 
 
 
