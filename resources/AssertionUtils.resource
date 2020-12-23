@@ -31,6 +31,10 @@ Check Response Body Containing an Attribute set to
     [Arguments]  ${expected_attribute_name}
     Should Not Be Empty     ${response['body']['${expected_attribute_name}']}
 
+Check Response Body Details Containing Information Error
+    [Arguments]  ${expected_error_message}
+    Should be Equal    ${expected_error_message}     ${response['body']['details']}
+
 Check Response Body Containing Batch Operation Result
     [Arguments]  ${expected_batch_operation_result}
     @{expected_successful_entities_ids}=    Get From Dictionary     ${expected_batch_operation_result}     success

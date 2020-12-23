@@ -25,7 +25,6 @@ Create Entity Scenarios
     [Tags]  mandatory   entityOperations
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
-    ${entity}=    Load Entity    ${filename}      ${entity_id}
 
     Create Entity Selecting Content Type   ${filename}      ${entity_id}     ${content_type}
     Check Response Status Code Set To  201
