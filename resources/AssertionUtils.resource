@@ -10,6 +10,10 @@ Check Response Status Code Set To
     ${response_status}=  convert to string  ${response['status']}
     Should Be Equal  ${response_status}  ${expected_status}
 
+Check RL Response Status Code Set To Expected Code
+    [Arguments]  ${expected_status}
+    Status Should Be    ${expected_status}     ${response}
+
 Check RL Response Status Code Set To
     [Arguments]  ${expected_status}
     Status Should Be    ${expected_status}     ${response}
@@ -18,9 +22,18 @@ Check Response Body Containing Array Of URIs set to
     [Arguments]  @{expected_entities_ids}
     Lists Should Be Equal  ${expected_entities_ids}        ${response['body']}     ignore_order=True
 
+Check Response Headers Containing URI set to
+# upon success, the http response shall include a loication http header that countains the uri of the created entity resource
+    [Arguments]  ${expected_path}    ${expected_entity_id}
+    Should Be Equal  ${expected_path}${expected_entity_id}        ${response['headers']['location']}     ignore_order=True
+
 Check Response Body Containing an Attribute set to
     [Arguments]  ${expected_attribute_name}
     Should Not Be Empty     ${response['body']['${expected_attribute_name}']}
+
+Check Response Body Details Containing Information Error
+    [Arguments]  ${expected_error_message}
+    Should be Equal    ${expected_error_message}     ${response['body']['details']}
 
 Check Response Body Containing Batch Operation Result
     [Arguments]  ${expected_batch_operation_result}
