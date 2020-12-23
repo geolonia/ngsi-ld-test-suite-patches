@@ -1,0 +1,35 @@
+POST http://localhost:9090/ngsi-ld/v1/entities/
+Content-Type: application/ld+json
+
+{
+    "id": "urn:ngsi-ld:Building:0163037144675563",
+        "type": "Building",
+        "@context": [
+            "https://fiware.github.io/data-models/context.jsonld",
+            "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
+        ]
+}
+
+###
+DELETE http://localhost:9090/ngsi-ld/v1/entities/urn:ngsi-ld:Building:0163037144675563
+
+###
+
+POST http://localhost:9090/ngsi-ld/v1/entities/
+Content-Type: application/ld+json
+
+{
+    "id": "urn:ngsi-ld:Building:0163037144675563",,
+        "type": "Building",
+        "@context": [
+            "https://fiware.github.io/data-models/context.jsonld",
+            "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
+        ]
+}
+
+###
+POST http://localhost:9090/ngsi-ld/v1/entities/
+Content-Type: application/ld+json
+
+{
+}

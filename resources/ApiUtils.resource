@@ -50,6 +50,13 @@ Api DEL request
     Output Schema
     Set Test Variable    ${response}
 
+Delete Entity by Id Returning Response
+    [Arguments]  ${id}
+    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}/${id}
+    Output  request
+    Output  response
+    [return]  ${response}
+
 Delete Entity by Id
     [Arguments]  ${id}
     ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}/${id}
