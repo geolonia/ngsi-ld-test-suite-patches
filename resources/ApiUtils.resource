@@ -12,15 +12,15 @@ ${BATCH_UPSERT_ENDPOINT_PATH}   entityOperations/upsert
 ${BATCH_UPDATE_ENDPOINT_PATH}   entityOperations/update
 ${BATCH_DELETE_ENDPOINT_PATH}   entityOperations/delete
 &{BATCH_OPERATION_ENDPOINT_MAPPING}    create=${BATCH_CREATE_ENDPOINT_PATH}    upsert=${BATCH_UPSERT_ENDPOINT_PATH}    update=${BATCH_UPDATE_ENDPOINT_PATH}    delete=${BATCH_DELETE_ENDPOINT_PATH}
-${ENTITIES_ENDPOINT_PATH}       entities
+${ENTITIES_ENDPOINT_PATH}       entities/
 ${TEMPORAL_ENTITIES_ENDPOINT_PATH}       temporal/entities
 ${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}       temporal/entityOperations
 
 ${CONTENT_TYPE_JSON}            application/json
 ${CONTENT_TYPE_LD_JSON}         application/ld+json
 
-${ERROR_TYPE_BAD_REQUEST_DATA}      https://uri.etsi.org/ngsi-ld/errors/BadRequestData
-${ERROR_TYPE_INVALID_REQUEST}      https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
+${ERROR_TYPE_BAD_REQUEST_DATA}      http://uri.etsi.org/ngsi-ld/errors/BadRequestData
+${ERROR_TYPE_INVALID_REQUEST}      http://uri.etsi.org/ngsi-ld/errors/InvalidRequest
 ${ERROR_TYPE_RESOURCE_NOT_FOUND}      https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
 
 ${response}
@@ -59,7 +59,7 @@ Delete Entity by Id Returning Response
 
 Delete Entity by Id
     [Arguments]  ${id}
-    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}/${id}
+    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}${id}
     Output  request
     Output  response
 
@@ -71,7 +71,20 @@ Retrieve Entity by Id
     ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}/${id}  headers=${headers}
     Output  request
     Output  response
-    Set Test Variable   ${response}
+    Set Test Variable    ${response}
+
+Create Entity Selecting Content Type
+    [Arguments]  ${filename}    ${entity_id}    ${content_type}
+    ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/${filename}
+    ${entity}=    Update Value To Json    ${entity_payload}     $..id   ${entity_id}
+
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${response}=  POST  ${ENTITIES_ENDPOINT_PATH}  body=${entity}  headers=${headers}
+    Output  request
+    Output  response
+    Set Test Variable  ${response}
+    ${request}=    Output  request
+    Set Test Variable  ${request}
 
 Create Entity
     [Arguments]  ${filename}    ${entity_id}
@@ -116,6 +129,14 @@ Batch Delete Entities
     Output  request
     Output  response
     Run Keyword If     not ${teardown}       Set Test Variable  ${response}
+
+Request Entity From File
+    [Arguments]  ${filename}
+    ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
+    Create Session    OneRequest      ${url}
+    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    ${response}=  POST Request      OneRequest   ${ENTITIES_ENDPOINT_PATH}  data=${file_content}    headers=${headers}
+    Set Test Variable  ${response}
 
 Batch Request Entities From File
     [Arguments]  ${batchOperation}      ${filename}
