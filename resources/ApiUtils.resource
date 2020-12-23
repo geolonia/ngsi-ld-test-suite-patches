@@ -91,7 +91,6 @@ Create Entity
     ${response}=  POST  ${ENTITIES_ENDPOINT_PATH}  body=${entity}  headers=${headers}
     Output  request
     Output  response
-    Set Test Variable  ${response}
 
 Batch Create Entities
     [Arguments]  @{entities_to_be_created}      ${content_type}=${CONTENT_TYPE_LD_JSON}     ${context}=${EMPTY}
