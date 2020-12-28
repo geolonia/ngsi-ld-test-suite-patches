@@ -64,12 +64,22 @@ Delete Entity by Id
     Output  request
     Output  response
 
+Retrieve Entity by Id Returning Response
+    [Arguments]  ${id}      ${accept}     ${context}=${EMPTY}
+    ${headers}=  Create Dictionary
+    Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}${id}  headers=${headers}
+    Output  request
+    Output  response
+    [return]    ${response}
+
 Retrieve Entity by Id
     [Arguments]  ${id}      ${accept}=${CONTENT_TYPE_LD_JSON}     ${context}=${EMPTY}
     ${headers}=  Create Dictionary
     Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
-    ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}/${id}  headers=${headers}
+    ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}${id}  headers=${headers}
     Output  request
     Output  response
     Set Test Variable    ${response}
