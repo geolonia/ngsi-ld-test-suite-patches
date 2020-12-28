@@ -26,8 +26,8 @@ Create Entity Scenarios
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
 
-    Create Entity Selecting Content Type   ${filename}      ${entity_id}     ${content_type}
-    Check Response Status Code Set To  201
-    Check Response Headers Containing URI set to    ${request['path']}    ${entity_id}
+    ${request}    ${response}=    Create Entity Selecting Content Type   ${filename}      ${entity_id}     ${content_type}
+    Check Response Status Code  201    ${response['status']}
+    Check Response Headers Containing URI set to    ${request['path']}    ${entity_id}    ${response}
 
     [Teardown]    Delete Entity by Id       ${entity_id}

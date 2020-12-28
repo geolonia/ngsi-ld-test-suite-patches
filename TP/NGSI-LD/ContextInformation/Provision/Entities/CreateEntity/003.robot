@@ -16,13 +16,14 @@ Create one valid entity and one invalid entity
     [Tags]  mandatory
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
-    Create Entity Selecting Content Type   ${filename}    ${entity_id}    ${content_type}
-    Check Response Status Code Set To  201
+    ${request}    ${response}=    Create Entity Selecting Content Type   ${filename}    ${entity_id}    ${content_type}
+    Check Response Status Code  201    ${response['status']}
 
     #creating entity with the same id
-    Create Entity Selecting Content Type   ${filename}    ${entity_id}    ${content_type}
-    Check Response Status Code Set To  409
-    Check Response Body Details Containing Information Error  ${expected_error_message}
+    ${request}    ${response}=    Create Entity Selecting Content Type   ${filename}    ${entity_id}    ${content_type}
+    Check Response Status Code  409    ${response['status']}
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_ALREADY_EXISTS}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
 
     [Teardown]    Delete Entity by Id       ${entity_id}
 
