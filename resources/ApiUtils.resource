@@ -21,7 +21,8 @@ ${CONTENT_TYPE_LD_JSON}         application/ld+json
 
 ${ERROR_TYPE_BAD_REQUEST_DATA}      http://uri.etsi.org/ngsi-ld/errors/BadRequestData
 ${ERROR_TYPE_INVALID_REQUEST}      http://uri.etsi.org/ngsi-ld/errors/InvalidRequest
-${ERROR_TYPE_RESOURCE_NOT_FOUND}      https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
+${ERROR_TYPE_RESOURCE_NOT_FOUND}      http://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
+${ERROR_TYPE_ALREADY_EXISTS}      http://uri.etsi.org/ngsi-ld/errors/AlreadyExists
 
 ${response}
 
@@ -52,7 +53,7 @@ Api DEL request
 
 Delete Entity by Id Returning Response
     [Arguments]  ${id}
-    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}/${id}
+    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}${id}
     Output  request
     Output  response
     [return]  ${response}
@@ -82,9 +83,8 @@ Create Entity Selecting Content Type
     ${response}=  POST  ${ENTITIES_ENDPOINT_PATH}  body=${entity}  headers=${headers}
     Output  request
     Output  response
-    Set Test Variable  ${response}
     ${request}=    Output  request
-    Set Test Variable  ${request}
+    [return]    ${request}    ${response}
 
 Create Entity
     [Arguments]  ${filename}    ${entity_id}

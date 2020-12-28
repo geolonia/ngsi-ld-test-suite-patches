@@ -5,6 +5,11 @@ Library     ${EXECDIR}/libraries/assertionUtils.py
 ${instance_id_regex_expr}=  root\\[.*\\]\\['instanceId'\\]
 
 *** Keywords ***
+Check Response Status Code
+    [Arguments]  ${expected_status_code}    ${response_status_code}
+    ${response_status_code}=  convert to string  ${response_status_code}
+    Should Be Equal  ${expected_status_code}    ${response_status_code}
+
 Check Response Status Code Set To
     [Arguments]  ${expected_status}
     ${response_status}=  convert to string  ${response['status']}
@@ -23,8 +28,7 @@ Check Response Body Containing Array Of URIs set to
     Lists Should Be Equal  ${expected_entities_ids}        ${response['body']}     ignore_order=True
 
 Check Response Headers Containing URI set to
-# upon success, the http response shall include a loication http header that countains the uri of the created entity resource
-    [Arguments]  ${expected_path}    ${expected_entity_id}
+    [Arguments]  ${expected_path}    ${expected_entity_id}    ${response}
     Should Be Equal  ${expected_path}${expected_entity_id}        ${response['headers']['location']}     ignore_order=True
 
 Check Response Body Containing an Attribute set to
