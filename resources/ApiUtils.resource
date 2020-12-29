@@ -64,25 +64,15 @@ Delete Entity by Id
     Output  request
     Output  response
 
-Retrieve Entity by Id Returning Response
-    [Arguments]  ${id}      ${accept}     ${context}=${EMPTY}
-    ${headers}=  Create Dictionary
-    Set To Dictionary   ${headers}   Accept    ${accept}
-    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type=${accept}
-    ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}${id}  headers=${headers}
-    Output  request
-    Output  response
-    [return]    ${response}
-
 Query Entity
-    [Arguments]  ${id}     ${accept}    ${attrs}=${EMPTY}      ${context}=${EMPTY}
+    [Arguments]  ${id}     ${accept}    ${attrs}=${EMPTY}      ${context}=${EMPTY}    ${geoproperty}=${EMPTY}
     ${attrs_length} =  Get Length  ${attrs}
     &{headers}=  Create Dictionary
     &{params}=  Create Dictionary
     Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type=${accept}
     Run Keyword If     ${attrs_length}>0       Set To Dictionary   ${params}       attrs=${attrs}
-
+    Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
     ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}${id}      headers=${headers}      query=${params}
     Output  request
     Output  response

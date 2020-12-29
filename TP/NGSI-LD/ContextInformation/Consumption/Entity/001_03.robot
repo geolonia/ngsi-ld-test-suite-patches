@@ -1,27 +1,25 @@
 *** Settings ***
-Documentation   Check that you can query some attributes from an entity
+Documentation   Check that you can query the geometry property from an entity
 Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource    ${EXECDIR}/resources/AssertionUtils.resource
 Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
-${filename}=  building-simple-attributes-sample.jsonld
-${expectation_filename}=  building-simple-attributes-sample-expectation-query-attributes.jsonld
-${attribute_airqualitylevel}=  https://uri.fiware.org/ns/data-models#airQualityLevel
-${attribute_subcategory}=  https://uri.fiware.org/ns/data-models#subCategory
+${filename}=  building-location-attribute-sample.jsonld
+${expectation_filename}=  building-location-attribute-sample-expectation-query-geoproperty.jsonld
+${geometry_property}=  location
 
 *** Test Cases ***                               
-001_02_Query some attributes from an entity
-    [Documentation]  Check that you can query some attributes from an entity
+001_03_Query the geometry property from an entity
+    [Documentation]  Check that you can query the geometry property from an entity
     [Tags]  mandatory
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    ${attributes_to_be_retrieved}=  Create List      ${attribute_airqualitylevel}  ${attribute_subcategory}
-    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}    attrs=${attributes_to_be_retrieved}
+    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}    geoproperty=${geometry_property}
     Check Response Status Code  200    ${response['status']}
     Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response}
 
