@@ -55,6 +55,13 @@ Check Response Body Containing Batch Operation Result
         Should Not Be Empty     ${response_error['error']}
     END
 
+Check Response Body Containing Entity element
+    [Arguments]     ${expectation_filename}    ${entity_id}    ${response}
+    ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/expectations/${expectation_filename}
+    ${entity}=    Update Value To Json    ${entity_payload}     $..id   ${entity_id}
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${entity}      ${instance_id_regex_expr}
+    Should Be True      ${comparaison_result}   msg=Entity Comparaison Failed
+
 Check Response Body Containing EntityTemporal element
     [Arguments]     ${filename}    ${temporal_entity_representation_id}
     ${temporal_entity_representation_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/expectations/${filename}
