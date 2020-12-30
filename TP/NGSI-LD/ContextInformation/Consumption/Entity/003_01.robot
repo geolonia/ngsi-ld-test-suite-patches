@@ -13,7 +13,7 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
     [Tags]  mandatory    failing
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
-    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Get Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  404    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_RESOURCE_NOT_FOUND}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}

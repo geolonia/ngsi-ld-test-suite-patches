@@ -64,7 +64,7 @@ Delete Entity by Id
     Output  request
     Output  response
 
-Query Entity
+Get Entity
     [Arguments]  ${id}     ${accept}    ${attrs}=${EMPTY}      ${context}=${EMPTY}    ${geoproperty}=${EMPTY}    ${options}=${EMPTY} 
     ${attrs_length} =  Get Length  ${attrs}
     ${options_length} =  Get Length  ${options}
