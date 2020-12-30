@@ -1,0 +1,11 @@
+{
+    "id": "urn:ngsi-ld:Building:4982132550789476",
+        "type": "https://uri.fiware.org/ns/data-models#Building",
+        "name": "Eiffel Tower",
+        "https://uri.fiware.org/ns/data-models#airQualityLevel": 4,
+        "https://uri.fiware.org/ns/data-models#almostFull": false,
+        "https://uri.fiware.org/ns/data-models#subCategory": "tourism",
+        "@context": [
+            "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
+    ]
+}
