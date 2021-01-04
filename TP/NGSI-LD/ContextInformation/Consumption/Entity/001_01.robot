@@ -18,8 +18,8 @@ ${expectation_filename}=  building-simple-attributes-sample-expectation.jsonld
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    ${response}=    Get Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  200    ${response['status']}
-    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response}
+    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response['body']}
 
     [Teardown]  Delete Entity by Id Returning Response   ${entity_id}

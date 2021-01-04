@@ -19,7 +19,7 @@ Get Entity With Invalid/Missing Id
     [Documentation]  Check that you cannot get an entity with invalid/missing id
     [Tags]  mandatory    failing
 
-    ${response}=    Get Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  ${expected_status_code}    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${problem_type}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}

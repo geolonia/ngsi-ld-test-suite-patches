@@ -21,8 +21,8 @@ ${attribute_subcategory}=  https://uri.fiware.org/ns/data-models#subCategory
     Check Response Status Code  201    ${response['status']}
 
     ${attributes_to_be_retrieved}=  Create List      ${attribute_airqualitylevel}  ${attribute_subcategory}
-    ${response}=    Get Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}    attrs=${attributes_to_be_retrieved}
+    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}    attrs=${attributes_to_be_retrieved}
     Check Response Status Code  200    ${response['status']}
-    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response}
+    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response['body']}
 
     [Teardown]  Delete Entity by Id Returning Response   ${entity_id}

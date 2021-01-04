@@ -13,6 +13,7 @@ ${BATCH_UPDATE_ENDPOINT_PATH}   entityOperations/update
 ${BATCH_DELETE_ENDPOINT_PATH}   entityOperations/delete
 &{BATCH_OPERATION_ENDPOINT_MAPPING}    create=${BATCH_CREATE_ENDPOINT_PATH}    upsert=${BATCH_UPSERT_ENDPOINT_PATH}    update=${BATCH_UPDATE_ENDPOINT_PATH}    delete=${BATCH_DELETE_ENDPOINT_PATH}
 ${ENTITIES_ENDPOINT_PATH}       entities/
+${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}    entityOperations/query
 ${TEMPORAL_ENTITIES_ENDPOINT_PATH}       temporal/entities
 ${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}       temporal/entityOperations
 
@@ -64,7 +65,7 @@ Delete Entity by Id
     Output  request
     Output  response
 
-Get Entity
+Query Entity
     [Arguments]  ${id}     ${accept}    ${attrs}=${EMPTY}      ${context}=${EMPTY}    ${geoproperty}=${EMPTY}    ${options}=${EMPTY} 
     ${attrs_length} =  Get Length  ${attrs}
     ${options_length} =  Get Length  ${options}
@@ -75,7 +76,49 @@ Get Entity
     Run Keyword If     ${attrs_length}>0       Set To Dictionary   ${params}       attrs=${attrs}
     Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
     Run Keyword If     ${options_length}>0       Set To Dictionary   ${params}       options=${options}
+    
     ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}${id}      headers=${headers}      query=${params}
+    Output  request
+    Output  response
+    [return]    ${response}
+
+Query Entities
+    [Arguments]  ${entity_ids}=${EMPTY}     ${entity_types}=${EMPTY}     ${accept}=${CONTENT_TYPE_LD_JSON}    ${attrs}=${EMPTY}      ${context}=${EMPTY}    ${geoproperty}=${EMPTY}    ${options}=${EMPTY}     ${limit}=${EMPTY}    ${entity_id_pattern}=${EMPTY}
+    ${attrs_length} =  Get Length  ${attrs}
+    ${options_length} =  Get Length  ${options}
+    ${entity_ids_length} =  Get Length  ${entity_ids}
+    ${entity_types_length} =  Get Length  ${entity_types}
+    &{headers}=  Create Dictionary
+    &{params}=  Create Dictionary
+    Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type=${accept}
+    Run Keyword If     ${attrs_length}>0       Set To Dictionary   ${params}       attrs=${attrs}
+    Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
+    Run Keyword If     ${options_length}>0       Set To Dictionary   ${params}       options=${options}
+    Run Keyword If     ${entity_ids_length}>0       Set To Dictionary   ${params}    id=${entity_ids}
+    Run Keyword If     ${entity_types_length}>0       Set To Dictionary   ${params}    type=${entity_types}
+    Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
+    Run Keyword If     '${entity_id_pattern}'!=''       Set To Dictionary   ${params}    idPattern=${entity_id_pattern}
+
+    ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}      headers=${headers}      query=${params}
+    Output  request
+    Output  response
+    [return]    ${response}
+
+Query Entities Via POST
+    [Arguments]  ${entity_ids}=${EMPTY}     ${entity_types}=${EMPTY}    ${content_type}=${CONTENT_TYPE_LD_JSON}    ${attrs}=${EMPTY}    ${entity_id_pattern}=${EMPTY}    ${geoproperty}=${EMPTY}
+    &{headers}=  Create Dictionary
+    &{params}=  Create Dictionary
+    ${entity_ids_length} =  Get Length  ${entity_ids}
+    ${entity_types_length} =  Get Length  ${entity_types}
+    ${attrs_length} =  Get Length  ${attrs}
+    Set To Dictionary   ${headers}   Content-Type    ${content_type}
+    Run Keyword If     ${entity_ids_length}>0       Set To Dictionary   ${params}    id=${entity_ids}
+    Run Keyword If     ${entity_types_length}>0       Set To Dictionary   ${params}    type=${entity_types}
+    Run Keyword If     ${attrs_length}>0       Set To Dictionary   ${params}       attrs=${attrs}
+    Run Keyword If     '${entity_id_pattern}'!=''       Set To Dictionary   ${params}    idPattern=${entity_id_pattern}
+    Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
+    ${response}=  POST  ${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}    query=${params}    headers=${headers}
     Output  request
     Output  response
     [return]    ${response}

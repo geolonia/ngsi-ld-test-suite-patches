@@ -19,7 +19,7 @@ ${attribute_not_known}=  property_not_found
     Check Response Status Code  201    ${response['status']}
 
     ${attributes_to_be_retrieved}=  Create List      ${attribute_not_known}
-    ${response}=    Get Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}    attrs=${attributes_to_be_retrieved}
+    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}    attrs=${attributes_to_be_retrieved}
     Check Response Status Code  404    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_RESOURCE_NOT_FOUND}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
