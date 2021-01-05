@@ -135,7 +135,7 @@ Request Entity From File
     ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
     Create Session    OneRequest      ${url}
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST Request      OneRequest   ${ENTITIES_ENDPOINT_PATH}  data=${file_content}    headers=${headers}
+    ${response}=  POST On Session      OneRequest   ${ENTITIES_ENDPOINT_PATH}  data=${file_content}    headers=${headers}   expected_status=any
     Set Test Variable  ${response}
 
 Batch Request Entities From File
@@ -144,7 +144,7 @@ Batch Request Entities From File
     ${endpoint_url}=    Get From Dictionary     ${BATCH_OPERATION_ENDPOINT_MAPPING}     ${batchOperation}
     Create Session    BatchRequest      ${url}
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST Request      BatchRequest   ${endpoint_url}  data=${file_content}    headers=${headers}
+    ${response}=  POST On Session      BatchRequest   ${endpoint_url}  data=${file_content}    headers=${headers}   expected_status=any
     Set Test Variable  ${response}
 
 Create Temporal Representation Of Entity

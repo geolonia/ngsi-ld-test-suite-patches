@@ -58,6 +58,15 @@ Launch the tests with the following command:
 
 For more running instructions please consult [scripts/run_tests.sh](https://github.com/easy-global-market/isg-cim-tpdl-demo/blob/rf-demo/scripts/run_tests.sh).
 
+# Frameworks and libraries used in the project
+
+* [Robot Framework](https://github.com/robotframework/robotframework)
+* [RESTinstance](https://github.com/asyrjasalo/RESTinstance)
+* [JSON Schema Library](https://github.com/jstaffans/robotframework-jsonschemalibrary)
+* [JSON Library](https://github.com/robotframework-thailand/robotframework-jsonlibrary)
+* [Requests Library](https://github.com/MarketSquare/robotframework-requests)
+* [Deep Diff](https://github.com/seperman/deepdiff)
+
 # Useful links   
 
 * [Robot Framework User Guide](http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#output-file)   
