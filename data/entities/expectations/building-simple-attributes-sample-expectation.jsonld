@@ -1,5 +1,5 @@
 {
-    "id": "urn:ngsi-ld:Building:6539860708584325",
+    "id": "urn:ngsi-ld:Building:randomUUID",
         "type": "https://uri.fiware.org/ns/data-models#Building",
         "name": {
             "type": "Property",

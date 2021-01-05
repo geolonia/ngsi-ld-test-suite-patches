@@ -5,13 +5,9 @@ Resource    ${EXECDIR}/resources/AssertionUtils.resource
 
 Test Template  Get Entity With Invalid/Missing Id
 
-*** Variable ***
-${entity_id_empty}=        
-${entity_id_not_valid}=     thisisaninvaliduri
-
 *** Test Cases ***                                                  ENTITY_ID                     EXPECTED_STATUS_CODE       PROBLEM_TYPE                      
-002_01_Get an entity if the Entity Id is not present                ${entity_id_empty}            400                        ${ERROR_TYPE_BAD_REQUEST_DATA}
-002_02_Get an entity if the Entity Id is not a valid URI            ${entity_id_not_valid}        400                        ${ERROR_TYPE_BAD_REQUEST_DATA}
+002_01_Get an entity if the Entity Id is not present                ${EMPTY}                      400                        ${ERROR_TYPE_BAD_REQUEST_DATA}
+002_02_Get an entity if the Entity Id is not a valid URI            thisisaninvaliduri            400                        ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 *** Keywords ***                               
 Get Entity With Invalid/Missing Id

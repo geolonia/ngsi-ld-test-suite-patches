@@ -1,5 +1,5 @@
 {
-    "id": "urn:ngsi-ld:Building:4982132550789476",
+    "id": "urn:ngsi-ld:Building:randomUUID",
         "type": "https://uri.fiware.org/ns/data-models#Building",
         "name": "Eiffel Tower",
         "https://uri.fiware.org/ns/data-models#airQualityLevel": 4,

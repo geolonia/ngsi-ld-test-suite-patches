@@ -8,7 +8,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-location-attribute-sample.jsonld
 ${expectation_filename}=  building-location-attribute-sample-expectation-query-geoproperty.jsonld
-${geometry_property}=  test
+${geometry_property}=  location
 
 *** Test Cases ***                               
 001_03_Query the geometry property from an entity

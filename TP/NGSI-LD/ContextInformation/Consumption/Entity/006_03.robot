@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-minimal-sample.jsonld
-${expection_filename}=  building-minimal-sample-expectation.jsonld
+${expectation_filename}=  building-minimal-sample-expectation.jsonld
 ${entity_type}=  https://uri.fiware.org/ns/data-models#Building
 ${entity_id_pattern}=  urn:ngsi-ld:Building:.*
 
@@ -27,7 +27,7 @@ ${entity_id_pattern}=  urn:ngsi-ld:Building:.*
     @{entity_types_to_be_retrieved}=  Create List   ${entity_type}
     ${response}=    Query Entities    entity_id_pattern=${entity_id_pattern}    entity_types=${entity_types_to_be_retrieved}
     Check Response Status Code  200    ${response['status']}
-    Check Response Body Containing List Containing Entity elements    ${expection_filename}    ${entities_ids_to_be_retrieved}    ${response['body']}
+    Check Response Body Containing List Containing Entity elements    ${expectation_filename}    ${entities_ids_to_be_retrieved}    ${response['body']}
 
     [Teardown]  Delete Entities    ${first_entity_id}    ${second_entity_id}
 

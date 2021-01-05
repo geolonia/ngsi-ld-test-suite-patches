@@ -1,5 +1,5 @@
 {
-    "id": "urn:ngsi-ld:Building:7123416795055774",
+    "id": "urn:ngsi-ld:Building:randomUUID",
     "type": "https://uri.fiware.org/ns/data-models#Building",
     "https://uri.fiware.org/ns/data-models#airQualityLevel": {
         "type": "Property",

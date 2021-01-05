@@ -1,5 +1,5 @@
 {
-    "id": "urn:ngsi-ld:Building:9630352980062352",
+    "id": "urn:ngsi-ld:Building:randomUUID",
     "type": "https://uri.fiware.org/ns/data-models#Building",
     "location": {
         "type": "GeoProperty",

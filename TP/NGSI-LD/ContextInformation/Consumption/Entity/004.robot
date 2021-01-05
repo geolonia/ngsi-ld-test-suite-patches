@@ -21,6 +21,6 @@ ${options_parameter}=  keyValues
 
     ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}    options=${options_parameter}
     Check Response Status Code  200    ${response['status']}
-    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response}
+    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response['body']}
 
     [Teardown]  Delete Entity by Id Returning Response   ${entity_id}
