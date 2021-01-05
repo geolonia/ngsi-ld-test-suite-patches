@@ -27,7 +27,7 @@ ${geometry_property}=  location
     @{entity_types_to_be_retrieved}=  Create List   ${entity_type}
     ${response}=    Query Entities Via POST    entity_types=${entity_types_to_be_retrieved}    geoproperty=${geometry_property}
     Check Response Status Code  200    ${response['status']}
-    #Check Response Body Containing List Containing Entity elements    ${expectation_filename}    ${entities_ids_to_be_retrieved}    ${response['body']}
+    Check Response Body Containing List Containing Entity elements    ${expectation_filename}    ${entities_ids_to_be_retrieved}    ${response['body']}
 
     [Teardown]  Delete Entities    ${first_entity_id}    ${second_entity_id}
 
