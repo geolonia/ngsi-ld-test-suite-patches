@@ -6,7 +6,6 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
-${expected_error_message}=  Already exists.
 ${filename}=  building-minimal-sample.jsonld
 ${content_type}=  application/ld+json
 
