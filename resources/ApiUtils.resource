@@ -118,7 +118,7 @@ Query Entities Via POST
     Run Keyword If     ${attrs_length}>0       Set To Dictionary   ${params}       attrs=${attrs}
     Run Keyword If     '${entity_id_pattern}'!=''       Set To Dictionary   ${params}    idPattern=${entity_id_pattern}
     Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
-    ${response}=  POST  ${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}    query=${params}    headers=${headers}
+    ${response}=    POST    ${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}    query=${params}    headers=${headers}
     Output  request
     Output  response
     [return]    ${response}
@@ -143,11 +143,27 @@ Create Entity Selecting Content Type
     Output  response
     [return]    ${request}    ${response}
 
+Append Entity Attributes
+    [Arguments]  ${id}    ${fragment_filename}    ${content_type}    ${options}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
+    ${response}=  POST  ${ENTITIES_ENDPOINT_PATH}${id}/attrs/?options=${options}  body=${fragment_payload}  headers=${headers}
+    Output  request
+    Output  response
+    [return]   ${response}
+
+Append Entity Attributes Using Session
+    [Arguments]  ${id}    ${filename}    ${content_type}    ${options}
+    ${file_content}=    Get File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
+    Create Session    OneRequest      ${url}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${response}=    POST On Session      OneRequest   ${ENTITIES_ENDPOINT_PATH}  data=${file_content}    headers=${headers}   expected_status=any
+    Set Test Variable  ${response}
+
 Create Entity
     [Arguments]  ${filename}    ${entity_id}
     ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/${filename}
     ${entity}=    Update Value To Json    ${entity_payload}     $..id   ${entity_id}
-
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
     ${response}=  POST  ${ENTITIES_ENDPOINT_PATH}  body=${entity}  headers=${headers}
     Output  request
