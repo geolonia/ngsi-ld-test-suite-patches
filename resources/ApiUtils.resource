@@ -157,8 +157,9 @@ Append Entity Attributes Using Session
     ${file_content}=    Get File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
     Create Session    OneRequest      ${url}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
-    ${response}=    POST On Session      OneRequest   ${ENTITIES_ENDPOINT_PATH}  data=${file_content}    headers=${headers}   expected_status=any
-    Set Test Variable  ${response}
+    ${response}=    POST On Session      OneRequest   ${ENTITIES_ENDPOINT_PATH}${id}/attrs    params=options=${options}    data=${file_content}    headers=${headers}   expected_status=any
+    Output  ${response.json()}
+    [return]    ${response}
 
 Create Entity
     [Arguments]  ${filename}    ${entity_id}
