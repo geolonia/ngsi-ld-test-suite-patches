@@ -20,7 +20,7 @@ Append entity attributes with invalid entity fragments
 
     ${response}=    Append Entity Attributes Using Session    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}    ${EMPTY}
     Check Response Status Code  400    ${response}
-    #Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_BAD_REQUEST_DATA}
-    #Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_BAD_REQUEST_DATA}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
 
     [Teardown]  Delete Entity by Id Returning Response   ${entity_id}
