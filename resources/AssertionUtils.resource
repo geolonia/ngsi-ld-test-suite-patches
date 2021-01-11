@@ -98,12 +98,13 @@ Check Response Body Containing ProblemDetails Element Containing Title Element
 
 Check RL Response Body Containing ProblemDetails Element Containing Type Element set to
     [Arguments]     ${response}    ${type}
-    ${json_response_body}=    To Json     ${response.content}
+    ${json_response_body}=    Set Variable      ${response.json()}
+
     Should Be Equal     ${json_response_body['type']}    ${type}
 
 Check RL Response Body Containing ProblemDetails Element Containing Title Element
     [Arguments]     ${response}
-    ${json_response_body}=    To Json     ${response.content}
+    ${json_response_body}=    Set Variable      ${response.json()}
     Should Not Be Empty     ${json_response_body['title']}
 
 Assert response status code
