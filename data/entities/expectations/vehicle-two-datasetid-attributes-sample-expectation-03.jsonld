@@ -1,0 +1,31 @@
+{
+    "https://uri.fiware.org/ns/data-models#speed": [
+        {
+            "https://uri.etsi.org/ngsi-ld/datasetId": [
+                {
+                    "@id": "urn:ngsi-ld:Property:speedometerA4567-speed"
+                }
+            ],
+            "https://uri.fiware.org/ns/data-models#source": [
+                {
+                    "@type": [
+                        "https://uri.etsi.org/ngsi-ld/Property"
+                    ],
+                    "https://uri.etsi.org/ngsi-ld/hasValue": [
+                        {
+                            "@value": "Speedometer"
+                        }
+                    ]
+                }
+            ],
+            "@type": [
+                "https://uri.etsi.org/ngsi-ld/Property"
+            ],
+            "https://uri.etsi.org/ngsi-ld/hasValue": [
+                {
+                    "@value": 99
+                }
+            ]
+        }
+    ]
+}

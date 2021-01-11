@@ -27,9 +27,15 @@ Check Response Body Containing Array Of URIs set to
     [Arguments]  @{expected_entities_ids}
     Lists Should Be Equal  ${expected_entities_ids}        ${response['body']}     ignore_order=True
 
+Check Response Body Content
+    [Arguments]  ${expectation_filename}     ${response_body}
+    ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/expectations/${expectation_filename}
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity_payload}      ${instance_id_regex_expr}
+    Should Be True      ${comparaison_result}   msg=Entity Comparaison Failed
+
 Check Response Headers Containing URI set to
     [Arguments]  ${expected_path}    ${expected_entity_id}    ${response}
-    Should Be Equal  ${expected_path}${expected_entity_id}        ${response['headers']['location']}     ignore_order=True
+    Should Be Equal  ${expected_path}${expected_entity_id}        ${response['headers']['Location']}     ignore_order=True
 
 Check Response Body Containing an Attribute set to
     [Arguments]  ${expected_attribute_name}
