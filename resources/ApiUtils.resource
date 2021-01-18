@@ -307,3 +307,5 @@ Delete Context Source Registration Subscription
     ${response}=  DELETE  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     Output  request
     Output  response
+
+    Set Suite Variable  ${response}
