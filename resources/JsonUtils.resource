@@ -1,7 +1,10 @@
 *** Settings ***
 Library     String
+Library     DateTime
 Library     JSONLibrary
 
+*** Variable ***
+${date_format}=  %Y-%m-%dT%H:%M:%SZ
 *** Keywords ***
 Load Entity
     [Arguments]    ${entity_file_name}     ${entity_id}
@@ -10,6 +13,16 @@ Load Entity
     ${entity}=    Update Value To Json    ${entity_payload}     $..id   ${entity_id}
 
     [return]    ${entity}
+
+Load Test Sample
+    [Arguments]    ${test_sample_file_path}     ${test_sample_id}=${EMPTY}
+
+    ${test_sample_payload}=    Load Json From File    ${EXECDIR}/data/${test_sample_file_path}
+    ${test_sample}=    Update Value To Json    ${test_sample_payload}     $..id   ${test_sample_id}
+
+    Run Keyword If     '${test_sample_id}'==''       Delete Object From Json    ${test_sample}     $..id
+
+    [return]    ${test_sample}
 
 Remove Entity Type
     [Arguments]    ${entity}

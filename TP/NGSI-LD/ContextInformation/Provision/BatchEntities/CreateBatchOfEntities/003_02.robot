@@ -16,6 +16,7 @@ Create a batch of two valid entities and one invalid entity
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
+    # TODO: Use Load Test Sample keyword instead
     ${first_entity}=    Load Entity    building-minimal-sample.jsonld      ${first_entity_id}
     ${second_entity}=    Load Entity    building-minimal-sample.jsonld      ${second_entity_id}
     ${already_existing_entity}=    Load Entity    building-minimal-sample.jsonld      ${existing_entity_id}
