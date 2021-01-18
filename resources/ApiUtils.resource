@@ -301,6 +301,15 @@ Create Context Source Registration Subscription
     Set Suite Variable  ${request}
     Set Suite Variable  ${response}
 
+Update Context Source Registration Subscription
+    [Arguments]  ${subscription_id}     ${subscription_update_fragment}
+
+    ${response}=  PATCH  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}    body=${subscription_update_fragment}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
+
 Delete Context Source Registration Subscription
     [Arguments]  ${subscription_id}
 
@@ -309,3 +318,10 @@ Delete Context Source Registration Subscription
     Output  response
 
     Set Suite Variable  ${response}
+
+Update Context Source Registration Subscription From File
+    [Arguments]  ${subscription_id}      ${file_path}
+    ${file_content}=    Get File    ${EXECDIR}/data/${file_path}
+    Create Session    CsrsUpdateRequest      ${url}
+    ${response}=  PATCH On Session      CsrsUpdateRequest   ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}  data=${file_content}   expected_status=any
+    Set Test Variable  ${response}
