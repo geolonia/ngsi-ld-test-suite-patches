@@ -16,6 +16,7 @@ ${ENTITIES_ENDPOINT_PATH}       entities/
 ${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}    entityOperations/query
 ${TEMPORAL_ENTITIES_ENDPOINT_PATH}       temporal/entities
 ${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}       temporal/entityOperations
+${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}       csourceSubscriptions
 
 ${CONTENT_TYPE_JSON}            application/json
 ${CONTENT_TYPE_LD_JSON}         application/ld+json
@@ -286,5 +287,23 @@ Delete Temporal Representation Of Entity
     [Arguments]  ${temporal_entity_representation_id}
 
     ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
+    Output  request
+    Output  response
+
+Create Context Source Registration Subscription
+    [Arguments]  ${subscription_payload}
+
+    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    ${response}=  POST  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}  body=${subscription_payload}  headers=${headers}
+    ${request}=    Output  request
+    Output  response
+
+    Set Suite Variable  ${request}
+    Set Suite Variable  ${response}
+
+Delete Context Source Registration Subscription
+    [Arguments]  ${subscription_id}
+
+    ${response}=  DELETE  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     Output  request
     Output  response
