@@ -20,10 +20,10 @@ ${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}       temporal/entityOperations
 ${CONTENT_TYPE_JSON}            application/json
 ${CONTENT_TYPE_LD_JSON}         application/ld+json
 
-${ERROR_TYPE_BAD_REQUEST_DATA}      https://uri.etsi.org/ngsi-ld/errors/BadRequestData
-${ERROR_TYPE_INVALID_REQUEST}      https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
-${ERROR_TYPE_RESOURCE_NOT_FOUND}      https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
-${ERROR_TYPE_ALREADY_EXISTS}      https://uri.etsi.org/ngsi-ld/errors/AlreadyExists
+${ERROR_TYPE_BAD_REQUEST_DATA}      http://uri.etsi.org/ngsi-ld/errors/BadRequestData
+${ERROR_TYPE_INVALID_REQUEST}      http://uri.etsi.org/ngsi-ld/errors/InvalidRequest
+${ERROR_TYPE_RESOURCE_NOT_FOUND}      http://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
+${ERROR_TYPE_ALREADY_EXISTS}      http://uri.etsi.org/ngsi-ld/errors/AlreadyExists
 
 ${response}
 
@@ -175,6 +175,15 @@ Update Entity Attributes
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
     ${response}=  PATCH  ${ENTITIES_ENDPOINT_PATH}${id}/attrs/  body=${fragment_payload}  headers=${headers}
+    Output  request
+    Output  response
+    [return]   ${response}
+
+Partial Update Entity Attributes
+    [Arguments]  ${entityId}    ${attributeId}    ${fragment_filename}    ${content_type}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
+    ${response}=  PATCH  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}  body=${fragment_payload}  headers=${headers}
     Output  request
     Output  response
     [return]   ${response}

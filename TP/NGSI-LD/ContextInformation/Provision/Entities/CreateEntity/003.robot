@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation   Check that you cannot create an entity with and existing id
+Documentation   Check that you cannot create an entity with an existing id
 Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource    ${EXECDIR}/resources/AssertionUtils.resource
 Resource    ${EXECDIR}/resources/JsonUtils.resource
@@ -11,14 +11,13 @@ ${content_type}=  application/ld+json
 
 *** Test Case ***
 Create one valid entity and one invalid entity
-    [Documentation]  Check that you cannot create an entity with and existing id
+    [Documentation]  Check that you cannot create an entity with an existing id
     [Tags]  mandatory
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type   ${filename}    ${entity_id}    ${content_type}
     Check Response Status Code  201    ${response['status']}
 
-    #creating entity with the same id
     ${request}    ${response}=    Create Entity Selecting Content Type   ${filename}    ${entity_id}    ${content_type}
     Check Response Status Code  409    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_ALREADY_EXISTS}

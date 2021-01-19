@@ -9,15 +9,16 @@ Test Template  Append Attributes
 *** Variable ***
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
 ${filename}=  vehicle-datasetid-attributes-sample.jsonld
-${fragment_filename}=  vehicle-fragment-datasetid-sample-01-02.jsonld
+${fragment_filename}=  vehicle-fragment-same-datasetid-sample.jsonld
+${status_code}=  400
 
-*** Test Cases ***                                                             STATUS_CODE     ENTITY_INVALID_ID      
-002_01_Append entity attributes if the entity Id is not present                400             ${EMPTY}               
-002_02_Append entity attributes if the Entity Id is not a valid URI            400             thisisaninvaliduri
+*** Test Cases ***                                                             ENTITY_INVALID_ID      
+002_01_Append entity attributes if the entity Id is not present                ${EMPTY}               
+002_02_Append entity attributes if the Entity Id is not a valid URI            thisisaninvaliduri
 
 *** Keywords ***
 Append Attributes
-    [Arguments]  ${status_code}    ${entity_invalid_id}
+    [Arguments]  ${entity_invalid_id}
     [Documentation]  Check that you cannot append entity attributes with invalid/missing id or invalid request body
     [Tags]  mandatory  failing
 
