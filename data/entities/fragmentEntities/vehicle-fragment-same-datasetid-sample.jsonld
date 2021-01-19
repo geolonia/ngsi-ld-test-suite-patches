@@ -8,9 +8,9 @@
         },
         "datasetId": "urn:ngsi-ld:Property:speedometerA4567-speed" 
     },
-    "brandName": {
+    "attribute_to_be_added": {
         "type": "Property",
-        "value": "BMW"
+        "value": 23
     },
     "@context": [
         "https://fiware.github.io/data-models/context.jsonld",

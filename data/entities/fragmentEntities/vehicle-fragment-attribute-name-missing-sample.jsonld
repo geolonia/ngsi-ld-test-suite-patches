@@ -1,16 +1,16 @@
 {
-    "speed": {
+    "speed2": {
         "type": "Property",
         "value": 56,
         "source": {
             "type": "Property",
             "value": "Speedometer"
         },
-        "datasetId": "urn:ngsi-ld:Property:speedometerA4567-speed2" 
+        "datasetId": "urn:ngsi-ld:Property:speedometerA4567-speed" 
     },
-    "attribute_to_be_added": {
+    "brandName": {
         "type": "Property",
-        "value": 23
+        "value": "BMW"
     },
     "@context": [
         "https://fiware.github.io/data-models/context.jsonld",

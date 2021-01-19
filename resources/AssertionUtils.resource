@@ -35,7 +35,7 @@ Check Response Body Content
 
 Check Response Headers Containing URI set to
     [Arguments]  ${expected_path}    ${expected_entity_id}    ${response}
-    Should Be Equal  ${expected_path}${expected_entity_id}        ${response['headers']['Location']}     ignore_order=True
+    Should Be Equal  ${expected_path}${expected_entity_id}        ${response['headers']['location']}     ignore_order=True
 
 Check Response Body Containing an Attribute set to
     [Arguments]  ${expected_attribute_name}
@@ -94,9 +94,17 @@ Check Response Body Containing List Containing EntityTemporal elements
     ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${temporal_entities_representation_payload}      ${instance_id_regex_expr}
     Should Be True      ${comparaison_result}   msg=EntityTemporal List Comparaison Failed
 
+Check Response Body Type When Using Session Request
+    [Arguments]     ${response}    ${type}
+    Should Be Equal     ${response['type']}    ${type}
+
 Check Response Body Containing ProblemDetails Element Containing Type Element set to
     [Arguments]     ${response}    ${type}
     Should Be Equal     ${response['body']['type']}    ${type}
+
+Check Response Body Title When Using Session Request
+    [Arguments]     ${response}
+    Should Not Be Empty     ${response['title']}
 
 Check Response Body Containing ProblemDetails Element Containing Title Element
     [Arguments]     ${response}

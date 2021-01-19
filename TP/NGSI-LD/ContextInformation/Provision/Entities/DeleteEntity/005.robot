@@ -20,7 +20,7 @@ ${entity_id_not_valid}=     thisisaninvaliduri
 Delete Entity Scenarios
     [Arguments]  ${entity_id}    ${expected_status_code}    ${problem_type}
     [Documentation]  Check that you cannot delete an entity with invalid/missing id
-    [Tags]  mandatory    failing
+    [Tags]  mandatory
 
     ${response}=    Delete Entity by Id Returning Response   ${entity_id}
     Check Response Status Code  ${expected_status_code}    ${response['status']}
