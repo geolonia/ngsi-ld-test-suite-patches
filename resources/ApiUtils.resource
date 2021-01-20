@@ -156,6 +156,17 @@ Update Entity Attributes
     Output  response
     [return]   ${response}
 
+Delete Entity Attributes
+    [Arguments]  ${entityId}     ${attributeId}     ${content_type}     ${datasetId}     ${deleteAll}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    &{params}=  Create Dictionary
+    Run Keyword If     '${datasetId}'!=''       Set To Dictionary   ${params}    datasetId=${datasetId}
+    Run Keyword If     '${deleteAll}'!=''       Set To Dictionary   ${params}    deletelAll=${deleteAll}
+    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}      headers=${headers}      parameter=${params}
+    Output  request
+    Output  response
+    [return]    ${response}
+
 Partial Update Entity Attributes
     [Arguments]  ${entityId}    ${attributeId}    ${fragment_filename}    ${content_type}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
