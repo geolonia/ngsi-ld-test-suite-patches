@@ -9,7 +9,7 @@ Test Template  Append Attributes
 
 *** Variable ***
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
-${status_code}=  400
+${status_code}=  404
 ${filename}=  vehicle-two-datasetid-attributes-sample.jsonld
 
 *** Test Cases ***                                                                                          ENTITY_ID                   ATTRIBUTE_ID     DATASETID 
