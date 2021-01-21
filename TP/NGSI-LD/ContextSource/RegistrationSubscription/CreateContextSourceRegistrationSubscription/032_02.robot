@@ -22,6 +22,7 @@ Create Context Source Registration Subscription Without An Id
     ${subscription_id}=     Fetch Id From Response Location Header
     Check Response Status Code Set To  201
     Check Response Headers Containing URI set to    ${request['path']}/    ${subscription_id}  ${response}
+
     Set Suite Variable  ${subscription_id}
 
 *** Keywords ***

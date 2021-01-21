@@ -17,10 +17,13 @@ Create Context Source Registration Subscription Without isActive Member
     [Tags]  mandatory
 
     ${subscription_payload}=  Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
+
     Create Context Source Registration Subscription  ${subscription_payload}
+
     Check Response Status Code Set To  201
     Check Response Headers Containing URI set to    ${request['path']}/    ${subscription_id}  ${response}
-    # TODO: Retrieve context source registration subscription and check status set to active
+    Retrieve context source registration subscription   ${subscription_id}
+    Check Response Body Containing an Attribute set to   status   active
 
 *** Keywords ***
 Generate Random Ids For Context Source Registration Subscriptions

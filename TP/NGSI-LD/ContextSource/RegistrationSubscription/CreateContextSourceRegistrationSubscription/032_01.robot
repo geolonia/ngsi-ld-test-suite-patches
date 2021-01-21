@@ -17,7 +17,9 @@ Create Context Source Registration Subscription
     [Tags]  mandatory
 
     ${subscription_payload}=  Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
+
     Create Context Source Registration Subscription  ${subscription_payload}
+
     Check Response Status Code Set To  201
     Check Response Headers Containing URI set to    ${request['path']}/    ${subscription_id}  ${response}
 

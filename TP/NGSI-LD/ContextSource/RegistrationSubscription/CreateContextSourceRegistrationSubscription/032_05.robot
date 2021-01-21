@@ -25,7 +25,9 @@ Create Context Source Registration Subscription With expiresAt Member
 
     Check Response Status Code Set To  201
     Check Response Headers Containing URI set to    ${request['path']}/    ${subscription_id}  ${response}
-    # TODO: Retrieve context source registration subscription after 10 secs and check status set to expired
+    Sleep	15s
+    Retrieve context source registration subscription   ${subscription_id}
+    Check Response Body Containing an Attribute set to   status   expired
 
 *** Keywords ***
 Generate Random Ids For Context Source Registration Subscriptions

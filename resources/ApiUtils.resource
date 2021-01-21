@@ -330,6 +330,15 @@ Update Context Source Registration Subscription
 
     Set Test Variable  ${response}
 
+Retrieve Context Source Registration Subscription
+    [Arguments]  ${subscription_id}
+
+    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
+
 Delete Context Source Registration Subscription
     [Arguments]  ${subscription_id}
 
