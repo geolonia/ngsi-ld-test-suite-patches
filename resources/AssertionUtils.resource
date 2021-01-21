@@ -38,8 +38,9 @@ Check Response Headers Containing URI set to
     Should Be Equal  ${expected_path}${expected_entity_id}        ${response['headers']['location']}     ignore_order=True
 
 Check Response Body Containing an Attribute set to
-    [Arguments]  ${expected_attribute_name}
+    [Arguments]  ${expected_attribute_name}     ${expected_attribute_value}=${EMPTY}
     Should Not Be Empty     ${response['body']['${expected_attribute_name}']}
+    Run Keyword If     '${expected_attribute_value}'!=''       Should Be Equal  ${response['body']['${expected_attribute_name}']}   ${expected_attribute_value}
 
 Check Response Body Details Containing Information Error
     [Arguments]  ${expected_error_message}

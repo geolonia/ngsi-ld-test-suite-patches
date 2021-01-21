@@ -17,7 +17,9 @@ Create Existing Context Source Registration Subscription
     [Tags]  mandatory
 
     ${subscription_payload}=  Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
+
     Create Context Source Registration Subscription  ${subscription_payload}
+
     Check Response Status Code Set To  409
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_ALREADY_EXISTS}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
