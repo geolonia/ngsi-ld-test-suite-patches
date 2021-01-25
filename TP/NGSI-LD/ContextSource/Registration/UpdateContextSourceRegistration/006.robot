@@ -16,7 +16,7 @@ ${filename}=  registration-sample.jsonld
     ${fragment}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${fragment_with_id}=    Update Value To Json    ${fragment}     $..id   ${registration_id}
     ${response}=    Update Context Source Registration  ${registration_id}    ${fragment_with_id}
-    Check Response Status Code  400    ${response['status']}
+    Check Response Status Code  404    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Title Element     ${response}
 
     [Teardown]  Delete Context Source Registration    ${registration_id}
