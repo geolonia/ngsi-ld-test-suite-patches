@@ -16,6 +16,7 @@ ${ENTITIES_ENDPOINT_PATH}       entities/
 ${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}    entityOperations/query
 ${TEMPORAL_ENTITIES_ENDPOINT_PATH}       temporal/entities
 ${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}       temporal/entityOperations
+${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}       csourceRegistrations
 ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}       csourceSubscriptions
 
 ${CONTENT_TYPE_JSON}            application/json
@@ -175,6 +176,31 @@ Partial Update Entity Attributes
     Output  request
     Output  response
     [return]   ${response}
+
+Create Context Source Registration
+    [Arguments]  ${payload}
+    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    ${response}=  POST  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}  body=${payload}  headers=${headers}
+    ${request}=    Output  request
+    Output  response
+    [return]    ${request}    ${response}
+
+Create Context Source Registration Using Session
+    [Arguments]  ${filename}    ${content_type}
+    ${file_content}=    Get File    ${EXECDIR}/data/csourceRegistrations/${filename}
+    Create Session    OneRequest      ${url}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${response}=    POST On Session      OneRequest   ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}    data=${file_content}    headers=${headers}   expected_status=any
+    Output  ${response.json()}
+    [return]    ${response}
+
+
+Delete Context Source Registration
+    [Arguments]  ${registration_id}
+    ${response}=  DELETE  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
+    Output  request
+    Output  response
+    [return]  ${response}
 
 Create Entity
     [Arguments]  ${filename}    ${entity_id}
