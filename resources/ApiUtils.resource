@@ -194,6 +194,23 @@ Create Context Source Registration Using Session
     Output  ${response.json()}
     [return]    ${response}
 
+Update Context Source Registration
+    [Arguments]  ${registration_id}    ${fragment}
+    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    ${response}=  PATCH  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}  body=${fragment}  headers=${headers}
+    ${request}=    Output  request
+    Output  response
+    [return]    ${response}
+
+Update Context Source Registration Using Session
+    [Arguments]  ${registration_id}    ${filename}    ${content_type}
+     ${file_content}=    Get File    ${EXECDIR}/data/csourceRegistrations/${filename}
+    Create Session    OneRequest      ${url}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${response}=    PATCH On Session      OneRequest   ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}    data=${file_content}    headers=${headers}   expected_status=any
+    ${request}=    Output  request
+    Output  response
+    [return]    ${response}
 
 Delete Context Source Registration
     [Arguments]  ${registration_id}
