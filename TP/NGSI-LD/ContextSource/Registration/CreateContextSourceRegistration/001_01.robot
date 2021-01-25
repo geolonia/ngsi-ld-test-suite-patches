@@ -17,7 +17,7 @@ Create Context Source Registration With Specific Date Expiration Date
 
     ${payload}=    Load Json From File    ${EXECDIR}/data/${registration_payload_file_path}
     ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}
-    ${request}    ${response}=    Create Context Source Registration  ${registration_id}    ${updated_payload}
+    ${request}    ${response}=    Create Context Source Registration  ${updated_payload}
     Check Response Status Code  201    ${response['status']}
     Check Response Headers Containing URI set to    ${request['path']}/    ${registration_id}  ${response}
 
