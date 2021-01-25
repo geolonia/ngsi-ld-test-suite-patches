@@ -7,7 +7,6 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
 ${filename}=  registration-sample.jsonld
-${registration_payload_file_path}=  registration-invalid-sample.jsonld
 
 *** Test Case ***
 006_Update a context source registration by id if the id is not known to the system
