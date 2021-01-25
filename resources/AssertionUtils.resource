@@ -3,6 +3,7 @@ Library     ${EXECDIR}/libraries/assertionUtils.py
 
 *** Variable ***
 ${instance_id_regex_expr}=  root\\[.*\\]\\['instanceId'\\]
+${notification_timestamps_regex_expr}=  root\\['last.*'\\]
 
 *** Keywords ***
 Check Response Status Code
@@ -157,3 +158,14 @@ Should Be Present In Json List
 Check Result Contains
     [Arguments]    ${source}    ${parameter}    ${value}
     Should Be Present In Json List    ${source}    ${parameter}    ${value}
+
+Check NotificationParams
+    [Arguments]     ${filename}     ${expected_additional_members}
+
+    ${expected_notification}=    Load Json From File    ${EXECDIR}/data/${filename}
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']['notification']}    ${expected_notification}      ${notification_timestamps_regex_expr}
+    Should Be True      ${comparaison_result}   msg=NotificationParams Comparaison Failed
+
+    FOR    ${expected_additional_member}    IN    @{expected_additional_members}
+        Should Not Be Empty     ${response['body']['notification']['${expected_additional_member}']}
+    END

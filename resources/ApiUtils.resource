@@ -336,6 +336,35 @@ Delete Temporal Representation Of Entity
     Output  request
     Output  response
 
+Create Context Source Registration
+    [Arguments]  ${context_source_registration_payload}
+
+    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    ${response}=  POST  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}  body=${context_source_registration_payload}  headers=${headers}
+    ${request}=    Output  request
+    Output  response
+
+    Set Suite Variable  ${request}
+    Set Suite Variable  ${response}
+
+Update Context Source Registration
+    [Arguments]  ${context_source_registration_id}     ${update_fragment}
+
+    ${response}=  PATCH  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}    body=${update_fragment}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
+
+Delete Context Source Registration
+    [Arguments]  ${context_source_registration_id}
+
+    ${response}=  DELETE  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
+    Output  request
+    Output  response
+
+    Set Suite Variable  ${response}
+
 Create Context Source Registration Subscription
     [Arguments]  ${subscription_payload}
 
