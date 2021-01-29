@@ -21,12 +21,12 @@ Update Context Source
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}
-    ${request}    ${response}=    Create Context Source Registration  ${updated_payload}
+    ${request}    ${response}=    Create Context Source Registration With Return  ${updated_payload}
     Check Response Status Code  201    ${response['status']}
 
     ${fragment}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${update_filename}
     ${fragment_with_id}=    Update Value To Json    ${fragment}     $..id   ${registration_id}
-    ${response}=    Update Context Source Registration  ${registration_id}    ${fragment_with_id}
+    ${response}=    Update Context Source Registration With Return  ${registration_id}    ${fragment_with_id}
     Check Response Status Code  204    ${response['status']}
 
     [Teardown]  Delete Context Source Registration    ${registration_id}

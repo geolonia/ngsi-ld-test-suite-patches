@@ -11,10 +11,10 @@ ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
 ${filename}=  vehicle-two-datasetid-attributes-sample.jsonld
 
 *** Test Cases ***                                                                STATUS_CODE               FRAGMENT_FILENAME                                        EXPECTATION_FILENAME
-004_01_Check that you can update existing attributes with no datasetId            204                       vehicle-two-datasetid-attributes-sample-01.jsonld        vehicle-two-datasetid-attributes-sample-expectation-01.jsonld
-004_02_Check that you can update existing attributes with the datasetId           204                       vehicle-two-datasetid-attributes-sample-02.jsonld        vehicle-two-datasetid-attributes-sample-expectation-01.jsonld
+004_01_Check that you can update existing attributes with no datasetId            204                       vehicle-two-datasetid-attributes-sample-01.jsonld        ${EMPTY}
+004_02_Check that you can update existing attributes with the datasetId           204                       vehicle-two-datasetid-attributes-sample-02.jsonld        ${EMPTY}
 004_03_Check that you can update only some attributes while others failed         207                       vehicle-two-datasetid-attributes-sample-03.jsonld        vehicle-two-datasetid-attributes-sample-expectation-03.jsonld
-004_04_Check that you cannot change the type of the attribute                     204                       vehicle-two-datasetid-attributes-sample-04.jsonld        vehicle-two-datasetid-attributes-sample-expectation-04.jsonld
+004_04_Check that you cannot change the type of the attribute                     204                       vehicle-two-datasetid-attributes-sample-04.jsonld        ${EMPTY}
 
 *** Keywords ***
 Update Attributes
@@ -28,6 +28,6 @@ Update Attributes
 
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  ${status_code}    ${response['status']}
-    Check Response Body Content    ${expectation_filename}    ${response['body']}
+    Run Keyword If    "${expectation_filename}"!="${EMPTY}"    Check Response Body Content    ${expectation_filename}    ${response['body']}
 
     [Teardown]  Delete Entity by Id Returning Response   ${entity_id}

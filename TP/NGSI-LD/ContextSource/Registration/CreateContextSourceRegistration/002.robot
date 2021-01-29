@@ -23,7 +23,7 @@ Create Context Source With Invalid Content
 
     ${payload}=    Load Json From File    ${EXECDIR}/data/${filename}
     ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}
-    ${request}    ${response}=    Create Context Source Registration  ${updated_payload}
+    ${request}    ${response}=    Create Context Source Registration With Return  ${updated_payload}
     Check Response Status Code  400    ${response['status']}
     Check Response Headers Containing URI set to    ${request['path']}/    ${registration_id}  ${response}
 

@@ -16,8 +16,8 @@ Delete a context source registration by id
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${registration_payload_file_path}
     ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}
-    ${request}    ${response}=    Create Context Source Registration  ${updated_payload}
+    ${request}    ${response}=    Create Context Source Registration With Return  ${updated_payload}
     Check Response Status Code  201    ${response['status']}
 
-    ${response}=    Delete Context Source Registration    ${registration_id}
+    ${response}=    Delete Context Source Registration With Return    ${registration_id}
     Check Response Status Code  204    ${response['status']}

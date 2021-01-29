@@ -15,6 +15,6 @@ Delete a context source registration by id
     [Tags]  mandatory
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
 
-    ${response}=    Delete Context Source Registration    ${registration_id}
+    ${response}=    Delete Context Source Registration With Return    ${registration_id}
     Check Response Status Code  404    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Title Element     ${response}

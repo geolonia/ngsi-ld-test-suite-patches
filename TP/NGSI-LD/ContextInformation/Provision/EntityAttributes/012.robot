@@ -5,7 +5,7 @@ Resource    ${EXECDIR}/resources/AssertionUtils.resource
 Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 Suite Setup      Setup Initial Entities
-Test Template  Append Attributes
+Test Template  Delete Attributes
 
 *** Variable ***
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
@@ -18,7 +18,7 @@ ${filename}=  vehicle-two-datasetid-attributes-sample.jsonld
 012_03_delete an attribute when the Entity does not contain the target attribute with same datasetId        ${valid_entity_id}          speed            urn:ngsi-ld:Property:notFound
 
 *** Keywords ***
-Append Attributes
+Delete Attributes
     [Arguments]  ${entity_id}    ${attribute_id}    ${datasetId}
     [Documentation]  Check that you cannot delete an attribute from an entity with invalid/missing ids
     [Tags]  mandatory  failing

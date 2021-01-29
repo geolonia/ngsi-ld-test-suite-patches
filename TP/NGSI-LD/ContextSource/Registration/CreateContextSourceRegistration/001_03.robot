@@ -15,7 +15,7 @@ Create Context Source Registration Without A Sprecified ID
     [Tags]  mandatory
 
     ${payload}=    Load Json From File    ${EXECDIR}/data/${registration_payload_file_path}
-    ${request}    ${response}=    Create Context Source Registration  ${payload}
+    ${request}    ${response}=    Create Context Source Registration With Return  ${payload}
     Check Response Status Code  201    ${response['status']}
     ${registration_id}=    Check Response Headers ID Not Empty    ${response}
 

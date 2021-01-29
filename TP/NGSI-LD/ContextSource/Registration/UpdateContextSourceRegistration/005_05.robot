@@ -16,7 +16,7 @@ ${registration_payload_file_path}=  registration-invalid-sample.jsonld
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}
-    ${request}    ${response}=    Create Context Source Registration  ${updated_payload}
+    ${request}    ${response}=    Create Context Source Registration With Return  ${updated_payload}
     Check Response Status Code  201    ${response['status']}
 
     ${response}=    Update Context Source Registration Using Session  ${registration_id}    ${registration_payload_file_path}    ${CONTENT_TYPE_LD_JSON}

@@ -16,10 +16,10 @@ Create a context source registration that already exists
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/${filename}
     ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}
-    ${request}    ${response}=    Create Context Source Registration  ${updated_payload}
+    ${request}    ${response}=    Create Context Source Registration With Return  ${updated_payload}
     Check Response Status Code  201    ${response['status']}
 
-    ${request}    ${response}=    Create Context Source Registration  ${updated_payload}
+    ${request}    ${response}=    Create Context Source Registration With Return  ${updated_payload}
     Check Response Status Code  409    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Title Element     ${response}
 

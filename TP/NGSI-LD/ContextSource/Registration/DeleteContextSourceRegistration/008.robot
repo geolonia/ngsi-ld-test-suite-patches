@@ -22,10 +22,10 @@ Delete Context Source
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}
-    ${request}    ${response}=    Create Context Source Registration  ${updated_payload}
+    ${request}    ${response}=    Create Context Source Registration With Return  ${updated_payload}
     Check Response Status Code  201    ${response['status']}
 
-    ${response}=    Delete Context Source Registration    ${invalid_registration_id}
+    ${response}=    Delete Context Source Registration With Return    ${invalid_registration_id}
     Check Response Status Code  400    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Title Element     ${response}
 

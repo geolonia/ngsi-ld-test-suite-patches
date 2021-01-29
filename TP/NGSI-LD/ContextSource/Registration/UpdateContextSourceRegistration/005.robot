@@ -24,12 +24,12 @@ Update Context Source
     [Tags]  mandatory
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${valid_registration_id}
-    ${request}    ${response}=    Create Context Source Registration  ${updated_payload}
+    ${request}    ${response}=    Create Context Source Registration With Return  ${updated_payload}
     Check Response Status Code  201    ${response['status']}
 
     ${fragment}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${fragment_filename}
     ${fragment_with_id}=    Update Value To Json    ${fragment}     $..id   ${registration_id}
-    ${response}=    Update Context Source Registration  ${registration_id}    ${fragment_with_id}
+    ${response}=    Update Context Source Registration With Return  ${registration_id}    ${fragment_with_id}
     Check Response Status Code  400    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Title Element     ${response}
 
