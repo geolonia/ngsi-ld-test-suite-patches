@@ -17,6 +17,7 @@ ${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}    entityOperations/query
 ${TEMPORAL_ENTITIES_ENDPOINT_PATH}       temporal/entities
 ${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}       temporal/entityOperations
 ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}       csourceRegistrations
+${SUBSCRIPTION_ENDPOINT_PATH}       subscriptions/
 ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}       csourceSubscriptions
 
 ${CONTENT_TYPE_JSON}            application/json
@@ -26,6 +27,7 @@ ${ERROR_TYPE_BAD_REQUEST_DATA}      http://uri.etsi.org/ngsi-ld/errors/BadReques
 ${ERROR_TYPE_INVALID_REQUEST}      http://uri.etsi.org/ngsi-ld/errors/InvalidRequest
 ${ERROR_TYPE_RESOURCE_NOT_FOUND}      http://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
 ${ERROR_TYPE_ALREADY_EXISTS}      http://uri.etsi.org/ngsi-ld/errors/AlreadyExists
+${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}     http://uri.etsi.org/ngsi-ld/errors/LDContextNotAvailable
 
 ${response}
 
@@ -218,6 +220,14 @@ Delete Context Source Registration
     Output  request
     Output  response
     [return]  ${response}
+
+Create Request By Selecting Endpoint
+    [Arguments]  ${endpoint}     ${filename_path}
+    ${entity_payload}=    Load Json From File    ${EXECDIR}/data/${filename_path}
+    ${entity}=    Update Value To Json    ${entity_payload}     $..id   ${entity_id}
+    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    ${response}=  POST  ${endpoint}  body=${entity}  headers=${headers}
+    Output  response
 
 Create Entity
     [Arguments]  ${filename}    ${entity_id}
