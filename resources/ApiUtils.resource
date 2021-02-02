@@ -160,12 +160,8 @@ Update Entity Attributes
     [return]   ${response}
 
 Delete Entity Attributes
-    [Arguments]  ${entityId}     ${attributeId}     ${content_type}     ${datasetId}     ${deleteAll}
-    &{headers}=  Create Dictionary  Content-Type=${content_type}
-    &{params}=  Create Dictionary
-    Run Keyword If     '${datasetId}'!=''       Set To Dictionary   ${params}    datasetId=${datasetId}
-    Run Keyword If     '${deleteAll}'!=''       Set To Dictionary   ${params}    deletelAll=${deleteAll}
-    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}      headers=${headers}      parameter=${params}
+    [Arguments]  ${entityId}     ${attributeId}     ${datasetId}     ${deleteAll}
+    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}?datasetId=${datasetId}&deleteAll=${deleteAll}
     Output  request
     Output  response
     [return]    ${response}
@@ -255,6 +251,17 @@ Create Entity
     ${response}=  POST  ${ENTITIES_ENDPOINT_PATH}  body=${entity}  headers=${headers}
     Output  request
     Output  response
+
+Create Temporal Representation Of Entity Selecting Content Type
+    [Arguments]   ${temporal_entity_representation_id}    ${filename}    ${content_type}
+    ${temporal_entity_representation_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/${filename}
+    ${temporal_entity_representation}=    Update Value To Json    ${temporal_entity_representation_payload}     $..id   ${temporal_entity_representation_id}
+
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${response}=  POST  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}  body=${temporal_entity_representation}  headers=${headers}
+    Output  request
+    Output  response
+    [return]  ${response}
 
 Batch Create Entities
     [Arguments]  @{entities_to_be_created}      ${content_type}=${CONTENT_TYPE_LD_JSON}     ${context}=${EMPTY}

@@ -19,7 +19,6 @@
         "datasetId": "urn:ngsi-ld:Property:speedometerA4567-speed" 
     }, 
     "@context": [
-        "https://fiware.github.io/data-models/context.jsonld",
         "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }
