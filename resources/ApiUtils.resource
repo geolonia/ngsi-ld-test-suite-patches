@@ -179,7 +179,7 @@ Partial Update Entity Attributes
     Output  response
     [return]   ${response}
 
-Create Context Source Registration
+Create Context Source Registration With Return
     [Arguments]  ${payload}
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
     ${response}=  POST  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}  body=${payload}  headers=${headers}
@@ -196,7 +196,7 @@ Create Context Source Registration Using Session
     Output  ${response.json()}
     [return]    ${response}
 
-Update Context Source Registration
+Update Context Source Registration With Return
     [Arguments]  ${registration_id}    ${fragment}
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
     ${response}=  PATCH  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}  body=${fragment}  headers=${headers}
@@ -214,7 +214,7 @@ Update Context Source Registration Using Session
     Output  response
     [return]    ${response}
 
-Delete Context Source Registration
+Delete Context Source Registration With Return
     [Arguments]  ${registration_id}
     ${response}=  DELETE  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
     Output  request
@@ -222,11 +222,29 @@ Delete Context Source Registration
     [return]  ${response}
 
 Create Request By Selecting Endpoint
-    [Arguments]  ${endpoint}     ${filename_path}
-    ${entity_payload}=    Load Json From File    ${EXECDIR}/data/${filename_path}
-    ${entity}=    Update Value To Json    ${entity_payload}     $..id   ${entity_id}
+    [Arguments]  ${id}    ${endpoint}     ${filename_path}
+    ${item_payload}=    Load Json From File    ${EXECDIR}/data/${filename_path}
+    ${item}=    Update Value To Json    ${item_payload}     $..id   ${id}
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST  ${endpoint}  body=${entity}  headers=${headers}
+    ${response}=  POST  ${endpoint}  body=${item}  headers=${headers}
+    Output  request
+    Output  response
+    [return]  ${response}
+
+Merge Request By Selecting Endpoint
+    [Arguments]  ${id}    ${endpoint}     ${filename_path}
+    ${item_payload}=    Load Json From File    ${EXECDIR}/data/${filename_path}
+    ${item}=    Update Value To Json    ${item_payload}     $..id   ${id}
+    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    ${response}=  POST  ${endpoint}  body=${item}  headers=${headers}
+    Output  request
+    Output  response
+    [return]  ${response}
+
+Delete Request By Selecting Endpoint/Id
+    [Arguments]  ${id}      ${delete_endpoint}
+    ${response}=  DELETE  ${delete_endpoint}${id}
+    Output  request
     Output  response
 
 Create Entity
