@@ -158,12 +158,8 @@ Update Entity Attributes
     [return]   ${response}
 
 Delete Entity Attributes
-    [Arguments]  ${entityId}     ${attributeId}     ${content_type}     ${datasetId}     ${deleteAll}
-    &{headers}=  Create Dictionary  Content-Type=${content_type}
-    &{params}=  Create Dictionary
-    Run Keyword If     '${datasetId}'!=''       Set To Dictionary   ${params}    datasetId=${datasetId}
-    Run Keyword If     '${deleteAll}'!=''       Set To Dictionary   ${params}    deletelAll=${deleteAll}
-    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}/?datasetId='${datasetId}'     headers=${headers}
+    [Arguments]  ${entityId}     ${attributeId}     ${datasetId}     ${deleteAll}
+    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}?datasetId=${datasetId}&deleteAll=${deleteAll}
     Output  request
     Output  response
     [return]    ${response}
