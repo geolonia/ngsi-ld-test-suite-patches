@@ -31,6 +31,8 @@ Check Response Body Containing Array Of URIs set to
 Check Response Body Content
     [Arguments]  ${expectation_filename}     ${response_body}
     ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/expectations/${expectation_filename}
+    Output  ${response_body}
+    Output  ${entity_payload}
     ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity_payload}      ${instance_id_regex_expr}
     Should Be True      ${comparaison_result}   msg=Entity Comparaison Failed
 
