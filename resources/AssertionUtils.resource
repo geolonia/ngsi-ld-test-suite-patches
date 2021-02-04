@@ -122,6 +122,33 @@ Check Response Body Containing Subscription element
     ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${subscription}  ${ignored_keys}
     Should Be True      ${comparaison_result}   msg=Subscription Comparaison Failed
 
+Check Response Body Containing List Containing Subscription elements
+    [Arguments]     ${expectation_file_path}    ${subscription_ids}
+    ${subscription_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_file_path}
+    ${index}=    Set Variable    0
+    FOR    ${subscription_id}    IN    @{subscription_ids}
+        ${subscription_payload}=    Update Value To Json    ${subscription_payload}     $.[${index}]..id   ${subscription_id}
+        ${index}=    Evaluate    ${index} + 1
+    END
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${subscription_payload}  ${EMPTY}
+    Should Be True      ${comparaison_result}   msg=Subscription Comparaison Failed
+
+# Since response body can be a json object if it contains one subscription
+# A check on the response body type is needed
+Check Response Body Containing Number Of Entities
+    [Arguments]     ${expected_entity_type}    ${expected_length}
+
+    ${response_body_length}=    Get Length  ${response['body']}
+    ${is_list}=    Run Keyword   Evaluate    type(${response['body']})==list
+
+    Run Keyword If  ${is_list}  Should Be Equal  ${response_body_length}    ${expected_length}
+    Run Keyword Unless  ${is_list}  Should Be Equal  ${1}    ${expected_length}
+
+    FOR    ${index}    IN RANGE    ${expected_length}
+        Run Keyword If  ${is_list}  Should Be Equal  ${response['body'][${index}]['type']}    ${expected_entity_type}
+    END
+    Run Keyword Unless  ${is_list}  Should Be Equal  ${response['body']['type']}    ${expected_entity_type}
+
 Check Response Body Type When Using Session Request
     [Arguments]     ${response}    ${type}
     Should Be Equal     ${response['type']}    ${type}
@@ -189,3 +216,10 @@ Check NotificationParams
     FOR    ${expected_additional_member}    IN    @{expected_additional_members}
         Should Not Be Empty     ${response['body']['notification']['${expected_additional_member}']}
     END
+
+Check Pagination Prev And Next Headers
+    [Arguments]  ${prev_link}    ${next_link}
+    ${expected_links}=   Create List     ${prev_link}    ${next_link}
+    Run Keyword If     '${prev_link}'!='' and '${next_link}'!=''       Lists Should Be Equal    ${response['headers']['Link']}    ${expected_links}   ignore_order=True
+    Run Keyword If     '${prev_link}'!='' and '${next_link}'==''       Should Be Equal      ${response['headers']['Link']}    ${prev_link}
+    Run Keyword If     '${prev_link}'=='' and '${next_link}'!=''       Should Be Equal      ${response['headers']['Link']}    ${next_link}
