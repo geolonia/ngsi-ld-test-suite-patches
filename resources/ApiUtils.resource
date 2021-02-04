@@ -410,9 +410,11 @@ Update Context Source Registration Subscription
     Set Test Variable  ${response}
 
 Retrieve Context Source Registration Subscription
-    [Arguments]  ${subscription_id}
+    [Arguments]  ${subscription_id}     ${context}=${EMPTY}
 
-    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
+    &{headers}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}     headers=${headers}
     Output  request
     Output  response
 

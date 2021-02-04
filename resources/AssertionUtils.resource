@@ -4,6 +4,8 @@ Library     ${EXECDIR}/libraries/assertionUtils.py
 *** Variable ***
 ${instance_id_regex_expr}=  root\\[.*\\]\\['instanceId'\\]
 ${notification_timestamps_regex_expr}=  root\\['last.*'\\]
+${context_regex_expr}=  root\\['@context'\\]
+${status_regex_expr}=  root\\['status'\\]
 
 *** Keywords ***
 Check Response Status Code
@@ -36,13 +38,21 @@ Check Response Body Content
     ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity_payload}      ${instance_id_regex_expr}
     Should Be True      ${comparaison_result}   msg=Entity Comparaison Failed
 
+# Since Http headers names are case-insensitive (from Http specification)
+# We check both Location and location headers
 Check Response Headers Containing URI set to
     [Arguments]  ${expected_path}    ${expected_entity_id}    ${response}
-    Should Be Equal  ${expected_path}${expected_entity_id}        ${response['headers']['location']}     ignore_order=True
 
+    Run Keyword If  'Location' in ${response['headers']}  Should Be Equal  ${expected_path}${expected_entity_id}        ${response['headers']['Location']}     ignore_order=True
+    Run Keyword If  'location' in ${response['headers']}  Should Be Equal  ${expected_path}${expected_entity_id}        ${response['headers']['location']}     ignore_order=True
+
+# Since Http headers names are case-insensitive (from Http specification)
+# We check both Location and location headers
 Check Response Headers ID Not Empty
     [Arguments]  ${response}
-    ${id}=     Fetch From Right    ${response['headers']['location']}  /
+
+    ${location_header}=     Set Variable If  'Location' in ${response['headers']}    ${response['headers']['Location']}     ${response['headers']['location']}
+    ${id}=  Fetch From Right    ${location_header}  /
     Should Not Be Empty  ${id}
     [return]    ${id}
 
@@ -103,6 +113,14 @@ Check Response Body Containing List Containing EntityTemporal elements
     END
     ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${temporal_entities_representation_payload}      ${instance_id_regex_expr}
     Should Be True      ${comparaison_result}   msg=EntityTemporal List Comparaison Failed
+
+Check Response Body Containing Subscription element
+    [Arguments]     ${expectation_filename}    ${subscription_id}
+    ${subscription_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
+    ${subscription}=    Update Value To Json    ${subscription_payload}     $..id   ${subscription_id}
+    ${ignored_keys}=    Create List     ${status_regex_expr}    ${context_regex_expr}
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${subscription}  ${ignored_keys}
+    Should Be True      ${comparaison_result}   msg=Subscription Comparaison Failed
 
 Check Response Body Type When Using Session Request
     [Arguments]     ${response}    ${type}
