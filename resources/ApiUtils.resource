@@ -420,6 +420,21 @@ Retrieve Context Source Registration Subscription
 
     Set Test Variable  ${response}
 
+Query Context Source Registration Subscriptions
+    [Arguments]  ${context}=${EMPTY}    ${limit}=${EMPTY}   ${page}=${EMPTY}
+
+    &{headers}=  Create Dictionary
+    &{params}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
+    Run Keyword If     '${page}'!=''       Set To Dictionary   ${params}    page=${page}
+
+    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}     headers=${headers}     query=${params}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
+
 Delete Context Source Registration Subscription
     [Arguments]  ${subscription_id}
 
