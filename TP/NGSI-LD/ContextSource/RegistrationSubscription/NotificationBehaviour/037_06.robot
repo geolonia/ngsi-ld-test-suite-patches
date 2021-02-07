@@ -13,7 +13,7 @@ ${context_source_registration_id_prefix}=  urn:ngsi-ld:ContextSourceRegistration
 ${subscription_id_prefix}=  urn:ngsi-ld:Subscription:
 ${context_source_registration_payload_file_path}=   csourceRegistrations/context-source-registration-sample.jsonld
 ${subscription_payload_file_path}=   csourceSubscriptions/subscription-unreachable-endpoint-sample.jsonld
-${notification_expectation_file_path}=   notifications/expectations/0-timesSent-failed.json
+${notification_expectation_file_path}=   notifications/expectations/1-timesSent-failed.json
 
 *** Test Case ***
 If A cSourceNotification Is Not Successfully Sent The Notification Member Shall Be Updated
