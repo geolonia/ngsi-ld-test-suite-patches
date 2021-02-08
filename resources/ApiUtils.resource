@@ -22,6 +22,7 @@ ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}       csourceSubscript
 
 ${CONTENT_TYPE_JSON}            application/json
 ${CONTENT_TYPE_LD_JSON}         application/ld+json
+${CONTENT_TYPE_MERGE_PATCH_JSON}         application/merge-patch+json
 
 ${ERROR_TYPE_BAD_REQUEST_DATA}      http://uri.etsi.org/ngsi-ld/errors/BadRequestData
 ${ERROR_TYPE_INVALID_REQUEST}      http://uri.etsi.org/ngsi-ld/errors/InvalidRequest
@@ -193,8 +194,8 @@ Create Context Source Registration Using Session
     [return]    ${response}
 
 Update Context Source Registration With Return
-    [Arguments]  ${registration_id}    ${fragment}
-    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    [Arguments]  ${registration_id}    ${fragment}    ${content_type}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
     ${response}=  PATCH  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}  body=${fragment}  headers=${headers}
     ${request}=    Output  request
     Output  response
@@ -259,6 +260,24 @@ Create Temporal Representation Of Entity Selecting Content Type
 
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     ${response}=  POST  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}  body=${temporal_entity_representation}  headers=${headers}
+    Output  request
+    Output  response
+    [return]  ${response}
+
+Update Temporal Representation Of Entity Selecting Content Type
+    [Arguments]   ${temporal_entity_representation_id}    ${attrId}    ${instanceId}    ${fragment_filename}    ${content_type}
+    ${temporal_entity_fragment}=    Load Json From File    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${response}=  PATCH  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}/attrs/${attrId}/${instanceId}  body=${temporal_entity_fragment}  headers=${headers}
+    Output  request
+    Output  response
+    [return]  ${response}
+
+Get Temporal Representation Of Entity
+    [Arguments]   ${temporal_entity_representation_id}    ${accept}=${CONTENT_TYPE_LD_JSON}
+    ${headers}=  Create Dictionary
+     &{headers}=  Create Dictionary   Accept    ${accept}
+    ${response}=  GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}  headers=${headers}
     Output  request
     Output  response
     [return]  ${response}
@@ -461,3 +480,36 @@ Update Context Source Registration Subscription From File
     Create Session    CsrsUpdateRequest      ${url}
     ${response}=  PATCH On Session      CsrsUpdateRequest   ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}  data=${file_content}   expected_status=any
     Set Test Variable  ${response}
+
+Create Subscription
+    [Arguments]  ${subscription_id}    ${filename_path}    ${content_type}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${subscription_payload}=    Load Json From File    ${EXECDIR}/data/${filename_path}
+    ${subscription}=    Update Value To Json    ${subscription_payload}     $..id   ${subscription_id}
+    ${response}=  POST  ${SUBSCRIPTION_ENDPOINT_PATH}  body=${subscription}  headers=${headers}
+    Output  response
+    [return]   ${response}
+
+Update Subscription
+    [Arguments]  ${subscription_id}     ${fragment_filename}    ${content_type}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${subscription_update_fragment}=    Load Json From File    ${EXECDIR}/data/${fragment_filename}
+    ${response}=  PATCH  ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}    body=${subscription_update_fragment}     headers=${headers}
+    Output  request
+    Output  response
+    [return]   ${response}
+
+Delete Subscription
+    [Arguments]  ${subscription_id}
+    ${response}=  DELETE  ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
+    Output  request
+    Output  response
+    [return]   ${response}
+
+Update Context Source Registration Subscription By Selecting Content Type
+    [Arguments]  ${subscription_id}     ${subscription_update_fragment}    ${content_type}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${response}=  PATCH  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}    body=${subscription_update_fragment}    headers=${headers}
+    Output  request
+    Output  response
+    [return]   ${response}

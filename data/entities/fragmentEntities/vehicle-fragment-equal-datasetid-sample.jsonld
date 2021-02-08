@@ -8,6 +8,5 @@
         },
         "datasetId": "urn:ngsi-ld:Property:speedometerA4567-speed" 
     },
-    "@context": 
-        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
+    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
 }

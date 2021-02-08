@@ -17,11 +17,6 @@
          "type":"Property",
          "value":80,
          "observedAt":"2020-09-01T12:05:00Z"
-      },
-      {
-         "type":"Property",
-         "value":100,
-         "observedAt":"2020-09-01T12:07:00Z"
       }
    ],
    "fuelLevel":[
@@ -34,15 +29,7 @@
          "type":"Property",
          "value":53,
          "observedAt":"2020-09-01T13:05:00Z"
-      },
-      {
-         "type":"Property",
-         "value":40,
-         "observedAt":"2020-09-01T14:07:00Z"
       }
    ],
-   "@context":[
-      "https://raw.githubusercontent.com/easy-global-market/ngsild-api-data-models/feature/add-json-ld-context-for-ngsi-ld-test-suite/ngsi-ld-test-suite/ngsi-ld-test-suite-context.jsonld",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-   ]
+   "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
 }

@@ -15,7 +15,7 @@ Update a context source registration by id if the id is not known to the system
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${fragment}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${fragment_with_id}=    Update Value To Json    ${fragment}     $..id   ${registration_id}
-    ${response}=    Update Context Source Registration With Return  ${registration_id}    ${fragment_with_id}
+    ${response}=    Update Context Source Registration With Return  ${registration_id}    ${fragment_with_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  404    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Title Element     ${response}
 
