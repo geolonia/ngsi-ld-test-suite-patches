@@ -5,6 +5,8 @@ Library     JSONLibrary
 
 *** Variable ***
 ${date_format}=  %Y-%m-%dT%H:%M:%SZ
+${notification_server_url}=     http://${notification_server_host}:${notification_server_port}/notify
+
 *** Keywords ***
 Load Entity
     [Arguments]    ${entity_file_name}     ${entity_id}
@@ -23,6 +25,14 @@ Load Test Sample
     Run Keyword If     '${test_sample_id}'==''       Delete Object From Json    ${test_sample}     $..id
 
     [return]    ${test_sample}
+
+Load Subscription Sample With Reachable Endpoint
+    [Arguments]    ${subscription_file_path}     ${subscription_id}=${EMPTY}      ${notification_endpoint_uri}=${notification_server_url}
+
+    ${subscription_payload}=  Load Test Sample    ${subscription_file_path}    ${subscription_id}
+    ${subscription}=    Update Value To Json    ${subscription_payload}     $..notification['endpoint']['uri']   ${notification_endpoint_uri}
+
+    [return]    ${subscription}
 
 Remove Entity Type
     [Arguments]    ${entity}

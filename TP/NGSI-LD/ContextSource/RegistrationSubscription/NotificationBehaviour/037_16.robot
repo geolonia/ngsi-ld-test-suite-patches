@@ -39,7 +39,7 @@ Setup Initial Context Source Registrations And Subscriptions
     ${first_context_source_registration_id}=     Generate Random Entity Id    ${context_source_registration_id_prefix}
     ${second_context_source_registration_id}=     Generate Random Entity Id    ${context_source_registration_id_prefix}
 
-    ${subscription_payload}=  Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
+    ${subscription_payload}=  Load Subscription Sample With Reachable Endpoint    ${subscription_payload_file_path}    ${subscription_id}
     ${first_context_source_registration_payload}=  Load Test Sample    ${first_context_source_registration_payload_file_path}    ${first_context_source_registration_id}
     ${second_context_source_registration_payload}=  Load Test Sample    ${second_context_source_registration_payload_file_path}    ${second_context_source_registration_id}
 
