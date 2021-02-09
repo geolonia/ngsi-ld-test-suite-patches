@@ -25,7 +25,7 @@ Receive cSourceNotification For Matching Context Source Registrations On Managem
     [Tags]  mandatory
 
     ${subscription_id}=     Generate Random Entity Id    ${subscription_id_prefix}
-    ${subscription_payload}=  Load Test Sample    ${filepath}    ${subscription_id}
+    ${subscription_payload}=  Load Subscription Sample With Reachable Endpoint    ${filepath}    ${subscription_id}
     Create Context Source Registration Subscription  ${subscription_payload}
     Set Suite Variable  ${subscription_id}
 

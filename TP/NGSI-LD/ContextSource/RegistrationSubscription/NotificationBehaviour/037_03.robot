@@ -35,7 +35,7 @@ Setup Initial Context Source Registration Subscriptions
     Start Local Server
 
     ${subscription_id}=     Generate Random Entity Id    ${subscription_id_prefix}
-    ${subscription_payload}=  Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
+    ${subscription_payload}=  Load Subscription Sample With Reachable Endpoint    ${subscription_payload_file_path}    ${subscription_id}
 
     Create Context Source Registration Subscription  ${subscription_payload}
 

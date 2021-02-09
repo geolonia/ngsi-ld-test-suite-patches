@@ -4,6 +4,7 @@ Library     ${EXECDIR}/libraries/assertionUtils.py
 *** Variable ***
 ${instance_id_regex_expr}=  root\\[.*\\]\\['instanceId'\\]
 ${notification_timestamps_regex_expr}=  root\\['last.*'\\]
+${notification_endpoint_uri_regex_expr}=  root\\['endpoint'\\]\\['uri'\\]
 ${context_regex_expr}=  root\\['@context'\\]
 ${status_regex_expr}=  root\\['status'\\]
 
@@ -210,7 +211,8 @@ Check NotificationParams
     [Arguments]     ${filename}     ${expected_additional_members}
 
     ${expected_notification}=    Load Json From File    ${EXECDIR}/data/${filename}
-    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']['notification']}    ${expected_notification}      ${notification_timestamps_regex_expr}
+    ${ignored_keys}=    Create List     ${notification_timestamps_regex_expr}    ${notification_endpoint_uri_regex_expr}
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']['notification']}    ${expected_notification}      ${ignored_keys}
     Should Be True      ${comparaison_result}   msg=NotificationParams Comparaison Failed
 
     FOR    ${expected_additional_member}    IN    @{expected_additional_members}

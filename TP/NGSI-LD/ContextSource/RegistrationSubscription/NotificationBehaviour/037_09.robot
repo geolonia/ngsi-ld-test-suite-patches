@@ -33,7 +33,7 @@ Setup Initial Context Source Registrations And Subscriptions
     ${context_source_registration_id}=     Generate Random Entity Id    ${context_source_registration_id_prefix}
     ${subscription_id}=     Generate Random Entity Id    ${subscription_id_prefix}
     ${context_source_registration_payload}=  Load Test Sample    ${context_source_registration_payload_file_path}    ${context_source_registration_id}
-    ${subscription_payload}=  Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
+    ${subscription_payload}=  Load Subscription Sample With Reachable Endpoint    ${subscription_payload_file_path}    ${subscription_id}
 
     Create Context Source Registration  ${context_source_registration_payload}
     Create Context Source Registration Subscription  ${subscription_payload}

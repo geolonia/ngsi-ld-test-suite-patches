@@ -20,7 +20,7 @@ Receive cSourceNotification Periodically And Initially On Subscription
     [Tags]  mandatory
 
     ${subscription_id}=     Generate Random Entity Id    ${subscription_id_prefix}
-    ${subscription_payload}=  Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
+    ${subscription_payload}=  Load Subscription Sample With Reachable Endpoint    ${subscription_payload_file_path}    ${subscription_id}
     Set Suite Variable  ${subscription_id}
 
     Create Context Source Registration Subscription  ${subscription_payload}
