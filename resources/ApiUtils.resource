@@ -22,10 +22,10 @@ ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}       csourceSubscript
 ${CONTENT_TYPE_JSON}            application/json
 ${CONTENT_TYPE_LD_JSON}         application/ld+json
 
-${ERROR_TYPE_BAD_REQUEST_DATA}      http://uri.etsi.org/ngsi-ld/errors/BadRequestData
-${ERROR_TYPE_INVALID_REQUEST}      http://uri.etsi.org/ngsi-ld/errors/InvalidRequest
-${ERROR_TYPE_RESOURCE_NOT_FOUND}      http://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
-${ERROR_TYPE_ALREADY_EXISTS}      http://uri.etsi.org/ngsi-ld/errors/AlreadyExists
+${ERROR_TYPE_BAD_REQUEST_DATA}      https://uri.etsi.org/ngsi-ld/errors/BadRequestData
+${ERROR_TYPE_INVALID_REQUEST}      https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
+${ERROR_TYPE_RESOURCE_NOT_FOUND}      https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
+${ERROR_TYPE_ALREADY_EXISTS}      https://uri.etsi.org/ngsi-ld/errors/AlreadyExists
 
 ${response}
 
@@ -388,6 +388,17 @@ Delete Context Source Registration
     Output  response
 
     Set Suite Variable  ${response}
+
+Retrieve Context Source Registration
+    [Arguments]  ${context_source_registration_id}     ${context}=${EMPTY}
+
+    &{headers}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}     headers=${headers}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
 
 Create Context Source Registration Subscription
     [Arguments]  ${subscription_payload}

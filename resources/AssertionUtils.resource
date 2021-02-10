@@ -150,6 +150,14 @@ Check Response Body Containing Number Of Entities
     END
     Run Keyword Unless  ${is_list}  Should Be Equal  ${response['body']['type']}    ${expected_entity_type}
 
+Check Response Body Containing Context Source Registration element
+    [Arguments]     ${expectation_filename}    ${context_source_registration_id}
+    ${context_source_registration_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
+    ${context_source_registration}=    Update Value To Json    ${context_source_registration_payload}     $..id   ${context_source_registration_id}
+    ${ignored_keys}=    Create List     ${context_regex_expr}
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${context_source_registration}  ${ignored_keys}
+    Should Be True      ${comparaison_result}   msg=Context Source Registration Comparaison Failed
+
 Check Response Body Type When Using Session Request
     [Arguments]     ${response}    ${type}
     Should Be Equal     ${response['type']}    ${type}
