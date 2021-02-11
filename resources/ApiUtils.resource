@@ -13,6 +13,8 @@ ${BATCH_UPDATE_ENDPOINT_PATH}   entityOperations/update
 ${BATCH_DELETE_ENDPOINT_PATH}   entityOperations/delete
 &{BATCH_OPERATION_ENDPOINT_MAPPING}    create=${BATCH_CREATE_ENDPOINT_PATH}    upsert=${BATCH_UPSERT_ENDPOINT_PATH}    update=${BATCH_UPDATE_ENDPOINT_PATH}    delete=${BATCH_DELETE_ENDPOINT_PATH}
 ${ENTITIES_ENDPOINT_PATH}       entities/
+${ENTITIES_TYPES_ENDPOINT_PATH}       types
+${ATTRIBUTES_ENDPOINT_PATH}       attributes
 ${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}    entityOperations/query
 ${TEMPORAL_ENTITIES_ENDPOINT_PATH}       temporal/entities
 ${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}       temporal/entityOperations
@@ -112,10 +114,11 @@ Retrieve Entity by Id
     Set Test Variable    ${response}
 
 Create Entity Selecting Content Type
-    [Arguments]  ${filename}    ${entity_id}    ${content_type}
+    [Arguments]  ${filename}    ${entity_id}    ${content_type}     ${context}=${EMPTY}
     ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/${filename}
     ${entity}=    Update Value To Json    ${entity_payload}     $..id   ${entity_id}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
+    Run Keyword If     '${content_type}'=='${CONTENT_TYPE_JSON}' and '${context}'!='${EMPTY}'   Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${response}=  POST  ${ENTITIES_ENDPOINT_PATH}  body=${entity}  headers=${headers}
     ${request}=    Output  request
     Output  response
@@ -172,6 +175,54 @@ Partial Update Entity Attributes
     Output  request
     Output  response
     [return]   ${response}
+
+Retrieve Entity Types
+    [Arguments]  ${context}=${EMPTY}    ${details}=${FALSE}
+
+    &{headers}=  Create Dictionary
+    &{params}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    Run Keyword If     ${details}       Set To Dictionary   ${params}    details=${details}
+    ${response}=  GET  ${ENTITIES_TYPES_ENDPOINT_PATH}     headers=${headers}   query=${params}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
+
+Retrieve Entity Type
+    [Arguments]  ${type}    ${context}=${EMPTY}
+
+    &{headers}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    ${response}=  GET  ${ENTITIES_TYPES_ENDPOINT_PATH}/${type}     headers=${headers}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
+
+Retrieve Attributes
+    [Arguments]  ${context}=${EMPTY}    ${details}=${FALSE}
+
+    &{headers}=  Create Dictionary
+    &{params}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    Run Keyword If     ${details}       Set To Dictionary   ${params}    details=${details}
+    ${response}=  GET  ${ATTRIBUTES_ENDPOINT_PATH}     headers=${headers}   query=${params}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
+
+Retrieve Attribute
+    [Arguments]  ${attribute_name}      ${context}=${EMPTY}
+
+    &{headers}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    ${response}=  GET  ${ATTRIBUTES_ENDPOINT_PATH}/${attribute_name}     headers=${headers}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
 
 Create Context Source Registration With Return
     [Arguments]  ${payload}
