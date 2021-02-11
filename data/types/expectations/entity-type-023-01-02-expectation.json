@@ -1,0 +1,22 @@
+[
+   {
+      "id":"https://ngsi-ld-test-suite/context#Building",
+      "type":"EntityType",
+      "typeName":"Building",
+      "attributeNames":[
+         "name",
+         "subCategory",
+         "airQualityLevel",
+         "almostFull"
+      ]
+   },
+   {
+      "id":"https://uri.etsi.org/ngsi-ld/default-context/Vehicle",
+      "type":"EntityType",
+      "typeName":"Vehicle",
+      "attributeNames":[
+         "brandName",
+         "isParked"
+      ]
+   }
+]
