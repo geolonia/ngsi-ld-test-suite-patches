@@ -9,7 +9,7 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-simple-attributes-sample.jsonld
 ${expectation_filename}=  building-simple-attributes-sample-expectation-simplified.jsonld
 ${options_parameter}=  keyValues
-${entity_type}=  https://uri.fiware.org/ns/data-models#Building
+${entity_type}=  https://ngsi-ld-test-suite/context#Building
 
 *** Test Cases ***                                                 
 Query entities in a simplified representation

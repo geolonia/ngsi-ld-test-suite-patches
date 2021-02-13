@@ -8,8 +8,8 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-simple-attributes-sample.jsonld
 ${expectation_filename}=  building-simple-attributes-sample-expectation-query-attributes.jsonld
-${attribute_airqualitylevel}=  https://uri.fiware.org/ns/data-models#airQualityLevel
-${attribute_subcategory}=  https://uri.fiware.org/ns/data-models#subCategory
+${attribute_airqualitylevel}=  https://ngsi-ld-test-suite/context#airQualityLevel
+${attribute_subcategory}=  https://ngsi-ld-test-suite/context#subCategory
 
 *** Test Cases ***                               
 018_01_02_Query some attributes from an entity

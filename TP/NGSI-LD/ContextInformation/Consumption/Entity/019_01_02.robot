@@ -12,9 +12,9 @@ ${building_filename}=  building-minimal-sample.jsonld
 ${vehicle_filename}=  vehicle-simple-attributes-sample.jsonld
 ${parking_filename}=  parking-simple-attributes-sample.jsonld
 ${expectation_filename}=  vehicle-parking-sample-expectation.jsonld
-${building_entity_type}=  https://uri.fiware.org/ns/data-models#Building
-${vehicle_entity_type}=  https://uri.fiware.org/ns/data-models#Vehicle
-${parking_entity_type}=  https://uri.fiware.org/ns/data-models#OffStreetParking
+${building_entity_type}=  https://ngsi-ld-test-suite/context#Building
+${vehicle_entity_type}=  https://ngsi-ld-test-suite/context#Vehicle
+${parking_entity_type}=  https://ngsi-ld-test-suite/context#OffStreetParking
 
 
 *** Test Cases ***                                                 

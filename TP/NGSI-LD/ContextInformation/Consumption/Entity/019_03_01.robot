@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-minimal-sample.jsonld
-${entity_type}=  https://uri.fiware.org/ns/data-models#Building
+${entity_type}=  https://ngsi-ld-test-suite/context#Building
 ${entity_invalid_id_one}=  thisisaninvaliduri1
 ${entity_invalid_id_two}=  thisisaninvaliduri2
 
