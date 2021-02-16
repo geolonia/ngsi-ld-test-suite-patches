@@ -3,6 +3,6 @@
     "type": "EntityTypeList",
     "typeList": [
         "https://ngsi-ld-test-suite/context#Building",
-        "Vehicle"
+        "https://ngsi-ld-test-suite/context#Vehicle"
     ]
 }
