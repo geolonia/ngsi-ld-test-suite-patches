@@ -11,7 +11,7 @@
       ]
    },
    {
-      "id":"https://uri.etsi.org/ngsi-ld/default-context/Vehicle",
+      "id":"https://ngsi-ld-test-suite/context#Vehicle",
       "type":"EntityType",
       "typeName":"Vehicle",
       "attributeNames":[
