@@ -225,8 +225,9 @@ Retrieve Attribute
     Set Test Variable  ${response}
 
 Create Context Source Registration With Return
-    [Arguments]  ${payload}
-    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    [Arguments]  ${payload}      ${content_type}=${CONTENT_TYPE_LD_JSON}     ${context}=${EMPTY}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${response}=  POST  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}  body=${payload}  headers=${headers}
     ${request}=    Output  request
     Output  response
