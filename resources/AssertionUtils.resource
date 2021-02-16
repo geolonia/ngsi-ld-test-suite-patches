@@ -194,6 +194,17 @@ Check Response Body Containing Attribute element
     ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${attribute_payload}    ${ignored_keys}
     Should Be True      ${comparison_result}   msg=Attribute Comparison Failed
 
+Check Response Body Containing List Containing Context Source Registrations elements
+    [Arguments]     ${expectation_file_path}    ${expected_context_source_registrations_ids}
+    ${expected_context_source_registrations_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_file_path}
+    ${index}=    Set Variable    0
+    FOR    ${expected_context_source_registration_id}    IN    @{expected_context_source_registrations_ids}
+        ${expected_context_source_registrations_payload}=    Update Value To Json    ${expected_context_source_registrations_payload}     $.[${index}]..id   ${expected_context_source_registration_id}
+        ${index}=    Evaluate    ${index} + 1
+    END
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${expected_context_source_registrations_payload}  ${EMPTY}
+    Should Be True      ${comparaison_result}   msg=Context Source Registration Comparaison Failed
+
 Check Response Body Type When Using Session Request
     [Arguments]     ${response}    ${type}
     Should Be Equal     ${response['type']}    ${type}
