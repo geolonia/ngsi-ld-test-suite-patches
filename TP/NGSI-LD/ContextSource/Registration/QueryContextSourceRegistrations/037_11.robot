@@ -1,0 +1,53 @@
+*** Settings ***
+Documentation  Check that you can query context source registrations with providing page and limit parameters, pagination logic shall be in place as mandated by clause 5.5.9.
+Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource    ${EXECDIR}/resources/AssertionUtils.resource
+Resource    ${EXECDIR}/resources/JsonUtils.resource
+
+Test Template  Query Context Source Registration With Limit And Page Parameters
+Suite Setup      Setup Initial Context Source Registrations
+Suite Teardown      Delete Created Context Source Registrations
+
+*** Variable ***
+${context_source_registration_id_prefix}=  urn:ngsi-ld:ContextSourceRegistration:
+${first_context_source_registration_payload_file_path}=   csourceRegistrations/context-source-registration-sample.jsonld
+${second_context_source_registration_payload_file_path}=   csourceRegistrations/context-source-registration-location-sample.jsonld
+${third_context_source_registration_payload_file_path}=   csourceRegistrations/context-source-registration-detailed-information-sample.jsonld
+
+*** Test Cases ***                        LIMIT         PAGE         EXPECTED_NUMBER                PREV_LINK                                                                                                   NEXT_LINK
+Query Second Subscription                 ${1}          ${2}          ${1}                          </ngsi-ld/v1/csourceRegistrations?type=Building&limit=1&page=1>;rel="prev";type="application/ld+json"       </ngsi-ld/v1/csourceSubscriptions?type=Building&limit=1&page=3>;rel="next";type="application/ld+json"
+Query Last Subscription                   ${2}          ${2}          ${1}                          </ngsi-ld/v1/csourceRegistrations?type=Building&limit=2&page=1>;rel="prev";type="application/ld+json"       ${EMPTY}
+Query All Subscriptions                   ${15}         ${1}          ${3}                          ${EMPTY}                                                                                                    ${EMPTY}
+
+*** Keywords ***
+Query Context Source Registration With Limit And Page Parameters
+    [Arguments]  ${limit}     ${page}      ${expected_number}   ${prev_link}  ${next_link}
+    [Documentation]  Check that you can query context source registrations with providing page and limit parameters, pagination logic shall be in place as mandated by clause 5.5.9.
+    [Tags]  mandatory
+
+    Query Context Source Registrations      context=${ngsild_test_suite_context}   type=Building    limit=${limit}      page=${page}
+
+    Check Response Status Code Set To  200
+    Check Response Body Containing Number Of Entities   ContextSourceRegistration     ${expected_number}
+    Check Pagination Prev And Next Headers  ${prev_link}    ${next_link}
+
+Setup Initial Context Source Registrations
+    ${first_context_source_registration_id}=     Generate Random Entity Id    ${context_source_registration_id_prefix}
+    ${second_context_source_registration_id}=     Generate Random Entity Id    ${context_source_registration_id_prefix}
+    ${third_context_source_registration_id}=     Generate Random Entity Id    ${context_source_registration_id_prefix}
+    ${first_context_source_registration_payload}=  Load Test Sample    ${first_context_source_registration_payload_file_path}    ${first_context_source_registration_id}
+    ${second_context_source_registration_payload}=  Load Test Sample    ${second_context_source_registration_payload_file_path}    ${second_context_source_registration_id}
+    ${third_context_source_registration_payload}=  Load Test Sample    ${third_context_source_registration_payload_file_path}    ${third_context_source_registration_id}
+
+    Create Context Source Registration  ${first_context_source_registration_payload}
+    Create Context Source Registration  ${second_context_source_registration_payload}
+    Create Context Source Registration  ${third_context_source_registration_payload}
+
+    Set Suite Variable  ${first_context_source_registration_id}
+    Set Suite Variable  ${second_context_source_registration_id}
+    Set Suite Variable  ${third_context_source_registration_id}
+
+Delete Created Context Source Registrations
+    Delete Context Source Registration     ${first_context_source_registration_id}
+    Delete Context Source Registration     ${second_context_source_registration_id}
+    Delete Context Source Registration     ${third_context_source_registration_id}
