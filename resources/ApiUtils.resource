@@ -369,7 +369,7 @@ Retrieve Temporal Representation Of Entity
     Set Test Variable  ${response}
 
 Query Temporal Representation Of Entities
-    [Arguments]  ${context}=${EMPTY}     ${entity_types}=${EMPTY}   ${entity_ids}=${EMPTY}    ${entity_id_pattern}=${EMPTY}    ${ngsild_query}=${EMPTY}  ${georel}=${EMPTY}   ${geometry}=${EMPTY}    ${coordinates}=${EMPTY}    ${geoproperty}=${EMPTY}    ${timerel}=${EMPTY}      ${timeAt}=${EMPTY}     ${attrs}=${EMPTY}   ${limit}=${EMPTY}   ${lastN}=${EMPTY}
+    [Arguments]  ${context}=${EMPTY}     ${entity_types}=${EMPTY}   ${entity_ids}=${EMPTY}    ${entity_id_pattern}=${EMPTY}    ${ngsild_query}=${EMPTY}  ${csf}=${EMPTY}   ${georel}=${EMPTY}   ${geometry}=${EMPTY}    ${coordinates}=${EMPTY}    ${geoproperty}=${EMPTY}    ${timerel}=${EMPTY}      ${timeAt}=${EMPTY}     ${attrs}=${EMPTY}   ${limit}=${EMPTY}   ${lastN}=${EMPTY}
     ${entity_types_length} =  Get Length  ${entity_types}
     ${entity_ids_length} =  Get Length  ${entity_ids}
     ${attrs_length} =  Get Length  ${attrs}
@@ -384,6 +384,7 @@ Query Temporal Representation Of Entities
     Run Keyword If     '${lastN}'!=''       Set To Dictionary   ${params}    lastN=${lastN}
     Run Keyword If     '${entity_id_pattern}'!=''       Set To Dictionary   ${params}    idPattern=${entity_id_pattern}
     Run Keyword If     '${ngsild_query}'!=''       Set To Dictionary   ${params}    q=${ngsild_query}
+    Run Keyword If     '${csf}'!=''       Set To Dictionary   ${params}    csf=${csf}
     Run Keyword If     '${georel}'!=''       Set To Dictionary   ${params}    georel=${georel}
     Run Keyword If     '${geometry}'!=''       Set To Dictionary   ${params}    geometry=${geometry}
     Run Keyword If     '${coordinates}'!=''       Set To Dictionary   ${params}    coordinates=${coordinates}

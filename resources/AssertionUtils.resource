@@ -135,7 +135,7 @@ Check Response Body Containing List Containing Subscription elements
     ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${subscription_payload}  ${EMPTY}
     Should Be True      ${comparison_result}   msg=Subscription Comparison Failed
 
-# Since response body can be a json object if it contains one subscription
+# Since response body can be a json object if it contains one element
 # A check on the response body type is needed
 Check Response Body Containing Number Of Entities
     [Arguments]     ${expected_entity_type}    ${expected_length}
