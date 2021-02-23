@@ -20,7 +20,7 @@ ${status_code}=  204
 Update Attributes
     [Arguments]  ${fragment_filename}
     [Documentation]  Check that you can perform a partial update on an entity attribute
-    [Tags]  mandatory  failing
+    [Tags]  mandatory
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
