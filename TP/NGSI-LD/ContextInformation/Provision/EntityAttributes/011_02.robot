@@ -4,30 +4,46 @@ Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource    ${EXECDIR}/resources/AssertionUtils.resource
 Resource    ${EXECDIR}/resources/JsonUtils.resource
 
-Test Template  Update Attributes
-
 *** Variable ***
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
-${filename}=  vehicle-two-datasetid-attributes-sample.jsonld
-${fragment_filename}=  vehicle-two-datasetid-attributes-sample-01.jsonld
 
-*** Test Cases ***                                                             STATUS_CODE     ENTITY_INVALID_ID      
-011_02_01_Update an attribute if the Entity Id is not present                     400             ${EMPTY}               
-011_02_02_Update an attribute if the Entity Id is not a valid URI                 400             thisisaninvaliduri
+*** Test Cases ***
+011_02_01_Update an attribute if the Entity Id is not present                     
+  Update Attributes  ${EMPTY}    vehicle-two-datasetid-attributes-sample.jsonld    vehicle-two-datasetid-attributes-sample-01.jsonld
+011_02_02_Update an attribute if the Entity Id is not a valid URI                 
+  Update Attributes  thisisaninvaliduri    vehicle-two-datasetid-attributes-sample.jsonld    vehicle-two-datasetid-attributes-sample-01.jsonld
+011_02_03_Update entity attributes with invalid entity fragments
+  Update entity attributes with invalid entity fragments  vehicle-datasetid-attributes-sample.jsonld    invalid-vehicle-fragment-datasetid-sample.jsonld
 
 *** Keywords ***
 Update Attributes
-    [Arguments]  ${status_code}    ${entity_invalid_id}
+    [Arguments]  ${entity_invalid_id}    ${filename}    ${fragment_filename}
     [Documentation]  Check that you cannot update entity attributes with invalid/missing id or invalid request body
-    [Tags]  mandatory  failing
+    [Tags]  mandatory
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
     ${response}=    Update Entity Attributes    ${entity_invalid_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code  ${status_code}    ${response['status']}
+    Check Response Status Code  400    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+
+    [Teardown]  Delete Entity by Id Returning Response   ${entity_id}
+
+Update entity attributes with invalid entity fragments
+    [Arguments]  ${filename}    ${fragment_filename}
+    [Documentation]  Check that you cannot update an attribute if the entity fragment is invalid
+    [Tags]  mandatory 
+
+    ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
+    ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code  201    ${response['status']}
+    Output  ${fragment_filename}
+    ${response}=  Update Entity Attributes Using Session    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}    ${EMPTY}
+    #Check Response Status Code  <Response [400]>    ${response}
+    #Check Response Body Type When Using Session Request      ${response.json()}     ${ERROR_TYPE_BAD_REQUEST_DATA}
+    #Check Response Body Title When Using Session Request    ${response.json()}
 
     [Teardown]  Delete Entity by Id Returning Response   ${entity_id}

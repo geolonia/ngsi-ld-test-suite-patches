@@ -13,7 +13,7 @@ ${invalid_entity_id_pattern}=  invalid_entity_id_pattern*
 *** Test Cases ***                                                 
 Query several entities based on incorrect id pattern
     [Documentation]  Check that you cannot query entities if the requested id pattern is incorrect
-    [Tags]  mandatory    failing
+    [Tags]  mandatory
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${first_entity_id}    ${CONTENT_TYPE_LD_JSON}

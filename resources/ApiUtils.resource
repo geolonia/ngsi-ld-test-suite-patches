@@ -143,7 +143,7 @@ Append Entity Attributes Using Session
     [return]    ${response}
 
 Update Entity Attributes Using Session
-    [Arguments]  ${id}    ${filename}    ${content_type}    ${options}
+    [Arguments]  ${id}    ${fragment_filename}    ${content_type}    ${options}
     ${file_content}=    Get File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
     Create Session    OneRequest      ${url}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
@@ -161,7 +161,7 @@ Update Entity Attributes
     [return]   ${response}
 
 Delete Entity Attributes
-    [Arguments]  ${entityId}     ${attributeId}     ${datasetId}     ${deleteAll}
+    [Arguments]  ${entityId}     ${attributeId}     ${datasetId}    ${deleteAll}
     ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}?datasetId=${datasetId}&deleteAll=${deleteAll}
     Output  request
     Output  response
@@ -256,7 +256,7 @@ Update Context Source Registration Using Session
     Create Session    OneRequest      ${url}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     ${response}=    PATCH On Session      OneRequest   ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}    data=${file_content}    headers=${headers}   expected_status=any
-    ${request}=    Output  request
+    Output  request
     Output  response
     [return]    ${response}
 
@@ -276,13 +276,83 @@ Create Entity
     Output  request
     Output  response
 
-Create Temporal Representation Of Entity Selecting Content Type
-    [Arguments]   ${temporal_entity_representation_id}    ${filename}    ${content_type}
+Create Or Update Temporal Representation Of Entity Selecting Content Type
+    [Arguments]  ${temporal_entity_representation_id}    ${filename}    ${content_type}
     ${temporal_entity_representation_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/${filename}
     ${temporal_entity_representation}=    Update Value To Json    ${temporal_entity_representation_payload}     $..id   ${temporal_entity_representation_id}
-
     &{headers}=  Create Dictionary  Content-Type=${content_type}
-    ${response}=  POST  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}  body=${temporal_entity_representation}  headers=${headers}
+    ${response}=  POST  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/  body=${temporal_entity_representation}  headers=${headers}
+    Output  request
+    Output  response
+    [return]  ${response}
+
+Create Temporal Representation Of Entity Selecting Content Type Using Session
+    [Arguments]  ${filename}    ${content_type}
+    ${file_content}=    Get File    ${EXECDIR}/data/temporalEntities/${filename}
+    Create Session    OneRequest      ${url}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${response}=  POST On Session      OneRequest   ${TEMPORAL_ENTITIES_ENDPOINT_PATH}    data=${file_content}    headers=${headers}
+    Output  request
+    Output  response
+    [return]    ${response}
+
+Append Attribute To Temporal Entity
+    [Arguments]  ${temporal_entity_id}    ${fragment_filename}    ${content_type}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
+    ${response}=  POST  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs  body=${fragment_payload}  headers=${headers}
+    Output  request
+    Output  response
+    [return]   ${response}
+
+Append Attribute To Temporal Entity Using Session
+    [Arguments]  ${temporal_entity_id}    ${fragment_filename}    ${content_type}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${file_content}=    Get File    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
+    Create Session    OneRequest      ${url}
+    ${response}=  POST On Session      OneRequest   ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs  data=${file_content}  headers=${headers}
+    Output  request
+    Output  response
+    [return]   ${response}
+
+Partial Update Attribute From Temporal Entity
+    [Arguments]  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${fragment_filename}    ${content_type}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
+    ${response}=  PATCH  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}  body=${fragment_payload}  headers=${headers}
+    Output  request
+    Output  response
+    [return]   ${response}
+
+Delete Attribute From Temporal Entity
+    [Arguments]  ${entityId}    ${attributeId}    ${content_type}    ${datasetId}     ${deleteAll}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${entityId}/attrs/${attributeId}?datasetId=${datasetId}&deleteAll=${deleteAll}  headers=${headers}
+    Output  request
+    Output  response
+    [return]   ${response}
+
+Delete Temporal Representation Of Entity With Returning Response
+    [Arguments]  ${temporal_entity_representation_id}
+    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
+    Output  request
+    Output  response
+    [return]   ${response}
+
+Get Temporal Representation Of Entity
+    [Arguments]  ${temporal_entity_representation_id}    ${content_type}    ${options}=${EMPTY}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    &{params}=  Create Dictionary
+    ${options_length} =  Get Length  ${options}
+    Run Keyword If     ${options_length}>0       Set To Dictionary   ${params}       options=${options}
+    ${response}=  GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}      headers=${headers}    query=${params}
+    Output  request
+    Output  response
+    [return]  ${response}
+
+Delete Attribute Instance From Temporal Entity
+    [Arguments]  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${content_type}
+    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}
     Output  request
     Output  response
     [return]  ${response}

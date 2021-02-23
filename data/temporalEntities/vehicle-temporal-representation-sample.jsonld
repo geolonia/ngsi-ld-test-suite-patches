@@ -38,7 +38,8 @@
       {
          "type":"Property",
          "value":40,
-         "observedAt":"2020-09-01T14:07:00Z"
+         "observedAt":"2020-09-01T14:07:00Z",
+         "datasetId":"urn:ngsi-ld:Vehicle:12345-fuel"
       }
    ],
    "@context":[

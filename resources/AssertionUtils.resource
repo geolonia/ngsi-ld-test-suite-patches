@@ -98,6 +98,19 @@ Check Response Body Containing List Containing Entity Elements
         ${index}=    Evaluate    ${index} + 1
     END
 
+Check Response Body Containing List Containing Entity Elements With Different Types
+    [Arguments]     ${filename}    ${entities_representation_ids}        ${response_body}
+    ${entities_representation_payload}=    Load Json From File    ${EXECDIR}/data/entities/expectations/${filename}
+    ${index}=    Set Variable    1
+    FOR    ${entity_representation_id}    IN    @{entities_representation_ids}
+        ${entities_representation_payload}=    Update Value To Json    ${entities_representation_payload}     $.[${index}]..id   ${entity_representation_id}
+        ${index}=    Evaluate    ${index} - 1
+    END
+    Log  ${response_body}
+    Log  ${entities_representation_payload}
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entities_representation_payload}      ${instance_id_regex_expr}
+    Should Be True      ${comparaison_result}   msg=Entity List Comparaison Failed
+
 Check Response Body Containing EntityTemporal element
     [Arguments]     ${filename}    ${temporal_entity_representation_id}
     ${temporal_entity_representation_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/expectations/${filename}
