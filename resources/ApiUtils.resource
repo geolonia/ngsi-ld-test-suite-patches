@@ -13,6 +13,8 @@ ${BATCH_UPDATE_ENDPOINT_PATH}   entityOperations/update
 ${BATCH_DELETE_ENDPOINT_PATH}   entityOperations/delete
 &{BATCH_OPERATION_ENDPOINT_MAPPING}    create=${BATCH_CREATE_ENDPOINT_PATH}    upsert=${BATCH_UPSERT_ENDPOINT_PATH}    update=${BATCH_UPDATE_ENDPOINT_PATH}    delete=${BATCH_DELETE_ENDPOINT_PATH}
 ${ENTITIES_ENDPOINT_PATH}       entities/
+${ENTITIES_TYPES_ENDPOINT_PATH}       types
+${ATTRIBUTES_ENDPOINT_PATH}       attributes
 ${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}    entityOperations/query
 ${TEMPORAL_ENTITIES_ENDPOINT_PATH}       temporal/entities
 ${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}       temporal/entityOperations
@@ -22,10 +24,10 @@ ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}       csourceSubscript
 ${CONTENT_TYPE_JSON}            application/json
 ${CONTENT_TYPE_LD_JSON}         application/ld+json
 
-${ERROR_TYPE_BAD_REQUEST_DATA}      http://uri.etsi.org/ngsi-ld/errors/BadRequestData
-${ERROR_TYPE_INVALID_REQUEST}      http://uri.etsi.org/ngsi-ld/errors/InvalidRequest
-${ERROR_TYPE_RESOURCE_NOT_FOUND}      http://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
-${ERROR_TYPE_ALREADY_EXISTS}      http://uri.etsi.org/ngsi-ld/errors/AlreadyExists
+${ERROR_TYPE_BAD_REQUEST_DATA}      https://uri.etsi.org/ngsi-ld/errors/BadRequestData
+${ERROR_TYPE_INVALID_REQUEST}      https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
+${ERROR_TYPE_RESOURCE_NOT_FOUND}      https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
+${ERROR_TYPE_ALREADY_EXISTS}      https://uri.etsi.org/ngsi-ld/errors/AlreadyExists
 
 ${response}
 
@@ -112,10 +114,11 @@ Retrieve Entity by Id
     Set Test Variable    ${response}
 
 Create Entity Selecting Content Type
-    [Arguments]  ${filename}    ${entity_id}    ${content_type}
+    [Arguments]  ${filename}    ${entity_id}    ${content_type}     ${context}=${EMPTY}
     ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/${filename}
     ${entity}=    Update Value To Json    ${entity_payload}     $..id   ${entity_id}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
+    Run Keyword If     '${context}'!='${EMPTY}'   Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${response}=  POST  ${ENTITIES_ENDPOINT_PATH}  body=${entity}  headers=${headers}
     ${request}=    Output  request
     Output  response
@@ -173,9 +176,58 @@ Partial Update Entity Attributes
     Output  response
     [return]   ${response}
 
+Retrieve Entity Types
+    [Arguments]  ${context}=${EMPTY}    ${details}=${FALSE}
+
+    &{headers}=  Create Dictionary
+    &{params}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    Run Keyword If     ${details}       Set To Dictionary   ${params}    details=${details}
+    ${response}=  GET  ${ENTITIES_TYPES_ENDPOINT_PATH}     headers=${headers}   query=${params}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
+
+Retrieve Entity Type
+    [Arguments]  ${type}    ${context}=${EMPTY}
+
+    &{headers}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    ${response}=  GET  ${ENTITIES_TYPES_ENDPOINT_PATH}/${type}     headers=${headers}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
+
+Retrieve Attributes
+    [Arguments]  ${context}=${EMPTY}    ${details}=${FALSE}
+
+    &{headers}=  Create Dictionary
+    &{params}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    Run Keyword If     ${details}       Set To Dictionary   ${params}    details=${details}
+    ${response}=  GET  ${ATTRIBUTES_ENDPOINT_PATH}     headers=${headers}   query=${params}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
+
+Retrieve Attribute
+    [Arguments]  ${attribute_name}      ${context}=${EMPTY}
+
+    &{headers}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    ${response}=  GET  ${ATTRIBUTES_ENDPOINT_PATH}/${attribute_name}     headers=${headers}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
+
 Create Context Source Registration With Return
-    [Arguments]  ${payload}
-    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    [Arguments]  ${payload}      ${content_type}=${CONTENT_TYPE_LD_JSON}     ${context}=${EMPTY}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${response}=  POST  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}  body=${payload}  headers=${headers}
     ${request}=    Output  request
     Output  response
@@ -387,7 +439,7 @@ Retrieve Temporal Representation Of Entity
     Set Test Variable  ${response}
 
 Query Temporal Representation Of Entities
-    [Arguments]  ${context}=${EMPTY}     ${entity_types}=${EMPTY}   ${entity_ids}=${EMPTY}    ${entity_id_pattern}=${EMPTY}    ${ngsild_query}=${EMPTY}  ${georel}=${EMPTY}   ${geometry}=${EMPTY}    ${coordinates}=${EMPTY}    ${geoproperty}=${EMPTY}    ${timerel}=${EMPTY}      ${timeAt}=${EMPTY}     ${attrs}=${EMPTY}   ${limit}=${EMPTY}   ${lastN}=${EMPTY}
+    [Arguments]  ${context}=${EMPTY}     ${entity_types}=${EMPTY}   ${entity_ids}=${EMPTY}    ${entity_id_pattern}=${EMPTY}    ${ngsild_query}=${EMPTY}  ${csf}=${EMPTY}   ${georel}=${EMPTY}   ${geometry}=${EMPTY}    ${coordinates}=${EMPTY}    ${geoproperty}=${EMPTY}    ${timerel}=${EMPTY}      ${timeAt}=${EMPTY}     ${attrs}=${EMPTY}   ${limit}=${EMPTY}   ${lastN}=${EMPTY}
     ${entity_types_length} =  Get Length  ${entity_types}
     ${entity_ids_length} =  Get Length  ${entity_ids}
     ${attrs_length} =  Get Length  ${attrs}
@@ -402,6 +454,7 @@ Query Temporal Representation Of Entities
     Run Keyword If     '${lastN}'!=''       Set To Dictionary   ${params}    lastN=${lastN}
     Run Keyword If     '${entity_id_pattern}'!=''       Set To Dictionary   ${params}    idPattern=${entity_id_pattern}
     Run Keyword If     '${ngsild_query}'!=''       Set To Dictionary   ${params}    q=${ngsild_query}
+    Run Keyword If     '${csf}'!=''       Set To Dictionary   ${params}    csf=${csf}
     Run Keyword If     '${georel}'!=''       Set To Dictionary   ${params}    georel=${georel}
     Run Keyword If     '${geometry}'!=''       Set To Dictionary   ${params}    geometry=${geometry}
     Run Keyword If     '${coordinates}'!=''       Set To Dictionary   ${params}    coordinates=${coordinates}
@@ -450,6 +503,32 @@ Update Context Source Registration
 
     Set Test Variable  ${response}
 
+Query Context Source Registrations
+    [Arguments]     ${context}=${EMPTY}     ${id}=${EMPTY}  ${type}=${EMPTY}    ${attrs}=${EMPTY}   ${q}=${EMPTY}   ${georel}=${EMPTY}  ${geometry}=${EMPTY}  ${coordinates}=${EMPTY}  ${geoproperty}=${EMPTY}  ${timeproperty}=${EMPTY}     ${timerel}=${EMPTY}     ${timeAt}=${EMPTY}     ${limit}=${EMPTY}   ${page}=${EMPTY}
+
+    &{headers}=  Create Dictionary
+    &{params}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    Run Keyword If     '${id}'!=''       Set To Dictionary   ${params}    id=${id}
+    Run Keyword If     '${type}'!=''       Set To Dictionary   ${params}    type=${type}
+    Run Keyword If     '${attrs}'!=''       Set To Dictionary   ${params}    attrs=${attrs}
+    Run Keyword If     '${q}'!=''       Set To Dictionary   ${params}    q=${q}
+    Run Keyword If     '${georel}'!=''       Set To Dictionary   ${params}    georel=${georel}
+    Run Keyword If     '${geometry}'!=''       Set To Dictionary   ${params}    geometry=${geometry}
+    Run Keyword If     '${coordinates}'!=''       Set To Dictionary   ${params}    coordinates=${coordinates}
+    Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
+    Run Keyword If     '${timeproperty}'!=''       Set To Dictionary   ${params}    timeproperty=${timeproperty}
+    Run Keyword If     '${timerel}'!=''       Set To Dictionary   ${params}    timerel=${timerel}
+    Run Keyword If     '${timeAt}'!=''       Set To Dictionary   ${params}    timeAt=${timeAt}
+    Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
+    Run Keyword If     '${page}'!=''       Set To Dictionary   ${params}    page=${page}
+
+    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}     headers=${headers}     query=${params}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
+
 Delete Context Source Registration
     [Arguments]  ${context_source_registration_id}
 
@@ -458,6 +537,17 @@ Delete Context Source Registration
     Output  response
 
     Set Suite Variable  ${response}
+
+Retrieve Context Source Registration
+    [Arguments]  ${context_source_registration_id}     ${context}=${EMPTY}
+
+    &{headers}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}     headers=${headers}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
 
 Create Context Source Registration Subscription
     [Arguments]  ${subscription_payload}
@@ -480,9 +570,26 @@ Update Context Source Registration Subscription
     Set Test Variable  ${response}
 
 Retrieve Context Source Registration Subscription
-    [Arguments]  ${subscription_id}
+    [Arguments]  ${subscription_id}     ${context}=${EMPTY}
 
-    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
+    &{headers}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}     headers=${headers}
+    Output  request
+    Output  response
+
+    Set Test Variable  ${response}
+
+Query Context Source Registration Subscriptions
+    [Arguments]  ${context}=${EMPTY}    ${limit}=${EMPTY}   ${page}=${EMPTY}
+
+    &{headers}=  Create Dictionary
+    &{params}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
+    Run Keyword If     '${page}'!=''       Set To Dictionary   ${params}    page=${page}
+
+    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}     headers=${headers}     query=${params}
     Output  request
     Output  response
 

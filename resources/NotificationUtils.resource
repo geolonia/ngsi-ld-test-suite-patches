@@ -13,7 +13,7 @@ ${date_format}=  %Y-%m-%dT%H:%M:%SZ
 *** Keywords ***
 Start Local Server
     #Initialize HTTP Client And Server
-    Start Server        ${notification_server_host}   ${notification_server_port}
+    Start Server        0.0.0.0   8085
 
 Wait for notification
     [Arguments]  ${timeout}=${5}

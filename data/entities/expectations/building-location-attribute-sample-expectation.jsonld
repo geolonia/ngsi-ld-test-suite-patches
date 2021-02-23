@@ -1,11 +1,11 @@
 {
     "id": "urn:ngsi-ld:Building:randomUUID",
-    "type": "https://uri.fiware.org/ns/data-models#Building",
+    "type": "https://ngsi-ld-test-suite/context#Building",
     "name": {
         "type": "Property",
         "value": "Eiffel Tower"
     },
-    "https://uri.fiware.org/ns/data-models#subCategory": {
+    "https://ngsi-ld-test-suite/context#subCategory": {
         "type": "Property",
         "value": ["tourism"]
     },
@@ -17,6 +17,6 @@
         }
     },
     "@context": [
-        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
+        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld"
     ]
 }

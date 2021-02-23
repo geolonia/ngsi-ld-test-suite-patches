@@ -1,12 +1,12 @@
 {
-    "https://uri.fiware.org/ns/data-models#speed": [
+    "https://ngsi-ld-test-suite/context#speed": [
         {
             "https://uri.etsi.org/ngsi-ld/datasetId": [
                 {
                     "@id": "urn:ngsi-ld:Property:speedometerA4567-speed"
                 }
             ],
-            "https://uri.fiware.org/ns/data-models#source": [
+            "https://ngsi-ld-test-suite/context#source": [
                 {
                     "@type": [
                         "https://uri.etsi.org/ngsi-ld/Property"

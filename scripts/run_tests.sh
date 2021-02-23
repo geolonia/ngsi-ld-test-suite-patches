@@ -12,10 +12,12 @@ robot --critical mandatory --outputdir ./results .
 # run by specific tag(s)
 robot --include mandatory --outputdir ./results .
 
-# run specific test suite
+# run all the tests for context information
 robot --outputdir ./results ./TP/NGSI-LD/ContextInformation
-robot --outputdir ./results ./TP/NGSI-LD/ContextInformation/Provision/Entities/CreateEntity/SuccessCases.robot
-robot --outputdir ./results ./TP/NGSI-LD/ContextInformation/Provision/BatchEntities/CreateBatchOfEntities/failure.robot
+
+# run a specific test case
+robot --outputdir ./results ./TP/NGSI-LD/ContextInformation/Provision/Entities/CreateEntity/001_01.robot
+robot --outputdir ./results --suite 001_01 .
 
 # run specific test case
 robot --outputdir ./results -t "SuccessCases_MinimalEntity"
