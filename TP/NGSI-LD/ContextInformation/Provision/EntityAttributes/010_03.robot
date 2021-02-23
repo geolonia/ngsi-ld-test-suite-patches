@@ -11,7 +11,7 @@ ${fragment_filename}=  vehicle-fragment-same-datasetid-sample.jsonld
 *** Test Cases ***  
 Append entity attributes when the entity id is not known to the system
     [Documentation]  Check that you cannot append entity attributes if the entity id or attributes are not known to the system
-    [Tags]  mandatory  failing
+    [Tags]  mandatory
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=    Append Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}    ${EMPTY}

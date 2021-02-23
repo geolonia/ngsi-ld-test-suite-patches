@@ -6,8 +6,9 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
-${filename}=  building-minimal-sample.jsonld
-${expectation_filename}=  building-minimal-sample-expectation.jsonld
+${filename}=  building-simple-attributes-sample.jsonld
+${filename2}=  building-minimal-sample.jsonld
+${expectation_filename}=  building-attributes-query-sample-expectation.jsonld
 ${entity_type}=  https://uri.fiware.org/ns/data-models#Building
 ${attribute_airqualitylevel}=  https://uri.fiware.org/ns/data-models#airQualityLevel
 ${attribute_subcategory}=  https://uri.fiware.org/ns/data-models#subCategory
@@ -15,17 +16,17 @@ ${attribute_subcategory}=  https://uri.fiware.org/ns/data-models#subCategory
 *** Test Cases ***                                                 
 Query several entities based on attribute names
     [Documentation]  Check that you can query several entities based on attribute names
-    [Tags]  mandatory    failing
+    [Tags]  mandatory
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${first_entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
     ${second_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${second_entity_id}    ${CONTENT_TYPE_LD_JSON}
+    ${request}    ${response}=    Create Entity Selecting Content Type  ${filename2}     ${second_entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    @{attributes_to_be_retrieved}=  Create List      ${attribute_airqualitylevel}  ${attribute_subcategory}
-    @{entities_ids_to_be_retrieved}=  Create List   ${first_entity_id}    ${second_entity_id}
+    ${attributes_to_be_retrieved}=  Catenate    SEPARATOR=,   ${attribute_airqualitylevel}  ${attribute_subcategory}
+    @{entities_ids_to_be_retrieved}=  Create List   ${first_entity_id}
     ${response}=    Query Entities    attrs=${attributes_to_be_retrieved}
     Check Response Status Code  200    ${response['status']}
     Check Response Body Containing List Containing Entity elements    ${expectation_filename}    ${entities_ids_to_be_retrieved}    ${response['body']}

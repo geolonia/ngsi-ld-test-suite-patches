@@ -29,7 +29,15 @@
          "type":"Property",
          "value":53,
          "observedAt":"2020-09-01T13:05:00Z"
+      },
+      {
+         "type":"Property",
+         "value":40,
+         "observedAt":"2020-09-01T14:07:00Z",
+         "datasetId":"urn:ngsi-ld:Vehicle:12345-fuel"
       }
    ],
-   "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
+   "@context":[
+      "https://raw.githubusercontent.com/easy-global-market/ngsild-api-data-models/feature/add-json-ld-context-for-ngsi-ld-test-suite/ngsi-ld-test-suite/ngsi-ld-test-suite-context.jsonld"
+   ]
 }

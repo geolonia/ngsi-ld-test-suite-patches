@@ -12,15 +12,15 @@ ${building_filename}=  building-minimal-sample.jsonld
 ${vehicle_filename}=  vehicle-simple-attributes-sample.jsonld
 ${parking_filename}=  parking-simple-attributes-sample.jsonld
 ${expectation_filename}=  vehicle-parking-sample-expectation.jsonld
-${building_entity_type}=  https://uri.fiware.org/ns/data-models#Building
-${vehicle_entity_type}=  https://uri.fiware.org/ns/data-models#Vehicle
-${parking_entity_type}=  https://uri.fiware.org/ns/data-models#OffStreetParking
+${building_entity_type}=  https://ngsi-ld-test-suite/context#Building
+${vehicle_entity_type}=  https://ngsi-ld-test-suite/context#Vehicle
+${parking_entity_type}=  https://ngsi-ld-test-suite/context#OffStreetParking
 
 
 *** Test Cases ***                                                 
 Query several entities via POST Interaction based on the entities types
     [Documentation]  Check that you can query several entities via POST Interaction based on the entities types
-    [Tags]  mandatory    failing
+    [Tags]  mandatory
 
     ${building_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${building_filename}     ${building_entity_id}    ${CONTENT_TYPE_LD_JSON}

@@ -38,6 +38,12 @@
 
 ```$ git clone git@forge.etsi.org:cim/ngsi-ld-test-suite.git```
 
+## Configure the environment
+
+In the `resources/variables.py` file, configure the following:
+* URL of the context broker under test (including the `ngsi-ld/v1` path, e.g., http://localhost:8080/ngsi-ld/v1)
+* Notification server host and port (an address accessible from the context broker)
+
 ## Install the project requirements
 
 Browse the base project root folder and execute the following command:   

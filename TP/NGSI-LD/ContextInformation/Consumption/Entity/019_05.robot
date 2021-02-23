@@ -8,13 +8,13 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-location-attribute-sample.jsonld
 ${expectation_filename}=  building-simple-attributes-sample-expectation-simplified.jsonld
-${entity_type}=  https://uri.fiware.org/ns/data-models#Building
+${entity_type}=  https://ngsi-ld-test-suite/context#Building
 ${accept_header}=  application/geo+json
 
 *** Test Cases ***                                                 
 Get an entity by id that can be returned in a geoJSON format       
     [Documentation]  Check that the queried entities by id can be returned in a geoJSON format
-    [Tags]  mandatory    failing
+    [Tags]  mandatory
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${first_entity_id}    ${CONTENT_TYPE_LD_JSON}

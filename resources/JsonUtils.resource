@@ -5,6 +5,9 @@ Library     JSONLibrary
 
 *** Variable ***
 ${date_format}=  %Y-%m-%dT%H:%M:%SZ
+${notification_server_url}=     http://${notification_server_host}:${notification_server_port}/notify
+${context_source_url}=     http://${context_source_host}:${context_source_port}
+
 *** Keywords ***
 Load Entity
     [Arguments]    ${entity_file_name}     ${entity_id}
@@ -23,6 +26,22 @@ Load Test Sample
     Run Keyword If     '${test_sample_id}'==''       Delete Object From Json    ${test_sample}     $..id
 
     [return]    ${test_sample}
+
+Load Subscription Sample With Reachable Endpoint
+    [Arguments]    ${subscription_file_path}     ${subscription_id}=${EMPTY}      ${notification_endpoint_uri}=${notification_server_url}
+
+    ${subscription_payload}=  Load Test Sample    ${subscription_file_path}    ${subscription_id}
+    ${subscription}=    Update Value To Json    ${subscription_payload}     $..notification['endpoint']['uri']   ${notification_endpoint_uri}
+
+    [return]    ${subscription}
+
+Load Context Source Registration Sample With Reachable Context Source
+    [Arguments]    ${context_source_registration_file_path}     ${context_source_registration_id}=${EMPTY}      ${context_source_endpoint_uri}=${context_source_url}
+
+    ${context_source_registration_payload}=  Load Test Sample    ${context_source_registration_file_path}    ${context_source_registration_id}
+    ${context_source_registration}=    Update Value To Json    ${context_source_registration_payload}     $..endpoint   ${context_source_endpoint_uri}
+
+    [return]    ${context_source_registration}
 
 Remove Entity Type
     [Arguments]    ${entity}

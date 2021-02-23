@@ -1,0 +1,29 @@
+*** Settings ***
+Documentation   Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" 
+Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource    ${EXECDIR}/resources/AssertionUtils.resource
+Resource    ${EXECDIR}/resources/JsonUtils.resource
+
+
+*** Variable ***
+${registration_id_prefix}=  urn:ngsi-ld:Registration:
+${registration_payload_file_path}=   csourceRegistrations/context-source-registration-sample.jsonld
+
+*** Test Case ***
+Create one context source registration using a JSON-LD @context obtained from the request payload
+    [Documentation]  Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" 
+    [Tags]  mandatory
+    ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
+
+    ${payload}=    Load Json From File    ${EXECDIR}/data/${registration_payload_file_path}
+    ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}
+    ${request}    ${response}=    Create Context Source Registration With Return  ${updated_payload}    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code  201    ${response['status']}
+
+    Retrieve Context Source Registration  ${registration_id}   context=${ngsild_test_suite_context}
+    Check JSON Value In Response Body   ['information']['entities'][0]['type']      Building
+
+    Retrieve Context Source Registration  ${registration_id}
+    Check JSON Value In Response Body   ['information']['entities'][0]['type']      https://ngsi-ld-test-suite/context#Building
+
+    [Teardown]  Delete Context Source Registration    ${registration_id}

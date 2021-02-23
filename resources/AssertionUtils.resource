@@ -2,8 +2,12 @@
 Library     ${EXECDIR}/libraries/assertionUtils.py
 
 *** Variable ***
+${id_regex_expr}=  root\\['@context'\\]
 ${instance_id_regex_expr}=  root\\[.*\\]\\['instanceId'\\]
 ${notification_timestamps_regex_expr}=  root\\['last.*'\\]
+${notification_endpoint_uri_regex_expr}=  root\\['endpoint'\\]\\['uri'\\]
+${context_regex_expr}=  root\\['@context'\\]
+${status_regex_expr}=  root\\['status'\\]
 
 *** Keywords ***
 Check Response Status Code
@@ -33,16 +37,24 @@ Check Response Body Content
     ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/expectations/${expectation_filename}
     Output  ${response_body}
     Output  ${entity_payload}
-    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity_payload}      ${instance_id_regex_expr}
-    Should Be True      ${comparaison_result}   msg=Entity Comparaison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity_payload}      ${instance_id_regex_expr}
+    Should Be True      ${comparison_result}   msg=Entity Comparison Failed
 
+# Since Http headers names are case-insensitive (from Http specification)
+# We check both Location and location headers
 Check Response Headers Containing URI set to
     [Arguments]  ${expected_path}    ${expected_entity_id}    ${response}
-    Should Be Equal  ${expected_path}${expected_entity_id}        ${response['headers']['location']}     ignore_order=True
 
+    Run Keyword If  'Location' in ${response['headers']}  Should Be Equal  ${expected_path}${expected_entity_id}        ${response['headers']['Location']}     ignore_order=True
+    Run Keyword If  'location' in ${response['headers']}  Should Be Equal  ${expected_path}${expected_entity_id}        ${response['headers']['location']}     ignore_order=True
+
+# Since Http headers names are case-insensitive (from Http specification)
+# We check both Location and location headers
 Check Response Headers ID Not Empty
     [Arguments]  ${response}
-    ${id}=     Fetch From Right    ${response['headers']['location']}  /
+
+    ${location_header}=     Set Variable If  'Location' in ${response['headers']}    ${response['headers']['Location']}     ${response['headers']['location']}
+    ${id}=  Fetch From Right    ${location_header}  /
     Should Not Be Empty  ${id}
     [return]    ${id}
 
@@ -75,8 +87,8 @@ Check Response Body Containing Entity element
     [Arguments]     ${expectation_filename}    ${entity_id}    ${response_body}
     ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/expectations/${expectation_filename}
     ${entity}=    Update Value To Json    ${entity_payload}     $..id   ${entity_id}
-    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity}      ${instance_id_regex_expr}
-    Should Be True      ${comparaison_result}   msg=Entity Comparaison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity}      ${instance_id_regex_expr}
+    Should Be True      ${comparison_result}   msg=Entity Comparison Failed
 
 Check Response Body Containing List Containing Entity Elements
     [Arguments]     ${expectation_filename}    ${entities_ids}    ${response_body}
@@ -86,12 +98,25 @@ Check Response Body Containing List Containing Entity Elements
         ${index}=    Evaluate    ${index} + 1
     END
 
+Check Response Body Containing List Containing Entity Elements With Different Types
+    [Arguments]     ${filename}    ${entities_representation_ids}        ${response_body}
+    ${entities_representation_payload}=    Load Json From File    ${EXECDIR}/data/entities/expectations/${filename}
+    ${index}=    Set Variable    1
+    FOR    ${entity_representation_id}    IN    @{entities_representation_ids}
+        ${entities_representation_payload}=    Update Value To Json    ${entities_representation_payload}     $.[${index}]..id   ${entity_representation_id}
+        ${index}=    Evaluate    ${index} - 1
+    END
+    Log  ${response_body}
+    Log  ${entities_representation_payload}
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entities_representation_payload}      ${instance_id_regex_expr}
+    Should Be True      ${comparaison_result}   msg=Entity List Comparaison Failed
+
 Check Response Body Containing EntityTemporal element
     [Arguments]     ${filename}    ${temporal_entity_representation_id}
     ${temporal_entity_representation_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/expectations/${filename}
     ${temporal_entity_representation}=    Update Value To Json    ${temporal_entity_representation_payload}     $..id   ${temporal_entity_representation_id}
-    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${temporal_entity_representation}      ${instance_id_regex_expr}
-    Should Be True      ${comparaison_result}   msg=EntityTemporal Comparaison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${temporal_entity_representation}      ${instance_id_regex_expr}
+    Should Be True      ${comparison_result}   msg=EntityTemporal Comparison Failed
 
 Check Response Body Containing List Containing EntityTemporal elements
     [Arguments]     ${filename}    ${temporal_entities_representation_ids}
@@ -101,8 +126,97 @@ Check Response Body Containing List Containing EntityTemporal elements
         ${temporal_entities_representation_payload}=    Update Value To Json    ${temporal_entities_representation_payload}     $.[${index}]..id   ${temporal_entity_representation_id}
         ${index}=    Evaluate    ${index} + 1
     END
-    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${temporal_entities_representation_payload}      ${instance_id_regex_expr}
-    Should Be True      ${comparaison_result}   msg=EntityTemporal List Comparaison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${temporal_entities_representation_payload}      ${instance_id_regex_expr}
+    Should Be True      ${comparison_result}   msg=EntityTemporal List Comparison Failed
+
+Check Response Body Containing Subscription element
+    [Arguments]     ${expectation_filename}    ${subscription_id}
+    ${subscription_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
+    ${subscription}=    Update Value To Json    ${subscription_payload}     $..id   ${subscription_id}
+    ${ignored_keys}=    Create List     ${status_regex_expr}    ${context_regex_expr}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${subscription}  ${ignored_keys}
+    Should Be True      ${comparison_result}   msg=Subscription Comparison Failed
+
+Check Response Body Containing List Containing Subscription elements
+    [Arguments]     ${expectation_file_path}    ${subscription_ids}
+    ${subscription_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_file_path}
+    ${index}=    Set Variable    0
+    FOR    ${subscription_id}    IN    @{subscription_ids}
+        ${subscription_payload}=    Update Value To Json    ${subscription_payload}     $.[${index}]..id   ${subscription_id}
+        ${index}=    Evaluate    ${index} + 1
+    END
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${subscription_payload}  ${EMPTY}
+    Should Be True      ${comparison_result}   msg=Subscription Comparison Failed
+
+# Since response body can be a json object if it contains one element
+# A check on the response body type is needed
+Check Response Body Containing Number Of Entities
+    [Arguments]     ${expected_entity_type}    ${expected_length}
+
+    ${response_body_length}=    Get Length  ${response['body']}
+    ${is_list}=    Run Keyword   Evaluate    type(${response['body']})==list
+
+    Run Keyword If  ${is_list}  Should Be Equal  ${response_body_length}    ${expected_length}
+    Run Keyword Unless  ${is_list}  Should Be Equal  ${1}    ${expected_length}
+
+    FOR    ${index}    IN RANGE    ${expected_length}
+        Run Keyword If  ${is_list}  Should Be Equal  ${response['body'][${index}]['type']}    ${expected_entity_type}
+    END
+    Run Keyword Unless  ${is_list}  Should Be Equal  ${response['body']['type']}    ${expected_entity_type}
+
+Check Response Body Containing Context Source Registration element
+    [Arguments]     ${expectation_filename}    ${context_source_registration_id}
+    ${context_source_registration_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
+    ${context_source_registration}=    Update Value To Json    ${context_source_registration_payload}     $..id   ${context_source_registration_id}
+    ${ignored_keys}=    Create List     ${context_regex_expr}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${context_source_registration}  ${ignored_keys}
+    Should Be True      ${comparison_result}   msg=Context Source Registration Comparison Failed
+
+Check Response Body Containing EntityTypeList element
+    [Arguments]     ${expectation_filename}
+    ${entity_type_list_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
+    ${ignored_keys}=    Create List     ${id_regex_expr}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${entity_type_list_payload}  ${ignored_keys}
+    Should Be True      ${comparison_result}   msg=EntityTypeList Comparison Failed
+
+Check Response Body Containing EntityType element
+    [Arguments]     ${expectation_filename}
+    ${entity_type_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
+    ${ignored_keys}=    Create List
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${entity_type_payload}    ${ignored_keys}
+    Should Be True      ${comparison_result}   msg=EntityType Comparison Failed
+
+Check Response Body Containing EntityTypeInfo element
+    [Arguments]     ${expectation_filename}
+    ${entity_type_info_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
+    ${ignored_keys}=    Create List
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${entity_type_info_payload}    ${ignored_keys}
+    Should Be True      ${comparison_result}   msg=EntityTypeInfo Comparison Failed
+
+Check Response Body Containing AttributeList element
+    [Arguments]     ${expectation_filename}
+    ${attribute_list_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
+    ${ignored_keys}=    Create List     ${id_regex_expr}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${attribute_list_payload}    ${ignored_keys}
+    Should Be True      ${comparison_result}   msg=AttributeList Comparison Failed
+
+Check Response Body Containing Attribute element
+    [Arguments]     ${expectation_filename}
+    ${attribute_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
+    ${ignored_keys}=    Create List
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${attribute_payload}    ${ignored_keys}
+    Should Be True      ${comparison_result}   msg=Attribute Comparison Failed
+
+Check Response Body Containing List Containing Context Source Registrations elements
+    [Arguments]     ${expectation_file_path}    ${expected_context_source_registrations_ids}
+    ${expected_context_source_registrations_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_file_path}
+    ${index}=    Set Variable    0
+    FOR    ${expected_context_source_registration_id}    IN    @{expected_context_source_registrations_ids}
+        ${expected_context_source_registrations_payload}=    Update Value To Json    ${expected_context_source_registrations_payload}     $.[${index}]..id   ${expected_context_source_registration_id}
+        ${index}=    Evaluate    ${index} + 1
+    END
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${expected_context_source_registrations_payload}  ${EMPTY}
+    Should Be True      ${comparaison_result}   msg=Context Source Registration Comparaison Failed
 
 Check Response Body Type When Using Session Request
     [Arguments]     ${response}    ${type}
@@ -149,25 +263,25 @@ Check HTTP Response Body Json Schema Is
     Validate Json    ${schema}    ${response['body']}
     Log    Json Schema Validation OK
 
-Should Be Present In Json List
-    [Arguments]     ${expr}   ${json_field}   ${json_value}
-    Log    Check if ${json_field} is present in ${expr} with the value ${jsonvalue}
-    :FOR  ${item}  IN  @{expr}
-    \  Exit For Loop If    "${item['${json_field}']}" == "${json_value}"
-    Log    Item found ${item}
-    [return]    ${item}
-
-Check Result Contains
-    [Arguments]    ${source}    ${parameter}    ${value}
-    Should Be Present In Json List    ${source}    ${parameter}    ${value}
+Check JSON Value In Response Body
+    [Arguments]     ${json_path_expr}   ${value_to_check}
+    Should Be Equal As Strings      ${response['body']${json_path_expr}}      ${value_to_check}
 
 Check NotificationParams
     [Arguments]     ${filename}     ${expected_additional_members}
 
     ${expected_notification}=    Load Json From File    ${EXECDIR}/data/${filename}
-    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']['notification']}    ${expected_notification}      ${notification_timestamps_regex_expr}
-    Should Be True      ${comparaison_result}   msg=NotificationParams Comparaison Failed
+    ${ignored_keys}=    Create List     ${notification_timestamps_regex_expr}    ${notification_endpoint_uri_regex_expr}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']['notification']}    ${expected_notification}      ${ignored_keys}
+    Should Be True      ${comparison_result}   msg=NotificationParams Comparison Failed
 
     FOR    ${expected_additional_member}    IN    @{expected_additional_members}
         Should Not Be Empty     ${response['body']['notification']['${expected_additional_member}']}
     END
+
+Check Pagination Prev And Next Headers
+    [Arguments]  ${prev_link}    ${next_link}
+    ${expected_links}=   Create List     ${prev_link}    ${next_link}
+    Run Keyword If     '${prev_link}'!='' and '${next_link}'!=''       Lists Should Be Equal    ${response['headers']['Link']}    ${expected_links}   ignore_order=True
+    Run Keyword If     '${prev_link}'!='' and '${next_link}'==''       Should Be Equal      ${response['headers']['Link']}    ${prev_link}
+    Run Keyword If     '${prev_link}'=='' and '${next_link}'!=''       Should Be Equal      ${response['headers']['Link']}    ${next_link}
