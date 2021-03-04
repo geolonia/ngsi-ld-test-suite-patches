@@ -1,0 +1,44 @@
+{
+   "id":"urn:ngsi-ld:Vehicle:randomUUID",
+   "type": "https://ngsi-ld-test-suite/context#Vehicle",
+   "https://ngsi-ld-test-suite/context#brandName": {
+       "type": "Property",
+       "value": "BMW",
+       "instanceId": "urn:ngsi-ld:76739600-3d5c-4cfd-939d-34742a13b52d"
+   },
+   "https://ngsi-ld-test-suite/context#fuelLevel": [
+       {
+           "type": "Property",
+           "datasetId": "urn:ngsi-ld:Vehicle:12345-fuel",
+           "value": 40,
+           "instanceId": "urn:ngsi-ld:0f6e7514-e3ed-46a6-9e9f-6bb02ff687bf",
+           "observedAt": "2020-09-01T14:07:00Z"
+       },
+       {
+           "type": "Property",
+           "value": 53,
+           "instanceId": "urn:ngsi-ld:59ebe244-14d6-4428-87e1-cd313748125c",
+           "observedAt": "2020-09-01T13:05:00Z"
+       },
+       {
+           "type": "Property",
+           "value": 67,
+           "instanceId": "urn:ngsi-ld:8bfeea42-8ed3-4d4e-a942-c389229bd6ff",
+           "observedAt": "2020-09-01T12:03:00Z"
+       }
+   ],
+   "https://ngsi-ld-test-suite/context#speed": [
+       {
+           "type": "Property",
+           "value": 120,
+           "instanceId": "urn:ngsi-ld:ec47b86f-656e-4182-b1c2-fbe5af5b4862",
+           "observedAt": "2020-09-01T12:03:00Z"
+       },
+       {
+           "type": "Property",
+           "value": 80,
+           "instanceId": "urn:ngsi-ld:f3ffc7ad-e562-4081-bd8a-5dda92ab0ffd",
+           "observedAt": "2020-09-01T12:05:00Z"
+       }
+   ]
+}

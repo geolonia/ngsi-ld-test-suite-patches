@@ -1,6 +1,6 @@
 [
     {
-        "id": "urn:ngsi-ld:OffStreetParking:1149507078845158",
+        "id": "urn:ngsi-ld:OffStreetParking:randomUUID",
         "type": "https://uri.fiware.org/ns/data-models#OffStreetParking",
         "location": {
             "type": "GeoProperty",
@@ -38,7 +38,7 @@
         ]
     },
     {
-        "id": "urn:ngsi-ld:Vehicle:8601152883544931",
+        "id": "urn:ngsi-ld:Vehicle:randomUUID",
         "type": "https://uri.fiware.org/ns/data-models#Vehicle",
         "isParked": {
             "type": "Relationship",

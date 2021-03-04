@@ -285,3 +285,17 @@ Check Pagination Prev And Next Headers
     Run Keyword If     '${prev_link}'!='' and '${next_link}'!=''       Lists Should Be Equal    ${response['headers']['Link']}    ${expected_links}   ignore_order=True
     Run Keyword If     '${prev_link}'!='' and '${next_link}'==''       Should Be Equal      ${response['headers']['Link']}    ${prev_link}
     Run Keyword If     '${prev_link}'=='' and '${next_link}'!=''       Should Be Equal      ${response['headers']['Link']}    ${next_link}
+
+Check Response Body Containing One Subscription element
+    [Arguments]     ${expectation_filename}    ${response_body}
+    ${payload}=    Load Json From File    ${EXECDIR}/data/csourceSubscriptions/expectations/${expectation_filename}
+    ${subscription}=    Update Value To Json    ${payload}     $..id   ${response_body['id']}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${subscription}      ${instance_id_regex_expr}
+    Should Be True      ${comparison_result}   msg=Entity Comparison Failed
+
+Check Response Body Containing One Registration element
+    [Arguments]     ${expectation_filename}    ${response_body}
+    ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/expectations/${expectation_filename}
+    ${subscription}=    Update Value To Json    ${payload}     $..id   ${response_body['id']}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${subscription}      ${instance_id_regex_expr}
+    Should Be True      ${comparison_result}   msg=Entity Comparison Failed
