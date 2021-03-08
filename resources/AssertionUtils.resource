@@ -101,10 +101,10 @@ Check Response Body Containing List Containing Entity Elements
 Check Response Body Containing List Containing Entity Elements With Different Types
     [Arguments]     ${filename}    ${entities_representation_ids}        ${response_body}
     ${entities_representation_payload}=    Load Json From File    ${EXECDIR}/data/entities/expectations/${filename}
-    ${index}=    Set Variable    1
+    ${index}=    Set Variable    0
     FOR    ${entity_representation_id}    IN    @{entities_representation_ids}
         ${entities_representation_payload}=    Update Value To Json    ${entities_representation_payload}     $.[${index}]..id   ${entity_representation_id}
-        ${index}=    Evaluate    ${index} - 1
+        ${index}=    Evaluate    ${index} + 1
     END
     Log  ${response_body}
     Log  ${entities_representation_payload}

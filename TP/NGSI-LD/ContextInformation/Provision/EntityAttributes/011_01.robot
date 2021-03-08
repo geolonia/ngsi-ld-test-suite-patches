@@ -10,7 +10,7 @@ Test Template  Update Attributes
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
 ${filename}=  vehicle-two-datasetid-attributes-sample.jsonld
 
-*** Test Cases ***                                                                STATUS_CODE               FRAGMENT_FILENAME                                        EXPECTATION_FILENAME
+*** Test Cases ***                                                                   STATUS_CODE               FRAGMENT_FILENAME                                        EXPECTATION_FILENAME
 011_01_01_Check that you can update existing attributes with no datasetId            204                       vehicle-two-datasetid-attributes-sample-01.jsonld        ${EMPTY}
 011_01_02_Check that you can update existing attributes with the datasetId           204                       vehicle-two-datasetid-attributes-sample-02.jsonld        ${EMPTY}
 011_01_03_Check that you can update only some attributes while others failed         207                       vehicle-two-datasetid-attributes-sample-03.jsonld        vehicle-two-datasetid-attributes-sample-expectation-03.jsonld

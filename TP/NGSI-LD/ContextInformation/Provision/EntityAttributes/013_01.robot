@@ -12,7 +12,7 @@ ${status_code}=  204
 ${filename}=  vehicle-two-datasetid-attributes-sample.jsonld
 ${attribute_id}=  speed
 
-*** Test Cases ***                                                     DATASETID                                      DELETEALL 
+*** Test Cases ***                                                        DATASETID                                   DELETEALL 
 013_01_01_delete an attribute with the id                                 ${EMPTY}                                    false  
 013_01_02_delete an attribute with the datasetId                          urn:ngsi-ld:Property:gpsBxyz123-speed       false 
 013_01_03_delete all target attribute instances with a datasetId          urn:ngsi-ld:Property:gpsBxyz123-speed       true   

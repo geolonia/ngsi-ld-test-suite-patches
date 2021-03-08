@@ -23,8 +23,7 @@ Query several entities based on incorrect attribute names
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${second_entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    @{attributes_to_be_retrieved}=  Create List      ${invalid_attribute_one}  ${invalid_attribute_two}
-    @{entities_ids_to_be_retrieved}=  Create List   ${first_entity_id}    ${second_entity_id}
+    ${attributes_to_be_retrieved}=  Catenate    SEPARATOR=,   ${invalid_attribute_one}    ${invalid_attribute_two}
     ${response}=    Query Entities    attrs=${attributes_to_be_retrieved}
     Check Response Status Code  400    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_BAD_REQUEST_DATA}
