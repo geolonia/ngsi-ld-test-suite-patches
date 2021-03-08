@@ -10,7 +10,7 @@ Test Template  Append Attributes
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
 ${filename}=  vehicle-datasetid-attributes-sample.jsonld
 
-*** Test Cases ***                    STATUS_CODE      OVERWRITE           FRAGMENT_FILENAME                                         EXPECTATION_FILENAME
+*** Test Cases ***                       STATUS_CODE      OVERWRITE           FRAGMENT_FILENAME                                         EXPECTATION_FILENAME
 010_01_01_Append entity attributes       204              ${EMPTY}            vehicle-fragment-same-datasetid-sample.jsonld             ${EMPTY}
 010_01_02_Append entity attributes       207              noOverwrite         vehicle-fragment-same-datasetid-sample.jsonld             vehicle-attributes-sample-append-expectation-02.jsonld
 010_01_03_Append entity attributes       204              ${EMPTY}            vehicle-fragment-different-datasetid-sample.jsonld        ${EMPTY}

@@ -8,7 +8,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-location-attribute-sample.jsonld
 ${expectation_filename}=  building-location-attribute-sample-expectation-query-geoproperty.jsonld
-${entity_type}=  https://uri.fiware.org/ns/data-models#Building
+${entity_type}=  https://ngsi-ld-test-suite/context#Building
 ${geometry_property}=  location
 
 *** Test Cases ***                                                 

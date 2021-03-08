@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation   Check that you can query entitites based on a list of properties
+Documentation   Check that you cannot query entitites if the request has a wrong geometryProperty
 Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource    ${EXECDIR}/resources/AssertionUtils.resource
 Resource    ${EXECDIR}/resources/JsonUtils.resource
@@ -11,8 +11,8 @@ ${entity_type}=  https://ngsi-ld-test-suite/context#Building
 ${invalid_geometry_property}=  invalid_geometry_property
 
 *** Test Cases ***                                                 
-Query several entities based on a list of properties
-    [Documentation]  Check that you can query entitites based on a list of properties
+Query entitites when the request has a wrong geometryProperty
+    [Documentation]  Check that you cannot query entitites if the request has a wrong geometryProperty
     [Tags]  mandatory
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}

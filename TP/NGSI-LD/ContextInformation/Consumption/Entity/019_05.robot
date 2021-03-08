@@ -26,11 +26,12 @@ Get an entity by id that can be returned in a geoJSON format
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${third_entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    @{entities_ids_to_be_retrieved}=  Create List   ${first_entity_id}    ${second_entity_id}
+    @{entities_ids_to_be_compared}=  Create List   ${first_entity_id}    ${second_entity_id}
+    ${entities_ids_to_be_retrieved}=  Catenate    SEPARATOR=,   ${first_entity_id}    ${second_entity_id}
     @{entity_types_to_be_retrieved}=  Create List   ${entity_type}
     ${response}=    Query Entities     entity_ids=${entities_ids_to_be_retrieved}    entity_types=${entity_types_to_be_retrieved}    accept=${accept_header}
     Check Response Status Code  200    ${response['status']}
-    Check Response Body Containing List Containing Entity elements    ${expectation_filename}    ${entities_ids_to_be_retrieved}    ${response['body']}
+    Check Response Body Containing List Containing Entity elements    ${expectation_filename}    ${entities_ids_to_be_compared}    ${response['body']}
 
     [Teardown]  Delete Entities    ${first_entity_id}    ${second_entity_id}    ${third_entity_id}
 

@@ -32,7 +32,6 @@ Query several entities based on the entities types
     ${request}    ${response}=    Create Entity Selecting Content Type  ${parking_filename}     ${parking_entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    #@{entity_types_to_be_retrieved}=  Create List    ${vehicle_entity_type}    ${parking_entity_type}
     ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,   ${vehicle_entity_type}    ${parking_entity_type}
     ${response}=    Query Entities    entity_types=${entity_types_to_be_retrieved}
     Check Response Status Code  200    ${response['status']}

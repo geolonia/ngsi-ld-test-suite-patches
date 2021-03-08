@@ -1,13 +1,11 @@
 {
-    "speed": {
+    "https://ngsi-ld-test-suite/context#speed": {
         "type": "Property",
         "value": 56,
         "source": {
             "type": "Property",
             "value": "Speedometer"
         },
-        "datasetId": "urn:ngsi-ld:Property:speedometerA4567-speed" 
-    },
-    "@context": 
-        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld"
+        "datasetId": "12345" 
+    }
 }

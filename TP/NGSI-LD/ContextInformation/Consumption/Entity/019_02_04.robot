@@ -8,7 +8,6 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-minimal-sample.jsonld
 ${expectation_filename}=  building-minimal-sample-expectation.jsonld
-${entity_type}=  https://ngsi-ld-test-suite/context#Building
 ${attribute_airqualitylevel}=  https://ngsi-ld-test-suite/context#airQualityLevel
 ${attribute_subcategory}=  https://ngsi-ld-test-suite/context#subCategory
 
@@ -24,7 +23,7 @@ Query several entities via POST Interaction based on attribute names
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${second_entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    @{attributes_to_be_retrieved}=  Create List      ${attribute_airqualitylevel}  ${attribute_subcategory}
+    ${attributes_to_be_retrieved}=  Catenate    SEPARATOR=,   ${attribute_airqualitylevel}    ${attribute_subcategory}
     @{entities_ids_to_be_retrieved}=  Create List   ${first_entity_id}    ${second_entity_id}
     ${response}=    Query Entities Via POST    attrs=${attributes_to_be_retrieved}
     Check Response Status Code  200    ${response['status']}

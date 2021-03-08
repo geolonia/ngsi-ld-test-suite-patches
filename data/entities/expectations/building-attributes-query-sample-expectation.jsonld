@@ -1,14 +1,14 @@
 
     {
-        "id": "urn:ngsi-ld:Building:randomUUID",
-        "type": "https://uri.fiware.org/ns/data-models#Building",
-        "https://uri.fiware.org/ns/data-models#airQualityLevel": {
+        "id": "urn:ngsi-ld:Building:4279250905792670",
+        "type": "https://ngsi-ld-test-suite/context#Building",
+        "https://ngsi-ld-test-suite/context#airQualityLevel": {
             "type": "Property",
             "value": 4,
             "observedAt": "2020-09-09T16:40:00.000Z",
             "unitCode": "C62"
         },
-        "https://uri.fiware.org/ns/data-models#subCategory": {
+        "https://ngsi-ld-test-suite/context#subCategory": {
             "type": "Property",
             "value": "tourism"
         },

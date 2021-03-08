@@ -5,7 +5,7 @@ Resource    ${EXECDIR}/resources/AssertionUtils.resource
 
 Test Template  Create Entity With Invalid Request Scenarios
 
-*** Test Cases ***                        FILENAME                         
+*** Test Cases ***                           FILENAME                         
 001_02_01_InvalidJson                        invalid-json-sample.jsonld            
 001_02_02_EmptyJson                          empty-sample.jsonld
 001_02_03_EntityWithNoContext                building-minimal-without-context-sample.jsonld      

@@ -10,7 +10,7 @@ ${filename}=  building-simple-attributes-sample.jsonld
 ${attribute_not_known}=  property_not_found
 
 *** Test Cases ***                                                 
-Get an entity if an atris not known to the system           
+Get an entity if an attribute is not known to the system           
     [Documentation]  Check that you cannot get an entity if an attribute is not known to the system
     [Tags]  mandatory
 

@@ -9,9 +9,9 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-simple-attributes-sample.jsonld
 ${filename2}=  building-minimal-sample.jsonld
 ${expectation_filename}=  building-attributes-query-sample-expectation.jsonld
-${entity_type}=  https://uri.fiware.org/ns/data-models#Building
-${attribute_airqualitylevel}=  https://uri.fiware.org/ns/data-models#airQualityLevel
-${attribute_subcategory}=  https://uri.fiware.org/ns/data-models#subCategory
+${entity_type}=  https://ngsi-ld-test-suite/context#Building
+${attribute_airqualitylevel}=  https://ngsi-ld-test-suite/context#airQualityLevel
+${attribute_subcategory}=  https://ngsi-ld-test-suite/context#subCategory
 
 *** Test Cases ***                                                 
 Query several entities based on attribute names
