@@ -12,7 +12,7 @@ ${attribute_not_known}=  property_not_found
 *** Test Cases ***                                                 
 Get an entity if an attribute is not known to the system           
     [Documentation]  Check that you cannot get an entity if an attribute is not known to the system
-    [Tags]  mandatory
+    [Tags]  /entities/{entityId}    5_6_6
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}

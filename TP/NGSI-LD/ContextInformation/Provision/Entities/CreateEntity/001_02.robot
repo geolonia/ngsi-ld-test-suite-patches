@@ -14,7 +14,7 @@ Test Template  Create Entity With Invalid Request Scenarios
 Create Entity With Invalid Request Scenarios
     [Arguments]  ${filename}
     [Documentation]  Check that you cannot create an entity with an invalid request
-    [Tags]  mandatory
+    [Tags]   /entities/    5_6_1
 
     Request Entity From File   ${filename}
 
