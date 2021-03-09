@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-location-attribute-sample.jsonld
-${expectation_filename}=  building-location-attribute-sample-expectation-query-geoproperty.jsonld
+${expectation_filename}=  building-geoproperty-query-expectation.jsonld
 ${geometry_property}=  location
 
 *** Test Cases ***                               

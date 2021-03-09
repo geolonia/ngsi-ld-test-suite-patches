@@ -8,7 +8,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-simple-attributes-sample.jsonld
 ${filename2}=  building-minimal-sample.jsonld
-${expectation_filename}=  building-attributes-query-sample-expectation.jsonld
+${expectation_filename}=  building-attributes-query-expectation.jsonld
 ${entity_type}=  https://ngsi-ld-test-suite/context#Building
 ${attribute_airqualitylevel}=  https://ngsi-ld-test-suite/context#airQualityLevel
 ${attribute_subcategory}=  https://ngsi-ld-test-suite/context#subCategory

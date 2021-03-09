@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-simple-attributes-sample.jsonld
-${expectation_filename}=  building-simple-attributes-sample-expectation.jsonld
+${expectation_filename}=  building-simple-attributes-expectation.jsonld
 
 *** Test Cases ***                               
 018_01_01_Get an entity by id

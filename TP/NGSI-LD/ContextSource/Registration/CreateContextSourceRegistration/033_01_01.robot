@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
-${registration_payload_file_path}=   csourceRegistrations/registration-with-expiration-sample.jsonld
+${registration_payload_file_path}=   csourceRegistrations/context-source-registration-with-expiration-sample.jsonld
 
 *** Test Case ***
 Create Context Source Registration With Specific Date Expiration Date

@@ -6,10 +6,10 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
-${filename}=  vehicle-datasetid-attributes-sample.jsonld
-${fragment_filename}=  vehicle-fragment-same-datasetid-sample.jsonld
+${filename}=  vehicle-speed-two-datasetid-sample.jsonld
+${fragment_filename}=  vehicle-attribute-to-add-fragment.jsonld
 ${status_code}=  400
-${invalid_fragment_filename}=  invalid-vehicle-fragment-datasetid-sample.jsonld
+${invalid_fragment_filename}=  invalid-fragment.jsonld
 
 *** Test Cases ***
 #010_02_01_Append entity attributes if the entity Id is not present                

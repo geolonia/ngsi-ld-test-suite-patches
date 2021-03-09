@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-simple-attributes-sample.jsonld
-${expectation_filename}=  building-simple-attributes-sample-expectation-simplified.jsonld
+${expectation_filename}=  building-simple-attributes-simplified-expectation.jsonld
 ${options_parameter}=  keyValues
 
 *** Test Cases ***                                                 

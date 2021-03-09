@@ -1,6 +1,6 @@
 {
     "id": "urn:ngsi-ld:ContextSourceRegistration:randomUUID",
-    "type": "ContextSourceRegistration",
+    "type": "building",
     "information": [
         {
         "entities": [
@@ -37,8 +37,7 @@
     "timestamp": {
         "startAt": " 2017-11-29T14:53:15Z"
     },
-    "expiresAt": " 2018-11-29T14:53:15Z",
     "@context": [
-        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld"
+        "https://raw.githubusercontent.com/easy-global-market/ngsild-api-data-models/feature/add-json-ld-context-for-ngsi-ld-test-suite/ngsi-ld-test-suite/ngsi-ld-test-suite-context.jsonld"
     ]
 }

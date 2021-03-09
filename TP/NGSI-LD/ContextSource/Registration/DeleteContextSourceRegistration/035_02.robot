@@ -8,7 +8,7 @@ Test Template  Delete Context Source
 
 *** Variable ***
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
-${filename}=  registration-sample.jsonld
+${filename}=  context-source-registration-simple-sample.jsonld
 
 *** Test Case ***                                                                 INVALID_REGISTRATION_ID
 035_02_01_Delete a Context Source Registration if the Id is not present              ${EMPTY}

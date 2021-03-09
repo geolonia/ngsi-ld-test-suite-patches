@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-minimal-sample.jsonld
-${expectation_filename}=  building-minimal-sample-expectation.jsonld
+${expectation_filename}=  building-minimal-expectation.jsonld
 ${entity_type}=  https://ngsi-ld-test-suite/context#Building
 ${limit}=  2
 

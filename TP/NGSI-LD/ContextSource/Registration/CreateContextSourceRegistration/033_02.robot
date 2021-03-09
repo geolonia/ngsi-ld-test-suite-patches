@@ -6,15 +6,15 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
-${registration_payload_file_path}=   registration-invalid-sample.jsonld
+${registration_payload_file_path}=   context-source-registration-invalid-sample.jsonld
 
 *** Test Cases ***
 033_02_01_Create a context source registration with invalid JSON file  
   Create a context source registration with invalid JSON file
 033_02_02_Create a context source registration with a different data structure than CsourRegistration data type           
-  Create Context Source With Invalid Content  csourceRegistrations/registration-invalid-structure-sample.jsonld
+  Create Context Source With Invalid Content  csourceRegistrations/context-source-registration-invalid-structure-sample.jsonld
 033_02_03_Create a context source registration with a date in the past                                                    
-  Create Context Source With Invalid Content  csourceRegistrations/registration-past-expiration-sample.jsonld
+  Create Context Source With Invalid Content  csourceRegistrations/context-source-registration-past-expiration-sample.jsonld
 
 *** Keywords ***
 Create Context Source With Invalid Content

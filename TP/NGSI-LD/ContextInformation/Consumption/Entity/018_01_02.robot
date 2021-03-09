@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-simple-attributes-sample.jsonld
-${expectation_filename}=  building-simple-attributes-sample-expectation-query-attributes.jsonld
+${expectation_filename}=  building-simple-attributes-query-expectation.jsonld
 ${attribute_airqualitylevel}=  https://ngsi-ld-test-suite/context#airQualityLevel
 ${attribute_subcategory}=  https://ngsi-ld-test-suite/context#subCategory
 

@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
-${registration_payload_file_path}=   csourceRegistrations/context-source-registration-sample.jsonld
+${registration_payload_file_path}=   csourceRegistrations/context-source-context-source-registration-simple-sample.jsonld
 
 *** Test Case ***
 Create one context source registration using a JSON-LD @context obtained from the request payload
