@@ -10,7 +10,7 @@ Test Template  Partially Update Temporal Entity
 *** Variable ***
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
 ${filename}=  vehicle-temporal-representation-sample.jsonld
-${fragment_filename}=  vehicle-temporal-intanceid-update-sample.jsonld
+${fragment_filename}=  vehicle-temporal-intanceid-update-fragment.jsonld
 ${status_code}=  404
 
 *** Test Cases ***                                                                                                               TEMPORAL_ENTITY_ID                          ATTRIBUTE_ID               INSTANCE_ID                                               

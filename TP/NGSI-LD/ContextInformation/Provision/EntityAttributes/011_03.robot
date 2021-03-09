@@ -6,7 +6,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
-${fragment_filename}=  vehicle-two-datasetid-attributes-sample-01.jsonld
+${fragment_filename}=  vehicle-speed-two-datasetid-01-fragment.jsonld
 
 *** Test Cases ***  
 Update entity attributes when the entity id is not known to the system

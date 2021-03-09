@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
-${filename}=  csourceRegistrations/registration-sample.jsonld
+${filename}=  csourceRegistrations/context-source-registration-simple-sample.jsonld
 
 *** Test Cases ***
 Create a context source registration that already exists

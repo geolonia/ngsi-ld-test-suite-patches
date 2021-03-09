@@ -9,11 +9,11 @@ ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
 
 *** Test Cases ***
 011_02_01_Update an attribute if the Entity Id is not present                     
-  Update Attributes  ${EMPTY}    vehicle-two-datasetid-attributes-sample.jsonld    vehicle-two-datasetid-attributes-sample-01.jsonld
+  Update Attributes  ${EMPTY}    vehicle-two-datasetid-attributes-sample.jsonld    vehicle-speed-two-datasetid-01-fragment.jsonld
 011_02_02_Update an attribute if the Entity Id is not a valid URI                 
-  Update Attributes  thisisaninvaliduri    vehicle-two-datasetid-attributes-sample.jsonld    vehicle-two-datasetid-attributes-sample-01.jsonld
+  Update Attributes  thisisaninvaliduri    vehicle-two-datasetid-attributes-sample.jsonld    vehicle-speed-two-datasetid-01-fragment.jsonld
 011_02_03_Update entity attributes with invalid entity fragments
-  Update entity attributes with invalid entity fragments  vehicle-datasetid-attributes-sample.jsonld    invalid-vehicle-fragment-datasetid-sample.jsonld
+  Update entity attributes with invalid entity fragments  vehicle-speed-two-datasetid-sample.jsonld    invalid-fragment.jsonld
 
 *** Keywords ***
 Update Attributes

@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
-${registration_payload_file_path}=   registration-sample.jsonld
+${registration_payload_file_path}=   context-source-registration-simple-sample.jsonld
 
 *** Test Case ***
 Delete a context source registration by id

@@ -9,15 +9,15 @@ Test Template  Partial Update Attributes
 
 *** Variable ***
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
-${filename}=  vehicle-datasetid-attributes-sample.jsonld
+${filename}=  vehicle-speed-two-datasetid-sample.jsonld
 ${status_code}=  404
 ${attribute_id}=  speed
 
 *** Test Cases ***                                                                   ENTITY_ID                      FRAGMENT_FILENAME      
-012_03_01_Partial update when the Entity Id is not known to the system               ${not_found_entity_id}         vehicle-fragment-same-datasetid-sample.jsonld
-012_03_02_Partial update when no default instance and no datasetId specified         ${valid_entity_id}             vehicle-fragment-invalid-datasetid-sample.jsonld
-012_03_03_Partial update when no instance with the datasetId specified               ${valid_entity_id}             vehicle-fragment-empty-datasetid-sample.jsonld
-012_03_04_Partial update when no instance with the attrId specified                  ${valid_entity_id}             vehicle-fragment-attribute-name-missing-sample.jsonld
+012_03_01_Partial update when the Entity Id is not known to the system               ${not_found_entity_id}         vehicle-attribute-to-add-fragment.jsonld
+012_03_02_Partial update when no default instance and no datasetId specified         ${valid_entity_id}             vehicle-speed-invalid-datasetid-fragment.jsonld.jsonld
+012_03_03_Partial update when no instance with the datasetId specified               ${valid_entity_id}             vehicle-isparked-fragment.jsonld
+012_03_04_Partial update when no instance with the attrId specified                  ${valid_entity_id}             vehicle-speed-wrong-name-fragment.jsonld
 
 *** Keywords ***
 Partial Update Attributes
