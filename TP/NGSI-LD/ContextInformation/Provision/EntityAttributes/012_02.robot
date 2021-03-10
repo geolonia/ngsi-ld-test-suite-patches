@@ -24,7 +24,7 @@ ${status_code}=  400
 Update Attributes
     [Arguments]  ${entity_id}     ${attribute_id}     ${fragment_filename}
     [Documentation]  Check that you cannot perform a partial update on an entity attribute with invalid/missing ids
-    [Tags]  mandatory
+    [Tags]  /entities/{entityId}/attrs/{attrId}      5_6_4
 
     ${init_entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${init_entity_id}    ${CONTENT_TYPE_LD_JSON}

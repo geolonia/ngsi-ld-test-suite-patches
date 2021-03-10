@@ -20,7 +20,7 @@ ${filename}=  vehicle-speed-two-datasetid-sample.jsonld
 Append Attributes
     [Arguments]  ${status_code}    ${overwrite}   ${fragment_filename}    ${expectation_filename}
     [Documentation]  Check that you can append entity attributes
-    [Tags]  mandatory  
+    [Tags]  /entities/{entityId}/attrs/      5_6_3
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}

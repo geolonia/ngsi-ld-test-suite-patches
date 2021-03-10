@@ -13,7 +13,7 @@ ${entity_type}=  https://ngsi-ld-test-suite/context#Building
 *** Test Cases ***                                                 
 Query several entities via POST Interaction based on ids
     [Documentation]  Check that you can query several entities via POST Interaction based on ids
-    [Tags]  mandatory
+    [Tags]  /entityOperations/query    5_7_2
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${first_entity_id}    ${CONTENT_TYPE_LD_JSON}

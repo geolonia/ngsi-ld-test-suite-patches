@@ -14,7 +14,7 @@ ${entity_invalid_id_two}=  thisisaninvaliduri2
 *** Test Cases ***                                                 
 Query entities based on incorrect ids 
     [Documentation]  Check that you cannot query entities if the requested ids are incorrect
-    [Tags]  mandatory
+    [Tags]  /entities/    5_7_2
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${first_entity_id}    ${CONTENT_TYPE_LD_JSON}
