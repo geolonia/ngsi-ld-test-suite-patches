@@ -27,7 +27,7 @@ Query entities specifying a maximum number of results
     Check Response Status Code  201    ${response['status']}
 
     ${entities_ids_to_be_retrieved}=  Catenate    SEPARATOR=,   ${first_entity_id}    ${second_entity_id}    ${third_entity_id}
-    @{entity_types_to_be_retrieved}=  Create List   ${entity_type}
+    ${entity_types_to_be_retrieved}=   Catenate    SEPARATOR=,   ${entity_type}
     ${response}=    Query Entities     entity_ids=${entities_ids_to_be_retrieved}    entity_types=${entity_types_to_be_retrieved}    limit=${limit}
     Check Response Status Code  200    ${response['status']}
     @{entities_ids_to_be_compared}=  Create List   ${first_entity_id}    ${second_entity_id}
