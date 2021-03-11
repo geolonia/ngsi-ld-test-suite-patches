@@ -24,7 +24,7 @@ Query entities based on incorrect ids
     Check Response Status Code  201    ${response['status']}
 
     ${entities_ids_to_be_retrieved}=  Catenate    SEPARATOR=,   ${entity_invalid_id_one}    ${entity_invalid_id_two}
-    @{entity_types_to_be_retrieved}=  Create List   ${entity_type}
+    ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,   ${entity_type}
     ${response}=    Query Entities    entity_ids=${entities_ids_to_be_retrieved}    entity_types=${entity_types_to_be_retrieved}
     Check Response Status Code  400    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_BAD_REQUEST_DATA}

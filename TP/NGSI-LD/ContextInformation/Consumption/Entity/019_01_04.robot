@@ -26,7 +26,7 @@ Query several entities based on attribute names
     Check Response Status Code  201    ${response['status']}
 
     ${attributes_to_be_retrieved}=  Catenate    SEPARATOR=,   ${attribute_airqualitylevel}  ${attribute_subcategory}
-    @{entities_ids_to_be_retrieved}=  Create List   ${first_entity_id}
+    ${entities_ids_to_be_retrieved}=  Catenate    SEPARATOR=,     ${first_entity_id}
     ${response}=    Query Entities    attrs=${attributes_to_be_retrieved}
     Check Response Status Code  200    ${response['status']}
     Check Response Body Containing List Containing Entity elements    ${expectation_filename}    ${entities_ids_to_be_retrieved}    ${response['body']}

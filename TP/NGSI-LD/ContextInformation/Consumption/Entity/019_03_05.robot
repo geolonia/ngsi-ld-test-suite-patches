@@ -22,7 +22,7 @@ Query entitites when the request has a wrong geometryProperty
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${second_entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    @{entity_types_to_be_retrieved}=  Create List   ${entity_type}
+    ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,   ${entity_type}
     ${response}=    Query Entities    entity_types=${entity_types_to_be_retrieved}    geoproperty=${invalid_geometry_property}
     Check Response Status Code  400    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_BAD_REQUEST_DATA}
