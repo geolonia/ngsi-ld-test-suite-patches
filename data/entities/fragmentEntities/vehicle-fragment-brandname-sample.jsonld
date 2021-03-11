@@ -1,5 +1,5 @@
 {
-    "brandName": {
+    "https://ngsi-ld-test-suite/context#brandName": {
         "type": "Property",
         "value": "BMW"
     },

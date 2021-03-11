@@ -9,6 +9,22 @@ ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
 ${filename}=  vehicle-two-datasetid-attributes-sample.jsonld
 ${fragment_filename}=  vehicle-two-datasetid-attributes-sample-01.jsonld
 
+
+${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
+${filename}=  vehicle-simple-attributes-sample.jsonld
+${fragment_filename}=  vehicle-fragment-brandname-sample.jsonld
+${attribute_id}=  brandName
+
+
+${subscription_id_prefix}=  urn:ngsi-ld:Subscription:
+${filename_path}=  csourceSubscriptions/subscription-sample.jsonld
+${fragment_filename_path}=  csourceSubscriptions/fragments/subscription-update-sample.jsonld
+
+${registration_id_prefix}=  urn:ngsi-ld:Registration:
+${registration_payload_file_path}=   registration-sample.jsonld 
+${fragment_filename_path}=  context-source-registration-update-sample.jsonld
+
+
 *** Test Cases ***                               
 044_01_01_endpoint /entities/{entityId}/attrs/
     [Documentation]  Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type 
@@ -21,3 +37,58 @@ ${fragment_filename}=  vehicle-two-datasetid-attributes-sample-01.jsonld
     Check Response Status Code  204    ${response['status']}
 
     [Teardown]  Delete Entity by Id  ${entity_id}
+
+044_01_02_endpoint /entities/{entityId}/attrs/{attrId}
+    [Documentation]  Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type 
+    [Tags]  mandatory
+    ${entity_id}=       Generate Random Entity Id    ${vehicle_id_prefix}    
+    ${request}    ${response}=    Create Entity Selecting Content Type    ${filename}    ${entity_id}    ${CONTENT_TYPE_LD_JSON}    
+    Check Response Status Code  201    ${response['status']}
+
+    ${response}=    Partial Update Entity Attributes    ${entity_id}    ${attribute_id}    ${fragment_filename}    ${CONTENT_TYPE_MERGE_PATCH_JSON}
+    Check Response Status Code  204    ${response['status']}
+
+    [Teardown]  Delete Entity by Id  ${entity_id}
+
+044_01_03_endpoint /subscriptions/{subscriptionId}       
+    [Documentation]  Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type 
+    [Tags]  mandatory
+    ${subscription_id}=       Generate Random Entity Id    ${subscription_id_prefix}    
+    ${response}=    Create Subscription    ${subscription_id}    ${filename_path}    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code  201    ${response['status']}
+
+    ${response}=    Update Subscription    ${subscription_id}     ${fragment_filename_path}    ${CONTENT_TYPE_MERGE_PATCH_JSON}
+    Check Response Status Code  204    ${response['status']}
+
+    [Teardown]  Delete Subscription  ${subscription_id}
+
+044_01_04_endpoint /csourceRegistrations/{registrationId}  
+    [Documentation]  Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type 
+    [Tags]  mandatory
+    ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
+
+    ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${registration_payload_file_path}
+    ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}
+    ${request}    ${response}=    Create Context Source Registration With Return  ${updated_payload}
+    Check Response Status Code  201    ${response['status']}
+
+    ${fragment}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/fragments/${fragment_filename_path}
+    ${response}=    Update Context Source Registration With Return  ${registration_id}    ${fragment}    ${CONTENT_TYPE_MERGE_PATCH_JSON}
+    Check Response Status Code  204    ${response['status']}
+
+    [Teardown]  Delete Context Source Registration    ${registration_id}
+
+*** comment *** 
+043_01 Create entity
+043_02 Retrieve entity by id
+043_03 Partial attribute update
+
+043_04 Create subscription
+043_05 Retrieve subscription by id
+043_06 Update subscription
+
+043_07 Create Temporal Representation of Entities
+043_08 Query temporal entities
+043_09 Batch entity create
+043_10 Create context source registration
+043_11 Query context source registration

@@ -52,7 +52,7 @@ ${tea_filename}=  vehicle-temporal-representation-sample.jsonld
     ${request}    ${response}=    Create Entity Selecting Content Type  ${building_filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    ${response}=    Query Entity    ${entity_id}    accept=${accept}
+   ${request}    ${response}=    Query Entity    ${entity_id}    accept=${accept}
     Check Response Status Code  ${status_code}    ${response['status']}
 
     [Teardown]  Delete Entity by Id Returning Response   ${entity_id}
@@ -76,7 +76,7 @@ ${tea_filename}=  vehicle-temporal-representation-sample.jsonld
     ${response}=    Create Subscription    ${id}    ${subscription_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    ${response}=  Retrieve Subscription  ${id}    accept=${accept}
+    ${request}    ${response}=  Retrieve Subscription  ${id}    accept=${accept}
     Check Response Status Code  ${status_code}    ${response['status']}
 
     [Teardown]  Delete Subscription  ${id}

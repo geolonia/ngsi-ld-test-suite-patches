@@ -62,9 +62,9 @@ Query Entity
     Run Keyword If     ${options_length}>0       Set To Dictionary   ${params}       options=${options}
     
     ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}${id}      headers=${headers}      query=${params}
-    Output  request
+    ${request}=    Output  request
     Output  response
-    [return]    ${response}
+    [return]  ${request}    ${response}
 
 Query Entities
     [Arguments]  ${entity_ids}=${EMPTY}     ${entity_types}=${EMPTY}     ${accept}=${EMPTY}    ${attrs}=${EMPTY}      ${context}=${EMPTY}    ${geoproperty}=${EMPTY}    ${options}=${EMPTY}     ${limit}=${EMPTY}    ${entity_id_pattern}=${EMPTY}
@@ -119,10 +119,11 @@ Retrieve Entity by Id
     Set Test Variable    ${response}
 
 Create Entity Selecting Content Type
-    [Arguments]  ${filename}    ${entity_id}    ${content_type}     ${context}=${EMPTY}
+    [Arguments]  ${filename}    ${entity_id}    ${content_type}     ${context}=${EMPTY}     ${accept}=${EMPTY}
     ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/${filename}
     ${entity}=    Update Value To Json    ${entity_payload}     $..id   ${entity_id}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
+    Run Keyword If     '${accept}'!='${EMPTY}'   Set To Dictionary   ${headers}   Accept=${accept}
     Run Keyword If     '${context}'!='${EMPTY}'   Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${response}=  POST  ${ENTITIES_ENDPOINT_PATH}  body=${entity}  headers=${headers}
     ${request}=    Output  request
@@ -173,8 +174,9 @@ Delete Entity Attributes
     [return]    ${response}
 
 Partial Update Entity Attributes
-    [Arguments]  ${entityId}    ${attributeId}    ${fragment_filename}    ${content_type}
+    [Arguments]  ${entityId}    ${attributeId}    ${fragment_filename}    ${content_type}    ${accept}=${EMPTY}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
+    Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
     ${response}=  PATCH  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}  body=${fragment_payload}  headers=${headers}
     Output  request
@@ -278,32 +280,6 @@ Delete Context Source Registration With Return
     Output  response
     [return]  ${response}
 
-Create Request By Selecting Endpoint
-    [Arguments]  ${id}    ${endpoint}     ${filename_path}
-    ${item_payload}=    Load Json From File    ${EXECDIR}/data/${filename_path}
-    ${item}=    Update Value To Json    ${item_payload}     $..id   ${id}
-    &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST  ${endpoint}  body=${item}  headers=${headers}
-    Output  request
-    Output  response
-    [return]  ${response}
-
-Merge Request By Selecting Endpoint
-    [Arguments]  ${id}    ${endpoint}     ${filename_path}
-    ${item_payload}=    Load Json From File    ${EXECDIR}/data/${filename_path}
-    ${item}=    Update Value To Json    ${item_payload}     $..id   ${id}
-    &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST  ${endpoint}  body=${item}  headers=${headers}
-    Output  request
-    Output  response
-    [return]  ${response}
-
-Delete Request By Selecting Endpoint/Id
-    [Arguments]  ${id}      ${delete_endpoint}
-    ${response}=  DELETE  ${delete_endpoint}${id}
-    Output  request
-    Output  response
-
 Create Entity
     [Arguments]  ${filename}    ${entity_id}
     ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/${filename}
@@ -314,10 +290,11 @@ Create Entity
     Output  response
 
 Create Or Update Temporal Representation Of Entity Selecting Content Type
-    [Arguments]  ${temporal_entity_representation_id}    ${filename}    ${content_type}
+    [Arguments]  ${temporal_entity_representation_id}    ${filename}    ${content_type}    ${accept}=${EMPTY}
     ${temporal_entity_representation_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/${filename}
     ${temporal_entity_representation}=    Update Value To Json    ${temporal_entity_representation_payload}     $..id   ${temporal_entity_representation_id}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
+    Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     ${response}=  POST  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/  body=${temporal_entity_representation}  headers=${headers}
     Output  request
     Output  response
@@ -411,9 +388,10 @@ Update Temporal Representation Of Entity Selecting Content Type
     [return]  ${response}
 
 Batch Create Entities
-    [Arguments]  @{entities_to_be_created}      ${content_type}=${CONTENT_TYPE_LD_JSON}     ${context}=${EMPTY}
+    [Arguments]  @{entities_to_be_created}      ${content_type}=${CONTENT_TYPE_LD_JSON}     ${context}=${EMPTY}     ${accept}=${EMPTY}
     ${headers}=  Create Dictionary
     Set To Dictionary   ${headers}   Content-Type    ${content_type}
+    Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${response}=  POST  ${BATCH_CREATE_ENDPOINT_PATH}  body=@{entities_to_be_created}  headers=${headers}
     Output  request
@@ -607,9 +585,9 @@ Retrieve Context Source Registration
     Set Test Variable  ${response}
 
 Create Context Source Registration Subscription
-    [Arguments]  ${subscription_payload}    ${accept}=${EMPTY}
+    [Arguments]  ${subscription_payload}    ${accept}=${EMPTY}    ${content_type}=${CONTENT_TYPE_LD_JSON}
 
-    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     ${response}=  POST  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}  body=${subscription_payload}  headers=${headers}
     ${request}=    Output  request
@@ -717,9 +695,9 @@ Retrieve Subscription
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
 
     ${response}=  GET  ${SUBSCRIPTION_ENDPOINT_PATH}${id}      headers=${headers}
-    Output  request
+    ${request}=  Output  request
     Output  response
-    [return]    ${response}
+    [return]    ${request}    ${response}
 
 Update Context Source Registration Subscription By Selecting Content Type
     [Arguments]  ${subscription_id}     ${subscription_update_fragment}    ${content_type}    ${accept}=${EMPTY}
@@ -798,3 +776,59 @@ Batch Delete Entities By Selecting Content Type
     Output  response
     Run Keyword If     not ${teardown}       Set Test Variable  ${response}
     Set Test Variable  ${response}
+
+Query Context Source Registrations With Return
+    [Arguments]     ${context}=${EMPTY}     ${id}=${EMPTY}  ${type}=${EMPTY}    ${attrs}=${EMPTY}   ${q}=${EMPTY}   ${georel}=${EMPTY}  ${geometry}=${EMPTY}  ${coordinates}=${EMPTY}  ${geoproperty}=${EMPTY}  ${timeproperty}=${EMPTY}     ${timerel}=${EMPTY}     ${timeAt}=${EMPTY}     ${limit}=${EMPTY}   ${page}=${EMPTY}   ${accept}=${EMPTY}
+
+    &{headers}=  Create Dictionary
+    &{params}=  Create Dictionary
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}    accept=${accept}
+    Run Keyword If     '${id}'!=''       Set To Dictionary   ${params}    id=${id}
+    Run Keyword If     '${type}'!=''       Set To Dictionary   ${params}    type=${type}
+    Run Keyword If     '${attrs}'!=''       Set To Dictionary   ${params}    attrs=${attrs}
+    Run Keyword If     '${q}'!=''       Set To Dictionary   ${params}    q=${q}
+    Run Keyword If     '${georel}'!=''       Set To Dictionary   ${params}    georel=${georel}
+    Run Keyword If     '${geometry}'!=''       Set To Dictionary   ${params}    geometry=${geometry}
+    Run Keyword If     '${coordinates}'!=''       Set To Dictionary   ${params}    coordinates=${coordinates}
+    Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
+    Run Keyword If     '${timeproperty}'!=''       Set To Dictionary   ${params}    timeproperty=${timeproperty}
+    Run Keyword If     '${timerel}'!=''       Set To Dictionary   ${params}    timerel=${timerel}
+    Run Keyword If     '${timeAt}'!=''       Set To Dictionary   ${params}    timeAt=${timeAt}
+    Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
+    Run Keyword If     '${page}'!=''       Set To Dictionary   ${params}    page=${page}
+
+    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}     headers=${headers}     query=${params}
+    ${request}=  Output  request
+    Output  response
+
+    [return]  ${request}    ${response}
+
+Query Temporal Representation Of Entities With Return
+    [Arguments]  ${context}=${EMPTY}     ${entity_types}=${EMPTY}   ${entity_ids}=${EMPTY}    ${entity_id_pattern}=${EMPTY}    ${ngsild_query}=${EMPTY}  ${csf}=${EMPTY}   ${georel}=${EMPTY}   ${geometry}=${EMPTY}    ${coordinates}=${EMPTY}    ${geoproperty}=${EMPTY}    ${timerel}=${EMPTY}      ${timeAt}=${EMPTY}     ${attrs}=${EMPTY}   ${limit}=${EMPTY}   ${lastN}=${EMPTY}    ${accept}=${EMPTY}
+    ${entity_types_length} =  Get Length  ${entity_types}
+    ${entity_ids_length} =  Get Length  ${entity_ids}
+    ${attrs_length} =  Get Length  ${attrs}
+    &{headers}=  Create Dictionary
+    &{params}=  Create Dictionary
+    Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}    Accept=${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    Run Keyword If     ${entity_types_length}>0       Set To Dictionary   ${params}    type=${entity_types}
+    Run Keyword If     ${entity_ids_length}>0       Set To Dictionary   ${params}    id=${entity_ids}
+    Run Keyword If     '${timerel}'!=''       Set To Dictionary   ${params}    timerel=${timerel}
+    Run Keyword If     '${timeAt}'!=''       Set To Dictionary   ${params}    timeAt=${timeAt}
+    Run Keyword If     ${attrs_length}>0       Set To Dictionary   ${params}       attrs=${attrs}
+    Run Keyword If     '${lastN}'!=''       Set To Dictionary   ${params}    lastN=${lastN}
+    Run Keyword If     '${entity_id_pattern}'!=''       Set To Dictionary   ${params}    idPattern=${entity_id_pattern}
+    Run Keyword If     '${ngsild_query}'!=''       Set To Dictionary   ${params}    q=${ngsild_query}
+    Run Keyword If     '${csf}'!=''       Set To Dictionary   ${params}    csf=${csf}
+    Run Keyword If     '${georel}'!=''       Set To Dictionary   ${params}    georel=${georel}
+    Run Keyword If     '${geometry}'!=''       Set To Dictionary   ${params}    geometry=${geometry}
+    Run Keyword If     '${coordinates}'!=''       Set To Dictionary   ${params}    coordinates=${coordinates}
+    Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
+    Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
+
+    ${response}=  GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}      headers=${headers}      query=${params}
+    ${request}=  Output  request
+    Output  response
+    [return]  ${request}    ${response}

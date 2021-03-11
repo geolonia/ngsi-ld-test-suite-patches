@@ -56,7 +56,7 @@ ${teatype}=  Vehicle
     ${request}    ${response}=    Create Entity Selecting Content Type  ${building_filename}     ${id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    ${response}=    Query Entity    ${id}
+    ${request}    ${response}=    Query Entity    ${id}
     Check Response Status Code  200    ${response['status']}
     Check Response Body Containing Entity element    ${building_expectation}    ${id}    ${response['body']}
 
@@ -82,7 +82,7 @@ ${teatype}=  Vehicle
     ${response}=    Create Subscription    ${id}    ${subscription_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    ${response}=  Retrieve Subscription  ${id}
+    ${request}    ${response}=  Retrieve Subscription  ${id}
     Check Response Status Code  200    ${response['status']}
     Check Response Body Containing One Subscription element    ${subscription_expectation}    ${response['body']}
 
