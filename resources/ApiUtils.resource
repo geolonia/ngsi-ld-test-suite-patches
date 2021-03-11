@@ -125,6 +125,15 @@ Create Entity Selecting Content Type
     [return]    ${request}    ${response}
 
 Append Entity Attributes
+    [Arguments]  ${id}    ${fragment_filename}    ${content_type}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
+    ${response}=  POST  ${ENTITIES_ENDPOINT_PATH}${id}/attrs/  body=${fragment_payload}  headers=${headers}
+    Output  request
+    Output  response
+    [return]   ${response}
+
+Append Entity Attributes With Parameters
     [Arguments]  ${id}    ${fragment_filename}    ${content_type}    ${options}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
