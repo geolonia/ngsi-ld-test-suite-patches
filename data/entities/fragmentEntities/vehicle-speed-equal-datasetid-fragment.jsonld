@@ -6,6 +6,6 @@
             "type": "Property",
             "value": "Speedometer"
         },
-        "datasetId": "12345" 
+        "datasetId": "urn:ngsi-ld:Property:speedometer" 
     }
 }
