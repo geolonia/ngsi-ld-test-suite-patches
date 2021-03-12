@@ -14,10 +14,10 @@ ${invalid_fragment_filename}=  invalid-fragment.jsonld
 *** Test Cases ***
 010_02_01_Append entity attributes if the entity Id is not present                
   Append Attributes  ${EMPTY}               
-010_02_02_Append entity attributes if the Entity Id is not a valid URI            
-  Append Attributes  thisisaninvaliduri
-010_02_03_Append entity attributes with invalid entity fragments
-  Append entity attributes with invalid entity fragments
+#010_02_02_Append entity attributes if the Entity Id is not a valid URI            
+#  Append Attributes  thisisaninvaliduri
+#010_02_03_Append entity attributes with invalid entity fragments
+#  Append entity attributes with invalid entity fragments
 
 *** Keywords ***
 Append Attributes
@@ -29,7 +29,7 @@ Append Attributes
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    ${response}=    Append Entity Attributes    ${entity_invalid_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}    ${EMPTY}
+    ${response}=    Append Entity Attributes    ${entity_invalid_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  ${status_code}    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}

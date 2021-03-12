@@ -14,7 +14,7 @@ Append entity attributes when the entity id is not known to the system
     [Tags]  /entities/{entityId}/attrs/      5_6_3
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
-    ${response}=    Append Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}    ${EMPTY}
+    ${response}=    Append Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  404    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_RESOURCE_NOT_FOUND}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
