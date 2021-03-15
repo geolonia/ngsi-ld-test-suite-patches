@@ -12,8 +12,8 @@ ${filename}=  vehicle-speed-two-datasetid-sample.jsonld
 ${status_code}=  204
 
 *** Test Cases ***                                                                           FRAGMENT_FILENAME                                        ATTRIBUTE_ID             
-012_01_01_Check that you can partially update an attribute                                   vehicle-isparked-fragment.jsonld          isParked                
-012_01_02_Check that you can partially update an attribute by specifying the datasetId       vehicle-speed-equal-datasetid-fragment.jsonld           speed                                      
+012_01_01_Check that you can partially update an attribute                                   vehicle-isparked-fragment.jsonld                         isParked                
+012_01_02_Check that you can partially update an attribute by specifying the datasetId       vehicle-speed-equal-datasetid-fragment.jsonld            speed                                      
 
 *** Keywords ***
 Update Attributes
@@ -25,8 +25,7 @@ Update Attributes
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    ${response}=    Partial Update Entity Attributes    ${entity_id}    ${attribute_id}    ${fragment_filename}    ${CONTENT_TYPE_JSON}
+    ${response}=    Partial Update Entity Attributes    ${entity_id}    ${attribute_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  ${status_code}    ${response['status']}
-    #TODO: check body response is empty
 
     [Teardown]  Delete Entity by Id Returning Response   ${entity_id}

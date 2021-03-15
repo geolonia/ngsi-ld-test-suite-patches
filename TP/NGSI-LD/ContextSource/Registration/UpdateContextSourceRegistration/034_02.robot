@@ -12,14 +12,14 @@ ${filename}=  context-source-registration-simple-sample.jsonld
 ${registration_payload_file_path}=  context-source-registration-invalid-sample.jsonld
 
 *** Test Case ***
-#034_02_01_Update a context source registration by id if the Id is not present                         
-#  Update Context Source  ${EMPTY}    fragments/context-source-registration-different-type-sample.jsonld  
-#034_02_02_Update a context source registration by id if the Id is not a valid URI                     
-#  Update Context Source  invalidURI    fragments/context-source-registration-different-type-sample.jsonld  
-#034_02_03_Update a context source registration if the request body is not of the same data type       
-#  Update Context Source  ${valid_registration_id}    fragments/context-source-registration-different-type-sample.jsonld  
-#034_02_04_Update a context source registration if you attempt to remove a mandatory property          
-#  Update Context Source  ${valid_registration_id}    context-source-registration-invalid-structure-sample.jsonld
+034_02_01_Update a context source registration by id if the Id is not present                         
+  Update Context Source  ${EMPTY}    fragments/context-source-registration-different-type-sample.jsonld  
+034_02_02_Update a context source registration by id if the Id is not a valid URI                     
+  Update Context Source  invalidURI    fragments/context-source-registration-different-type-sample.jsonld  
+034_02_03_Update a context source registration if the request body is not of the same data type       
+  Update Context Source  ${valid_registration_id}    fragments/context-source-registration-different-type-sample.jsonld  
+034_02_04_Update a context source registration if you attempt to remove a mandatory property          
+  Update Context Source  ${valid_registration_id}    context-source-registration-invalid-structure-sample.jsonld
 034_02_05_Update a context source registration if the request body is invalid 
   Update a context source registration if the request body is invalid 
 
