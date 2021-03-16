@@ -1,0 +1,6 @@
+{
+   "endpoint":"http://my.new.csource.org:1026",
+   "@context": [
+       "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld"
+   ]
+}

@@ -35,7 +35,7 @@ Update Context Source
 
     ${fragment}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${fragment_filename}
     ${fragment_with_id}=    Update Value To Json    ${fragment}     $..id   ${registration_id}
-    ${response}=    Update Context Source Registration With Return  ${registration_id}    ${fragment_with_id}
+    ${response}=    Update Context Source Registration With Return  ${registration_id}    ${fragment_with_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  400    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Title Element     ${response}
 

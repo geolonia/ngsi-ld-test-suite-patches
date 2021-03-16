@@ -40,6 +40,12 @@ Check Response Body Content
     ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity_payload}      ${instance_id_regex_expr}
     Should Be True      ${comparison_result}   msg=Entity Comparison Failed
 
+Check Request Containing Accept Header Set To 
+    [Arguments]  ${request}    ${expected_accept_content}    
+
+    Run Keyword If  'Accept' in ${request['headers']}  Should Be Equal  ${expected_accept_content}        ${request['headers']['Accept']}     ignore_order=True
+    Run Keyword If  'accept' in ${request['headers']}  Should Be Equal  ${expected_accept_content}        ${request['headers']['accept']}     ignore_order=True
+
 # Since Http headers names are case-insensitive (from Http specification)
 # We check both Location and location headers
 Check Response Headers Containing URI set to
@@ -286,6 +292,19 @@ Check Pagination Prev And Next Headers
     Run Keyword If     '${prev_link}'!='' and '${next_link}'==''       Should Be Equal      ${response['headers']['Link']}    ${prev_link}
     Run Keyword If     '${prev_link}'=='' and '${next_link}'!=''       Should Be Equal      ${response['headers']['Link']}    ${next_link}
 
+Check Response Body Containing One Subscription element
+    [Arguments]     ${expectation_filename}    ${response_body}
+    ${payload}=    Load Json From File    ${EXECDIR}/data/csourceSubscriptions/expectations/${expectation_filename}
+    ${subscription}=    Update Value To Json    ${payload}     $..id   ${response_body['id']}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${subscription}      ${instance_id_regex_expr}
+    Should Be True      ${comparison_result}   msg=Entity Comparison Failed
+
+Check Response Body Containing One Registration element
+    [Arguments]     ${expectation_filename}    ${response_body}
+    ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/expectations/${expectation_filename}
+    ${registration}=    Update Value To Json    ${payload}     $..id   ${response_body['id']}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${registration}      ${instance_id_regex_expr}
+    Should Be True      ${comparison_result}   msg=Entity Comparison Failed
 Check Resource Set To
     [Arguments]  ${resource}       ${ignored_keys}=${None}      ${error_message}=${EMPTY}
 

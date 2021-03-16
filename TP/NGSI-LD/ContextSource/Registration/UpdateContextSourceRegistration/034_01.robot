@@ -26,7 +26,7 @@ Update Context Source
 
     ${fragment}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${update_filename}
     ${fragment_with_id}=    Update Value To Json    ${fragment}     $..id   ${registration_id}
-    ${response}=    Update Context Source Registration With Return  ${registration_id}    ${fragment_with_id}
+    ${response}=    Update Context Source Registration With Return  ${registration_id}    ${fragment_with_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  204    ${response['status']}
 
     [Teardown]  Delete Context Source Registration    ${registration_id}

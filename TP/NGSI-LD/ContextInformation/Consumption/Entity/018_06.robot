@@ -25,7 +25,7 @@ Check Json-LD Resolution When retrieving an entity
     [Documentation]  Check that the JSON-LD @context is obtained from a Link header if present and that the default JSON-LD @context is used if not present
     [Tags]  mandatory
 
-    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_JSON}     context=${context}
+    ${request}    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_JSON}     context=${context}
     Check Response Status Code  200    ${response['status']}
     Check Response Body Containing Entity element    ${expected_payload}    ${entity_id}    ${response['body']}
 
