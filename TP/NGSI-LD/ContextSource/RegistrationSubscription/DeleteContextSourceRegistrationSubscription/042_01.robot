@@ -19,6 +19,9 @@ Delete Context Source Registration Subscription
 
     Check Response Status Code Set To  204
 
+    Retrieve Context Source Registration Subscription   ${subscription_id}   context=${ngsild_test_suite_context}
+    Check SUT Not Containing Resource
+
 *** Keywords ***
 Setup Initial Context Source Registration Subscriptions
     ${subscription_id}=     Generate Random Entity Id    ${subscription_id_prefix}

@@ -2,7 +2,7 @@
 Library     ${EXECDIR}/libraries/assertionUtils.py
 
 *** Variable ***
-${id_regex_expr}=  root\\['@context'\\]
+${id_regex_expr}=  root\\['id'\\]
 ${instance_id_regex_expr}=  root\\[.*\\]\\['instanceId'\\]
 ${notification_timestamps_regex_expr}=  root\\['last.*'\\]
 ${notification_endpoint_uri_regex_expr}=  root\\['endpoint'\\]\\['uri'\\]
@@ -285,3 +285,36 @@ Check Pagination Prev And Next Headers
     Run Keyword If     '${prev_link}'!='' and '${next_link}'!=''       Lists Should Be Equal    ${response['headers']['Link']}    ${expected_links}   ignore_order=True
     Run Keyword If     '${prev_link}'!='' and '${next_link}'==''       Should Be Equal      ${response['headers']['Link']}    ${prev_link}
     Run Keyword If     '${prev_link}'=='' and '${next_link}'!=''       Should Be Equal      ${response['headers']['Link']}    ${next_link}
+
+Check Resource Set To
+    [Arguments]  ${resource}       ${ignored_keys}=${None}      ${error_message}=${EMPTY}
+
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${resource}     ${ignored_keys}
+    Should Be True      ${comparison_result}   msg=${error_message}
+
+Check Created Resource Set To
+    [Arguments]  ${created_resource}       ${ignored_keys}=${None}
+
+    Check Resource Set To   ${created_resource}     ${ignored_keys}     Created Resource Comparison Failed
+
+Check Created Resources Set To
+    [Arguments]  ${created_resources}   ${ignored_keys}=${None}
+
+    Check Resource Set To   ${created_resources}     ${ignored_keys}     Created Resources Comparison Failed
+
+Check Updated Resource Set To
+    [Arguments]  ${updated_resource}    ${ignored_keys}=${None}
+
+    Check Resource Set To   ${updated_resource}     ${ignored_keys}     Updated Resource Comparison Failed
+
+Check Updated Resources Set To
+    [Arguments]  ${updated_resources}   ${ignored_keys}=${None}
+
+    Check Resource Set To   ${updated_resources}     ${ignored_keys}     Updated Resources Comparison Failed
+
+Check SUT Not Containing Resource
+    ${response_status}=  convert to string  ${response['status']}
+    Should Be Equal  ${response_status}  404
+
+Check SUT Not Containing Resources
+    Should Be Empty     ${response['body']}

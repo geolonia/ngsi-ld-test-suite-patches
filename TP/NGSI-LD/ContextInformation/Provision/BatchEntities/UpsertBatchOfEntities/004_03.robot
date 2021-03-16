@@ -30,6 +30,10 @@ Batch Upsert Existing Entities Scenarios
 
     Check Response Status Code Set To  204
 
+    @{upserted_entities_ids}=  Create List   ${first_existing_entity_id}    ${second_existing_entity_id}
+    Query Entities    ${upserted_entities_ids}  Building    context=${ngsild_test_suite_context}
+    Check Updated Resources Set To   ${entities_to_be_upserted}
+
 Setup Initial Entities
     ${first_existing_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${second_existing_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
