@@ -10,7 +10,7 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 *** Test Case ***
 Delete an entity
     [Documentation]  Check that you can delete an entity by id
-    [Tags]  mandatory
+    [Tags]  /entities/{entityId}    5_6_6
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  building-simple-attributes-sample.jsonld     ${entity_id}    application/ld+json

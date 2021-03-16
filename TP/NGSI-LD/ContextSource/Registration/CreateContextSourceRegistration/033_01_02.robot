@@ -7,12 +7,12 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
-${registration_payload_file_path}=   csourceRegistrations/registration-sample.jsonld
+${registration_payload_file_path}=   csourceRegistrations/context-source-registration-simple-sample.jsonld
 
 *** Test Case ***
 Create Context Source Registration That Never Expires
     [Documentation]  Check that you can create a context source registration that never expires
-    [Tags]  mandatory
+    [Tags]  /csourceRegistrations/    5_9_2
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
 
     ${payload}=    Load Json From File    ${EXECDIR}/data/${registration_payload_file_path}

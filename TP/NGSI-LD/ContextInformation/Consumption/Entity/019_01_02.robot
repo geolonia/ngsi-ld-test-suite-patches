@@ -11,7 +11,11 @@ ${parking_id_prefix}=  urn:ngsi-ld:OffStreetParking:
 ${building_filename}=  building-minimal-sample.jsonld
 ${vehicle_filename}=  vehicle-simple-attributes-sample.jsonld
 ${parking_filename}=  parking-simple-attributes-sample.jsonld
+<<<<<<< HEAD
 ${expectation_filename}=  vehicle-parking-sample-expectation.json
+=======
+${expectation_filename}=  two-types-vehicle-offstreetparking-expectation.jsonld
+>>>>>>> develop
 ${building_entity_type}=  https://ngsi-ld-test-suite/context#Building
 ${vehicle_entity_type}=  https://ngsi-ld-test-suite/context#Vehicle
 ${parking_entity_type}=  https://ngsi-ld-test-suite/context#OffStreetParking
@@ -20,7 +24,7 @@ ${parking_entity_type}=  https://ngsi-ld-test-suite/context#OffStreetParking
 *** Test Cases ***                                                 
 Query several entities based on the entities types 
     [Documentation]  Check that you can query several entities based on the entities types
-    [Tags]  mandatory
+    [Tags]  /entities/    5_7_2
 
     ${building_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${building_filename}     ${building_entity_id}    ${CONTENT_TYPE_LD_JSON}
@@ -32,7 +36,6 @@ Query several entities based on the entities types
     ${request}    ${response}=    Create Entity Selecting Content Type  ${parking_filename}     ${parking_entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    #@{entity_types_to_be_retrieved}=  Create List    ${vehicle_entity_type}    ${parking_entity_type}
     ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,   ${vehicle_entity_type}    ${parking_entity_type}
     ${response}=    Query Entities    entity_types=${entity_types_to_be_retrieved}
     Check Response Status Code  200    ${response['status']}

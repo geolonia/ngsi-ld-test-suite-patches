@@ -1,10 +1,22 @@
 {
-   "speed":[
+   "added_attribute":[
       {
          "type":"Property",
-         "value":129,
+         "value":120,
          "observedAt":"2020-09-01T12:03:00Z"
+      },
+      {
+         "type":"Property",
+         "value":80,
+         "observedAt":"2020-09-01T12:05:00Z"
+      },
+      {
+         "type":"Property",
+         "value":100,
+         "observedAt":"2020-09-01T12:07:00Z"
       }
    ],
-   "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
+   "@context":[
+      "https://raw.githubusercontent.com/easy-global-market/ngsild-api-data-models/feature/add-json-ld-context-for-ngsi-ld-test-suite/ngsi-ld-test-suite/ngsi-ld-test-suite-context.jsonld"
+   ]
 }

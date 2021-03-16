@@ -10,14 +10,14 @@ Test Template  Update Context Source
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
 
 *** Test Case ***                                                     FILENAME                                           UPDATE_FILENAME
-034_01_01_Update a context source registration by id                     registration-sample.jsonld                         registration-with-expiration-sample.jsonld  
-034_01_02_Update a context source registration to never expire           registration-with-expiration-sample.jsonld         registration-sample.jsonld
+034_01_01_Update a context source registration by id                     context-source-registration-simple-sample.jsonld                         context-source-registration-with-expiration-sample.jsonld  
+034_01_02_Update a context source registration to never expire           context-source-registration-with-expiration-sample.jsonld         context-source-registration-simple-sample.jsonld
 
 *** Keywords ***
 Update Context Source
     [Arguments]  ${filename}    ${update_filename}  
     [Documentation]  Check that you can update a context source registration by id
-    [Tags]  mandatory
+    [Tags]  /csourceRegistrations/{registrationId}    5_9_3
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}

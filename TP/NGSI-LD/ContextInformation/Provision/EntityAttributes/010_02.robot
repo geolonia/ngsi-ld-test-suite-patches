@@ -6,10 +6,10 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
-${filename}=  vehicle-datasetid-attributes-sample.jsonld
-${fragment_filename}=  vehicle-fragment-same-datasetid-sample.jsonld
+${filename}=  vehicle-speed-two-datasetid-sample.jsonld
+${fragment_filename}=  vehicle-attribute-to-add-fragment.jsonld
 ${status_code}=  400
-${invalid_fragment_filename}=  invalid-vehicle-fragment-datasetid-sample.jsonld
+${invalid_fragment_filename}=  invalid-fragment.jsonld
 
 *** Test Cases ***
 010_02_01_Append entity attributes if the entity Id is not present                
@@ -23,13 +23,13 @@ ${invalid_fragment_filename}=  invalid-vehicle-fragment-datasetid-sample.jsonld
 Append Attributes
     [Arguments]  ${entity_invalid_id}
     [Documentation]  Check that you cannot append entity attributes with invalid/missing id or invalid request body
-    [Tags]  mandatory
+    [Tags]  /entities/{entityId}/attrs/      5_6_3
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    ${response}=    Append Entity Attributes    ${entity_invalid_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}    ${EMPTY}
+    ${response}=    Append Entity Attributes    ${entity_invalid_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  ${status_code}    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
@@ -44,8 +44,8 @@ Append entity attributes with invalid entity fragments
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    ${response}=    Append Entity Attributes Using Session    ${entity_id}    ${invalid_fragment_filename}    ${CONTENT_TYPE_LD_JSON}    ${EMPTY}
-    Check Response Status Code  <Response [400]>    ${response}
+    Append Entity Attributes Using Session    ${entity_id}    ${invalid_fragment_filename}    ${CONTENT_TYPE_LD_JSON}    ${EMPTY}
+    Check Response Status Code  400    ${response['status']}
     Check Response Body Type When Using Session Request      ${response.json()}     ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Title When Using Session Request    ${response.json()}
 

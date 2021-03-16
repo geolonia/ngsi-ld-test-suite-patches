@@ -7,14 +7,14 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-location-attribute-sample.jsonld
-${expectation_filename}=  building-simple-attributes-sample-expectation-simplified.jsonld
+${expectation_filename}=  building-simple-attributes-simplified-expectation.jsonld
 ${options_parameter}=  keyValues
 ${accept_header}=  application/geo+json
 
 *** Test Cases ***                                                 
 Get an entity by id that can be returned in a geoJSON format       
     [Documentation]  Check that the queried entity by id can be returned in a geoJSON format
-    [Tags]  mandatory
+    [Tags]  /entities/{entityId}    6_3_7
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}

@@ -7,12 +7,12 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
-${registration_payload_file_path}=   registration-sample.jsonld
+${registration_payload_file_path}=   context-source-registration-simple-sample.jsonld
 
 *** Test Case ***
 Delete a context source registration by id
     [Documentation]  Check that you cannot delete a context source registration by id if the id is not known to the system
-    [Tags]  mandatory
+    [Tags]  /csourceRegistrations/{registrationId}    5_9_3
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
 
     ${response}=    Delete Context Source Registration With Return    ${registration_id}

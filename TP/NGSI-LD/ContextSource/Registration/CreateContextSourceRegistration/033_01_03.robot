@@ -7,12 +7,12 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
-${registration_payload_file_path}=   csourceRegistrations/registration-no-id-sample.jsonld
+${registration_payload_file_path}=   csourceRegistrations/context-source-registration-no-id-sample.jsonld
 
 *** Test Case ***
 Create Context Source Registration Without A Sprecified ID
     [Documentation]  Check that when creating a context source registration without specifying an ID
-    [Tags]  mandatory
+    [Tags]  /csourceRegistrations/    5_9_2
 
     ${payload}=    Load Json From File    ${EXECDIR}/data/${registration_payload_file_path}
     ${request}    ${response}=    Create Context Source Registration With Return  ${payload}

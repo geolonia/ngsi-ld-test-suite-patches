@@ -5,7 +5,7 @@ Resource    ${EXECDIR}/resources/AssertionUtils.resource
 
 Test Template  Create Entity With Invalid Request Scenarios
 
-*** Test Cases ***                        FILENAME                         
+*** Test Cases ***                           FILENAME                         
 001_02_01_InvalidJson                        invalid-json-sample.jsonld            
 001_02_02_EmptyJson                          empty-sample.jsonld
 001_02_03_EntityWithNoContext                building-minimal-without-context-sample.jsonld      
@@ -14,7 +14,7 @@ Test Template  Create Entity With Invalid Request Scenarios
 Create Entity With Invalid Request Scenarios
     [Arguments]  ${filename}
     [Documentation]  Check that you cannot create an entity with an invalid request
-    [Tags]  mandatory
+    [Tags]   /entities/    5_6_1
 
     Request Entity From File   ${filename}
 

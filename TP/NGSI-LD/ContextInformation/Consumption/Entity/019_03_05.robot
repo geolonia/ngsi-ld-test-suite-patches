@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation   Check that you can query entitites based on a list of properties
+Documentation   Check that you cannot query entitites if the request has a wrong geometryProperty
 Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource    ${EXECDIR}/resources/AssertionUtils.resource
 Resource    ${EXECDIR}/resources/JsonUtils.resource
@@ -11,9 +11,9 @@ ${entity_type}=  https://ngsi-ld-test-suite/context#Building
 ${invalid_geometry_property}=  invalid_geometry_property
 
 *** Test Cases ***                                                 
-Query several entities based on a list of properties
-    [Documentation]  Check that you can query entitites based on a list of properties
-    [Tags]  mandatory
+Query entitites when the request has a wrong geometryProperty
+    [Documentation]  Check that you cannot query entitites if the request has a wrong geometryProperty
+    [Tags]  /entities/    5_7_2
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${first_entity_id}    ${CONTENT_TYPE_LD_JSON}
@@ -22,7 +22,7 @@ Query several entities based on a list of properties
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${second_entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    @{entity_types_to_be_retrieved}=  Create List   ${entity_type}
+    ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,   ${entity_type}
     ${response}=    Query Entities    entity_types=${entity_types_to_be_retrieved}    geoproperty=${invalid_geometry_property}
     Check Response Status Code  400    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_BAD_REQUEST_DATA}

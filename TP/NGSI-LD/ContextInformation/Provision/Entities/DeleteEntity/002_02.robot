@@ -6,13 +6,10 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 Test Template  Delete Entity Scenarios
 
-*** Variable ***
-${entity_id_empty}=        
-${entity_id_not_valid}=     thisisaninvaliduri
 
-*** Test Cases ***                                                  ENTITY_ID                     EXPECTED_STATUS_CODE       PROBLEM_TYPE                      
-002_02_01_Delete an entity if the Entity Id is not present             ${entity_id_empty}            400                        ${ERROR_TYPE_BAD_REQUEST_DATA}
-002_02_02_Delete an entity if the Entity Id is not a valid URI         ${entity_id_not_valid}        400                        ${ERROR_TYPE_BAD_REQUEST_DATA}
+*** Test Cases ***                                                     ENTITY_ID                     EXPECTED_STATUS_CODE       PROBLEM_TYPE                      
+002_02_01_Delete an entity if the Entity Id is not present             ${EMPTY}                      400                        ${ERROR_TYPE_BAD_REQUEST_DATA}
+002_02_02_Delete an entity if the Entity Id is not a valid URI         thisisaninvaliduri            400                        ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 
 
@@ -20,7 +17,7 @@ ${entity_id_not_valid}=     thisisaninvaliduri
 Delete Entity Scenarios
     [Arguments]  ${entity_id}    ${expected_status_code}    ${problem_type}
     [Documentation]  Check that you cannot delete an entity with invalid/missing id
-    [Tags]  mandatory
+    [Tags]    /entities/{entityId}    5_6_6
 
     ${response}=    Delete Entity by Id Returning Response   ${entity_id}
     Check Response Status Code  ${expected_status_code}    ${response['status']}

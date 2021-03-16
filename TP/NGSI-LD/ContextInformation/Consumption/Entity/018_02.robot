@@ -6,14 +6,14 @@ Resource    ${EXECDIR}/resources/AssertionUtils.resource
 Test Template  Get Entity With Invalid/Missing Id
 
 *** Test Cases ***                                                  ENTITY_ID                     EXPECTED_STATUS_CODE       PROBLEM_TYPE                      
-018_02_01_Get an entity if the Entity Id is not present                ${EMPTY}                      400                        ${ERROR_TYPE_BAD_REQUEST_DATA}
-018_02_02_Get an entity if the Entity Id is not a valid URI            thisisaninvaliduri            400                        ${ERROR_TYPE_BAD_REQUEST_DATA}
+018_02_01_Get an entity if the Entity Id is not present             ${EMPTY}                      400                        ${ERROR_TYPE_BAD_REQUEST_DATA}
+018_02_02_Get an entity if the Entity Id is not a valid URI         thisisaninvaliduri            400                        ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 *** Keywords ***                               
 Get Entity With Invalid/Missing Id
     [Arguments]  ${entity_id}    ${expected_status_code}    ${problem_type}
     [Documentation]  Check that you cannot get an entity with invalid/missing id
-    [Tags]  mandatory
+    [Tags]  /entities/{entityId}    5_7_1
 
     ${request}    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  ${expected_status_code}    ${response['status']}

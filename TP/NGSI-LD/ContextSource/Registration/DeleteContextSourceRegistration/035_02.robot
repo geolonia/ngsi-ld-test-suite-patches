@@ -8,7 +8,7 @@ Test Template  Delete Context Source
 
 *** Variable ***
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
-${filename}=  registration-sample.jsonld
+${filename}=  context-source-registration-simple-sample.jsonld
 
 *** Test Case ***                                                                 INVALID_REGISTRATION_ID
 035_02_01_Delete a Context Source Registration if the Id is not present              ${EMPTY}
@@ -18,7 +18,7 @@ ${filename}=  registration-sample.jsonld
 Delete Context Source
     [Arguments]  ${invalid_registration_id}
     [Documentation]  Check that you cannot delete a context source registration under some conditions
-    [Tags]  mandatory
+    [Tags]  /csourceRegistrations/{registrationId}    5_9_3
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}

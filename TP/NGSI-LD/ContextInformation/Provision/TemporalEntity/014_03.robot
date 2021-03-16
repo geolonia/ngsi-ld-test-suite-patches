@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
 ${filename}=  vehicle-temporal-representation-sample.jsonld    
-${fragment_filename}=  vehicle-temporal-representation-fragment-sample.jsonld 
+${fragment_filename}=  vehicle-temporal-representation-fragment.jsonld 
 ${status_code}=  404
 
 *** Test Cases ***
