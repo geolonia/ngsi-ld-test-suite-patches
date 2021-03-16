@@ -20,13 +20,8 @@ ${attribute_subcategory}=  https://ngsi-ld-test-suite/context#subCategory
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-<<<<<<< HEAD
-    ${attributes_to_be_retrieved}=  Create List      ${attribute_airqualitylevel}  ${attribute_subcategory}
-    ${request}    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}    attrs=${attributes_to_be_retrieved}
-=======
     ${attributes_to_be_retrieved}=  Catenate    SEPARATOR=,     ${attribute_airqualitylevel}    ${attribute_subcategory}
     ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}    attrs=${attributes_to_be_retrieved}
->>>>>>> develop
     Check Response Status Code  200    ${response['status']}
     Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response['body']}
 

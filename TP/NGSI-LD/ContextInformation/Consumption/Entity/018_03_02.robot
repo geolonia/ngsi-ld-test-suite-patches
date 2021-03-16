@@ -18,13 +18,8 @@ Get an entity if an attribute is not known to the system
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-<<<<<<< HEAD
-    ${attributes_to_be_retrieved}=  Create List      ${attribute_not_known}
-    ${request}    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}    attrs=${attributes_to_be_retrieved}
-=======
     ${attributes_to_be_retrieved}=  Catenate    SEPARATOR=,     ${attribute_not_known}
     ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}    attrs=${attributes_to_be_retrieved}
->>>>>>> develop
     Check Response Status Code  404    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_RESOURCE_NOT_FOUND}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}

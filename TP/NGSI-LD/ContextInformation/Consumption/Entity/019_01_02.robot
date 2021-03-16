@@ -11,11 +11,7 @@ ${parking_id_prefix}=  urn:ngsi-ld:OffStreetParking:
 ${building_filename}=  building-minimal-sample.jsonld
 ${vehicle_filename}=  vehicle-simple-attributes-sample.jsonld
 ${parking_filename}=  parking-simple-attributes-sample.jsonld
-<<<<<<< HEAD
-${expectation_filename}=  vehicle-parking-sample-expectation.json
-=======
 ${expectation_filename}=  two-types-vehicle-offstreetparking-expectation.jsonld
->>>>>>> develop
 ${building_entity_type}=  https://ngsi-ld-test-suite/context#Building
 ${vehicle_entity_type}=  https://ngsi-ld-test-suite/context#Vehicle
 ${parking_entity_type}=  https://ngsi-ld-test-suite/context#OffStreetParking
