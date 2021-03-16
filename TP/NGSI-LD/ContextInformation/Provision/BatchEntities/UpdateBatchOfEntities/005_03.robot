@@ -8,6 +8,8 @@ Suite Setup      Setup Initial Entities
 
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
+${entity_payload_filename}=  building-simple-attributes-sample.jsonld
+${update_fragment_filename}=  fragmentEntities/simple-attributes-relationship-of-property-fragment.json
 
 *** Test Case ***
 Update a batch of non existing and existing entities
@@ -30,14 +32,23 @@ Update a batch of non existing and existing entities
     Check Response Status Code Set To  207
     Check Response Body Containing Batch Operation Result   ${expected_batch_operation_result}
 
+    ${first_created_entity}=    Load Test Sample    entities/${entity_payload_filename}      ${first_existing_entity_id}
+    ${second_created_entity}=    Load Test Sample    entities/${entity_payload_filename}      ${second_existing_entity_id}
+    ${update_fragment}=    Load Test Sample    entities/${update_fragment_filename}
+    ${first_updated_entity}=    Upsert Element In Entity     ${first_created_entity}    ${update_fragment}
+    ${second_updated_entity}=    Upsert Element In Entity     ${second_created_entity}    ${update_fragment}
+    @{updated_entities}=  Create List   ${first_updated_entity}     ${second_updated_entity}
+    Query Entities    ${expected_successful_entities_ids}  Building    context=${ngsild_test_suite_context}
+    Check Updated Resources Set To   ${updated_entities}
+
     Batch Delete Entities       @{expected_successful_entities_ids}
 
 *** Keywords ***
 Setup Initial Entities
     ${first_existing_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${second_existing_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
-    Create Entity  building-simple-attributes-sample.jsonld     ${first_existing_entity_id}
-    Create Entity  building-simple-attributes-sample.jsonld     ${second_existing_entity_id}
+    Create Entity  ${entity_payload_filename}     ${first_existing_entity_id}
+    Create Entity  ${entity_payload_filename}     ${second_existing_entity_id}
 
     Set Suite Variable  ${first_existing_entity_id}
     Set Suite Variable  ${second_existing_entity_id}

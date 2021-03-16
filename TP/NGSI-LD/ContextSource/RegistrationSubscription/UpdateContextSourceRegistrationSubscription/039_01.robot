@@ -22,6 +22,11 @@ Update Context Source Registration Subscription
 
     Check Response Status Code Set To  204
 
+    ${subscription}=    Upsert Element In Entity     ${subscription_payload}    ${subscription_update_fragment}
+    Retrieve Context Source Registration Subscription   ${subscription_id}   context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
+    ${ignored_attributes}=  Create List    ${status_regex_expr}
+    Check Updated Resource Set To     ${subscription}
+
 *** Keywords ***
 Setup Initial Context Source Registration Subscriptions
     ${subscription_id}=     Generate Random Entity Id    ${subscription_id_prefix}
@@ -30,6 +35,7 @@ Setup Initial Context Source Registration Subscriptions
     Create Context Source Registration Subscription  ${subscription_payload}
 
     Set Suite Variable  ${subscription_id}
+    Set Suite Variable  ${subscription_payload}
 
 Delete Initial Context Source Registration Subscriptions
     Delete Context Source Registration Subscription     ${subscription_id}

@@ -20,6 +20,9 @@ Delete a batch of entities
 
     Check Response Status Code Set To  204
 
+    Query Entities    ${entities_ids_to_be_deleted}  Building    context=${ngsild_test_suite_context}
+    Check SUT Not Containing Resources
+
 *** Keywords ***
 Setup Initial Entities
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}

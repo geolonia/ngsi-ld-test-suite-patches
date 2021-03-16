@@ -60,6 +60,7 @@ Query Entity
     ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}${id}      headers=${headers}      query=${params}
     Output  request
     Output  response
+    Set Test Variable  ${response}
     [return]    ${response}
 
 Query Entities
@@ -83,6 +84,7 @@ Query Entities
     ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}      headers=${headers}      query=${params}
     Output  request
     Output  response
+    Set Test Variable  ${response}
     [return]    ${response}
 
 Query Entities Via POST
@@ -578,9 +580,10 @@ Update Context Source Registration Subscription
     Set Test Variable  ${response}
 
 Retrieve Context Source Registration Subscription
-    [Arguments]  ${subscription_id}     ${context}=${EMPTY}
+    [Arguments]  ${subscription_id}     ${context}=${EMPTY}     ${accept}=${CONTENT_TYPE_JSON}
 
     &{headers}=  Create Dictionary
+    Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}     headers=${headers}
     Output  request

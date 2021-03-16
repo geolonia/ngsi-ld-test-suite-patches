@@ -30,4 +30,8 @@ Upsert a batch of two valid entities and one invalid entity
     Check Response Status Code Set To  207
     Check Response Body Containing Batch Operation Result   ${expected_batch_operation_result}
 
+    Query Entities    ${expected_successful_entities_ids}  Building    context=${ngsild_test_suite_context}
+    @{upserted_entities}=  Create List   ${first_entity}     ${second_entity}
+    Check Updated Resources Set To   ${upserted_entities}
+
     Batch Delete Entities       @{expected_successful_entities_ids}

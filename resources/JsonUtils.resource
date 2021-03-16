@@ -64,3 +64,9 @@ Create Batch Operation Result
     &{batch_operation_result}=      Create Dictionary	success=${success}      errors=${errors}
 
     [return]    &{batch_operation_result}
+
+Upsert Element In Entity
+    [Arguments]    ${initial_entity}    ${fragment}     ${jsonPath}=$
+
+    ${updated_entity}=      Add Object To Json  ${initial_entity}   ${jsonPath}     ${fragment}
+    [return]    ${updated_entity}
