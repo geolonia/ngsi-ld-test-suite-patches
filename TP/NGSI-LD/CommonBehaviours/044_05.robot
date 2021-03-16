@@ -17,28 +17,50 @@ ${subscription_filename}=  csourceSubscriptions/subscription-sample.jsonld
 ${subscription_fragment}=  csourceSubscriptions/fragments/subscription-update-sample.json
 
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
-${registration_filename}=  registration-sample.jsonld
-${registration_fragment}=  registration-with-expiration-sample.jsonld
+${registration_filename}=  context-source-registration-with-expiration-sample.jsonld
+${registration_fragment}=  context-source-registration-with-expiration-expectation.json
 
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
-${vehicle_filename}=  vehicle-datasetid-attributes-sample.jsonld
-${vehicle_attribute}=  speed
+${vehicle_filename}=  vehicle-simple-attributes-sample.jsonld
+${vehicle_attribute}=  brandName
+${vehicle_fragment}=  vehicle-brandname-fragment.jsonld
 
 ${tea_id_prefix}=  urn:ngsi-ld:Vehicle:
 ${tea_filename}=  vehicle-temporal-representation-sample.jsonld
 
-*** comment ***
-044_05_01_endpoint /subscriptions/
-    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (/subscriptions/)
+*** Test Cases ***
+044_05_01_endpoint create /entities/
+    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (create /entities/)
 
-    ${id}=  Generate Random Entity Id    ${subscription_id_prefix}    
-    ${response}=    Create Subscription    ${id}    ${subscription_filename}    ${CONTENT_TYPE_LD_JSON}    accept=${accept}
+    ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
+    ${request}    ${response}=    Create Entity Selecting Content Type   ${building_filename}      ${entity_id}     ${CONTENT_TYPE_LD_JSON}    accept=${accept}
     Check Response Status Code  ${status_code}    ${response['status']}
 
-    [Teardown]  Delete Subscription  ${id}
+    [Teardown]    Delete Entity by Id       ${entity_id}
 
-044_05_02_endpoint /subscriptions/{subscriptionId}
-    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (/subscriptions/{subscriptionId})
+044_05_02_endpoint update /entities/{entityId}/attrs/{attrId}
+    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (update /entities/{entityId}/attrs/{attrId})
+
+    ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
+    ${request}    ${response}=    Create Entity Selecting Content Type  ${vehicle_filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code  201    ${response['status']}
+    Retrieve Entity by Id  ${entity_id}
+    ${response}=    Partial Update Entity Attributes    ${entity_id}    ${vehicle_attribute}    ${vehicle_fragment}    ${CONTENT_TYPE_LD_JSON}    accept=${accept}
+    Check Response Status Code  ${status_code}    ${response['status']}
+
+    [Teardown]  Delete Entity by Id Returning Response   ${entity_id}
+
+044_05_03_endpoint create /subscriptions/
+    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (create /subscriptions/)
+
+    ${subscriptions_id}=     Generate Random Entity Id    ${subscription_id_prefix}
+    ${response}=  Create Subscription  ${subscriptions_id}    ${subscription_filename}    ${CONTENT_TYPE_LD_JSON}    accept=${accept}
+    Check Response Status Code  ${status_code}    ${response['status']}
+
+    [Teardown]  Delete Subscription  ${subscriptions_id}
+
+044_05_04_endpoint update /subscriptions/{subscriptionId}
+    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (update /subscriptions/{subscriptionId})
 
     ${id}=  Generate Random Entity Id    ${subscription_id_prefix}    
     ${response}=    Create Subscription    ${id}    ${subscription_filename}    ${CONTENT_TYPE_LD_JSON}
@@ -48,21 +70,33 @@ ${tea_filename}=  vehicle-temporal-representation-sample.jsonld
 
     [Teardown]  Delete Subscription  ${id}
 
-#044_05_03_endpoint /types/
-#    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (/types/)
+044_05_05_endpoint create /temporal/entities/
+    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (create /temporal/entities/)
 
-#044_05_04_endpoint /types/{type}
-#    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (/types/{type})
+    ${temporal_entity_representation_id}=     Generate Random Entity Id    ${tea_id_prefix}
+    ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${temporal_entity_representation_id}    ${tea_filename}     ${CONTENT_TYPE_LD_JSON}    accept=${accept}
+    Check Response Status Code  ${status_code}    ${response['status']}
 
-#044_05_05_endpoint /attributes/
-#    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (/attributes/)
+    [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
 
+044_05_06_endpoint create /entityOperations/create
+    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (create /entityOperations/create)
 
-#044_05_06_endpoint /attributes/{attrId}
-#    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (/attributes/{attrId})
+    ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
+    ${second_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
+    ${first_entity}=    Load Entity    ${building_filename}      ${first_entity_id}
+    ${second_entity}=    Load Entity    ${building_filename}      ${second_entity_id}
+    @{entities_to_be_created}=  Create List   ${first_entity}     ${second_entity}
 
-044_05_07_endpoint /csourceRegistrations/
-    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (/csourceRegistrations/)
+    Batch Create Entities   @{entities_to_be_created}    content_type=${CONTENT_TYPE_LD_JSON}    accept=${accept}
+
+    @{expected_entities_ids}=  Create List   ${first_entity_id}     ${second_entity_id}
+    Check Response Status Code Set To  ${status_code}
+
+    [Teardown]  Batch Delete Entities  @{expected_entities_ids}
+
+044_05_07_endpoint create /csourceRegistrations/
+    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (create /csourceRegistrations/)
 
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${registration_filename}
@@ -71,46 +105,3 @@ ${tea_filename}=  vehicle-temporal-representation-sample.jsonld
     Check Response Status Code  ${status_code}    ${response['status']}
 
     [Teardown]  Delete Context Source Registration    ${registration_id}
-
-
-
-044_05_08_endpoint /csourceRegistrations/{registrationId}
-    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (/csourceRegistrations/{registrationId})
-
-    ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
-    ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${registration_filename}
-    ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}
-    ${request}    ${response}=    Create Context Source Registration With Return  ${updated_payload}
-    Check Response Status Code  201    ${response['status']}
-
-    ${fragment}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${registration_fragment}
-    ${fragment_with_id}=    Update Value To Json    ${fragment}     $..id   ${registration_id}
-    ${response}=    Update Context Source Registration With Return  ${registration_id}    ${fragment_with_id}    ${CONTENT_TYPE_LD_JSON}    accept=${accept}
-    Check Response Status Code  ${status_code}    ${response['status']}
-
-    [Teardown]  Delete Context Source Registration    ${registration_id}
-
-
-044_05_09_endpoint /csourceSubscriptions/
-    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (/csourceSubscriptions/)
-
-    ${subscription_id}=     Generate Random Entity Id    ${subscription_id_prefix}
-    ${subscription_payload}=  Load Test Sample    ${subscription_filename}    ${subscription_id}
-    Create Context Source Registration Subscription  ${subscription_payload}    accept=${accept}
-    Check Response Status Code Set To  ${status_code}
-
-    [Teardown]  Delete Context Source Registration Subscription     ${subscription_id}
-
-*** Test Cases ***
-044_05_10_endpoint /csourceSubscriptions/{subscriptionId}
-    [Documentation]  Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (/csourceSubscriptions/{subscriptionId})
-
-    ${subscription_id}=     Generate Random Entity Id    ${subscription_id_prefix}
-    ${subscription_payload}=  Load Test Sample    ${subscription_filename}    ${subscription_id}
-    Create Context Source Registration Subscription  ${subscription_payload}
-
-    ${subscription_update_fragment}=    Load Test Sample    ${subscription_fragment}
-    ${response}=  Update Context Source Registration Subscription By Selecting Content Type  ${subscription_id}     ${subscription_update_fragment}    ${CONTENT_TYPE_LD_JSON}    #accept=${accept}
-    Check Response Status Code  ${status_code}    ${response['status']}
-
-    [Teardown]  Delete Context Source Registration Subscription     ${subscription_id}

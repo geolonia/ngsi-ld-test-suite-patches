@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
 ${vehicle_filename}=  vehicle-simple-attributes-sample.jsonld
-${vehicle_fragment}=  vehicle-fragment-brandname-sample.jsonld
+${vehicle_fragment}=  vehicle-brandname-fragment.jsonld
 ${attribute_id}=  brandName
 
 ${subscription_id_prefix}=  urn:ngsi-ld:Subscription:
@@ -15,7 +15,7 @@ ${subscription_filename}=  csourceSubscriptions/subscription-sample.jsonld
 ${subscription_fragment}=  csourceSubscriptions/fragments/subscription-update-sample.jsonld
 
 *** Test Cases ***                               
-044_01_02_endpoint /entities/{entityId}/attrs/{attrId}
+044_01_01_endpoint /entities/{entityId}/attrs/{attrId}
     [Documentation]  Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type 
     [Tags]  mandatory
     ${entity_id}=       Generate Random Entity Id    ${vehicle_id_prefix}    
@@ -26,8 +26,8 @@ ${subscription_fragment}=  csourceSubscriptions/fragments/subscription-update-sa
     Check Response Status Code  204    ${response['status']}
 
     [Teardown]  Delete Entity by Id  ${entity_id}
-
-044_01_03_endpoint /subscriptions/{subscriptionId}       
+ 
+044_01_02_endpoint /subscriptions/{subscriptionId}       
     [Documentation]  Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type 
     [Tags]  mandatory
     ${subscription_id}=       Generate Random Entity Id    ${subscription_id_prefix}    
