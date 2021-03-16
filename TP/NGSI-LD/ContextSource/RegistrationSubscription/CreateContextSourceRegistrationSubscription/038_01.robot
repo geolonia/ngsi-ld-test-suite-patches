@@ -23,6 +23,10 @@ Create Context Source Registration Subscription
     Check Response Status Code Set To  201
     Check Response Headers Containing URI set to    ${request['path']}/    ${subscription_id}  ${response}
 
+    Retrieve Context Source Registration Subscription   ${subscription_id}   context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
+    ${ignored_attributes}=  Create List    ${status_regex_expr}
+    Check Created Resource Set To     ${subscription_payload}       ${ignored_attributes}
+
 *** Keywords ***
 Generate Random Ids For Context Source Registration Subscriptions
     # TODO: Refactor Generate Random Entity Id to Generate Random Test Sample Id
