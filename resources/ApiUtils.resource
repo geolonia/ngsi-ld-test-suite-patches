@@ -693,7 +693,7 @@ Delete Subscription
     [return]   ${response}
 
 Query Subscriptions
-    [Arguments]  ${limit}=${EMPTY}    ${accept}=${EMPTY} 
+    [Arguments]  ${limit}=${EMPTY}    ${accept}=${EMPTY}
     &{headers}=  Create Dictionary
     &{params}=  Create Dictionary
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
