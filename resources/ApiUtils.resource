@@ -26,11 +26,11 @@ ${CONTENT_TYPE_JSON}            application/json
 ${CONTENT_TYPE_LD_JSON}         application/ld+json
 ${CONTENT_TYPE_MERGE_PATCH_JSON}         application/merge-patch+json
 
-${ERROR_TYPE_BAD_REQUEST_DATA}      http://uri.etsi.org/ngsi-ld/errors/BadRequestData
-${ERROR_TYPE_INVALID_REQUEST}      http://uri.etsi.org/ngsi-ld/errors/InvalidRequest
-${ERROR_TYPE_RESOURCE_NOT_FOUND}      http://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
-${ERROR_TYPE_ALREADY_EXISTS}      http://uri.etsi.org/ngsi-ld/errors/AlreadyExists
-${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}     http://uri.etsi.org/ngsi-ld/errors/LDContextNotAvailable
+${ERROR_TYPE_BAD_REQUEST_DATA}      https://uri.etsi.org/ngsi-ld/errors/BadRequestData
+${ERROR_TYPE_INVALID_REQUEST}      https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
+${ERROR_TYPE_RESOURCE_NOT_FOUND}      https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
+${ERROR_TYPE_ALREADY_EXISTS}      https://uri.etsi.org/ngsi-ld/errors/AlreadyExists
+${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}     https://uri.etsi.org/ngsi-ld/errors/LDContextNotAvailable
 
 ${response}
 
@@ -661,9 +661,10 @@ Update Context Source Registration Subscription From File
     Set Test Variable  ${response}
 
 Create Subscription
-    [Arguments]  ${subscription_id}    ${filename_path}    ${content_type}    ${accept}=${EMPTY}
+    [Arguments]  ${subscription_id}    ${filename_path}    ${content_type}    ${accept}=${EMPTY}    ${context}=${EMPTY}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${subscription_payload}=    Load Json From File    ${EXECDIR}/data/${filename_path}
     ${subscription}=    Update Value To Json    ${subscription_payload}     $..id   ${subscription_id}
     ${response}=  POST  ${SUBSCRIPTION_ENDPOINT_PATH}  body=${subscription}  headers=${headers}
@@ -672,13 +673,15 @@ Create Subscription
     [return]   ${response}
 
 Update Subscription
-    [Arguments]  ${subscription_id}     ${fragment_filename}    ${content_type}    ${accept}=${EMPTY}
+    [Arguments]  ${subscription_id}     ${fragment_filename}    ${content_type}    ${accept}=${EMPTY}   ${context}=${EMPTY}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${subscription_update_fragment}=    Load Json From File    ${EXECDIR}/data/${fragment_filename}
     ${response}=  PATCH  ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}    body=${subscription_update_fragment}     headers=${headers}
     Output  request
     Output  response
+    Set Test Variable  ${response}
     [return]   ${response}
 
 Delete Subscription
@@ -686,6 +689,7 @@ Delete Subscription
     ${response}=  DELETE  ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
     Output  request
     Output  response
+    Set Suite Variable  ${response}
     [return]   ${response}
 
 Query Subscriptions
@@ -701,13 +705,16 @@ Query Subscriptions
     [return]    ${response}
 
 Retrieve Subscription
-    [Arguments]  ${id}   ${accept}=${EMPTY} 
+    [Arguments]  ${id}   ${accept}=${EMPTY}     ${context}=${EMPTY}
     &{headers}=  Create Dictionary
+
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
 
     ${response}=  GET  ${SUBSCRIPTION_ENDPOINT_PATH}${id}      headers=${headers}
     ${request}=  Output  request
     Output  response
+    Set Test Variable  ${response}
     [return]    ${request}    ${response}
 
 Update Context Source Registration Subscription By Selecting Content Type
