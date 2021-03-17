@@ -18,8 +18,6 @@ Activate Expired Subscription
     [Tags]  mandatory
 
     # Update subscription to expired
-    Update Subscription   ${subscription_id}     subscriptions/fragments/subscription-expiresAt-update-sample.json   ${CONTENT_TYPE_JSON}
-
     Update Subscription   ${subscription_id}     ${subscription_update_fragment_file_path}   ${CONTENT_TYPE_JSON}
 
     Check Response Status Code Set To  204
