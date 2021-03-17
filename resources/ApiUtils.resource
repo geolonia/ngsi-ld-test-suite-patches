@@ -547,7 +547,7 @@ Update Context Source Registration
     Set Test Variable  ${response}
 
 Query Context Source Registrations
-    [Arguments]     ${context}=${EMPTY}     ${id}=${EMPTY}  ${type}=${EMPTY}    ${attrs}=${EMPTY}   ${q}=${EMPTY}   ${georel}=${EMPTY}  ${geometry}=${EMPTY}  ${coordinates}=${EMPTY}  ${geoproperty}=${EMPTY}  ${timeproperty}=${EMPTY}     ${timerel}=${EMPTY}     ${timeAt}=${EMPTY}     ${limit}=${EMPTY}   ${page}=${EMPTY}   ${accept}=${EMPTY}
+    [Arguments]     ${context}=${EMPTY}     ${id}=${EMPTY}  ${type}=${EMPTY}    ${attrs}=${EMPTY}   ${q}=${EMPTY}   ${csf}=${EMPTY}   ${georel}=${EMPTY}  ${geometry}=${EMPTY}  ${coordinates}=${EMPTY}  ${geoproperty}=${EMPTY}  ${timeproperty}=${EMPTY}     ${timerel}=${EMPTY}     ${timeAt}=${EMPTY}     ${limit}=${EMPTY}   ${page}=${EMPTY}
 
     &{headers}=  Create Dictionary
     &{params}=  Create Dictionary
@@ -557,6 +557,7 @@ Query Context Source Registrations
     Run Keyword If     '${type}'!=''       Set To Dictionary   ${params}    type=${type}
     Run Keyword If     '${attrs}'!=''       Set To Dictionary   ${params}    attrs=${attrs}
     Run Keyword If     '${q}'!=''       Set To Dictionary   ${params}    q=${q}
+    Run Keyword If     '${csf}'!=''       Set To Dictionary   ${params}    csf=${csf}
     Run Keyword If     '${georel}'!=''       Set To Dictionary   ${params}    georel=${georel}
     Run Keyword If     '${geometry}'!=''       Set To Dictionary   ${params}    geometry=${geometry}
     Run Keyword If     '${coordinates}'!=''       Set To Dictionary   ${params}    coordinates=${coordinates}
