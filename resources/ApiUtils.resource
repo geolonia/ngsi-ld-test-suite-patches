@@ -65,7 +65,7 @@ Query Entity
     ${request}=    Output  request
     Output  response
     Set Test Variable  ${response}
-    [return]    ${response}
+    [return]  ${request}    ${response}
 
 Query Entities
     [Arguments]  ${entity_ids}=${EMPTY}     ${entity_types}=${EMPTY}     ${accept}=${EMPTY}    ${attrs}=${EMPTY}      ${context}=${EMPTY}    ${geoproperty}=${EMPTY}    ${options}=${EMPTY}     ${limit}=${EMPTY}    ${entity_id_pattern}=${EMPTY}
