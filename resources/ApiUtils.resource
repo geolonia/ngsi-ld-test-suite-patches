@@ -693,16 +693,20 @@ Delete Subscription
     [return]   ${response}
 
 Query Subscriptions
-    [Arguments]  ${limit}=${EMPTY}    ${accept}=${EMPTY}
+    [Arguments]  ${context}=${EMPTY}    ${limit}=${EMPTY}   ${page}=${EMPTY}    ${accept}=${EMPTY}
+
     &{headers}=  Create Dictionary
     &{params}=  Create Dictionary
-    Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
+    Run Keyword If     '${page}'!=''       Set To Dictionary   ${params}    page=${page}
+    Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
 
-    ${response}=  GET  ${SUBSCRIPTION_ENDPOINT_PATH}      headers=${headers}      query=${params}
+    ${response}=  GET  ${SUBSCRIPTION_ENDPOINT_PATH}     headers=${headers}     query=${params}
     Output  request
     Output  response
-    [return]    ${response}
+
+    Set Test Variable  ${response}
 
 Retrieve Subscription
     [Arguments]  ${id}   ${accept}=${EMPTY}     ${context}=${EMPTY}
