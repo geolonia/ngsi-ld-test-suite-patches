@@ -15,7 +15,7 @@ ${attribute_id}=  speed
 
 *** Test Cases ***                                                                   ENTITY_ID                      FRAGMENT_FILENAME      
 012_03_01_Partial update when the Entity Id is not known to the system               ${not_found_entity_id}         vehicle-attribute-to-add-fragment.jsonld
-012_03_02_Partial update when no default instance and no datasetId specified         ${valid_entity_id}             vehicle-speed-invalid-datasetid-fragment.jsonld.jsonld
+012_03_02_Partial update when no default instance and no datasetId specified         ${valid_entity_id}             vehicle-speed-invalid-datasetid-fragment.jsonld
 012_03_03_Partial update when no instance with the datasetId specified               ${valid_entity_id}             vehicle-isparked-fragment.jsonld
 012_03_04_Partial update when no instance with the attrId specified                  ${valid_entity_id}             vehicle-speed-wrong-name-fragment.jsonld
 
