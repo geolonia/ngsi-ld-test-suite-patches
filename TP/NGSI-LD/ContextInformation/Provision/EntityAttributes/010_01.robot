@@ -10,17 +10,17 @@ ${filename}=  vehicle-speed-two-datasetid-sample.jsonld
 
 *** Test Cases ***
 010_01_01_Append entity attributes       
-    Append Attributes Without Params  204   vehicle-new-attribute-fragment.jsonld
+    Append Attributes Without Params  204   vehicle-new-attribute-fragment.jsonld   vehicle-speed-appended-expectation.jsonld
 010_01_02_Append entity attributes
-    Append Attributes With Params  207    vehicle-attribute-to-add-fragment.jsonld    add-attribute-expectation.jsonld
+    Append Attributes With Params  207    vehicle-attribute-to-add-fragment.jsonld    add-attribute-expectation.jsonld    vehicle-speed-appended-expectation.jsonld
 010_01_03_Append entity attributes
-    Append Attributes Without Params  204    vehicle-speed-different-datasetid-fragment.jsonld
+    Append Attributes Without Params  204    vehicle-speed-different-datasetid-fragment.jsonld    vehicle-speed-different-datasetid-expectation.jsonld
 010_01_04_Append entity attributes
-    Append Attributes With Params  204    vehicle-speed-different-datasetid-fragment.jsonld    ${EMPTY}
+    Append Attributes With Params  204    vehicle-speed-different-datasetid-fragment.jsonld    ${EMPTY}    vehicle-speed-different-datasetid-expectation.jsonld
 
 *** Keywords ***
 Append Attributes Without Params
-    [Arguments]  ${status_code}    ${fragment_filename}
+    [Arguments]  ${status_code}    ${fragment_filename}    ${expectation_filename}
     [Documentation]  Check that you can append entity attributes
     [Tags]  /entities/{entityId}/attrs/      5_6_3
 
@@ -31,10 +31,15 @@ Append Attributes Without Params
     ${response}=    Append Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  ${status_code}    ${response['status']}
 
+    ${entity_expectation_payload}=    Load Test Sample   entities/expectations/${expectation_filename}    ${entity_id}
+    Retrieve Entity by Id   ${entity_id}   context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
+    ${ignored_attributes}=  Create List    ${status_regex_expr}
+    Check Updated Resource Set To     ${entity_expectation_payload}
+
     [Teardown]  Delete Entity by Id Returning Response   ${entity_id}
 
 Append Attributes With Params
-    [Arguments]  ${status_code}    ${fragment_filename}    ${expectation_filename}
+    [Arguments]  ${status_code}    ${fragment_filename}    ${expectation_response_body}    ${expectation_filename}
     [Documentation]  Check that you can append entity attributes
     [Tags]  /entities/{entityId}/attrs/      5_6_3
 
@@ -44,6 +49,11 @@ Append Attributes With Params
 
     ${response}=    Append Entity Attributes With Parameters    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}    noOverwrite
     Check Response Status Code  ${status_code}    ${response['status']}
-    Run Keyword If    "${expectation_filename}"!="${EMPTY}"    Check Response Body Content    ${expectation_filename}    ${response['body']}
+    Run Keyword If    "${expectation_response_body}"!="${EMPTY}"    Check Response Body Content    ${expectation_response_body}    ${response['body']}
+
+    ${entity_expectation_payload}=    Load Test Sample   entities/expectations/${expectation_filename}    ${entity_id}
+    Retrieve Entity by Id   ${entity_id}   context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
+    ${ignored_attributes}=  Create List    ${status_regex_expr}
+    Check Updated Resource Set To     ${entity_expectation_payload}
 
     [Teardown]  Delete Entity by Id Returning Response   ${entity_id}

@@ -10,15 +10,15 @@ Test Template  Update Attributes
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
 ${filename}=  vehicle-two-datasetid-attributes-sample.jsonld
 
-*** Test Cases ***                                                                   STATUS_CODE               FRAGMENT_FILENAME                                        EXPECTATION_FILENAME
-011_01_01_Check that you can update existing attributes with no datasetId            204                       vehicle-speed-two-datasetid-01-fragment.jsonld        ${EMPTY}
-011_01_02_Check that you can update existing attributes with the datasetId           204                       vehicle-speed-two-datasetid-02-fragment.jsonld        ${EMPTY}
-011_01_03_Check that you can update only some attributes while others failed         207                       vehicle-speed-two-datasetid-03-fragment.jsonld        vehicle-speed-datasetid-expectation.jsonld
-011_01_04_Check that you cannot change the type of the attribute                     204                       vehicle-speed-two-datasetid-04-fragment.jsonld        ${EMPTY}
+*** Test Cases ***                                                                   STATUS_CODE               FRAGMENT_FILENAME                                     EXPECTATION_RESPONSE_FILENAME                        EXPECTATION_FILENAME
+011_01_01_Check that you can update existing attributes with no datasetId            204                       fragments/vehicle-speed-two-datasetid-01-fragment.jsonld        ${EMPTY}                                             expectations/vehicle-update-attributes-expectation.jsonld
+011_01_02_Check that you can update existing attributes with the datasetId           204                       vehicle-speed-two-datasetid-02-fragment.jsonld        ${EMPTY}                                             expectations/vehicle-update-datasetid-attributes-expectation.jsonld
+011_01_03_Check that you can update only some attributes while others failed         207                       vehicle-speed-two-datasetid-03-fragment.jsonld        vehicle-speed-datasetid-expectation.jsonld           expectations/vehicle-multi-attributes-expectation.jsonld
+011_01_04_Check that you cannot change the type of the attribute                     204                       vehicle-speed-two-datasetid-04-fragment.jsonld        ${EMPTY}                                             vehicle-two-datasetid-attributes-sample.jsonld
 
 *** Keywords ***
 Update Attributes
-    [Arguments]  ${status_code}    ${fragment_filename}    ${expectation_filename}
+    [Arguments]  ${status_code}    ${fragment_filename}    ${expectation_response_filename}    ${expectation_filename}
     [Documentation]  Check that you can update entity attributes
     [Tags]  /entities/{entityId}/attrs/      5_6_2
 
@@ -28,6 +28,11 @@ Update Attributes
 
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  ${status_code}    ${response['status']}
-    Run Keyword If    "${expectation_filename}"!="${EMPTY}"    Check Response Body Content    ${expectation_filename}    ${response['body']}
+    Run Keyword If    "${expectation_response_filename}"!="${EMPTY}"    Check Response Body Content    ${expectation_response_filename}    ${response['body']}
+
+    ${entity_expectation_payload}=    Load Test Sample   entities/${expectation_filename}    ${entity_id}
+    Retrieve Entity by Id   ${entity_id}   context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
+    ${ignored_attributes}=  Create List    ${status_regex_expr}
+    Check Updated Resource Set To     ${entity_expectation_payload}
 
     [Teardown]  Delete Entity by Id Returning Response   ${entity_id}
