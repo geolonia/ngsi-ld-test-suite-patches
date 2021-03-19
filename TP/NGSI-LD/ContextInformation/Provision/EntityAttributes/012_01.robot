@@ -30,7 +30,7 @@ Update Attributes
 
     ${entity_expectation_payload}=    Load Test Sample   entities/expectations/${expectation_filename}    ${entity_id}
     Retrieve Entity by Id   ${entity_id}   context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
-    ${ignored_attributes}=  Create List    ${status_regex_expr}
+    ${ignored_attributes}=  Create List    ${status_regex_expr}    @context
     Check Updated Resource Set To     ${entity_expectation_payload}
 
 

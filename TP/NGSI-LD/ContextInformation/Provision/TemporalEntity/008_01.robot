@@ -24,7 +24,7 @@ ${expectation_filename}=  vehicle-temporal-representation-update-expectation.jso
 
     ${temporal_entity_expectation_payload}=    Load Test Sample   temporalEntities/expectations/${expectation_filename}    ${temporal_entity_representation_id}
     Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}    context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
-    ${ignored_attributes}=  Create List    ${status_regex_expr}    instanceId
+    ${ignored_attributes}=  Create List    ${status_regex_expr}    instanceId    @context
     Check Updated Resource Set To     ${temporal_entity_expectation_payload}
 
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

@@ -31,7 +31,7 @@ Update Context Source
     Check Response Status Code  204    ${response['status']}
 
     Retrieve Context Source Registration   ${registration_id}   context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
-    ${ignored_attributes}=  Create List    ${status_regex_expr}
+    ${ignored_attributes}=  Create List    ${status_regex_expr}    @context
     Check Updated Resource Set To     ${registration_payload}
 
 
