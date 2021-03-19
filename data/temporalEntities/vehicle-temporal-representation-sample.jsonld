@@ -17,11 +17,6 @@
          "type":"Property",
          "value":80,
          "observedAt":"2020-09-01T12:05:00Z"
-      },
-      {
-         "type":"Property",
-         "value":100,
-         "observedAt":"2020-09-01T12:07:00Z"
       }
    ],
    "fuelLevel":[

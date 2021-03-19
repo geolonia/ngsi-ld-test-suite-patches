@@ -2,7 +2,7 @@
 Library     ${EXECDIR}/libraries/assertionUtils.py
 
 *** Variable ***
-${id_regex_expr}=  root\\['@context'\\]
+${id_regex_expr}=  root\\['id'\\]
 ${instance_id_regex_expr}=  root\\[.*\\]\\['instanceId'\\]
 ${notification_timestamps_regex_expr}=  root\\['last.*'\\]
 ${notification_endpoint_uri_regex_expr}=  root\\['endpoint'\\]\\['uri'\\]
@@ -39,6 +39,12 @@ Check Response Body Content
     Output  ${entity_payload}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity_payload}      ${instance_id_regex_expr}
     Should Be True      ${comparison_result}   msg=Entity Comparison Failed
+
+Check Request Containing Accept Header Set To 
+    [Arguments]  ${request}    ${expected_accept_content}    
+
+    Run Keyword If  'Accept' in ${request['headers']}  Should Be Equal  ${expected_accept_content}        ${request['headers']['Accept']}     ignore_order=True
+    Run Keyword If  'accept' in ${request['headers']}  Should Be Equal  ${expected_accept_content}        ${request['headers']['accept']}     ignore_order=True
 
 # Since Http headers names are case-insensitive (from Http specification)
 # We check both Location and location headers
@@ -92,10 +98,9 @@ Check Response Body Containing Entity element
 
 Check Response Body Containing List Containing Entity Elements
     [Arguments]     ${expectation_filename}    ${entities_ids}    ${response_body}
-    ${index}=    Set Variable    0
     FOR    ${entity_id}    IN    @{entities_ids}
-    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response_body[${index}]}
-        ${index}=    Evaluate    ${index} + 1
+        ${entity}=     Get Value From Json    ${response_body}    $[?(@.id=='${entity_id}')]
+        Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${entity}[0]
     END
 
 Check Response Body Containing List Containing Entity Elements With Different Types
@@ -285,3 +290,50 @@ Check Pagination Prev And Next Headers
     Run Keyword If     '${prev_link}'!='' and '${next_link}'!=''       Lists Should Be Equal    ${response['headers']['Link']}    ${expected_links}   ignore_order=True
     Run Keyword If     '${prev_link}'!='' and '${next_link}'==''       Should Be Equal      ${response['headers']['Link']}    ${prev_link}
     Run Keyword If     '${prev_link}'=='' and '${next_link}'!=''       Should Be Equal      ${response['headers']['Link']}    ${next_link}
+
+Check Response Body Containing One Subscription element
+    [Arguments]     ${expectation_filename}    ${response_body}
+    ${payload}=    Load Json From File    ${EXECDIR}/data/csourceSubscriptions/expectations/${expectation_filename}
+    ${subscription}=    Update Value To Json    ${payload}     $..id   ${response_body['id']}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${subscription}      ${instance_id_regex_expr}
+    Should Be True      ${comparison_result}   msg=Entity Comparison Failed
+
+Check Response Body Containing One Registration element
+    [Arguments]     ${expectation_filename}    ${response_body}
+    ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/expectations/${expectation_filename}
+    ${registration}=    Update Value To Json    ${payload}     $..id   ${response_body['id']}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${registration}      ${instance_id_regex_expr}
+    Should Be True      ${comparison_result}   msg=Entity Comparison Failed
+
+Check Resource Set To
+    [Arguments]  ${resource}       ${ignored_keys}=${None}      ${error_message}=${EMPTY}
+
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${resource}     ${ignored_keys}
+    Should Be True      ${comparison_result}   msg=${error_message}
+
+Check Created Resource Set To
+    [Arguments]  ${created_resource}       ${ignored_keys}=${None}
+
+    Check Resource Set To   ${created_resource}     ${ignored_keys}     Created Resource Comparison Failed
+
+Check Created Resources Set To
+    [Arguments]  ${created_resources}   ${ignored_keys}=${None}
+
+    Check Resource Set To   ${created_resources}     ${ignored_keys}     Created Resources Comparison Failed
+
+Check Updated Resource Set To
+    [Arguments]  ${updated_resource}    ${ignored_keys}=${None}
+
+    Check Resource Set To   ${updated_resource}     ${ignored_keys}     Updated Resource Comparison Failed
+
+Check Updated Resources Set To
+    [Arguments]  ${updated_resources}   ${ignored_keys}=${None}
+
+    Check Resource Set To   ${updated_resources}     ${ignored_keys}     Updated Resources Comparison Failed
+
+Check SUT Not Containing Resource
+    ${response_status}=  convert to string  ${response['status']}
+    Should Be Equal  ${response_status}  404
+
+Check SUT Not Containing Resources
+    Should Be Empty     ${response['body']}

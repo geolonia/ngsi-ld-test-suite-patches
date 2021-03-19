@@ -13,6 +13,7 @@ ${registration_payload_file_path}=   context-source-registration-simple-sample.j
 Delete a context source registration by id
     [Documentation]  Check that you can delete a context source registration by id
     [Tags]  /csourceRegistrations/{registrationId}    5_9_4
+    
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${registration_payload_file_path}
     ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}
@@ -21,3 +22,6 @@ Delete a context source registration by id
 
     ${response}=    Delete Context Source Registration With Return    ${registration_id}
     Check Response Status Code  204    ${response['status']}
+
+    Retrieve Context Source Registration   ${registration_id}   context=${ngsild_test_suite_context}
+    Check SUT Not Containing Resource
