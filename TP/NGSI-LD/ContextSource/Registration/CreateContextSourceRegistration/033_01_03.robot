@@ -4,7 +4,6 @@ Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource    ${EXECDIR}/resources/AssertionUtils.resource
 Resource    ${EXECDIR}/resources/JsonUtils.resource
 
-
 *** Variable ***
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
 ${registration_payload_file_path}=   csourceRegistrations/context-source-registration-no-id-sample.jsonld
@@ -18,5 +17,10 @@ Create Context Source Registration Without A Sprecified ID
     ${request}    ${response}=    Create Context Source Registration With Return  ${payload}
     Check Response Status Code  201    ${response['status']}
     ${registration_id}=    Check Response Headers ID Not Empty    ${response}
+    
+    ${registration_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}
+    Retrieve Context Source Registration   ${registration_id}   context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
+    ${ignored_attributes}=  Create List    ${status_regex_expr}
+    Check Created Resource Set To     ${registration_payload}       ${ignored_attributes}
 
     [Teardown]  Delete Context Source Registration    ${registration_id}

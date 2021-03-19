@@ -1,0 +1,25 @@
+{
+   "id":"urn:ngsi-ld:Vehicle:randomUUID",
+   "type":"Vehicle",
+   "brandName":[
+      {
+         "type":"Property",
+         "value":"BMW"
+      }
+   ],
+   "speed":[
+      {
+         "type":"Property",
+         "value":120,
+         "observedAt":"2020-09-01T12:03:00Z"
+      },
+      {
+         "type":"Property",
+         "value":80,
+         "observedAt":"2020-09-01T12:05:00Z"
+      }
+   ],
+   "@context":[
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
+   ]
+}

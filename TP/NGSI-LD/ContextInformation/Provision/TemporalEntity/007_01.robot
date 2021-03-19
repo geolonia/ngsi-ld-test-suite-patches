@@ -23,4 +23,8 @@ Create Temporal Entity
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${temporal_entity_representation_id}    ${filename}     ${content_type}
     Check Response Status Code  201    ${response['status']}
 
+    ${created_temporal_entity}=    Load Test Sample    temporalEntities/${filename}      ${temporal_entity_representation_id}
+    Set Test Variable  ${response}
+    Check Created Resource Set To     ${created_temporal_entity}
+
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

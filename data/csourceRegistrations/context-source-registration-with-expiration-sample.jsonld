@@ -35,9 +35,9 @@
             [100.0, 1.0], [100.0, 0.0]] ]
     },
     "timestamp": {
-        "startAt": " 2017-11-29T14:53:15Z"
+        "startAt": "2017-11-29T14:53:15Z"
     },
-    "expiresAt": " 2025-11-29T14:53:15Z",
+    "expiresAt": "2025-11-29T14:53:15Z",
     "@context": [
         "https://raw.githubusercontent.com/easy-global-market/ngsild-api-data-models/feature/add-json-ld-context-for-ngsi-ld-test-suite/ngsi-ld-test-suite/ngsi-ld-test-suite-context.jsonld"
     ]

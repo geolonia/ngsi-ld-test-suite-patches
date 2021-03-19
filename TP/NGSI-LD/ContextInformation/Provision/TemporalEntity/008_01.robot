@@ -8,6 +8,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
 ${filename}=  vehicle-temporal-representation-sample.jsonld
 ${update_filename}=  vehicle-temporal-representation-update-sample.jsonld
+${expectation_filename}=  vehicle-temporal-representation-update-expectation.jsonld
 
 *** Test Cases ***                                                                                           
 008_01_Update a temporal representation of an entity with simple temporal properties                           
@@ -21,5 +22,9 @@ ${update_filename}=  vehicle-temporal-representation-update-sample.jsonld
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${temporal_entity_representation_id}    ${update_filename}     ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  204    ${response['status']}
 
+    ${temporal_entity_expectation_payload}=    Load Test Sample   temporalEntities/expectations/${expectation_filename}    ${temporal_entity_representation_id}
+    Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}    context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
+    ${ignored_attributes}=  Create List    ${status_regex_expr}    instanceId    @context
+    Check Updated Resource Set To     ${temporal_entity_expectation_payload}
 
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

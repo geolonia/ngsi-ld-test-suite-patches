@@ -19,3 +19,6 @@ Delete a temporal representation of an entity with simple temporal properties
 
     ${response}=  Delete Temporal Representation Of Entity With Returning Response    ${temporal_entity_representation_id}
     Check Response Status Code  204    ${response['status']}
+
+    Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}     context=${ngsild_test_suite_context}
+    Check SUT Not Containing Resource

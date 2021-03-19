@@ -11,13 +11,13 @@ ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
 ${filename}=  vehicle-speed-two-datasetid-sample.jsonld
 ${status_code}=  204
 
-*** Test Cases ***                                                                           FRAGMENT_FILENAME                                        ATTRIBUTE_ID             
-012_01_01_Check that you can partially update an attribute                                   vehicle-isparked-fragment.jsonld                         isParked                
-012_01_02_Check that you can partially update an attribute by specifying the datasetId       vehicle-speed-equal-datasetid-fragment.jsonld            speed                                      
+*** Test Cases ***                                                                           FRAGMENT_FILENAME                                        ATTRIBUTE_ID      EXPECTATION_FILENAME       
+012_01_01_Check that you can partially update an attribute                                   vehicle-isparked-fragment.jsonld                         isParked          vehicle-isparked-update-expectation.jsonld      
+012_01_02_Check that you can partially update an attribute by specifying the datasetId       vehicle-speed-equal-datasetid-fragment.jsonld            speed              vehicle-update-speed-expectation.jsonld                      
 
 *** Keywords ***
 Update Attributes
-    [Arguments]  ${fragment_filename}    ${attribute_id}
+    [Arguments]  ${fragment_filename}    ${attribute_id}    ${expectation_filename}
     [Documentation]  Check that you can perform a partial update on an entity attribute
     [Tags]  /entities/{entityId}/attrs/{attrId}      5_6_4
 
@@ -27,5 +27,11 @@ Update Attributes
 
     ${response}=    Partial Update Entity Attributes    ${entity_id}    ${attribute_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  ${status_code}    ${response['status']}
+
+    ${entity_expectation_payload}=    Load Test Sample   entities/expectations/${expectation_filename}    ${entity_id}
+    Retrieve Entity by Id   ${entity_id}   context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
+    ${ignored_attributes}=  Create List    ${status_regex_expr}    @context
+    Check Updated Resource Set To     ${entity_expectation_payload}
+
 
     [Teardown]  Delete Entity by Id Returning Response   ${entity_id}
