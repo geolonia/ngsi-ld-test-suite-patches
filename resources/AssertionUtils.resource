@@ -98,10 +98,9 @@ Check Response Body Containing Entity element
 
 Check Response Body Containing List Containing Entity Elements
     [Arguments]     ${expectation_filename}    ${entities_ids}    ${response_body}
-    ${index}=    Set Variable    0
     FOR    ${entity_id}    IN    @{entities_ids}
-    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response_body[${index}]}
-        ${index}=    Evaluate    ${index} + 1
+        ${entity}=     Get Value From Json    ${response_body}    $[?(@.id=='${entity_id}')]
+        Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${entity}[0]
     END
 
 Check Response Body Containing List Containing Entity Elements With Different Types
