@@ -7,7 +7,8 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
 ${filename}=  vehicle-temporal-representation-sample.jsonld
-${fragment_filename}=  vehicle-temporal-intanceid-update-fragment.jsonld
+${fragment_filename}=  vehicle-temporal-instanceid-update-fragment.jsonld
+${expectation_filename}=  vehicle-temporal-representation-update-expectation.jsonld
 ${attributeId}=  speed
 
 *** Test Cases ***
@@ -36,5 +37,10 @@ ${attributeId}=  speed
     ${modifiedAt_before_update_date}=  Convert Date  ${modifiedAt_before_update}  epoch
     ${modifiedAt_after_update_date}=  Convert Date  ${modifiedAt_after_update}  epoch
     Should Be True  ${modifiedAt_before_update_date}<${modifiedAt_after_update_date}
+
+    ${temporal_entity_expectation_payload}=    Load Test Sample   temporalEntities/expectations/${expectation_filename}    ${temporal_entity_representation_id}
+    Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}    context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
+    ${ignored_attributes}=  Create List    ${status_regex_expr}    instanceId
+    Check Updated Resource Set To     ${temporal_entity_expectation_payload}
 
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
