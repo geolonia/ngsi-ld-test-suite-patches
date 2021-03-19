@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-location-attribute-sample.jsonld
-${expectation_filename}=  building-simple-attributes-simplified-expectation.jsonld
+${expectation_filename}=  building-simple-attributes-simplified-expectation.json
 ${options_parameter}=  keyValues
 ${accept_header}=  application/geo+json
 
