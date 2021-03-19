@@ -1,6 +1,6 @@
 [
    {
-      "id":"https://uri.etsi.org/ngsi-ld/name",
+      "id":"https://ngsi-ld-test-suite/context#name",
       "type":"Attribute",
       "attributeName":"name",
       "attributeCount":1,

@@ -26,11 +26,11 @@ ${CONTENT_TYPE_JSON}            application/json
 ${CONTENT_TYPE_LD_JSON}         application/ld+json
 ${CONTENT_TYPE_MERGE_PATCH_JSON}         application/merge-patch+json
 
-${ERROR_TYPE_BAD_REQUEST_DATA}      http://uri.etsi.org/ngsi-ld/errors/BadRequestData
-${ERROR_TYPE_INVALID_REQUEST}      http://uri.etsi.org/ngsi-ld/errors/InvalidRequest
-${ERROR_TYPE_RESOURCE_NOT_FOUND}      http://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
-${ERROR_TYPE_ALREADY_EXISTS}      http://uri.etsi.org/ngsi-ld/errors/AlreadyExists
-${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}     http://uri.etsi.org/ngsi-ld/errors/LDContextNotAvailable
+${ERROR_TYPE_BAD_REQUEST_DATA}      https://uri.etsi.org/ngsi-ld/errors/BadRequestData
+${ERROR_TYPE_INVALID_REQUEST}      https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
+${ERROR_TYPE_RESOURCE_NOT_FOUND}      https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
+${ERROR_TYPE_ALREADY_EXISTS}      https://uri.etsi.org/ngsi-ld/errors/AlreadyExists
+${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}     https://uri.etsi.org/ngsi-ld/errors/LDContextNotAvailable
 
 ${response}
 
@@ -65,7 +65,7 @@ Query Entity
     ${request}=    Output  request
     Output  response
     Set Test Variable  ${response}
-    [return]    ${response}
+    [return]  ${request}    ${response}
 
 Query Entities
     [Arguments]  ${entity_ids}=${EMPTY}     ${entity_types}=${EMPTY}     ${accept}=${EMPTY}    ${attrs}=${EMPTY}      ${context}=${EMPTY}    ${geoproperty}=${EMPTY}    ${options}=${EMPTY}     ${limit}=${EMPTY}    ${entity_id_pattern}=${EMPTY}
@@ -547,7 +547,7 @@ Update Context Source Registration
     Set Test Variable  ${response}
 
 Query Context Source Registrations
-    [Arguments]     ${context}=${EMPTY}     ${id}=${EMPTY}  ${type}=${EMPTY}    ${attrs}=${EMPTY}   ${q}=${EMPTY}   ${georel}=${EMPTY}  ${geometry}=${EMPTY}  ${coordinates}=${EMPTY}  ${geoproperty}=${EMPTY}  ${timeproperty}=${EMPTY}     ${timerel}=${EMPTY}     ${timeAt}=${EMPTY}     ${limit}=${EMPTY}   ${page}=${EMPTY}   ${accept}=${EMPTY}
+    [Arguments]     ${context}=${EMPTY}     ${id}=${EMPTY}  ${type}=${EMPTY}    ${attrs}=${EMPTY}   ${q}=${EMPTY}   ${csf}=${EMPTY}   ${georel}=${EMPTY}  ${geometry}=${EMPTY}  ${coordinates}=${EMPTY}  ${geoproperty}=${EMPTY}  ${timeproperty}=${EMPTY}     ${timerel}=${EMPTY}     ${timeAt}=${EMPTY}     ${limit}=${EMPTY}   ${page}=${EMPTY}
 
     &{headers}=  Create Dictionary
     &{params}=  Create Dictionary
@@ -557,6 +557,7 @@ Query Context Source Registrations
     Run Keyword If     '${type}'!=''       Set To Dictionary   ${params}    type=${type}
     Run Keyword If     '${attrs}'!=''       Set To Dictionary   ${params}    attrs=${attrs}
     Run Keyword If     '${q}'!=''       Set To Dictionary   ${params}    q=${q}
+    Run Keyword If     '${csf}'!=''       Set To Dictionary   ${params}    csf=${csf}
     Run Keyword If     '${georel}'!=''       Set To Dictionary   ${params}    georel=${georel}
     Run Keyword If     '${geometry}'!=''       Set To Dictionary   ${params}    geometry=${geometry}
     Run Keyword If     '${coordinates}'!=''       Set To Dictionary   ${params}    coordinates=${coordinates}
@@ -660,9 +661,10 @@ Update Context Source Registration Subscription From File
     Set Test Variable  ${response}
 
 Create Subscription
-    [Arguments]  ${subscription_id}    ${filename_path}    ${content_type}    ${accept}=${EMPTY}
+    [Arguments]  ${subscription_id}    ${filename_path}    ${content_type}    ${accept}=${EMPTY}    ${context}=${EMPTY}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${subscription_payload}=    Load Json From File    ${EXECDIR}/data/${filename_path}
     ${subscription}=    Update Value To Json    ${subscription_payload}     $..id   ${subscription_id}
     ${response}=  POST  ${SUBSCRIPTION_ENDPOINT_PATH}  body=${subscription}  headers=${headers}
@@ -671,13 +673,15 @@ Create Subscription
     [return]   ${response}
 
 Update Subscription
-    [Arguments]  ${subscription_id}     ${fragment_filename}    ${content_type}    ${accept}=${EMPTY}
+    [Arguments]  ${subscription_id}     ${fragment_filename}    ${content_type}    ${accept}=${EMPTY}   ${context}=${EMPTY}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${subscription_update_fragment}=    Load Json From File    ${EXECDIR}/data/${fragment_filename}
     ${response}=  PATCH  ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}    body=${subscription_update_fragment}     headers=${headers}
     Output  request
     Output  response
+    Set Test Variable  ${response}
     [return]   ${response}
 
 Delete Subscription
@@ -685,28 +689,36 @@ Delete Subscription
     ${response}=  DELETE  ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
     Output  request
     Output  response
+    Set Suite Variable  ${response}
     [return]   ${response}
 
 Query Subscriptions
-    [Arguments]  ${limit}=${EMPTY}    ${accept}=${EMPTY} 
+    [Arguments]  ${context}=${EMPTY}    ${limit}=${EMPTY}   ${page}=${EMPTY}    ${accept}=${EMPTY}
+
     &{headers}=  Create Dictionary
     &{params}=  Create Dictionary
-    Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
+    Run Keyword If     '${page}'!=''       Set To Dictionary   ${params}    page=${page}
+    Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
 
-    ${response}=  GET  ${SUBSCRIPTION_ENDPOINT_PATH}      headers=${headers}      query=${params}
+    ${response}=  GET  ${SUBSCRIPTION_ENDPOINT_PATH}     headers=${headers}     query=${params}
     Output  request
     Output  response
-    [return]    ${response}
+
+    Set Test Variable  ${response}
 
 Retrieve Subscription
-    [Arguments]  ${id}   ${accept}=${EMPTY} 
+    [Arguments]  ${id}   ${accept}=${EMPTY}     ${context}=${EMPTY}
     &{headers}=  Create Dictionary
+
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
 
     ${response}=  GET  ${SUBSCRIPTION_ENDPOINT_PATH}${id}      headers=${headers}
     ${request}=  Output  request
     Output  response
+    Set Test Variable  ${response}
     [return]    ${request}    ${response}
 
 Update Context Source Registration Subscription By Selecting Content Type
