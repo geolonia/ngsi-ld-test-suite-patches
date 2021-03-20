@@ -156,7 +156,7 @@ Append Entity Attributes Using Session
     Create Session    OneRequest      ${url}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     ${response}=    POST On Session      OneRequest   ${ENTITIES_ENDPOINT_PATH}${id}/attrs/    params=options=${options}    data=${file_content}    headers=${headers}   expected_status=any
-    [return]    ${response}
+    Set Test Variable  ${response}
 
 Update Entity Attributes Using Session
     [Arguments]  ${id}    ${fragment_filename}    ${content_type}    ${options}
