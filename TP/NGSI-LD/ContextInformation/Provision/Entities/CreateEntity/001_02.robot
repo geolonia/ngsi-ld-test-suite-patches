@@ -18,6 +18,6 @@ Create Entity With Invalid Request Scenarios
 
     Request Entity From File   ${filename}
 
-    Check RL Response Status Code Set To Expected Code    400
+    Check RL Response Status Code Set To    400
     Check RL Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check RL Response Body Containing ProblemDetails Element Containing Title Element    ${response}
