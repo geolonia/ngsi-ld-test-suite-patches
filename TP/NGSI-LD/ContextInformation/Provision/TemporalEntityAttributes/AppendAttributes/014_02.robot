@@ -34,7 +34,7 @@ Add an Attribute To a Temporal Entity
     Check Response Status Code  201    ${response['status']}
 
     ${response}=  Append Attribute To Temporal Entity Using Session  ${temporal_entity_representation_id}    ${update_filename}     ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code   ${status_code}    ${response['status']}
+    Check Response Status Code   <Response [400]>    ${response['status']}
 
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
 

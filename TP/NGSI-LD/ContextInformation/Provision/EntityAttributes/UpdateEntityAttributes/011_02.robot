@@ -40,9 +40,9 @@ Update entity attributes with invalid entity fragments
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
-    Output  ${fragment_filename}
-    ${response}=  Update Entity Attributes Using Session    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}    ${EMPTY}
-    Check Response Status Code  400    ${response}
+
+    Update Entity Attributes Using Session    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}    ${EMPTY}
+    Check RL Response Status Code Set To  400
     Check Response Body Type When Using Session Request      ${response.json()}     ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Title When Using Session Request    ${response.json()}
 

@@ -27,7 +27,7 @@ Create Temporal Entity From File
     [Tags]  mandatory
 
     ${response}=  Create Temporal Representation Of Entity Selecting Content Type Using Session  ${filename}     ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code  ${status_code}    ${response['status']}
+    Check Response Status Code  <Response [400]>    ${response['status']}
     Check Response Body Type When Using Session Request      ${response.json()}     ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Title When Using Session Request    ${response.json()}
 

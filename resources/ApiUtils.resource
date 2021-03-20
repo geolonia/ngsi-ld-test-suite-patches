@@ -165,7 +165,7 @@ Update Entity Attributes Using Session
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     ${response}=    PATCH On Session      OneRequest   ${ENTITIES_ENDPOINT_PATH}${id}/attrs/    data=${file_content}    headers=${headers}   expected_status=any
     Output  ${response.json()}
-    [return]    ${response}
+    Set Test Variable  ${response}
 
 Update Entity Attributes
     [Arguments]  ${id}    ${fragment_filename}    ${content_type}
