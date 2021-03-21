@@ -49,7 +49,8 @@ Append Attributes With Params
 
     ${response}=    Append Entity Attributes With Parameters    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}    noOverwrite
     Check Response Status Code  ${status_code}    ${response['status']}
-    Run Keyword If    "${expectation_response_body}"!="${EMPTY}"    Check Response Body Content    ${expectation_response_body}    ${response['body']}
+    # ignore the reason for the not updated attribute as this detail is up to each context broker implementation
+    Run Keyword If    "${expectation_response_body}"!="${EMPTY}"    Check Response Body Content    ${expectation_response_body}    ${response['body']}      root\\['notUpdated'\\]\\[0\\]\\['reason'\\]
 
     ${entity_expectation_payload}=    Load Test Sample   entities/expectations/${expectation_filename}    ${entity_id}
     Retrieve Entity by Id   ${entity_id}   context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}

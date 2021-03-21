@@ -6,7 +6,7 @@
             "type": "Property",
             "value": "Speedometer"
         },
-        "datasetId": "urn:ngsi-ld:Property:speedometerA4567-speed" 
+        "datasetId": "urn:ngsi-ld:Property:speedometer" 
     },
     "attribute_to_be_added": {
         "type": "Property",

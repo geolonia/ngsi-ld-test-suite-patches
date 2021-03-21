@@ -29,11 +29,12 @@ Check Response Body Containing Array Of URIs set to
     Lists Should Be Equal  ${expected_entities_ids}        ${response['body']}     ignore_order=True
 
 Check Response Body Content
-    [Arguments]  ${expectation_filename}     ${response_body}
+    [Arguments]  ${expectation_filename}     ${response_body}       ${additional_ignored_path}=${EMPTY}
     ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/expectations/${expectation_filename}
+    ${all_ignored_paths}=   Create List     ${instance_id_regex_expr}   ${additional_ignored_path}
     Output  ${response_body}
     Output  ${entity_payload}
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity_payload}      ${instance_id_regex_expr}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity_payload}      ${all_ignored_paths}
     Should Be True      ${comparison_result}   msg=Entity Comparison Failed
 
 Check Request Containing Accept Header Set To 
