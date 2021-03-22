@@ -19,7 +19,7 @@ Query the temporal evolution of entities matching the given type(s)
     [Documentation]  Check that you can query the temporal evolution of entities matching the given type(s)
     [Tags]  mandatory
 
-    @{entity_types_to_be_retrieved}=  Create List   Vehicle     Bus
+    ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,     Bus
 
     Query Temporal Representation Of Entities   entity_types=${entity_types_to_be_retrieved}   timerel=after    timeAt=2020-07-01T12:05:00Z    context=${ngsild_test_suite_context}
 
