@@ -30,7 +30,9 @@ Create a batch of two valid entities and one invalid entity
     Check Response Status Code Set To  207
     Check Response Body Containing Batch Operation Result   ${expected_batch_operation_result}
 
-    Query Entities    ${expected_successful_entities_ids}  Building    context=${ngsild_test_suite_context}
+    ${expected_entities_ids}=  Catenate    SEPARATOR=,     @{expected_successful_entities_ids}
+
+    Query Entities    ${expected_entities_ids}  Building    context=${ngsild_test_suite_context}
     @{created_entities}=  Create List   ${first_entity}     ${second_entity}
     Check Created Resources Set To     ${created_entities}
 

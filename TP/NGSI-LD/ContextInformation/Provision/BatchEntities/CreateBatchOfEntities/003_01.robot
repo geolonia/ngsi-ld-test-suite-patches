@@ -29,7 +29,8 @@ Batch Create Entity Scenarios
 
     Batch Create Entities   @{entities_to_be_created}
 
-    @{expected_entities_ids}=  Create List   ${first_entity_id}     ${second_entity_id}
+    ${expected_entities_ids}=  Catenate    SEPARATOR=,     ${first_entity_id}     ${second_entity_id}
+
     Check Response Status Code Set To  201
     Check Response Body Containing Array Of URIs set to   @{expected_entities_ids}
 

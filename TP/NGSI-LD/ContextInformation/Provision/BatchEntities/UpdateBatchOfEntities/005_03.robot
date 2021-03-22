@@ -38,7 +38,8 @@ Update a batch of non existing and existing entities
     ${first_updated_entity}=    Upsert Element In Entity     ${first_created_entity}    ${update_fragment}
     ${second_updated_entity}=    Upsert Element In Entity     ${second_created_entity}    ${update_fragment}
     @{updated_entities}=  Create List   ${first_updated_entity}     ${second_updated_entity}
-    Query Entities    ${expected_successful_entities_ids}  Building    context=${ngsild_test_suite_context}
+    ${expected_entities_ids}=  Catenate    SEPARATOR=,     @{expected_successful_entities_ids}
+    Query Entities    ${expected_entities_ids}  Building    context=${ngsild_test_suite_context}
     Check Updated Resources Set To   ${updated_entities}
 
     Batch Delete Entities       @{expected_successful_entities_ids}
