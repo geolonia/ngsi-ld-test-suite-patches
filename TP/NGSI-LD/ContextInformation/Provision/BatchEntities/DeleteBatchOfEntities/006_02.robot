@@ -25,7 +25,9 @@ Delete a batch of non existing and existing entities
     Check Response Status Code Set To  207
     Check Response Body Containing Batch Operation Result   ${expected_batch_operation_result}
 
-    Query Entities    ${expected_successful_entities_ids}  Building    context=${ngsild_test_suite_context}
+    ${expected_entities_ids}=  Catenate    SEPARATOR=,     @{expected_successful_entities_ids}
+
+    Query Entities    ${expected_entities_ids}  Building    context=${ngsild_test_suite_context}
     Check SUT Not Containing Resources
 
 *** Keywords ***

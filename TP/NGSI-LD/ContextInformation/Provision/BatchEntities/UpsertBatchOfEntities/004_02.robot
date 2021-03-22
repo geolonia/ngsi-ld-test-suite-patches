@@ -35,7 +35,8 @@ Batch Upsert Non-existing And Existing Entities Scenarios
     Check Response Body Containing Array Of URIs set to   @{expected_entities_ids}
 
     @{upserted_entities_ids}=  Create List   ${new_entity_id}   ${first_existing_entity_id}    ${second_existing_entity_id}
-    Query Entities    ${upserted_entities_ids}  Building    context=${ngsild_test_suite_context}
+    ${expected_updated_entities_ids}=  Catenate    SEPARATOR=,     @{upserted_entities_ids}
+    Query Entities    ${expected_updated_entities_ids}  Building    context=${ngsild_test_suite_context}
     Check Updated Resources Set To   ${entities_to_be_upserted}
 
     @{entities_ids_to_be_deleted}=  Create List   ${new_entity_id}
