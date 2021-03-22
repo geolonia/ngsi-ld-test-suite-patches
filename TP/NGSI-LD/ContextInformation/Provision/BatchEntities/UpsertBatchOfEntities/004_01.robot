@@ -33,6 +33,7 @@ Batch Upsert Entity Scenarios
     Check Response Body Containing Array Of URIs set to   @{expected_entities_ids}
     ${expected_updated_entities_ids}=  Catenate    SEPARATOR=,     @{expected_entities_ids}
     Query Entities    ${expected_updated_entities_ids}  Building    context=${ngsild_test_suite_context}
-    Check Updated Resources Set To   ${entities_to_be_upserted}
+    ${ignored_keys}=    Create List     ${context_regex_expr}
+    Check Updated Resources Set To   ${entities_to_be_upserted}     ${ignored_keys}
 
     Batch Delete Entities       @{expected_entities_ids}
