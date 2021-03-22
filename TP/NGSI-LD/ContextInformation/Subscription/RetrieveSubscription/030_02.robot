@@ -8,7 +8,7 @@ Retrieve Unknown Subscription
     [Documentation]  Check that you cannot retrieve a subscription: If the identifier provided does not correspond to any existing subscription in the system then an error of type ResourceNotFound shall be raised
     [Tags]  mandatory
 
-    Retrieve Subscription   unknownSubscription
+    Retrieve Subscription   urn:ngsi-ld:Subscription:unknowSubscription
 
     Check Response Status Code Set To  404
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_RESOURCE_NOT_FOUND}

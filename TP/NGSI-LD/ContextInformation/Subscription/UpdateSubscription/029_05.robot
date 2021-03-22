@@ -11,8 +11,8 @@ Suite Teardown      Delete Initial Subscriptions
 ${subscription_id_prefix}=  urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=   subscriptions/subscription-sample.jsonld
 ${subscription_update_fragment_file_path}=   subscriptions/fragments/subscription-vehicle-entities-sample.json
-${expected_subscription_payload_file_path}=   subscriptions/expected/subscription-vehicle-sample.jsonld
-${expected_expanded_subscription_payload_file_path}=   subscriptions/expected/subscription-vehicle-expanded-types-sample.jsonld
+${expected_subscription_payload_file_path}=   subscriptions/expectations/subscription-vehicle-sample.jsonld
+${expected_expanded_subscription_payload_file_path}=   subscriptions/expectations/subscription-vehicle-expanded-types-sample.jsonld
 
 *** Test Case ***
 Update Subscription With Term to Uri Expansion
