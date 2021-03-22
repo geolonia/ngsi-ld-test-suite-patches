@@ -7,6 +7,7 @@ ${instance_id_regex_expr}=  root\\[.*\\]\\['instanceId'\\]
 ${notification_timestamps_regex_expr}=  root\\['last.*'\\]
 ${notification_endpoint_uri_regex_expr}=  root\\['endpoint'\\]\\['uri'\\]
 ${context_regex_expr}=  root\\['@context'\\]
+${status_regex_expr}=  root\\['status'\\]
 
 *** Keywords ***
 Check Response Status Code
