@@ -37,7 +37,8 @@ Batch Upsert Non-existing And Existing Entities Scenarios
     @{upserted_entities_ids}=  Create List   ${new_entity_id}   ${first_existing_entity_id}    ${second_existing_entity_id}
     ${expected_updated_entities_ids}=  Catenate    SEPARATOR=,     @{upserted_entities_ids}
     Query Entities    ${expected_updated_entities_ids}  Building    context=${ngsild_test_suite_context}
-    Check Updated Resources Set To   ${entities_to_be_upserted}
+    ${ignored_keys}=    Create List     ${context_regex_expr}
+    Check Updated Resources Set To   ${entities_to_be_upserted}     ${ignored_keys}
 
     @{entities_ids_to_be_deleted}=  Create List   ${new_entity_id}
     Batch Delete Entities       @{entities_ids_to_be_deleted}

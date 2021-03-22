@@ -34,8 +34,8 @@ Create a batch of two valid entities and one invalid entity
 
     Query Entities    ${expected_entities_ids}  Building    context=${ngsild_test_suite_context}
     @{created_entities}=  Create List   ${first_entity}     ${second_entity}
-    Check Created Resources Set To     ${created_entities}
-
+    ${ignored_keys}=    Create List     ${context_regex_expr}
+    Check Created Resources Set To     ${created_entities}      ${ignored_keys}
     @{entities_ids_to_be_deleted}=  Create List   ${first_entity_id}     ${second_entity_id}    ${existing_entity_id}
     Batch Delete Entities       @{entities_ids_to_be_deleted}
 
