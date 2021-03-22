@@ -7,7 +7,6 @@ ${instance_id_regex_expr}=  root\\[.*\\]\\['instanceId'\\]
 ${notification_timestamps_regex_expr}=  root\\['last.*'\\]
 ${notification_endpoint_uri_regex_expr}=  root\\['endpoint'\\]\\['uri'\\]
 ${context_regex_expr}=  root\\['@context'\\]
-${status_regex_expr}=  root\\['status'\\]
 
 *** Keywords ***
 Check Response Status Code
@@ -135,7 +134,7 @@ Check Response Body Containing Subscription element
     [Arguments]     ${expectation_filename}    ${subscription_id}
     ${subscription_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
     ${subscription}=    Update Value To Json    ${subscription_payload}     $..id   ${subscription_id}
-    ${ignored_keys}=    Create List     ${status_regex_expr}    ${context_regex_expr}
+    ${ignored_keys}=    Create List     ${context_regex_expr}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${subscription}  ${ignored_keys}
     Should Be True      ${comparison_result}   msg=Subscription Comparison Failed
 
@@ -147,7 +146,8 @@ Check Response Body Containing List Containing Subscription elements
         ${subscription_payload}=    Update Value To Json    ${subscription_payload}     $.[${index}]..id   ${subscription_id}
         ${index}=    Evaluate    ${index} + 1
     END
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${subscription_payload}  ${EMPTY}
+    ${ignored_keys}=    Create List     ${context_regex_expr}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${subscription_payload}  ${ignored_keys}
     Should Be True      ${comparison_result}   msg=Subscription Comparison Failed
 
 # Since response body can be a json object if it contains one element
