@@ -14,7 +14,6 @@ ${filename}=  vehicle-two-datasetid-attributes-sample.jsonld
 011_01_01_Check that you can update existing attributes with no datasetId            204                       vehicle-speed-two-datasetid-01-fragment.jsonld        ${EMPTY}                                             expectations/vehicle-update-attributes-expectation.jsonld
 011_01_02_Check that you can update existing attributes with the datasetId           204                       vehicle-speed-two-datasetid-02-fragment.jsonld        ${EMPTY}                                             expectations/vehicle-update-datasetid-attributes-expectation.jsonld
 011_01_03_Check that you can update only some attributes while others failed         207                       vehicle-speed-two-datasetid-03-fragment.jsonld        vehicle-speed-datasetid-expectation.jsonld           expectations/vehicle-multi-attributes-expectation.jsonld
-011_01_04_Check that you cannot change the type of the attribute                     204                       vehicle-speed-two-datasetid-04-fragment.jsonld        ${EMPTY}                                             vehicle-two-datasetid-attributes-sample.jsonld
 
 *** Keywords ***
 Update Attributes
