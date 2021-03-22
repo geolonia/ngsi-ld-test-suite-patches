@@ -15,15 +15,13 @@
         },
         "datasetId": "urn:ngsi-ld:Relationship:parked12345"
     },
-    "speed": 
-    {
+    "speed": {
         "type": "Property",
-        "value": 54.5,
+        "value": 55,
         "source": {
             "type": "Property",
-            "value": "GPS"
-        },
-        "datasetId": "urn:ngsi-ld:Property:gpsBxyz123-speed"
+            "value": "Speedometer"
+        }
     }, 
     "@context": [
         "https://raw.githubusercontent.com/easy-global-market/ngsild-api-data-models/feature/add-json-ld-context-for-ngsi-ld-test-suite/ngsi-ld-test-suite/ngsi-ld-test-suite-context.jsonld"

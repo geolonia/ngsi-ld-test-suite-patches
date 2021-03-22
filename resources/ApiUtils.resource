@@ -177,8 +177,14 @@ Update Entity Attributes
     [return]   ${response}
 
 Delete Entity Attributes
-    [Arguments]  ${entityId}     ${attributeId}     ${datasetId}    ${deleteAll}
-    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}?datasetId=${datasetId}&deleteAll=${deleteAll}
+    [Arguments]  ${entityId}     ${attributeId}     ${datasetId}    ${deleteAll}    ${context}=${EMPTY}
+    &{headers}=  Create Dictionary  Content-Type=${CONTENT_TYPE_JSON}
+    Run Keyword If     '${context}'!='${EMPTY}'   Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    @{params}=  Create List
+    Run Keyword If     '${datasetId}'!=''       Append To List   ${params}    datasetId=${datasetId}
+    Run Keyword If     '${deleteAll}'!=''       Append To List   ${params}    deleteAll=${deleteAll}
+    ${params_as_string}=    Catenate    SEPARATOR=&     @{params}
+    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}?${params_as_string}     headers=${headers}
     Output  request
     Output  response
     [return]    ${response}
