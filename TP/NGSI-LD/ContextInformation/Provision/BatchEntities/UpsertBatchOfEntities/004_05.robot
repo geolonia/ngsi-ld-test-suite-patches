@@ -30,9 +30,8 @@ Upsert a batch of two valid entities and one invalid entity
     Check Response Status Code Set To  207
     Check Response Body Containing Batch Operation Result   ${expected_batch_operation_result}
     ${expected_updated_entities_ids}=  Catenate    SEPARATOR=,     @{expected_successful_entities_ids}
-    Query Entities    ${expected_updated_entities_ids}  Building    context=${ngsild_test_suite_context}
+    Query Entities    ${expected_updated_entities_ids}  Building    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
     @{upserted_entities}=  Create List   ${first_entity}     ${second_entity}
-    ${ignored_keys}=    Create List     ${context_regex_expr}
-    Check Updated Resources Set To   ${upserted_entities}   ${ignored_keys}
+    Check Updated Resources Set To   ${upserted_entities}
 
     Batch Delete Entities       @{expected_successful_entities_ids}

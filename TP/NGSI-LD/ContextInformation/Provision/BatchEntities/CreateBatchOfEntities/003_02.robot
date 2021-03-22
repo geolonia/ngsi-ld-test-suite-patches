@@ -32,10 +32,9 @@ Create a batch of two valid entities and one invalid entity
 
     ${expected_entities_ids}=  Catenate    SEPARATOR=,     @{expected_successful_entities_ids}
 
-    Query Entities    ${expected_entities_ids}  Building    context=${ngsild_test_suite_context}
+    Query Entities    ${expected_entities_ids}  Building    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
     @{created_entities}=  Create List   ${first_entity}     ${second_entity}
-    ${ignored_keys}=    Create List     ${context_regex_expr}
-    Check Created Resources Set To     ${created_entities}      ${ignored_keys}
+    Check Created Resources Set To     ${created_entities}
     @{entities_ids_to_be_deleted}=  Create List   ${first_entity_id}     ${second_entity_id}    ${existing_entity_id}
     Batch Delete Entities       @{entities_ids_to_be_deleted}
 

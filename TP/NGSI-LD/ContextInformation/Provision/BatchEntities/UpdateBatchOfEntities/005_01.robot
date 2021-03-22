@@ -39,9 +39,8 @@ Batch Update Entity Scenarios
     ${second_updated_entity}=    Upsert Element In Entity     ${second_created_entity}    ${update_fragment}
     @{updated_entities}=  Create List   ${first_updated_entity}     ${second_updated_entity}
     ${expected_entities_ids}=  Catenate    SEPARATOR=,     @{entities_ids_to_be_updated}
-    Query Entities    ${expected_entities_ids}  Building    context=${ngsild_test_suite_context}
-    ${ignored_keys}=    Create List     ${context_regex_expr}
-    Check Updated Resources Set To   ${updated_entities}    ${ignored_keys}
+    Query Entities    ${expected_entities_ids}  Building    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
+    Check Updated Resources Set To   ${updated_entities}
 
 Setup Initial Entities
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
