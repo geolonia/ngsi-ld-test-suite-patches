@@ -40,9 +40,8 @@ Batch Upsert Entities With Update Option Scenarios
     ${old_updated_entity}=    Upsert Element In Entity     ${old_entity}    ${update_fragment}
     @{updated_entities}=  Create List   ${new_entity}     ${old_updated_entity}
     ${expected_updated_entities_ids}=  Catenate    SEPARATOR=,     @{entities_ids_to_be_upserted}
-    Query Entities    ${expected_updated_entities_ids}  Building    context=${ngsild_test_suite_context}
-    ${ignored_keys}=    Create List     ${context_regex_expr}
-    Check Updated Resources Set To   ${updated_entities}    ${ignored_keys}
+    Query Entities    ${expected_updated_entities_ids}  Building    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
+    Check Updated Resources Set To   ${updated_entities}
 
     @{entities_ids_to_be_deleted}=  Create List   ${new_entity_id}
     Batch Delete Entities       @{entities_ids_to_be_deleted}

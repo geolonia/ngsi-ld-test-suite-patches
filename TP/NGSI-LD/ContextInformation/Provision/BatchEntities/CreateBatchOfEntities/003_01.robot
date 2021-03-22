@@ -35,8 +35,7 @@ Batch Create Entity Scenarios
     Check Response Status Code Set To  201
     Check Response Body Containing Array Of URIs set to   @{expected_entities_ids}
 
-    Query Entities    ${entities_to_be_queried}  Building    context=${ngsild_test_suite_context}
-    ${ignored_keys}=    Create List     ${context_regex_expr}
-    Check Created Resources Set To     ${entities_to_be_created}    ${ignored_keys}
+    Query Entities    ${entities_to_be_queried}  Building    context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
+    Check Created Resources Set To     ${entities_to_be_created}
 
     Batch Delete Entities       @{expected_entities_ids}
