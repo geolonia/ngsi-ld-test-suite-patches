@@ -18,7 +18,7 @@ Query the temporal evolution of the last N instances of entities attributes
     [Documentation]  Check that you can query the temporal evolution of the last N instances of entities attributes
     [Tags]  mandatory
 
-    @{entity_types_to_be_retrieved}=  Create List   Vehicle
+    ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,     Vehicle
 
     Query Temporal Representation Of Entities   entity_types=${entity_types_to_be_retrieved}   timerel=after    timeAt=2020-07-01T12:05:00Z   lastN=${14}    context=${ngsild_test_suite_context}
 

@@ -18,7 +18,7 @@ Query the temporal evolution of entities matching the given NGSI-LD context sour
     [Documentation]  Check that you can query the temporal evolution of entities matching the given NGSI-LD Context Source filter
     [Tags]  mandatory
 
-    @{entity_types_to_be_retrieved}=  Create List   Building
+    ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,     Building
 
     Query Temporal Representation Of Entities   entity_types=${entity_types_to_be_retrieved}    csf=endpoint=="${context_source_url}"    timerel=after    timeAt=2020-07-01T12:05:00Z    context=${ngsild_test_suite_context}
 

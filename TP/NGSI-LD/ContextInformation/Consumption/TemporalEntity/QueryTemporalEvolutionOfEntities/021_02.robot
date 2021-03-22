@@ -18,8 +18,8 @@ Query the temporal evolution of certain attributes of entities
     [Documentation]  Check that you can query the temporal evolution of certain attributes of entities
     [Tags]  mandatory
 
-    @{entity_types_to_be_retrieved}=  Create List   Vehicle
-    @{temporal_attributes_to_be_retrieved}=  Create List   speed
+    ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,     Vehicle
+    ${temporal_attributes_to_be_retrieved}=  Catenate    SEPARATOR=,     speed
 
     Query Temporal Representation Of Entities   entity_types=${entity_types_to_be_retrieved}   timerel=after    timeAt=2020-07-01T12:05:00Z   attrs=${temporal_attributes_to_be_retrieved}    context=${ngsild_test_suite_context}
 
