@@ -321,9 +321,9 @@ Create Temporal Representation Of Entity Selecting Content Type Using Session
     ${file_content}=    Get File    ${EXECDIR}/data/temporalEntities/${filename}
     Create Session    OneRequest      ${url}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
-    ${response}=  POST On Session      OneRequest   ${TEMPORAL_ENTITIES_ENDPOINT_PATH}    data=${file_content}    headers=${headers}
-    Output  request
-    Output  response
+    ${response}=  POST On Session      OneRequest   ${TEMPORAL_ENTITIES_ENDPOINT_PATH}    data=${file_content}    headers=${headers}   expected_status=any
+    Output  ${response.json()}
+    Set Test Variable  ${response}
     [return]    ${response}
 
 Append Attribute To Temporal Entity
