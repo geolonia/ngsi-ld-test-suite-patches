@@ -33,7 +33,7 @@ Query several entities based on the entities types
     Check Response Status Code  201    ${response['status']}
 
     ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,   ${vehicle_entity_type}    ${parking_entity_type}
-    ${response}=    Query Entities    entity_types=${entity_types_to_be_retrieved}
+    ${response}=    Query Entities    entity_types=${entity_types_to_be_retrieved}      accept=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  200    ${response['status']}
     @{entities_ids_to_be_compared}=  Create List    ${vehicle_entity_id}    ${parking_entity_id}
     Check Response Body Containing List Containing Entity Elements With Different Types    ${expectation_filename}    ${entities_ids_to_be_compared}    ${response['body']}

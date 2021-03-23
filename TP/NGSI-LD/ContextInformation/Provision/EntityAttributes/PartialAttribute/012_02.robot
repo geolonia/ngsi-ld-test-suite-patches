@@ -18,7 +18,7 @@ ${status_code}=  400
 012_02_03_Make a partial attribute update if the Attribute Name is not present         ${valid_entity_id}      speed                 vehicle-speed-wrong-name-fragment.jsonld
 012_02_04_Make a partial attribute update if the Attribute Id is invalid               ${valid_entity_id}      invalid               vehicle-speed-equal-datasetid-fragment.jsonld
 012_02_05_Make a partial attribute update if the Attribute type does not match         ${valid_entity_id}      speed                 vehicle-speed-equal-datasetid-different-type-fragment.jsonld
-012_02_06_Make a partial attribute update if the entity fragment is empty              ${valid_entity_id}      speed                 empty-fragment.jsonld
+012_02_06_Make a partial attribute update if the entity fragment is empty              ${valid_entity_id}      speed                 empty-fragment.json
 
 *** Keywords ***
 Update Attributes
