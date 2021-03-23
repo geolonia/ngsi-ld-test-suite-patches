@@ -12,7 +12,7 @@ ${content_type}=  application/ld+json
 *** Test Case ***
 Create one valid entity and one invalid entity
     [Documentation]  Check that you cannot create an entity with an existing id
-    [Tags]   /entities/    5_6_1
+    [Tags]   e-create
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type   ${filename}    ${entity_id}    ${content_type}

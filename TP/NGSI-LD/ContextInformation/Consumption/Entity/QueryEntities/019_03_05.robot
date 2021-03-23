@@ -13,7 +13,7 @@ ${invalid_geometry_property}=  invalid_geometry_property
 *** Test Cases ***                                                 
 Query entitites when the request has a wrong geometryProperty
     [Documentation]  Check that you cannot query entitites if the request has a wrong geometryProperty
-    [Tags]  /entities/    5_7_2
+    [Tags]  e-query
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${first_entity_id}    ${CONTENT_TYPE_LD_JSON}

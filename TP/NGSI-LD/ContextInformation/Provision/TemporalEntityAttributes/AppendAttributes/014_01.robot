@@ -11,9 +11,9 @@ ${fragment_filename}=  vehicle-temporal-representation-fragment.jsonld
 ${expectation_filename}=  vehicle-temporal-representation-added-attribute-expectation.jsonld
 
 *** Test Cases ***
-014_01_02_Add an attribute to a temporal entity with simple temporal properties
+014_01_Add an attribute to a temporal entity with simple temporal properties
     [Documentation]  Check that you can add a simple temporal attribute to a temporal representation of an entity
-    [Tags]  mandatory
+    [Tags]  tea-append
 
     ${temporal_entity_representation_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${temporal_entity_representation_id}    ${filename}     ${CONTENT_TYPE_LD_JSON}

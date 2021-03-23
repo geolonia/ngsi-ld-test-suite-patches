@@ -24,7 +24,7 @@ ${status_code}=  400
 Create Temporal Entity From File
     [Arguments]  ${filename}
     [Documentation]  Check that you cannot create a temporal entity with an empty/invalid json/id
-    [Tags]  mandatory
+    [Tags]  te-create
 
     ${response}=  Create Temporal Representation Of Entity Selecting Content Type Using Session  ${filename}     ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  <Response [400]>    ${response['status']}
@@ -34,7 +34,7 @@ Create Temporal Entity From File
 Create Temporal Entity
     [Arguments]  ${entity_id}    ${filename}
     [Documentation]  Check that you cannot create a temporal entity with an invalid @context
-    [Tags]  mandatory
+    [Tags]  te-create
 
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${entity_id}    ${filename}     ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  ${status_code}    ${response['status']}

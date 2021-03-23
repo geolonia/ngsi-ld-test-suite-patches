@@ -17,7 +17,7 @@ ${registration_id_prefix}=  urn:ngsi-ld:Registration:
 Update Context Source
     [Arguments]  ${filename}    ${update_filename}  
     [Documentation]  Check that you can update a context source registration by id
-    [Tags]  /csourceRegistrations/{registrationId}    5_9_3
+    [Tags]  csr-update
     
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${filename}

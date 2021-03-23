@@ -19,7 +19,7 @@ ${filename}=  vehicle-two-datasetid-attributes-sample.jsonld
 Update Attributes
     [Arguments]  ${status_code}    ${fragment_filename}    ${expectation_response_filename}    ${expectation_filename}
     [Documentation]  Check that you can update entity attributes
-    [Tags]  /entities/{entityId}/attrs/      5_6_2
+    [Tags]  ea-update
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}

@@ -17,7 +17,7 @@ ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
 Delete Temporal Entity
     [Arguments]  ${status_code}    ${id}
     [Documentation]  Check that an error is raised if you delete a temporal enitity with an empty/invalid EnityId
-    [Tags]  mandatory
+    [Tags]  te-delete
 
     ${response}=  Delete Temporal Representation Of Entity With Returning Response    ${id}
     Check Response Status Code  ${status_code}    ${response['status']}

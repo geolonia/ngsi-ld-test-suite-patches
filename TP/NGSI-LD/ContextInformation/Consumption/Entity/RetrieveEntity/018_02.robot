@@ -13,7 +13,7 @@ Test Template  Get Entity With Invalid/Missing Id
 Get Entity With Invalid/Missing Id
     [Arguments]  ${entity_id}    ${expected_status_code}    ${problem_type}
     [Documentation]  Check that you cannot get an entity with invalid/missing id
-    [Tags]  /entities/{entityId}    5_7_1
+    [Tags]  e-retrieve
 
     ${request}    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  ${expected_status_code}    ${response['status']}

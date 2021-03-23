@@ -20,7 +20,7 @@ ${status_code}=  404
 Delete Attribute
     [Arguments]  ${entity_id}    ${attribute_id}
     [Documentation]  Check that an error is raised if you delete a temporal enitity with a unknown EntityId/AttributeId
-    [Tags]  mandatory
+    [Tags]  tea-delete
 
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${valid_temporal_entity_id}    ${filename}     ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}

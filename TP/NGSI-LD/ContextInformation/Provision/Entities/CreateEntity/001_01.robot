@@ -19,7 +19,7 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 Create Entity Scenarios
     [Arguments]  ${filename}    ${content_type}
     [Documentation]  Check that you can create an entity
-    [Tags]  /entities/    5_6_1
+    [Tags]  e-create
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
 

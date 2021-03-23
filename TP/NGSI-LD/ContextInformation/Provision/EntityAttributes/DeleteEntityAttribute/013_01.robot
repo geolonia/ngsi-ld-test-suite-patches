@@ -21,7 +21,7 @@ ${attribute_id}=  speed
 Delete Attributes
     [Arguments]  ${datasetId}    ${deleteAll}    ${expectation_filename}
     [Documentation]  Check that you can delete an attribute from an entity
-    [Tags]  /entities/{entityId}/attrs/{attrId}      5_6_5
+    [Tags]  ea-delete
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}

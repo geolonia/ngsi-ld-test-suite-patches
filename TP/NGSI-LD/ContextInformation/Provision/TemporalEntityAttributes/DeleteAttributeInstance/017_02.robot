@@ -24,7 +24,7 @@ ${status_code}=  400
 Delete attribute instance
     [Arguments]  ${temporal_entity_id}    ${attributeId}    ${instanceId}
     [Documentation]  Check that you cannot delete an attribute instance in temporal representation of an entity if the entityId/attributeId/instanceId is not right
-    [Tags]  mandatory
+    [Tags]  tea-instance-delete
 
     ${response}=  Delete Attribute Instance From Temporal Entity  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  ${status_code}    ${response['status']}

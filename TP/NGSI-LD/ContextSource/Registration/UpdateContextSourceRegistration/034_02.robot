@@ -27,7 +27,8 @@ ${registration_payload_file_path}=  context-source-registration-invalid-sample.j
 Update Context Source
     [Arguments]  ${registration_id}    ${fragment_filename}  
     [Documentation]  Check that you cannot update a context source registration under some conditions
-    [Tags]  /csourceRegistrations/{registrationId}    5_9_3
+    [Tags]  csr-update
+
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${valid_registration_id}
     ${request}    ${response}=    Create Context Source Registration With Return  ${updated_payload}
@@ -43,7 +44,8 @@ Update Context Source
 
 Update a context source registration if the request body is invalid 
     [Documentation]  Check that you cannot update a context source registration if the request body is invalid
-    [Tags]  /csourceRegistrations/{registrationId}    5_9_3
+    [Tags]  csr-update
+
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}

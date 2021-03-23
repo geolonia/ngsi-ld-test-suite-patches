@@ -21,7 +21,7 @@ ${status_code}=  404
 Partially Update Temporal Entity
     [Arguments]  ${temporal_entity_id}    ${attributeId}    ${instanceId}
     [Documentation]  Check that you cannot delete an attribute instance in temporal representation of an entity if the entity/attribute/instance id is not found
-    [Tags]  mandatory
+    [Tags]  tea-instance-delete
 
     ${response}=  Delete Attribute Instance From Temporal Entity  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  ${status_code}    ${response['status']}

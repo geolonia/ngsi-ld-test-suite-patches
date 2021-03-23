@@ -13,7 +13,7 @@ ${options_parameter}=  keyValues
 *** Test Cases ***                                                 
 Get an entity in a simplified representation          
     [Documentation]  Check that the queried entity by Id can be returned in a simplified representation
-    [Tags]  /entities/{entityId}    6_3_7
+    [Tags]  e-retrieve
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}

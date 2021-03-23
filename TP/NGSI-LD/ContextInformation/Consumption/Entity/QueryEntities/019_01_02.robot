@@ -20,7 +20,7 @@ ${parking_entity_type}=  https://ngsi-ld-test-suite/context#OffStreetParking
 *** Test Cases ***                                                 
 Query several entities based on the entities types 
     [Documentation]  Check that you can query several entities based on the entities types
-    [Tags]  /entities/    5_7_2
+    [Tags]  e-query
 
     ${building_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${building_filename}     ${building_entity_id}    ${CONTENT_TYPE_LD_JSON}

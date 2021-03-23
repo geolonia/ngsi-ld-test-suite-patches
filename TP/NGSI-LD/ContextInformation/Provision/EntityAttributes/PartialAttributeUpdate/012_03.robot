@@ -23,7 +23,7 @@ ${attribute_id}=  speed
 Partial Update Attributes
     [Arguments]  ${entity_id}     ${fragment_filename}
     [Documentation]  Check that you cannot perform a partial update on an entity attribute if the entity id or attribute is not known to the system
-    [Tags]  /entities/{entityId}/attrs/{attrId}      5_6_4
+    [Tags]  ea-partial-update
 
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${valid_entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}

@@ -11,7 +11,8 @@ ${filename}=  context-source-registration-simple-sample.jsonld
 *** Test Case ***
 Update a context source registration by id if the id is not known to the system
     [Documentation]  Check that you cannot update a context source registration by id if the id is not known to the system
-    [Tags]  /csourceRegistrations/{registrationId}    5_9_3
+    [Tags]  csr-update
+
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${fragment}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${fragment_with_id}=    Update Value To Json    ${fragment}     $..id   ${registration_id}

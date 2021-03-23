@@ -23,7 +23,7 @@ ${invalid_fragment_filename}=  invalid-fragment.jsonld
 Append Attributes
     [Arguments]  ${entity_invalid_id}
     [Documentation]  Check that you cannot append entity attributes with invalid/missing id or invalid request body
-    [Tags]  /entities/{entityId}/attrs/      5_6_3
+    [Tags]  ea-append
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
@@ -38,7 +38,7 @@ Append Attributes
 
 Append entity attributes with invalid entity fragments
     [Documentation]  Check that you cannot append entity attributes with invalid entity fragments
-    [Tags]  mandatory
+    [Tags]  ea-append
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}

@@ -27,7 +27,7 @@ ${status_code}=  400
 Add an Attribute To a Temporal Entity
     [Arguments]  ${update_filename}
     [Documentation]  Check that an error is raised if you delete a temporal enitity with empty/invalid content
-    [Tags]  mandatory
+    [Tags]  tea-append
 
     ${temporal_entity_representation_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${temporal_entity_representation_id}    ${filename}     ${CONTENT_TYPE_LD_JSON}
@@ -41,7 +41,7 @@ Add an Attribute To a Temporal Entity
 Fail To Add Attribute To Temporal Entity
     [Arguments]  ${id}
     [Documentation]  Check that an error is raised if you delete a temporal enitity with a non existing/invalid EnityId
-    [Tags]  mandatory
+    [Tags]  tea-append
 
     ${temporal_entity_representation_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${temporal_entity_representation_id}    ${filename}     ${CONTENT_TYPE_LD_JSON}

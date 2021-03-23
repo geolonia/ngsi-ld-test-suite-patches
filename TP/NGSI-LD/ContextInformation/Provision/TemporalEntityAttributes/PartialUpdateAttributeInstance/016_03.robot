@@ -22,7 +22,7 @@ ${status_code}=  404
 Partially Update Temporal Entity
     [Arguments]  ${temporal_entity_id}    ${attributeId}    ${instanceId}
     [Documentation]  Check that you cannot partially update an attribute instance in temporal representation of an entity if the entity/attribute/instance id is not found
-    [Tags]  mandatory
+    [Tags]  tea-partial-update
 
     ${response}=  Partial Update Attribute From Temporal Entity  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  ${status_code}    ${response['status']}
