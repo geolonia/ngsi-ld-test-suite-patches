@@ -381,11 +381,12 @@ Delete Several Temporal Representations Of Entities
     END
 
 Get Temporal Representation Of Entity
-    [Arguments]  ${temporal_entity_representation_id}    ${accept}=${EMPTY}    ${options}=${EMPTY}
+    [Arguments]  ${temporal_entity_representation_id}    ${accept}=${EMPTY}    ${options}=${EMPTY}      ${context}=${EMPTY}
     &{headers}=  Create Dictionary
     &{params}=  Create Dictionary
     ${options_length} =  Get Length  ${options}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''      Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     Run Keyword If     ${options_length}>0       Set To Dictionary   ${params}       options=${options}
     ${response}=  GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}      headers=${headers}    query=${params}
     Output  request
@@ -393,8 +394,10 @@ Get Temporal Representation Of Entity
     [return]  ${response}
 
 Delete Attribute Instance From Temporal Entity
-    [Arguments]  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${content_type}
-    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}
+    [Arguments]  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${content_type}    ${context}=${EMPTY}
+    &{headers}=  Create Dictionary
+    Run Keyword If     '${context}'!=''      Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}      headers=${headers}
     Output  request
     Output  response
     [return]  ${response}
