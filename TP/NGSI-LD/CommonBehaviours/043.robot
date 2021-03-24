@@ -19,7 +19,7 @@ ${tea_filename}=  bus-temporal-representation-unretrievable-context-sample.jsonl
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
 ${registration_filename}=  csourceRegistrations/context-source-registration-unretrievable-context-sample.jsonld   
 
-*** comments *** 
+*** Test Cases *** 
 043_01 Create entity
     [Documentation]  Verify throwing 503 – LDContextNotAvaliable error if remote JSON-LD @context cannot be retrieved (Create entity)
 
@@ -41,7 +41,6 @@ ${registration_filename}=  csourceRegistrations/context-source-registration-unre
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
 
     [Teardown]  Delete Subscription  ${subscription_id}
-
 
 043_03 Create Temporal Representation of Entities
     [Documentation]  Verify throwing 503 – LDContextNotAvaliable error if remote JSON-LD @context cannot be retrieved (Create Temporal Representation of Entities)
@@ -69,7 +68,7 @@ ${registration_filename}=  csourceRegistrations/context-source-registration-unre
     Check RL Response Body Containing ProblemDetails Element Containing Title Element    ${response}
 
     [Teardown]  Batch Delete Entities  @{entities_to_be_created}
-*** Test Cases *** 
+
 043_05 Create context source registration
     [Documentation]  Verify throwing 503 – LDContextNotAvaliable error if remote JSON-LD @context cannot be retrieved (Create context source registration)
 
