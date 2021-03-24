@@ -23,7 +23,7 @@ Partially Update Temporal Entity
     [Documentation]  Check that you cannot delete an attribute instance in temporal representation of an entity if the entity/attribute/instance id is not found
     [Tags]  mandatory
 
-    ${response}=  Delete Attribute Instance From Temporal Entity  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=  Delete Attribute Instance From Temporal Entity  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${CONTENT_TYPE_JSON}  ${ngsild_test_suite_context}
     Check Response Status Code  ${status_code}    ${response['status']}
 
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
@@ -36,6 +36,6 @@ Create Id
     ${unknown_temporal_entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     Set Suite Variable  ${unknown_temporal_entity_id}
 
-    ${response}=  Get Temporal Representation Of Entity  ${temporal_entity_representation_id}    ${CONTENT_TYPE_LD_JSON}    sysAttrs
+    ${response}=  Get Temporal Representation Of Entity  ${temporal_entity_representation_id}    ${CONTENT_TYPE_LD_JSON}    sysAttrs    ${ngsild_test_suite_context}
     ${valid_instanceId}=  Set Variable  ${response['body']['speed'][0]['instanceId']}
     Set Suite Variable  ${valid_instanceId}
