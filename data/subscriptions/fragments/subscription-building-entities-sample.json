@@ -1,7 +1,15 @@
 {
+   "type":"Subscription",
    "entities":[
       {
          "type":"Building"
       }
-   ]
+   ],
+   "notification":{
+      "format":"keyValues",
+      "endpoint":{
+         "uri":"http://my.endpoint.org/notify",
+         "accept":"application/json"
+      }
+   }
 }
