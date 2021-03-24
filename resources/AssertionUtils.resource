@@ -43,6 +43,14 @@ Check Request Containing Accept Header Set To
     Run Keyword If  'Accept' in ${request['headers']}  Should Be Equal  ${expected_accept_content}        ${request['headers']['Accept']}     ignore_order=True
     Run Keyword If  'accept' in ${request['headers']}  Should Be Equal  ${expected_accept_content}        ${request['headers']['accept']}     ignore_order=True
 
+Check Response Headers Containing Content-Type set to
+    [Arguments]  ${response}    ${expected_content_type_content} 
+    Should Be Equal  ${response['headers']['Content-Type']}    ${expected_content_type_content}
+
+Check Response Headers Link Not Empty
+    [Arguments]  ${response}
+    Should Not Be Empty  ${response['headers']['Link']}
+
 # Since Http headers names are case-insensitive (from Http specification)
 # We check both Location and location headers
 Check Response Headers Containing URI set to
@@ -53,6 +61,7 @@ Check Response Headers Containing URI set to
 
 # Since Http headers names are case-insensitive (from Http specification)
 # We check both Location and location headers
+
 Check Response Headers ID Not Empty
     [Arguments]  ${response}
 
