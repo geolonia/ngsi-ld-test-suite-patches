@@ -355,9 +355,14 @@ Partial Update Attribute From Temporal Entity
     [return]   ${response}
 
 Delete Attribute From Temporal Entity
-    [Arguments]  ${entityId}    ${attributeId}    ${content_type}    ${datasetId}     ${deleteAll}
+    [Arguments]  ${entityId}    ${attributeId}    ${content_type}    ${datasetId}     ${deleteAll}      ${context}=${EMPTY}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
-    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${entityId}/attrs/${attributeId}?datasetId=${datasetId}&deleteAll=${deleteAll}  headers=${headers}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    @{params}=  Create List
+    Run Keyword If     '${datasetId}'!=''       Append To List   ${params}    datasetId=${datasetId}
+    Run Keyword If     '${deleteAll}'!=''       Append To List   ${params}    deleteAll=${deleteAll}
+    ${params_as_string}=    Catenate    SEPARATOR=&     @{params}
+    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${entityId}/attrs/${attributeId}?${params_as_string}   headers=${headers}
     Output  request
     Output  response
     [return]   ${response}
