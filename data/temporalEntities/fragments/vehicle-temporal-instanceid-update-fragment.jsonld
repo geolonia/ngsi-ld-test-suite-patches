@@ -1,12 +1,4 @@
 {
-   "speed":[
-      {
-         "type":"Property",
-         "value":129,
-         "observedAt":"2020-09-01T12:03:00Z"
-      }
-   ],
-   "@context":[
-      "https://raw.githubusercontent.com/easy-global-market/ngsild-api-data-models/feature/add-json-ld-context-for-ngsi-ld-test-suite/ngsi-ld-test-suite/ngsi-ld-test-suite-context.jsonld"
-   ]
+   "value":129,
+   "observedAt":"2020-09-01T12:03:00Z"
 }
