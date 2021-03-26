@@ -68,7 +68,7 @@ Query Entity
     [return]  ${request}    ${response}
 
 Query Entities
-    [Arguments]  ${entity_ids}=${EMPTY}     ${entity_types}=${EMPTY}     ${accept}=${EMPTY}    ${attrs}=${EMPTY}      ${context}=${EMPTY}    ${geoproperty}=${EMPTY}    ${options}=${EMPTY}     ${limit}=${EMPTY}    ${entity_id_pattern}=${EMPTY}
+    [Arguments]  ${entity_ids}=${EMPTY}     ${entity_types}=${EMPTY}     ${accept}=${EMPTY}    ${attrs}=${EMPTY}      ${context}=${EMPTY}    ${geoproperty}=${EMPTY}    ${options}=${EMPTY}     ${limit}=${EMPTY}    ${entity_id_pattern}=${EMPTY}    ${georel}=${EMPTY}    ${coordinates}=${EMPTY}    ${geometry}=${EMPTY}
     ${attrs_length} =  Get Length  ${attrs}
     ${accept_length} =  Get Length  ${accept}
     ${options_length} =  Get Length  ${options}
@@ -85,6 +85,9 @@ Query Entities
     Run Keyword If     ${entity_types_length}>0       Set To Dictionary   ${params}    type=${entity_types}
     Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
     Run Keyword If     '${entity_id_pattern}'!=''       Set To Dictionary   ${params}    idPattern=${entity_id_pattern}
+    Run Keyword If     '${georel}'!=''       Set To Dictionary   ${params}    georel=${georel}
+    Run Keyword If     '${coordinates}'!=''       Set To Dictionary   ${params}    coordinates=${coordinates}
+    Run Keyword If     '${geometry}'!=''       Set To Dictionary   ${params}    geometry=${geometry}
 
     ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}      headers=${headers}      query=${params}
     Output  request
