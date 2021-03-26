@@ -8,16 +8,16 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 ${expected_status_code}=  503
 
 ${building_id_prefix}=  urn:ngsi-ld:Building:
-${building_filename}=  building-minimal-without-context-sample.jsonld 
+${building_filename}=  building-unretrievable-context-sample.jsonld 
 
 ${subscription_id_prefix}=  urn:ngsi-ld:Subscription:
-${subscription_filename}=  csourceSubscriptions/subscription-without-context-sample.jsonld
+${subscription_filename}=  subscriptions/subscription-unretrievable-context-sample.jsonld
 
 ${tea_id_prefix}=  urn:ngsi-ld:Vehicle:
-${tea_filename}=  bus-temporal-representation-without-context-sample.jsonld
+${tea_filename}=  bus-temporal-representation-unretrievable-context-sample.jsonld
 
 ${registration_id_prefix}=  urn:ngsi-ld:Registration:
-${registration_filename}=  csourceRegistrations/context-source-registration-without-context-sample.jsonld   
+${registration_filename}=  csourceRegistrations/context-source-registration-unretrievable-context-sample.jsonld   
 
 *** Test Cases *** 
 043_01 Create entity
@@ -43,7 +43,6 @@ ${registration_filename}=  csourceRegistrations/context-source-registration-with
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
 
     [Teardown]  Delete Subscription  ${subscription_id}
-
 
 043_03 Create Temporal Representation of Entities
     [Documentation]  Verify throwing 503 – LDContextNotAvaliable error if remote JSON-LD @context cannot be retrieved (Create Temporal Representation of Entities)

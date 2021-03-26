@@ -1,3 +1,11 @@
 {
-   "isActive": false
+   "type":"Subscription",
+   "isActive": false,
+   "notification":{
+      "format":"keyValues",
+      "endpoint":{
+         "uri":"http://my.endpoint.org/notify",
+         "accept":"application/json"
+      }
+   }
 }

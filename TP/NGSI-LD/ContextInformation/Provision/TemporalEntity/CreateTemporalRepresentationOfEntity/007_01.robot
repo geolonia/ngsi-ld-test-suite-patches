@@ -24,7 +24,8 @@ Create Temporal Entity
     Check Response Status Code  201    ${response['status']}
 
     ${created_temporal_entity}=    Load Test Sample    temporalEntities/${filename}      ${temporal_entity_representation_id}
-    Set Test Variable  ${response}
-    Check Created Resource Set To     ${created_temporal_entity}
+    Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}
+    ${ignored_attributes}=  Create List    instanceId    @context
+    Check Created Resource Set To     ${created_temporal_entity}    ${ignored_attributes}
 
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

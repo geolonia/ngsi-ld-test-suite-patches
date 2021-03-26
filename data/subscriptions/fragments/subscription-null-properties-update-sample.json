@@ -1,4 +1,5 @@
 {
+   "type":"Subscription",
    "notification":{
       "format":"keyValues",
       "endpoint":null

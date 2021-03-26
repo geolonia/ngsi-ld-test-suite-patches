@@ -18,7 +18,7 @@ ${status_code}=  400
 016_02_02_update an attribute instance in temporal representation of an entity if the entity id is not present                  ${EMPTY}                                    speed                      ${valid_instanceId}
 016_02_03_update an attribute instance in temporal representation of an entity if the instance id is not valid                  ${temporal_entity_representation_id}        speed                      invalidId
 016_02_04_update an attribute instance in temporal representation of an entity if the instance id is not present                ${temporal_entity_representation_id}        speed                      ${EMPTY}
-016_02_05_update an attribute instance in temporal representation of an entity if the attribute name is not a valid name        ${temporal_entity_representation_id}        invalidId                  ${valid_instanceId}
+016_02_05_update an attribute instance in temporal representation of an entity if the attribute name is not a valid name        ${temporal_entity_representation_id}        invalid(Id                 ${valid_instanceId}
 016_02_06_update an attribute instance in temporal representation of an entity if the attribute name is not present             ${temporal_entity_representation_id}        ${EMPTY}                   ${valid_instanceId}
 
 *** Keywords ***
@@ -27,7 +27,7 @@ Partially Update Temporal Entity
     [Documentation]  Check that you cannot partially update an attribute instance in temporal representation of an entity if the entityId/attributeId/instanceId is not right
     [Tags]  tea-partial-update
 
-    ${response}=  Partial Update Attribute From Temporal Entity  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=  Partial Update Attribute From Temporal Entity  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${fragment_filename}    ${CONTENT_TYPE_JSON}   ${ngsild_test_suite_context}
     Check Response Status Code  ${status_code}    ${response['status']}
 
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
@@ -38,6 +38,6 @@ Create Id
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${temporal_entity_representation_id}    ${filename}     ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    ${response}=  Get Temporal Representation Of Entity  ${temporal_entity_representation_id}    ${CONTENT_TYPE_LD_JSON}    sysAttrs
+    ${response}=  Get Temporal Representation Of Entity  ${temporal_entity_representation_id}    ${CONTENT_TYPE_LD_JSON}    sysAttrs    ${ngsild_test_suite_context}
     ${valid_instanceId}=  Set Variable  ${response['body']['speed'][0]['instanceId']}
     Set Suite Variable  ${valid_instanceId}

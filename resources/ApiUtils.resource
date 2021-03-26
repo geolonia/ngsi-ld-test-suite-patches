@@ -68,7 +68,7 @@ Query Entity
     [return]  ${request}    ${response}
 
 Query Entities
-    [Arguments]  ${entity_ids}=${EMPTY}     ${entity_types}=${EMPTY}     ${accept}=${EMPTY}    ${attrs}=${EMPTY}      ${context}=${EMPTY}    ${geoproperty}=${EMPTY}    ${options}=${EMPTY}     ${limit}=${EMPTY}    ${entity_id_pattern}=${EMPTY}
+    [Arguments]  ${entity_ids}=${EMPTY}     ${entity_types}=${EMPTY}     ${accept}=${EMPTY}    ${attrs}=${EMPTY}      ${context}=${EMPTY}    ${geoproperty}=${EMPTY}    ${options}=${EMPTY}     ${limit}=${EMPTY}    ${entity_id_pattern}=${EMPTY}    ${georel}=${EMPTY}    ${coordinates}=${EMPTY}    ${geometry}=${EMPTY}
     ${attrs_length} =  Get Length  ${attrs}
     ${accept_length} =  Get Length  ${accept}
     ${options_length} =  Get Length  ${options}
@@ -85,6 +85,9 @@ Query Entities
     Run Keyword If     ${entity_types_length}>0       Set To Dictionary   ${params}    type=${entity_types}
     Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
     Run Keyword If     '${entity_id_pattern}'!=''       Set To Dictionary   ${params}    idPattern=${entity_id_pattern}
+    Run Keyword If     '${georel}'!=''       Set To Dictionary   ${params}    georel=${georel}
+    Run Keyword If     '${coordinates}'!=''       Set To Dictionary   ${params}    coordinates=${coordinates}
+    Run Keyword If     '${geometry}'!=''       Set To Dictionary   ${params}    geometry=${geometry}
 
     ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}      headers=${headers}      query=${params}
     Output  request
@@ -190,9 +193,10 @@ Delete Entity Attributes
     [return]    ${response}
 
 Partial Update Entity Attributes
-    [Arguments]  ${entityId}    ${attributeId}    ${fragment_filename}    ${content_type}    ${accept}=${EMPTY}
+    [Arguments]  ${entityId}    ${attributeId}    ${fragment_filename}    ${content_type}    ${accept}=${EMPTY}    ${context}=${EMPTY}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
     ${response}=  PATCH  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}  body=${fragment_payload}  headers=${headers}
     Output  request
@@ -321,9 +325,9 @@ Create Temporal Representation Of Entity Selecting Content Type Using Session
     ${file_content}=    Get File    ${EXECDIR}/data/temporalEntities/${filename}
     Create Session    OneRequest      ${url}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
-    ${response}=  POST On Session      OneRequest   ${TEMPORAL_ENTITIES_ENDPOINT_PATH}    data=${file_content}    headers=${headers}
-    Output  request
-    Output  response
+    ${response}=  POST On Session      OneRequest   ${TEMPORAL_ENTITIES_ENDPOINT_PATH}    data=${file_content}    headers=${headers}   expected_status=any
+    Output  ${response.json()}
+    Set Test Variable  ${response}
     [return]    ${response}
 
 Append Attribute To Temporal Entity
@@ -346,8 +350,9 @@ Append Attribute To Temporal Entity Using Session
     [return]   ${response}
 
 Partial Update Attribute From Temporal Entity
-    [Arguments]  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${fragment_filename}    ${content_type}
+    [Arguments]  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${fragment_filename}    ${content_type}      ${context}=${EMPTY}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
     ${response}=  PATCH  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}  body=${fragment_payload}  headers=${headers}
     Output  request
@@ -355,9 +360,14 @@ Partial Update Attribute From Temporal Entity
     [return]   ${response}
 
 Delete Attribute From Temporal Entity
-    [Arguments]  ${entityId}    ${attributeId}    ${content_type}    ${datasetId}     ${deleteAll}
+    [Arguments]  ${entityId}    ${attributeId}    ${content_type}    ${datasetId}     ${deleteAll}      ${context}=${EMPTY}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
-    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${entityId}/attrs/${attributeId}?datasetId=${datasetId}&deleteAll=${deleteAll}  headers=${headers}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    @{params}=  Create List
+    Run Keyword If     '${datasetId}'!=''       Append To List   ${params}    datasetId=${datasetId}
+    Run Keyword If     '${deleteAll}'!=''       Append To List   ${params}    deleteAll=${deleteAll}
+    ${params_as_string}=    Catenate    SEPARATOR=&     @{params}
+    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${entityId}/attrs/${attributeId}?${params_as_string}   headers=${headers}
     Output  request
     Output  response
     [return]   ${response}
@@ -376,11 +386,12 @@ Delete Several Temporal Representations Of Entities
     END
 
 Get Temporal Representation Of Entity
-    [Arguments]  ${temporal_entity_representation_id}    ${accept}=${EMPTY}    ${options}=${EMPTY}
+    [Arguments]  ${temporal_entity_representation_id}    ${accept}=${EMPTY}    ${options}=${EMPTY}      ${context}=${EMPTY}
     &{headers}=  Create Dictionary
     &{params}=  Create Dictionary
     ${options_length} =  Get Length  ${options}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''      Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     Run Keyword If     ${options_length}>0       Set To Dictionary   ${params}       options=${options}
     ${response}=  GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}      headers=${headers}    query=${params}
     Output  request
@@ -388,8 +399,10 @@ Get Temporal Representation Of Entity
     [return]  ${response}
 
 Delete Attribute Instance From Temporal Entity
-    [Arguments]  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${content_type}
-    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}
+    [Arguments]  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${content_type}    ${context}=${EMPTY}
+    &{headers}=  Create Dictionary
+    Run Keyword If     '${context}'!=''      Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}      headers=${headers}
     Output  request
     Output  response
     [return]  ${response}

@@ -15,7 +15,7 @@ ${filename}=  vehicle-temporal-representation-sample.jsonld
 *** Test Cases ***                                                                                         ENTITY_ID                           ATTRIBUTE_ID
 015_02_01_Delete an attribute to a temporal representation of an entity with a missing entity id           ${EMPTY}                            speed
 015_02_02_Delete an attribute to a temporal representation of an entity with an invalid entity id          invalidId                           speed 
-015_02_03_Delete an attribute to a temporal representation of an entity with an invalid attribute id       ${valid_temporal_entity_id}         invalidName
+015_02_03_Delete an attribute to a temporal representation of an entity with an invalid attribute id       ${valid_temporal_entity_id}         invalid(Name
 
 *** Keywords ***
 Delete attribute from temporal entity with unknow entity/attribute id
@@ -28,7 +28,7 @@ Delete attribute from temporal entity with unknow entity/attribute id
     Check Response Status Code  201    ${response['status']}
 
 
-    ${response}=  Delete Attribute From Temporal Entity  ${entity_id}    ${attribute_id}     ${CONTENT_TYPE_LD_JSON}    ${EMPTY}    false
+    ${response}=  Delete Attribute From Temporal Entity  ${entity_id}    ${attribute_id}     ${CONTENT_TYPE_JSON}    ${EMPTY}    false
     Check Response Status Code   ${status_code}    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_RESOURCE_NOT_FOUND}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
