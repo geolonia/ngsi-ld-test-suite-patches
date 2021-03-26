@@ -17,7 +17,7 @@ ${vehicle_id_prefix}=  urn:ngsi-ld:Vehicle:
 Create Temporal Entity
     [Arguments]  ${filename}    ${content_type}
     [Documentation]  Check that you can create a temporal representation of an entity
-    [Tags]  mandatory
+    [Tags]  te-create    5_6_11
 
     ${temporal_entity_representation_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${temporal_entity_representation_id}    ${filename}     ${content_type}

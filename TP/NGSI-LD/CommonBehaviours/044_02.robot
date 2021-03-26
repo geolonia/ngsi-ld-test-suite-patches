@@ -29,6 +29,7 @@ ${content_type}=  application/json
 *** Test Cases ***
 044_02_01_endpoint /entities/{entityId}
     [Documentation]  Verify that on a GET HTTP request if nothing is specified on the Accept header, "application/json" is assumed (/entities/{entityId})
+    [Tags]  e-query    6_3_4
     ${id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${building_filename}     ${id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
@@ -43,6 +44,7 @@ ${content_type}=  application/json
   
 044_02_02_endpoint /subscriptions/{subscriptionId}
     [Documentation]  Verify that on a GET HTTP request if nothing is specified on the Accept header, "application/json" is assumed (/subscriptions/{subscriptionId})
+    [Tags]  sub-retrieve    6_3_4
 
     ${id}=  Generate Random Entity Id    ${subscription_id_prefix}    
     ${response}=    Create Subscription    ${id}    ${subscription_filename}    ${CONTENT_TYPE_LD_JSON}
@@ -58,6 +60,7 @@ ${content_type}=  application/json
 
 044_02_03_endpoint /csourceRegistrations/
     [Documentation]  Verify that on a GET HTTP request if nothing is specified on the Accept header, "application/json" is assumed (/csourceRegistrations/)
+    [Tags]  csr-query    6_3_4
 
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/${registration_filename}
@@ -75,7 +78,8 @@ ${content_type}=  application/json
 
 044_02_04_endpoint /temporal/entities
     [Documentation]  Verify that on a GET HTTP request if nothing is specified on the Accept header, "application/json" is assumed (/temporal/entities)
-
+    [Tags]  te-query    6_3_4
+    
     ${temporal_entity_representation_id}=     Generate Random Entity Id    ${tea_id_prefix}
     Create Temporal Representation Of Entity  ${tea_filename}     ${temporal_entity_representation_id}
 

@@ -21,7 +21,7 @@ ${attribute_id}=  fuelLevel
 Delete Attribute From A Temporal Entity
     [Arguments]  ${deleteAll}    ${datasetId}     ${expectation_filename}
     [Documentation]  Check that you can delete an attribute of a temporal representation of an entity with simple temporal properties
-    [Tags]  mandatory
+    [Tags]  tea-delete    5_6_13
 
     ${temporal_entity_representation_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${temporal_entity_representation_id}    ${filename}     ${CONTENT_TYPE_LD_JSON}

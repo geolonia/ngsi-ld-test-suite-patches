@@ -16,7 +16,7 @@ ${attribute_subcategory}=  https://ngsi-ld-test-suite/context#subCategory
 *** Test Cases ***                                                 
 Query several entities based on attribute names
     [Documentation]  Check that you can query several entities based on attribute names
-    [Tags]  /entities/    5_7_2
+    [Tags]  e-query    5_7_2
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${first_entity_id}    ${CONTENT_TYPE_LD_JSON}

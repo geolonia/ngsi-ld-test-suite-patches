@@ -18,7 +18,8 @@ ${filename}=  context-source-registration-simple-sample.jsonld
 Delete Context Source
     [Arguments]  ${invalid_registration_id}
     [Documentation]  Check that you cannot delete a context source registration under some conditions
-    [Tags]  /csourceRegistrations/{registrationId}    5_9_3
+    [Tags]  csr-delete
+
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}

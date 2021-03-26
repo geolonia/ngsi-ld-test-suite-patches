@@ -17,7 +17,7 @@ ${subscription_fragment}=  subscriptions/fragments/subscription-update-sample.js
 *** Test Cases ***                      
 044_01_01_endpoint /entities/{entityId}/attrs/{attrId}
     [Documentation]  Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type 
-    [Tags]  mandatory
+    [Tags]  ea-partial-update    6_3_4
     ${entity_id}=       Generate Random Entity Id    ${vehicle_id_prefix}    
     ${request}    ${response}=    Create Entity Selecting Content Type    ${vehicle_filename}    ${entity_id}    ${CONTENT_TYPE_LD_JSON}    
     Check Response Status Code  201    ${response['status']}
@@ -29,7 +29,7 @@ ${subscription_fragment}=  subscriptions/fragments/subscription-update-sample.js
 
 044_01_02_endpoint /subscriptions/{subscriptionId}       
     [Documentation]  Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type 
-    [Tags]  mandatory
+    [Tags]  sub-update    6_3_4
     ${subscription_id}=       Generate Random Entity Id    ${subscription_id_prefix}    
     ${response}=    Create Subscription    ${subscription_id}    ${subscription_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}

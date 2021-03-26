@@ -12,7 +12,7 @@ ${filename}=  csourceRegistrations/context-source-registration-simple-sample.jso
 *** Test Cases ***
 Create a context source registration that already exists
     [Documentation]  Check that you cannot create a context source registration that already exists
-    [Tags]  /csourceRegistrations/    5_9_2
+    [Tags]  csr-create
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/${filename}
     ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}
