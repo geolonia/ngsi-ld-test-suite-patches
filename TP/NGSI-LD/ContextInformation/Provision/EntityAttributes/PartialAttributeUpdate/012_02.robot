@@ -24,7 +24,7 @@ ${status_code}=  400
 Update Attributes
     [Arguments]  ${entity_id}     ${attribute_id}     ${fragment_filename}
     [Documentation]  Check that you cannot perform a partial update on an entity attribute with invalid/missing ids
-    [Tags]  ea-partial-update
+    [Tags]  ea-partial-update    5_6_4
 
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${valid_entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}

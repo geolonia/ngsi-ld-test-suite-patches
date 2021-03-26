@@ -11,7 +11,7 @@ ${filename}=  vehicle-temporal-representation-sample.jsonld
 *** Test Cases ***
 Delete a temporal representation of an entity with simple temporal properties
     [Documentation]  Check that you can delete a temporal representation of an entity with simple temporal properties
-    [Tags]  te-delete
+    [Tags]  te-delete    5_6_16
 
     ${temporal_entity_representation_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${temporal_entity_representation_id}    ${filename}     ${CONTENT_TYPE_LD_JSON}

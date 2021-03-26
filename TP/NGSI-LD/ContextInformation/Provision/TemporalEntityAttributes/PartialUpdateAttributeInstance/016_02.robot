@@ -25,7 +25,7 @@ ${status_code}=  400
 Partially Update Temporal Entity
     [Arguments]  ${temporal_entity_id}    ${attributeId}    ${instanceId}
     [Documentation]  Check that you cannot partially update an attribute instance in temporal representation of an entity if the entityId/attributeId/instanceId is not right
-    [Tags]  tea-partial-update
+    [Tags]  tea-partial-update    5_6_14
 
     ${response}=  Partial Update Attribute From Temporal Entity  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${fragment_filename}    ${CONTENT_TYPE_JSON}   ${ngsild_test_suite_context}
     Check Response Status Code  ${status_code}    ${response['status']}

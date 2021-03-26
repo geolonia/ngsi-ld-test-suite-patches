@@ -22,7 +22,7 @@ ${registration_filename}=  csourceRegistrations/context-source-registration-unre
 *** Test Cases *** 
 043_01 Create entity
     [Documentation]  Verify throwing 503 – LDContextNotAvaliable error if remote JSON-LD @context cannot be retrieved (Create entity)
-    [Tags]  cb
+    [Tags]  e-create    5_2_2
 
     ${entity_id}=  Generate Random Entity Id    ${building_id_prefix}    
     ${request}    ${response}=    Create Entity Selecting Content Type   ${building_filename}      ${entity_id}     ${CONTENT_TYPE_LD_JSON}
@@ -34,7 +34,7 @@ ${registration_filename}=  csourceRegistrations/context-source-registration-unre
 
 043_02 Create subscription
     [Documentation]  Verify throwing 503 – LDContextNotAvaliable error if remote JSON-LD @context cannot be retrieved (Create subscription)
-    [Tags]  cb
+    [Tags]  sub-create    5_2_2
 
     ${subscription_id}=  Generate Random Entity Id    ${subscription_id_prefix}    
     ${response}=    Create Subscription    ${subscription_id}    ${subscription_filename}    ${CONTENT_TYPE_LD_JSON}
@@ -46,7 +46,7 @@ ${registration_filename}=  csourceRegistrations/context-source-registration-unre
 
 043_03 Create Temporal Representation of Entities
     [Documentation]  Verify throwing 503 – LDContextNotAvaliable error if remote JSON-LD @context cannot be retrieved (Create Temporal Representation of Entities)
-    [Tags]  cb
+    [Tags]  te-create    5_2_2
 
     ${temporal_entity_representation_id}=     Generate Random Entity Id    ${tea_id_prefix}
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${temporal_entity_representation_id}    ${tea_filename}     ${CONTENT_TYPE_LD_JSON}
@@ -58,7 +58,7 @@ ${registration_filename}=  csourceRegistrations/context-source-registration-unre
 
 043_04 Batch entity create
     [Documentation]  Verify throwing 503 – LDContextNotAvaliable error if remote JSON-LD @context cannot be retrieved (Batch entity create)
-    [Tags]  cb
+    [Tags]  be-create    5_2_2
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
@@ -75,7 +75,7 @@ ${registration_filename}=  csourceRegistrations/context-source-registration-unre
 
 043_05 Create context source registration
     [Documentation]  Verify throwing 503 – LDContextNotAvaliable error if remote JSON-LD @context cannot be retrieved (Create context source registration)
-    [Tags]  cb
+    [Tags]  csr-create    5_2_2
     
     ${registration_id_prefix}=     Generate Random Entity Id    ${registration_id_prefix}
 

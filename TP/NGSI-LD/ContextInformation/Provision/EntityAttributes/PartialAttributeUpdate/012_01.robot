@@ -19,7 +19,7 @@ ${status_code}=  204
 Update Attributes
     [Arguments]  ${fragment_filename}    ${attribute_id}    ${expectation_filename}
     [Documentation]  Check that you can perform a partial update on an entity attribute
-    [Tags]  ea-partial-update
+    [Tags]  ea-partial-update    5_6_4
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}

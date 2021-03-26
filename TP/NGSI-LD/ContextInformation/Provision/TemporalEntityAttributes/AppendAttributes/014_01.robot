@@ -13,7 +13,7 @@ ${expectation_filename}=  vehicle-temporal-representation-added-attribute-expect
 *** Test Cases ***
 014_01_Add an attribute to a temporal entity with simple temporal properties
     [Documentation]  Check that you can add a simple temporal attribute to a temporal representation of an entity
-    [Tags]  tea-append
+    [Tags]  tea-append        5_6_12
 
     ${temporal_entity_representation_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${temporal_entity_representation_id}    ${filename}     ${CONTENT_TYPE_LD_JSON}

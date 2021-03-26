@@ -13,7 +13,7 @@ ${status_code}=  404
 *** Test Cases ***
 Add Attribute To Temporal Entity
     [Documentation]  Check that an error is raised if you delete a temporal enitity with not found
-    [Tags]  tea-append
+    [Tags]  tea-append    5_6_12
 
     ${temporal_entity_representation_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${temporal_entity_representation_id}    ${filename}     ${CONTENT_TYPE_LD_JSON}

@@ -13,7 +13,7 @@ ${geometry_property}=  location
 *** Test Cases ***                               
 018_01_03_Query the geometry property from an entity
     [Documentation]  Check that you can query the geometry property from an entity
-    [Tags]  e-retrieve
+    [Tags]  e-retrieve    5_7_1
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}

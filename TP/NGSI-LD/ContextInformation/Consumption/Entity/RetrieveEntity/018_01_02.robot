@@ -14,7 +14,7 @@ ${attribute_subcategory}=  https://ngsi-ld-test-suite/context#subCategory
 *** Test Cases ***                               
 018_01_02_Query some attributes from an entity
     [Documentation]  Check that you can query some attributes from an entity
-    [Tags]  e-retrieve
+    [Tags]  e-retrieve    5_7_1
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}

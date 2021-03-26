@@ -14,7 +14,7 @@ ${attributeId}=  speed
 *** Test Cases ***
 016_01_Partially update an attribute instance of a temporal representation of an entity
     [Documentation]  Check that you can partially update an attribute instance of a temporal representation of an entity
-    [Tags]  tea-partial-update
+    [Tags]  tea-partial-update    5_6_14
 
     ${temporal_entity_representation_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     Set Suite Variable  ${temporal_entity_representation_id}

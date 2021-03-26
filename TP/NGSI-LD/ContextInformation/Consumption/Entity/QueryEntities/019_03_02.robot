@@ -16,7 +16,7 @@ ${invalid_entity_type_two}=  invalid_entity_type_two
 *** Test Cases ***                                                 
 Query entities based on incorrect entity types 
     [Documentation]  Check that you cannot query entities if the requested entity types are incorrect
-    [Tags]  e-query
+    [Tags]  e-query    5_7_2
 
     ${building_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${building_filename}     ${building_entity_id}    ${CONTENT_TYPE_LD_JSON}

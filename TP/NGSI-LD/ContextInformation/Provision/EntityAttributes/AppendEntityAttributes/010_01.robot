@@ -22,7 +22,7 @@ ${filename}=  vehicle-speed-two-datasetid-sample.jsonld
 Append Attributes Without Params
     [Arguments]  ${status_code}    ${fragment_filename}    ${expectation_filename}
     [Documentation]  Check that you can append entity attributes
-    [Tags]  ea-append
+    [Tags]  ea-append    5_6_3
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
@@ -40,7 +40,7 @@ Append Attributes Without Params
 Append Attributes With Params
     [Arguments]  ${status_code}    ${fragment_filename}    ${expectation_response_body}    ${expectation_filename}
     [Documentation]  Check that you can append entity attributes
-    [Tags]  ea-append
+    [Tags]  ea-append    5_6_3
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}

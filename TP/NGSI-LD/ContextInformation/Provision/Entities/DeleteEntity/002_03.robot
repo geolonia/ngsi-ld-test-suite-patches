@@ -11,7 +11,7 @@ ${expected_status_code}=  404
 *** Test Case ***
 Delete an entity with an id not known to the system
     [Documentation]  Check that you cannot delete an entity if the entity id is not known to the system
-    [Tags]    e-delete
+    [Tags]    e-delete    5_6_6
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
 

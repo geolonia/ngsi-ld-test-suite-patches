@@ -11,7 +11,7 @@ ${fragment_filename}=  vehicle-attribute-to-add-fragment.jsonld
 *** Test Cases ***  
 Append entity attributes when the entity id is not known to the system
     [Documentation]  Check that you cannot append entity attributes if the entity id is not known to the system
-    [Tags]  ea-append
+    [Tags]  ea-append    5_6_3
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=    Append Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
