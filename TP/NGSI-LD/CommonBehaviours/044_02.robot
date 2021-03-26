@@ -25,7 +25,6 @@ ${tea_expectation}=  vehicles-temporal-representation-044-02-04-expectation.json
 ${teatype}=  Vehicle
 
 ${content_type}=  application/json
-${accept}=  application/json, */* 
 
 *** Test Cases ***
 044_02_01_endpoint /entities/{entityId}
@@ -37,7 +36,6 @@ ${accept}=  application/json, */*
     ${request}    ${response}=    Query Entity    ${id}    context=${ngsild_test_suite_context}
     Check Response Status Code  200    ${response['status']}
     Check Response Body Containing Entity element    ${building_expectation}    ${id}    ${response['body']}
-    Check Request Containing Accept Header Set To  ${request}    ${accept}
     Check Response Headers Containing Content-Type set to  ${response}    ${content_type}
     Check Response Headers Link Not Empty  ${response}
 
@@ -53,7 +51,6 @@ ${accept}=  application/json, */*
     ${request}    ${response}=  Retrieve Subscription  ${id}
     Check Response Status Code  200    ${response['status']}
     Check Response Body Containing One Subscription element    ${subscription_expectation}    ${response['body']}
-    Check Request Containing Accept Header Set To  ${request}    ${accept}
     Check Response Headers Containing Content-Type set to  ${response}    ${content_type}
     Check Response Headers Link Not Empty  ${response}
 
@@ -71,7 +68,6 @@ ${accept}=  application/json, */*
     ${request}    ${response}=  Query Context Source Registrations With Return      id=${registration_id}    type=${registration_type}    context=${ngsild_test_suite_context}
     Check Response Status Code  200    ${response['status']}
     Check Response Body Containing One Registration element  ${registration_expectation}    ${response['body']}
-    Check Request Containing Accept Header Set To  ${request}    ${accept}
     Check Response Headers Containing Content-Type set to  ${response}    ${content_type}
     Check Response Headers Link Not Empty  ${response}
 
@@ -87,7 +83,6 @@ ${accept}=  application/json, */*
     Check Response Status Code  200    ${response['status']}
     Set Test Variable  ${response}
     Check Response Body Containing EntityTemporal element      ${tea_expectation}    ${temporal_entity_representation_id}
-    Check Request Containing Accept Header Set To  ${request}    ${accept}
     Check Response Headers Containing Content-Type set to  ${response}    ${content_type}
     Check Response Headers Link Not Empty  ${response}
 
