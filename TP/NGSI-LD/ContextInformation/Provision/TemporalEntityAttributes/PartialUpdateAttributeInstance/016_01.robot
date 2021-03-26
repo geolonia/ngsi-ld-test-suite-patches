@@ -21,12 +21,12 @@ ${attributeId}=  speed
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${temporal_entity_representation_id}    ${filename}     ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    ${response}=  Get Temporal Representation Of Entity  ${temporal_entity_representation_id}    ${CONTENT_TYPE_LD_JSON}    sysAttrs
+    ${response}=  Get Temporal Representation Of Entity  ${temporal_entity_representation_id}    ${CONTENT_TYPE_LD_JSON}    sysAttrs    ${ngsild_test_suite_context}
     ${createdAt_before_update}=  Set Variable  ${response['body']['speed'][0]['createdAt']}
     ${modifiedAt_before_update}=  Set Variable  ${response['body']['speed'][0]['modifiedAt']}
 
     ${instanceId}=  Set Variable  ${response['body']['speed'][0]['instanceId']}
-    ${response}=  Partial Update Attribute From Temporal Entity  ${temporal_entity_representation_id}    ${attributeId}    ${instanceId}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=  Partial Update Attribute From Temporal Entity  ${temporal_entity_representation_id}    ${attributeId}    ${instanceId}    ${fragment_filename}    ${CONTENT_TYPE_JSON}    ${ngsild_test_suite_context}
     Check Response Status Code  204    ${response['status']}
     
     ${response}=  Get Temporal Representation Of Entity  ${temporal_entity_representation_id}    ${CONTENT_TYPE_LD_JSON}    sysAttrs

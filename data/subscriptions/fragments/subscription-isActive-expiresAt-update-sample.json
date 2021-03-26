@@ -1,4 +1,12 @@
 {
+   "type":"Subscription",
    "isActive": true,
-   "expiresAt": "2030-08-01T22:07:00Z"
+   "expiresAt": "2030-08-01T22:07:00Z",
+   "notification":{
+      "format":"keyValues",
+      "endpoint":{
+         "uri":"http://my.endpoint.org/notify",
+         "accept":"application/json"
+      }
+   }
 }
