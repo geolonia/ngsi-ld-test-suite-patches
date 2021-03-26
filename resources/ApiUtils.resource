@@ -68,7 +68,7 @@ Query Entity
     [return]  ${request}    ${response}
 
 Query Entities
-    [Arguments]  ${entity_ids}=${EMPTY}     ${entity_types}=${EMPTY}     ${accept}=${EMPTY}    ${attrs}=${EMPTY}      ${context}=${EMPTY}    ${geoproperty}=${EMPTY}    ${options}=${EMPTY}     ${limit}=${EMPTY}    ${entity_id_pattern}=${EMPTY}
+    [Arguments]  ${entity_ids}=${EMPTY}     ${entity_types}=${EMPTY}     ${accept}=${EMPTY}    ${attrs}=${EMPTY}      ${context}=${EMPTY}    ${geoproperty}=${EMPTY}    ${options}=${EMPTY}     ${limit}=${EMPTY}    ${entity_id_pattern}=${EMPTY}    ${georel}=${EMPTY}    ${coordinates}=${EMPTY}    ${geometry}=${EMPTY}
     ${attrs_length} =  Get Length  ${attrs}
     ${accept_length} =  Get Length  ${accept}
     ${options_length} =  Get Length  ${options}
@@ -85,6 +85,9 @@ Query Entities
     Run Keyword If     ${entity_types_length}>0       Set To Dictionary   ${params}    type=${entity_types}
     Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
     Run Keyword If     '${entity_id_pattern}'!=''       Set To Dictionary   ${params}    idPattern=${entity_id_pattern}
+    Run Keyword If     '${georel}'!=''       Set To Dictionary   ${params}    georel=${georel}
+    Run Keyword If     '${coordinates}'!=''       Set To Dictionary   ${params}    coordinates=${coordinates}
+    Run Keyword If     '${geometry}'!=''       Set To Dictionary   ${params}    geometry=${geometry}
 
     ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}      headers=${headers}      query=${params}
     Output  request
@@ -190,9 +193,10 @@ Delete Entity Attributes
     [return]    ${response}
 
 Partial Update Entity Attributes
-    [Arguments]  ${entityId}    ${attributeId}    ${fragment_filename}    ${content_type}    ${accept}=${EMPTY}
+    [Arguments]  ${entityId}    ${attributeId}    ${fragment_filename}    ${content_type}    ${accept}=${EMPTY}    ${context}=${EMPTY}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
     ${response}=  PATCH  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}  body=${fragment_payload}  headers=${headers}
     Output  request

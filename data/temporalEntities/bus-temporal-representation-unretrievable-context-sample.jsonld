@@ -40,5 +40,8 @@
          "value":124,
          "observedAt":"2020-08-01T14:07:00Z"
       }
+   ],
+   "@context":[
+      "unretrievableContext"
    ]
 }

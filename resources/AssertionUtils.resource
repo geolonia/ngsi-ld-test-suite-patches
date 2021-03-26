@@ -37,11 +37,13 @@ Check Response Body Content
     ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity_payload}      ${all_ignored_paths}
     Should Be True      ${comparison_result}   msg=Entity Comparison Failed
 
-Check Request Containing Accept Header Set To 
-    [Arguments]  ${request}    ${expected_accept_content}    
+Check Response Headers Containing Content-Type set to
+    [Arguments]  ${response}    ${expected_content_type_content} 
+    Should Be Equal  ${response['headers']['Content-Type']}    ${expected_content_type_content}
 
-    Run Keyword If  'Accept' in ${request['headers']}  Should Be Equal  ${expected_accept_content}        ${request['headers']['Accept']}     ignore_order=True
-    Run Keyword If  'accept' in ${request['headers']}  Should Be Equal  ${expected_accept_content}        ${request['headers']['accept']}     ignore_order=True
+Check Response Headers Link Not Empty
+    [Arguments]  ${response}
+    Should Not Be Empty  ${response['headers']['Link']}
 
 # Since Http headers names are case-insensitive (from Http specification)
 # We check both Location and location headers
@@ -53,6 +55,7 @@ Check Response Headers Containing URI set to
 
 # Since Http headers names are case-insensitive (from Http specification)
 # We check both Location and location headers
+
 Check Response Headers ID Not Empty
     [Arguments]  ${response}
 
