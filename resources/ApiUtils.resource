@@ -571,7 +571,7 @@ Query Context Source Registrations
     &{headers}=  Create Dictionary
     &{params}=  Create Dictionary
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
-    Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}    accept=${accept}
+    Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}    Accept=${accept}
     Run Keyword If     '${id}'!=''       Set To Dictionary   ${params}    id=${id}
     Run Keyword If     '${type}'!=''       Set To Dictionary   ${params}    type=${type}
     Run Keyword If     '${attrs}'!=''       Set To Dictionary   ${params}    attrs=${attrs}
@@ -824,7 +824,7 @@ Query Context Source Registrations With Return
     &{headers}=  Create Dictionary
     &{params}=  Create Dictionary
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
-    Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}    accept=${accept}
+    Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}    Accept   ${accept}
     Run Keyword If     '${id}'!=''       Set To Dictionary   ${params}    id=${id}
     Run Keyword If     '${type}'!=''       Set To Dictionary   ${params}    type=${type}
     Run Keyword If     '${attrs}'!=''       Set To Dictionary   ${params}    attrs=${attrs}
