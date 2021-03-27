@@ -12,6 +12,6 @@
    ],
    "endpoint":"http://my.csource.org:1026",
    "@context":[
-      "unretrievableContext"
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-non-existing.jsonld"
    ]
 }
