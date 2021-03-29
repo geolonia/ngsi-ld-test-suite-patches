@@ -30,7 +30,7 @@ ${ERROR_TYPE_BAD_REQUEST_DATA}      https://uri.etsi.org/ngsi-ld/errors/BadReque
 ${ERROR_TYPE_INVALID_REQUEST}      https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
 ${ERROR_TYPE_RESOURCE_NOT_FOUND}      https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
 ${ERROR_TYPE_ALREADY_EXISTS}      https://uri.etsi.org/ngsi-ld/errors/AlreadyExists
-${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}     https://uri.etsi.org/ngsi-ld/errors/LDContextNotAvailable
+${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}     https://uri.etsi.org/ngsi-ld/errors/LdContextNotAvailable
 
 ${response}
 
