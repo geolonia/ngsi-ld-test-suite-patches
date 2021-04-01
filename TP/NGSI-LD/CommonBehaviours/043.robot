@@ -77,12 +77,12 @@ ${registration_filename}=  csourceRegistrations/context-source-registration-unre
     [Documentation]  Verify throwing 503 – LDContextNotAvaliable error if remote JSON-LD @context cannot be retrieved (Create context source registration)
     [Tags]  csr-create    5_2_2
     
-    ${registration_id_prefix}=     Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
 
     ${payload}=    Load Json From File    ${EXECDIR}/data/${registration_filename}
-    ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id_prefix}
+    ${updated_payload}=    Update Value To Json    ${payload}     $..id   ${registration_id}
     ${request}    ${response}=    Create Context Source Registration With Return  ${updated_payload}
     Check Response Status Code  ${expected_status_code}    ${response['status']}
     Check Response Headers Containing URI set to    ${request['path']}/    ${registration_id}    ${response}
 
-    [Teardown]  Delete Context Source Registration    ${registration_id_prefix}
+    [Teardown]  Delete Context Source Registration    ${registration_id}
