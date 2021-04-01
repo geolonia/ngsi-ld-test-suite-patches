@@ -20,7 +20,7 @@ ${registration_payload_file_path}=   context-source-registration-invalid-sample.
 Create Context Source With Invalid Content
     [Arguments]  ${filename}
     [Documentation]  Check that you cannot create a context source with invalid content
-    [Tags]  /csourceRegistrations/    5_9_2
+    [Tags]  csr-create
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
 
     ${payload}=    Load Json From File    ${EXECDIR}/data/${filename}
@@ -33,7 +33,7 @@ Create Context Source With Invalid Content
 
 Create a context source registration with invalid JSON file
     [Documentation]  Create a context source registration with invalid JSON file
-    [Tags]  mandatory
+    [Tags]  csr-create
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
 
     ${response}=    Create Context Source Registration Using Session  ${registration_payload_file_path}    ${CONTENT_TYPE_LD_JSON}

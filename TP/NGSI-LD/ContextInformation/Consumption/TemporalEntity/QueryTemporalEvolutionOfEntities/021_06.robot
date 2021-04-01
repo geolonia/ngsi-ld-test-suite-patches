@@ -18,8 +18,8 @@ Query the temporal evolution of entities matching the given identifier(s)
     [Documentation]  Check that you can query the temporal evolution of entities matching the given identifier(s)
     [Tags]  mandatory
 
-    @{entity_types_to_be_retrieved}=  Create List   Vehicle
-    @{entity_ids_to_be_retrieved}=  Create List   ${first_temporal_entity_representation_id}
+    ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,     Vehicle
+    ${entity_ids_to_be_retrieved}=  Catenate    SEPARATOR=,     ${first_temporal_entity_representation_id}
 
     Query Temporal Representation Of Entities   entity_types=${entity_types_to_be_retrieved}    entity_ids=${entity_ids_to_be_retrieved}   timerel=after    timeAt=2020-07-01T12:05:00Z    context=${ngsild_test_suite_context}
 

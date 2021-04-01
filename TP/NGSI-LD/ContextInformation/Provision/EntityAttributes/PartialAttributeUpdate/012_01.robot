@@ -13,13 +13,13 @@ ${status_code}=  204
 
 *** Test Cases ***                                                                           FRAGMENT_FILENAME                                        ATTRIBUTE_ID      EXPECTATION_FILENAME       
 012_01_01_Check that you can partially update an attribute                                   vehicle-isparked-fragment.jsonld                         isParked          vehicle-isparked-update-expectation.jsonld      
-012_01_02_Check that you can partially update an attribute by specifying the datasetId       vehicle-speed-equal-datasetid-fragment.jsonld            speed              vehicle-update-speed-expectation.jsonld                      
+012_01_02_Check that you can partially update an attribute by specifying the datasetId       vehicle-speed-equal-datasetid-fragment.jsonld            speed             vehicle-update-speed-expectation.jsonld                      
 
 *** Keywords ***
 Update Attributes
     [Arguments]  ${fragment_filename}    ${attribute_id}    ${expectation_filename}
     [Documentation]  Check that you can perform a partial update on an entity attribute
-    [Tags]  /entities/{entityId}/attrs/{attrId}      5_6_4
+    [Tags]  ea-partial-update    5_6_4
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
@@ -30,8 +30,8 @@ Update Attributes
 
     ${entity_expectation_payload}=    Load Test Sample   entities/expectations/${expectation_filename}    ${entity_id}
     Retrieve Entity by Id   ${entity_id}   context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
-    ${ignored_attributes}=  Create List    ${status_regex_expr}    @context
-    Check Updated Resource Set To     ${entity_expectation_payload}
+    ${ignored_attributes}=  Create List    @context
+    Check Updated Resource Set To     ${entity_expectation_payload}   ${ignored_attributes}
 
 
     [Teardown]  Delete Entity by Id Returning Response   ${entity_id}

@@ -25,10 +25,10 @@
     },
     {
         "type": "Property",
-        "value": 54.5,
+        "value": 99,
         "source": {
             "type": "Property",
-            "value": "GPS"
+            "value": "Speedometer"
         },
         "datasetId": "urn:ngsi-ld:Property:gpsBxyz123-speed"
     }], 

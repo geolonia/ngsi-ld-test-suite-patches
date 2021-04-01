@@ -6,14 +6,17 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
-${filename}=  building-minimal-sample.jsonld
-${entity_type}=  https://ngsi-ld-test-suite/context#Building
-${invalid_geometry_property}=  invalid_geometry_property
+${filename}=  building-location-attribute-sample.jsonld
+${entity_type}=  Building
+${georel}=  invalid
+${geometry}=  Point
+${coordinates}=  [-8.503,41.202]
+${geoproperty}=  location
 
 *** Test Cases ***                                                 
 Query entitites when the request has a wrong geometryProperty
     [Documentation]  Check that you cannot query entitites if the request has a wrong geometryProperty
-    [Tags]  /entities/    5_7_2
+    [Tags]  e-query    5_7_2
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${first_entity_id}    ${CONTENT_TYPE_LD_JSON}
@@ -23,7 +26,8 @@ Query entitites when the request has a wrong geometryProperty
     Check Response Status Code  201    ${response['status']}
 
     ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,   ${entity_type}
-    ${response}=    Query Entities    entity_types=${entity_types_to_be_retrieved}    geoproperty=${invalid_geometry_property}
+    ${response}=    Query Entities    entity_types=${entity_types_to_be_retrieved}    geoproperty=${geoproperty}    georel=${georel}    geometry=${geometry}    coordinates=${coordinates}    context=${ngsild_test_suite_context}
+
     Check Response Status Code  400    ${response['status']}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}

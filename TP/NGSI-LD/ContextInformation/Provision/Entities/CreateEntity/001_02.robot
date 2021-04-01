@@ -14,10 +14,10 @@ Test Template  Create Entity With Invalid Request Scenarios
 Create Entity With Invalid Request Scenarios
     [Arguments]  ${filename}
     [Documentation]  Check that you cannot create an entity with an invalid request
-    [Tags]   /entities/    5_6_1
+    [Tags]   e-create    5_6_1
 
     Request Entity From File   ${filename}
 
-    Check RL Response Status Code Set To Expected Code    400
+    Check RL Response Status Code Set To    400
     Check RL Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check RL Response Body Containing ProblemDetails Element Containing Title Element    ${response}

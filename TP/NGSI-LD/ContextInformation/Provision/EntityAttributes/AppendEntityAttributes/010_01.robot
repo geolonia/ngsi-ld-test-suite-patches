@@ -22,7 +22,7 @@ ${filename}=  vehicle-speed-two-datasetid-sample.jsonld
 Append Attributes Without Params
     [Arguments]  ${status_code}    ${fragment_filename}    ${expectation_filename}
     [Documentation]  Check that you can append entity attributes
-    [Tags]  /entities/{entityId}/attrs/      5_6_3
+    [Tags]  ea-append    5_6_3
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
@@ -33,7 +33,6 @@ Append Attributes Without Params
 
     ${entity_expectation_payload}=    Load Test Sample   entities/expectations/${expectation_filename}    ${entity_id}
     Retrieve Entity by Id   ${entity_id}   context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
-    ${ignored_attributes}=  Create List    ${status_regex_expr}
     Check Updated Resource Set To     ${entity_expectation_payload}
 
     [Teardown]  Delete Entity by Id Returning Response   ${entity_id}
@@ -41,7 +40,7 @@ Append Attributes Without Params
 Append Attributes With Params
     [Arguments]  ${status_code}    ${fragment_filename}    ${expectation_response_body}    ${expectation_filename}
     [Documentation]  Check that you can append entity attributes
-    [Tags]  /entities/{entityId}/attrs/      5_6_3
+    [Tags]  ea-append    5_6_3
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
@@ -49,11 +48,12 @@ Append Attributes With Params
 
     ${response}=    Append Entity Attributes With Parameters    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}    noOverwrite
     Check Response Status Code  ${status_code}    ${response['status']}
-    Run Keyword If    "${expectation_response_body}"!="${EMPTY}"    Check Response Body Content    ${expectation_response_body}    ${response['body']}
+    # ignore the reason for the not updated attribute as this detail is up to each context broker implementation
+    Run Keyword If    "${expectation_response_body}"!="${EMPTY}"    Check Response Body Content    ${expectation_response_body}    ${response['body']}      root\\['notUpdated'\\]\\[0\\]\\['reason'\\]
 
     ${entity_expectation_payload}=    Load Test Sample   entities/expectations/${expectation_filename}    ${entity_id}
     Retrieve Entity by Id   ${entity_id}   context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
-    ${ignored_attributes}=  Create List    ${status_regex_expr}    @context
-    Check Updated Resource Set To     ${entity_expectation_payload}
+    ${ignored_attributes}=  Create List    @context
+    Check Updated Resource Set To     ${entity_expectation_payload}   ${ignored_attributes}
 
     [Teardown]  Delete Entity by Id Returning Response   ${entity_id}

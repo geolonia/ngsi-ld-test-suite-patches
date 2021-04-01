@@ -1,12 +1,18 @@
 {
+   "id":"urn:ngsi-ld:Subscription:randomUUID",
    "type":"Subscription",
-   "isActive": null,
-   "expiresAt": "2030-08-01T22:07:00Z",
+   "entities":[
+      {
+         "type":"Building"
+      }
+   ],
    "notification":{
       "format":"keyValues",
       "endpoint":{
          "uri":"http://my.endpoint.org/notify",
          "accept":"application/json"
       }
-   }
+   },
+   "isActive": true,
+   "status": "active"
 }

@@ -10,7 +10,7 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 *** Test Cases ***                                                 
 Get an entity if the Entity Id is not known to the system           
     [Documentation]  Check that you cannot get an entity if the entity id or attributes are not known to the system
-    [Tags]  /entities/{entityId}    5_6_6
+    [Tags]  e-retrieve    5_6_6
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}

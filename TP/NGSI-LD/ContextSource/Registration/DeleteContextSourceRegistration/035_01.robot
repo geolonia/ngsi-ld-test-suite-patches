@@ -12,7 +12,7 @@ ${registration_payload_file_path}=   context-source-registration-simple-sample.j
 *** Test Case ***
 Delete a context source registration by id
     [Documentation]  Check that you can delete a context source registration by id
-    [Tags]  /csourceRegistrations/{registrationId}    5_9_4
+    [Tags]  csr-delete
     
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${registration_payload_file_path}

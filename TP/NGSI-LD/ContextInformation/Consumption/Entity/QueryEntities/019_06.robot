@@ -7,14 +7,14 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-minimal-sample.jsonld
-${expectation_filename}=  building-minimal-expectation.jsonld
+${expectation_filename}=  building-minimal-expectation.json
 ${entity_type}=  https://ngsi-ld-test-suite/context#Building
 ${limit}=  2
 
 *** Test Cases ***                                                 
 Query entities specifying a maximum number of results    
     [Documentation]  Check that you can query entities specifying a maximum number of results
-    [Tags]  /entities/    6_3_10
+    [Tags]  e-query    6_3_10
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${first_entity_id}    ${CONTENT_TYPE_LD_JSON}

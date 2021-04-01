@@ -7,14 +7,14 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-minimal-sample.jsonld
-${expectation_filename}=  building-minimal-expectation.jsonld
+${expectation_filename}=  building-minimal-expectation.json
 ${attribute_airqualitylevel}=  https://ngsi-ld-test-suite/context#airQualityLevel
 ${attribute_subcategory}=  https://ngsi-ld-test-suite/context#subCategory
 
 *** Test Cases ***                                                 
 Query several entities via POST Interaction based on attribute names
     [Documentation]  Check that you can query several entities via POST Interaction based on attribute names
-    [Tags]  /entityOperations/query    5_7_2
+    [Tags]  e-query    5_7_2
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${first_entity_id}    ${CONTENT_TYPE_LD_JSON}

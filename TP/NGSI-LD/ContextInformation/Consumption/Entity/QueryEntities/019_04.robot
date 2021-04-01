@@ -14,7 +14,7 @@ ${entity_type}=  https://ngsi-ld-test-suite/context#Building
 *** Test Cases ***                                                 
 Query entities in a simplified representation
     [Documentation]  Check that the queried entities by Id can be returned in a simplified representation
-    [Tags]  /entities/    6_3_7
+    [Tags]  e-query    6_3_7
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${first_entity_id}    ${CONTENT_TYPE_LD_JSON}

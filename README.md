@@ -62,7 +62,7 @@ Launch the tests with the following command:
 
 ```$ robot --outputdir ./results .```   
 
-For more running instructions please consult [scripts/run_tests.sh](https://github.com/easy-global-market/isg-cim-tpdl-demo/blob/rf-demo/scripts/run_tests.sh).
+For more running instructions please consult [scripts/run_tests.sh](./scripts/run_tests.sh).
 
 # Frameworks and libraries used in the project
 

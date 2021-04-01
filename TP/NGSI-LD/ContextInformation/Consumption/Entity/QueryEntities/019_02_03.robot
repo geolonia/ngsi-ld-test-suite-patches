@@ -7,14 +7,14 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-minimal-sample.jsonld
-${expectation_filename}=  building-minimal-expectation.jsonld
+${expectation_filename}=  building-minimal-expectation.json
 ${entity_type}=  https://ngsi-ld-test-suite/context#Building
 ${entity_id_pattern}=  urn:ngsi-ld:Building:.*
 
 *** Test Cases ***                                                 
 Query several entities via POST Interaction based on the given id pattern
     [Documentation]  Check that you can query several entities via POST Interaction based on the given id pattern
-    [Tags]  /entityOperations/query    5_7_2
+    [Tags]  e-query    5_7_2
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${first_entity_id}    ${CONTENT_TYPE_LD_JSON}

@@ -10,8 +10,8 @@
         "object": "urn:ngsi-ld:OffStreetParking:Downtown1",
         "observedAt": "2017-07-29T12:00:04Z",
         "providedBy": {
-        "type": "Relationship",
-        "object": "urn:ngsi-ld:Person:Bob"
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Person:Bob"
         },
         "datasetId": "urn:ngsi-ld:Relationship:parked12345"
     },

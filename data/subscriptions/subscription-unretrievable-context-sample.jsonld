@@ -1,4 +1,5 @@
 {
+   "id":"urn:ngsi-ld:Subscription:randomUUID",
    "type":"Subscription",
    "entities":[
       {
@@ -11,5 +12,8 @@
          "uri":"http://my.endpoint.org/notify",
          "accept":"application/json"
       }
-   }
+   },
+   "@context":[
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-non-existing.jsonld"
+   ]
 }

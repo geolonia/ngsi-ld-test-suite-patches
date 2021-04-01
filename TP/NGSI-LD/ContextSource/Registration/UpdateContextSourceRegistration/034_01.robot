@@ -17,7 +17,7 @@ ${registration_id_prefix}=  urn:ngsi-ld:Registration:
 Update Context Source
     [Arguments]  ${filename}    ${update_filename}  
     [Documentation]  Check that you can update a context source registration by id
-    [Tags]  /csourceRegistrations/{registrationId}    5_9_3
+    [Tags]  csr-update
     
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${filename}
@@ -32,7 +32,7 @@ Update Context Source
 
     Retrieve Context Source Registration   ${registration_id}   context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=  Create List    ${status_regex_expr}    @context
-    Check Updated Resource Set To     ${registration_payload}
+    Check Updated Resource Set To     ${registration_payload}   ${ignored_attributes}
 
 
     [Teardown]  Delete Context Source Registration    ${registration_id}

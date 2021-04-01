@@ -27,7 +27,7 @@ Query the temporal evolution of entities with a limit to the number of entities 
     [Documentation]  Check that you can query the temporal evolution of entities with a limit to the number of entities to be retrieved
     [Tags]  mandatory
 
-    @{entity_types_to_be_retrieved}=  Create List   Vehicle     Bus
+    ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,     Bus
 
     Query Temporal Representation Of Entities   entity_types=${entity_types_to_be_retrieved}    limit=${limit}   timerel=after    timeAt=2020-07-01T12:05:00Z    context=${ngsild_test_suite_context}
 

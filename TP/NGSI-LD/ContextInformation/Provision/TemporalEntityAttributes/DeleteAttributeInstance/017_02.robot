@@ -17,16 +17,16 @@ ${status_code}=  400
 017_02_02_delete an attribute instance in temporal representation of an entity if the entity id is not present                  ${EMPTY}                                    speed                      ${valid_instanceId}
 017_02_03_delete an attribute instance in temporal representation of an entity if the instance id is not valid                  ${temporal_entity_representation_id}        speed                      invalidId                       
 017_02_04_delete an attribute instance in temporal representation of an entity if the instance id is not present                ${temporal_entity_representation_id}        speed                      ${EMPTY}                   
-017_02_05_delete an attribute instance in temporal representation of an entity if the attribute name is not a valid name        ${temporal_entity_representation_id}        invalidId                  ${valid_instanceId}
+017_02_05_delete an attribute instance in temporal representation of an entity if the attribute name is not a valid name        ${temporal_entity_representation_id}        invalid(Name               ${valid_instanceId}
 017_02_06_delete an attribute instance in temporal representation of an entity if the attribute name is not present             ${temporal_entity_representation_id}        ${EMPTY}                   ${valid_instanceId}
 
 *** Keywords ***
 Delete attribute instance
     [Arguments]  ${temporal_entity_id}    ${attributeId}    ${instanceId}
     [Documentation]  Check that you cannot delete an attribute instance in temporal representation of an entity if the entityId/attributeId/instanceId is not right
-    [Tags]  mandatory
+    [Tags]  tea-instance-delete    5_6_15
 
-    ${response}=  Delete Attribute Instance From Temporal Entity  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=  Delete Attribute Instance From Temporal Entity  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${CONTENT_TYPE_JSON}  ${ngsild_test_suite_context}
     Check Response Status Code  ${status_code}    ${response['status']}
 
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
@@ -37,6 +37,6 @@ Create Id
     ${response}=  Create Or Update Temporal Representation Of Entity Selecting Content Type  ${temporal_entity_representation_id}    ${filename}     ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
-    ${response}=  Get Temporal Representation Of Entity  ${temporal_entity_representation_id}    ${CONTENT_TYPE_LD_JSON}    sysAttrs
+    ${response}=  Get Temporal Representation Of Entity  ${temporal_entity_representation_id}    ${CONTENT_TYPE_LD_JSON}    sysAttrs    ${ngsild_test_suite_context}
     ${valid_instanceId}=  Set Variable  ${response['body']['speed'][0]['instanceId']}
     Set Suite Variable  ${valid_instanceId}

@@ -20,10 +20,6 @@ Check Response Status Code Set To
     ${response_status}=  convert to string  ${response['status']}
     Should Be Equal  ${response_status}  ${expected_status}
 
-Check RL Response Status Code Set To Expected Code
-    [Arguments]  ${expected_status}
-    Status Should Be    ${expected_status}     ${response}
-
 Check RL Response Status Code Set To
     [Arguments]  ${expected_status}
     Status Should Be    ${expected_status}     ${response}
@@ -33,18 +29,21 @@ Check Response Body Containing Array Of URIs set to
     Lists Should Be Equal  ${expected_entities_ids}        ${response['body']}     ignore_order=True
 
 Check Response Body Content
-    [Arguments]  ${expectation_filename}     ${response_body}
+    [Arguments]  ${expectation_filename}     ${response_body}       ${additional_ignored_path}=${EMPTY}
     ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/expectations/${expectation_filename}
+    ${all_ignored_paths}=   Create List     ${instance_id_regex_expr}   ${additional_ignored_path}
     Output  ${response_body}
     Output  ${entity_payload}
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity_payload}      ${instance_id_regex_expr}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity_payload}      ${all_ignored_paths}
     Should Be True      ${comparison_result}   msg=Entity Comparison Failed
 
-Check Request Containing Accept Header Set To 
-    [Arguments]  ${request}    ${expected_accept_content}    
+Check Response Headers Containing Content-Type set to
+    [Arguments]  ${response}    ${expected_content_type_content} 
+    Should Be Equal  ${response['headers']['Content-Type']}    ${expected_content_type_content}
 
-    Run Keyword If  'Accept' in ${request['headers']}  Should Be Equal  ${expected_accept_content}        ${request['headers']['Accept']}     ignore_order=True
-    Run Keyword If  'accept' in ${request['headers']}  Should Be Equal  ${expected_accept_content}        ${request['headers']['accept']}     ignore_order=True
+Check Response Headers Link Not Empty
+    [Arguments]  ${response}
+    Should Not Be Empty  ${response['headers']['Link']}
 
 # Since Http headers names are case-insensitive (from Http specification)
 # We check both Location and location headers
@@ -56,6 +55,7 @@ Check Response Headers Containing URI set to
 
 # Since Http headers names are case-insensitive (from Http specification)
 # We check both Location and location headers
+
 Check Response Headers ID Not Empty
     [Arguments]  ${response}
 
@@ -138,7 +138,7 @@ Check Response Body Containing Subscription element
     [Arguments]     ${expectation_filename}    ${subscription_id}
     ${subscription_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
     ${subscription}=    Update Value To Json    ${subscription_payload}     $..id   ${subscription_id}
-    ${ignored_keys}=    Create List     ${status_regex_expr}    ${context_regex_expr}
+    ${ignored_keys}=    Create List     ${context_regex_expr}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${subscription}  ${ignored_keys}
     Should Be True      ${comparison_result}   msg=Subscription Comparison Failed
 
@@ -150,7 +150,8 @@ Check Response Body Containing List Containing Subscription elements
         ${subscription_payload}=    Update Value To Json    ${subscription_payload}     $.[${index}]..id   ${subscription_id}
         ${index}=    Evaluate    ${index} + 1
     END
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${subscription_payload}  ${EMPTY}
+    ${ignored_keys}=    Create List     ${context_regex_expr}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${subscription_payload}  ${ignored_keys}
     Should Be True      ${comparison_result}   msg=Subscription Comparison Failed
 
 # Since response body can be a json object if it contains one element

@@ -26,7 +26,7 @@ Query the temporal evolution of entities
     [Documentation]  Check that you can query the temporal evolution of entities
     [Tags]  mandatory
 
-    @{entity_types_to_be_retrieved}=  Create List   Vehicle
+    ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,     Vehicle
 
     Query Temporal Representation Of Entities   entity_types=${entity_types_to_be_retrieved}   timerel=${timerel}    timeAt=${timeAt}   context=${ngsild_test_suite_context}
 

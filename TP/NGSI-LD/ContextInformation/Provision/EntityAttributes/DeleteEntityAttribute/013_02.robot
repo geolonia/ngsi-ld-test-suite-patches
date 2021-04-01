@@ -21,7 +21,7 @@ ${filename}=  vehicle-two-datasetid-attributes-sample.jsonld
 Delete Attributes
     [Arguments]  ${entity_id}    ${attribute_id}
     [Documentation]  Check that you cannot delete an attribute from an entity with invalid/missing ids
-    [Tags]  /entities/{entityId}/attrs/{attrId}      5_6_5
+    [Tags]  ea-delete    5_6_5
 
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${valid_entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}

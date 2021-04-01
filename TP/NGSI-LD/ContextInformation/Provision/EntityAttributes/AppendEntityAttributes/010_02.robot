@@ -23,7 +23,7 @@ ${invalid_fragment_filename}=  invalid-fragment.jsonld
 Append Attributes
     [Arguments]  ${entity_invalid_id}
     [Documentation]  Check that you cannot append entity attributes with invalid/missing id or invalid request body
-    [Tags]  /entities/{entityId}/attrs/      5_6_3
+    [Tags]  ea-append    5_6_3
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
@@ -38,14 +38,14 @@ Append Attributes
 
 Append entity attributes with invalid entity fragments
     [Documentation]  Check that you cannot append entity attributes with invalid entity fragments
-    [Tags]  mandatory
+    [Tags]  ea-append    5_6_3
 
     ${entity_id}=     Generate Random Entity Id    ${vehicle_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${entity_id}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code  201    ${response['status']}
 
     Append Entity Attributes Using Session    ${entity_id}    ${invalid_fragment_filename}    ${CONTENT_TYPE_LD_JSON}    ${EMPTY}
-    Check Response Status Code  400    ${response['status']}
+    Check RL Response Status Code Set To    ${status_code}
     Check Response Body Type When Using Session Request      ${response.json()}     ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Title When Using Session Request    ${response.json()}
 

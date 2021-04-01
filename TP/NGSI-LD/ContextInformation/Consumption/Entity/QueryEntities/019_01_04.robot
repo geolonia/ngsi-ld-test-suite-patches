@@ -8,7 +8,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 ${building_id_prefix}=  urn:ngsi-ld:Building:
 ${filename}=  building-simple-attributes-sample.jsonld
 ${filename2}=  building-minimal-sample.jsonld
-${expectation_filename}=  building-attributes-query-expectation.jsonld
+${expectation_filename}=  building-attributes-query-expectation.json
 ${entity_type}=  https://ngsi-ld-test-suite/context#Building
 ${attribute_airqualitylevel}=  https://ngsi-ld-test-suite/context#airQualityLevel
 ${attribute_subcategory}=  https://ngsi-ld-test-suite/context#subCategory
@@ -16,7 +16,7 @@ ${attribute_subcategory}=  https://ngsi-ld-test-suite/context#subCategory
 *** Test Cases ***                                                 
 Query several entities based on attribute names
     [Documentation]  Check that you can query several entities based on attribute names
-    [Tags]  /entities/    5_7_2
+    [Tags]  e-query    5_7_2
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${request}    ${response}=    Create Entity Selecting Content Type  ${filename}     ${first_entity_id}    ${CONTENT_TYPE_LD_JSON}

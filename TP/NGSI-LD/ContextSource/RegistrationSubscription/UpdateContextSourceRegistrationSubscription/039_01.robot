@@ -24,7 +24,6 @@ Update Context Source Registration Subscription
 
     ${subscription}=    Upsert Element In Entity     ${subscription_payload}    ${subscription_update_fragment}
     Retrieve Context Source Registration Subscription   ${subscription_id}   context=${ngsild_test_suite_context}   accept=${CONTENT_TYPE_LD_JSON}
-    ${ignored_attributes}=  Create List    ${status_regex_expr}
     Check Updated Resource Set To     ${subscription}
 
 *** Keywords ***

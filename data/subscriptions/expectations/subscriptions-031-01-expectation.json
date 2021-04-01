@@ -14,6 +14,7 @@
             "accept":"application/json"
          }
       },
+      "isActive": true,
       "status": "active"
    },
    {
@@ -35,6 +36,7 @@
             "accept":"application/json"
          }
       },
+      "isActive": true,
       "status": "active"
    },
    {
@@ -52,6 +54,7 @@
             "accept":"application/json"
          }
       },
+      "isActive": false,
       "status": "paused"
    }
 ]
