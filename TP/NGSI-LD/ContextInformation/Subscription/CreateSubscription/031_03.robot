@@ -17,7 +17,7 @@ ${subscription_payload_file_path}=  subscriptions/subscription-sample.jsonld
 Create Subscription With Invalid/Empty Id
     [Arguments]  ${subscription_id}
     [Documentation]  Check that you cannot create a subscription with an invalid/empty id
-    [Tags]   /entities/    5_6_1
+    [Tags]   sub-create    5_8_1
 
     ${response}=  Create Subscription  ${subscription_id}     ${subscription_payload_file_path}    ${CONTENT_TYPE_LD_JSON}
     

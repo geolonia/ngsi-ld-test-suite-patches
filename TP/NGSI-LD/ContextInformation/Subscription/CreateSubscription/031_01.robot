@@ -11,7 +11,7 @@ ${subscription_payload_file_path}=   subscriptions/subscription-sample.jsonld
 *** Test Cases ***
 Create Subscription   
     [Documentation]  Check that you can create a subscription
-    [Tags]  /entities/    5_6_1
+    [Tags]  sub-create    5_8_1
 
     ${subscription_id}=     Generate Random Entity Id    ${subscription_id_prefix}
 

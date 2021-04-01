@@ -13,7 +13,7 @@ Test Template  Create Subscription With Invalid Request
 Create Subscription With Invalid Request
     [Arguments]  ${filename}
     [Documentation]  Check that you cannot create a subscription with an invalid request
-    [Tags]   /entities/    5_6_1
+    [Tags]   sub-create    5_8_1
 
     Create Subscription From File   ${filename}
 
