@@ -16,7 +16,7 @@ ${expectation_file}=    vehicles-temporal-representation-021-03-expectation.json
 *** Test Case ***
 Query the temporal evolution of the last N instances of entities attributes
     [Documentation]  Check that you can query the temporal evolution of the last N instances of entities attributes
-    [Tags]  mandatory
+    [Tags]   te-query    5_7_4
 
     ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,     Vehicle
 

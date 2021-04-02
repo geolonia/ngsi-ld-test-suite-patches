@@ -14,7 +14,7 @@ ${subscription_payload_file_path}=   csourceSubscriptions/subscription-inactive-
 *** Test Case ***
 Create Inactive Context Source Registration Subscription
     [Documentation]  Check that you can create a context source registration subscription with isActive member set to false and it's initial status will be set to "paused"
-    [Tags]  mandatory
+    [Tags]   csrsub-create    5_11_2
 
     ${subscription_payload}=  Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
 

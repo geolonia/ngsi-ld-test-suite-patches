@@ -17,7 +17,7 @@ ${subscription_payload_file_path}=   csourceSubscriptions/subscription-watchedAt
 *** Test Case ***
 Receive cSourceNotification For Matching Context Source Registrations On Watched Attributes
     [Documentation]  Check if a context source registrations subscription defines entities member and watchedAttributes member, a CsourceNotification will be triggered from context source registrations with information member matching the described entities and attributes
-    [Tags]  mandatory
+    [Tags]   csrsub-notification    5_11_7
 
     ${context_source_registration_id}=     Generate Random Entity Id    ${context_source_registration_id_prefix}
     ${context_source_registration_payload}=  Load Test Sample    ${context_source_registration_payload_file_path}    ${context_source_registration_id}

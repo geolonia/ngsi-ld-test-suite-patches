@@ -12,7 +12,7 @@ ${registration_payload_file_path}=   csourceRegistrations/context-source-registr
 *** Test Case ***
 Create one context source registration using a JSON-LD @context obtained from the request payload
     [Documentation]  Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" 
-    [Tags]  mandatory
+    [Tags]   csr-create    6_3_5
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
 
     ${payload}=    Load Json From File    ${EXECDIR}/data/${registration_payload_file_path}

@@ -17,7 +17,7 @@ ${subscription_payload_file_path}=   csourceSubscriptions/subscription-sample.js
 *** Test Case ***
 Receive cSourceNotification With Compliant Structure
     [Documentation]  The structure of the csource notification message shall be as mandated by clause 5.3.2
-    [Tags]  mandatory
+    [Tags]   csrsub-notification    5_11_7
 
     ${context_source_registration_id}=     Generate Random Entity Id    ${context_source_registration_id_prefix}
     ${context_source_registration_payload}=  Load Test Sample    ${context_source_registration_payload_file_path}    ${context_source_registration_id}

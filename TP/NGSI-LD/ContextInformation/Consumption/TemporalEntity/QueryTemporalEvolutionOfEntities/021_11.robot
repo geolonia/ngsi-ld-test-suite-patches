@@ -19,13 +19,14 @@ ${expectation_file}=    vehicles-temporal-representation-021-11-expectation.json
 
 *** Test Cases ***                        LIMIT         EXPECTATION_FILE                                                TEMPORAL_ENTITIES_REPRESENTATION_IDS
 Query Some entities                       ${2}          vehicles-temporal-representation-021-11-01-expectation.jsonld   ${first_temporal_entity_representation_id}  ${second_temporal_entity_representation_id}
+    [Tags]   te-query    5_7_4
 Query All entities                        ${20}         vehicles-temporal-representation-021-11-02-expectation.jsonld   ${first_temporal_entity_representation_id}  ${second_temporal_entity_representation_id}     ${third_temporal_entity_representation_id}
+    [Tags]   te-query    5_7_4
 
 *** Keywords ***
 Query the temporal evolution of entities with a limit to the number of entities to be retrieved
     [Arguments]  ${limit}     ${expectation_file}   @{temporal_entities_representation_ids}
     [Documentation]  Check that you can query the temporal evolution of entities with a limit to the number of entities to be retrieved
-    [Tags]  mandatory
 
     ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,     Bus
 

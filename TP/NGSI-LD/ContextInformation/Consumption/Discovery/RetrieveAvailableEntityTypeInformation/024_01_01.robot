@@ -14,7 +14,7 @@ ${filename}=  building-simple-attributes-sample.json
 *** Test Case ***
 Retrieve Detailed Representation Of Available Entity Type Without Context
     [Documentation]  Check that you cannot retrieve a detailed representation of an unknown NGSI-LD entity type
-    [Tags]  mandatory
+    [Tags]   ed-type    5_7_7
 
     Retrieve Entity Type   type=Building
 

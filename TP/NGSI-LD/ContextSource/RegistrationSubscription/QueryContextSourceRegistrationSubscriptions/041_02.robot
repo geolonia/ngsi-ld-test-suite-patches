@@ -17,15 +17,17 @@ ${expectation_file_path}=   csourceSubscriptions/expectations/subscriptions-035-
 
 *** Test Cases ***                        LIMIT         EXPECTED_SUBSCRIPTION_NUMBER
 Query One Subscription                    ${1}          ${1}
+    [Tags]   csrsub-query    5_11_5
 Query Two Subscription                    ${2}          ${2}
+    [Tags]   csrsub-query    5_11_5
 Query All Subscriptions                   ${15}         ${3}
+    [Tags]   csrsub-query    5_11_5
 
 *** Keywords ***
 Query Context Source Registration Subscriptions With Limit Parameter
     [Arguments]  ${limit}     ${expectation_subscription_number}
 
     [Documentation]  Check that you can query context source registration subscriptions with a limit parameter and it will be the maximum number of subscriptions to be retrieved
-    [Tags]  mandatory
 
     Query Context Source Registration Subscriptions  context=${ngsild_test_suite_context}   limit=${limit}
 

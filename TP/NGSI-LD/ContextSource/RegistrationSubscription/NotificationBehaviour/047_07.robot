@@ -17,13 +17,14 @@ ${subscription_payload_file_path}=   csourceSubscriptions/subscription-sample.js
 
 *** Test Cases ***                        FILEPATH
 PausedSubscription                        csourceSubscriptions/fragments/subscription-isActive-update-sample.json
+    [Tags]   csrsub-notification    5_11_7
 ExpiredSubscription                       csourceSubscriptions/fragments/subscription-expiresAt-update-sample.json
+    [Tags]   csrsub-notification    5_11_7
 
 *** Keywords ***
 Do Not Receive cSourceNotification If Subscription Status Is Not Active
     [Arguments]  ${filepath}
     [Documentation]  Check that a cSourceNotification shall only be sent if and only if the status of the corresponding subscription is active not paused nor expired
-    [Tags]  mandatory
 
     ${subscription_update_fragment}=    Load Test Sample    ${filepath}
     Update Context Source Registration Subscription     ${subscription_id}      ${subscription_update_fragment}

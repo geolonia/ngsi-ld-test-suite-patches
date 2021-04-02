@@ -14,13 +14,14 @@ ${filename}=  building-simple-attributes-sample.json
 
 *** Test Cases ***          CONTEXT                         EXPECTATION_FILE
 WithoutJsonLdContext        ${EMPTY}                        types/expectations/attribute-list-025-01-01-expectation.json
+    [Tags]   ed-attrs    5_7_8
 WithJsonLdContext           ${ngsild_test_suite_context}    types/expectations/attribute-list-025-01-02-expectation.json
+    [Tags]   ed-attrs    5_7_8
 
 *** Keywords ***
 Retrieve Available Attributes
     [Arguments]  ${context}     ${expectation_file}
     [Documentation]  Check that you can retrieve a list of NGSI-LD attributes
-    [Tags]  mandatory
 
     Retrieve Attributes   ${context}
 

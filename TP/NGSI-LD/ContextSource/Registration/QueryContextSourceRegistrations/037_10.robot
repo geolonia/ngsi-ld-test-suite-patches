@@ -16,14 +16,16 @@ ${third_context_source_registration_payload_file_path}=   csourceRegistrations/c
 
 *** Test Cases ***                  QUERY_PARAM_NAME   QUERY_PARAM_VALUE                                                                            EXPECTATION_FILE_PATH                                                                         EXPECTED_CONTEXT_SOURCE_REGISTRATION_IDS
 With list of Entity Ids             id                 ${first_context_source_registration_id},${third_context_source_registration_id}              csourceRegistrations/expectations/context-source-registrations-037-10-01-expectation.json     ${first_context_source_registration_id}   ${third_context_source_registration_id}
+    [Tags]   csr-query    5_10_2
 With NGSI-LD Query                  q                  location.type=="GeoProperty"                                                                 csourceRegistrations/expectations/context-source-registrations-037-10-02-expectation.json     ${third_context_source_registration_id}
+    [Tags]   csr-query    5_10_2
 With Context Source Filter          csf                endpoint=="http://my.csource.org:1026"                                                       csourceRegistrations/expectations/context-source-registrations-037-10-03-expectation.json     ${first_context_source_registration_id}   ${second_context_source_registration_id}     ${third_context_source_registration_id}
+    [Tags]   csr-query    5_10_2
 
 *** Keywords ***
 Query Context Source Registration With Query Params
     [Arguments]  ${query_param_name}     ${query_param_value}    ${expectation_file_path}   @{expected_context_source_registration_ids}
     [Documentation]  Check that you can query context source registrations. If present, the conditions specified by the context source query match the respective Context Source Properties
-    [Tags]  mandatory
 
     Query Context Source Registrations      context=${ngsild_test_suite_context}    ${query_param_name}=${query_param_value}
 

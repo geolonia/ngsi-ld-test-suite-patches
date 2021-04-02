@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Test Case ***
 Retrieve the temporal evolution of a non-existing entity
     [Documentation]  Check that you cannot retrieve the temporal evolution of a non-existing entity
-    [Tags]  mandatory
+    [Tags]   te-retrieve    5_7_3
 
     Retrieve Temporal Representation Of Entity   urn:ngsi-ld:Vehicle:unknowEntity
 

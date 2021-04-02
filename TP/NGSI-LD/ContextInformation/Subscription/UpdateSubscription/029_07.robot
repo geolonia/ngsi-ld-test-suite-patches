@@ -10,7 +10,9 @@ Suite Teardown      Delete Initial Subscriptions
 
 *** Test Cases ***          SUBSCRIPTION_UPDATE_FRAGMENT_FILE_PATH
 ActiveTrue                  subscriptions/fragments/subscription-isActive-update-sample.json
+    [Tags]   sub-update    5_8_2
 ActiveNull                  subscriptions/fragments/subscription-isActive-null-update-sample.json
+    [Tags]   sub-update    5_8_2
 
 *** Variable ***
 ${subscription_id_prefix}=  urn:ngsi-ld:Subscription:
@@ -20,7 +22,6 @@ ${subscription_payload_file_path}=   subscriptions/subscription-inactive-sample.
 Activate Paused Subscription With isActive Member
     [Arguments]  ${subscription_update_fragment_file_path}
     [Documentation]  Check that you can update a subscription: If isActive is equal to true or null and expiresAt is not present, then status shall be updated to "active", if and only if, the previous value of status was different than "expired"
-    [Tags]  mandatory
 
     Update Subscription   ${subscription_id}     ${subscription_update_fragment_file_path}   ${CONTENT_TYPE_JSON}
 

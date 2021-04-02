@@ -15,15 +15,18 @@ ${management_interval_expectation_file_path}=   csourceRegistrations/expectation
 
 *** Test Cases ***                          PAYLOAD_FILE_PATH                                                         TIMEPROPERTY        EXPECTATION_FILE_PATH
 Observation Interval With observedAt        ${context_source_registration_observation_interval_payload_file_path}     observedAt          ${observation_interval_expectation_file_path}
+    [Tags]   csr-query    5_10_2
 Observation Interval Without timeproperty   ${context_source_registration_observation_interval_payload_file_path}     ${EMPTY}            ${observation_interval_expectation_file_path}
+    [Tags]   csr-query    5_10_2
 Mqnagement Interval With createdAt          ${context_source_registration_management_interval_payload_file_path}      createdAt           ${management_interval_expectation_file_path}
+    [Tags]   csr-query    5_10_2
 Mqnagement Interval With modifiedAt         ${context_source_registration_management_interval_payload_file_path}      modifiedAt          ${management_interval_expectation_file_path}
+    [Tags]   csr-query    5_10_2
 
 *** Keywords ***
 Query Context Source Registration Matching Temporal Query
     [Arguments]  ${payload_file_path}   ${timeproperty}    ${expectation_file_path}
     [Documentation]  Check that you can query context source registrations. If present, the temporal query is matched against the observationInterval or the managementInterval
-    [Tags]  mandatory
 
     ${context_source_registration_id}=     Generate Random Entity Id    ${context_source_registration_id_prefix}
     ${context_source_registration_payload}=  Load Test Sample    ${payload_file_path}    ${context_source_registration_id}

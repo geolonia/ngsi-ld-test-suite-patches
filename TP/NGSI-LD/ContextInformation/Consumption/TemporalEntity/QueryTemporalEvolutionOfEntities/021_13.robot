@@ -15,13 +15,14 @@ ${second_vehicle_payload_file}=  2020-09-vehicule-temporal-representation-sample
 
 *** Test Cases ***      PAYLOAD_FILE                                     EXPECTATION_FILE
 After                   entity-operations-after-query.jsonld             vehicles-temporal-representation-021-13-01-expectation.jsonld
+    [Tags]   te-query    5_7_4
 Before                  entity-operations-before-query.jsonld            vehicles-temporal-representation-021-13-02-expectation.jsonld
+    [Tags]   te-query    5_7_4
 
 *** Keywords ***
 Query the temporal evolution of entities using the entityOperations method
     [Arguments]  ${payload_file}  ${expectation_file}
     [Documentation]  Check that you can query the temporal evolution of entities using the entityOperations method
-    [Tags]  mandatory
 
     Query Temporal Representation Of Entities Via Post   ${payload_file}
 

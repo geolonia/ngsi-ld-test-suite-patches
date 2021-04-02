@@ -14,7 +14,7 @@ ${subscription_payload_file_path}=   csourceSubscriptions/subscription-sample.js
 *** Test Case ***
 Create Context Source Registration Subscription
     [Documentation]  Check that you can create a minimal context source registration subscription
-    [Tags]  mandatory
+    [Tags]   csrsub-create    5_11_2
 
     ${subscription_payload}=  Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
 

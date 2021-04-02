@@ -15,7 +15,7 @@ ${subscription_update_fragment_file_path}=   csourceSubscriptions/fragments/subs
 *** Test Case ***
 Update Context Source Registration Subscription
     [Documentation]  Check that you can update a context source registration subscription
-    [Tags]  mandatory
+    [Tags]   csrsub-update    5_11_3
 
     ${subscription_update_fragment}=    Load Test Sample    ${subscription_update_fragment_file_path}
     Update Context Source Registration Subscription  ${subscription_id}     ${subscription_update_fragment}

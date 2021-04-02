@@ -15,7 +15,7 @@ ${expectation_file}=  types/expectations/entity-type-info-024-01-expectation.jso
 *** Test Case ***
 Retrieve Detailed Representation Of Available Entity Type
     [Documentation]  Check that you can retrieve a detailed representation of a specified NGSI-LD entity type
-    [Tags]  mandatory
+    [Tags]   ed-type    5_7_7
 
     Retrieve Entity Type   type=Building    context=${ngsild_test_suite_context}
 

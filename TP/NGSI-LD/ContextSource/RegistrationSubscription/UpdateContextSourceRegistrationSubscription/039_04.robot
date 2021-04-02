@@ -14,13 +14,14 @@ ${subscription_payload_file_path}=   csourceSubscriptions/subscription-sample.js
 
 *** Test Cases ***                        FILEPATH
 InvalidType                               csourceSubscriptions/fragments/subscription-update-invalid-type-sample.json
+    [Tags]   csrsub-update    5_11_3
 InvalidNotification                       csourceSubscriptions/fragments/subscription-update-invalid-notification-sample.json
+    [Tags]   csrsub-update    5_11_3
 
 *** Keywords ***
 Update Context Source Registration Subscription With Invalid Fragment
     [Arguments]  ${filepath}
     [Documentation]  Check that you cannot update a context source registration subscription with a fragment that doesn't meet the data types and restrictions expressed by clause 5.2.12
-    [Tags]  mandatory
 
     ${subscription_update_fragment}=    Load Test Sample    ${filepath}
     Update Context Source Registration Subscription  ${subscription_id}     ${subscription_update_fragment}

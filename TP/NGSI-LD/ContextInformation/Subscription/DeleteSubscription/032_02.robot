@@ -6,7 +6,7 @@ Resource    ${EXECDIR}/resources/AssertionUtils.resource
 *** Test Case ***
 Delete Unknown Subscription
     [Documentation]  Check that you cannot delete a subscription: If the subscription id provided does not correspond to any existing subscription in the system then an error of type ResourceNotFound shall be raised
-    [Tags]  mandatory
+    [Tags]   sub-delete    5_8_5
 
     Delete Subscription   urn:ngsi-ld:Subscription:unknowSubscription
 

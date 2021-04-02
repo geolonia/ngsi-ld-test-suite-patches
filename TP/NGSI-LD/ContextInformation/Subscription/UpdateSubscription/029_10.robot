@@ -15,7 +15,7 @@ ${subscription_update_fragment_file_path}=   subscriptions/fragments/subscriptio
 *** Test Case ***
 Activate Expired Subscription
     [Documentation]  Check that you can update a subscription: If only expiresAt is included and refers to a DateTime in the future or is null, then status shall be updated to "active", if and only if the previous value of status was "expired"
-    [Tags]  mandatory
+    [Tags]   sub-update    5_8_2
 
     # Update subscription to expired
     Update Subscription   ${subscription_id}     subscriptions/fragments/subscription-expiresAt-update-sample.json   ${CONTENT_TYPE_JSON}
