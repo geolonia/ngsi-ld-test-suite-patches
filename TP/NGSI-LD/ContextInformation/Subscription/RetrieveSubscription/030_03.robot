@@ -15,7 +15,7 @@ ${expectation_file_path}=   subscriptions/expectations/subscriptions-030-03-expe
 *** Test Case ***
 Retrieve Subscription
     [Documentation]  Check that you can retrieve a subscription
-    [Tags]  mandatory
+    [Tags]   sub-retrieve    5_8_3
 
     Retrieve Subscription   ${subscription_id}     context=${ngsild_test_suite_context}
 

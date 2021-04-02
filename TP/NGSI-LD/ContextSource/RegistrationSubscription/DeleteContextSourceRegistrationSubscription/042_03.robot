@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Test Case ***
 Delete Unknown Context Source Registration Subscription With Invalid Uri
     [Documentation]  Check that you cannot delete an unknown context source registration subscription
-    [Tags]  mandatory
+    [Tags]   csrsub-delete    5_11_6
 
     Delete Context Source Registration Subscription  urn:ngsi-ld:Subscription:unknowSubscription
 

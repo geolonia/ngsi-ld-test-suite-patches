@@ -17,14 +17,14 @@ ${bus_payload_file}=  2020-08-bus-temporal-representation-sample.jsonld
 
 *** Test Cases ***                        TIMEREL       TIMEAT                  EXPECTATION_FILE
 After                                     after         2020-08-01T12:05:00Z    vehicles-temporal-representation-021-01-01-expectation.jsonld
+    [Tags]   te-query    5_7_4
 Before                                    before        2020-09-01T13:05:00Z    vehicles-temporal-representation-021-01-02-expectation.jsonld
-
+    [Tags]   te-query    5_7_4
 
 *** Keywords ***
 Query the temporal evolution of entities
     [Arguments]  ${timerel}     ${timeAt}   ${expectation_file}
     [Documentation]  Check that you can query the temporal evolution of entities
-    [Tags]  mandatory
 
     ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,     Vehicle
 

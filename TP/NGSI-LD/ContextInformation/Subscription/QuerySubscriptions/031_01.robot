@@ -17,7 +17,7 @@ ${expectation_file_path}=   subscriptions/expectations/subscriptions-031-01-expe
 *** Test Case ***
 Query Subscriptions
     [Documentation]  Check that you can query a list of subscriptions
-    [Tags]  mandatory
+    [Tags]   sub-query    5_8_4
 
     Query Subscriptions   context=${ngsild_test_suite_context}
 

@@ -13,7 +13,7 @@ ${subscription_payload_file_path}=   csourceSubscriptions/subscription-sample.js
 *** Test Case ***
 Delete Context Source Registration Subscription
     [Documentation]  Check that you can delete a context source registration subscription
-    [Tags]  mandatory
+    [Tags]   csrsub-delete    5_11_6
 
     Delete Context Source Registration Subscription  ${subscription_id}
 

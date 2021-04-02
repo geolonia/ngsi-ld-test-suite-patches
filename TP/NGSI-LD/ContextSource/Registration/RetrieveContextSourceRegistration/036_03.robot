@@ -15,7 +15,7 @@ ${expectation_file_path}=   csourceRegistrations/expectations/context-source-reg
 *** Test Case ***
 Retrieve Context Source Registration With Default Core Context
     [Documentation]  Check that you can retrieve a Context Source Registration. Term to URI expansion of Attribute names shall be observed.
-    [Tags]  mandatory
+    [Tags]   csr-retrieve    5_10_1
 
     Retrieve Context Source Registration  ${context_source_registration_id}
 

@@ -10,7 +10,7 @@ ${subscription_update_fragment_file_path}=   csourceSubscriptions/fragments/subs
 *** Test Case ***
 Update Unknown Context Source Registration Subscription
     [Documentation]  Check that you cannot update an unknown context source registration subscription
-    [Tags]  mandatory
+    [Tags]   csrsub-update    5_11_3
 
     ${subscription_update_fragment}=    Load Test Sample    ${subscription_update_fragment_file_path}
     Update Context Source Registration Subscription  urn:ngsi-ld:Subscription:unknowSubscription     ${subscription_update_fragment}

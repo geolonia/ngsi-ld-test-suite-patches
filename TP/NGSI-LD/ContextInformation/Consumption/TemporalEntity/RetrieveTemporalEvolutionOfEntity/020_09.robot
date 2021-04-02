@@ -14,14 +14,16 @@ ${vehicle_payload_file}=  2020-08-vehicule-temporal-representation-sample.jsonld
 
 *** Test Cases ***                        TIMEREL       TIMEAT                      ENDTIMEAT
 After                                     after         ${EMPTY}                  ${EMPTY}
+    [Tags]   te-retrieve    5_7_3
 Before                                    before        ${EMPTY}                  ${EMPTY}
+    [Tags]   te-retrieve    5_7_3
 Between                                   between       2020-08-01T12:00:00Z      ${EMPTY}
+    [Tags]   te-retrieve    5_7_3
 
 *** Keywords ***
 Retrieve the temporal evolution of an entity with an invalid request content
     [Arguments]  ${timerel}     ${timeAt}   ${endTimeAt}
     [Documentation]  Check that you cannot retrieve the temporal evolution of an entity with an invalid request content
-    [Tags]  mandatory
 
     Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}   timerel=${timerel}      timeAt=${timeAt}    endTimeAt=${endTimeAt}
 

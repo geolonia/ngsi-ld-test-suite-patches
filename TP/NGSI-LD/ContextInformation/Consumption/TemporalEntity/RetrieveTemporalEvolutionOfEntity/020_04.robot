@@ -14,14 +14,16 @@ ${vehicle_payload_file}=  2020-08-vehicule-temporal-representation-sample.jsonld
 
 *** Test Cases ***                        TIMEREL       TIMEAT                      ENDTIMEAT                   VEHICLE_EXPECTATION_FILE
 After                                     after         2020-08-01T13:03:00Z        ${EMPTY}                vehicle-temporal-representation-020-04-01-expectation.jsonld
+    [Tags]   te-retrieve    5_7_3
 Before                                    before        2020-08-01T12:05:00Z        ${EMPTY}                vehicle-temporal-representation-020-04-02-expectation.jsonld
+    [Tags]   te-retrieve    5_7_3
 Between                                   between       2020-08-01T12:00:00Z        2020-08-01T13:00:00Z    vehicle-temporal-representation-020-04-03-expectation.jsonld
+    [Tags]   te-retrieve    5_7_3
 
 *** Keywords ***
 Retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
     [Arguments]  ${timerel}     ${timeAt}   ${endTimeAt}    ${vehicle_expectation_file}
     [Documentation]  Check that you can retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
-    [Tags]  mandatory
 
     Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}   timerel=${timerel}      timeAt=${timeAt}    endTimeAt=${endTimeAt}  context=${ngsild_test_suite_context}
     

@@ -17,13 +17,14 @@ ${creation_jsonld_expectation_filename}=  building-simple-attributes-sample-comp
 
 *** Test Cases ***                        CONTEXT                           EXPECTED_PAYLOAD
 EmptyJsonLdContext                        ${EMPTY}                          ${empty_jsonld_expectation_filename}
+    [Tags]   e-retrieve    6_3_5
 CreationTimeJsonLdContext                 ${ngsild_test_suite_context}      ${creation_jsonld_expectation_filename}
+    [Tags]   e-retrieve    6_3_5
 
 *** Keywords ***
 Check Json-LD Resolution When retrieving an entity
     [Arguments]  ${context}     ${expected_payload}
     [Documentation]  Check that the JSON-LD @context is obtained from a Link header if present and that the default JSON-LD @context is used if not present
-    [Tags]  mandatory
 
     ${request}    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_JSON}     context=${context}
     Check Response Status Code  200    ${response['status']}

@@ -14,7 +14,7 @@ ${filename}=  building-simple-attributes-sample.json
 *** Test Case ***
 Retrieve Detailed Representation Of Available Attribute Without Context
     [Documentation]  Check that you cannot retrieve a detailed representation of an unknown NGSI-LD attribute
-    [Tags]  mandatory
+    [Tags]   ed-attr    5_7_10
 
     Retrieve Attribute   attribute_name=airQualityLevel
 

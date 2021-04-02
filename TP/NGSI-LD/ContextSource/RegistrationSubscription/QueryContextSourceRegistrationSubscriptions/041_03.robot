@@ -16,15 +16,16 @@ ${third_subscription_payload_file_path}=   csourceSubscriptions/subscription-geo
 
 *** Test Cases ***                        LIMIT         PAGE         EXPECTED_SUBSCRIPTION_NUMBER   PREV_LINK                                                                                  NEXT_LINK
 Query Second Subscription                 ${1}          ${2}          ${1}                          </ngsi-ld/v1/csourceSubscriptions?limit=1&page=1>;rel="prev";type="application/ld+json"    </ngsi-ld/v1/csourceSubscriptions?limit=1&page=3>;rel="next";type="application/ld+json"
+    [Tags]   csrsub-query    5_11_5
 Query Last Subscription                   ${2}          ${2}          ${1}                          </ngsi-ld/v1/csourceSubscriptions?limit=2&page=1>;rel="prev";type="application/ld+json"    ${EMPTY}
+    [Tags]   csrsub-query    5_11_5
 Query All Subscriptions                   ${15}         ${1}          ${3}                          ${EMPTY}                                                                                   ${EMPTY}
+    [Tags]   csrsub-query    5_11_5
 
 *** Keywords ***
 Query Context Source Registration Subscriptions With Limit And Page Parameters
     [Arguments]  ${limit}     ${page}      ${expectation_subscription_number}   ${prev_link}  ${next_link}
-
     [Documentation]  Check that you can query context source registration subscriptions with providing page and limit parameters for pagination
-    [Tags]  mandatory
 
     Query Context Source Registration Subscriptions  context=${ngsild_test_suite_context}   limit=${limit}      page=${page}
 

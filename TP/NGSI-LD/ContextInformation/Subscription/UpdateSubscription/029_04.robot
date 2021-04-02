@@ -15,7 +15,7 @@ ${subscription_update_fragment_file_path}=   subscriptions/fragments/subscriptio
 *** Test Case ***
 Update Subscription With Null Mandatory Properties
     [Documentation]  Check that you cannot update a subscription: Any attempt to remove (by setting them to null in the Fragment) mandatory properties of a Subscription (clause 5.2.12) shall result in an error of type BadRequestData
-    [Tags]  mandatory
+    [Tags]   sub-update    5_8_2
 
     Update Subscription   ${subscription_id}     ${subscription_update_fragment_file_path}   ${CONTENT_TYPE_JSON}
 

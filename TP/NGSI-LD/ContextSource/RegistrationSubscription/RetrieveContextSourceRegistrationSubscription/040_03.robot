@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Test Case ***
 Retrieve Unknown Context Source Registration Subscription
     [Documentation]  Check that you cannot retrieve an unknown context source registration subscription, an error of type ResourceNotFound shall be raised
-    [Tags]  mandatory
+    [Tags]   csrsub-retrieve    5_11_4
 
     Retrieve Context Source Registration Subscription  urn:ngsi-ld:Subscription:unknowSubscription
 

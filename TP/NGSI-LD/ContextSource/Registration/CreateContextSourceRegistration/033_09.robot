@@ -12,7 +12,7 @@ ${registration_payload_file_path}=   csourceRegistrations/context-source-registr
 *** Test Case ***
 Create one context source registration with a Link header and a JSON-LD content type
     [Documentation]  Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is "application/ld+json" and a JSON-LD Link header is present in the incoming HTTP request
-    [Tags]  mandatory
+    [Tags]   csr-create    6_3_5
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
 
     ${payload}=    Load Json From File    ${EXECDIR}/data/${registration_payload_file_path}

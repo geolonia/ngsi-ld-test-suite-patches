@@ -15,7 +15,7 @@ ${expectation_file}=  types/expectations/attribute-027-01-expectation.json
 *** Test Case ***
 Retrieve Detailed Representation Of Available Attribute
     [Documentation]  Check that you can retrieve a list with a detailed representation of NGSI-LD attributes
-    [Tags]  mandatory
+    [Tags]   ed-attr    5_7_10
 
     Retrieve Attribute   attribute_name=airQualityLevel     context=${ngsild_test_suite_context}
 

@@ -10,7 +10,7 @@ ${subscription_update_fragment_file_path}=   subscriptions/fragments/subscriptio
 *** Test Case ***
 Update Unknown Subscription
     [Documentation]  Check that you cannot update a subscription: If the NGSI-LD System does not know about the target Subscription, because there is no existing Subscription whose id (URI) is equivalent, an error of type ResourceNotFound shall be raised
-    [Tags]  mandatory
+    [Tags]   sub-update    5_8_2
 
     Update Subscription   urn:ngsi-ld:Subscription:unknowSubscription     ${subscription_update_fragment_file_path}   ${CONTENT_TYPE_JSON}
 

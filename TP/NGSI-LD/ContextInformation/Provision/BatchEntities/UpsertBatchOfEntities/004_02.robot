@@ -13,14 +13,16 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 
 *** Test Cases ***                        FILENAME
 EntityWithSimpleProperties                building-simple-attributes-sample.jsonld
+    [Tags]   be-upsert    5_6_8
 EntityWithSimpleRelationships             building-relationship-sample.jsonld
+    [Tags]   be-upsert    5_6_8
 EntityWithRelationshipsProperties         building-relationship-of-property-sample.jsonld
+    [Tags]   be-upsert    5_6_8
 
 *** Keywords ***
 Batch Upsert Non-existing And Existing Entities Scenarios
     [Arguments]  ${filename}
     [Documentation]  Check that you can upsert a batch of non existing and existing entities
-    [Tags]  mandatory
 
     ${new_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${new_entity}=    Load Entity    ${filename}      ${new_entity_id}

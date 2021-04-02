@@ -11,7 +11,7 @@ ${filename}=    building-simple-attributes-sample.jsonld
 *** Test Case ***
 Create one entity using a JSON-LD @context obtained from the request payload
     [Documentation]  Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" 
-    [Tags]  mandatory
+    [Tags]   e-create    6_3_5
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
 

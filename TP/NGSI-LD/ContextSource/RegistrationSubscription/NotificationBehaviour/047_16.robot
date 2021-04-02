@@ -18,14 +18,16 @@ ${subscription_payload_file_path}=   csourceSubscriptions/subscription-sample.js
 
 *** Test Cases ***                        FILEPATH                                                                              NOTIFICATION_CSR_IDS
 MatchFirstContextSourceRegistration       csourceSubscriptions/fragments/subscription-vehicle-entities-sample.json              ${first_context_source_registration_id}
+    [Tags]   csrsub-notification    5_11_7
 MatchSecondContextSourceRegistration      csourceSubscriptions/fragments/subscription-bus-entities-sample.json                  ${second_context_source_registration_id}
+    [Tags]   csrsub-notification    5_11_7
 MatchBothContextSourceRegistrations       csourceSubscriptions/fragments/subscription-vehicle-and-bus-entities-sample.json      ${first_context_source_registration_id}           ${second_context_source_registration_id}
+    [Tags]   csrsub-notification    5_11_7
 
 *** Keywords ***
 Receive cSourceNotification For Newly Matching Context Source Registrations
     [Arguments]  ${filepath}    @{notification_csr_ids}
     [Documentation]  Check if you update a context source registration subscription, a CsourceNotification will be sent with all currently matching context source registrations
-    [Tags]  mandatory
 
     ${subscription_update_fragment}=    Load Test Sample    ${filepath}
     Update Context Source Registration Subscription     ${subscription_id}      ${subscription_update_fragment}

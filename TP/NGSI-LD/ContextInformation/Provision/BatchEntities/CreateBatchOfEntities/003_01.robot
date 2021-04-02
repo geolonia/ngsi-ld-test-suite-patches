@@ -11,15 +11,18 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 
 *** Test Cases ***                        FILENAME
 MinimalEntity                             building-minimal-sample.jsonld
+    [Tags]   be-create    5_6_7
 EntityWithSimpleProperties                building-simple-attributes-sample.jsonld
+    [Tags]   be-create    5_6_7
 EntityWithSimpleRelationships             building-relationship-sample.jsonld
+    [Tags]   be-create    5_6_7
 EntityWithRelationshipsProperties         building-relationship-of-property-sample.jsonld
+    [Tags]   be-create    5_6_7
 
 *** Keywords ***
 Batch Create Entity Scenarios
     [Arguments]  ${filename}
     [Documentation]  Check that you can create a batch of entities
-    [Tags]  mandatory   entityOperations
 
     ${first_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=     Generate Random Entity Id    ${building_id_prefix}

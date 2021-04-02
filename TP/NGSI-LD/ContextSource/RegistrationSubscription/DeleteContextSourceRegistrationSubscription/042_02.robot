@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Test Case ***
 Delete Context Source Registration Subscription With Invalid Uri
     [Documentation]  Check that you cannot delete a context source registration subscription with an invalid URI
-    [Tags]  mandatory
+    [Tags]   csrsub-delete    5_11_6
 
     Delete Context Source Registration Subscription  invalidUri
 

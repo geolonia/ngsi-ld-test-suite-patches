@@ -11,13 +11,14 @@ ${context_source_registration_id_prefix}=  urn:ngsi-ld:ContextSourceRegistration
 
 *** Test Cases ***                                          REGISTRATION_FILE_PATH                                                                              EXPECTATION_FILE_PATH
 Registration With EntityInfo Matching The Query             csourceRegistrations/context-source-registration-sample.jsonld                                      csourceRegistrations/expectations/context-source-registrations-037-05-01-expectation.json
+    [Tags]   csr-query    5_10_2
 Registration Without EntityInfo                             csourceRegistrations/context-source-registration-with-only-properties-information-sample.jsonld     csourceRegistrations/expectations/context-source-registrations-037-05-02-expectation.json
+    [Tags]   csr-query    5_10_2
 
 *** Keywords ***
 Query Context Source Registration Matching EntityInfo of RegistrationInfo
     [Arguments]  ${registration_file_path}     ${expectation_file_path}
     [Documentation]  Check that you can query context source registrations matching EntityInfo of RegistrationInfo
-    [Tags]  mandatory
 
     ${context_source_registration_id}=     Generate Random Entity Id    ${context_source_registration_id_prefix}
     ${context_source_registration_payload}=  Load Test Sample    ${registration_file_path}    ${context_source_registration_id}

@@ -16,14 +16,16 @@ ${third_subscription_payload_file_path}=   subscriptions/subscription-inactive-s
 
 *** Test Cases ***                        LIMIT         PAGE         EXPECTED_SUBSCRIPTION_NUMBER   PREV_LINK                                                                                  NEXT_LINK
 Query Second Subscription                 ${1}          ${2}          ${1}                          </ngsi-ld/v1/subscriptions?limit=1&page=1>;rel="prev";type="application/ld+json"           </ngsi-ld/v1/subscriptions?limit=1&page=3>;rel="next";type="application/ld+json"
+    [Tags]   sub-query    5_8_4
 Query Last Subscription                   ${2}          ${2}          ${1}                          </ngsi-ld/v1/subscriptions?limit=2&page=1>;rel="prev";type="application/ld+json"           ${EMPTY}
+    [Tags]   sub-query    5_8_4
 Query All Subscriptions                   ${15}         ${1}          ${3}                          ${EMPTY}                                                                                   ${EMPTY}
+    [Tags]   sub-query    5_8_4
 
 *** Keywords ***
 Query Subscriptions With Limit And Page Parameters
     [Arguments]  ${limit}     ${page}      ${expectation_subscription_number}   ${prev_link}  ${next_link}
     [Documentation]  Check that you can query a list of subscriptions: Pagination logic shall be in place
-    [Tags]  mandatory
 
     Query Subscriptions  context=${ngsild_test_suite_context}   limit=${limit}      page=${page}
 

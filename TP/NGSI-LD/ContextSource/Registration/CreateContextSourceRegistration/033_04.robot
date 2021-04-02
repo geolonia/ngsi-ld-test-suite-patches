@@ -12,7 +12,7 @@ ${registration_payload_file_path}=   csourceRegistrations/context-source-registr
 *** Test Case ***
 Create one context source registration using a provided Link header with JSON content type
     [Documentation]  Check that the @context is obtained from a Link Header if the Content-Type header is "application/json" 
-    [Tags]  mandatory
+    [Tags]   csr-create    6_3_5
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
 
     ${payload}=    Load Json From File    ${EXECDIR}/data/${registration_payload_file_path}

@@ -8,7 +8,9 @@ Test Template  Retrieve Context Source Registration With A Not Present Or Invali
 
 *** Test Cases ***                       ID
 Not Present Id                           ${EMPTY}
+    [Tags]   csr-retrieve    5_10_1
 Invalid Id                               invalidUri
+    [Tags]   csr-retrieve    5_10_1
 
 *** Keywords ***
 
@@ -16,7 +18,6 @@ Retrieve Context Source Registration With A Not Present Or Invalid Id
     [Arguments]  ${id}
 
     [Documentation]  Check that you cannot a retrieve Context Source Registration, if the context source registration id is not present or it is not a valid URI
-    [Tags]  mandatory
 
     Retrieve Context Source Registration  ${id}
 

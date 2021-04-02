@@ -7,13 +7,14 @@ Test Template  Delete Subscription With Non present Or Invalid Id
 
 *** Test Cases ***          id
 NotPresentId                ${EMPTY}
+    [Tags]   sub-delete    5_8_5
 InvalidId                   InvalidUri
+    [Tags]   sub-delete    5_8_5
 
 *** Keywords ***
 Delete Subscription With Non present Or Invalid Id
     [Arguments]  ${id}
     [Documentation]  Check that you cannot delete a subscription: If the subscription Id is not present or it is not a valid URI, then an error of type BadRequestData shall be raised
-    [Tags]  mandatory
 
     Delete Subscription   ${id}
 

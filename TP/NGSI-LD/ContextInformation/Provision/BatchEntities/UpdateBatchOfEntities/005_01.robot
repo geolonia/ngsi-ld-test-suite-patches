@@ -14,14 +14,16 @@ ${entity_payload_filename}=  building-simple-attributes-sample.jsonld
 
 *** Test Cases ***                        FILENAME                                          UPDATE_FRAGMENT_FILENAME
 EntityWithSimpleProperties                building-simple-attributes-sample.jsonld          fragmentEntities/empty-fragment.json
+    [Tags]   be-update    5_6_9
 EntityWithSimpleRelationships             building-relationship-sample.jsonld               fragmentEntities/locatedAt-fragment.json
+    [Tags]   be-update    5_6_9
 EntityWithRelationshipsProperties         building-relationship-of-property-sample.jsonld   fragmentEntities/airQualityLevel-with-relationship-fragment.json
+    [Tags]   be-update    5_6_9
 
 *** Keywords ***
 Batch Update Entity Scenarios
     [Arguments]  ${filename}    ${update_fragment_filename}
     [Documentation]  Check that you can update a batch of entities
-    [Tags]  mandatory
 
     ${first_entity}=    Load Entity    ${filename}      ${first_entity_id}
     ${second_entity}=    Load Entity    ${filename}      ${second_entity_id}

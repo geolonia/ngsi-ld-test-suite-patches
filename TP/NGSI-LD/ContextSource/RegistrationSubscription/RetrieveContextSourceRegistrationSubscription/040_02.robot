@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Test Case ***
 Retrieve Context Source Registration Subscription With An Invalid Id
     [Documentation]  Check that you cannot retrieve a context source registration subscription with an invalid URI, an error of type BadRequestData shall be raised
-    [Tags]  mandatory
+    [Tags]   csrsub-retrieve    5_11_4
 
     Retrieve Context Source Registration Subscription  invalidUri
 

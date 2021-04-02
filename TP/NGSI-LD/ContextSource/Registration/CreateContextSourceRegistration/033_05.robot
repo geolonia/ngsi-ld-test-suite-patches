@@ -12,7 +12,7 @@ ${registration_payload_file_path}=   csourceRegistrations/context-source-registr
 *** Test Case ***
 Create one context source registration using the default context with JSON content type
     [Documentation]  Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context 
-    [Tags]  mandatory
+    [Tags]   csr-create    6_3_5
     ${registration_id}=     Generate Random Entity Id    ${registration_id_prefix}
 
     ${payload}=    Load Json From File    ${EXECDIR}/data/${registration_payload_file_path}

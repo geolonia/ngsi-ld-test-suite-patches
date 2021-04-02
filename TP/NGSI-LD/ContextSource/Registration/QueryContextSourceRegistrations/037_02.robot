@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Test Case ***
 Query Context Source Registrations Without Entity Types and Attribute Names
     [Documentation]  Check that you cannot query context source registrations, if neither Entity types nor Attribute names are provided, an error of type
-    [Tags]  mandatory
+    [Tags]   csr-query    5_10_2
 
     Query Context Source Registrations      context=${ngsild_test_suite_context}
 
