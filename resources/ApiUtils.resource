@@ -691,6 +691,13 @@ Create Subscription
     Output  response
     [return]   ${response}
 
+Create Subscription From File
+    [Arguments]  ${filename}
+    ${file_content}=    Get File    ${EXECDIR}/data/subscriptions/${filename}
+    Create Session    SubscriptionCreateRequest      ${url}
+    ${response}=  PATCH On Session      SubscriptionCreateRequest   ${SUBSCRIPTION_ENDPOINT_PATH}  data=${file_content}   expected_status=any
+    Set Test Variable  ${response}
+
 Update Subscription
     [Arguments]  ${subscription_id}     ${fragment_filename}    ${content_type}    ${accept}=${EMPTY}   ${context}=${EMPTY}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
