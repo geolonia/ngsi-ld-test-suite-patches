@@ -8,15 +8,16 @@ Test Template  Query Context Source Registration Subscriptions With Invalid Limi
 
 *** Test Cases ***                        LIMIT         PAGE
 Invalid Limit                             ${-5}         ${2}
+    [Tags]   csrsub-query    5_11_5
 Invalid Page                              ${2}          ${-3}
+    [Tags]   csrsub-query    5_11_5
 Invalid Limit And Page                    ${0}          ${0}
+    [Tags]   csrsub-query    5_11_5
 
 *** Keywords ***
 Query Context Source Registration Subscriptions With Invalid Limit And Page Parameters
     [Arguments]  ${limit}     ${page}
-
     [Documentation]  Check that you cannot query context source registration subscriptions with invalid page and limit parameters
-    [Tags]  mandatory
 
     Query Context Source Registration Subscriptions  limit=${limit}      page=${page}
 

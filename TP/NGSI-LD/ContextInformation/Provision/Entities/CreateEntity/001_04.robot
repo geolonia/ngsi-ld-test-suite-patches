@@ -11,7 +11,7 @@ ${filename}=    building-simple-attributes-sample.json
 *** Test Case ***
 Create one entity using a provided Link header with JSON content type
     [Documentation]  Check that the @context is obtained from a Link Header if the Content-Type header is "application/json"
-    [Tags]  mandatory
+    [Tags]   e-create    6_3_5
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
 

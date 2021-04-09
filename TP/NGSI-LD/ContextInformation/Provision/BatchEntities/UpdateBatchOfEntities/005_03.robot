@@ -14,7 +14,7 @@ ${update_fragment_filename}=  fragmentEntities/simple-attributes-relationship-of
 *** Test Case ***
 Update a batch of non existing and existing entities
     [Documentation]  Check that you can update a batch of non existing and existing entities
-    [Tags]  mandatory
+    [Tags]   be-update    5_6_9
 
     ${first_existing_entity}=    Load Entity    building-relationship-of-property-sample.jsonld      ${first_existing_entity_id}
     ${second_existing_entity}=    Load Entity    building-relationship-of-property-sample.jsonld      ${second_existing_entity_id}

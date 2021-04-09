@@ -16,13 +16,14 @@ ${second_filename}=  vehicle-simple-attributes-sample.json
 
 *** Test Cases ***          CONTEXT                         EXPECTATION_FILE
 WithoutJsonLdContext        ${EMPTY}                        types/expectations/entity-type-list-022-01-01-expectation.json
+    [Tags]   ed-types    5_7_5
 WithJsonLdContext           ${ngsild_test_suite_context}    types/expectations/entity-type-list-022-01-02-expectation.json
+    [Tags]   ed-types    5_7_5
 
 *** Keywords ***
 Retrieve Available Entity Types
     [Arguments]  ${context}     ${expectation_file}
     [Documentation]  Check that you can retrieve a list of NGSI-LD entity types
-    [Tags]  mandatory
 
     Retrieve Entity Types   ${context}
 

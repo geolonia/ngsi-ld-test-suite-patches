@@ -10,7 +10,7 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 *** Test Case ***
 Create a batch of one entity using the default context with JSON content type
     [Documentation]  Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context
-    [Tags]  mandatory
+    [Tags]   be-create    6_3_5
 
     ${entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${entity}=    Load Entity    building-simple-attributes-sample.json      ${entity_id}

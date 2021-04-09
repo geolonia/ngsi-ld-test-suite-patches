@@ -14,14 +14,16 @@ ${existing_entity_payload_filename}=  building-minimal-sample.jsonld
 
 *** Test Cases ***                        FILENAME                                          UPDATE_FRAGMENT_FILENAME
 EntityWithSimpleProperties                building-simple-attributes-sample.jsonld          fragmentEntities/simple-attributes-fragment.json
+    [Tags]   be-upsert    5_6_8
 EntityWithSimpleRelationships             building-relationship-sample.jsonld               fragmentEntities/locatedAt-fragment.json
+    [Tags]   be-upsert    5_6_8
 EntityWithRelationshipsProperties         building-relationship-of-property-sample.jsonld   fragmentEntities/simple-attributes-relationship-of-property-fragment.json
+    [Tags]   be-upsert    5_6_8
 
 *** Keywords ***
 Batch Upsert Entities With Update Option Scenarios
     [Arguments]  ${filename}    ${update_fragment_filename}
     [Documentation]  Check that you can upsert a batch of entities with update option
-    [Tags]  mandatory
 
     ${new_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     ${new_entity}=    Load Entity    ${filename}      ${new_entity_id}

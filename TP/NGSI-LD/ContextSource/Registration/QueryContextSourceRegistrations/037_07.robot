@@ -15,13 +15,14 @@ ${expectation_file_path}=   csourceRegistrations/expectations/context-source-reg
 
 *** Test Cases ***                        GEOREL                    GEOMETRY    COORDINATES                                                                         GEOPROPERTY         EXPECTATION_FILE_PATH
 Near Point                                near;maxDistance==2000    Point       [-8.503,41.202]                                                                     ${EMPTY}            ${expectation_file_path}
+    [Tags]   csr-query    5_10_2
 Within Polygon                            within                    Polygon     [[-13.503,47.202],[6.541, 52.961],[20.37,44.653],[9.46,32.57],[-15.23,21.37]]       location            ${expectation_file_path}
+    [Tags]   csr-query    5_10_2
 
 *** Keywords ***
 Query Context Source Registration Matching Geoquery
     [Arguments]  ${georel}     ${geometry}   ${coordinates}     ${geoproperty}  ${expectation_file_path}
     [Documentation]  Check that you can query context source registrations. If present, the geoquery is matched against the GeoProperty identified in the geoquery
-    [Tags]  mandatory
 
     Query Context Source Registrations      context=${ngsild_test_suite_context}    type=Building   georel=${georel}    geometry=${geometry}  coordinates=${coordinates}  geoproperty=${geoproperty}
 

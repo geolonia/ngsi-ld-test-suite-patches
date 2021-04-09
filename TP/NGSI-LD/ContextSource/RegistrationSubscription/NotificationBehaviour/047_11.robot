@@ -16,13 +16,14 @@ ${context_source_registration_payload_file_path}=   csourceRegistrations/context
 
 *** Test Cases ***                        FILEPATH
 CreatedAt                                 csourceSubscriptions/subscription-temporalQ-createdAt-sample.jsonld
+    [Tags]   csrsub-notification    5_11_7
 ModifiedAt                                csourceSubscriptions/subscription-temporalQ-modifiedAt-sample.jsonld
+    [Tags]   csrsub-notification    5_11_7
 
 *** Keywords ***
 Receive cSourceNotification For Matching Context Source Registrations On Management Interval
     [Arguments]  ${filepath}
     [Documentation]  Check if a context source registration subscription defines temporalQ member with timeproperty createdAt or modifiedAt, the temporal query is matched against the managementInterval of matching context source registrations
-    [Tags]  mandatory
 
     ${subscription_id}=     Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=  Load Subscription Sample With Reachable Endpoint    ${filepath}    ${subscription_id}

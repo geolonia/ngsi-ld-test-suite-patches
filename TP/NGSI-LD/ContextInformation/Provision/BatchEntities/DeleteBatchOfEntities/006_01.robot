@@ -12,7 +12,7 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 *** Test Case ***
 Delete a batch of entities
     [Documentation]  Check that you can delete a batch of entities
-    [Tags]  mandatory
+    [Tags]   be-delete    5_6_10
 
     @{entities_ids_to_be_deleted}=  Create List   ${first_entity_id}     ${second_entity_id}
 

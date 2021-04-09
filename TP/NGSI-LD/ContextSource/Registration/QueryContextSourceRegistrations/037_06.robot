@@ -14,13 +14,14 @@ ${context_source_registration_payload_file_path}=   csourceRegistrations/context
 
 *** Test Cases ***                                  ATTRS_VALUE           EXPECTATION_FILE_PATH
 Query With Matching Properties And Relationships    name,locatedAt        csourceRegistrations/expectations/context-source-registrations-037-06-expectation.json
+    [Tags]   csr-query    5_10_2
 Query Without Properties And Relationships          ${EMPTY}              csourceRegistrations/expectations/context-source-registrations-037-06-expectation.json
+    [Tags]   csr-query    5_10_2
 
 *** Keywords ***
 Query Context Source Registration Matching Properties And Relationships Of RegistrationInfo
     [Arguments]  ${attrs_value}     ${expectation_file_path}
     [Documentation]  Check that you can query context source registrations matching property and relationships names of RegistrationInfo
-    [Tags]  mandatory
 
     Query Context Source Registrations      context=${ngsild_test_suite_context}    type=Building   attrs=${attrs_value}
 

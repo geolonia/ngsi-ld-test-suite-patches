@@ -14,7 +14,7 @@ ${vehicle_payload_file}=  2020-08-vehicule-temporal-representation-sample.jsonld
 *** Test Case ***
 Query the temporal evolution of entities with an invalid request
     [Documentation]  Check that you cannot query the temporal evolution of entities with an invalid request
-    [Tags]  mandatory
+    [Tags]   te-query    5_7_4
 
     Query Temporal Representation Of Entities   timerel=after    timeAt=2020-07-01T12:05:00Z    context=${ngsild_test_suite_context}
 

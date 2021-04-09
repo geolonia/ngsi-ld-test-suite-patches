@@ -15,7 +15,7 @@ ${expectation_file_path}=   csourceRegistrations/expectations/context-source-reg
 *** Test Case ***
 Query Context Source Registration Without Temporal Query
     [Documentation]  Check that you can query context source registrations. If no temporal query is present, only Context Source Registrations for Context Sources providing latest information are considered
-    [Tags]  mandatory
+    [Tags]   csr-query    5_10_2
 
     Query Context Source Registrations      context=${ngsild_test_suite_context}    type=Building
 

@@ -14,7 +14,7 @@ ${subscription_payload_file_path}=   csourceSubscriptions/subscription-sample.js
 *** Test Case ***
 Create Context Source Registration Subscription Without isActive Member
     [Documentation]  Check that you can create a context source registration subscription without providing isActive member and will be active by default
-    [Tags]  mandatory
+    [Tags]   csrsub-create    5_11_2
 
     ${subscription_payload}=  Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
 

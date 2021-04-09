@@ -16,13 +16,14 @@ ${expectation_file}=    vehicles-temporal-representation-021-09-expectation.json
 
 *** Test Cases ***                        GEOREL                    GEOMETRY    COORDINATES                                                                        GEOPROPERTY         EXPECTATION_FILE
 Near Point                                near;maxDistance==2000    Point       [-8.503,41.202]                                                                    ${EMPTY}            vehicles-temporal-representation-021-09-01-expectation.jsonld
+    [Tags]   te-query    5_7_4
 Within Polygon                            within                    Polygon     [[-13.503,47.202],[6.541, 52.961],[20.37,44.653],[9.46,32.57],[-15.23,21.37]]      location            vehicles-temporal-representation-021-09-02-expectation.jsonld
+    [Tags]   te-query    5_7_4
 
 *** Keywords ***
 Query the temporal evolution of entities matching the given NGSI-LD geo-query
     [Arguments]  ${georel}     ${geometry}   ${coordinates}     ${geoproperty}  ${expectation_file}
     [Documentation]  Check that you can query the temporal evolution of entities matching the given NGSI-LD geo-query
-    [Tags]  mandatory
 
     ${entity_types_to_be_retrieved}=  Catenate    SEPARATOR=,     Vehicle
     

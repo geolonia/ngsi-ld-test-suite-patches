@@ -15,7 +15,7 @@ ${vehicle_expectation_file}=  vehicle-temporal-representation-020-02-expectation
 *** Test Case ***
 Retrieve the temporal evolution of an entity using a context
     [Documentation]  Check that you can retrieve the temporal evolution of an entity using a context
-    [Tags]  mandatory
+    [Tags]   te-retrieve    5_7_3
 
     Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}   context=${ngsild_test_suite_context}
 

@@ -12,7 +12,7 @@ ${building_id_prefix}=  urn:ngsi-ld:Building:
 *** Test Case ***
 Delete a batch of non existing and existing entities
     [Documentation]  Check that you can delete a batch of non existing and existing entities
-    [Tags]  mandatory
+    [Tags]   be-delete    5_6_10
 
     ${new_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
     @{entities_ids_to_be_deleted}=  Create List   ${existing_entity_id}     ${new_entity_id}

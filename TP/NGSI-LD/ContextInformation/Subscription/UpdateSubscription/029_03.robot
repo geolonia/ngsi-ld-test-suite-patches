@@ -15,7 +15,7 @@ ${subscription_update_fragment_file_path}=   subscriptions/fragments/subscriptio
 *** Test Case ***
 Update Subscription With Invalid Fragment
     [Documentation]  Check that you cannot update a subcription: If the data types and restriction are not met by the Subscription Fragment, then an error of type BadRequestData shall be raised
-    [Tags]  mandatory
+    [Tags]   sub-update    5_8_2
 
     Update Subscription   ${subscription_id}     ${subscription_update_fragment_file_path}   ${CONTENT_TYPE_JSON}
 

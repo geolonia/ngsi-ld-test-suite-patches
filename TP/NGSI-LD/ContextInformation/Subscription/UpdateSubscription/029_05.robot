@@ -17,7 +17,7 @@ ${expected_expanded_subscription_payload_file_path}=   subscriptions/expectation
 *** Test Case ***
 Update Subscription With Term to Uri Expansion
     [Documentation]  Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed
-    [Tags]  mandatory
+    [Tags]   sub-update    5_8_2
 
     Update Subscription   ${subscription_id}     ${subscription_update_fragment_file_path}   ${CONTENT_TYPE_JSON}   context=${ngsild_test_suite_context}
 

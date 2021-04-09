@@ -17,7 +17,7 @@ ${subscription_payload_file_path}=   csourceSubscriptions/subscription-sample.js
 *** Test Case ***
 Receive cSourceNotification With Relevant Information
     [Documentation]  Check that instead of providing the original context source registration, implementations should return context source registration information relevant for the subscription, in particular only matching RegistrationInfo elements
-    [Tags]  mandatory
+    [Tags]   csrsub-notification    5_11_7
 
     ${context_source_registration_id}=     Generate Random Entity Id    ${context_source_registration_id_prefix}
     ${context_source_registration_payload}=  Load Test Sample    ${context_source_registration_payload_file_path}    ${context_source_registration_id}

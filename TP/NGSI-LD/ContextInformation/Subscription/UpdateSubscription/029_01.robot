@@ -8,7 +8,9 @@ Test Template  Update Subscription With Non present Or Invalid Id
 
 *** Test Cases ***          id
 NotPresentId                ${EMPTY}
+    [Tags]   sub-update    5_8_2
 InvalidId                   InvalidUri
+    [Tags]   sub-update    5_8_2
 
 *** Variable ***
 ${subscription_update_fragment_file_path}=   subscriptions/fragments/subscription-update-sample.json
@@ -17,7 +19,6 @@ ${subscription_update_fragment_file_path}=   subscriptions/fragments/subscriptio
 Update Subscription With Non present Or Invalid Id
     [Arguments]  ${id}
     [Documentation]  Check that you cannot update a subcription: If the Subscription id is not present or it is not a valid URI, then an error of type BadRequestData shall be raised
-    [Tags]  mandatory
 
     Update Subscription   ${id}     ${subscription_update_fragment_file_path}   ${CONTENT_TYPE_JSON}
 

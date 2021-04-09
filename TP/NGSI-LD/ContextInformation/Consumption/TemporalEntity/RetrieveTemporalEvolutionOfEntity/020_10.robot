@@ -15,7 +15,7 @@ ${vehicle_expectation_file}=  vehicle-temporal-representation-020-10-expectation
 *** Test Case ***
 Retrieve the temporal evolution of an entity with the simplified temporal representation
     [Documentation]  Check that you can retrieve the temporal evolution of an entity with the simplified temporal representation
-    [Tags]  mandatory
+    [Tags]   te-retrieve    5_7_3
 
     @{options}=  Create List   temporalValues
     Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}   options=${options}    context=${ngsild_test_suite_context}

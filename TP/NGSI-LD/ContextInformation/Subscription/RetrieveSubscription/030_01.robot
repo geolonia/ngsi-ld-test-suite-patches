@@ -7,13 +7,14 @@ Test Template  Retrieve Subscription With Non present Or Invalid Id
 
 *** Test Cases ***          id
 NotPresentId                ${EMPTY}
+    [Tags]   sub-retrieve    5_8_3
 InvalidId                   InvalidUri
+    [Tags]   sub-retrieve    5_8_3
 
 *** Keywords ***
 Retrieve Subscription With Non present Or Invalid Id
     [Arguments]  ${id}
     [Documentation]  Check that you cannot retrieve a subscription: If the subscription Id is not present or it is not a valid URI, then an error of type BadRequestData shall be raised
-    [Tags]  mandatory
 
     Retrieve Subscription   ${id}
 

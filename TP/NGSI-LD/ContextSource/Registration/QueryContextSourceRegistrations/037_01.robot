@@ -15,13 +15,14 @@ ${second_context_source_registration_payload_file_path}=   csourceRegistrations/
 
 *** Test Cases ***                       QUERY_PARAM_NAME   QUERY_PARAM_VALUE     EXPECTATION_FILE_PATH                                                                         EXPECTED_CONTEXT_SOURCE_REGISTRATION_IDS
 With list of entity types                type               Building              csourceRegistrations/expectations/context-source-registrations-037-01-expectation.json        ${first_context_source_registration_id}     ${second_context_source_registration_id}
+    [Tags]   csr-query    5_10_2
 With list of attribute names             attrs              name                  csourceRegistrations/expectations/context-source-registrations-037-01-expectation.json        ${second_context_source_registration_id}
+    [Tags]   csr-query    5_10_2
 
 *** Keywords ***
 Query Context Source Registration
     [Arguments]  ${query_param_name}     ${query_param_value}    ${expectation_file_path}   @{expected_context_source_registration_ids}
     [Documentation]  Check that you can query context source registrations if at least one of list of Entity Types or list of Attribute names is present
-    [Tags]  mandatory
 
     Query Context Source Registrations      context=${ngsild_test_suite_context}    ${query_param_name}=${query_param_value}
 

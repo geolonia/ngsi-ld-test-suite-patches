@@ -16,7 +16,7 @@ ${expectation_file_path}=   csourceSubscriptions/expectations/subscriptions-035-
 *** Test Case ***
 Query Context Source Registration Subscriptions
     [Documentation]  Check that you can query context source registration subscriptions
-    [Tags]  mandatory
+    [Tags]   csrsub-query    5_11_5
 
     Query Context Source Registration Subscriptions  context=${ngsild_test_suite_context}
 

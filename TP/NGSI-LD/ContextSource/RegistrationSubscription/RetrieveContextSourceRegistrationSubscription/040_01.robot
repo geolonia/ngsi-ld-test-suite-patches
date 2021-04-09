@@ -15,7 +15,7 @@ ${expectation_file_path}=   csourceSubscriptions/expectations/subscriptions-040-
 *** Test Case ***
 Retrieve Context Source Registration Subscription
     [Documentation]  Check that you can retrieve a context source registration subscription
-    [Tags]  mandatory
+    [Tags]   csrsub-retrieve    5_11_4
 
     Retrieve Context Source Registration Subscription  ${subscription_id}   context=${ngsild_test_suite_context}
 

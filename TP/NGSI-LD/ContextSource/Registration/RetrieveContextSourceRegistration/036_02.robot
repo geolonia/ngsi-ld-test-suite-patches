@@ -7,7 +7,7 @@ Resource    ${EXECDIR}/resources/JsonUtils.resource
 *** Test Case ***
 Retrieve Unknown Context Source Registration
     [Documentation]  Check that you cannot retrieve a Context Source Registration, if the NGSI-LD endpoint does not know about the target context source registration, because there is no existing context source registration whose id (URI) is equivalent
-    [Tags]  mandatory
+    [Tags]   csr-retrieve    5_10_1
 
     Retrieve Context Source Registration  urn:ngsi-ld:ContextSourceRegistration:unknowRegistration
 

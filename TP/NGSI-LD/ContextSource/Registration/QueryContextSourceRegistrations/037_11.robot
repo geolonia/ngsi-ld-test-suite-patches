@@ -16,14 +16,16 @@ ${third_context_source_registration_payload_file_path}=   csourceRegistrations/c
 
 *** Test Cases ***                        LIMIT         PAGE         EXPECTED_NUMBER                PREV_LINK                                                                                                   NEXT_LINK
 Query Second Subscription                 ${1}          ${2}          ${1}                          </ngsi-ld/v1/csourceRegistrations?type=Building&limit=1&page=1>;rel="prev";type="application/ld+json"       </ngsi-ld/v1/csourceSubscriptions?type=Building&limit=1&page=3>;rel="next";type="application/ld+json"
+    [Tags]   csr-query    5_10_2
 Query Last Subscription                   ${2}          ${2}          ${1}                          </ngsi-ld/v1/csourceRegistrations?type=Building&limit=2&page=1>;rel="prev";type="application/ld+json"       ${EMPTY}
+    [Tags]   csr-query    5_10_2
 Query All Subscriptions                   ${15}         ${1}          ${3}                          ${EMPTY}                                                                                                    ${EMPTY}
+    [Tags]   csr-query    5_10_2
 
 *** Keywords ***
 Query Context Source Registration With Limit And Page Parameters
     [Arguments]  ${limit}     ${page}      ${expected_number}   ${prev_link}  ${next_link}
     [Documentation]  Check that you can query context source registrations with providing page and limit parameters, pagination logic shall be in place as mandated by clause 5.5.9.
-    [Tags]  mandatory
 
     Query Context Source Registrations      context=${ngsild_test_suite_context}   type=Building    limit=${limit}      page=${page}
 

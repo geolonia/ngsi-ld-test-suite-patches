@@ -15,7 +15,7 @@ ${expectation_file_path}=   csourceRegistrations/expectations/context-source-reg
 *** Test Case ***
 Query Context Source Registrations Without Context
     [Documentation]  Check that you can query context source registrations. If a JSON-LD context is not provided, then all the query terms shall be resolved against the default JSON-LD @context
-    [Tags]  mandatory
+    [Tags]   csr-query    5_10_2
 
     Query Context Source Registrations  id=${context_source_registration_id}
 

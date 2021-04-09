@@ -14,7 +14,7 @@ ${vehicle_payload_file}=  2020-08-vehicule-temporal-representation-sample.jsonld
 *** Test Case ***
 Retrieve the temporal evolution of non-existing entity attributes
     [Documentation]  Check that you cannot retrieve the temporal evolution of non-existing entity attributes
-    [Tags]  mandatory
+    [Tags]   te-retrieve    5_7_3
 
     @{temporal_attributes_to_be_retrieved}=  Create List   unknownAttribute
     Retrieve Temporal Representation Of Entity   ${temporal_entity_representation_id}   attrs=${temporal_attributes_to_be_retrieved}    context=${ngsild_test_suite_context}

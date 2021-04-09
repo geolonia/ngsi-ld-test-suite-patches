@@ -14,7 +14,7 @@ ${subscription_payload_file_path}=   subscriptions/subscription-sample.jsonld
 *** Test Case ***
 Delete Subscription
     [Documentation]  Check that you can delete a subscription
-    [Tags]  mandatory
+    [Tags]   sub-delete    5_8_5
 
     Delete Subscription   ${subscription_id}
     Check Response Status Code Set To  204
