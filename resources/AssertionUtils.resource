@@ -34,8 +34,8 @@ Check Response Body Content
     ${all_ignored_paths}=   Create List     ${instance_id_regex_expr}   ${additional_ignored_path}
     Output  ${response_body}
     Output  ${entity_payload}
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity_payload}      ${all_ignored_paths}
-    Should Be True      ${comparison_result}   msg=Entity Comparison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${entity_payload}      ${response_body}    ${all_ignored_paths}
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Headers Containing Content-Type set to
     [Arguments]  ${response}    ${expected_content_type_content} 
@@ -93,8 +93,8 @@ Check Response Body Containing Entity element
     [Arguments]     ${expectation_filename}    ${entity_id}    ${response_body}
     ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/expectations/${expectation_filename}
     ${entity}=    Update Value To Json    ${entity_payload}     $..id   ${entity_id}
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entity}      ${instance_id_regex_expr}
-    Should Be True      ${comparison_result}   msg=Entity Comparison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${entity}      ${response_body}    ${instance_id_regex_expr}
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Body Containing List Containing Entity Elements
     [Arguments]     ${expectation_filename}    ${entities_ids}    ${response_body}
@@ -111,17 +111,15 @@ Check Response Body Containing List Containing Entity Elements With Different Ty
         ${entities_representation_payload}=    Update Value To Json    ${entities_representation_payload}     $.[${index}]..id   ${entity_representation_id}
         ${index}=    Evaluate    ${index} + 1
     END
-    Log  ${response_body}
-    Log  ${entities_representation_payload}
-    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${entities_representation_payload}      ${instance_id_regex_expr}
-    Should Be True      ${comparaison_result}   msg=Entity List Comparaison Failed
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${entities_representation_payload}      ${response_body}    ${instance_id_regex_expr}   group_by=id
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Body Containing EntityTemporal element
     [Arguments]     ${filename}    ${temporal_entity_representation_id}
     ${temporal_entity_representation_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/expectations/${filename}
     ${temporal_entity_representation}=    Update Value To Json    ${temporal_entity_representation_payload}     $..id   ${temporal_entity_representation_id}
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${temporal_entity_representation}      ${instance_id_regex_expr}
-    Should Be True      ${comparison_result}   msg=EntityTemporal Comparison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${temporal_entity_representation}      ${response['body']}    ${instance_id_regex_expr}
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Body Containing List Containing EntityTemporal elements
     [Arguments]     ${filename}    ${temporal_entities_representation_ids}
@@ -131,16 +129,16 @@ Check Response Body Containing List Containing EntityTemporal elements
         ${temporal_entities_representation_payload}=    Update Value To Json    ${temporal_entities_representation_payload}     $.[${index}]..id   ${temporal_entity_representation_id}
         ${index}=    Evaluate    ${index} + 1
     END
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${temporal_entities_representation_payload}      ${instance_id_regex_expr}
-    Should Be True      ${comparison_result}   msg=EntityTemporal List Comparison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${temporal_entities_representation_payload}      ${response['body']}    ${instance_id_regex_expr}    group_by=id
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Body Containing Subscription element
     [Arguments]     ${expectation_filename}    ${subscription_id}
     ${subscription_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
     ${subscription}=    Update Value To Json    ${subscription_payload}     $..id   ${subscription_id}
     ${ignored_keys}=    Create List     ${context_regex_expr}
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${subscription}  ${ignored_keys}
-    Should Be True      ${comparison_result}   msg=Subscription Comparison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${subscription}       ${response['body']}    ${ignored_keys}
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Body Containing List Containing Subscription elements
     [Arguments]     ${expectation_file_path}    ${subscription_ids}
@@ -151,8 +149,8 @@ Check Response Body Containing List Containing Subscription elements
         ${index}=    Evaluate    ${index} + 1
     END
     ${ignored_keys}=    Create List     ${context_regex_expr}
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${subscription_payload}  ${ignored_keys}
-    Should Be True      ${comparison_result}   msg=Subscription Comparison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${subscription_payload}      ${response['body']}    ${ignored_keys}
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 # Since response body can be a json object if it contains one element
 # A check on the response body type is needed
@@ -175,43 +173,43 @@ Check Response Body Containing Context Source Registration element
     ${context_source_registration_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
     ${context_source_registration}=    Update Value To Json    ${context_source_registration_payload}     $..id   ${context_source_registration_id}
     ${ignored_keys}=    Create List     ${context_regex_expr}
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${context_source_registration}  ${ignored_keys}
-    Should Be True      ${comparison_result}   msg=Context Source Registration Comparison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${context_source_registration}   ${response['body']}    ${ignored_keys}
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Body Containing EntityTypeList element
     [Arguments]     ${expectation_filename}
     ${entity_type_list_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
     ${ignored_keys}=    Create List     ${id_regex_expr}
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${entity_type_list_payload}  ${ignored_keys}
-    Should Be True      ${comparison_result}   msg=EntityTypeList Comparison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${entity_type_list_payload}      ${response['body']}    ${ignored_keys}
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Body Containing EntityType element
     [Arguments]     ${expectation_filename}
     ${entity_type_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
     ${ignored_keys}=    Create List
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${entity_type_payload}    ${ignored_keys}
-    Should Be True      ${comparison_result}   msg=EntityType Comparison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${entity_type_payload}    ${response['body']}    ${ignored_keys}
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Body Containing EntityTypeInfo element
     [Arguments]     ${expectation_filename}
     ${entity_type_info_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
     ${ignored_keys}=    Create List
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${entity_type_info_payload}    ${ignored_keys}
-    Should Be True      ${comparison_result}   msg=EntityTypeInfo Comparison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${entity_type_info_payload}    ${response['body']}    ${ignored_keys}
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Body Containing AttributeList element
     [Arguments]     ${expectation_filename}
     ${attribute_list_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
     ${ignored_keys}=    Create List     ${id_regex_expr}
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${attribute_list_payload}    ${ignored_keys}
-    Should Be True      ${comparison_result}   msg=AttributeList Comparison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${attribute_list_payload}    ${response['body']}    ${ignored_keys}
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Body Containing Attribute element
     [Arguments]     ${expectation_filename}
     ${attribute_payload}=    Load Json From File    ${EXECDIR}/data/${expectation_filename}
     ${ignored_keys}=    Create List
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${attribute_payload}    ${ignored_keys}
-    Should Be True      ${comparison_result}   msg=Attribute Comparison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${attribute_payload}    ${response['body']}    ${ignored_keys}
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Body Containing List Containing Context Source Registrations elements
     [Arguments]     ${expectation_file_path}    ${expected_context_source_registrations_ids}
@@ -221,8 +219,8 @@ Check Response Body Containing List Containing Context Source Registrations elem
         ${expected_context_source_registrations_payload}=    Update Value To Json    ${expected_context_source_registrations_payload}     $.[${index}]..id   ${expected_context_source_registration_id}
         ${index}=    Evaluate    ${index} + 1
     END
-    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${expected_context_source_registrations_payload}  ${EMPTY}
-    Should Be True      ${comparaison_result}   msg=Context Source Registration Comparaison Failed
+    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${expected_context_source_registrations_payload}    ${response['body']}    ${EMPTY}     group_by=id
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Body Type When Using Session Request
     [Arguments]     ${response}    ${type}
@@ -278,8 +276,8 @@ Check NotificationParams
 
     ${expected_notification}=    Load Json From File    ${EXECDIR}/data/${filename}
     ${ignored_keys}=    Create List     ${notification_timestamps_regex_expr}    ${notification_endpoint_uri_regex_expr}
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']['notification']}    ${expected_notification}      ${ignored_keys}
-    Should Be True      ${comparison_result}   msg=NotificationParams Comparison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${expected_notification}      ${response['body']['notification']}    ${ignored_keys}
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
     FOR    ${expected_additional_member}    IN    @{expected_additional_members}
         Should Not Be Empty     ${response['body']['notification']['${expected_additional_member}']}
@@ -296,41 +294,41 @@ Check Response Body Containing One Subscription element
     [Arguments]     ${expectation_filename}    ${response_body}
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceSubscriptions/expectations/${expectation_filename}
     ${subscription}=    Update Value To Json    ${payload}     $..id   ${response_body['id']}
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${subscription}      ${instance_id_regex_expr}
-    Should Be True      ${comparison_result}   msg=Entity Comparison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${subscription}      ${response_body}    ${instance_id_regex_expr}
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Body Containing One Registration element
     [Arguments]     ${expectation_filename}    ${response_body}
     ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/expectations/${expectation_filename}
     ${registration}=    Update Value To Json    ${payload}     $..id   ${response_body['id']}
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response_body}    ${registration}      ${instance_id_regex_expr}
-    Should Be True      ${comparison_result}   msg=Entity Comparison Failed
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${registration}      ${response_body}    ${instance_id_regex_expr}
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Resource Set To
-    [Arguments]  ${resource}       ${ignored_keys}=${None}      ${error_message}=${EMPTY}
+    [Arguments]  ${expected_resource}       ${ignored_keys}=${None}     ${group_by}=${None}
 
-    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${response['body']}    ${resource}     ${ignored_keys}
-    Should Be True      ${comparison_result}   msg=${error_message}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${expected_resource}     ${response['body']}    ${ignored_keys}      ${group_by}
+    Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Created Resource Set To
     [Arguments]  ${created_resource}       ${ignored_keys}=${None}
 
-    Check Resource Set To   ${created_resource}     ${ignored_keys}     Created Resource Comparison Failed
+    Check Resource Set To   ${created_resource}     ${ignored_keys}
 
 Check Created Resources Set To
-    [Arguments]  ${created_resources}   ${ignored_keys}=${None}
+    [Arguments]  ${expected_resources}   ${ignored_keys}=${None}
 
-    Check Resource Set To   ${created_resources}     ${ignored_keys}     Created Resources Comparison Failed
+    Check Resource Set To   ${expected_resources}     ${ignored_keys}       group_by=id
 
 Check Updated Resource Set To
     [Arguments]  ${updated_resource}    ${ignored_keys}=${None}
 
-    Check Resource Set To   ${updated_resource}     ${ignored_keys}     Updated Resource Comparison Failed
+    Check Resource Set To   ${updated_resource}     ${ignored_keys}
 
 Check Updated Resources Set To
     [Arguments]  ${updated_resources}   ${ignored_keys}=${None}
 
-    Check Resource Set To   ${updated_resources}     ${ignored_keys}     Updated Resources Comparison Failed
+    Check Resource Set To   ${updated_resources}     ${ignored_keys}        group_by=id
 
 Check SUT Not Containing Resource
     ${response_status}=  convert to string  ${response['status']}
