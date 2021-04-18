@@ -72,6 +72,18 @@ Optionally, you can generate metrics from the results of tests:
 
 A sample report can be seen at https://robotmetrics.netlify.app/#
 
+## Generate a documentation for the support keywords
+
+```$ python3 -m robot.libdoc resources/ApiUtils.resource api_docs/ApiUtils.html```
+
+## Generate a documentation for the Test Cases
+
+```$ python3 -m robot.testdoc TP/NGSI-LD api_docs/TestCases.html```
+
+## Tidy the Test Cases
+
+```$ python3 -m robot.tidy --recursive TP/NGSI-LD```
+
 # Frameworks and libraries used in the project
 
 * [Robot Framework](https://github.com/robotframework/robotframework)

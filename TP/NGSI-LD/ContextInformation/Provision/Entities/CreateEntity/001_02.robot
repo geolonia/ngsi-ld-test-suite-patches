@@ -1,23 +1,25 @@
 *** Settings ***
-Documentation   Check that you cannot create an entity with an invalid request
-Resource    ${EXECDIR}/resources/ApiUtils.resource
-Resource    ${EXECDIR}/resources/AssertionUtils.resource
+Documentation     Check that you cannot create an entity with an invalid request
+Resource          ${EXECDIR}/resources/ApiUtils.resource
+Resource          ${EXECDIR}/resources/AssertionUtils.resource
+Test Template     Create Entity With Invalid Request Scenarios
 
-Test Template  Create Entity With Invalid Request Scenarios
+*** Test Cases ***    FILENAME
+001_02_01_InvalidJson
+                      invalid-json-sample.jsonld
 
-*** Test Cases ***                           FILENAME                         
-001_02_01_InvalidJson                        invalid-json-sample.jsonld            
-001_02_02_EmptyJson                          empty-sample.jsonld
-001_02_03_EntityWithNoContext                building-minimal-without-context-sample.jsonld      
+001_02_02_EmptyJson
+                      empty-sample.jsonld
+
+001_02_03_EntityWithNoContext
+                      building-minimal-without-context-sample.jsonld
 
 *** Keywords ***
 Create Entity With Invalid Request Scenarios
-    [Arguments]  ${filename}
-    [Documentation]  Check that you cannot create an entity with an invalid request
-    [Tags]   e-create    5_6_1
-
-    Request Entity From File   ${filename}
-
+    [Arguments]    ${filename}
+    [Documentation]    Check that you cannot create an entity with an invalid request
+    [Tags]    e-create    5_6_1
+    Request Entity From File    ${filename}
     Check RL Response Status Code Set To    400
-    Check RL Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_BAD_REQUEST_DATA}
+    Check RL Response Body Containing ProblemDetails Element Containing Type Element set to    ${response}    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check RL Response Body Containing ProblemDetails Element Containing Title Element    ${response}

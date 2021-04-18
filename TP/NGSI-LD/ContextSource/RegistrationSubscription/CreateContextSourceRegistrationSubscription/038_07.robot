@@ -1,38 +1,31 @@
 *** Settings ***
-Documentation   Check that you cannot create a context source registration subscription where another context source registration subscription whose id is equivalent exists
-Resource    ${EXECDIR}/resources/ApiUtils.resource
-Resource    ${EXECDIR}/resources/AssertionUtils.resource
-Resource    ${EXECDIR}/resources/JsonUtils.resource
-
-Suite Setup      Setup Initial Context Source Registration Subscriptions
-Suite Teardown      Delete Initial Context Source Registration Subscriptions
+Documentation     Check that you cannot create a context source registration subscription where another context source registration subscription whose id is equivalent exists
+Resource          ${EXECDIR}/resources/ApiUtils.resource
+Resource          ${EXECDIR}/resources/AssertionUtils.resource
+Resource          ${EXECDIR}/resources/JsonUtils.resource
+Suite Setup       Setup Initial Context Source Registration Subscriptions
+Suite Teardown    Delete Initial Context Source Registration Subscriptions
 
 *** Variable ***
-${subscription_id_prefix}=  urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=   csourceSubscriptions/subscription-sample.jsonld
+${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
+${subscription_payload_file_path}=    csourceSubscriptions/subscription-sample.jsonld
 
 *** Test Case ***
 Create Existing Context Source Registration Subscription
-    [Documentation]  Check that you cannot create a context source registration subscription where another context source registration subscription whose id is equivalent exists
-    [Tags]   csrsub-create    5_11_2
-
-    ${subscription_payload}=  Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
-
-    Create Context Source Registration Subscription  ${subscription_payload}
-
-    Check Response Status Code Set To  409
-    Check Response Body Containing ProblemDetails Element Containing Type Element set to      ${response}     ${ERROR_TYPE_ALREADY_EXISTS}
+    [Documentation]    Check that you cannot create a context source registration subscription where another context source registration subscription whose id is equivalent exists
+    [Tags]    csrsub-create    5_11_2
+    ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
+    Create Context Source Registration Subscription    ${subscription_payload}
+    Check Response Status Code Set To    409
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to    ${response}    ${ERROR_TYPE_ALREADY_EXISTS}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
-
 
 *** Keywords ***
 Setup Initial Context Source Registration Subscriptions
-    ${subscription_id}=     Generate Random Entity Id    ${subscription_id_prefix}
-    ${subscription_payload}=  Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
-
-    Create Context Source Registration Subscription  ${subscription_payload}
-
-    Set Suite Variable  ${subscription_id}
+    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
+    Create Context Source Registration Subscription    ${subscription_payload}
+    Set Suite Variable    ${subscription_id}
 
 Delete Initial Context Source Registration Subscriptions
-    Delete Context Source Registration Subscription     ${subscription_id}
+    Delete Context Source Registration Subscription    ${subscription_id}

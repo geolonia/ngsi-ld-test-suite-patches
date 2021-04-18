@@ -1,51 +1,50 @@
 *** Settings ***
-Documentation   Check that you can upsert a batch of existing entities and they will be replaced
-Resource    ${EXECDIR}/resources/ApiUtils.resource
-Resource    ${EXECDIR}/resources/AssertionUtils.resource
-Resource    ${EXECDIR}/resources/JsonUtils.resource
-
-Suite Setup      Setup Initial Entities
-Test Template  Batch Upsert Existing Entities Scenarios
-Suite Teardown      Delete Initial Entities
+Documentation     Check that you can upsert a batch of existing entities and they will be replaced
+Resource          ${EXECDIR}/resources/ApiUtils.resource
+Resource          ${EXECDIR}/resources/AssertionUtils.resource
+Resource          ${EXECDIR}/resources/JsonUtils.resource
+Suite Setup       Setup Initial Entities
+Test Template     Batch Upsert Existing Entities Scenarios
+Suite Teardown    Delete Initial Entities
 
 *** Variable ***
-${building_id_prefix}=  urn:ngsi-ld:Building:
+${building_id_prefix}=    urn:ngsi-ld:Building:
 
-*** Test Cases ***                        FILENAME
-EntityWithSimpleProperties                building-simple-attributes-sample.jsonld
-    [Tags]   be-upsert    5_6_8
-EntityWithSimpleRelationships             building-relationship-sample.jsonld
-    [Tags]   be-upsert    5_6_8
-EntityWithRelationshipsProperties         building-relationship-of-property-sample.jsonld
-    [Tags]   be-upsert    5_6_8
+*** Test Cases ***    FILENAME
+EntityWithSimpleProperties
+                      building-simple-attributes-sample.jsonld
+                      [Tags]                                             be-upsert    5_6_8
+
+EntityWithSimpleRelationships
+                      building-relationship-sample.jsonld
+                      [Tags]                                             be-upsert    5_6_8
+
+EntityWithRelationshipsProperties
+                      building-relationship-of-property-sample.jsonld
+                      [Tags]                                             be-upsert    5_6_8
 
 *** Keywords ***
 Batch Upsert Existing Entities Scenarios
-    [Arguments]  ${filename}
-    [Documentation]  Check that you can upsert a batch of existing entities
-
-    ${first_existing_entity}=    Load Entity    ${filename}      ${first_existing_entity_id}
-    ${second_existing_entity}=    Load Entity    ${filename}      ${second_existing_entity_id}
-    @{entities_to_be_upserted}=  Create List   ${first_existing_entity}     ${second_existing_entity}
-
-    Batch Upsert Entities   @{entities_to_be_upserted}
-
-    Check Response Status Code Set To  204
-
-    @{upserted_entities_ids}=  Create List   ${first_existing_entity_id}    ${second_existing_entity_id}
-    ${expected_updated_entities_ids}=  Catenate    SEPARATOR=,     @{upserted_entities_ids}
-    Query Entities    ${expected_updated_entities_ids}  Building    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
-    Check Updated Resources Set To   ${entities_to_be_upserted}
+    [Arguments]    ${filename}
+    [Documentation]    Check that you can upsert a batch of existing entities
+    ${first_existing_entity}=    Load Entity    ${filename}    ${first_existing_entity_id}
+    ${second_existing_entity}=    Load Entity    ${filename}    ${second_existing_entity_id}
+    @{entities_to_be_upserted}=    Create List    ${first_existing_entity}    ${second_existing_entity}
+    Batch Upsert Entities    @{entities_to_be_upserted}
+    Check Response Status Code Set To    204
+    @{upserted_entities_ids}=    Create List    ${first_existing_entity_id}    ${second_existing_entity_id}
+    ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{upserted_entities_ids}
+    Query Entities    ${expected_updated_entities_ids}    Building    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
+    Check Updated Resources Set To    ${entities_to_be_upserted}
 
 Setup Initial Entities
-    ${first_existing_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
-    ${second_existing_entity_id}=     Generate Random Entity Id    ${building_id_prefix}
-    Create Entity  building-minimal-sample.jsonld     ${first_existing_entity_id}
-    Create Entity  building-minimal-sample.jsonld     ${second_existing_entity_id}
-
-    Set Suite Variable  ${first_existing_entity_id}
-    Set Suite Variable  ${second_existing_entity_id}
+    ${first_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${second_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Create Entity    building-minimal-sample.jsonld    ${first_existing_entity_id}
+    Create Entity    building-minimal-sample.jsonld    ${second_existing_entity_id}
+    Set Suite Variable    ${first_existing_entity_id}
+    Set Suite Variable    ${second_existing_entity_id}
 
 Delete Initial Entities
-    @{entities_ids_to_be_deleted}=  Create List   ${first_existing_entity_id}     ${second_existing_entity_id}
-    Batch Delete Entities       @{entities_ids_to_be_deleted}       teardown=True
+    @{entities_ids_to_be_deleted}=    Create List    ${first_existing_entity_id}    ${second_existing_entity_id}
+    Batch Delete Entities    @{entities_ids_to_be_deleted}    teardown=True
