@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Check that a notification is only sent if and only if the status is active
+Documentation     If a Subscription defines a timeInterval member, a Notification shall be sent periodically, when the time interval (in seconds) specified in such value field is reached, regardless of Attribute changes."
 Resource          ${EXECDIR}/resources/ApiUtils.resource
 Resource          ${EXECDIR}/resources/AssertionUtils.resource
 Resource          ${EXECDIR}/resources/JsonUtils.resource
@@ -18,7 +18,7 @@ ${building_id_prefix}=    urn:ngsi-ld:Building:
 *** Test Case ***
 Check that a notification is only sent if statis is active
     [Arguments]      ${fragment_filename}    
-    [Documentation]     Check that a notification is only sent if and only if the status is active
+    [Documentation]     If a Subscription defines a timeInterval member, a Notification shall be sent periodically, when the time interval (in seconds) specified in such value field is reached, regardless of Attribute changes."
     [Tags]    sub-notification    5_11_7
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint    ${timeinterval_subscription_payload_file_path}    ${subscription_id}
