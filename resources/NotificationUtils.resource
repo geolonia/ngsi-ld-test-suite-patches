@@ -55,6 +55,35 @@ Wait for notification and validate it
     # TODO Currently we check entities information of the first CSR returned in the notification, find a way to check them all
     Run Keyword If     ${expected_notification_data_entities_length}>0       Check Notification Data Entities  ${notification}[data][0][information]    ${expected_notification_data_entities}
 
+Wait for subscription notification and validate it
+    [Arguments]  ${expected_subscription_id}  ${expected_notification_data_entities}=${EMPTY}  ${timeout}=${5}
+    #HTTP server receives it and checks incoming request for correctness
+    #.. "Wait For Request"
+    #.... This call is blocked until HTTP request arrives or timeout.
+    #.... Further detaills: https://annoviko.github.io/robotframework-httpctrl/server.html#Wait%20For%20Request
+    Wait For Request    ${timeout}
+    Reply By   200
+
+    ${notification_payload}=     Get Request Body
+    ${notification}    Evaluate    json.loads('''${notification_payload}''')    json
+    ${notification_data_length}=    Get length    ${notification}[data]
+    ${expected_notification_data_entities_length}=    Get length    ${expected_notification_data_entities}
+   
+
+    log     ${notification}
+    Should Be Equal     ${notification}[type]   ${notification_type}
+    Should Be Equal     ${notification}[subscriptionId]   ${expected_subscription_id}
+    ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}
+    Should Be True      ${is_date}
+    ${index}=    Set Variable    0
+    
+    Should Be Equal     '${notification_data_length}'     '${expected_notification_data_length}'
+    
+    # TODO Currently we check entities information of the first CSR returned in the notification, find a way to check them all
+    Run Keyword If     ${expected_notification_data_entities_length}>0       Check Notification Data Entities  ${notification}[data][0][information]    ${expected_notification_data_entities}
+
+
+
 Wait for no notification
     [Arguments]  ${timeout}=${5}
     #HTTP server receives it and checks incoming request for correctness

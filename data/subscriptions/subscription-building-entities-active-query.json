@@ -1,0 +1,18 @@
+{
+   "type":"Subscription",
+   "isActive": true,
+   "expiresAt": null,
+   "entities":[
+      {
+         "type":"Building"
+      }
+   ],
+   "q":"name=\"Eifel Tower\"",
+   "notification":{
+      "format":"keyValues",
+      "endpoint":{
+         "uri":"http://my.endpoint.org/notify",
+         "accept":"application/json"
+      }
+   }
+}
