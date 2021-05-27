@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     If a Subscription defines a timeInterval member, a Notification shall be sent periodically, when the time interval (in seconds) specified in such value field is reached, regardless of Attribute changes."
+Documentation     A notification with all all subscribed Entities will be included if query or geoquery are not defined.
 Resource          ${EXECDIR}/resources/ApiUtils.resource
 Resource          ${EXECDIR}/resources/AssertionUtils.resource
 Resource          ${EXECDIR}/resources/JsonUtils.resource
@@ -16,9 +16,9 @@ ${building_id_prefix}=    urn:ngsi-ld:Building:
 
 
 *** Test Case ***
-Check that a notification is send on the timeinterval
+Check that a notification is send with all entities
     [Arguments]      ${fragment_filename}    
-    [Documentation]     If a Subscription defines a timeInterval member, a Notification shall be sent periodically, when the time interval (in seconds) specified in such value field is reached, regardless of Attribute changes."
+    [Documentation]     A notification with all all subscribed Entities will be included if query or geoquery are not defined.
     [Tags]    sub-notification    5_11_7
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint    ${timeinterval_subscription_payload_file_path}    ${subscription_id}
