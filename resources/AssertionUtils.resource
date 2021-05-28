@@ -315,6 +315,13 @@ Check Created Resource Set To
 
     Check Resource Set To   ${created_resource}     ${ignored_keys}
 
+Check Subscription Failed
+    [Arguments]  ${subscription}       
+
+    Should Be True ${sub}
+
+    Check Resource Set To   ${created_resource}     ${ignored_keys}
+
 Check Created Resources Set To
     [Arguments]  ${expected_resources}   ${ignored_keys}=${None}
 
@@ -336,3 +343,4 @@ Check SUT Not Containing Resource
 
 Check SUT Not Containing Resources
     Should Be Empty     ${response['body']}
+

@@ -103,6 +103,28 @@ Check Notification Data Entities
 
     Lists Should Be Equal  ${expected_notification_data_entities}        ${notification_data_entities}     ignore_order=True
 
+
+Check Notification Date
+    [Arguments]  ${expected_subscription_id}  ${expected_notification_data_entities}=${EMPTY}  ${timeout}=${5}
+    #HTTP server receives it and checks incoming request for correctness
+    #.. "Wait For Request"
+    #.... This call is blocked until HTTP request arrives or timeout.
+    #.... Further detaills: https://annoviko.github.io/robotframework-httpctrl/server.html#Wait%20For%20Request
+    Wait For Request    ${timeout}
+    Reply By   200
+
+    ${notification_payload}=     Get Request Body
+    ${notification}    Evaluate    json.loads('''${notification_payload}''')    json
+    ${notification_data_length}=    Get length    ${notification}[data]
+    ${expected_notification_data_entities_length}=    Get length    ${expected_notification_data_entities}
+   
+
+    log     ${notification}
+    ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}
+    Should Be True      ${is_date}
+    
+
+
 Stop Local Server
     #Terminate HTTP Server
     Stop Server

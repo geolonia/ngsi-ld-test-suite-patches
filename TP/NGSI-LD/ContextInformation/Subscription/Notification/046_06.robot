@@ -10,7 +10,7 @@ Suite Teardown    Delete Initial Subscriptions
 
 *** Variable ***
 ${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=    subscriptions/subscription-building-entities-active.jsonld
+${subscription_payload_file_path}=    subscriptions/subscription-building-entities-active-query.jsonld
 ${building_id_prefix}=    urn:ngsi-ld:Building:
 ${building_filename}=    building-location-attribute.jsonld
 

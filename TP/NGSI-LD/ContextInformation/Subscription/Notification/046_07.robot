@@ -1,5 +1,9 @@
 *** Settings ***
 Documentation     Check that a notification is only sent if and only if the status is active
+
+
+
+
 Resource          ${EXECDIR}/resources/ApiUtils.resource
 Resource          ${EXECDIR}/resources/AssertionUtils.resource
 Resource          ${EXECDIR}/resources/JsonUtils.resource
@@ -25,6 +29,7 @@ Check that a notification is only sent if statis is active
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
 
     @{expected_notification_data_entities}=    Create List    Building
+    Wait for notification and validate it    ${subscription_id}    ${expected_context_source_registration_ids}    newlyMatching    ${expected_notification_data_entities}
 
     Set Suite Variable    ${subscription_id}
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
