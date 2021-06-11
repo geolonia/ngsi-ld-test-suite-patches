@@ -1,13 +1,9 @@
 *** Settings ***
 Documentation     If the response to the notification request is different than 200 OK then implementations shall: Update notification.lastFailure with a timestamp representing the current date and time., Update notification.status to "failed
-
-
 Resource          ${EXECDIR}/resources/ApiUtils.resource
 Resource          ${EXECDIR}/resources/AssertionUtils.resource
 Resource          ${EXECDIR}/resources/JsonUtils.resource
 Resource          ${EXECDIR}/resources/NotificationUtils.resource
-
-
 Suite Setup       Setup Initial Subscriptions
 Suite Teardown    Delete Initial Subscriptions
 
@@ -19,7 +15,7 @@ ${building_id_prefix}=    urn:ngsi-ld:Building:
 
 
 
-*** Test Case ***
+*** Keywords ***
 Check that a notification is only sent if statis is active
     [Arguments]      ${fragment_filename}    
     [Documentation]     If the response to the notification request is different than 200 OK then implementations shall: Update notification.lastFailure with a timestamp representing the current date and time., Update notification.status to "failed

@@ -12,11 +12,16 @@ ${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=    subscriptions/subscription-building-entities-active.jsonld
 ${building_id_prefix}=    urn:ngsi-ld:Building:
 
+*** Keywords ***
+Setup Initial Subscriptions
+    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    Create Subscription    ${subscription_id}    ${subscription_payload_file_path}    ${CONTENT_TYPE_LD_JSON}
+    Set Suite Variable    ${subscription_id}
 
+Delete Initial Subscriptions
+    Delete Subscription    ${subscription_id}
 
-
-*** Test Case ***
-Check that a notification is only sent if statis is active
+Check that a notification is only sent if status is active
     [Arguments]      ${fragment_filename}    
     [Documentation]     Check that a notification is only sent if and only if the status is active
     [Tags]    sub-notification    5_11_7

@@ -17,7 +17,7 @@ ${building_id_prefix}=    urn:ngsi-ld:Building:
 
 
 
-*** Test Case ***
+*** Keywords ***
 Check that a notification is only sent if statis is active
     [Arguments]      ${fragment_filename}    
     [Documentation]     The Notification content shall be JSON by default.

@@ -9,15 +9,20 @@ Suite Teardown    Delete Initial Subscriptions
 
 *** Variable ***
 ${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}= subscriptions/subscription-timeinterval-sample.jsonld
+${subscription_payload_file_path}=    subscriptions/subscription-timeInterval-sample.jsonld
 ${building_id_prefix}=    urn:ngsi-ld:Building:
 
+*** Keywords ***
+Setup Initial Subscriptions
+    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    Create Subscription    ${subscription_id}    ${subscription_payload_file_path}    ${CONTENT_TYPE_LD_JSON}
+    Set Suite Variable    ${subscription_id}
 
-
+Delete Initial Subscriptions
+    Delete Subscription    ${subscription_id}
 
 *** Test Case ***
 Check that a notification is send on the timeinterval
-    [Arguments]      ${fragment_filename}    
     [Documentation]     If a Subscription defines a timeInterval member, a Notification shall be sent periodically, when the time interval (in seconds) specified in such value field is reached, regardless of Attribute changes."
     [Tags]    sub-notification    5_11_7
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}

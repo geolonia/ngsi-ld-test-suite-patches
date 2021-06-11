@@ -18,7 +18,7 @@ ${building_id_prefix}=    urn:ngsi-ld:Building:
 
 
 
-*** Test Case ***
+*** Keywords ***
 Check that a notification is only sent if statis is active
     [Arguments]      ${fragment_filename}    
     [Documentation]     A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.info defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.14
