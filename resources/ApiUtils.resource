@@ -691,6 +691,16 @@ Create Subscription
     Output  response
     [return]   ${response}
 
+Create Subscription From Subscription Payload
+    [Arguments]  ${subscription_payload}    ${content_type}=${CONTENT_TYPE_LD_JSON}    ${accept}=${EMPTY}    ${context}=${EMPTY}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    ${response}=  POST  ${SUBSCRIPTION_ENDPOINT_PATH}  body=${subscription_payload}  headers=${headers}
+    Output  request
+    Output  response
+
+
 Create Subscription From File
     [Arguments]  ${filename}
     ${file_content}=    Get File    ${EXECDIR}/data/subscriptions/${filename}

@@ -9,11 +9,14 @@ Library     ${EXECDIR}/libraries/dateTimeUtils.py
 *** Variable ***
 ${notification_type}=  ContextSource Notfication
 ${date_format}=  %Y-%m-%dT%H:%M:%SZ
+${date_format_with_millis}=  %Y-%m-%dT%H:%M:%S.%fZ
+
 
 *** Keywords ***
-Start Local Server
+Start Local Server    
+    [Arguments]  ${host}=${notification_server_host}    ${port}=${notification_server_port}
     #Initialize HTTP Client And Server
-    Start Server        0.0.0.0   8085
+    Start Server        ${host}   ${port}
 
 Wait for notification
     [Arguments]  ${timeout}=${5}
@@ -56,7 +59,7 @@ Wait for notification and validate it
     Run Keyword If     ${expected_notification_data_entities_length}>0       Check Notification Data Entities  ${notification}[data][0][information]    ${expected_notification_data_entities}
 
 Wait for subscription notification and validate it
-    [Arguments]  ${expected_subscription_id}  ${expected_notification_data_entities}=${EMPTY}  ${timeout}=${5}
+    [Arguments]  ${expected_subscription_id}  ${expected_notification_data_entities}=${EMPTY}  ${timeout}=${5}    ${expected_notification_type}=${notification_type}
     #HTTP server receives it and checks incoming request for correctness
     #.. "Wait For Request"
     #.... This call is blocked until HTTP request arrives or timeout.
@@ -71,16 +74,15 @@ Wait for subscription notification and validate it
    
 
     log     ${notification}
-    Should Be Equal     ${notification}[type]   ${notification_type}
+    Should Be Equal     ${notification}[type]   ${expected_notification_type}
     Should Be Equal     ${notification}[subscriptionId]   ${expected_subscription_id}
     ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}
-    Should Be True      ${is_date}
+    ${is_date_with_millis}=    Is Date    ${notification}[notifiedAt]    ${date_format_with_millis}
+    Should Be True    ${is_date} or ${is_date_with_millis}
     ${index}=    Set Variable    0
     
-    Should Be Equal     '${notification_data_length}'     '${expected_notification_data_length}'
-    
     # TODO Currently we check entities information of the first CSR returned in the notification, find a way to check them all
-    Run Keyword If     ${expected_notification_data_entities_length}>0       Check Notification Data Entities  ${notification}[data][0][information]    ${expected_notification_data_entities}
+    # Run Keyword If     ${expected_notification_data_entities_length}>0       Check Notification Data Entities  ${notification}[data][0][information]    ${expected_notification_data_entities}
 
 
 
