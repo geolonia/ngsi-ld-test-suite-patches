@@ -3,7 +3,7 @@
     "type": "Building",
     "name": {
         "type": "Property",
-        "value": "Eiffel Tower"
+        "value": "Eifel Tower"
     },
     "subCategory": {
         "type": "Property",
