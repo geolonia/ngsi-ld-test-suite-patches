@@ -27,6 +27,10 @@ Wait for notification
     Wait For Request    ${timeout}
     Reply By   200
 
+    ${notification_payload}=     Get Request Body
+    ${notification}    Evaluate    json.loads('''${notification_payload}''')    json
+    [Return]    ${notification}
+
 Wait for notification and validate it
     [Arguments]  ${expected_subscription_id}     ${expected_context_source_registration_ids}      ${expected_trigger_reason}      ${expected_notification_data_entities}=${EMPTY}     ${timeout}=${5}
     #HTTP server receives it and checks incoming request for correctness
@@ -60,6 +64,7 @@ Wait for notification and validate it
 
 Wait for subscription notification and validate it
     [Arguments]  ${expected_subscription_id}  ${expected_notification_data_entities}=${EMPTY}  ${timeout}=${5}    ${expected_notification_type}=${notification_type}
+    Wait for subscription notification    ${expected_subscription_id}    ${expected_notification_data_entities}    ${timeout}    ${expected_notification_type} 
     #HTTP server receives it and checks incoming request for correctness
     #.. "Wait For Request"
     #.... This call is blocked until HTTP request arrives or timeout.
@@ -71,7 +76,6 @@ Wait for subscription notification and validate it
     ${notification}    Evaluate    json.loads('''${notification_payload}''')    json
     ${notification_data_length}=    Get length    ${notification}[data]
     ${expected_notification_data_entities_length}=    Get length    ${expected_notification_data_entities}
-   
 
     log     ${notification}
     Should Be Equal     ${notification}[type]   ${expected_notification_type}
@@ -82,7 +86,8 @@ Wait for subscription notification and validate it
     ${index}=    Set Variable    0
     
     # TODO Currently we check entities information of the first CSR returned in the notification, find a way to check them all
-    # Run Keyword If     ${expected_notification_data_entities_length}>0       Check Notification Data Entities  ${notification}[data][0][information]    ${expected_notification_data_entities}
+    Run Keyword If     ${expected_notification_data_entities_length}>0       Check Notification Data Entities  ${notification}[data][0][information]    ${expected_notification_data_entities}
+    [return] ${notification}
 
 
 

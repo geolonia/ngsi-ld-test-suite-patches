@@ -46,9 +46,16 @@ Check that a notification is only sent if status is active
     [Tags]    sub-notification    5_11_7
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix} 
     Create Entity    ${entity_building_filepath}    ${entity_id}
-    
-    @{expected_notification_data_entities}=    Create List    Building
-    
+    Output    Before:
+    Query Entity    ${entity_id}
+    Sleep    5
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    Output    After:
+    Query Entity    ${entity_id}
+    ${notification}=    Wait for notification    timeout=${5}
+    Output    Notification:
+    Output    ${notification}
 
-    Wait for subscription notification and validate it  ${subscription_id}  ${expected_notification_data_entities}  timeout=${10}    expected_notification_type=Notification
+    Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
+    Should be Equal    ${entity_id}    ${notification}[data][0][id]
+    Should be Equal    5    ${notification}[data][0][https://ngsi-ld-test-suite/context#airQualityLevel][value]    
