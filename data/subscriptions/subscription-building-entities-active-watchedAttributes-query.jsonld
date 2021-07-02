@@ -3,8 +3,8 @@
    "type":"Subscription",
    "isActive": true,
    "expiresAt": null,
-   "watchedAttributes": ["name", "airQualityObserved"],
-   "q": "name=\"Building1\"",
+   "watchedAttributes": ["airQualityObserved"],
+   "q": "name==\"Building1\"",
    "entities":[
       {
          "type":"Building"

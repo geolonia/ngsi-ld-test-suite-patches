@@ -3,8 +3,7 @@
    "type":"Subscription",
    "isActive": true,
    "expiresAt": null,
-   "watchedAttributes": ["name", "airQualityObserved"],
-   
+   "watchedAttributes": ["airQualityObserved"],
    "entities":[
       {
          "type":"Building"

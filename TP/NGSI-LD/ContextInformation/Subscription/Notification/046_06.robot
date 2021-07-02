@@ -24,8 +24,8 @@ Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}
 
 *** Test Case ***
-Check that a notification is send with all entities
-    [Documentation]     The notification message shall include all the subscribed Entities that changed and that match (as mandated by clauses 4.9 and4.10) the query and geoquery conditions
+Check that a notification is sent with all entities with matching context source
+    [Documentation]     only the subscribed Entities whose origin Context Source matches the referred filter shall be included.
     [Tags]    sub-notification    5_11_7
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint    ${subscription_payload_file_path}    ${subscription_id}
