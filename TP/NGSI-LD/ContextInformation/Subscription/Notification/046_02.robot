@@ -47,7 +47,6 @@ Check that a notification is send on the timeinterval
     [Tags]    sub-notification    5_11_7
     
     Add Initial Entity
-    Sleep    2
     Setup Initial Subscriptions
 
     ${notification}=    Wait for notification  timeout=${15}
