@@ -1,17 +1,19 @@
 {
    "id":"urn:ngsi-ld:Subscription:randomUUID",
    "type":"Subscription",
-   "timeInterval": 10,
+   "isActive": true,
+   "expiresAt": null,
+   "watchedAttributes": ["name", "airQualityObserved"],
+   
    "entities":[
       {
          "type":"Building"
       }
    ],
-   "q": "1=1; DROP TABLE entity --",
    "notification":{
       "endpoint":{
          "uri":"http://my.endpoint.org/notify",
-         "accept":"application/json"
+         "accept":"*/*"
       }
    },
    "@context":[
