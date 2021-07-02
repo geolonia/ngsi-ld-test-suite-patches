@@ -9,7 +9,7 @@ Suite Teardown    After Test
 
 *** Variable ***
 ${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=    subscriptions/subscription-timeInterval-sample.jsonld
+${subscription_payload_file_path}=    subscriptions/subscription-timeInterval-sample-query.jsonld
 ${building_id_prefix}=    urn:ngsi-ld:Building:
 ${notification_server_send_url}=     http://${send_notification_server_host}:${send_notification_server_port}/notify
 ${entity_building_filepath}=    building-simple-attributes-sample.jsonld
@@ -46,10 +46,10 @@ Check that a notification is send on the timeinterval
     [Documentation]     If a Subscription defines a timeInterval member, a Notification shall be sent periodically, when the time interval (in seconds) specified in such value field is reached, regardless of Attribute changes."
     [Tags]    sub-notification    5_11_7
     
-    Setup Initial Subscriptions
     Add Initial Entity
+    Sleep    2
+    Setup Initial Subscriptions
 
-    Sleep    11
     ${notification}=    Wait for notification  timeout=${15}
     Output    ${notification}
 
@@ -57,9 +57,11 @@ Check that a notification is send on the timeinterval
     Output    ${notification}
 
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
+    Dictionary Should Contain Key    ${notification}    data
+    Should Not Be Empty    ${notification}[data]    Notification data should not be empty
     Should be Equal    ${entity_id}    ${notification}[data][0][id]
     Should be True    '${notification}[data][0][https://ngsi-ld-test-suite/context#airQualityLevel][value]'=='4.0' or '${notification}[data][0][https://ngsi-ld-test-suite/context#airQualityLevel][value]'=='4'
-    Should be Equal    Eifel Tower    ${notification}[data][0][name][value] 
+    Should be Equal    Building1    ${notification}[data][0][name][value] 
 
 
 
