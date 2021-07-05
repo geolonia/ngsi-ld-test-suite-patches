@@ -12,12 +12,9 @@ Suite Teardown    After Test
 *** Variable ***
 ${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=    subscriptions/subscription-building-entities-active.jsonld
-#subscriptions/testsubscription.jsonld 
 ${building_id_prefix}=    urn:ngsi-ld:Building:
 ${entity_building_filepath}=    building-simple-attributes-sample.jsonld
-#testentity.jsonld
 ${fragment_filename}=    airQualityLevel-fragment.jsonld
-#testfragment.jsonld
 ${notification_server_send_url}=     http://${send_notification_server_host}:${send_notification_server_port}/notify
 
 *** Keywords ***
