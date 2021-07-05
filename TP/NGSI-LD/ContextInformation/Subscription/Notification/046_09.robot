@@ -47,7 +47,7 @@ Delete Initial Entity
 
 *** Test Cases ***
 Check that a notification is sent to the endpoint
-    [Documentation]     Check that a notification is only sent if and only if the status is active
+    [Documentation]     A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.info defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.1
     [Tags]    sub-notification    5_11_7    046_09
 
     Add Initial Entity
