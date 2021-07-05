@@ -44,7 +44,7 @@ After Test
 *** Test Case ***
 Check that a notification is sent with all entities
     [Documentation]     A notification with all all subscribed Entities will be included if query or geoquery are not defined.
-    [Tags]    sub-notification    5_11_7
+    [Tags]    sub-notification    5_11_7    046_03
     
     Add Initial Entity
     Setup Initial Subscriptions

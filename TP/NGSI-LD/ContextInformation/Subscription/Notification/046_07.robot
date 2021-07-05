@@ -41,17 +41,15 @@ Delete Initial Entity
     Delete Entity by Id    ${entity_id}
 
 Before Test
-    Output    Before Test
     NotificationUtils.Start Local Server    ${notification_server_host}    ${notification_server_port}
 
 After Test
-    Output    After Test
     Stop Local Server
 
 *** Test Cases ***
 Check notification structure
     [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.    Valid notification with attributes as stated abov
-    [Tags]    sub-notification    5_11_7    5_11_7_01
+    [Tags]    sub-notification    5_11_7    046_07_01
     Add Initial Entity
     Setup Initial Subscriptions
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
@@ -69,36 +67,29 @@ Check notification structure
 
 Check correct attributes are included
     [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.    The Entity Attributes included (Properties or Relationships) shall be those specified by the notification.attributes member in the Subscription data type (clause 5.2.12).
-    [Tags]    sub-notification    5_11_7    5_11_7_02
+    [Tags]    sub-notification    5_11_7    046_07_02
     Add Initial Entity
     Setup Initial Subscriptions
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     
     @{expected_notification_data_entities}=    Create List    Building
     ${notification}    Wait for notification    ${subscription_id}   
-    Should Be Equal     ${notification}[type]   Notification
-    Should Be Equal     ${notification}[subscriptionId]   ${subscription_id}
-    ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}
-    ${is_date_with_millis}=    Is Date    ${notification}[notifiedAt]    ${date_format_with_millis}
-    Should Be True    ${is_date} or ${is_date_with_millis}
+
+    # TODO
 
     Delete Initial Subscriptions
     Delete Initial Entity
 
 Check URI expansion is observed
     [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.    URI expansion shall be observed (clause 5.5.7). 
-    [Tags]    sub-notification    5_11_7    5_11_7_03
+    [Tags]    sub-notification    5_11_7    046_07_03
     Add Initial Entity
     Setup Initial Subscriptions
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     
     @{expected_notification_data_entities}=    Create List    Building
     ${notification}    Wait for notification    ${subscription_id}   
-    Should Be Equal     ${notification}[type]   Notification
-    Should Be Equal     ${notification}[subscriptionId]   ${subscription_id}
-    ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}
-    ${is_date_with_millis}=    Is Date    ${notification}[notifiedAt]    ${date_format_with_millis}
-    Should Be True    ${is_date} or ${is_date_with_millis}
+    # TODO
 
     Delete Initial Subscriptions
     Delete Initial Entity

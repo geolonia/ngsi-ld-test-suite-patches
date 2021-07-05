@@ -51,7 +51,7 @@ Delete Initial Entity
 *** Test Cases ***
 Check that a notification is only sent if status is active
     [Documentation]     Check that a notification is only sent if and only if the status is active
-    [Tags]    sub-notification    5_11_7
+    [Tags]    sub-notification    5_11_7    046_01
 
     Add Initial Entity
     Setup Initial Subscriptions
