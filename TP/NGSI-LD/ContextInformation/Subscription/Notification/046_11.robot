@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     The Notification content shall be JSON by default
+Documentation     A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.info defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.14
 
 
 Resource          ${EXECDIR}/resources/ApiUtils.resource
@@ -7,47 +7,59 @@ Resource          ${EXECDIR}/resources/AssertionUtils.resource
 Resource          ${EXECDIR}/resources/JsonUtils.resource
 Resource          ${EXECDIR}/resources/NotificationUtils.resource
 
-Suite Setup       Setup Initial Subscriptions
-Suite Teardown    Delete Initial Subscriptions
+Suite Setup    Before Test
+Suite Teardown    After Test
 
 *** Variable ***
 ${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=    subscriptions/subscription-building-entities-active.jsonld
 ${building_id_prefix}=    urn:ngsi-ld:Building:
-
-
-
+${entity_building_filepath}=    building-no-attributes.jsonld
+${fragment_filename}=    airQualityLevel-fragment.jsonld
+${notification_server_send_url}=     http://${send_notification_server_host}:${send_notification_server_port}/notify
+${date_format}=  %Y-%m-%dT%H:%M:%SZ
+${date_format_with_millis}=  %Y-%m-%dT%H:%M:%S.%fZ
 
 *** Keywords ***
-Check that a notification is only sent if statis is active
-    [Arguments]      ${fragment_filename}    
-    [Documentation]     The Notification content shall be JSON by default
-    [Tags]    sub-notification    5_11_7
+Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint   ${subscription_payload_file_path}    ${subscription_id}
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-
-    @{expected_notification_data_entities}=    Create List    Building
+    ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint    ${subscription_payload_file_path}    ${subscription_id}    ${notification_server_send_url}
+    ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
+    Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
-    Create Subscription  ${subscription_id}  ${subscription_payload}  
+
+Delete Initial Subscriptions
+    Delete Subscription    ${subscription_id}
+
+Before Test
+    NotificationUtils.Start Local Server    ${notification_server_host}    ${notification_server_port}
+
+After Test
+    Delete Initial Subscriptions
+    Delete Initial Entity
+    Stop Local Server
+
+Add Initial Entity
+    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix} 
+    Create Entity    ${entity_building_filepath}    ${entity_id}
+    Set Suite Variable    ${entity_id}
+
+Delete Initial Entity
+    Delete Entity by Id    ${entity_id}
+
+*** Test Cases ***
+Check that TimesSent is increased by one
+    [Documentation]     The notification.timesSent member shall be incremented by one.
+    [Tags]    sub-notification    5_11_7    046_11
+
+    Add Initial Entity
+    Setup Initial Subscriptions
+
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
-    Wait for redirected request
-
-    @{expected_notification_additional_members}=    Create List    lastNotification    lastSuccess
-    Check JSON Value In Response Body  json_path_expr  value_to_check    ${notification_expectation_file_path}    ${expected_notification_additional_members}
+    ${notification}=    Wait for notification    timeout=${10}
     
-
-*** Keywords ***
-Setup Initial Subscription
-    Start Local Server
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
-    Create Subscription  ${subscription_id}  ${subscription_payload}  
-    Set Suite Variable    ${subscription_id}
-
-Delete Subscription
-    Stop Local Server
-    Delete Subscription      ${subscription_id}
+    Dictionary Should Contain Key    ${notification}    timesSent
+    Should be True    '${notification}[timesSent]    1
 
 
