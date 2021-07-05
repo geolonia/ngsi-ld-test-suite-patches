@@ -18,6 +18,7 @@ ${entity_building_filepath}=    building-simple-attributes-sample.jsonld
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint    ${subscription_payload_file_path}    ${subscription_id}    ${notification_server_send_url}
+    ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
 
@@ -49,6 +50,7 @@ Check that a notification is sent with all entities
     Setup Initial Subscriptions
     
     ${notification}=    Wait for notification    ${5}
+    Output     ${notification}
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
     Dictionary Should Contain Key    ${notification}    data
     Should Not Be Empty    ${notification}[data]    Notification data should not be empty

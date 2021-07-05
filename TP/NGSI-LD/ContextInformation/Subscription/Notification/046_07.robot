@@ -25,6 +25,7 @@ ${date_format_with_millis}=  %Y-%m-%dT%H:%M:%S.%fZ
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint    ${subscription_payload_file_path}    ${subscription_id}    ${notification_server_send_url}
+    ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
 
@@ -51,8 +52,8 @@ After Test
 Check notification structure
     [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.    Valid notification with attributes as stated abov
     [Tags]    sub-notification    5_11_7    5_11_7_01
-    Setup Initial Subscriptions
     Add Initial Entity
+    Setup Initial Subscriptions
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     
     @{expected_notification_data_entities}=    Create List    Building
@@ -69,8 +70,8 @@ Check notification structure
 Check correct attributes are included
     [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.    The Entity Attributes included (Properties or Relationships) shall be those specified by the notification.attributes member in the Subscription data type (clause 5.2.12).
     [Tags]    sub-notification    5_11_7    5_11_7_02
-    Setup Initial Subscriptions
     Add Initial Entity
+    Setup Initial Subscriptions
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     
     @{expected_notification_data_entities}=    Create List    Building
@@ -87,8 +88,8 @@ Check correct attributes are included
 Check URI expansion is observed
     [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.    URI expansion shall be observed (clause 5.5.7). 
     [Tags]    sub-notification    5_11_7    5_11_7_03
-    Setup Initial Subscriptions
     Add Initial Entity
+    Setup Initial Subscriptions
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     
     @{expected_notification_data_entities}=    Create List    Building

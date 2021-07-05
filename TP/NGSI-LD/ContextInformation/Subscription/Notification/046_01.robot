@@ -24,6 +24,7 @@ ${notification_server_send_url}=     http://${send_notification_server_host}:${s
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint    ${subscription_payload_file_path}    ${subscription_id}    ${notification_server_send_url}
+    ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
 
@@ -31,8 +32,6 @@ Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}
 
 Before Test
-    Setup Initial Subscriptions
-    Add Initial Entity
     NotificationUtils.Start Local Server    ${notification_server_host}    ${notification_server_port}
 
 After Test
@@ -54,9 +53,13 @@ Check that a notification is only sent if status is active
     [Documentation]     Check that a notification is only sent if and only if the status is active
     [Tags]    sub-notification    5_11_7
 
+    Add Initial Entity
+    Setup Initial Subscriptions
+
+    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
-    ${notification}=    Wait for notification    timeout=${5}
+    ${notification}=    Wait for notification    timeout=${10}
 
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
     Should be Equal    ${entity_id}    ${notification}[data][0][id]

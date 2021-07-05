@@ -8,9 +8,10 @@
       }
    ],
    "notification":{
+      "format":"keyValues",
       "endpoint":{
          "uri":"http://my.endpoint.org/notify",
-         "accept":"application/json"
+         "accept":"*/*"
       }
    },
    "@context":[

@@ -35,6 +35,12 @@ Load Subscription Sample With Reachable Endpoint
 
     [return]    ${subscription}
 
+Set Entity Id In Subscription
+    [Arguments]    ${subscription_payload}    ${entity_id}
+    ${dict}=    Create Dictionary    id=${entity_id}    
+    ${subscription}=    Add Object To Json    ${subscription_payload}    $..entities[0]    ${dict}
+    [Return]    ${subscription}
+
 Load Context Source Registration Sample With Reachable Context Source
     [Arguments]    ${context_source_registration_file_path}     ${context_source_registration_id}=${EMPTY}      ${context_source_endpoint_uri}=${context_source_url}
 

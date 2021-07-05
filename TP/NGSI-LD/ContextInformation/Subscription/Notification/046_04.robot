@@ -20,6 +20,7 @@ ${fragment_filename}=    airQualityLevel-fragment.jsonld
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint    ${subscription_payload_file_path}    ${subscription_id}    ${notification_server_send_url}
+    ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
 
@@ -47,8 +48,8 @@ Check that a notification is sent with all entities
     [Documentation]     The notification message shall include all the subscribed Entities that changed and that match (as mandated by clauses 4.9 and4.10) the query and geoquery conditions
     [Tags]    sub-notification    5_11_7
 
-    Setup Initial Subscriptions
     Add Initial Entity
+    Setup Initial Subscriptions
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     
     ${notification}=    Wait for notification    ${5}

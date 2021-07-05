@@ -18,6 +18,7 @@ ${entity_building_filepath}=    building-simple-attributes-sample.jsonld
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint    ${subscription_payload_file_path}    ${subscription_id}    ${notification_server_send_url}
+    ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
 
