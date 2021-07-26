@@ -13,7 +13,7 @@
    "notification":{
       "endpoint":{
          "uri":"http://my.endpoint.org/notify",
-         "accept":"*/*"
+         "accept":"application/json"
       }
    },
    "@context":[
