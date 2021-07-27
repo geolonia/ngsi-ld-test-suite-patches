@@ -59,10 +59,10 @@ Check that a notification is sent with all attributes
     Dictionary Should Contain Key    ${notification}    data
     Should Not Be Empty    ${notification}[data]    Notification data should not be empty
     Should be Equal    ${entity_id}    ${notification}[data][0][id]
-    Should be Equal    Building1    ${notification}[data][0][name][value]
-    Dictionary Should Contain Key    '${notification}[data][0]    https://ngsi-ld-test-suite/context#almostFull
-    Dictionary Should Contain Key    '${notification}[data][0]    https://ngsi-ld-test-suite/context#airQualityLevel
-    Dictionary Should Contain Key    '${notification}[data][0]    https://ngsi-ld-test-suite/context#subCategory
+    Should be Equal    Eiffel Tower    ${notification}[data][0][name][value]
+    Dictionary Should Contain Key    ${notification}[data][0]    almostFull
+    Dictionary Should Contain Key    ${notification}[data][0]    airQualityLevel
+    Dictionary Should Contain Key    ${notification}[data][0]    subCategory
 
     
 
@@ -78,16 +78,19 @@ Check that a notification is sent with all attributes in simplified format
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
     
+    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+
     ${notification}=    Wait for notification    ${5}
+
     Output     ${notification}
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
     Dictionary Should Contain Key    ${notification}    data
     Should Not Be Empty    ${notification}[data]    Notification data should not be empty
     Should be Equal    ${entity_id}    ${notification}[data][0][id]
-    Should be Equal    Building1    ${notification}[data][0][name][value]
-    Dictionary Should Contain Key    '${notification}[data][0]    https://ngsi-ld-test-suite/context#almostFull
-    Dictionary Should Contain Key    '${notification}[data][0]    https://ngsi-ld-test-suite/context#airQualityLevel
-    Dictionary Should Contain Key    '${notification}[data][0]    https://ngsi-ld-test-suite/context#subCategory
+    Should be Equal    Eiffel Tower    ${notification}[data][0][name][value]
+    Dictionary Should Contain Key    ${notification}[data][0]    almostFull
+    Dictionary Should Contain Key    ${notification}[data][0]    airQualityLevel
+    Dictionary Should Contain Key    ${notification}[data][0]    subCategory
     # TODO: difference between keyValue and not
     
     

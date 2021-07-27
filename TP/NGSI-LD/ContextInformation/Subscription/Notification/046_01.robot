@@ -4,8 +4,6 @@ Resource          ${EXECDIR}/resources/ApiUtils.resource
 Resource          ${EXECDIR}/resources/AssertionUtils.resource
 Resource          ${EXECDIR}/resources/JsonUtils.resource
 Resource          ${EXECDIR}/resources/NotificationUtils.resource
-# Suite Setup       Setup Initial Subscriptions
-# Suite Teardown    Delete Initial Subscriptions
 Suite Setup    Before Test
 Suite Teardown    After Test
 
@@ -54,10 +52,10 @@ Check that a notification is only sent if status is active
     Setup Initial Subscriptions
 
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
-    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}=    Wait for notification    timeout=${10}
 
+    Output  ${notification}
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
     Should be Equal    ${entity_id}    ${notification}[data][0][id]
-    Should be Equal    5    ${notification}[data][0][https://ngsi-ld-test-suite/context#airQualityLevel][value]    
+    Should be Equal    ${5}    ${notification}[data][0][airQualityLevel][value]    

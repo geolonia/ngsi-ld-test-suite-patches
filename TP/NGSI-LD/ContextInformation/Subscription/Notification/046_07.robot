@@ -48,7 +48,7 @@ After Test
 
 *** Test Cases ***
 Check notification structure
-    [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.    Valid notification with attributes as stated abov
+    [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.    Valid notification with attributes as stated above
     [Tags]    sub-notification    5_11_7    046_07_01
     Add Initial Entity
     Setup Initial Subscriptions

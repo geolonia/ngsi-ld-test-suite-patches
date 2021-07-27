@@ -3,8 +3,8 @@
    "type":"Subscription",
    "isActive": true,
    "expiresAt": null,
-   "watchedAttributes": ["airQualityObserved"],
-   "q": "name==\"Building1\"",
+   "watchedAttributes": ["airQualityLevel"],
+   "q": "name==\"Eiffel%20Tower\"",
    "entities":[
       {
          "type":"Building"

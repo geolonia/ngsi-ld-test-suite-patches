@@ -61,7 +61,7 @@ Check that a notification is sent on the timeinterval
     Should Not Be Empty    ${notification}[data]    Notification data should not be empty
     Should be Equal    ${entity_id}    ${notification}[data][0][id]
     Should be True    '${notification}[data][0][https://ngsi-ld-test-suite/context#airQualityLevel][value]'=='4.0' or '${notification}[data][0][https://ngsi-ld-test-suite/context#airQualityLevel][value]'=='4'
-    Should be Equal    Building1    ${notification}[data][0][name][value] 
+    Should be Equal    Eiffel Tower    ${notification}[data][0][name][value] 
 
 
 
