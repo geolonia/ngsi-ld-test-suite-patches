@@ -7,7 +7,7 @@
          "type":"Building"
       }
    ],
-   "q": "name==\"Building1\"",
+   "q": "name==\"Eiffel%20Tower\"",
    "notification":{
       "endpoint":{
          "uri":"http://my.endpoint.org/notify",

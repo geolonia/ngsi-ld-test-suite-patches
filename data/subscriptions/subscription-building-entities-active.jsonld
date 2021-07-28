@@ -2,7 +2,6 @@
    "id":"urn:ngsi-ld:Subscription:randomUUID",
    "type":"Subscription",
    "isActive": true,
-   "expiresAt": null,
    "entities":[
       {
          "type":"Building"

@@ -83,15 +83,10 @@ Check that a notification is sent with all attributes in simplified format
     ${notification}=    Wait for notification    ${5}
 
     Output     ${notification}
-    Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
-    Dictionary Should Contain Key    ${notification}    data
-    Should Not Be Empty    ${notification}[data]    Notification data should not be empty
-    Should be Equal    ${entity_id}    ${notification}[data][0][id]
-    Should be Equal    Eiffel Tower    ${notification}[data][0][name][value]
-    Dictionary Should Contain Key    ${notification}[data][0]    almostFull
-    Dictionary Should Contain Key    ${notification}[data][0]    airQualityLevel
-    Dictionary Should Contain Key    ${notification}[data][0]    subCategory
-    # TODO: difference between keyValue and not
+    ${notification}    Wait for notification    ${subscription_id}
+    ${list_count}=    Count Values In List    ${notification}
+    Should Not Be Equal    ${list_count}    0
+    Should Be Equal    ${notification}[0][id]   ${entity_id}
     
     
 

@@ -55,7 +55,10 @@ Check that a notification is JSON
 
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
-    # Wait for notification parses the json of the request by default
-    ${notification}=    Wait for notification    timeout=${10}
+    Wait For Request    ${timeout}
+    Reply By   200
 
+    ${notification_payload}=     Get Request Body
+    # json.loads parses the payload as json. It fails if the payload is malformed
+    ${notification}    Evaluate    json.loads('''${notification_payload}''')    json
 
