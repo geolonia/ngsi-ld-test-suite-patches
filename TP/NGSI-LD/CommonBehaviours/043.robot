@@ -56,8 +56,8 @@ ${registration_filename}=    csourceRegistrations/context-source-registration-un
     @{entities_to_be_created}=    Create List    ${first_entity}    ${second_entity}
     Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code Set To    ${expected_status_code}
-    Check RL Response Body Containing ProblemDetails Element Containing Type Element set to    ${response}    ${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}
-    Check RL Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to    ${response}    ${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
     [Teardown]    Batch Delete Entities    @{entities_to_be_created}
 
 043_05 Create context source registration
