@@ -7,7 +7,7 @@
     },
     "subCategory": {
         "type": "Property",
-        "value": ["tourism"]
+        "value": "tourism"
     },
     "airQualityLevel": {
         "type": "Property",
