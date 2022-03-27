@@ -3,10 +3,6 @@
       "id":"https://ngsi-ld-test-suite/context#name",
       "type":"Attribute",
       "attributeName":"name",
-      "attributeCount":1,
-      "attributeTypes":[
-         "Property"
-      ],
       "typeNames":[
          "https://ngsi-ld-test-suite/context#Building"
       ]
@@ -15,10 +11,6 @@
       "id":"https://ngsi-ld-test-suite/context#subCategory",
       "type":"Attribute",
       "attributeName":"https://ngsi-ld-test-suite/context#subCategory",
-      "attributeCount":1,
-      "attributeTypes":[
-         "Property"
-      ],
       "typeNames":[
          "https://ngsi-ld-test-suite/context#Building"
       ]
@@ -27,10 +19,6 @@
       "id":"https://ngsi-ld-test-suite/context#airQualityLevel",
       "type":"Attribute",
       "attributeName":"https://ngsi-ld-test-suite/context#airQualityLevel",
-      "attributeCount":1,
-      "attributeTypes":[
-         "Property"
-      ],
       "typeNames":[
          "https://ngsi-ld-test-suite/context#Building"
       ]
@@ -39,10 +27,6 @@
       "id":"https://ngsi-ld-test-suite/context#almostFull",
       "type":"Attribute",
       "attributeName":"https://ngsi-ld-test-suite/context#almostFull",
-      "attributeCount":1,
-      "attributeTypes":[
-         "Property"
-      ],
       "typeNames":[
          "https://ngsi-ld-test-suite/context#Building"
       ]
