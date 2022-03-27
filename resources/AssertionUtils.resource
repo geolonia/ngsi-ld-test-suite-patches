@@ -111,7 +111,7 @@ Check Response Body Containing List Containing Entity Elements With Different Ty
         ${entities_representation_payload}=    Update Value To Json    ${entities_representation_payload}     $.[${index}]..id   ${entity_representation_id}
         ${index}=    Evaluate    ${index} + 1
     END
-    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${entities_representation_payload}      ${response_body}    ${instance_id_regex_expr}   group_by=id
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${entities_representation_payload}      ${response_body}    ${instance_id_regex_expr}   group_by=id
     Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Body Containing EntityTemporal element
@@ -219,7 +219,7 @@ Check Response Body Containing List Containing Context Source Registrations elem
         ${expected_context_source_registrations_payload}=    Update Value To Json    ${expected_context_source_registrations_payload}     $.[${index}]..id   ${expected_context_source_registration_id}
         ${index}=    Evaluate    ${index} + 1
     END
-    ${comparaison_result}=    Compare Dictionaries Ignoring Keys    ${expected_context_source_registrations_payload}    ${response['body']}    ${EMPTY}     group_by=id
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys    ${expected_context_source_registrations_payload}    ${response['body']}    ${EMPTY}     group_by=id
     Should Be True      ${comparison_result=={}}   msg=${comparison_result.pretty()}
 
 Check Response Body Type When Using Session Request
