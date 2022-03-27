@@ -4,7 +4,7 @@
       "type":"EntityType",
       "typeName":"https://ngsi-ld-test-suite/context#Building",
       "attributeNames":[
-         "name",
+         "https://ngsi-ld-test-suite/context#name",
          "https://ngsi-ld-test-suite/context#subCategory",
          "https://ngsi-ld-test-suite/context#airQualityLevel",
          "https://ngsi-ld-test-suite/context#almostFull"
