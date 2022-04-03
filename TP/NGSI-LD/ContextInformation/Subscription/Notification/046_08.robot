@@ -83,7 +83,7 @@ Check that a notification is sent with all attributes in simplified format
     ${notification}=    Wait for notification    ${5}
 
     Output     ${notification}
-    ${notification}    Wait for notification    ${subscription_id}
+    ${notification}    Wait for notification
     ${list_count}=    Count Values In List    ${notification}
     Should Not Be Equal    ${list_count}    0
     Should Be Equal    ${notification}[0][id]   ${entity_id}

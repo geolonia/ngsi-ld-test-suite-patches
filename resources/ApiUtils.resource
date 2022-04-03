@@ -705,7 +705,8 @@ Create Subscription From File
     [Arguments]  ${filename}
     ${file_content}=    Get File    ${EXECDIR}/data/subscriptions/${filename}
     Create Session    SubscriptionCreateRequest      ${url}
-    ${response}=  PATCH On Session      SubscriptionCreateRequest   ${SUBSCRIPTION_ENDPOINT_PATH}  data=${file_content}   expected_status=any
+    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    ${response}=  POST On Session      SubscriptionCreateRequest   ${SUBSCRIPTION_ENDPOINT_PATH}  data=${file_content}    headers=${headers}   expected_status=any
     Set Test Variable  ${response}
 
 Update Subscription
