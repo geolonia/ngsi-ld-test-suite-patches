@@ -746,9 +746,9 @@ Query Subscriptions
     Set Test Variable  ${response}
 
 Retrieve Subscription
-    [Arguments]  ${id}   ${accept}=${EMPTY}     ${context}=${EMPTY}
-    &{headers}=  Create Dictionary
+    [Arguments]  ${id}   ${accept}=${EMPTY}     ${context}=${EMPTY}     ${content_type}=${CONTENT_TYPE_LD_JSON} 
 
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
 
