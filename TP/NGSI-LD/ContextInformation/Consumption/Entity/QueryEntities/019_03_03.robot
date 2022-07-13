@@ -8,7 +8,7 @@ Resource          ${EXECDIR}/resources/JsonUtils.resource
 ${building_id_prefix}=    urn:ngsi-ld:Building:
 ${filename}=      building-minimal-sample.jsonld
 ${entity_type}=    https://ngsi-ld-test-suite/context#Building
-${invalid_entity_id_pattern}=    invalid_entity_id_pattern*
+${invalid_entity_id_pattern}=    invalid_entity_id_pattern**
 
 *** Test Cases ***
 Query several entities based on incorrect id pattern
