@@ -21,6 +21,6 @@ Create a batch of one entity using the default context with JSON content type
     Check Response Body Containing an Attribute set to    almostFull
     Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}
     # Attribute should not be compacted as we did not provide a context containing this term
-    Check Response Body Containing an Attribute set to    https://uri.etsi.org/ngsi-ld/default-context/almostFull
+    Check Response Body Containing an Attribute set to    ngsi-ld:default-context/almostFull
     @{entities_ids_to_be_deleted}=    Create List    ${entity_id}
     Batch Delete Entities    @{entities_ids_to_be_deleted}
