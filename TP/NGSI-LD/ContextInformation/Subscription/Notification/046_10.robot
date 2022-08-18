@@ -47,7 +47,7 @@ Delete Initial Entity
 
 *** Test Cases ***
 Check that a notification is JSON
-    [Documentation]     The Notification content shall be JSON by defaul
+    [Documentation]     The Notification content shall be JSON by default
     [Tags]    sub-notification    5_11_7    046_10
 
     Add Initial Entity
@@ -55,7 +55,7 @@ Check that a notification is JSON
 
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
-    Wait For Request    ${timeout}
+    Wait For Request    10
     Reply By   200
 
     ${notification_payload}=     Get Request Body

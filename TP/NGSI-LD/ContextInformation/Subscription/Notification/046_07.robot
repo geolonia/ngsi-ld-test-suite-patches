@@ -1,14 +1,11 @@
 *** Settings ***
 Documentation     Check that a notification is only sent if and only if the status is active
 
-
-
-
 Resource          ${EXECDIR}/resources/ApiUtils.resource
 Resource          ${EXECDIR}/resources/AssertionUtils.resource
 Resource          ${EXECDIR}/resources/JsonUtils.resource
 Resource          ${EXECDIR}/resources/NotificationUtils.resource
-Suite Setup    Before Test
+Suite Setup       Before Test
 Suite Teardown    After Test
 
 *** Variable ***
@@ -56,7 +53,7 @@ Check notification structure
     Setup Initial Subscriptions
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     
-    ${notification}    Wait for notification    ${subscription_id}   
+    ${notification}    Wait for notification   
     Should Be Equal     ${notification}[type]   Notification
     Should Be Equal     ${notification}[subscriptionId]   ${subscription_id}
     ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}
@@ -73,7 +70,7 @@ Check correct attributes are included
     Setup Initial Subscriptions    ${subscription_payload_file_path_watchedAttributes}
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     
-    ${notification}    Wait for notification    ${subscription_id}   
+    ${notification}    Wait for notification  
     Should Be Equal     ${notification}[type]   Notification
     Should Be Equal     ${notification}[subscriptionId]   ${subscription_id}
     ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}
@@ -91,7 +88,7 @@ Check URI expansion is observed
     Setup Initial Subscriptions
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     
-    ${notification}    Wait for notification    ${subscription_id}   
+    ${notification}    Wait for notification   
     Should Be Equal     ${notification}[type]   Notification
     Should Be Equal     ${notification}[subscriptionId]   ${subscription_id}
     ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}

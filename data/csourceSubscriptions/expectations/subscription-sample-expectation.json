@@ -6,6 +6,7 @@
            "type": "https://ngsi-ld-test-suite/context#Building"
        }
    ],
+   "timeInterval": 5,
    "notification": {
        "endpoint": {
            "accept": "application/json",

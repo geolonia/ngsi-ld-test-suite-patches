@@ -43,7 +43,7 @@ After Test
 
 
 *** Test Case ***
-Check that a notification is sent on the timeinterval
+Check that a notification is sent on the timeInterval
     [Documentation]     If a Subscription defines a timeInterval member, a Notification shall be sent periodically, when the time interval (in seconds) specified in such value field is reached, regardless of Attribute changes."
     [Tags]    sub-notification    5_11_7    046_02
     

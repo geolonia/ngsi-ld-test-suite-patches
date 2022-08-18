@@ -24,7 +24,7 @@ Query several entities based on a list of properties
     @{entities_ids_to_be_compared}=    Create List    ${first_entity_id}    ${second_entity_id}
     ${entities_ids_to_be_retrieved}=    Catenate    SEPARATOR=,    ${first_entity_id}    ${second_entity_id}
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${entity_type}
-    ${response}=    Query Entities    entity_types=${entity_types_to_be_retrieved}    geoproperty=${geometry_property}
+    ${response}=    Query Entities    entity_types=${entity_types_to_be_retrieved}    geoproperty=${geometry_property}  accept=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    200    ${response['status']}
     Check Response Body Containing List Containing Entity elements    ${expectation_filename}    ${entities_ids_to_be_compared}    ${response['body']}
     [Teardown]    Delete Entities    ${first_entity_id}    ${second_entity_id}

@@ -705,7 +705,8 @@ Create Subscription From File
     [Arguments]  ${filename}
     ${file_content}=    Get File    ${EXECDIR}/data/subscriptions/${filename}
     Create Session    SubscriptionCreateRequest      ${url}
-    ${response}=  PATCH On Session      SubscriptionCreateRequest   ${SUBSCRIPTION_ENDPOINT_PATH}  data=${file_content}   expected_status=any
+    &{headers}=  Create Dictionary  Content-Type=application/ld+json
+    ${response}=  POST On Session      SubscriptionCreateRequest   ${SUBSCRIPTION_ENDPOINT_PATH}  data=${file_content}    headers=${headers}   expected_status=any
     Set Test Variable  ${response}
 
 Update Subscription
@@ -745,9 +746,9 @@ Query Subscriptions
     Set Test Variable  ${response}
 
 Retrieve Subscription
-    [Arguments]  ${id}   ${accept}=${EMPTY}     ${context}=${EMPTY}
-    &{headers}=  Create Dictionary
+    [Arguments]  ${id}   ${accept}=${EMPTY}     ${context}=${EMPTY}     ${content_type}=${CONTENT_TYPE_LD_JSON} 
 
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
 

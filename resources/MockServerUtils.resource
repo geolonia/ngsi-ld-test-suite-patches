@@ -5,7 +5,7 @@ Library      HttpCtrl.Server
 *** Keywords ***
 Start Context Source Mock Server
     #Initialize HTTP Client And Server
-    Start Server        0.0.0.0   8086
+    Start Server        ${context_source_host}  ${context_source_port}
 
 Wait for redirected request
     [Arguments]  ${timeout}=${5}
