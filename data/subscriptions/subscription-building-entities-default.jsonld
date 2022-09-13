@@ -1,0 +1,17 @@
+{
+    "id":"urn:ngsi-ld:Subscription:randomUUID",
+    "type":"Subscription",
+    "entities":[
+       {
+          "type":"Building"
+       }
+    ],
+    "notification":{
+       "endpoint":{
+          "uri":"http://my.endpoint.org/notify"
+       }
+    },
+    "@context":[
+       "https://raw.githubusercontent.com/easy-global-market/ngsild-api-data-models/feature/add-json-ld-context-for-ngsi-ld-test-suite/ngsi-ld-test-suite/ngsi-ld-test-suite-context.jsonld"
+    ]
+ }

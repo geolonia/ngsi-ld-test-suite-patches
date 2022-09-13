@@ -12,12 +12,11 @@ Suite Teardown    After Test
 
 *** Variable ***
 ${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=    subscriptions/subscription-building-entities-default.jsonld
+${subscription_payload_file_path}=    subscriptions/subscription-building-entities-accept-jsonld.jsonld
 ${building_id_prefix}=    urn:ngsi-ld:Building:
 ${entity_building_filepath}=    building-simple-attributes-sample.jsonld
 ${fragment_filename}=    airQualityLevel-fragment.jsonld
 ${notification_server_send_url}=     http://${send_notification_server_host}:${send_notification_server_port}/notify
-${expected_header_links}=    <${ngsild_test_suite_context}>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
 
 *** Keywords ***
 Setup Initial Subscriptions
@@ -47,8 +46,8 @@ Delete Initial Entity
     Delete Entity by Id    ${entity_id}
 
 *** Test Cases ***
-Check that a notification is JSON
-    [Documentation]     The Notification content shall be JSON by default
+Check that a notification is sent as JSON-LD
+    [Documentation]     The Notification content shall be JSON-LD when we set endpoint.accept to 'application/ld+json'
     [Tags]    sub-notification    5_11_7    046_10
 
     Add Initial Entity
@@ -60,10 +59,11 @@ Check that a notification is JSON
     Reply By   200
 
     ${notification_headers} =    Get Request Headers
-    Dictionary Should Contain Item    ${notification_headers}    Link    ${expected_header_links}
+    Dictionary Should Not Contain Key    ${notification_headers}    Link
 
     ${notification_payload}=     Get Request Body
     # json.loads parses the payload as json. It fails if the payload is malformed
     ${notification}    Evaluate    json.loads('''${notification_payload}''')    json
-    Dictionary Should Not Contain Key    ${notification}[data][0]    @context
+    Dictionary Should Contain Key    ${notification}[data][0]    @context
+
 
