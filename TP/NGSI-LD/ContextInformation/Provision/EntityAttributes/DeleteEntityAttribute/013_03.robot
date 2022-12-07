@@ -3,7 +3,7 @@ Documentation     Check that you cannot delete an attribute from an entity with 
 Resource          ${EXECDIR}/resources/ApiUtils.resource
 Resource          ${EXECDIR}/resources/AssertionUtils.resource
 Resource          ${EXECDIR}/resources/JsonUtils.resource
-Suite Setup       Setup Initial Entities
+Test Setup        Setup Initial Entities
 Test Template     Delete Attributes
 
 *** Variable ***
