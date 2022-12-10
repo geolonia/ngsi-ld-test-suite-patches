@@ -3,37 +3,37 @@ Documentation     Check that you can update a batch of entities with noOverwrite
 Resource          ${EXECDIR}/resources/ApiUtils.resource
 Resource          ${EXECDIR}/resources/AssertionUtils.resource
 Resource          ${EXECDIR}/resources/JsonUtils.resource
-Suite Setup       Setup Initial Entities
+Test Setup        Setup Initial Entities
 Test Template     Batch Update Entity With NoOverwrite Option Scenarios
-Suite Teardown    Delete Initial Entities
+Test Teardown     Delete Initial Entities
 
 *** Variable ***
 ${building_id_prefix}=    urn:ngsi-ld:Building:
 ${entity_payload_filename}=    building-simple-attributes-sample.jsonld
 
-*** Test Cases ***    FILENAME                                           UPDATE_FRAGMENT_FILENAME
+*** Test Cases ***    FILENAME                                           UPDATE_FRAGMENT_FILENAME       EXPECTED_STATUS
 EntityWithSimpleProperties
-                      building-simple-attributes-sample.jsonld           fragmentEntities/empty-fragment.json
+                      building-simple-attributes-sample.jsonld           fragmentEntities/empty-fragment.json       207
                       [Tags]                                             be-update                                   5_6_9
 
 EntityWithSimpleRelationships
-                      building-relationship-sample.jsonld                fragmentEntities/locatedAt-fragment.json
+                      building-relationship-sample.jsonld                fragmentEntities/locatedAt-fragment.json   204
                       [Tags]                                             be-update                                   5_6_9
 
 EntityWithRelationshipsProperties
-                      building-relationship-of-property-sample.jsonld    fragmentEntities/empty-fragment.json
+                      building-relationship-of-property-sample.jsonld    fragmentEntities/empty-fragment.json       207
                       [Tags]                                             be-update                                   5_6_9
 
 *** Keywords ***
 Batch Update Entity With NoOverwrite Option Scenarios
-    [Arguments]    ${filename}    ${update_fragment_filename}
+    [Arguments]    ${filename}    ${update_fragment_filename}   ${expected_status}
     [Documentation]    Check that you can update a batch of entities with noOverwrite option
     ${first_entity}=    Load Entity    ${filename}    ${first_entity_id}
     ${second_entity}=    Load Entity    ${filename}    ${second_entity_id}
     @{entities_to_be_updated}=    Create List    ${first_entity}    ${second_entity}
     @{entities_ids_to_be_updated}=    Create List    ${first_entity_id}    ${second_entity_id}
     Batch Update Entities    @{entities_to_be_updated}    overwrite_option=noOverwrite
-    Check Response Status Code Set To    204
+    Check Response Status Code Set To   ${expected_status}
     ${first_created_entity}=    Load Test Sample    entities/${entity_payload_filename}    ${first_entity_id}
     ${second_created_entity}=    Load Test Sample    entities/${entity_payload_filename}    ${second_entity_id}
     ${update_fragment}=    Load Test Sample    entities/${update_fragment_filename}
