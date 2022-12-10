@@ -7,18 +7,13 @@ Resource          ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${building_id_prefix}=    urn:ngsi-ld:Building:
 ${building_filename}=    building-simple-attributes-sample.jsonld
-${building_expectation}=    building-simple-attributes-sample-expectation.json
-${entity_type}=    https://ngsi-ld-test-suite/context#Building
 ${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
 ${subscription_filename}=    subscriptions/subscription-sample.jsonld
-${subscription_expectation}=    subscription-sample-expectation.json
 ${registration_id_prefix}=    urn:ngsi-ld:Registration:
 ${registration_filename}=    csourceRegistrations/context-source-registration-with-expiration-sample.jsonld
-${registration_expectation}=    context-source-registration-with-expiration-expectation.json
 ${registration_type}=    Vehicle
 ${tea_id_prefix}=    urn:ngsi-ld:Vehicle:
 ${tea_filename}=    vehicle-temporal-representation-sample.jsonld
-${tea_expectation}=    vehicles-temporal-representation-044-02-04-expectation.json
 ${teatype}=       Vehicle
 ${content_type}=    application/json
 
@@ -31,7 +26,6 @@ ${content_type}=    application/json
     Check Response Status Code    201    ${response['status']}
     ${request}    ${response}=    Query Entity    ${id}    context=${ngsild_test_suite_context}    accept=*/*
     Check Response Status Code    200    ${response['status']}
-    Check Response Body Containing Entity element    ${building_expectation}    ${id}    ${response['body']}
     Check Response Headers Containing Content-Type set to    ${response}    ${content_type}
     Check Response Headers Link Not Empty    ${response}
     [Teardown]    Delete Entity by Id Returning Response    ${id}
@@ -44,7 +38,6 @@ ${content_type}=    application/json
     Check Response Status Code    201    ${response['status']}
     ${request}    ${response}=    Retrieve Subscription    ${id}    accept=*/*
     Check Response Status Code    200    ${response['status']}
-    Check Response Body Containing One Subscription element    ${subscription_expectation}    ${response['body']}
     Check Response Headers Containing Content-Type set to    ${response}    ${content_type}
     Check Response Headers Link Not Empty    ${response}
     [Teardown]    Delete Subscription    ${id}
@@ -59,7 +52,6 @@ ${content_type}=    application/json
     Check Response Status Code    201    ${response['status']}
     ${request}    ${response}=    Query Context Source Registrations With Return    id=${registration_id}    type=${registration_type}    context=${ngsild_test_suite_context}    accept=*/*
     Check Response Status Code    200    ${response['status']}
-    Check Response Body Containing One Registration element    ${registration_expectation}    ${response['body']}
     Check Response Headers Containing Content-Type set to    ${response}    ${content_type}
     Check Response Headers Link Not Empty    ${response}
     [Teardown]    Delete Context Source Registration    ${registration_id}
@@ -73,7 +65,6 @@ ${content_type}=    application/json
     ${request}    ${response}=    Query Temporal Representation Of Entities With Return    entity_types=${teatype}    timerel=after    timeAt=2020-08-01T12:05:00Z    context=${ngsild_test_suite_context}    accept=*/*
     Check Response Status Code    200    ${response['status']}
     Set Test Variable    ${response}
-    Check Response Body Containing EntityTemporal element    ${tea_expectation}    ${temporal_entity_representation_id}
     Check Response Headers Containing Content-Type set to    ${response}    ${content_type}
     Check Response Headers Link Not Empty    ${response}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
