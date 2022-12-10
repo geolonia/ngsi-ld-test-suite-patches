@@ -29,7 +29,7 @@ ${subscription_filename}=    csourceSubscriptions/subscription-sample.jsonld
     Check Response Status Code Set To    ${status_code}
 
 044_05_03 Query context source registration
-    [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /temporal/entities)
+    [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /csourceRegistrations)
     [Tags]    csr-query    6_3_4
     ${request}    ${response}=    Query Context Source Registrations With Return    type=Building    accept=${accept}
     Check Response Status Code    ${status_code}    ${response['status']}
