@@ -2,7 +2,7 @@
    {
       "id":"https://ngsi-ld-test-suite/context#name",
       "type":"Attribute",
-      "attributeName":"name",
+      "attributeName":"https://ngsi-ld-test-suite/context#name",
       "typeNames":[
          "https://ngsi-ld-test-suite/context#Building"
       ]
