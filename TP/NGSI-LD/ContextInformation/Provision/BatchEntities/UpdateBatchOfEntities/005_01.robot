@@ -3,9 +3,9 @@ Documentation     Check that you can update a batch of entities
 Resource          ${EXECDIR}/resources/ApiUtils.resource
 Resource          ${EXECDIR}/resources/AssertionUtils.resource
 Resource          ${EXECDIR}/resources/JsonUtils.resource
-Test Setup       Setup Initial Entities
+Test Setup        Setup Initial Entities
 Test Template     Batch Update Entity Scenarios
-Test Teardown    Delete Initial Entities
+Test Teardown     Delete Initial Entities
 
 *** Variable ***
 ${building_id_prefix}=    urn:ngsi-ld:Building:
