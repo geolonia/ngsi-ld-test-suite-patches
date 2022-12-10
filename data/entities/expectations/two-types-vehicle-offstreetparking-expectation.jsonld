@@ -49,7 +49,7 @@
                 ]
             }
         },
-        "name": {
+        "https://ngsi-ld-test-suite/context#name": {
             "type": "Property",
             "value": "Downtown One"
         },
