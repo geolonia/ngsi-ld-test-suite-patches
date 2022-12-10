@@ -3,9 +3,9 @@ Documentation     Check that you can upsert a batch of existing entities and the
 Resource          ${EXECDIR}/resources/ApiUtils.resource
 Resource          ${EXECDIR}/resources/AssertionUtils.resource
 Resource          ${EXECDIR}/resources/JsonUtils.resource
-Suite Setup       Setup Initial Entities
+Test Setup       Setup Initial Entities
 Test Template     Batch Upsert Existing Entities Scenarios
-Suite Teardown    Delete Initial Entities
+Test Teardown    Delete Initial Entities
 
 *** Variable ***
 ${building_id_prefix}=    urn:ngsi-ld:Building:
