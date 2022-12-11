@@ -43,6 +43,6 @@ Append entity attributes with invalid entity fragments
     Check Response Status Code    201    ${response['status']}
     Append Entity Attributes Using Session    ${entity_id}    ${invalid_fragment_filename}    ${CONTENT_TYPE_LD_JSON}    ${EMPTY}
     Check RL Response Status Code Set To    ${status_code}
-    Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_BAD_REQUEST_DATA}
+    Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_INVALID_REQUEST}
     Check Response Body Title When Using Session Request    ${response.json()}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
