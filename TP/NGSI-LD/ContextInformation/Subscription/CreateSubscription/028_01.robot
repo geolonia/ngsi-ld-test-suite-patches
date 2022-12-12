@@ -15,6 +15,6 @@ Create Subscription
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     Create Subscription    ${subscription_id}    ${subscription_payload_file_path}    ${CONTENT_TYPE_LD_JSON}
     ${created_subscription}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
-    Retrieve Subscription    ${subscription_id}    context=${ngsild_test_suite_context}
+    Retrieve Subscription    ${subscription_id}    accept=${CONTENT_TYPE_LD_JSON}   context=${ngsild_test_suite_context}
     Check Created Resource Set To    ${created_subscription}
     [Teardown]    Delete Subscription    ${subscription_id}

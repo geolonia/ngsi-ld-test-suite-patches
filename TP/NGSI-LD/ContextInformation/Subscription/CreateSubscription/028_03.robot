@@ -9,10 +9,10 @@ Test Template     Create Subscription With Invalid/Empty Id
 ${subscription_payload_file_path}=    subscriptions/subscription-sample.jsonld
 
 *** Test Cases ***    ID
-031_03_01_InvalidId
+028_03_01_InvalidId
                       invalidId
 
-031_03_02_EmptyId     ${EMPTY}
+028_03_02_EmptyId     ${EMPTY}
 
 *** Keywords ***
 Create Subscription With Invalid/Empty Id
