@@ -39,6 +39,10 @@ Add Initial Entity
 Delete Initial Entity
     Delete Entity by Id    ${entity_id}
 
+Delete Fixture Data
+    Delete Initial Subscriptions
+    Delete Initial Entity
+
 Before Test
     NotificationUtils.Start Local Server    ${notification_server_host}    ${notification_server_port}
 
@@ -59,9 +63,7 @@ Check notification structure
     ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}
     ${is_date_with_millis}=    Is Date    ${notification}[notifiedAt]    ${date_format_with_millis}
     Should Be True    ${is_date} or ${is_date_with_millis}
-
-    Delete Initial Subscriptions
-    Delete Initial Entity
+    [Teardown]  Delete Fixture Data
 
 Check correct attributes are included
     [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.    The Entity Attributes included (Properties or Relationships) shall be those specified by the notification.attributes member in the Subscription data type (clause 5.2.12).
@@ -77,9 +79,7 @@ Check correct attributes are included
     ${is_date_with_millis}=    Is Date    ${notification}[notifiedAt]    ${date_format_with_millis}
     Should Be True    ${is_date} or ${is_date_with_millis}
     Dictionary Should Contain Key    ${notification}[data][0]    airQualityLevel
-
-    Delete Initial Subscriptions
-    Delete Initial Entity
+    [Teardown]  Delete Fixture Data
 
 Check URI expansion is observed
     [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.    URI expansion shall be observed (clause 5.5.7). 
@@ -95,9 +95,7 @@ Check URI expansion is observed
     ${is_date_with_millis}=    Is Date    ${notification}[notifiedAt]    ${date_format_with_millis}
     Should Be True    ${is_date} or ${is_date_with_millis}
     Dictionary Should Contain Key    ${notification}[data][0]    https://ngsi-ld-test-suite/context#airQualityLevel
-
-    Delete Initial Subscriptions
-    Delete Initial Entity
+    [Teardown]  Delete Fixture Data
 
 
 

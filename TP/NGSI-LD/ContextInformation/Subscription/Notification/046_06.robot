@@ -27,12 +27,10 @@ Delete Initial Subscriptions
 Check that a notification is sent with all entities with matching context source
     [Documentation]     only the subscribed Entities whose origin Context Source matches the referred filter shall be included.
     [Tags]    sub-notification    5_11_7    046_06
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint    ${subscription_payload_file_path}    ${subscription_id}
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${entity_building}=    Create Entity Selecting Content Type    ${building_filename}    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
 
-    Set Suite Variable    ${subscription_id}
     Wait for subscription notification and validate it  ${subscription_id}  ${entity_building}  timeout=${5}
 
 

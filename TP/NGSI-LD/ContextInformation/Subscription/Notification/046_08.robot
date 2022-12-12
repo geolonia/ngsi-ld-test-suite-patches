@@ -34,12 +34,14 @@ Add Initial Entity
 Delete Initial Entity
     Delete Entity by Id    ${entity_id}
 
+Delete Fixture Data
+    Delete Initial Subscriptions
+    Delete Initial Entity
+
 Before Test
     NotificationUtils.Start Local Server    ${notification_server_host}    ${notification_server_port}
 
 After Test
-    Delete Initial Subscriptions
-    Delete Initial Entity
     Stop Local Server
 
 
@@ -63,8 +65,7 @@ Check that a notification is sent with all attributes
     Dictionary Should Contain Key    ${notification}[data][0]    almostFull
     Dictionary Should Contain Key    ${notification}[data][0]    airQualityLevel
     Dictionary Should Contain Key    ${notification}[data][0]    subCategory
-
-    
+    [Teardown]  Delete Fixture Data
 
 Check that a notification is sent with all attributes in simplified format
     [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.1. The absence of the notification.attributes member of a Subscription means that all Entity Attributes shall be included    If the notification.format member value is "keyValues" then a simplified representation of the entities (as mandated by clause 4.5.3) shall be provided
@@ -87,7 +88,8 @@ Check that a notification is sent with all attributes in simplified format
     ${list_count}=    Count Values In List    ${notification}
     Should Not Be Equal    ${list_count}    0
     Should Be Equal    ${notification}[0][id]   ${entity_id}
-    
+    [Teardown]  Delete Fixture Data
+
     
 
 
