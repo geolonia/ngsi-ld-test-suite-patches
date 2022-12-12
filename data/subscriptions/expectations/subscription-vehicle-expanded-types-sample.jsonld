@@ -6,6 +6,7 @@
          "type":"https://ngsi-ld-test-suite/context#Vehicle"
       }
    ],
+   "timeInterval": 5,
    "notification":{
       "format":"keyValues",
       "endpoint":{
@@ -13,6 +14,7 @@
          "accept":"application/json"
       }
    },
+   "status": "active",
    "@context":[
       "https://raw.githubusercontent.com/easy-global-market/ngsild-api-data-models/feature/add-json-ld-context-for-ngsi-ld-test-suite/ngsi-ld-test-suite/ngsi-ld-test-suite-context.jsonld"
    ]
