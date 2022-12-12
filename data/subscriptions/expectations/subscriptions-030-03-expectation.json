@@ -1,6 +1,7 @@
 {
    "id":"urn:ngsi-ld:Subscription:randomUUID",
    "type":"Subscription",
+   "timeInterval": 5,
    "entities":[
       {
          "type":"Building"
@@ -13,6 +14,5 @@
          "accept":"application/json"
       }
    },
-   "isActive": true,
    "status": "active"
 }
