@@ -286,7 +286,7 @@ Check NotificationParams
 Check Pagination Prev And Next Headers
     [Arguments]  ${prev_link}    ${next_link}
     ${expected_links}=   Create List     ${prev_link}    ${next_link}
-    Run Keyword If     '${prev_link}'!='' and '${next_link}'!=''       Lists Should Be Equal    ${response['headers']['Link']}    ${expected_links}   ignore_order=True
+    Run Keyword If     '${prev_link}'!='' and '${next_link}'!=''       Lists Should Be Equal    ${response['headers']['Link'].replace(" ", "").split(',')}    ${expected_links}   ignore_order=True
     Run Keyword If     '${prev_link}'!='' and '${next_link}'==''       Should Be Equal      ${response['headers']['Link']}    ${prev_link}
     Run Keyword If     '${prev_link}'=='' and '${next_link}'!=''       Should Be Equal      ${response['headers']['Link']}    ${next_link}
 

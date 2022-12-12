@@ -13,24 +13,24 @@ ${first_subscription_payload_file_path}=    subscriptions/subscription-sample.js
 ${second_subscription_payload_file_path}=    subscriptions/subscription-watchedAttributes-sample.jsonld
 ${third_subscription_payload_file_path}=    subscriptions/subscription-inactive-sample.jsonld
 
-*** Test Cases ***    LIMIT     PAGE         EXPECTED_SUBSCRIPTION_NUMBER    PREV_LINK                                                                           NEXT_LINK
+*** Test Cases ***    LIMIT     OFFSET      EXPECTED_SUBSCRIPTION_NUMBER    PREV_LINK                                                                           NEXT_LINK
 Query Second Subscription
-                      ${1}      ${2}         ${1}                            </ngsi-ld/v1/subscriptions?limit=1&page=1>;rel="prev";type="application/ld+json"    </ngsi-ld/v1/subscriptions?limit=1&page=3>;rel="next";type="application/ld+json"
+                      ${1}      ${1}         ${1}                            </ngsi-ld/v1/subscriptions?limit=1&offset=0>;rel="prev";type="application/ld+json"    </ngsi-ld/v1/subscriptions?limit=1&offset=2>;rel="next";type="application/ld+json"
                       [Tags]    sub-query    5_8_4
 
 Query Last Subscription
-                      ${2}      ${2}         ${1}                            </ngsi-ld/v1/subscriptions?limit=2&page=1>;rel="prev";type="application/ld+json"    ${EMPTY}
+                      ${1}      ${2}         ${1}                            </ngsi-ld/v1/subscriptions?limit=1&offset=1>;rel="prev";type="application/ld+json"    ${EMPTY}
                       [Tags]    sub-query    5_8_4
 
 Query All Subscriptions
-                      ${15}     ${1}         ${3}                            ${EMPTY}                                                                            ${EMPTY}
+                      ${15}     ${0}         ${3}                            ${EMPTY}                                                                            ${EMPTY}
                       [Tags]    sub-query    5_8_4
 
 *** Keywords ***
 Query Subscriptions With Limit And Page Parameters
-    [Arguments]    ${limit}    ${page}    ${expectation_subscription_number}    ${prev_link}    ${next_link}
+    [Arguments]    ${limit}    ${offset}    ${expectation_subscription_number}    ${prev_link}    ${next_link}
     [Documentation]    Check that you can query a list of subscriptions: Pagination logic shall be in place
-    Query Subscriptions    context=${ngsild_test_suite_context}    limit=${limit}    page=${page}
+    Query Subscriptions    context=${ngsild_test_suite_context}    limit=${limit}    offset=${offset}   accept=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code Set To    200
     Check Response Body Containing Number Of Entities    Subscription    ${expectation_subscription_number}
     Check Pagination Prev And Next Headers    ${prev_link}    ${next_link}

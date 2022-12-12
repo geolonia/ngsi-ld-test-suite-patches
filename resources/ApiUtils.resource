@@ -730,13 +730,13 @@ Delete Subscription
     [return]   ${response}
 
 Query Subscriptions
-    [Arguments]  ${context}=${EMPTY}    ${limit}=${EMPTY}   ${page}=${EMPTY}    ${accept}=${EMPTY}
+    [Arguments]  ${context}=${EMPTY}    ${limit}=${EMPTY}   ${offset}=${EMPTY}    ${accept}=${EMPTY}
 
     &{headers}=  Create Dictionary
     &{params}=  Create Dictionary
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
-    Run Keyword If     '${page}'!=''       Set To Dictionary   ${params}    page=${page}
+    Run Keyword If     '${offset}'!=''       Set To Dictionary   ${params}    offset=${offset}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
 
     ${response}=  GET  ${SUBSCRIPTION_ENDPOINT_PATH}     headers=${headers}     query=${params}
