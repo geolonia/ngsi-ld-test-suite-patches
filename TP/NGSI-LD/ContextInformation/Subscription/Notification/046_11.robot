@@ -48,7 +48,7 @@ Delete Initial Entity
     Delete Entity by Id    ${entity_id}
 
 *** Test Cases ***
-Check that TimesSent is increased by one
+Check that timesSent is increased by one
     [Documentation]     The notification.timesSent member shall be incremented by one.
     [Tags]    sub-notification    5_11_7    046_11
 
@@ -60,7 +60,10 @@ Check that TimesSent is increased by one
     ${notification}=    Wait for notification    timeout=${10}
     
     Output     ${notification}
-    Dictionary Should Contain Key    ${notification}    timesSent
-    Should be True    '${notification}[timesSent]    1
+
+    Retrieve Subscription    ${subscription_id}    accept=${CONTENT_TYPE_LD_JSON}   context=${ngsild_test_suite_context}
+
+    Dictionary Should Contain Key    ${response}[body][notification]    timesSent
+    Should Be Equal    ${1}     ${response}[body][notification][timesSent]
 
 
