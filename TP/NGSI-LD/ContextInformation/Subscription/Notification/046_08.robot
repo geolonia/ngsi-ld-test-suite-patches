@@ -48,7 +48,7 @@ After Test
 *** Test Case ***
 Check that a notification is sent with all attributes
     [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.1. The absence of the notification.attributes member of a Subscription means that all Entity Attributes shall be included.     All attributes are included
-    [Tags]    sub-notification    5_11_7    046_08_01
+    [Tags]    sub-notification    5_8_6    046_08_01
     
     Add Initial Entity
     Setup Initial Subscriptions
@@ -57,6 +57,7 @@ Check that a notification is sent with all attributes
     
     ${notification}=    Wait for notification    ${5}
     Output     ${notification}
+
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
     Dictionary Should Contain Key    ${notification}    data
     Should Not Be Empty    ${notification}[data]    Notification data should not be empty
@@ -69,7 +70,7 @@ Check that a notification is sent with all attributes
 
 Check that a notification is sent with all attributes in simplified format
     [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.1. The absence of the notification.attributes member of a Subscription means that all Entity Attributes shall be included    If the notification.format member value is "keyValues" then a simplified representation of the entities (as mandated by clause 4.5.3) shall be provided
-    [Tags]    sub-notification    5_11_7    046_08_02
+    [Tags]    sub-notification    5_8_6    046_08_02
     
     Add Initial Entity
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
@@ -82,12 +83,13 @@ Check that a notification is sent with all attributes in simplified format
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}=    Wait for notification    ${5}
-
     Output     ${notification}
-    ${notification}    Wait for notification
-    ${list_count}=    Count Values In List    ${notification}
-    Should Not Be Equal    ${list_count}    0
-    Should Be Equal    ${notification}[0][id]   ${entity_id}
+
+    Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
+    Dictionary Should Contain Key    ${notification}    data
+    Should Not Be Empty    ${notification}[data]    Notification data should not be empty
+    Should Be Equal    ${entity_id}     ${notification}[data][0][id]
+    Should be Equal    Eiffel Tower     ${notification}[data][0][name]
     [Teardown]  Delete Fixture Data
 
     

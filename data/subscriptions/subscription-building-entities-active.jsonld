@@ -8,6 +8,7 @@
       }
    ],
    "notification":{
+      "format": "normalized",
       "endpoint":{
          "uri":"http://my.endpoint.org/notify",
          "accept":"application/json"
