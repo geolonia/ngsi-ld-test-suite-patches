@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Check that you can update a subscription: If isActive is equal to true or null and expiresAt is not present, then status shall be updated to "active", if and only if, the previous value of status was different than "expired"
+Documentation     Check that you can update a subscription: If isActive is equal to true and expiresAt is not present, then status shall be updated to "active", if and only if, the previous value of status was different than "expired"
 Resource          ${EXECDIR}/resources/ApiUtils.resource
 Resource          ${EXECDIR}/resources/AssertionUtils.resource
 Resource          ${EXECDIR}/resources/JsonUtils.resource
@@ -11,9 +11,6 @@ Suite Teardown    Delete Initial Subscriptions
 ActiveTrue            subscriptions/fragments/subscription-isActive-update-sample.json
                       [Tags]                                                                   sub-update    5_8_2
 
-ActiveNull            subscriptions/fragments/subscription-isActive-null-update-sample.json
-                      [Tags]                                                                   sub-update    5_8_2
-
 *** Variable ***
 ${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=    subscriptions/subscription-inactive-sample.jsonld
@@ -21,7 +18,7 @@ ${subscription_payload_file_path}=    subscriptions/subscription-inactive-sample
 *** Keywords ***
 Activate Paused Subscription With isActive Member
     [Arguments]    ${subscription_update_fragment_file_path}
-    [Documentation]    Check that you can update a subscription: If isActive is equal to true or null and expiresAt is not present, then status shall be updated to "active", if and only if, the previous value of status was different than "expired"
+    [Documentation]    Check that you can update a subscription: If isActive is equal to true and expiresAt is not present, then status shall be updated to "active", if and only if, the previous value of status was different than "expired"
     Update Subscription    ${subscription_id}    ${subscription_update_fragment_file_path}    ${CONTENT_TYPE_JSON}
     Check Response Status Code Set To    204
     Retrieve Subscription    ${subscription_id}
