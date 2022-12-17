@@ -43,7 +43,7 @@ After Test
 
 *** Test Case ***
 Check that a notification is sent with all entities
-    [Documentation]     A notification with all all subscribed Entities will be included if query or geoquery are not defined.
+    [Documentation]     A notification with all subscribed Entities will be included if query or geoquery are not defined.
     [Tags]    sub-notification    5_11_7    046_03
     
     Add Initial Entity
@@ -56,7 +56,7 @@ Check that a notification is sent with all entities
     Should Not Be Empty    ${notification}[data]    Notification data should not be empty
     Should be Equal    ${entity_id}    ${notification}[data][0][id]
     Should be True    '${notification}[data][0][https://ngsi-ld-test-suite/context#airQualityLevel][value]'=='4.0' or '${notification}[data][0][https://ngsi-ld-test-suite/context#airQualityLevel][value]'=='4'
-    Should be Equal    Eiffel Tower    ${notification}[data][0][name][value]
+    Should be Equal    Eiffel Tower    ${notification}[data][0][https://ngsi-ld-test-suite/context#name][value]
 
 
 
