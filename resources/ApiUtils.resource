@@ -721,6 +721,17 @@ Update Subscription
     Set Test Variable  ${response}
     [return]   ${response}
 
+Update Subscription With Payload
+    [Arguments]  ${subscription_id}     ${payload}    ${content_type}    ${accept}=${EMPTY}   ${context}=${EMPTY}
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    ${response}=  PATCH  ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}    body=${payload}     headers=${headers}
+    Output  request
+    Output  response
+    Set Test Variable  ${response}
+    [return]   ${response}
+
 Delete Subscription
     [Arguments]  ${subscription_id}
     ${response}=  DELETE  ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
