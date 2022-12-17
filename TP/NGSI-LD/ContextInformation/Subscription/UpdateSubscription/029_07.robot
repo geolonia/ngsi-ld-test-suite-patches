@@ -8,7 +8,7 @@ Suite Setup       Setup Initial Subscriptions
 Suite Teardown    Delete Initial Subscriptions
 
 *** Test Cases ***    SUBSCRIPTION_UPDATE_FRAGMENT_FILE_PATH
-ActiveTrue            subscriptions/fragments/subscription-isActive-update-sample.json
+ActiveTrue            subscriptions/fragments/subscription-isActive-true-update-sample.json
                       [Tags]                                                                   sub-update    5_8_2
 
 *** Variable ***

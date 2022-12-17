@@ -9,7 +9,7 @@ Suite Teardown    Delete Initial Subscriptions
 *** Variable ***
 ${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=    subscriptions/subscription-sample.jsonld
-${subscription_update_fragment_file_path}=    subscriptions/fragments/subscription-isActive-update-sample.json
+${subscription_update_fragment_file_path}=    subscriptions/fragments/subscription-isActive-false-update-sample.json
 
 *** Test Case ***
 Update Subscription Status To Paused
