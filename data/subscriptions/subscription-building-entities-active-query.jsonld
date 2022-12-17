@@ -1,0 +1,22 @@
+{
+   "id":"urn:ngsi-ld:Subscription:randomUUID",
+   "type":"Subscription",
+   "isActive": true,
+   "entities":[
+      {
+         "type":"Building"
+      }
+   ],
+   "watchedAttributes": ["name"],
+   "q":"name==\"Eiffel Tower\"",
+   "notification":{
+      "format":"keyValues",
+      "endpoint":{
+         "uri":"http://my.endpoint.org/notify",
+         "accept":"application/json"
+      }
+   },
+   "@context":[
+      "https://raw.githubusercontent.com/easy-global-market/ngsild-api-data-models/feature/add-json-ld-context-for-ngsi-ld-test-suite/ngsi-ld-test-suite/ngsi-ld-test-suite-context.jsonld"
+   ]
+}
