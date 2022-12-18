@@ -14,7 +14,7 @@ Suite Teardown    After Test
 ${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=    subscriptions/subscription-building-entities-active.jsonld
 ${building_id_prefix}=    urn:ngsi-ld:Building:
-${entity_building_filepath}=    building-no-attributes.jsonld
+${entity_building_filepath}=    building-simple-attributes-sample.jsonld
 ${fragment_filename}=    airQualityLevel-fragment.jsonld
 ${notification_server_send_url}=     http://${send_notification_server_host}:${send_notification_server_port}/notify
 
@@ -47,7 +47,7 @@ Delete Initial Entity
 
 *** Test Cases ***
 Check that lastNotification is updated
-    [Documentation]     The notification.lastNotification member shall be updated with a timestamp representing the current date and time. This test will check the format. 
+    [Documentation]     The status, lastNotification and lastSuccess members shall be updated with expected value and dates. This test will check these formats. 
     [Tags]    sub-notification    5_11_7    046_12
 
     Add Initial Entity
@@ -55,12 +55,23 @@ Check that lastNotification is updated
 
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
-    ${notification}=    Wait for notification    timeout=${10}
+    Wait for notification    timeout=${10}
     
-    Dictionary Should Contain Key    ${notification}    lastNotification
+    Retrieve Subscription    ${subscription_id}    accept=${CONTENT_TYPE_LD_JSON}   context=${ngsild_test_suite_context}
 
-    ${is_date}=    Is Date    ${notification}[lastNotification]    ${date_format}
-    ${is_date_with_millis}=    Is Date    ${notification}[lastNotification]    ${date_format_with_millis}
+    ${notification_info}=   Get Value From Json     ${response}     $.body.notification
+    Output  ${notification_info}
+
+    Dictionary Should Contain Key    ${notification_info}[0]    status
+    Should Be Equal    ok     ${notification_info}[0][status]
+
+    Dictionary Should Contain Key    ${notification_info}[0]    lastNotification
+    ${is_date}=    Is Date    ${notification_info}[0][lastNotification]    ${date_format}
+    ${is_date_with_millis}=    Is Date    ${notification_info}[0][lastNotification]    ${date_format_with_millis}
     Should Be True    ${is_date} or ${is_date_with_millis}
 
+    Dictionary Should Contain Key    ${notification_info}[0]    lastSuccess
+    ${is_date}=    Is Date    ${notification_info}[0][lastSuccess]    ${date_format}
+    ${is_date_with_millis}=    Is Date    ${notification_info}[0][lastSuccess]    ${date_format_with_millis}
+    Should Be True    ${is_date} or ${is_date_with_millis}
 

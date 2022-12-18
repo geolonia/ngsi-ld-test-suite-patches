@@ -57,9 +57,7 @@ Check that timesSent is increased by one
 
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
-    ${notification}=    Wait for notification    timeout=${10}
-    
-    Output     ${notification}
+    Wait for notification    timeout=${10}
 
     Retrieve Subscription    ${subscription_id}    accept=${CONTENT_TYPE_LD_JSON}   context=${ngsild_test_suite_context}
 
