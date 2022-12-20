@@ -8,8 +8,8 @@ Resource          ${EXECDIR}/resources/JsonUtils.resource
 ${building_id_prefix}=    urn:ngsi-ld:Building:
 ${filename}=      building-minimal-sample.jsonld
 ${entity_type}=    https://ngsi-ld-test-suite/context#Building
-${invalid_attribute_one}=    invalid
-${invalid_attribute_two}=    invalid
+${invalid_attribute_one}=    id
+${invalid_attribute_two}=    type
 
 *** Test Cases ***
 Query several entities based on incorrect attribute names

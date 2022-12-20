@@ -9,7 +9,7 @@ ${building_id_prefix}=    urn:ngsi-ld:Building:
 ${vehicle_id_prefix}=    urn:ngsi-ld:Vehicle:
 ${building_filename}=    building-minimal-sample.jsonld
 ${vehicle_filename}=    vehicle-simple-attributes-sample.jsonld
-${invalid_entity_type_one}=    invalid_entity_type_one
+${invalid_entity_type_one}=    type
 ${invalid_entity_type_two}=    invalid_entity_type_two
 
 *** Test Cases ***

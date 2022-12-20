@@ -7,7 +7,6 @@ Resource          ${EXECDIR}/resources/JsonUtils.resource
 *** Variable ***
 ${building_id_prefix}=    urn:ngsi-ld:Building:
 ${filename}=      building-minimal-sample.jsonld
-${expectation_filename}=    building-minimal-expectation.json
 ${entity_type}=    https://ngsi-ld-test-suite/context#Building
 ${limit}=         2
 
@@ -29,7 +28,7 @@ Query entities specifying a maximum number of results
     ${response}=    Query Entities    entity_ids=${entities_ids_to_be_retrieved}    entity_types=${entity_types_to_be_retrieved}    limit=${limit}
     Check Response Status Code    200    ${response['status']}
     @{entities_ids_to_be_compared}=    Create List    ${first_entity_id}    ${second_entity_id}
-    Check Response Body Containing List Containing Entity elements    ${expectation_filename}    ${entities_ids_to_be_compared}    ${response['body']}
+    Check Response Body Containing Number Of Entities   ${entity_type}     ${2}
     [Teardown]    Delete Entities    ${first_entity_id}    ${second_entity_id}    ${third_entity_id}
 
 *** Keywords ***
