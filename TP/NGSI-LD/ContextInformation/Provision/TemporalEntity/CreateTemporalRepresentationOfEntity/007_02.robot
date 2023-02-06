@@ -27,7 +27,7 @@ Create Temporal Entity From File
     [Tags]    te-create    5_6_11
     Create Temporal Representation Of Entity Selecting Content Type Using Session    ${filename}    ${CONTENT_TYPE_LD_JSON}
     Check RL Response Status Code Set To    400
-    Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_BAD_REQUEST_DATA}
+    Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_INVALID_REQUEST}
     Check Response Body Title When Using Session Request    ${response.json()}
 
 Create Temporal Entity

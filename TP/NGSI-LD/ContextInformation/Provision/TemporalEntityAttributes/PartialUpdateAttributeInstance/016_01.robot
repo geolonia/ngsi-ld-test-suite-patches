@@ -8,7 +8,7 @@ Resource          ${EXECDIR}/resources/JsonUtils.resource
 ${vehicle_id_prefix}=    urn:ngsi-ld:Vehicle:
 ${filename}=      vehicle-temporal-representation-sample.jsonld
 ${fragment_filename}=    vehicle-temporal-instanceid-update-fragment.jsonld
-${expectation_filename}=    vehicle-temporal-representation-update-expectation.jsonld
+${expectation_filename}=    vehicle-temporal-representation-partial-update-attribute-expectation.jsonld
 ${attributeId}=    speed
 
 *** Test Cases ***
