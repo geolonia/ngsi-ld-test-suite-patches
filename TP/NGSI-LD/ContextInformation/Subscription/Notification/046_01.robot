@@ -4,7 +4,7 @@ Resource          ${EXECDIR}/resources/ApiUtils.resource
 Resource          ${EXECDIR}/resources/AssertionUtils.resource
 Resource          ${EXECDIR}/resources/JsonUtils.resource
 Resource          ${EXECDIR}/resources/NotificationUtils.resource
-Suite Setup    Before Test
+Suite Setup       Before Test
 Suite Teardown    After Test
 
 *** Variable ***
@@ -49,6 +49,7 @@ Check that a notification is only sent if status is active
     [Tags]    sub-notification    5_11_7    046_01
 
     Add Initial Entity
+    Sleep   1s
     Setup Initial Subscriptions
 
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}

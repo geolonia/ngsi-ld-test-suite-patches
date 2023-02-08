@@ -51,6 +51,7 @@ Check that lastNotification is updated
     [Tags]    sub-notification    5_11_7    046_12
 
     Add Initial Entity
+    Sleep   1s
     Setup Initial Subscriptions
 
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}

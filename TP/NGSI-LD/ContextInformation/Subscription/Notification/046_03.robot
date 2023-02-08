@@ -47,6 +47,7 @@ Check that a notification is sent with all entities
     [Tags]    sub-notification    5_11_7    046_03
     
     Add Initial Entity
+    Sleep   1s
     Setup Initial Subscriptions
     
     ${notification}=    Wait for notification    ${5}
@@ -55,8 +56,8 @@ Check that a notification is sent with all entities
     Dictionary Should Contain Key    ${notification}    data
     Should Not Be Empty    ${notification}[data]    Notification data should not be empty
     Should be Equal    ${entity_id}    ${notification}[data][0][id]
-    Should be True    '${notification}[data][0][https://ngsi-ld-test-suite/context#airQualityLevel][value]'=='4.0' or '${notification}[data][0][https://ngsi-ld-test-suite/context#airQualityLevel][value]'=='4'
-    Should be Equal    Eiffel Tower    ${notification}[data][0][https://ngsi-ld-test-suite/context#name][value]
+    Should be True    '${notification}[data][0][airQualityLevel][value]'=='4.0' or '${notification}[data][0][airQualityLevel][value]'=='4'
+    Should be Equal    Eiffel Tower    ${notification}[data][0][name][value]
 
 
 
