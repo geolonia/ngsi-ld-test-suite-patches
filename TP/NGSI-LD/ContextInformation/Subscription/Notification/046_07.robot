@@ -12,6 +12,7 @@ Suite Teardown    After Test
 ${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=    subscriptions/subscription-building-entities-active.jsonld
 ${subscription_payload_file_path_watchedAttributes}=    subscriptions/subscription-building-entities-active-watchedAttributes.jsonld
+${subscription_payload_file_path_default_context}=    subscriptions/subscription-building-entities-active-default-context.jsonld
 ${building_id_prefix}=    urn:ngsi-ld:Building:
 ${notification_server_send_url}=     http://${send_notification_server_host}:${send_notification_server_port}/notify
 ${entity_building_filepath}=    building-simple-attributes-sample.jsonld
@@ -52,8 +53,9 @@ After Test
 *** Test Cases ***
 Check notification structure
     [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.    Valid notification with attributes as stated above
-    [Tags]    sub-notification    5_11_7    046_07_01
+    [Tags]    sub-notification    5_8_6    046_07_01
     Add Initial Entity
+    Sleep   1s 
     Setup Initial Subscriptions
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     
@@ -67,8 +69,9 @@ Check notification structure
 
 Check correct attributes are included
     [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.    The Entity Attributes included (Properties or Relationships) shall be those specified by the notification.attributes member in the Subscription data type (clause 5.2.12).
-    [Tags]    sub-notification    5_11_7    046_07_02
+    [Tags]    sub-notification    5_8_6    046_07_02
     Add Initial Entity
+    Sleep   1s 
     Setup Initial Subscriptions    ${subscription_payload_file_path_watchedAttributes}
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     
@@ -83,12 +86,14 @@ Check correct attributes are included
 
 Check URI expansion is observed
     [Documentation]     The structure of the notification message shall be as mandated by clause 5.3.    URI expansion shall be observed (clause 5.5.7). 
-    [Tags]    sub-notification    5_11_7    046_07_03
+    [Tags]    sub-notification    5_8_6    046_07_03
     Add Initial Entity
-    Setup Initial Subscriptions
+    Sleep   1s 
+    Setup Initial Subscriptions     ${subscription_payload_file_path_default_context}
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     
-    ${notification}    Wait for notification   
+    ${notification}    Wait for notification
+    Output    ${notification}
     Should Be Equal     ${notification}[type]   Notification
     Should Be Equal     ${notification}[subscriptionId]   ${subscription_id}
     ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}
