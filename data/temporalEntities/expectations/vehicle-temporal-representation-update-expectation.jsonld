@@ -1,7 +1,6 @@
     {
       "id":"urn:ngsi-ld:Vehicle:randomUUID",
       "type":"Vehicle",
-      "brandName":[],
       "speed":[
          {
             "type":"Property",

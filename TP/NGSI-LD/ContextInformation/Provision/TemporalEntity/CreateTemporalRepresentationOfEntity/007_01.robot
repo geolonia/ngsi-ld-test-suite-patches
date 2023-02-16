@@ -8,12 +8,12 @@ Test Template     Create Temporal Entity
 *** Variable ***
 ${vehicle_id_prefix}=    urn:ngsi-ld:Vehicle:
 
-*** Test Cases ***    FILENAME                                                          EXPECTATION_FILENAME                                                              CONTENT_TYPE
+*** Test Cases ***    FILENAME                                                                 EXPECTATION_FILENAME                                                              CONTENT_TYPE
 007_01_01_Create a temporal representation of an entity
-                      vehicle-temporal-representation-sample.jsonld                     vehicle-temporal-representation-create-expectation.jsonld                         application/ld+json
+                      vehicle-create-temporal-representation-sample.jsonld                     vehicle-temporal-representation-create-expectation.jsonld                         application/ld+json
 
 007_01_02_Create a temporal entity with no context
-                      vehicle-temporal-representation-without-context-sample.jsonld     vehicle-temporal-representation-create-with-no-context-expectation.jsonld         application/json
+                      vehicle-create-temporal-representation-without-context-sample.jsonld     vehicle-temporal-representation-create-with-no-context-expectation.jsonld         application/json
 
 *** Keywords ***
 Create Temporal Entity

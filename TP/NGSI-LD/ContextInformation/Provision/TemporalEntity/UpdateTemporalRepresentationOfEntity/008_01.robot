@@ -6,7 +6,7 @@ Resource          ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variable ***
 ${vehicle_id_prefix}=    urn:ngsi-ld:Vehicle:
-${filename}=      vehicle-temporal-representation-sample.jsonld
+${filename}=      vehicle-create-temporal-representation-sample.jsonld
 ${update_filename}=    vehicle-temporal-representation-update-sample.jsonld
 ${expectation_filename}=    vehicle-temporal-representation-update-expectation.jsonld
 
