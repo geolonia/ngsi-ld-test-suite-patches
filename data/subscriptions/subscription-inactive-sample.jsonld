@@ -15,6 +15,6 @@
       }
    },
    "@context":[
-      "https://raw.githubusercontent.com/easy-global-market/ngsild-api-data-models/feature/add-json-ld-context-for-ngsi-ld-test-suite/ngsi-ld-test-suite/ngsi-ld-test-suite-context.jsonld"
+      "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/ngsi-ld-test-suite-context.jsonld"
    ]
 }
