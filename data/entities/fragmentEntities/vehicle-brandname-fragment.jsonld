@@ -3,5 +3,5 @@
         "type": "Property",
         "value": "BMW"
     },
-    "@context": "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/ngsi-ld-test-suite-context.jsonld"
+    "@context": "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
 }
