@@ -1,10 +1,6 @@
 {
    "id":"urn:ngsi-ld:Vehicle:randomUUID",
    "type":"https://ngsi-ld-test-suite/context#Vehicle",
-   "https://ngsi-ld-test-suite/context#brandName":{
-      "type":"Property",
-      "value":"Volvo"
-   },
    "https://ngsi-ld-test-suite/context#speed":[
       {
          "type":"Property",

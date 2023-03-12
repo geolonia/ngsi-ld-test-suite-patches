@@ -1,12 +1,6 @@
 {
    "id":"urn:ngsi-ld:Bus:randomUUID",
    "type":"Bus",
-   "brandName":[
-      {
-         "type":"Property",
-         "value":"Mercedes"
-      }
-   ],
    "speed":[
       {
          "type":"Property",

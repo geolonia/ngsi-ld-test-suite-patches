@@ -2,10 +2,6 @@
    {
       "id":"urn:ngsi-ld:Vehicle:randomUUID",
       "type":"Vehicle",
-      "brandName":{
-         "type":"Property",
-         "value":"Audi"
-      },
       "speed":[
          {
             "type":"Property",

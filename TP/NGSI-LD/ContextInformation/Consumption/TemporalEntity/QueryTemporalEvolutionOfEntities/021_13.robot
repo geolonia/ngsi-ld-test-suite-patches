@@ -23,7 +23,7 @@ Before                entity-operations-before-query.jsonld    vehicles-temporal
 Query the temporal evolution of entities using the entityOperations method
     [Arguments]    ${payload_file}    ${expectation_file}
     [Documentation]    Check that you can query the temporal evolution of entities using the entityOperations method
-    Query Temporal Representation Of Entities Via Post    ${payload_file}
+    Query Temporal Representation Of Entities Via Post    ${payload_file}   context=${ngsild_test_suite_context}
     @{temporal_entities_representation_ids}=    Create List    ${first_temporal_entity_representation_id}    ${second_temporal_entity_representation_id}
     Check Response Status Code Set To    200
     Check Response Body Containing List Containing EntityTemporal elements    ${expectation_file}    ${temporal_entities_representation_ids}

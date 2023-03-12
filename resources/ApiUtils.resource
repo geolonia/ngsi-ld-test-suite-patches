@@ -341,12 +341,12 @@ Append Attribute To Temporal Entity
 
 Append Attribute To Temporal Entity Using Session
     [Arguments]  ${temporal_entity_id}    ${fragment_filename}    ${content_type}
-    &{headers}=  Create Dictionary  Content-Type=${content_type}
     ${file_content}=    Get File    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
     Create Session    OneRequest      ${url}
-    ${response}=  POST On Session      OneRequest   ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs  data=${file_content}  headers=${headers}
-    Output  request
-    Output  response
+    &{headers}=  Create Dictionary  Content-Type=${content_type}
+    ${response}=  POST On Session      OneRequest   ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs  data=${file_content}  headers=${headers}   expected_status=any
+    Output  ${response.json()}
+    Set Test Variable  ${response}
     [return]   ${response}
 
 Partial Update Attribute From Temporal Entity
@@ -529,9 +529,10 @@ Query Temporal Representation Of Entities
     Set Test Variable  ${response}
 
 Query Temporal Representation Of Entities Via Post
-    [Arguments]  ${query_file_name}    ${content_type}=${CONTENT_TYPE_LD_JSON}
+    [Arguments]  ${query_file_name}    ${content_type}=${CONTENT_TYPE_JSON}     ${context}=${EMPTY}
     ${headers}=  Create Dictionary
     Set To Dictionary   ${headers}   Content-Type    ${content_type}
+    Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${query_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/${query_file_name}
     ${response}=  POST  ${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}/query  body=${query_payload}  headers=${headers}
     Output  request

@@ -1,12 +1,6 @@
 {
    "id":"urn:ngsi-ld:Vehicle:8313926113148778",,
    "type":"Vehicle",
-   "brandName":[
-      {
-         "type":"Property",
-         "value":"BMW"
-      }
-   ],
    "speed":[
       {
          "type":"Property",

@@ -15,10 +15,10 @@ ${second_vehicle_payload_file}=    2020-09-vehicule-temporal-representation-samp
 ${bus_payload_file}=    2020-08-bus-temporal-representation-sample.jsonld
 
 *** Test Cases ***    TIMEREL    TIMEAT                  EXPECTATION_FILE
-After                 after      2020-08-01T12:05:00Z    vehicles-temporal-representation-021-01-01-expectation.jsonld
+After                 after      2020-08-01T12:04:00Z    vehicles-temporal-representation-021-01-01-expectation.jsonld
                       [Tags]     te-query                5_7_4
 
-Before                before     2020-09-01T13:05:00Z    vehicles-temporal-representation-021-01-02-expectation.jsonld
+Before                before     2020-09-01T13:06:00Z    vehicles-temporal-representation-021-01-02-expectation.jsonld
                       [Tags]     te-query                5_7_4
 
 *** Keywords ***

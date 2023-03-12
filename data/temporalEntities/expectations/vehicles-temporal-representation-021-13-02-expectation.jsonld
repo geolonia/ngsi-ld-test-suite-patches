@@ -2,10 +2,6 @@
    {
       "id":"urn:ngsi-ld:Vehicle:randomUUID",
       "type":"Vehicle",
-      "brandName":{
-         "type":"Property",
-         "value":"Volvo"
-      },
       "fuelLevel":[
          {
             "type":"Property",
@@ -44,9 +40,7 @@
    {
       "id":"urn:ngsi-ld:Vehicle:randomUUID",
       "type":"Vehicle",
-      "brandName":{
-         "type":"Property",
-         "value":"BMW"
-      }
+      "fuelLevel": [],
+      "speed": []
    }
 ]

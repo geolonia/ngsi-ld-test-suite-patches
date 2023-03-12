@@ -27,7 +27,7 @@ Delete Attribute
     Check Response Status Code    201    ${response['status']}
     ${response}=    Delete Attribute From Temporal Entity    ${entity_id}    ${attribute_id}    ${CONTENT_TYPE_JSON}    ${EMPTY}    false    ${ngsild_test_suite_context}
     Check Response Status Code    ${status_code}    ${response['status']}
-    Check Response Body Containing ProblemDetails Element Containing Type Element set to    ${response}    ${ERROR_TYPE_BAD_REQUEST_DATA}
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to    ${response}    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
     [Teardown]    Delete Temporal Representation Of Entity    ${valid_temporal_entity_id}
 

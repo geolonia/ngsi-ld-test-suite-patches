@@ -12,32 +12,34 @@ ${status_code}=    400
 
 *** Test Cases ***
 014_02_01_Add an attribute to a temporal representation of an entity with invalid content
-    Add an Attribute To a Temporal Entity    vehicle-temporal-representation-invalid-json-fragment.jsonld
+    Add an Attribute To a Temporal Entity From File    vehicle-temporal-representation-invalid-json-fragment.jsonld
 
 014_02_02_Add an attribute to a temporal representation of an entity with empty content
-    Add an Attribute To a Temporal Entity    vehicle-temporal-representation-empty-json-fragment.jsonld
+    Add an Attribute To a Temporal Entity From File    vehicle-temporal-representation-empty-json-fragment.jsonld
 
 014_02_03_Add an attribute to a temporal representation of an entity with an empty entity id
-    Fail To Add Attribute To Temporal Entity    ${EMPTY}
+    Add Attribute To Temporal Entity    ${EMPTY}
 
 014_02_04_Add an attribute to a temporal representation of an entity with an invalid entity id
-    Fail To Add Attribute To Temporal Entity    thisIsAninvalidId
+    Add Attribute To Temporal Entity    thisIsAninvalidId
 
 *** Keywords ***
-Add an Attribute To a Temporal Entity
+Add an Attribute To a Temporal Entity From File
     [Arguments]    ${update_filename}
-    [Documentation]    Check that an error is raised if you delete a temporal enitity with empty/invalid content
+    [Documentation]    Check that an error is raised if you add a temporal entity attribute with empty/invalid content
     [Tags]    tea-append    5_6_12
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type    ${temporal_entity_representation_id}    ${filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response['status']}
-    ${response}=    Append Attribute To Temporal Entity Using Session    ${temporal_entity_representation_id}    ${update_filename}    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    <Response [400]>    ${response['status']}
+    Append Attribute To Temporal Entity Using Session    ${temporal_entity_representation_id}    ${update_filename}    ${CONTENT_TYPE_LD_JSON}
+    Check RL Response Status Code Set To    ${status_code}
+    Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_INVALID_REQUEST}
+    Check Response Body Title When Using Session Request    ${response.json()}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
 
-Fail To Add Attribute To Temporal Entity
+Add Attribute To Temporal Entity
     [Arguments]    ${id}
-    [Documentation]    Check that an error is raised if you delete a temporal enitity with a non existing/invalid EnityId
+    [Documentation]    Check that an error is raised if you add a temporal entity attribute with a non existing/invalid EnityId
     [Tags]    tea-append    5_6_12
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type    ${temporal_entity_representation_id}    ${filename}    ${CONTENT_TYPE_LD_JSON}

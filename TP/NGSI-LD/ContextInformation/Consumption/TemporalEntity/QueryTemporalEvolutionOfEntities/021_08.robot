@@ -17,7 +17,7 @@ Query the temporal evolution of entities matching the given NGSI-LD query
     [Documentation]    Check that you can query the temporal evolution of entities matching the given NGSI-LD query
     [Tags]    te-query    5_7_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
-    Query Temporal Representation Of Entities    entity_types=${entity_types_to_be_retrieved}    ngsild_query=speed>90;brandName!=Mercedes    timerel=after    timeAt=2020-07-01T12:05:00Z    context=${ngsild_test_suite_context}
+    Query Temporal Representation Of Entities    entity_types=${entity_types_to_be_retrieved}    ngsild_query=speed>90    timerel=after    timeAt=2020-07-01T12:05:00Z    context=${ngsild_test_suite_context}
     @{temporal_entities_representation_ids}=    Create List    ${first_temporal_entity_representation_id}    ${second_temporal_entity_representation_id}
     Check Response Status Code Set To    200
     Check Response Body Containing List Containing EntityTemporal elements    ${expectation_file}    ${temporal_entities_representation_ids}

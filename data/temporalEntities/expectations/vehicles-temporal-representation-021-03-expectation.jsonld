@@ -2,10 +2,6 @@
    {
       "id":"urn:ngsi-ld:Vehicle:randomUUID",
       "type":"Vehicle",
-      "brandName":{
-         "type":"Property",
-         "value":"Volvo"
-      },
       "speed":[
          {
             "type":"Property",
@@ -154,10 +150,6 @@
    {
       "id":"urn:ngsi-ld:Vehicle:randomUUID",
       "type":"Vehicle",
-      "brandName":{
-         "type":"Property",
-         "value":"BMW"
-      },
       "speed":[
          {
             "type":"Property",

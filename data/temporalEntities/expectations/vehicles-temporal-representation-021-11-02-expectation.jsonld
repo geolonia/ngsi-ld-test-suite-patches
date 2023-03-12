@@ -2,10 +2,6 @@
    {
       "id":"urn:ngsi-ld:Vehicle:randomUUID",
       "type":"Vehicle",
-      "brandName":{
-         "type":"Property",
-         "value":"Volvo"
-      },
       "fuelLevel":[
          {
             "type":"Property",
@@ -44,10 +40,6 @@
    {
       "id":"urn:ngsi-ld:Vehicle:randomUUID",
       "type":"Vehicle",
-      "brandName":{
-         "type":"Property",
-         "value":"BMW"
-      },
       "fuelLevel":[
          {
             "type":"Property",
@@ -86,10 +78,6 @@
    {
       "id":"urn:ngsi-ld:Bus:randomUUID",
       "type":"Bus",
-      "brandName":{
-         "type":"Property",
-         "value":"Mercedes"
-      },
       "fuelLevel":[
          {
             "type":"Property",

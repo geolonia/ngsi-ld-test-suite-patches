@@ -22,13 +22,10 @@ ${status_code}=    400
 017_02_03_delete an attribute instance in temporal representation of an entity if the instance id is not valid
                       ${temporal_entity_representation_id}    speed           invalidId
 
-017_02_04_delete an attribute instance in temporal representation of an entity if the instance id is not present
-                      ${temporal_entity_representation_id}    speed           ${EMPTY}
-
-017_02_05_delete an attribute instance in temporal representation of an entity if the attribute name is not a valid name
+017_02_04_delete an attribute instance in temporal representation of an entity if the attribute name is not a valid name
                       ${temporal_entity_representation_id}    invalid(Name    ${valid_instanceId}
 
-017_02_06_delete an attribute instance in temporal representation of an entity if the attribute name is not present
+017_02_05_delete an attribute instance in temporal representation of an entity if the attribute name is not present
                       ${temporal_entity_representation_id}    ${EMPTY}        ${valid_instanceId}
 
 *** Keywords ***

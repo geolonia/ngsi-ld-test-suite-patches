@@ -3,7 +3,8 @@ Documentation     Check that an error is raised if you delete an attribute to te
 Resource          ${EXECDIR}/resources/ApiUtils.resource
 Resource          ${EXECDIR}/resources/AssertionUtils.resource
 Resource          ${EXECDIR}/resources/JsonUtils.resource
-Suite Setup       Create Id
+Suite Setup       Create Temporal Entity
+Suite Teardown    Delete Temporal Entity
 Test Template     Delete attribute from temporal entity with unknow entity/attribute id
 
 *** Variable ***
@@ -24,17 +25,18 @@ ${filename}=      vehicle-temporal-representation-sample.jsonld
 *** Keywords ***
 Delete attribute from temporal entity with unknow entity/attribute id
     [Arguments]    ${entity_id}    ${attribute_id}
-    [Documentation]    Check that an error is raised if you delete an attribute to    temporal entity with a unknown/invalid Entity/Attribute Id
+    [Documentation]    Check that an error is raised if you delete an attribute to temporal entity with a unknown/invalid Entity/Attribute Id
     [Tags]    tea-delete    5_6_13
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type    ${temporal_entity_representation_id}    ${filename}    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
     ${response}=    Delete Attribute From Temporal Entity    ${entity_id}    ${attribute_id}    ${CONTENT_TYPE_JSON}    ${EMPTY}    false
     Check Response Status Code    ${status_code}    ${response['status']}
-    Check Response Body Containing ProblemDetails Element Containing Type Element set to    ${response}    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to    ${response}    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
-    [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
 
-Create Id
+Create Temporal Entity
     ${valid_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type    ${valid_temporal_entity_id}    ${filename}    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${response['status']}
     Set Suite Variable    ${valid_temporal_entity_id}
+
+Delete Temporal Entity
+    Delete Temporal Representation Of Entity    ${valid_temporal_entity_id}
