@@ -60,7 +60,7 @@ ${content_type}=    application/json
     [Documentation]    Verify that on a GET HTTP request if nothing is specified on the Accept header, "application/json" is assumed (/temporal/entities)
     [Tags]    te-query    6_3_4
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${tea_id_prefix}
-    Create Temporal Representation Of Entity    ${tea_filename}    ${temporal_entity_representation_id}
+    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type    ${temporal_entity_representation_id}    ${tea_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response['status']}
     ${request}    ${response}=    Query Temporal Representation Of Entities With Return    entity_types=${teatype}    timerel=after    timeAt=2020-08-01T12:05:00Z    context=${ngsild_test_suite_context}    accept=*/*
     Check Response Status Code    200    ${response['status']}
