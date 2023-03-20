@@ -56,7 +56,7 @@ Query Entity
     &{headers}=  Create Dictionary
     &{params}=  Create Dictionary
     Run Keyword If     ${accept_length}>0       Set To Dictionary   ${headers}   Accept    ${accept}
-    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type=${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     Run Keyword If     ${attrs_length}>0       Set To Dictionary   ${params}       attrs=${attrs}
     Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
     Run Keyword If     ${options_length}>0       Set To Dictionary   ${params}       options=${options}
@@ -77,7 +77,7 @@ Query Entities
     &{headers}=  Create Dictionary
     &{params}=  Create Dictionary
     Run Keyword If     ${accept_length}>0       Set To Dictionary   ${headers}   Accept    ${accept}
-    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type=${accept}
+    Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     Run Keyword If     ${attrs_length}>0       Set To Dictionary   ${params}       attrs=${attrs}
     Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
     Run Keyword If     ${options_length}>0       Set To Dictionary   ${params}       options=${options}
