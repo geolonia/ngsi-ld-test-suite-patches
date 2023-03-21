@@ -37,20 +37,26 @@
    ],
    "location":[
       {
-         "type":"Point",
-         "coordinates":[
-            -8.5,
-            41.2
-         ],
-         "observedAt":"2020-10-01T12:03:00Z"
+        "type": "GeoProperty",
+        "value": {
+            "type":"Point",
+            "coordinates":[
+                2.35,
+                42.22
+            ]
+        },
+        "observedAt":"2020-10-01T12:03:00Z"
       },
       {
-         "type":"Point",
-         "coordinates":[
-            2.35,
-            42.22
-         ],
-         "observedAt":"2020-10-01T12:05:00Z"
+        "type": "GeoProperty",
+        "value": {
+             "type":"Point",
+             "coordinates":[
+                -8.5,
+                41.2
+            ]
+        },
+        "observedAt":"2020-10-01T12:05:00Z"
       }
    ],
    "@context":[

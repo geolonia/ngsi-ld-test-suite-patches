@@ -17,7 +17,7 @@ ${expectation_file}=    vehicles-temporal-representation-021-09-expectation.json
 Near Point            near;maxDistance==2000    Point       [-8.503,41.202]                                                                  ${EMPTY}       vehicles-temporal-representation-021-09-01-expectation.jsonld
                       [Tags]                    te-query    5_7_4
 
-Within Polygon        within                    Polygon     [[-13.503,47.202],[6.541, 52.961],[20.37,44.653],[9.46,32.57],[-15.23,21.37]]    location       vehicles-temporal-representation-021-09-02-expectation.jsonld
+Within Polygon        contains                  Polygon     [[[-13.503,47.202],[6.541, 52.961],[20.37,44.653],[9.46,32.57],[-13.503,32.57],[-13.503,47.202]]]  location       vehicles-temporal-representation-021-09-02-expectation.jsonld
                       [Tags]                    te-query    5_7_4
 
 *** Keywords ***
