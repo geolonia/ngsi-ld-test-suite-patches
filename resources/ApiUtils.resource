@@ -349,7 +349,7 @@ Append Attribute To Temporal Entity Using Session
     Set Test Variable  ${response}
     [return]   ${response}
 
-Partial Update Attribute From Temporal Entity
+Modify Attribute Instance From Temporal Entity
     [Arguments]  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${fragment_filename}    ${content_type}      ${context}=${EMPTY}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
