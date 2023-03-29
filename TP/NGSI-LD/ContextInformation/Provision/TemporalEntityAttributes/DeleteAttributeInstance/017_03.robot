@@ -4,7 +4,7 @@ Resource          ${EXECDIR}/resources/ApiUtils.resource
 Resource          ${EXECDIR}/resources/AssertionUtils.resource
 Resource          ${EXECDIR}/resources/JsonUtils.resource
 Suite Setup       Create Id
-Test Template     Partially Update Temporal Entity
+Test Template     Delete Attribute Instance
 
 *** Variable ***
 ${vehicle_id_prefix}=    urn:ngsi-ld:Vehicle:
@@ -22,7 +22,7 @@ ${status_code}=    404
                       ${temporal_entity_representation_id}    speed           urn:ngsi-ld:01234567890123456789
 
 *** Keywords ***
-Partially Update Temporal Entity
+Delete Attribute Instance
     [Arguments]    ${temporal_entity_id}    ${attributeId}    ${instanceId}
     [Documentation]    Check that you cannot delete an attribute instance in temporal representation of an entity if the entity/attribute/instance id is not found
     [Tags]    tea-instance-delete    5_6_15
