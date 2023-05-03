@@ -60,7 +60,8 @@ Check that a notification is sent as JSON-LD
     Reply By   200
 
     ${notification_headers} =    Get Request Headers
-    Dictionary Should Not Contain Key    ${notification_headers}    Link
+    ${notification_headers_dict}=   Convert To Dictionary   ${notification_headers}
+    Dictionary Should Not Contain Key    ${notification_headers_dict}    Link
 
     ${notification_payload}=     Get Request Body
     # json.loads parses the payload as json. It fails if the payload is malformed
