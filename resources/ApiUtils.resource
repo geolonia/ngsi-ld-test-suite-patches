@@ -37,14 +37,14 @@ ${response}
 *** Keywords ***
 Delete Entity by Id Returning Response
     [Arguments]  ${id}
-    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}${id}
+    ${response}=  REST.DELETE  ${ENTITIES_ENDPOINT_PATH}${id}
     Output  request
     Output  response
     [return]  ${response}
 
 Delete Entity by Id
     [Arguments]  ${id}
-    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}${id}
+    ${response}=  REST.DELETE  ${ENTITIES_ENDPOINT_PATH}${id}
     Output  request
     Output  response
 
@@ -61,7 +61,7 @@ Query Entity
     Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
     Run Keyword If     ${options_length}>0       Set To Dictionary   ${params}       options=${options}
     
-    ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}${id}      headers=${headers}      query=${params}
+    ${response}=  REST.GET  ${ENTITIES_ENDPOINT_PATH}${id}      headers=${headers}      query=${params}
     ${request}=    Output  request
     Output  response
     Set Test Variable  ${response}
@@ -89,7 +89,7 @@ Query Entities
     Run Keyword If     '${coordinates}'!=''       Set To Dictionary   ${params}    coordinates=${coordinates}
     Run Keyword If     '${geometry}'!=''       Set To Dictionary   ${params}    geometry=${geometry}
 
-    ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}      headers=${headers}      query=${params}
+    ${response}=  REST.GET  ${ENTITIES_ENDPOINT_PATH}      headers=${headers}      query=${params}
     Output  request
     Output  response
     Set Test Variable  ${response}
@@ -108,7 +108,7 @@ Query Entities Via POST
     Run Keyword If     ${attrs_length}>0       Set To Dictionary   ${params}       attrs=${attrs}
     Run Keyword If     '${entity_id_pattern}'!=''       Set To Dictionary   ${params}    idPattern=${entity_id_pattern}
     Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
-    ${response}=    POST    ${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}    body=${params}    headers=${headers}
+    ${response}=    REST.POST    ${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}    body=${params}    headers=${headers}
     Output  request
     Output  response
     [return]    ${response}
@@ -118,7 +118,7 @@ Retrieve Entity by Id
     ${headers}=  Create Dictionary
     Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
-    ${response}=  GET  ${ENTITIES_ENDPOINT_PATH}${id}  headers=${headers}
+    ${response}=  REST.GET  ${ENTITIES_ENDPOINT_PATH}${id}  headers=${headers}
     Output  request
     Output  response
     Set Test Variable    ${response}
@@ -130,7 +130,7 @@ Create Entity Selecting Content Type
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!='${EMPTY}'   Set To Dictionary   ${headers}   Accept=${accept}
     Run Keyword If     '${context}'!='${EMPTY}'   Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
-    ${response}=  POST  ${ENTITIES_ENDPOINT_PATH}  body=${entity}  headers=${headers}
+    ${response}=  REST.POST  ${ENTITIES_ENDPOINT_PATH}  body=${entity}  headers=${headers}
     ${request}=    Output  request
     Output  response
     [return]    ${request}    ${response}
@@ -139,7 +139,7 @@ Append Entity Attributes
     [Arguments]  ${id}    ${fragment_filename}    ${content_type}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
-    ${response}=  POST  ${ENTITIES_ENDPOINT_PATH}${id}/attrs/  body=${fragment_payload}  headers=${headers}
+    ${response}=  REST.POST  ${ENTITIES_ENDPOINT_PATH}${id}/attrs/  body=${fragment_payload}  headers=${headers}
     Output  request
     Output  response
     [return]   ${response}
@@ -148,7 +148,7 @@ Append Entity Attributes With Parameters
     [Arguments]  ${id}    ${fragment_filename}    ${content_type}    ${options}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
-    ${response}=  POST  ${ENTITIES_ENDPOINT_PATH}${id}/attrs/?options=${options}  body=${fragment_payload}  headers=${headers}
+    ${response}=  REST.POST  ${ENTITIES_ENDPOINT_PATH}${id}/attrs/?options=${options}  body=${fragment_payload}  headers=${headers}
     Output  request
     Output  response
     [return]   ${response}
@@ -174,7 +174,7 @@ Update Entity Attributes
     [Arguments]  ${id}    ${fragment_filename}    ${content_type}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
-    ${response}=  PATCH  ${ENTITIES_ENDPOINT_PATH}${id}/attrs/  body=${fragment_payload}  headers=${headers}
+    ${response}=  REST.PATCH  ${ENTITIES_ENDPOINT_PATH}${id}/attrs/  body=${fragment_payload}  headers=${headers}
     Output  request
     Output  response
     [return]   ${response}
@@ -187,7 +187,7 @@ Delete Entity Attributes
     Run Keyword If     '${datasetId}'!=''       Append To List   ${params}    datasetId=${datasetId}
     Run Keyword If     '${deleteAll}'!=''       Append To List   ${params}    deleteAll=${deleteAll}
     ${params_as_string}=    Catenate    SEPARATOR=&     @{params}
-    ${response}=  DELETE  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}?${params_as_string}     headers=${headers}
+    ${response}=  REST.DELETE  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}?${params_as_string}     headers=${headers}
     Output  request
     Output  response
     [return]    ${response}
@@ -198,7 +198,7 @@ Partial Update Entity Attributes
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
-    ${response}=  PATCH  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}  body=${fragment_payload}  headers=${headers}
+    ${response}=  REST.PATCH  ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}  body=${fragment_payload}  headers=${headers}
     Output  request
     Output  response
     [return]   ${response}
@@ -211,7 +211,7 @@ Retrieve Entity Types
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     Run Keyword If     ${details}       Set To Dictionary   ${params}    details=${details}
-    ${response}=  GET  ${ENTITIES_TYPES_ENDPOINT_PATH}/     headers=${headers}   query=${params}
+    ${response}=  REST.GET  ${ENTITIES_TYPES_ENDPOINT_PATH}/     headers=${headers}   query=${params}
     Output  request
     Output  response
 
@@ -223,7 +223,7 @@ Retrieve Entity Type
     &{headers}=  Create Dictionary
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
-    ${response}=  GET  ${ENTITIES_TYPES_ENDPOINT_PATH}/${type}     headers=${headers}
+    ${response}=  REST.GET  ${ENTITIES_TYPES_ENDPOINT_PATH}/${type}     headers=${headers}
     Output  request
     Output  response
 
@@ -237,7 +237,7 @@ Retrieve Attributes
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     Run Keyword If     ${details}       Set To Dictionary   ${params}    details=${details}
-    ${response}=  GET  ${ATTRIBUTES_ENDPOINT_PATH}     headers=${headers}   query=${params}
+    ${response}=  REST.GET  ${ATTRIBUTES_ENDPOINT_PATH}     headers=${headers}   query=${params}
     Output  request
     Output  response
 
@@ -249,7 +249,7 @@ Retrieve Attribute
     &{headers}=  Create Dictionary
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
-    ${response}=  GET  ${ATTRIBUTES_ENDPOINT_PATH}/${attribute_name}     headers=${headers}
+    ${response}=  REST.GET  ${ATTRIBUTES_ENDPOINT_PATH}/${attribute_name}     headers=${headers}
     Output  request
     Output  response
 
@@ -260,7 +260,7 @@ Create Context Source Registration With Return
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept=${context}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
-    ${response}=  POST  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}  body=${payload}  headers=${headers}
+    ${response}=  REST.POST  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}  body=${payload}  headers=${headers}
     ${request}=    Output  request
     Output  response
     [return]    ${request}    ${response}
@@ -278,7 +278,7 @@ Update Context Source Registration With Return
     [Arguments]  ${registration_id}    ${fragment}    ${content_type}     ${accept}=${EMPTY}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
      Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept=${accept}
-    ${response}=  PATCH  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}  body=${fragment}  headers=${headers}
+    ${response}=  REST.PATCH  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}  body=${fragment}  headers=${headers}
     ${request}=    Output  request
     Output  response
     [return]    ${response}
@@ -295,7 +295,7 @@ Update Context Source Registration Using Session
 
 Delete Context Source Registration With Return
     [Arguments]  ${registration_id}
-    ${response}=  DELETE  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
+    ${response}=  REST.DELETE  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
     Output  request
     Output  response
     [return]  ${response}
@@ -305,7 +305,7 @@ Create Entity
     ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/${filename}
     ${entity}=    Update Value To Json    ${entity_payload}     $..id   ${entity_id}
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST  ${ENTITIES_ENDPOINT_PATH}  body=${entity}  headers=${headers}
+    ${response}=  REST.POST  ${ENTITIES_ENDPOINT_PATH}  body=${entity}  headers=${headers}
     Output  request
     Output  response
 
@@ -315,7 +315,7 @@ Create Or Update Temporal Representation Of Entity Selecting Content Type
     ${temporal_entity_representation}=    Update Value To Json    ${temporal_entity_representation_payload}     $..id   ${temporal_entity_representation_id}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
-    ${response}=  POST  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/  body=${temporal_entity_representation}  headers=${headers}
+    ${response}=  REST.POST  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/  body=${temporal_entity_representation}  headers=${headers}
     Output  request
     Output  response
     [return]  ${response}
@@ -334,7 +334,7 @@ Append Attribute To Temporal Entity
     [Arguments]  ${temporal_entity_id}    ${fragment_filename}    ${content_type}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
-    ${response}=  POST  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs  body=${fragment_payload}  headers=${headers}
+    ${response}=  REST.POST  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs  body=${fragment_payload}  headers=${headers}
     Output  request
     Output  response
     [return]   ${response}
@@ -354,7 +354,7 @@ Modify Attribute Instance From Temporal Entity
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${fragment_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
-    ${response}=  PATCH  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}  body=${fragment_payload}  headers=${headers}
+    ${response}=  REST.PATCH  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}  body=${fragment_payload}  headers=${headers}
     Output  request
     Output  response
     [return]   ${response}
@@ -367,14 +367,14 @@ Delete Attribute From Temporal Entity
     Run Keyword If     '${datasetId}'!=''       Append To List   ${params}    datasetId=${datasetId}
     Run Keyword If     '${deleteAll}'!=''       Append To List   ${params}    deleteAll=${deleteAll}
     ${params_as_string}=    Catenate    SEPARATOR=&     @{params}
-    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${entityId}/attrs/${attributeId}?${params_as_string}   headers=${headers}
+    ${response}=  REST.DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${entityId}/attrs/${attributeId}?${params_as_string}   headers=${headers}
     Output  request
     Output  response
     [return]   ${response}
 
 Delete Temporal Representation Of Entity With Returning Response
     [Arguments]  ${temporal_entity_representation_id}
-    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
+    ${response}=  REST.DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
     Output  request
     Output  response
     [return]   ${response}
@@ -393,7 +393,7 @@ Get Temporal Representation Of Entity
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''      Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     Run Keyword If     ${options_length}>0       Set To Dictionary   ${params}       options=${options}
-    ${response}=  GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}      headers=${headers}    query=${params}
+    ${response}=  REST.GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}      headers=${headers}    query=${params}
     Output  request
     Output  response
     [return]  ${response}
@@ -402,7 +402,7 @@ Delete Attribute Instance From Temporal Entity
     [Arguments]  ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${content_type}    ${context}=${EMPTY}
     &{headers}=  Create Dictionary
     Run Keyword If     '${context}'!=''      Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
-    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}      headers=${headers}
+    ${response}=  REST.DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}      headers=${headers}
     Output  request
     Output  response
     [return]  ${response}
@@ -411,7 +411,7 @@ Update Temporal Representation Of Entity Selecting Content Type
     [Arguments]   ${temporal_entity_representation_id}    ${attrId}    ${instanceId}    ${fragment_filename}    ${content_type}
     ${temporal_entity_fragment}=    Load Json From File    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
-    ${response}=  PATCH  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}/attrs/${attrId}/${instanceId}  body=${temporal_entity_fragment}  headers=${headers}
+    ${response}=  REST.PATCH  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}/attrs/${attrId}/${instanceId}  body=${temporal_entity_fragment}  headers=${headers}
     Output  request
     Output  response
     [return]  ${response}
@@ -422,7 +422,7 @@ Batch Create Entities
     Set To Dictionary   ${headers}   Content-Type    ${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}   Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
-    ${response}=  POST  ${BATCH_CREATE_ENDPOINT_PATH}  body=@{entities_to_be_created}  headers=${headers}
+    ${response}=  REST.POST  ${BATCH_CREATE_ENDPOINT_PATH}  body=@{entities_to_be_created}  headers=${headers}
     Output  request
     Output  response
     Set Test Variable  ${response}
@@ -430,7 +430,7 @@ Batch Create Entities
 Batch Upsert Entities
     [Arguments]  @{entities_to_be_upserted}     ${update_option}=replace
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST  ${BATCH_UPSERT_ENDPOINT_PATH}?options=${update_option}  body=@{entities_to_be_upserted}  headers=${headers}
+    ${response}=  REST.POST  ${BATCH_UPSERT_ENDPOINT_PATH}?options=${update_option}  body=@{entities_to_be_upserted}  headers=${headers}
     Output  request
     Output  response
     Set Test Variable  ${response}
@@ -438,7 +438,7 @@ Batch Upsert Entities
 Batch Update Entities
     [Arguments]  @{entities_to_be_updated}           ${overwrite_option}=overwrite
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST  ${BATCH_UPDATE_ENDPOINT_PATH}?options=${overwrite_option}  body=@{entities_to_be_updated}  headers=${headers}
+    ${response}=  REST.POST  ${BATCH_UPDATE_ENDPOINT_PATH}?options=${overwrite_option}  body=@{entities_to_be_updated}  headers=${headers}
     Output  request
     Output  response
     Set Test Variable  ${response}
@@ -446,7 +446,7 @@ Batch Update Entities
 Batch Delete Entities
     [Arguments]  @{entities_ids_to_be_deleted}  ${teardown}=False
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST  ${BATCH_DELETE_ENDPOINT_PATH}  body=@{entities_ids_to_be_deleted}  headers=${headers}
+    ${response}=  REST.POST  ${BATCH_DELETE_ENDPOINT_PATH}  body=@{entities_ids_to_be_deleted}  headers=${headers}
     Output  request
     Output  response
     Run Keyword If     not ${teardown}       Set Test Variable  ${response}
@@ -474,7 +474,7 @@ Create Temporal Representation Of Entity
     ${temporal_entity_representation}=    Update Value To Json    ${temporal_entity_representation_payload}     $..id   ${temporal_entity_representation_id}
 
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}  body=${temporal_entity_representation}  headers=${headers}
+    ${response}=  REST.POST  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}  body=${temporal_entity_representation}  headers=${headers}
     Output  request
     Output  response
 
@@ -494,7 +494,7 @@ Retrieve Temporal Representation Of Entity
     Run Keyword If     '${endTimeAt}'!=''       Set To Dictionary   ${params}    endTimeAt=${endTimeAt}
     Run Keyword If     '${lastN}'!=''       Set To Dictionary   ${params}    lastN=${lastN}
 
-    ${response}=  GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}      headers=${headers}      query=${params}
+    ${response}=  REST.GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}      headers=${headers}      query=${params}
     Output  request
     Output  response
     Set Test Variable  ${response}
@@ -523,7 +523,7 @@ Query Temporal Representation Of Entities
     Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
     Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
 
-    ${response}=  GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}      headers=${headers}      query=${params}
+    ${response}=  REST.GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}      headers=${headers}      query=${params}
     Output  request
     Output  response
     Set Test Variable  ${response}
@@ -534,7 +534,7 @@ Query Temporal Representation Of Entities Via Post
     Set To Dictionary   ${headers}   Content-Type    ${content_type}
     Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${query_payload}=    Load Json From File    ${EXECDIR}/data/temporalEntities/${query_file_name}
-    ${response}=  POST  ${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}/query  body=${query_payload}  headers=${headers}
+    ${response}=  REST.POST  ${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}/query  body=${query_payload}  headers=${headers}
     Output  request
     Output  response
     Set Test Variable  ${response}
@@ -542,7 +542,7 @@ Query Temporal Representation Of Entities Via Post
 Delete Temporal Representation Of Entity
     [Arguments]  ${temporal_entity_representation_id}
 
-    ${response}=  DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
+    ${response}=  REST.DELETE  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
     Output  request
     Output  response
 
@@ -550,7 +550,7 @@ Create Context Source Registration
     [Arguments]  ${context_source_registration_payload}
 
     &{headers}=  Create Dictionary  Content-Type=application/ld+json
-    ${response}=  POST  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}  body=${context_source_registration_payload}  headers=${headers}
+    ${response}=  REST.POST  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}  body=${context_source_registration_payload}  headers=${headers}
     ${request}=    Output  request
     Output  response
 
@@ -560,7 +560,7 @@ Create Context Source Registration
 Update Context Source Registration
     [Arguments]  ${context_source_registration_id}     ${update_fragment}
 
-    ${response}=  PATCH  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}    body=${update_fragment}
+    ${response}=  REST.PATCH  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}    body=${update_fragment}
     Output  request
     Output  response
 
@@ -588,7 +588,7 @@ Query Context Source Registrations
     Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
     Run Keyword If     '${page}'!=''       Set To Dictionary   ${params}    page=${page}
 
-    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}     headers=${headers}     query=${params}
+    ${response}=  REST.GET  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}     headers=${headers}     query=${params}
     Output  request
     Output  response
 
@@ -597,7 +597,7 @@ Query Context Source Registrations
 Delete Context Source Registration
     [Arguments]  ${context_source_registration_id}
 
-    ${response}=  DELETE  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
+    ${response}=  REST.DELETE  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
     Output  request
     Output  response
 
@@ -609,7 +609,7 @@ Retrieve Context Source Registration
     &{headers}=  Create Dictionary
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}    Accept=${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
-    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}     headers=${headers}
+    ${response}=  REST.GET  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}     headers=${headers}
     Output  request
     Output  response
 
@@ -620,7 +620,7 @@ Create Context Source Registration Subscription
 
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
-    ${response}=  POST  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}  body=${subscription_payload}  headers=${headers}
+    ${response}=  REST.POST  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}  body=${subscription_payload}  headers=${headers}
     ${request}=    Output  request
     Output  response
 
@@ -630,7 +630,7 @@ Create Context Source Registration Subscription
 Update Context Source Registration Subscription
     [Arguments]  ${subscription_id}     ${subscription_update_fragment}
 
-    ${response}=  PATCH  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}    body=${subscription_update_fragment}
+    ${response}=  REST.PATCH  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}    body=${subscription_update_fragment}
     Output  request
     Output  response
 
@@ -642,7 +642,7 @@ Retrieve Context Source Registration Subscription
     &{headers}=  Create Dictionary
     Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
-    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}     headers=${headers}
+    ${response}=  REST.GET  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}     headers=${headers}
     Output  request
     Output  response
 
@@ -658,7 +658,7 @@ Query Context Source Registration Subscriptions
     Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
     Run Keyword If     '${page}'!=''       Set To Dictionary   ${params}    page=${page}
 
-    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}     headers=${headers}     query=${params}
+    ${response}=  REST.GET  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}     headers=${headers}     query=${params}
     Output  request
     Output  response
 
@@ -667,7 +667,7 @@ Query Context Source Registration Subscriptions
 Delete Context Source Registration Subscription
     [Arguments]  ${subscription_id}
 
-    ${response}=  DELETE  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
+    ${response}=  REST.DELETE  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     Output  request
     Output  response
 
@@ -687,7 +687,7 @@ Create Subscription
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${subscription_payload}=    Load Json From File    ${EXECDIR}/data/${filename_path}
     ${subscription}=    Update Value To Json    ${subscription_payload}     $..id   ${subscription_id}
-    ${response}=  POST  ${SUBSCRIPTION_ENDPOINT_PATH}  body=${subscription}  headers=${headers}
+    ${response}=  REST.POST  ${SUBSCRIPTION_ENDPOINT_PATH}  body=${subscription}  headers=${headers}
     Output  request
     Output  response
     [return]   ${response}
@@ -697,7 +697,7 @@ Create Subscription From Subscription Payload
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
-    ${response}=  POST  ${SUBSCRIPTION_ENDPOINT_PATH}  body=${subscription_payload}  headers=${headers}
+    ${response}=  REST.POST  ${SUBSCRIPTION_ENDPOINT_PATH}  body=${subscription_payload}  headers=${headers}
     Output  request
     Output  response
 
@@ -716,7 +716,7 @@ Update Subscription
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${subscription_update_fragment}=    Load Json From File    ${EXECDIR}/data/${fragment_filename}
-    ${response}=  PATCH  ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}    body=${subscription_update_fragment}     headers=${headers}
+    ${response}=  REST.PATCH  ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}    body=${subscription_update_fragment}     headers=${headers}
     Output  request
     Output  response
     Set Test Variable  ${response}
@@ -727,7 +727,7 @@ Update Subscription With Payload
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
-    ${response}=  PATCH  ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}    body=${payload}     headers=${headers}
+    ${response}=  REST.PATCH  ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}    body=${payload}     headers=${headers}
     Output  request
     Output  response
     Set Test Variable  ${response}
@@ -735,7 +735,7 @@ Update Subscription With Payload
 
 Delete Subscription
     [Arguments]  ${subscription_id}
-    ${response}=  DELETE  ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
+    ${response}=  REST.DELETE  ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
     Output  request
     Output  response
     Set Suite Variable  ${response}
@@ -751,7 +751,7 @@ Query Subscriptions
     Run Keyword If     '${offset}'!=''       Set To Dictionary   ${params}    offset=${offset}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
 
-    ${response}=  GET  ${SUBSCRIPTION_ENDPOINT_PATH}     headers=${headers}     query=${params}
+    ${response}=  REST.GET  ${SUBSCRIPTION_ENDPOINT_PATH}     headers=${headers}     query=${params}
     Output  request
     Output  response
 
@@ -764,7 +764,7 @@ Retrieve Subscription
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
     Run Keyword If     '${context}'!=''       Set To Dictionary   ${headers}    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
 
-    ${response}=  GET  ${SUBSCRIPTION_ENDPOINT_PATH}${id}      headers=${headers}
+    ${response}=  REST.GET  ${SUBSCRIPTION_ENDPOINT_PATH}${id}      headers=${headers}
     ${request}=  Output  request
     Output  response
     Set Test Variable  ${response}
@@ -774,7 +774,7 @@ Update Context Source Registration Subscription By Selecting Content Type
     [Arguments]  ${subscription_id}     ${subscription_update_fragment}    ${content_type}    ${accept}=${EMPTY}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
-    ${response}=  PATCH  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}    body=${subscription_update_fragment}    headers=${headers}
+    ${response}=  REST.PATCH  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}    body=${subscription_update_fragment}    headers=${headers}
     Output  request
     Output  response
     [return]   ${response}
@@ -783,7 +783,7 @@ Retrieve Entity Types With Return
     [Arguments]  ${accept}=${EMPTY}   
     &{headers}=  Create Dictionary
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
-    ${response}=  GET  ${ENTITIES_TYPES_ENDPOINT_PATH}      headers=${headers}
+    ${response}=  REST.GET  ${ENTITIES_TYPES_ENDPOINT_PATH}      headers=${headers}
     Output  request
     Output  response
     [return]    ${response}
@@ -792,7 +792,7 @@ Retrieve Entity Type With Return
     [Arguments]  ${type}    ${accept}=${EMPTY} 
     &{headers}=  Create Dictionary
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
-    ${response}=  GET  ${ENTITIES_TYPES_ENDPOINT_PATH}/${type}      headers=${headers}
+    ${response}=  REST.GET  ${ENTITIES_TYPES_ENDPOINT_PATH}/${type}      headers=${headers}
     Output  request
     Output  response
     [return]    ${response}
@@ -801,7 +801,7 @@ Retrieve Attributes With Return
     [Arguments]  ${accept}=${EMPTY} 
     &{headers}=  Create Dictionary
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
-    ${response}=  GET  ${ATTRIBUTES_ENDPOINT_PATH}     headers=${headers}
+    ${response}=  REST.GET  ${ATTRIBUTES_ENDPOINT_PATH}     headers=${headers}
     Output  request
     Output  response
     [return]    ${response}
@@ -810,7 +810,7 @@ Retrieve Attribute With Return
     [Arguments]  ${attribute_name}    ${accept}=${EMPTY} 
     &{headers}=  Create Dictionary
     Run Keyword If     '${accept}'!=''       Set To Dictionary   ${headers}   Accept    ${accept}
-    ${response}=  GET  ${ATTRIBUTES_ENDPOINT_PATH}/${attribute_name}     headers=${headers}
+    ${response}=  REST.GET  ${ATTRIBUTES_ENDPOINT_PATH}/${attribute_name}     headers=${headers}
     Output  request
     Output  response
     [return]    ${response}
@@ -818,7 +818,7 @@ Retrieve Attribute With Return
 Create Context Source Registration Subscription With Return
     [Arguments]  ${subscription_payload}    ${content_type}
     &{headers}=  Create Dictionary  Content-Type=${content_type}
-    ${response}=  POST  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}  body=${subscription_payload}  headers=${headers}
+    ${response}=  REST.POST  ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}  body=${subscription_payload}  headers=${headers}
     ${request}=    Output  request
     Output  ${response}
     [return]    ${request}    ${response}
@@ -826,7 +826,7 @@ Create Context Source Registration Subscription With Return
 Batch Upsert Entities By Selecting Content Type
     [Arguments]  @{entities_to_be_upserted}    ${content_type}=${CONTENT_TYPE_LD_JSON}     ${update_option}=replace
     &{headers}=  Create Dictionary  Content-Type=${content_type}
-    ${response}=  POST  ${BATCH_UPSERT_ENDPOINT_PATH}?options=${update_option}  body=@{entities_to_be_upserted}  headers=${headers}
+    ${response}=  REST.POST  ${BATCH_UPSERT_ENDPOINT_PATH}?options=${update_option}  body=@{entities_to_be_upserted}  headers=${headers}
     Output  request
     Output  response
     Set Test Variable  ${response}
@@ -834,7 +834,7 @@ Batch Upsert Entities By Selecting Content Type
 Batch Update Entities By Selecting Content Type
     [Arguments]  @{entities_to_be_updated}    ${content_type}=${CONTENT_TYPE_LD_JSON}     ${overwrite_option}=overwrite
     &{headers}=  Create Dictionary  Content-Type=${content_type}
-    ${response}=  POST  ${BATCH_UPDATE_ENDPOINT_PATH}?options=${overwrite_option}  body=@{entities_to_be_updated}  headers=${headers}
+    ${response}=  REST.POST  ${BATCH_UPDATE_ENDPOINT_PATH}?options=${overwrite_option}  body=@{entities_to_be_updated}  headers=${headers}
     Output  request
     Output  response
     Set Test Variable  ${response}
@@ -842,7 +842,7 @@ Batch Update Entities By Selecting Content Type
 Batch Delete Entities By Selecting Content Type
     [Arguments]  @{entities_ids_to_be_deleted}    ${content_type}=${CONTENT_TYPE_LD_JSON}    ${teardown}=False
     &{headers}=  Create Dictionary  Content-Type=${content_type}
-    ${response}=  POST  ${BATCH_DELETE_ENDPOINT_PATH}  body=@{entities_ids_to_be_deleted}  headers=${headers}
+    ${response}=  REST.POST  ${BATCH_DELETE_ENDPOINT_PATH}  body=@{entities_ids_to_be_deleted}  headers=${headers}
     Output  request
     Output  response
     Run Keyword If     not ${teardown}       Set Test Variable  ${response}
@@ -869,7 +869,7 @@ Query Context Source Registrations With Return
     Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
     Run Keyword If     '${page}'!=''       Set To Dictionary   ${params}    page=${page}
 
-    ${response}=  GET  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}     headers=${headers}     query=${params}
+    ${response}=  REST.GET  ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}     headers=${headers}     query=${params}
     ${request}=  Output  request
     Output  response
 
@@ -899,7 +899,7 @@ Query Temporal Representation Of Entities With Return
     Run Keyword If     '${geoproperty}'!=''       Set To Dictionary   ${params}    geoproperty=${geoproperty}
     Run Keyword If     '${limit}'!=''       Set To Dictionary   ${params}    limit=${limit}
 
-    ${response}=  GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}      headers=${headers}      query=${params}
+    ${response}=  REST.GET  ${TEMPORAL_ENTITIES_ENDPOINT_PATH}      headers=${headers}      query=${params}
     ${request}=  Output  request
     Output  response
     [return]  ${request}    ${response}

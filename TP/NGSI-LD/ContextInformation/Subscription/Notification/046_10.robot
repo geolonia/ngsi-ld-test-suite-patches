@@ -61,7 +61,8 @@ Check that a notification is JSON
     Reply By   200
 
     ${notification_headers} =    Get Request Headers
-    Dictionary Should Contain Item    ${notification_headers}    Link    ${expected_header_links}
+    ${notification_headers_dict}=   Convert To Dictionary   ${notification_headers}
+    Dictionary Should Contain Item    ${notification_headers_dict}    Link    ${expected_header_links}
 
     ${notification_payload}=     Get Request Body
     # json.loads parses the payload as json. It fails if the payload is malformed
