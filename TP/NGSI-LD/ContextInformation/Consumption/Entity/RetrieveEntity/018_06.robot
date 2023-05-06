@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Entity
-Suite Teardown      Delete Created Entity
+Test Setup          Setup Initial Entity
+Test Teardown       Delete Created Entity
 Test Template       Check JSON-LD Resolution When retrieving an entity
 
 
@@ -41,7 +41,7 @@ Setup Initial Entity
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
-    Set Suite Variable    ${entity_id}
+    Set Test Variable    ${entity_id}
 
 Delete Created Entity
     Delete Entity by Id Returning Response    ${entity_id}

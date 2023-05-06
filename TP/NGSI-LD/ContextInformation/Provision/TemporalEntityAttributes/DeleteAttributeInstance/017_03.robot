@@ -5,7 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Create Id
+Test Setup          Create Id
+Test Teardown       Delete Intitial Temporal Representation Of Entity
 Test Template       Delete Attribute Instance
 
 
@@ -36,22 +37,24 @@ Delete Attribute Instance
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
     Check Response Status Code    ${status_code}    ${response.status_code}
-    [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
 
 Create Id
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Suite Variable    ${temporal_entity_representation_id}
+    Set Test Variable    ${temporal_entity_representation_id}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    ${temporal_entity_representation_id}
     ...    ${filename}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${unknown_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Suite Variable    ${unknown_temporal_entity_id}
+    Set Test Variable    ${unknown_temporal_entity_id}
     ${response}=    Get Temporal Representation Of Entity
     ...    ${temporal_entity_representation_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     ...    sysAttrs
     ...    ${ngsild_test_suite_context}
     ${valid_instanceId}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
-    Set Suite Variable    ${valid_instanceId}
+    Set Test Variable    ${valid_instanceId}
+
+Delete Intitial Temporal Representation Of Entity
+    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

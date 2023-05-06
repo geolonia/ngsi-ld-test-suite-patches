@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Context Source Registration Subscriptions
-Suite Teardown      Delete Created Context Source Registration Subscriptions
+Test Setup          Setup Initial Context Source Registration Subscriptions
+Test Teardown       Delete Created Context Source Registration Subscriptions
 Test Template       Query Context Source Registration Subscriptions With Limit Parameter
 
 
@@ -61,7 +61,7 @@ Setup Initial Context Source Registration Subscriptions
     Create Context Source Registration Subscription    ${third_subscription_payload}
     Set Suite Variable    ${first_subscription_id}
     Set Suite Variable    ${second_subscription_id}
-    Set Suite Variable    ${third_subscription_id}
+    Set Test Variable    ${third_subscription_id}
 
 Delete Created Context Source Registration Subscriptions
     Delete Context Source Registration Subscription    ${first_subscription_id}

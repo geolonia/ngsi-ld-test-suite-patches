@@ -6,8 +6,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
 
-Suite Setup         Setup Initial Context Source Registrations And Subscriptions
-Suite Teardown      Delete Created Context Source Registrations And Subscriptions
+Test Setup          Setup Initial Context Source Registrations And Subscriptions
+Test Teardown       Delete Created Context Source Registrations And Subscriptions
 Test Template       Receive cSourceNotification For Newly Matching Context Source Registrations
 
 
@@ -58,9 +58,9 @@ Setup Initial Context Source Registrations And Subscriptions
     Create Context Source Registration Subscription    ${subscription_payload}
     Create Context Source Registration    ${first_context_source_registration_payload}
     Create Context Source Registration    ${second_context_source_registration_payload}
-    Set Suite Variable    ${subscription_id}
-    Set Suite Variable    ${first_context_source_registration_id}
-    Set Suite Variable    ${second_context_source_registration_id}
+    Set Test Variable    ${subscription_id}
+    Set Test Variable    ${first_context_source_registration_id}
+    Set Test Variable    ${second_context_source_registration_id}
 
 Delete Created Context Source Registrations And Subscriptions
     Stop Local Server

@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Create Temporal Entity
-Suite Teardown      Delete Temporal Entity
+Test Setup          Create Temporal Entity
+Test Teardown       Delete Temporal Entity
 Test Template       Delete attribute from temporal entity with unknow entity/attribute id
 
 
@@ -49,7 +49,7 @@ Create Temporal Entity
     ...    ${filename}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    Set Suite Variable    ${valid_temporal_entity_id}
+    Set Test Variable    ${valid_temporal_entity_id}
 
 Delete Temporal Entity
     Delete Temporal Representation Of Entity    ${valid_temporal_entity_id}

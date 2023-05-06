@@ -5,6 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Initial Subscriptions
 Test Template       Create Subscription With Invalid/Empty Id
 
 
@@ -23,6 +24,7 @@ Create Subscription With Invalid/Empty Id
     [Documentation]    Check that you cannot create a subscription with an invalid/empty id
     [Tags]    sub-create    5_8_1
     [Arguments]    ${subscription_id}
+    Set Suite Variable    ${subscription_id}
     ${response}=    Create Subscription
     ...    ${subscription_id}
     ...    ${subscription_payload_file_path}
@@ -32,4 +34,6 @@ Create Subscription With Invalid/Empty Id
     ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Delete Subscription    ${subscription_id}
+
+Delete Initial Subscriptions
+    Delete Subscription    ${subscription_id}

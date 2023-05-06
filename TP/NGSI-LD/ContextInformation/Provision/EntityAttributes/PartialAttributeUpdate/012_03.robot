@@ -5,7 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Entities
+Test Setup          Setup Initial Entities
+Test Teardown       Delete Initial Entities
 Test Template       Partial Update Attributes
 
 
@@ -47,10 +48,12 @@ Partial Update Attributes
     ...    ${response.json()}
     ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Delete Entity by Id Returning Response    ${valid_entity_id}
 
 Setup Initial Entities
     ${valid_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Suite Variable    ${valid_entity_id}
+    Set Test Variable    ${valid_entity_id}
     ${not_found_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Suite Variable    ${not_found_entity_id}
+    Set Test Variable    ${not_found_entity_id}
+
+Delete Initial Entities
+    Delete Entity by Id Returning Response    ${valid_entity_id}

@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Created Context Source Registrations
+
 
 *** Variables ***
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
@@ -16,6 +18,7 @@ Create one context source registration using the default context with JSON conte
     [Documentation]    Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context
     [Tags]    csr-create    6_3_5
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    Set Suite Variable    ${registration_id}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
     ${response}=    Create Context Source Registration With Return
@@ -29,4 +32,8 @@ Create one context source registration using the default context with JSON conte
     ...    ${response.json()}
     ${response}=    Retrieve Context Source Registration    ${registration_id}
     Check JSON Value In Response Body    ['information']['entities'][0]['type']    Building    ${response.json()}
-    [Teardown]    Delete Context Source Registration    ${registration_id}
+
+
+*** Keywords ***
+Delete Created Context Source Registrations
+    Delete Context Source Registration    ${registration_id}

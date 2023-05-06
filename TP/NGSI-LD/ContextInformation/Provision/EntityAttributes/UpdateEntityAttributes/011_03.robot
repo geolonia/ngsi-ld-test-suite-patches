@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Initial Entities
+
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
@@ -16,7 +18,7 @@ Update entity attributes when the entity id is not known to the system
     [Documentation]    Check that you cannot update entity attributes if the entity id or attributes are not known to the system
     [Tags]    ea-update    5_6_2
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Test Variable    ${entity_id}
+    Set Suite Variable    ${entity_id}
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    404    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
@@ -26,4 +28,5 @@ Update entity attributes when the entity id is not known to the system
 
 
 *** Keywords ***
-    [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
+Delete Initial Entities
+    Delete Entity by Id Returning Response    ${entity_id}

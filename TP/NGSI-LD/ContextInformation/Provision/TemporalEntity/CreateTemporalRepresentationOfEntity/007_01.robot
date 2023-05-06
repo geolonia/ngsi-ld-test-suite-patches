@@ -5,6 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Teardown       Delete Temporal Entity
 Test Template       Create Temporal Entity
 
 
@@ -25,6 +26,7 @@ Create Temporal Entity
     [Tags]    te-create    5_6_11
     [Arguments]    ${filename}    ${expectation_filename}    ${content_type}
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    Set Test Variable    ${temporal_entity_representation_id}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    ${temporal_entity_representation_id}
     ...    ${filename}
@@ -49,4 +51,6 @@ Create Temporal Entity
     ...    ${temporal_entity_expectation_payload}
     ...    ${response.json()}
     ...    ${ignored_attributes}
-    [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
+
+Delete Temporal Entity
+    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

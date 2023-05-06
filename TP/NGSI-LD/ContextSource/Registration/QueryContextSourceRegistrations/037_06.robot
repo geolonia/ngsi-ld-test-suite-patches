@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Context Source Registration
-Suite Teardown      Delete Created Context Source Registration
+Test Setup          Setup Initial Context Source Registration
+Test Teardown       Delete Created Context Source Registration
 Test Template       Query Context Source Registration Matching Properties And Relationships Of RegistrationInfo
 
 
@@ -45,7 +45,7 @@ Setup Initial Context Source Registration
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}
     Create Context Source Registration    ${context_source_registration_payload}
-    Set Suite Variable    ${context_source_registration_id}
+    Set Test Variable    ${context_source_registration_id}
 
 Delete Created Context Source Registration
     Delete Context Source Registration    ${context_source_registration_id}

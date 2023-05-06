@@ -5,7 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Entities
+Test Setup          Setup Initial Entities
+Test Teardown       Delete Initial Entities
 Test Template       Delete Attributes
 
 
@@ -36,8 +37,10 @@ Delete Attributes
     Check Response Status Code    201    ${response.status_code}
     ${response}=    Delete Entity Attributes    ${entity_id}    ${attribute_id}    ${EMPTY}    false
     Check Response Status Code    ${status_code}    ${response.status_code}
-    [Teardown]    Delete Entity by Id Returning Response    ${valid_entity_id}
 
 Setup Initial Entities
     ${valid_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Suite Variable    ${valid_entity_id}
+    Set Test Variable    ${valid_entity_id}
+
+Delete Initial Entities
+    Delete Entity by Id Returning Response    ${valid_entity_id}

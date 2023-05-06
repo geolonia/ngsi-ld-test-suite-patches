@@ -5,6 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Teardown       Delete Initial Entities
 Test Template       Update Attributes
 
 
@@ -27,6 +28,7 @@ Update Attributes
     [Tags]    ea-partial-update    5_6_4
     [Arguments]    ${fragment_filename}    ${attribute_id}    ${expectation_filename}
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
@@ -45,4 +47,6 @@ Update Attributes
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    @context
     Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}    ${ignored_attributes}
-    [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
+
+Delete Initial Entities
+    Delete Entity by Id Returning Response    ${entity_id}

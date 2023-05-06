@@ -5,6 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Teardown       Delete Created Context Source Registrations
 Test Template       Delete Context Source
 
 
@@ -26,6 +27,7 @@ Delete Context Source
     [Tags]    csr-delete
     [Arguments]    ${invalid_registration_id}
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    Set Test Variable    ${registration_id}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
     ${response}=    Create Context Source Registration With Return    ${updated_payload}
@@ -34,3 +36,6 @@ Delete Context Source
     Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
     [Teardown]    Delete Context Source Registration    ${registration_id}
+
+Delete Created Context Source Registrations
+    Delete Context Source Registration    ${registration_id}

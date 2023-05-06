@@ -5,7 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Create Id
+Test Setup          Create Id
+Test Teardown       Delete Temporal Entity
 Test Template       Delete Attribute
 
 
@@ -44,10 +45,12 @@ Delete Attribute
     ...    ${response.json()}
     ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Delete Temporal Representation Of Entity    ${valid_temporal_entity_id}
 
 Create Id
     ${valid_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${unknown_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Suite Variable    ${valid_temporal_entity_id}
-    Set Suite Variable    ${unknown_temporal_entity_id}
+    Set Test Variable    ${valid_temporal_entity_id}
+    Set Test Variable    ${unknown_temporal_entity_id}
+
+Delete Temporal Entity
+    Delete Temporal Representation Of Entity    ${valid_temporal_entity_id}

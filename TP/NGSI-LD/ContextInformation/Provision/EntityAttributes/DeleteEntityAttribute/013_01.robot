@@ -5,6 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Teardown       Delete Initial Entities
 Test Template       Delete Attributes
 
 
@@ -30,6 +31,7 @@ Delete Attributes
     [Tags]    ea-delete    5_6_5
     [Arguments]    ${datasetId}    ${deleteAll}    ${expectation_filename}
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
@@ -49,4 +51,6 @@ Delete Attributes
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    @context
     Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}    ${ignored_attributes}
-    [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
+
+Delete Initial Entities
+    Delete Entity by Id Returning Response    ${entity_id}

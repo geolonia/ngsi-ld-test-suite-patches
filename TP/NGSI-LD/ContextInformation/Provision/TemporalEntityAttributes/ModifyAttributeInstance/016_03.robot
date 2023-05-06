@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Create Id
-Suite Teardown      Delete Temporal Entity
+Test Setup          Create Id
+Test Teardown       Delete Temporal Entity
 Test Template       Modify Attribute Instance Temporal Entity
 
 
@@ -49,14 +49,14 @@ Create Id
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${unknown_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Suite Variable    ${unknown_temporal_entity_id}
+    Set Test Variable    ${unknown_temporal_entity_id}
     ${response}=    Get Temporal Representation Of Entity
     ...    ${temporal_entity_representation_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     ...    sysAttrs
     ...    ${ngsild_test_suite_context}
     ${valid_instanceId}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
-    Set Suite Variable    ${valid_instanceId}
+    Set Test Variable    ${valid_instanceId}
 
 Delete Temporal Entity
     Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

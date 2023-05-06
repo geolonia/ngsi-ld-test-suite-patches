@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Created Entity
+
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
@@ -17,6 +19,7 @@ Get an entity if an attribute is not known to the system
     [Documentation]    Check that you cannot get an entity if an attribute is not known to the system
     [Tags]    e-retrieve    5_6_6
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Suite Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
@@ -32,4 +35,8 @@ Get an entity if an attribute is not known to the system
     ...    ${response.json()}
     ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
+
+
+*** Keywords ***
+Delete Created Entity
+    Delete Entity by Id Returning Response    ${entity_id}

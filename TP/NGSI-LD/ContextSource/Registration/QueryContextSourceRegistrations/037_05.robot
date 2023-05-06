@@ -5,6 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Teardown       Delete Created Context Source Registration
 Test Template       Query Context Source Registration Matching EntityInfo of RegistrationInfo
 
 
@@ -41,4 +42,6 @@ Query Context Source Registration Matching EntityInfo of RegistrationInfo
     ...    ${expectation_file_path}
     ...    ${expected_context_source_registration_ids}
     ...    ${response.json()}
-    [Teardown]    Delete Context Source Registration    ${context_source_registration_id}
+
+Delete Created Context Source Registration
+    Delete Context Source Registration    ${context_source_registration_id}

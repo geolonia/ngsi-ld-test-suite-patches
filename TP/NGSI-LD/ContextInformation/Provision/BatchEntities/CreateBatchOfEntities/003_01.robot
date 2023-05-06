@@ -5,6 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Teardown       Delete Initial Entities
 Test Template       Batch Create Entity Scenarios
 
 
@@ -37,6 +38,7 @@ Batch Create Entity Scenarios
     @{entities_to_be_created}=    Create List    ${first_entity}    ${second_entity}
     ${response}=    Batch Create Entities    @{entities_to_be_created}
     @{expected_entities_ids}=    Create List    ${first_entity_id}    ${second_entity_id}
+    Set Test Variable    @{expected_entities_ids}
     ${entities_to_be_queried}=    Catenate    SEPARATOR=,    ${first_entity_id}    ${second_entity_id}
     Check Response Status Code    201    ${response.status_code}
     Check Response Body Containing Array Of URIs set to    ${expected_entities_ids}    ${response.json()}
@@ -46,4 +48,6 @@ Batch Create Entity Scenarios
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Created Resources Set To    ${entities_to_be_created}    ${response.json()}
-    ${response}=    Batch Delete Entities    @{expected_entities_ids}
+
+Delete Initial Entities
+    Batch Delete Entities    @{expected_entities_ids}

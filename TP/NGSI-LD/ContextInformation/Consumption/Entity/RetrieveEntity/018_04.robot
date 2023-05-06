@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Created Entity
+
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
@@ -18,6 +20,7 @@ Get an entity in a simplified representation
     [Documentation]    Check that the queried entity by Id can be returned in a simplified representation
     [Tags]    e-retrieve    6_3_7
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Suite Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
@@ -30,3 +33,8 @@ Get an entity in a simplified representation
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response.json()}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
+
+
+*** Keywords ***
+Delete Created Entity
+    Delete Entity by Id Returning Response    ${entity_id}

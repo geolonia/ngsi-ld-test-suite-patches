@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Temporal Entity
+
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
@@ -48,4 +50,8 @@ ${expectation_filename}=    vehicle-temporal-representation-delete-speed-instanc
     ...    ${temporal_entity_expectation_payload}
     ...    ${response.json()}
     ...    ${ignored_attributes}
-    [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
+
+
+*** Keywords ***
+Delete Temporal Entity
+    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

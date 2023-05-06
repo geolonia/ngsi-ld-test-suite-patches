@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Initial Entities
+
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
@@ -15,6 +17,7 @@ Create a batch of one entity using a JSON-LD @context obtained from the request 
     [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json"
     [Tags]    be-create    6_3_5
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Suite Variable    ${entity_id}
     ${entity}=    Load Entity    building-simple-attributes-sample.jsonld    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
     ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_LD_JSON}
@@ -27,5 +30,9 @@ Create a batch of one entity using a JSON-LD @context obtained from the request 
     Check Response Body Containing an Attribute set to
     ...    https://ngsi-ld-test-suite/context#almostFull
     ...    ${response.json()}
+
+
+*** Keywords ***
+Delete Initial Entities
     @{entities_ids_to_be_deleted}=    Create List    ${entity_id}
     ${response}=    Batch Delete Entities    @{entities_ids_to_be_deleted}

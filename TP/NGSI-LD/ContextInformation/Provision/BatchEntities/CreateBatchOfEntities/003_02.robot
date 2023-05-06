@@ -6,6 +6,7 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Suite Setup         Setup Initial Entities
+Suite Teardown      Delete Initial Entities
 
 
 *** Variables ***
@@ -17,7 +18,9 @@ Create a batch of two valid entities and one invalid entity
     [Documentation]    Check that you can create a batch of two valid entities and one invalid entity
     [Tags]    be-create    5_6_7
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Suite Variable    ${first_entity_id}
     ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Suite Variable    ${second_entity_id}
     # TODO: Use Load Test Sample keyword instead
     ${first_entity}=    Load Entity    building-minimal-sample.jsonld    ${first_entity_id}
     ${second_entity}=    Load Entity    building-minimal-sample.jsonld    ${second_entity_id}
@@ -39,8 +42,6 @@ Create a batch of two valid entities and one invalid entity
     ...    accept=${CONTENT_TYPE_LD_JSON}
     @{created_entities}=    Create List    ${first_entity}    ${second_entity}
     Check Created Resources Set To    ${created_entities}    ${response.json()}
-    @{entities_ids_to_be_deleted}=    Create List    ${first_entity_id}    ${second_entity_id}    ${existing_entity_id}
-    ${response}=    Batch Delete Entities    @{entities_ids_to_be_deleted}
 
 
 *** Keywords ***
@@ -48,3 +49,7 @@ Setup Initial Entities
     ${existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity    building-minimal-sample.jsonld    ${existing_entity_id}
     Set Suite Variable    ${existing_entity_id}
+
+Delete Initial Entities
+    @{entities_ids_to_be_deleted}=    Create List    ${first_entity_id}    ${second_entity_id}    ${existing_entity_id}
+    Batch Delete Entities    @{entities_ids_to_be_deleted}

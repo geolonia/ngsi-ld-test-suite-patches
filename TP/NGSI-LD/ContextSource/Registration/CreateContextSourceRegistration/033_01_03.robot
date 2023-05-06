@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Created Context Source Registrations
+
 
 *** Variables ***
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
@@ -19,6 +21,7 @@ Create Context Source Registration Without A Sprecified ID
     ${response}=    Create Context Source Registration With Return    ${payload}
     Check Response Status Code    201    ${response.status_code}
     ${registration_id}=    Check Response Headers ID Not Empty    ${response.headers}
+    Set Suite Variable    ${registration_id}
     ${registration_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
     ${response}=    Retrieve Context Source Registration
     ...    ${registration_id}
@@ -26,4 +29,8 @@ Create Context Source Registration Without A Sprecified ID
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    ${status_regex_expr}
     Check Created Resource Set To    ${registration_payload}    ${response.json()}    ${ignored_attributes}
-    [Teardown]    Delete Context Source Registration    ${registration_id}
+
+
+*** Keywords ***
+Delete Created Context Source Registrations
+    Delete Context Source Registration    ${registration_id}

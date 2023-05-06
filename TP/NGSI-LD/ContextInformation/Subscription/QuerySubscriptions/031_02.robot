@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Subscriptions
-Suite Teardown      Delete Initial Subscriptions
+Test Setup          Setup Initial Subscriptions
+Test Teardown       Delete Initial Subscriptions
 Test Template       Query Subscriptions With Limit And Page Parameters
 
 
@@ -61,9 +61,9 @@ Setup Initial Subscriptions
     ...    ${third_subscription_id}
     ...    ${third_subscription_payload_file_path}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Set Suite Variable    ${first_subscription_id}
-    Set Suite Variable    ${second_subscription_id}
-    Set Suite Variable    ${third_subscription_id}
+    Set Test Variable    ${first_subscription_id}
+    Set Test Variable    ${second_subscription_id}
+    Set Test Variable    ${third_subscription_id}
 
 Delete Initial Subscriptions
     Delete Subscription    ${first_subscription_id}

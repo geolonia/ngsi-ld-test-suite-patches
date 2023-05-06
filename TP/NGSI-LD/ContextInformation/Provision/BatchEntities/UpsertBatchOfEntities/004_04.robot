@@ -32,6 +32,7 @@ Batch Upsert Entities With Update Option Scenarios
     [Documentation]    Check that you can upsert a batch of entities with update option
     [Arguments]    ${filename}    ${update_fragment_filename}
     ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Test Variable    ${new_entity_id}
     ${new_entity}=    Load Entity    ${filename}    ${new_entity_id}
     ${existing_entity}=    Load Entity    ${filename}    ${existing_entity_id}
     @{entities_to_be_upserted}=    Create List    ${new_entity}    ${existing_entity}
@@ -51,14 +52,14 @@ Batch Upsert Entities With Update Option Scenarios
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resources Set To    ${updated_entities}    ${response.json()}
-    @{entities_ids_to_be_deleted}=    Create List    ${new_entity_id}
-    ${response}=    Batch Delete Entities    @{entities_ids_to_be_deleted}
 
 Setup Initial Entities
     ${existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity    ${existing_entity_payload_filename}    ${existing_entity_id}
-    Set Suite Variable    ${existing_entity_id}
+    Set Test Variable    ${existing_entity_id}
 
 Delete Initial Entities
     @{entities_ids_to_be_deleted}=    Create List    ${existing_entity_id}
-    Batch Delete Entities    @{entities_ids_to_be_deleted}    teardown=True
+    Batch Delete Entities    @{entities_ids_to_be_deleted}
+    @{entities_ids_to_be_deleted}=    Create List    ${new_entity_id}
+    Batch Delete Entities    @{entities_ids_to_be_deleted}

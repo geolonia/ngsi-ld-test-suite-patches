@@ -6,6 +6,7 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Suite Setup         Setup Initial Entities
+Suite Teardown      Delete Initial Entities
 
 
 *** Variables ***
@@ -29,6 +30,7 @@ Update a batch of non-existing and existing entities
     @{entities_to_be_updated}=    Create List    ${first_existing_entity}    ${second_existing_entity}    ${new_entity}
     ${response}=    Batch Update Entities    @{entities_to_be_updated}
     @{expected_successful_entities_ids}=    Create List    ${first_existing_entity_id}    ${second_existing_entity_id}
+    Set Suite Variable    @{expected_successful_entities_ids}
     @{expected_failed_entities_ids}=    Create List    ${new_entity_id}
     &{expected_batch_operation_result}=    Create Batch Operation Result
     ...    ${expected_successful_entities_ids}
@@ -50,7 +52,6 @@ Update a batch of non-existing and existing entities
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resources Set To    ${updated_entities}    ${response.json()}
-    ${response}=    Batch Delete Entities    @{expected_successful_entities_ids}
 
 
 *** Keywords ***
@@ -61,3 +62,6 @@ Setup Initial Entities
     Create Entity    ${entity_payload_filename}    ${second_existing_entity_id}
     Set Suite Variable    ${first_existing_entity_id}
     Set Suite Variable    ${second_existing_entity_id}
+
+Delete Initial Entities
+    Batch Delete Entities    @{expected_successful_entities_ids}

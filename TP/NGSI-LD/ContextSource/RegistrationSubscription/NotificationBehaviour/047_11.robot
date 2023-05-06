@@ -7,7 +7,8 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
 
 Suite Setup         Start Local Server
-Suite Teardown      Delete Created Context Source Registrations
+Suite Teardown      Stop Local Server
+Test Teardown       Delete Created Context Source Registrations
 Test Template       Receive cSourceNotification For Matching Context Source Registrations On Management Interval
 
 
@@ -29,23 +30,21 @@ Receive cSourceNotification For Matching Context Source Registrations On Managem
     [Documentation]    Check if a context source registration subscription defines temporalQ member with timeproperty createdAt or modifiedAt, the temporal query is matched against the managementInterval of matching context source registrations
     [Arguments]    ${filepath}
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    Set Suite Variable    ${subscription_id}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint    ${filepath}    ${subscription_id}
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
-    Set Suite Variable    ${subscription_id}
     ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
+    Set Suite Variable    ${context_source_registration_id}
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}
-    Set Suite Variable    ${context_source_registration_id}
     ${response}=    Create Context Source Registration    ${context_source_registration_payload}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
     Wait for notification and validate it
     ...    ${subscription_id}
     ...    ${expected_context_source_registration_ids}
     ...    newlyMatching
-    # Moved here since each test case creates a subscription
-    [Teardown]    Delete Context Source Registration Subscription    ${subscription_id}
 
 Delete Created Context Source Registrations
-    Stop Local Server
+    Delete Context Source Registration Subscription    ${subscription_id}
     Delete Context Source Registration    ${context_source_registration_id}
