@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation  Mock http server for subscriber
 Library      HttpCtrl.Server
+Variables   ${EXECDIR}/resources/variables.py
 
 *** Keywords ***
 Start Context Source Mock Server

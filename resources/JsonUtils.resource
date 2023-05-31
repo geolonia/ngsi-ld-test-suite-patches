@@ -2,6 +2,7 @@
 Library     String
 Library     DateTime
 Library     JSONLibrary
+Variables   ${EXECDIR}/resources/variables.py
 
 *** Variable ***
 ${date_format}=  %Y-%m-%dT%H:%M:%SZ

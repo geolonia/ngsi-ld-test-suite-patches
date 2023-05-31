@@ -10,13 +10,13 @@
 
 * Confirm its installation with:   
 
-```$ python --version``` (Ubuntu)
+```$ python3 --version``` (Ubuntu)
 
 ```$ python3 --version``` (MacOS)
 
 * At this point, you can launch Python3 interpreter:    
 
-```$ python``` (Ubuntu)
+```$ python3``` (Ubuntu)
 
 ```$ python3``` (MacOS)
 
@@ -27,6 +27,15 @@
 ```$ pip3 --version``` (MacOS)
 
 * In case pip is not installed, [follow the official pip installation guide](https://pip.pypa.io/en/latest/installing/).
+
+## Install IDE (PyCharm)
+
+* Install [PyCharm](https://www.jetbrains.com/fr-fr/pycharm/download)
+
+* Install [Robot Framework Language Server](https://plugins.jetbrains.com/plugin/16086-robot-framework-language-server)
+
+* Define as variable the path of the working directory: in Settings > Languages & Frameworks > Robot Framework (Project), 
+insert the following: `{"EXECDIR": "{path}/auth-test-suite"}`
 
 ## Install IDE (VSCode)
 
@@ -41,14 +50,16 @@
 ## Configure the environment
 
 In the `resources/variables.py` file, configure the following:
-* URL of the context broker under test (including the `ngsi-ld/v1` path, e.g., http://localhost:8080/ngsi-ld/v1)
-* Notification server host and port (an address accessible from the context broker)
+* `url` : It is the url of the context broker which is to be tested (including the `ngsi-ld/v1` path, e.g., http://localhost:8080/ngsi-ld/v1).
+* `notification_server_host` and `notification_server_port` : This is the address and port used to create the local server to listen to notifications (the address must be accessible by the context broker).
+* `send_notification_server_host` and `send_notification_server_port` : This is the address and port used when creating the subscription on the context broker (generally it is the same information as `notification_server_host` and `notification_server_port`).
+* `context_source_host` and `context_source_port` : The address and port used for the context source.
 
 ## Install the project requirements
 
 Browse the base project root folder and execute the following command:   
 
-```$ python -m pip install -r requirements.txt``` (Ubuntu)
+```$ python3 -m pip install -r requirements.txt``` (Ubuntu)
 
 ```$ python3 -m pip install -r requirements.txt``` (MacOS)
 

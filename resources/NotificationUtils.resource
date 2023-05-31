@@ -5,12 +5,12 @@ Library      Collections
 Library      HttpCtrl.Server
 Library     ${EXECDIR}/libraries/assertionUtils.py
 Library     ${EXECDIR}/libraries/dateTimeUtils.py
+Variables   ${EXECDIR}/resources/variables.py
 
 *** Variable ***
 ${notification_type}=  ContextSource Notfication
 ${date_format}=  %Y-%m-%dT%H:%M:%SZ
 ${date_format_with_millis}=  %Y-%m-%dT%H:%M:%S.%fZ
-
 
 *** Keywords ***
 Start Local Server    

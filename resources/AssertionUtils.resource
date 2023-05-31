@@ -1,5 +1,10 @@
 *** Settings ***
 Library     ${EXECDIR}/libraries/assertionUtils.py
+Library    RequestsLibrary
+Library    Collections
+Library    JSONLibrary
+Library    REST
+Library    String
 
 *** Variable ***
 ${id_regex_expr}=  root\\['id'\\]

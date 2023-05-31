@@ -5,6 +5,7 @@ Library    REST    ${url}
 Library    RequestsLibrary
 Library    OperatingSystem
 Library    Collections
+Library    JSONLibrary
 
 *** Variables ***
 ${BATCH_CREATE_ENDPOINT_PATH}   entityOperations/create
