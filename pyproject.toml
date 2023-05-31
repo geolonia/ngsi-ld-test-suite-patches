@@ -1,0 +1,6 @@
+[tool.robotidy]
+diff = true
+configure = [
+    "SplitTooLongLine: split_on_every_arg = True"
+]
+

@@ -1,17 +1,21 @@
 *** Settings ***
-Documentation     Check that you can update a subscription: If isActive is equal to false and expiresAt is not present, then status shall be updated to "paused", if and only if, the previous value of status was different than "expired"
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Suite Setup       Setup Initial Subscriptions
-Suite Teardown    Delete Initial Subscriptions
+Documentation       Check that you can update a subscription: If isActive is equal to false and expiresAt is not present, then status shall be updated to "paused", if and only if, the previous value of status was different than "expired"
 
-*** Variable ***
-${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=    subscriptions/subscription-sample.jsonld
-${subscription_update_fragment_file_path}=    subscriptions/fragments/subscription-isActive-false-update-sample.json
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-*** Test Case ***
+Suite Setup         Setup Initial Subscriptions
+Suite Teardown      Delete Initial Subscriptions
+
+
+*** Variables ***
+${subscription_id_prefix}=                      urn:ngsi-ld:Subscription:
+${subscription_payload_file_path}=              subscriptions/subscription-sample.jsonld
+${subscription_update_fragment_file_path}=      subscriptions/fragments/subscription-isActive-false-update-sample.json
+
+
+*** Test Cases ***
 Update Subscription Status To Paused
     [Documentation]    Check that you can update a subscription: If isActive is equal to false and expiresAt is not present, then status shall be updated to "paused", if and only if, the previous value of status was different than "expired"
     [Tags]    sub-update    5_8_2
@@ -19,6 +23,7 @@ Update Subscription Status To Paused
     Check Response Status Code Set To    204
     Retrieve Subscription    ${subscription_id}
     Check Response Body Containing an Attribute set to    status    paused
+
 
 *** Keywords ***
 Setup Initial Subscriptions

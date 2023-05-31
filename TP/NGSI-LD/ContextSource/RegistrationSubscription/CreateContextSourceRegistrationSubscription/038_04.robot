@@ -1,16 +1,20 @@
 *** Settings ***
-Documentation     Check that you can create a context source registration subscription with isActive member set to false and it's initial status will be set to "paused"
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Suite Setup       Generate Random Ids For Context Source Registration Subscriptions
-Suite Teardown    Delete Created Context Source Registration Subscriptions
+Documentation       Check that you can create a context source registration subscription with isActive member set to false and it's initial status will be set to "paused"
 
-*** Variable ***
-${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=    csourceSubscriptions/subscription-inactive-sample.jsonld
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-*** Test Case ***
+Suite Setup         Generate Random Ids For Context Source Registration Subscriptions
+Suite Teardown      Delete Created Context Source Registration Subscriptions
+
+
+*** Variables ***
+${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
+${subscription_payload_file_path}=      csourceSubscriptions/subscription-inactive-sample.jsonld
+
+
+*** Test Cases ***
 Create Inactive Context Source Registration Subscription
     [Documentation]    Check that you can create a context source registration subscription with isActive member set to false and it's initial status will be set to "paused"
     [Tags]    csrsub-create    5_11_2
@@ -20,6 +24,7 @@ Create Inactive Context Source Registration Subscription
     Check Response Headers Containing URI set to    ${request['path']}/    ${subscription_id}    ${response}
     Retrieve context source registration subscription    ${subscription_id}
     Check Response Body Containing an Attribute set to    status    paused
+
 
 *** Keywords ***
 Generate Random Ids For Context Source Registration Subscriptions

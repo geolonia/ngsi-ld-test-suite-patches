@@ -1,13 +1,16 @@
 *** Settings ***
-Documentation     Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
+Documentation       Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context
 
-*** Variable ***
-${building_id_prefix}=    urn:ngsi-ld:Building:
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-*** Test Case ***
+
+*** Variables ***
+${building_id_prefix}=      urn:ngsi-ld:Building:
+
+
+*** Test Cases ***
 Create a batch of one entity using the default context with JSON content type
     [Documentation]    Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context
     [Tags]    be-create    6_3_5

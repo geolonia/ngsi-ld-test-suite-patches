@@ -1,14 +1,18 @@
 *** Settings ***
-Documentation     Check that you can delete a batch of entities
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Suite Setup       Setup Initial Entities
+Documentation       Check that you can delete a batch of entities
 
-*** Variable ***
-${building_id_prefix}=    urn:ngsi-ld:Building:
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-*** Test Case ***
+Suite Setup         Setup Initial Entities
+
+
+*** Variables ***
+${building_id_prefix}=      urn:ngsi-ld:Building:
+
+
+*** Test Cases ***
 Delete a batch of entities
     [Documentation]    Check that you can delete a batch of entities
     [Tags]    be-delete    5_6_10
@@ -18,6 +22,7 @@ Delete a batch of entities
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{entities_ids_to_be_deleted}
     Query Entities    ${expected_entities_ids}    Building    context=${ngsild_test_suite_context}
     Check SUT Not Containing Resources
+
 
 *** Keywords ***
 Setup Initial Entities

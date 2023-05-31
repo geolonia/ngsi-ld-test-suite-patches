@@ -65,6 +65,38 @@ Browse the base project root folder and execute the following command:
 
 Further details on each library can be found in [PyPi](https://pypi.org/) and [Robot Framework Standard Libraries](http://robotframework.org/robotframework/#standard-libraries)
 
+## Run configurations (PyCharm)
+
+Two sample configurations have been created:
+
+- one to check if there are syntax or format changes to be done according to Robotidy (`Check Format`)
+- one to make the syntax and format changes according to Robotidy (`Format Files`)
+
+To launch a run configuration, choose one of the two configurations from the Run menu and click on it to run it.
+
+## Pre commit
+
+Before each commit, a formatting according to the rules of [Robotidy](https://github.com/MarketSquare/robotframework-tidy)
+ is done for files with the `.robot` or `.resource` extension. If nothing has been modified, the commit is done normally.
+ Otherwise, the commit displays an error message with all the modifications made by Robotidy to format the file. Modified
+ files can then be added to the commit.
+
+To use it, install `pre-commit` with the following commands (using pip):
+
+```$ pip install pre-commit```
+
+Then install the Git hook scripts:
+
+```$ pre-commit install```
+
+Now, it will run automatically on every commit.
+
+To manually launch the tool, the following command can be used:
+
+```$ ./venv/bin/python -m robotidy .```
+
+Further details can be found on the [pre-commit](https://pre-commit.com) site.
+
 ## Execute the tests
 
 Configure the context broker URL in the resources/variables.py file
@@ -91,10 +123,6 @@ A sample report can be seen at https://robotmetrics.netlify.app/#
 
 ```$ python3 -m robot.testdoc TP/NGSI-LD api_docs/TestCases.html```
 
-## Tidy the Test Cases
-
-```$ python3 -m robot.tidy --recursive TP/NGSI-LD```
-
 # Frameworks and libraries used in the project
 
 * [Robot Framework](https://github.com/robotframework/robotframework)
@@ -103,6 +131,7 @@ A sample report can be seen at https://robotmetrics.netlify.app/#
 * [JSON Library](https://github.com/robotframework-thailand/robotframework-jsonlibrary)
 * [Requests Library](https://github.com/MarketSquare/robotframework-requests)
 * [Deep Diff](https://github.com/seperman/deepdiff)
+* [Robotidy Library ](https://github.com/MarketSquare/robotframework-tidy)
 
 # Useful links   
 

@@ -1,29 +1,33 @@
 *** Settings ***
-Documentation     Check that you cannot delete a context source registration under some conditions
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Test Template     Delete Context Source
+Documentation       Check that you cannot delete a context source registration under some conditions
 
-*** Variable ***
-${registration_id_prefix}=    urn:ngsi-ld:Registration:
-${filename}=      context-source-registration-simple-sample.jsonld
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-*** Test Case ***    INVALID_REGISTRATION_ID
+Test Template       Delete Context Source
+
+
+*** Variables ***
+${registration_id_prefix}=      urn:ngsi-ld:Registration:
+${filename}=                    context-source-registration-simple-sample.jsonld
+
+
+*** Test Cases ***    INVALID_REGISTRATION_ID
 035_02_01_Delete a Context Source Registration if the Id is not present
-                     ${EMPTY}
-
+    ${EMPTY}
 035_02_02_Delete a Context Source Registration if the Id is not a valid URI
-                     invalidURI
+    invalidURI
+
 
 *** Keywords ***
 Delete Context Source
-    [Arguments]    ${invalid_registration_id}
     [Documentation]    Check that you cannot delete a context source registration under some conditions
     [Tags]    csr-delete
+    [Arguments]    ${invalid_registration_id}
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
-    ${payload}=    Load Json From File    ${EXECDIR}/data/csourceRegistrations/${filename}
-    ${updated_payload}=    Update Value To Json    ${payload}    $..id    ${registration_id}
+    ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
+    ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
     ${request}    ${response}=    Create Context Source Registration With Return    ${updated_payload}
     Check Response Status Code    201    ${response['status']}
     ${response}=    Delete Context Source Registration With Return    ${invalid_registration_id}

@@ -1,14 +1,18 @@
 *** Settings ***
-Documentation     Check that you can create a batch of entities where some will succeed and others will fail
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Suite Setup       Setup Initial Entities
+Documentation       Check that you can create a batch of entities where some will succeed and others will fail
 
-*** Variable ***
-${building_id_prefix}=    urn:ngsi-ld:Building:
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-*** Test Case ***
+Suite Setup         Setup Initial Entities
+
+
+*** Variables ***
+${building_id_prefix}=      urn:ngsi-ld:Building:
+
+
+*** Test Cases ***
 Create a batch of two valid entities and one invalid entity
     [Documentation]    Check that you can create a batch of two valid entities and one invalid entity
     [Tags]    be-create    5_6_7
@@ -22,15 +26,22 @@ Create a batch of two valid entities and one invalid entity
     Batch Create Entities    @{entities_to_be_created}
     @{expected_successful_entities_ids}=    Create List    ${first_entity_id}    ${second_entity_id}
     @{expected_failed_entities_ids}=    Create List    ${existing_entity_id}
-    &{expected_batch_operation_result}=    Create Batch Operation Result    ${expected_successful_entities_ids}    ${expected_failed_entities_ids}
+    &{expected_batch_operation_result}=    Create Batch Operation Result
+    ...    ${expected_successful_entities_ids}
+    ...    ${expected_failed_entities_ids}
     Check Response Status Code Set To    207
     Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{expected_successful_entities_ids}
-    Query Entities    ${expected_entities_ids}    Building    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
+    Query Entities
+    ...    ${expected_entities_ids}
+    ...    Building
+    ...    context=${ngsild_test_suite_context}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
     @{created_entities}=    Create List    ${first_entity}    ${second_entity}
     Check Created Resources Set To    ${created_entities}
     @{entities_ids_to_be_deleted}=    Create List    ${first_entity_id}    ${second_entity_id}    ${existing_entity_id}
     Batch Delete Entities    @{entities_ids_to_be_deleted}
+
 
 *** Keywords ***
 Setup Initial Entities

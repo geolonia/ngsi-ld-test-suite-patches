@@ -1,33 +1,42 @@
 *** Settings ***
-Documentation     Check that you cannot retrieve the temporal evolution of an entity with an invalid request content
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Suite Setup       Setup Initial Entities
-Suite Teardown    Delete Initial Entities
-Test Template     Retrieve the temporal evolution of an entity with an invalid request content
+Documentation       Check that you cannot retrieve the temporal evolution of an entity with an invalid request content
 
-*** Variable ***
-${vehicule_id_prefix}=    urn:ngsi-ld:Vehicle:
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+
+Suite Setup         Setup Initial Entities
+Suite Teardown      Delete Initial Entities
+Test Template       Retrieve the temporal evolution of an entity with an invalid request content
+
+
+*** Variables ***
+${vehicule_id_prefix}=      urn:ngsi-ld:Vehicle:
 ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-sample.jsonld
 
-*** Test Cases ***    TIMEREL    TIMEAT                  ENDTIMEAT
-After                 after      ${EMPTY}                ${EMPTY}
-                      [Tags]     te-retrieve             5_7_3
 
-Before                before     ${EMPTY}                ${EMPTY}
-                      [Tags]     te-retrieve             5_7_3
+*** Test Cases ***    TIMEREL    TIMEAT    ENDTIMEAT
+After    [Tags]    te-retrieve    5_7_3
+    after    ${EMPTY}    ${EMPTY}
+Before    [Tags]    te-retrieve    5_7_3
+    before    ${EMPTY}    ${EMPTY}
+Between    [Tags]    te-retrieve    5_7_3
+    between    2020-08-01T12:00:00Z    ${EMPTY}
 
-Between               between    2020-08-01T12:00:00Z    ${EMPTY}
-                      [Tags]     te-retrieve             5_7_3
 
 *** Keywords ***
 Retrieve the temporal evolution of an entity with an invalid request content
-    [Arguments]    ${timerel}    ${timeAt}    ${endTimeAt}
     [Documentation]    Check that you cannot retrieve the temporal evolution of an entity with an invalid request content
-    Retrieve Temporal Representation Of Entity    ${temporal_entity_representation_id}    timerel=${timerel}    timeAt=${timeAt}    endTimeAt=${endTimeAt}
+    [Arguments]    ${timerel}    ${timeAt}    ${endTimeAt}
+    Retrieve Temporal Representation Of Entity
+    ...    ${temporal_entity_representation_id}
+    ...    timerel=${timerel}
+    ...    timeAt=${timeAt}
+    ...    endTimeAt=${endTimeAt}
     Check Response Status Code Set To    400
-    Check Response Body Containing ProblemDetails Element Containing Type Element set to    ${response}    ${ERROR_TYPE_BAD_REQUEST_DATA}
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to
+    ...    ${response}
+    ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
 
 Setup Initial Entities

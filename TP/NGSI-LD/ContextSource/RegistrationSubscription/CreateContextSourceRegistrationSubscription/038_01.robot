@@ -1,16 +1,20 @@
 *** Settings ***
-Documentation     Check that you can create a minimal context source registration subscription
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Suite Setup       Generate Random Ids For Context Source Registration Subscriptions
-Suite Teardown    Delete Created Context Source Registration Subscriptions
+Documentation       Check that you can create a minimal context source registration subscription
 
-*** Variable ***
-${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=    csourceSubscriptions/subscription-sample.jsonld
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-*** Test Case ***
+Suite Setup         Generate Random Ids For Context Source Registration Subscriptions
+Suite Teardown      Delete Created Context Source Registration Subscriptions
+
+
+*** Variables ***
+${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
+${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample.jsonld
+
+
+*** Test Cases ***
 Create Context Source Registration Subscription
     [Documentation]    Check that you can create a minimal context source registration subscription
     [Tags]    csrsub-create    5_11_2
@@ -18,9 +22,13 @@ Create Context Source Registration Subscription
     Create Context Source Registration Subscription    ${subscription_payload}
     Check Response Status Code Set To    201
     Check Response Headers Containing URI set to    ${request['path']}/    ${subscription_id}    ${response}
-    Retrieve Context Source Registration Subscription    ${subscription_id}    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
+    Retrieve Context Source Registration Subscription
+    ...    ${subscription_id}
+    ...    context=${ngsild_test_suite_context}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    ${status_regex_expr}
     Check Created Resource Set To    ${subscription_payload}    ${ignored_attributes}
+
 
 *** Keywords ***
 Generate Random Ids For Context Source Registration Subscriptions

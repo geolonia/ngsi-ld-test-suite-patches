@@ -1,14 +1,17 @@
 *** Settings ***
-Documentation     Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity"
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
+Documentation       Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity"
 
-*** Variable ***
-${accept}=        application/geo+json
-${status_code}=    406
-${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_filename}=    csourceSubscriptions/subscription-sample.jsonld
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+
+
+*** Variables ***
+${accept}=                      application/geo+json
+${status_code}=                 406
+${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
+${subscription_filename}=       csourceSubscriptions/subscription-sample.jsonld
+
 
 *** Test Cases ***
 044_05_01 Retrieve subscription by id
@@ -25,7 +28,11 @@ ${subscription_filename}=    csourceSubscriptions/subscription-sample.jsonld
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /temporal/entities)
     [Tags]    te-query    6_3_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
-    Query Temporal Representation Of Entities    entity_types=${entity_types_to_be_retrieved}    timerel=after    timeAt=2020-08-01T12:05:00Z    accept=${accept}
+    Query Temporal Representation Of Entities
+    ...    entity_types=${entity_types_to_be_retrieved}
+    ...    timerel=after
+    ...    timeAt=2020-08-01T12:05:00Z
+    ...    accept=${accept}
     Check Response Status Code Set To    ${status_code}
 
 044_05_03 Query context source registration

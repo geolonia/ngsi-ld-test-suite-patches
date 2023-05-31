@@ -1,31 +1,41 @@
 *** Settings ***
-Documentation     Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json"
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
+Documentation       Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json"
 
-*** Variable ***
-${vehicle_id_prefix}=    urn:ngsi-ld:Vehicle:
-${vehicle_filename}=    vehicle-simple-attributes-sample.jsonld
-${vehicle_attribute}=    speed
-${vehicle_fragment}=    vehicle-brandname-fragment.jsonld
-${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_filename}=    csourceSubscriptions/subscription-sample.jsonld
-${subscription_fragment}=    csourceSubscriptions/fragments/subscription-update-sample.jsonld
-${tea_id_prefix}=    urn:ngsi-ld:Vehicle:
-${tea_filename}=    vehicle-temporal-representation-sample.jsonld
-${building_id_prefix}=    urn:ngsi-ld:Building:
-${building_filename}=    building-simple-attributes-sample.jsonld
-${content_type}=    application/xml
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+
+
+*** Variables ***
+${vehicle_id_prefix}=           urn:ngsi-ld:Vehicle:
+${vehicle_filename}=            vehicle-simple-attributes-sample.jsonld
+${vehicle_attribute}=           speed
+${vehicle_fragment}=            vehicle-brandname-fragment.jsonld
+${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
+${subscription_filename}=       csourceSubscriptions/subscription-sample.jsonld
+${subscription_fragment}=       csourceSubscriptions/fragments/subscription-update-sample.jsonld
+${tea_id_prefix}=               urn:ngsi-ld:Vehicle:
+${tea_filename}=                vehicle-temporal-representation-sample.jsonld
+${building_id_prefix}=          urn:ngsi-ld:Building:
+${building_filename}=           building-simple-attributes-sample.jsonld
+${content_type}=                application/xml
+
 
 *** Test Cases ***
 044_03_01_endpoint patch /entities/{entityId}/attrs/{attrId}
     [Documentation]    Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json" (patch /entities/{entityId}/attrs/{attrId})
     [Tags]    ea-partial-update    6_3_4
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type    ${vehicle_filename}    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
+    ${request}    ${response}=    Create Entity Selecting Content Type
+    ...    ${vehicle_filename}
+    ...    ${entity_id}
+    ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response['status']}
-    ${response}=    Partial Update Entity Attributes    ${entity_id}    ${vehicle_attribute}    ${vehicle_fragment}    ${content_type}
+    ${response}=    Partial Update Entity Attributes
+    ...    ${entity_id}
+    ...    ${vehicle_attribute}
+    ...    ${vehicle_fragment}
+    ...    ${content_type}
     Check Response Status Code    415    ${response['status']}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
 
@@ -43,7 +53,10 @@ ${content_type}=    application/xml
     [Documentation]    Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json" (post /entities/)
     [Tags]    e-create    6_3_4
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type    ${building_filename}    ${entity_id}    ${content_type}
+    ${request}    ${response}=    Create Entity Selecting Content Type
+    ...    ${building_filename}
+    ...    ${entity_id}
+    ...    ${content_type}
     Check Response Status Code    415    ${response['status']}
     [Teardown]    Delete Entity by Id    ${entity_id}
 
@@ -72,6 +85,9 @@ ${content_type}=    application/xml
     [Documentation]    Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json" (post /temporal/entities/)
     [Tags]    te-create    6_3_4
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${tea_id_prefix}
-    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type    ${temporal_entity_representation_id}    ${tea_filename}    ${content_type}
+    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
+    ...    ${temporal_entity_representation_id}
+    ...    ${tea_filename}
+    ...    ${content_type}
     Check Response Status Code    415    ${response['status']}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
