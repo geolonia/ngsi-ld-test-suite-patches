@@ -1,44 +1,57 @@
 *** Settings ***
-Documentation     Check that you can upsert a batch of non-existing and existing entities where non-existing will be created and existing will be replaced
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Test Setup       Setup Initial Entities
-Test Template     Batch Upsert Non-existing And Existing Entities Scenarios
-Test Teardown    Delete Initial Entities
+Documentation       Check that you can upsert a batch of non-existing and existing entities where non-existing will be created and existing will be replaced
 
-*** Variable ***
-${building_id_prefix}=    urn:ngsi-ld:Building:
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+
+Test Setup          Setup Initial Entities
+Test Teardown       Delete Initial Entities
+Test Template       Batch Upsert Non-existing And Existing Entities Scenarios
+
+
+*** Variables ***
+${building_id_prefix}=      urn:ngsi-ld:Building:
+
 
 *** Test Cases ***    FILENAME
 EntityWithSimpleProperties
-                      building-simple-attributes-sample.jsonld
-                      [Tags]                                             be-upsert    5_6_8
-
+    [Tags]    be-upsert    5_6_8
+    building-simple-attributes-sample.jsonld
 EntityWithSimpleRelationships
-                      building-relationship-sample.jsonld
-                      [Tags]                                             be-upsert    5_6_8
-
+    [Tags]    be-upsert    5_6_8
+    building-relationship-sample.jsonld
 EntityWithRelationshipsProperties
-                      building-relationship-of-property-sample.jsonld
-                      [Tags]                                             be-upsert    5_6_8
+    [Tags]    be-upsert    5_6_8
+    building-relationship-of-property-sample.jsonld
+
 
 *** Keywords ***
 Batch Upsert Non-existing And Existing Entities Scenarios
+    [Documentation]    Check that you can upsert a batch of non-existing and existing entities
     [Arguments]    ${filename}
-    [Documentation]    Check that you can upsert a batch of non existing and existing entities
     ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${new_entity}=    Load Entity    ${filename}    ${new_entity_id}
     ${first_existing_entity}=    Load Entity    ${filename}    ${first_existing_entity_id}
     ${second_existing_entity}=    Load Entity    ${filename}    ${second_existing_entity_id}
-    @{entities_to_be_upserted}=    Create List    ${new_entity}    ${first_existing_entity}    ${second_existing_entity}
+    @{entities_to_be_upserted}=    Create List
+    ...    ${new_entity}
+    ...    ${first_existing_entity}
+    ...    ${second_existing_entity}
     Batch Upsert Entities    @{entities_to_be_upserted}
     @{expected_entities_ids}=    Create List    ${new_entity_id}
     Check Response Status Code Set To    201
     Check Response Body Containing Array Of URIs set to    @{expected_entities_ids}
-    @{upserted_entities_ids}=    Create List    ${new_entity_id}    ${first_existing_entity_id}    ${second_existing_entity_id}
+    @{upserted_entities_ids}=    Create List
+    ...    ${new_entity_id}
+    ...    ${first_existing_entity_id}
+    ...    ${second_existing_entity_id}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{upserted_entities_ids}
-    Query Entities    ${expected_updated_entities_ids}    Building    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
+    Query Entities
+    ...    ${expected_updated_entities_ids}
+    ...    Building
+    ...    context=${ngsild_test_suite_context}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resources Set To    ${entities_to_be_upserted}
     @{entities_ids_to_be_deleted}=    Create List    ${new_entity_id}
     Batch Delete Entities    @{entities_ids_to_be_deleted}

@@ -1,28 +1,41 @@
 *** Settings ***
-Documentation     Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Suite Setup       Setup Initial Subscriptions
-Suite Teardown    Delete Initial Subscriptions
+Documentation       Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed
 
-*** Variable ***
-${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=    subscriptions/subscription-sample.jsonld
-${subscription_update_fragment_file_path}=    subscriptions/fragments/subscription-vehicle-entities-sample.json
-${expected_subscription_payload_file_path}=    subscriptions/expectations/subscription-vehicle-sample.jsonld
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+
+Suite Setup         Setup Initial Subscriptions
+Suite Teardown      Delete Initial Subscriptions
+
+
+*** Variables ***
+${subscription_id_prefix}=                              urn:ngsi-ld:Subscription:
+${subscription_payload_file_path}=                      subscriptions/subscription-sample.jsonld
+${subscription_update_fragment_file_path}=              subscriptions/fragments/subscription-vehicle-entities-sample.json
+${expected_subscription_payload_file_path}=             subscriptions/expectations/subscription-vehicle-sample.jsonld
 ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectations/subscription-vehicle-expanded-types-sample.jsonld
 
-*** Test Case ***
+
+*** Test Cases ***
 Update Subscription With Term to Uri Expansion
     [Documentation]    Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed
     [Tags]    sub-update    5_8_2
-    Update Subscription    ${subscription_id}    ${subscription_update_fragment_file_path}    ${CONTENT_TYPE_JSON}    context=${ngsild_test_suite_context}
+    Update Subscription
+    ...    ${subscription_id}
+    ...    ${subscription_update_fragment_file_path}
+    ...    ${CONTENT_TYPE_JSON}
+    ...    context=${ngsild_test_suite_context}
     Check Response Status Code Set To    204
     Retrieve Subscription    ${subscription_id}    context=${ngsild_test_suite_context}
-    Check Response Body Containing Subscription element    ${expected_subscription_payload_file_path}    ${subscription_id}
+    Check Response Body Containing Subscription element
+    ...    ${expected_subscription_payload_file_path}
+    ...    ${subscription_id}
     Retrieve Subscription    ${subscription_id}
-    Check Response Body Containing Subscription element    ${expected_expanded_subscription_payload_file_path}    ${subscription_id}
+    Check Response Body Containing Subscription element
+    ...    ${expected_expanded_subscription_payload_file_path}
+    ...    ${subscription_id}
+
 
 *** Keywords ***
 Setup Initial Subscriptions

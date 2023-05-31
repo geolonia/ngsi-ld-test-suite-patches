@@ -1,27 +1,39 @@
 *** Settings ***
-Documentation     Check that you can update a subcription: The implementation shall modify the target Subscription
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Suite Setup       Setup Initial Subscriptions
-Suite Teardown    Delete Initial Subscriptions
+Documentation       Check that you can update a subcription: The implementation shall modify the target Subscription
 
-*** Variable ***
-${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=    subscriptions/subscription-sample.jsonld
-${subscription_update_fragment_file_path}=    subscriptions/fragments/subscription-update-sample.json
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-*** Test Case ***
+Suite Setup         Setup Initial Subscriptions
+Suite Teardown      Delete Initial Subscriptions
+
+
+*** Variables ***
+${subscription_id_prefix}=                      urn:ngsi-ld:Subscription:
+${subscription_payload_file_path}=              subscriptions/subscription-sample.jsonld
+${subscription_update_fragment_file_path}=      subscriptions/fragments/subscription-update-sample.json
+
+
+*** Test Cases ***
 Update Subscription
     [Documentation]    Check that you can update a subcription: The implementation shall modify the target Subscription
     [Tags]    sub-update    5_8_2
-    Update Subscription    ${subscription_id}    ${subscription_update_fragment_file_path}    ${CONTENT_TYPE_JSON}    context=${ngsild_test_suite_context}
+    Update Subscription
+    ...    ${subscription_id}
+    ...    ${subscription_update_fragment_file_path}
+    ...    ${CONTENT_TYPE_JSON}
+    ...    context=${ngsild_test_suite_context}
     Check Response Status Code Set To    204
     ${subscription_update_fragment}=    Load Test Sample    ${subscription_update_fragment_file_path}
     ${subscription}=    Upsert Element In Entity    ${subscription_payload}    ${subscription_update_fragment}
-    Retrieve Subscription    ${subscription_id}    accept=${CONTENT_TYPE_LD_JSON}    context=${ngsild_test_suite_context}
+    Retrieve Subscription
+    ...    ${subscription_id}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
+    ...    context=${ngsild_test_suite_context}
     ${ignored_attributes}=    Create List    ${status_regex_expr}
     Check Updated Resource Set To    ${subscription}    ${ignored_attributes}
+
 
 *** Keywords ***
 Setup Initial Subscriptions

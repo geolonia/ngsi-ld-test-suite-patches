@@ -1,32 +1,35 @@
 *** Settings ***
-Documentation     Check that you can upsert a batch of existing entities and they will be replaced
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Test Setup       Setup Initial Entities
-Test Template     Batch Upsert Existing Entities Scenarios
-Test Teardown    Delete Initial Entities
+Documentation       Check that you can upsert a batch of existing entities and they will be replaced
 
-*** Variable ***
-${building_id_prefix}=    urn:ngsi-ld:Building:
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+
+Test Setup          Setup Initial Entities
+Test Teardown       Delete Initial Entities
+Test Template       Batch Upsert Existing Entities Scenarios
+
+
+*** Variables ***
+${building_id_prefix}=      urn:ngsi-ld:Building:
+
 
 *** Test Cases ***    FILENAME
 EntityWithSimpleProperties
-                      building-simple-attributes-sample.jsonld
-                      [Tags]                                             be-upsert    5_6_8
-
+    [Tags]    be-upsert    5_6_8
+    building-simple-attributes-sample.jsonld
 EntityWithSimpleRelationships
-                      building-relationship-sample.jsonld
-                      [Tags]                                             be-upsert    5_6_8
-
+    [Tags]    be-upsert    5_6_8
+    building-relationship-sample.jsonld
 EntityWithRelationshipsProperties
-                      building-relationship-of-property-sample.jsonld
-                      [Tags]                                             be-upsert    5_6_8
+    [Tags]    be-upsert    5_6_8
+    building-relationship-of-property-sample.jsonld
+
 
 *** Keywords ***
 Batch Upsert Existing Entities Scenarios
-    [Arguments]    ${filename}
     [Documentation]    Check that you can upsert a batch of existing entities
+    [Arguments]    ${filename}
     ${first_existing_entity}=    Load Entity    ${filename}    ${first_existing_entity_id}
     ${second_existing_entity}=    Load Entity    ${filename}    ${second_existing_entity_id}
     @{entities_to_be_upserted}=    Create List    ${first_existing_entity}    ${second_existing_entity}
@@ -34,7 +37,11 @@ Batch Upsert Existing Entities Scenarios
     Check Response Status Code Set To    204
     @{upserted_entities_ids}=    Create List    ${first_existing_entity_id}    ${second_existing_entity_id}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{upserted_entities_ids}
-    Query Entities    ${expected_updated_entities_ids}    Building    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
+    Query Entities
+    ...    ${expected_updated_entities_ids}
+    ...    Building
+    ...    context=${ngsild_test_suite_context}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resources Set To    ${entities_to_be_upserted}
 
 Setup Initial Entities

@@ -1,33 +1,36 @@
 *** Settings ***
-Documentation     Check that you can upsert a batch of entities with update option
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Test Setup        Setup Initial Entities
-Test Template     Batch Upsert Entities With Update Option Scenarios
-Test Teardown     Delete Initial Entities
+Documentation       Check that you can upsert a batch of entities with update option
 
-*** Variable ***
-${building_id_prefix}=    urn:ngsi-ld:Building:
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+
+Test Setup          Setup Initial Entities
+Test Teardown       Delete Initial Entities
+Test Template       Batch Upsert Entities With Update Option Scenarios
+
+
+*** Variables ***
+${building_id_prefix}=                  urn:ngsi-ld:Building:
 ${existing_entity_payload_filename}=    building-minimal-sample.jsonld
 
-*** Test Cases ***    FILENAME                                           UPDATE_FRAGMENT_FILENAME
+
+*** Test Cases ***    FILENAME    UPDATE_FRAGMENT_FILENAME
 EntityWithSimpleProperties
-                      building-simple-attributes-sample.jsonld           fragmentEntities/simple-attributes-fragment.json
-                      [Tags]                                             be-upsert                                                                    5_6_8
-
+    [Tags]    be-upsert    5_6_8
+    building-simple-attributes-sample.jsonld    fragmentEntities/simple-attributes-fragment.json
 EntityWithSimpleRelationships
-                      building-relationship-sample.jsonld                fragmentEntities/locatedAt-fragment.json
-                      [Tags]                                             be-upsert                                                                    5_6_8
-
+    [Tags]    be-upsert    5_6_8
+    building-relationship-sample.jsonld    fragmentEntities/locatedAt-fragment.json
 EntityWithRelationshipsProperties
-                      building-relationship-of-property-sample.jsonld    fragmentEntities/simple-attributes-relationship-of-property-fragment.json
-                      [Tags]                                             be-upsert                                                                    5_6_8
+    [Tags]    be-upsert    5_6_8
+    building-relationship-of-property-sample.jsonld    fragmentEntities/simple-attributes-relationship-of-property-fragment.json
+
 
 *** Keywords ***
 Batch Upsert Entities With Update Option Scenarios
-    [Arguments]    ${filename}    ${update_fragment_filename}
     [Documentation]    Check that you can upsert a batch of entities with update option
+    [Arguments]    ${filename}    ${update_fragment_filename}
     ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${new_entity}=    Load Entity    ${filename}    ${new_entity_id}
     ${existing_entity}=    Load Entity    ${filename}    ${existing_entity_id}
@@ -42,7 +45,11 @@ Batch Upsert Entities With Update Option Scenarios
     ${old_updated_entity}=    Upsert Element In Entity    ${old_entity}    ${update_fragment}
     @{updated_entities}=    Create List    ${new_entity}    ${old_updated_entity}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{entities_ids_to_be_upserted}
-    Query Entities    ${expected_updated_entities_ids}    Building    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
+    Query Entities
+    ...    ${expected_updated_entities_ids}
+    ...    Building
+    ...    context=${ngsild_test_suite_context}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resources Set To    ${updated_entities}
     @{entities_ids_to_be_deleted}=    Create List    ${new_entity_id}
     Batch Delete Entities    @{entities_ids_to_be_deleted}

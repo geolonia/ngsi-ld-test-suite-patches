@@ -1,13 +1,16 @@
 *** Settings ***
-Documentation     Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json"
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
+Documentation       Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json"
 
-*** Variable ***
-${building_id_prefix}=    urn:ngsi-ld:Building:
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-*** Test Case ***
+
+*** Variables ***
+${building_id_prefix}=      urn:ngsi-ld:Building:
+
+
+*** Test Cases ***
 Create a batch of one entity using a JSON-LD @context obtained from the request payload
     [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json"
     [Tags]    be-create    6_3_5

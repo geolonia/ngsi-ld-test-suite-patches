@@ -1,15 +1,19 @@
 *** Settings ***
-Documentation     Check that you can create a context source registration subscription without providing an id and it will be automatically generated
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Resource          ${EXECDIR}/resources/HttpUtils.resource
-Suite Teardown    Delete Created Context Source Registration Subscriptions
+Documentation       Check that you can create a context source registration subscription without providing an id and it will be automatically generated
 
-*** Variable ***
-${subscription_payload_file_path}=    csourceSubscriptions/subscription-sample.jsonld
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+Resource            ${EXECDIR}/resources/HttpUtils.resource
 
-*** Test Case ***
+Suite Teardown      Delete Created Context Source Registration Subscriptions
+
+
+*** Variables ***
+${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample.jsonld
+
+
+*** Test Cases ***
 Create Context Source Registration Subscription Without An Id
     [Documentation]    Check that you can create a context source registration subscription without providing an id and it will be automatically generated
     [Tags]    csrsub-create    5_11_2
@@ -19,9 +23,13 @@ Create Context Source Registration Subscription Without An Id
     Check Response Status Code Set To    201
     Check Response Headers Containing URI set to    ${request['path']}/    ${subscription_id}    ${response}
     Set Suite Variable    ${subscription_id}
-    Retrieve Context Source Registration Subscription    ${subscription_id}    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
+    Retrieve Context Source Registration Subscription
+    ...    ${subscription_id}
+    ...    context=${ngsild_test_suite_context}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    ${id_regex_expr}    ${status_regex_expr}
     Check Created Resource Set To    ${subscription_payload}    ${ignored_attributes}
+
 
 *** Keywords ***
 Delete Created Context Source Registration Subscriptions

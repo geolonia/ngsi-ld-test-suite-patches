@@ -1,16 +1,20 @@
 *** Settings ***
-Documentation     Check that you can create a context source registration subscription without an expiresAt member and it will be considered as perpetual
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Suite Setup       Generate Random Ids For Context Source Registration Subscriptions
-Suite Teardown    Delete Created Context Source Registration Subscriptions
+Documentation       Check that you can create a context source registration subscription without an expiresAt member and it will be considered as perpetual
 
-*** Variable ***
-${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=    csourceSubscriptions/subscription-sample.jsonld
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-*** Test Case ***
+Suite Setup         Generate Random Ids For Context Source Registration Subscriptions
+Suite Teardown      Delete Created Context Source Registration Subscriptions
+
+
+*** Variables ***
+${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
+${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample.jsonld
+
+
+*** Test Cases ***
 Create Context Source Registration Subscription Without expiresAt Member
     [Documentation]    Check that you can create a context source registration subscription without an expiresAt member and it will be considered as perpetual
     [Tags]    csrsub-create    5_11_2
@@ -22,6 +26,7 @@ Create Context Source Registration Subscription Without expiresAt Member
     Sleep    10s
     Retrieve context source registration subscription    ${subscription_id}
     Check Response Body Containing an Attribute set to    status    active
+
 
 *** Keywords ***
 Generate Random Ids For Context Source Registration Subscriptions

@@ -1,54 +1,62 @@
 *** Settings ***
-Documentation     If the response to the notification request is different than 200 OK then implementations shall: Update notification.lastFailure with a timestamp representing the current date and time, update notification.status to "failed
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Resource          ${EXECDIR}/resources/NotificationUtils.resource
-Resource          ${EXECDIR}/resources/MockServerUtils.resource
-Suite Setup       Before Test
-Suite Teardown    After Test
+Documentation       If the response to the notification request is different than 200 OK then implementations shall: Update notification.lastFailure with a timestamp representing the current date and time, update notification.status to "failed"
 
-*** Variable ***
-${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=    subscriptions/subscription-building-entities-active.jsonld
-${building_id_prefix}=    urn:ngsi-ld:Building:
-${entity_building_filepath}=    building-simple-attributes-sample.jsonld
-${fragment_filename}=    airQualityLevel-fragment.jsonld
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+Resource            ${EXECDIR}/resources/NotificationUtils.resource
+Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-*** Test Case ***
+Suite Setup         Before Test
+Suite Teardown      After Test
+
+
+*** Variables ***
+${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
+${subscription_payload_file_path}=      subscriptions/subscription-building-entities-active.jsonld
+${building_id_prefix}=                  urn:ngsi-ld:Building:
+${entity_building_filepath}=            building-simple-attributes-sample.jsonld
+${fragment_filename}=                   airQualityLevel-fragment.jsonld
+
+
+*** Test Cases ***
 Check that lastFailure and status are updated if a notification could not be sent
-    [Documentation]     If the response to the notification request is different than 200 OK then implementations shall: Update notification.lastFailure with a timestamp representing the current date and time, update notification.status to "failed
+    [Documentation]    If the response to the notification request is different than 200 OK then implementations shall: Update notification.lastFailure with a timestamp representing the current date and time, update notification.status to "failed"
     [Tags]    sub-notification    5_11_7    046_13
 
     @{expected_notification_data_entities}=    Create List    Building
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
-    Sleep   10s 
+    Sleep    10s
 
-    Retrieve Subscription    ${subscription_id}    accept=${CONTENT_TYPE_LD_JSON}   context=${ngsild_test_suite_context}
+    Retrieve Subscription
+    ...    ${subscription_id}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
+    ...    context=${ngsild_test_suite_context}
 
-    ${notification_info}=   Get Value From Json     ${response}     $.body.notification
-    Output  ${notification_info}
+    ${notification_info}=    Get Value From Json    ${response}    $.body.notification
+    Output    ${notification_info}
 
     Dictionary Should Contain Key    ${notification_info}[0]    status
-    Should Be Equal    failed     ${notification_info}[0][status]
+    Should Be Equal    failed    ${notification_info}[0][status]
 
     Dictionary Should Contain Key    ${notification_info}[0]    lastFailure
     ${is_date}=    Is Date    ${notification_info}[0][lastFailure]    ${date_format}
     ${is_date_with_millis}=    Is Date    ${notification_info}[0][lastFailure]    ${date_format_with_millis}
     Should Be True    ${is_date} or ${is_date_with_millis}
 
+
 *** Keywords ***
 Setup Initial Subscription
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    Create Subscription     ${subscription_id}     ${subscription_payload_file_path}    ${CONTENT_TYPE_LD_JSON} 
+    Create Subscription    ${subscription_id}    ${subscription_payload_file_path}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
 
 Delete Initial Subscription
-    Delete Subscription      ${subscription_id}
+    Delete Subscription    ${subscription_id}
 
 Add Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix} 
+    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity    ${entity_building_filepath}    ${entity_id}
     Set Suite Variable    ${entity_id}
 

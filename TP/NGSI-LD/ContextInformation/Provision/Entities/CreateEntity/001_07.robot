@@ -1,14 +1,17 @@
 *** Settings ***
-Documentation     Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json"
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
+Documentation       Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json"
 
-*** Variable ***
-${building_id_prefix}=    urn:ngsi-ld:Building:
-${filename}=      building-simple-attributes-sample.jsonld
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-*** Test Case ***
+
+*** Variables ***
+${building_id_prefix}=      urn:ngsi-ld:Building:
+${filename}=                building-simple-attributes-sample.jsonld
+
+
+*** Test Cases ***
 Create one entity using a JSON-LD @context obtained from the request payload
     [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json"
     [Tags]    e-create    6_3_5

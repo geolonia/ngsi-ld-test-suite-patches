@@ -1,23 +1,50 @@
 *** Settings ***
-Documentation     A notification with all subscribed Entities will be included if query or geoquery are not defined.
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Resource          ${EXECDIR}/resources/NotificationUtils.resource
-Suite Setup    Before Test
-Suite Teardown    After Test
+Documentation       A notification with all subscribed Entities will be included if query or geoquery are not defined.
 
-*** Variable ***
-${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=    subscriptions/subscription-timeInterval-sample.jsonld
-${building_id_prefix}=    urn:ngsi-ld:Building:
-${notification_server_send_url}=     http://${send_notification_server_host}:${send_notification_server_port}/notify
-${entity_building_filepath}=    building-simple-attributes-sample.jsonld
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+Resource            ${EXECDIR}/resources/NotificationUtils.resource
+
+Suite Setup         Before Test
+Suite Teardown      After Test
+
+
+*** Variables ***
+${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
+${subscription_payload_file_path}=      subscriptions/subscription-timeInterval-sample.jsonld
+${building_id_prefix}=                  urn:ngsi-ld:Building:
+${notification_server_send_url}=        http://${send_notification_server_host}:${send_notification_server_port}/notify
+${entity_building_filepath}=            building-simple-attributes-sample.jsonld
+
+
+*** Test Cases ***
+Check that a notification is sent with all entities
+    [Documentation]    A notification with all subscribed Entities will be included if query or geoquery are not defined.
+    [Tags]    sub-notification    5_11_7    046_03
+
+    Add Initial Entity
+    Sleep    1s
+    Setup Initial Subscriptions
+
+    ${notification}=    Wait for notification    ${5}
+    Output    ${notification}
+    Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
+    Dictionary Should Contain Key    ${notification}    data
+    Should Not Be Empty    ${notification}[data]    Notification data should not be empty
+    Should be Equal    ${entity_id}    ${notification}[data][0][id]
+    Should be True
+    ...    '${notification}[data][0][airQualityLevel][value]'=='4.0' or '${notification}[data][0][airQualityLevel][value]'=='4'
+    Should be Equal    Eiffel Tower    ${notification}[data][0][name][value]
+
 
 *** Keywords ***
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint    ${subscription_payload_file_path}    ${subscription_id}    ${notification_server_send_url}
+    ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
+    ...    ${subscription_payload_file_path}
+    ...    ${subscription_id}
+    ...    ${notification_server_send_url}
     ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
@@ -26,7 +53,7 @@ Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}
 
 Add Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix} 
+    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity    ${entity_building_filepath}    ${entity_id}
     Set Suite Variable    ${entity_id}
 
@@ -40,24 +67,3 @@ After Test
     Delete Initial Subscriptions
     Delete Initial Entity
     Stop Local Server
-
-*** Test Case ***
-Check that a notification is sent with all entities
-    [Documentation]     A notification with all subscribed Entities will be included if query or geoquery are not defined.
-    [Tags]    sub-notification    5_11_7    046_03
-    
-    Add Initial Entity
-    Sleep   1s
-    Setup Initial Subscriptions
-    
-    ${notification}=    Wait for notification    ${5}
-    Output     ${notification}
-    Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
-    Dictionary Should Contain Key    ${notification}    data
-    Should Not Be Empty    ${notification}[data]    Notification data should not be empty
-    Should be Equal    ${entity_id}    ${notification}[data][0][id]
-    Should be True    '${notification}[data][0][airQualityLevel][value]'=='4.0' or '${notification}[data][0][airQualityLevel][value]'=='4'
-    Should be Equal    Eiffel Tower    ${notification}[data][0][name][value]
-
-
-

@@ -1,39 +1,42 @@
 *** Settings ***
-Documentation     Check that you can update a batch of entities with noOverwrite option
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Test Setup        Setup Initial Entities
-Test Template     Batch Update Entity With NoOverwrite Option Scenarios
-Test Teardown     Delete Initial Entities
+Documentation       Check that you can update a batch of entities with noOverwrite option
 
-*** Variable ***
-${building_id_prefix}=    urn:ngsi-ld:Building:
-${entity_payload_filename}=    building-simple-attributes-sample.jsonld
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-*** Test Cases ***    FILENAME                                           UPDATE_FRAGMENT_FILENAME       EXPECTED_STATUS
+Test Setup          Setup Initial Entities
+Test Teardown       Delete Initial Entities
+Test Template       Batch Update Entity With NoOverwrite Option Scenarios
+
+
+*** Variables ***
+${building_id_prefix}=          urn:ngsi-ld:Building:
+${entity_payload_filename}=     building-simple-attributes-sample.jsonld
+
+
+*** Test Cases ***    FILENAME    UPDATE_FRAGMENT_FILENAME    EXPECTED_STATUS
 EntityWithSimpleProperties
-                      building-simple-attributes-sample.jsonld           fragmentEntities/empty-fragment.json       207
-                      [Tags]                                             be-update                                   5_6_9
-
+    [Tags]    be-update    5_6_9
+    building-simple-attributes-sample.jsonld    fragmentEntities/empty-fragment.json    207
 EntityWithSimpleRelationships
-                      building-relationship-sample.jsonld                fragmentEntities/locatedAt-fragment.json   204
-                      [Tags]                                             be-update                                   5_6_9
-
+    [Tags]    be-update    5_6_9
+    building-relationship-sample.jsonld    fragmentEntities/locatedAt-fragment.json    204
 EntityWithRelationshipsProperties
-                      building-relationship-of-property-sample.jsonld    fragmentEntities/empty-fragment.json       207
-                      [Tags]                                             be-update                                   5_6_9
+    [Tags]    be-update    5_6_9
+    building-relationship-of-property-sample.jsonld    fragmentEntities/empty-fragment.json    207
+
 
 *** Keywords ***
 Batch Update Entity With NoOverwrite Option Scenarios
-    [Arguments]    ${filename}    ${update_fragment_filename}   ${expected_status}
     [Documentation]    Check that you can update a batch of entities with noOverwrite option
+    [Arguments]    ${filename}    ${update_fragment_filename}    ${expected_status}
     ${first_entity}=    Load Entity    ${filename}    ${first_entity_id}
     ${second_entity}=    Load Entity    ${filename}    ${second_entity_id}
     @{entities_to_be_updated}=    Create List    ${first_entity}    ${second_entity}
     @{entities_ids_to_be_updated}=    Create List    ${first_entity_id}    ${second_entity_id}
     Batch Update Entities    @{entities_to_be_updated}    overwrite_option=noOverwrite
-    Check Response Status Code Set To   ${expected_status}
+    Check Response Status Code Set To    ${expected_status}
     ${first_created_entity}=    Load Test Sample    entities/${entity_payload_filename}    ${first_entity_id}
     ${second_created_entity}=    Load Test Sample    entities/${entity_payload_filename}    ${second_entity_id}
     ${update_fragment}=    Load Test Sample    entities/${update_fragment_filename}
@@ -41,7 +44,11 @@ Batch Update Entity With NoOverwrite Option Scenarios
     ${second_updated_entity}=    Upsert Element In Entity    ${second_created_entity}    ${update_fragment}
     @{updated_entities}=    Create List    ${first_updated_entity}    ${second_updated_entity}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{entities_ids_to_be_updated}
-    Query Entities    ${expected_entities_ids}    Building    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
+    Query Entities
+    ...    ${expected_entities_ids}
+    ...    Building
+    ...    context=${ngsild_test_suite_context}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resources Set To    ${updated_entities}
 
 Setup Initial Entities

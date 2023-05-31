@@ -1,17 +1,21 @@
 *** Settings ***
-Documentation     Check that you can update a context source registration subscription
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Suite Setup       Setup Initial Context Source Registration Subscriptions
-Suite Teardown    Delete Initial Context Source Registration Subscriptions
+Documentation       Check that you can update a context source registration subscription
 
-*** Variable ***
-${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=    csourceSubscriptions/subscription-sample.jsonld
-${subscription_update_fragment_file_path}=    csourceSubscriptions/fragments/subscription-update-sample.json
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-*** Test Case ***
+Suite Setup         Setup Initial Context Source Registration Subscriptions
+Suite Teardown      Delete Initial Context Source Registration Subscriptions
+
+
+*** Variables ***
+${subscription_id_prefix}=                      urn:ngsi-ld:Subscription:
+${subscription_payload_file_path}=              csourceSubscriptions/subscription-sample.jsonld
+${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/subscription-update-sample.json
+
+
+*** Test Cases ***
 Update Context Source Registration Subscription
     [Documentation]    Check that you can update a context source registration subscription
     [Tags]    csrsub-update    5_11_3
@@ -19,8 +23,12 @@ Update Context Source Registration Subscription
     Update Context Source Registration Subscription    ${subscription_id}    ${subscription_update_fragment}
     Check Response Status Code Set To    204
     ${subscription}=    Upsert Element In Entity    ${subscription_payload}    ${subscription_update_fragment}
-    Retrieve Context Source Registration Subscription    ${subscription_id}    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
+    Retrieve Context Source Registration Subscription
+    ...    ${subscription_id}
+    ...    context=${ngsild_test_suite_context}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resource Set To    ${subscription}
+
 
 *** Keywords ***
 Setup Initial Context Source Registration Subscriptions

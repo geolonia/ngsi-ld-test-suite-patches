@@ -1,14 +1,17 @@
 *** Settings ***
-Documentation     Check that you cannot delete a context source registration by id if the id is not known to the system
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
+Documentation       Check that you cannot delete a context source registration by id if the id is not known to the system
 
-*** Variable ***
-${registration_id_prefix}=    urn:ngsi-ld:Registration:
-${registration_payload_file_path}=    context-source-registration-simple-sample.jsonld
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-*** Test Case ***
+
+*** Variables ***
+${registration_id_prefix}=              urn:ngsi-ld:Registration:
+${registration_payload_file_path}=      context-source-registration-simple-sample.jsonld
+
+
+*** Test Cases ***
 Delete a context source registration by id
     [Documentation]    Check that you cannot delete a context source registration by id if the id is not known to the system
     [Tags]    csr-delete

@@ -1,27 +1,66 @@
 *** Settings ***
-Documentation     A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.info defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.14
+Documentation       A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.info defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.14
+
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+Resource            ${EXECDIR}/resources/NotificationUtils.resource
+
+Suite Setup         Before Test
+Suite Teardown      After Test
 
 
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Resource          ${EXECDIR}/resources/NotificationUtils.resource
+*** Variables ***
+${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
+${subscription_payload_file_path}=      subscriptions/subscription-building-entities-active.jsonld
+${building_id_prefix}=                  urn:ngsi-ld:Building:
+${entity_building_filepath}=            building-simple-attributes-sample.jsonld
+${fragment_filename}=                   airQualityLevel-fragment.jsonld
+${notification_server_send_url}=        http://${send_notification_server_host}:${send_notification_server_port}/notify
 
-Suite Setup    Before Test
-Suite Teardown    After Test
 
-*** Variable ***
-${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=    subscriptions/subscription-building-entities-active.jsonld
-${building_id_prefix}=    urn:ngsi-ld:Building:
-${entity_building_filepath}=    building-simple-attributes-sample.jsonld
-${fragment_filename}=    airQualityLevel-fragment.jsonld
-${notification_server_send_url}=     http://${send_notification_server_host}:${send_notification_server_port}/notify
+*** Test Cases ***
+Check that lastNotification is updated
+    [Documentation]    The status, lastNotification and lastSuccess members shall be updated with expected value and dates. This test will check these formats.
+    [Tags]    sub-notification    5_11_7    046_12
+
+    Add Initial Entity
+    Sleep    1s
+    Setup Initial Subscriptions
+
+    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+
+    Wait for notification    timeout=${10}
+
+    Retrieve Subscription
+    ...    ${subscription_id}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
+    ...    context=${ngsild_test_suite_context}
+
+    ${notification_info}=    Get Value From JSON    ${response}    $.body.notification
+    Output    ${notification_info}
+
+    Dictionary Should Contain Key    ${notification_info}[0]    status
+    Should Be Equal    ok    ${notification_info}[0][status]
+
+    Dictionary Should Contain Key    ${notification_info}[0]    lastNotification
+    ${is_date}=    Is Date    ${notification_info}[0][lastNotification]    ${date_format}
+    ${is_date_with_millis}=    Is Date    ${notification_info}[0][lastNotification]    ${date_format_with_millis}
+    Should Be True    ${is_date} or ${is_date_with_millis}
+
+    Dictionary Should Contain Key    ${notification_info}[0]    lastSuccess
+    ${is_date}=    Is Date    ${notification_info}[0][lastSuccess]    ${date_format}
+    ${is_date_with_millis}=    Is Date    ${notification_info}[0][lastSuccess]    ${date_format_with_millis}
+    Should Be True    ${is_date} or ${is_date_with_millis}
+
 
 *** Keywords ***
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint    ${subscription_payload_file_path}    ${subscription_id}    ${notification_server_send_url}
+    ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
+    ...    ${subscription_payload_file_path}
+    ...    ${subscription_id}
+    ...    ${notification_server_send_url}
     ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
@@ -38,41 +77,9 @@ After Test
     Stop Local Server
 
 Add Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix} 
+    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity    ${entity_building_filepath}    ${entity_id}
     Set Suite Variable    ${entity_id}
 
 Delete Initial Entity
     Delete Entity by Id    ${entity_id}
-
-*** Test Cases ***
-Check that lastNotification is updated
-    [Documentation]     The status, lastNotification and lastSuccess members shall be updated with expected value and dates. This test will check these formats. 
-    [Tags]    sub-notification    5_11_7    046_12
-
-    Add Initial Entity
-    Sleep   1s
-    Setup Initial Subscriptions
-
-    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
-
-    Wait for notification    timeout=${10}
-    
-    Retrieve Subscription    ${subscription_id}    accept=${CONTENT_TYPE_LD_JSON}   context=${ngsild_test_suite_context}
-
-    ${notification_info}=   Get Value From Json     ${response}     $.body.notification
-    Output  ${notification_info}
-
-    Dictionary Should Contain Key    ${notification_info}[0]    status
-    Should Be Equal    ok     ${notification_info}[0][status]
-
-    Dictionary Should Contain Key    ${notification_info}[0]    lastNotification
-    ${is_date}=    Is Date    ${notification_info}[0][lastNotification]    ${date_format}
-    ${is_date_with_millis}=    Is Date    ${notification_info}[0][lastNotification]    ${date_format_with_millis}
-    Should Be True    ${is_date} or ${is_date_with_millis}
-
-    Dictionary Should Contain Key    ${notification_info}[0]    lastSuccess
-    ${is_date}=    Is Date    ${notification_info}[0][lastSuccess]    ${date_format}
-    ${is_date_with_millis}=    Is Date    ${notification_info}[0][lastSuccess]    ${date_format_with_millis}
-    Should Be True    ${is_date} or ${is_date_with_millis}
-

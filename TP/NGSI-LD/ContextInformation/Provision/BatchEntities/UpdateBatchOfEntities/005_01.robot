@@ -1,33 +1,36 @@
 *** Settings ***
-Documentation     Check that you can update a batch of entities
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Test Setup        Setup Initial Entities
-Test Template     Batch Update Entity Scenarios
-Test Teardown     Delete Initial Entities
+Documentation       Check that you can update a batch of entities
 
-*** Variable ***
-${building_id_prefix}=    urn:ngsi-ld:Building:
-${entity_payload_filename}=    building-simple-attributes-sample.jsonld
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-*** Test Cases ***    FILENAME                                           UPDATE_FRAGMENT_FILENAME
+Test Setup          Setup Initial Entities
+Test Teardown       Delete Initial Entities
+Test Template       Batch Update Entity Scenarios
+
+
+*** Variables ***
+${building_id_prefix}=          urn:ngsi-ld:Building:
+${entity_payload_filename}=     building-simple-attributes-sample.jsonld
+
+
+*** Test Cases ***    FILENAME    UPDATE_FRAGMENT_FILENAME
 EntityWithSimpleProperties
-                      building-simple-attributes-sample.jsonld           fragmentEntities/empty-fragment.json
-                      [Tags]                                             be-update                                                           5_6_9
-
+    [Tags]    be-update    5_6_9
+    building-simple-attributes-sample.jsonld    fragmentEntities/empty-fragment.json
 EntityWithSimpleRelationships
-                      building-relationship-sample.jsonld                fragmentEntities/locatedAt-fragment.json
-                      [Tags]                                             be-update                                                           5_6_9
-
+    [Tags]    be-update    5_6_9
+    building-relationship-sample.jsonld    fragmentEntities/locatedAt-fragment.json
 EntityWithRelationshipsProperties
-                      building-relationship-of-property-sample.jsonld    fragmentEntities/airQualityLevel-with-relationship-fragment.json
-                      [Tags]                                             be-update                                                           5_6_9
+    [Tags]    be-update    5_6_9
+    building-relationship-of-property-sample.jsonld    fragmentEntities/airQualityLevel-with-relationship-fragment.json
+
 
 *** Keywords ***
 Batch Update Entity Scenarios
-    [Arguments]    ${filename}    ${update_fragment_filename}
     [Documentation]    Check that you can update a batch of entities
+    [Arguments]    ${filename}    ${update_fragment_filename}
     ${first_entity}=    Load Entity    ${filename}    ${first_entity_id}
     ${second_entity}=    Load Entity    ${filename}    ${second_entity_id}
     @{entities_ids_to_be_updated}=    Create List    ${first_entity_id}    ${second_entity_id}
@@ -41,7 +44,11 @@ Batch Update Entity Scenarios
     ${second_updated_entity}=    Upsert Element In Entity    ${second_created_entity}    ${update_fragment}
     @{updated_entities}=    Create List    ${first_updated_entity}    ${second_updated_entity}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{entities_ids_to_be_updated}
-    Query Entities    ${expected_entities_ids}    Building    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
+    Query Entities
+    ...    ${expected_entities_ids}
+    ...    Building
+    ...    context=${ngsild_test_suite_context}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resources Set To    ${updated_entities}
 
 Setup Initial Entities

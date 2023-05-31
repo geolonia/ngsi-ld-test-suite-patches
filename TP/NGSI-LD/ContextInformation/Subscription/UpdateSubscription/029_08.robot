@@ -1,25 +1,30 @@
 *** Settings ***
-Documentation     Check that you can update a subcription: If isActive is equal to true and expiresAt corresponds to a DateTime in the future, then status shall be updated to "active"
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Test Template     Activate Paused Subscription With isActive And ExpiresAt Members
-Suite Setup       Setup Initial Subscriptions
-Suite Teardown    Delete Initial Subscriptions
+Documentation       Check that you can update a subcription: If isActive is equal to true and expiresAt corresponds to a DateTime in the future, then status shall be updated to "active"
+
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+
+Suite Setup         Setup Initial Subscriptions
+Suite Teardown      Delete Initial Subscriptions
+Test Template       Activate Paused Subscription With isActive And ExpiresAt Members
+
+
+*** Variables ***
+${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
+${subscription_payload_file_path}=      subscriptions/subscription-inactive-sample.jsonld
+
 
 *** Test Cases ***    SUBSCRIPTION_UPDATE_FRAGMENT_FILE_PATH
 ActiveTrueExpiresAt
-                      subscriptions/fragments/subscription-isActive-expiresAt-update-sample.json
-                      [Tags]                                                                                  sub-update    5_8_2
+    [Tags]    sub-update    5_8_2
+    subscriptions/fragments/subscription-isActive-expiresAt-update-sample.json
 
-*** Variable ***
-${subscription_id_prefix}=    urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=    subscriptions/subscription-inactive-sample.jsonld
 
 *** Keywords ***
 Activate Paused Subscription With isActive And ExpiresAt Members
-    [Arguments]    ${subscription_update_fragment_file_path}
     [Documentation]    Check that you can update a subcription: If isActive is equal to true and expiresAt corresponds to a DateTime in the future, then status shall be updated to "active"
+    [Arguments]    ${subscription_update_fragment_file_path}
     Update Subscription    ${subscription_id}    ${subscription_update_fragment_file_path}    ${CONTENT_TYPE_JSON}
     Check Response Status Code Set To    204
     Retrieve Subscription    ${subscription_id}

@@ -1,24 +1,34 @@
 *** Settings ***
-Documentation     Check that you can retrieve the temporal evolution of an entity with the simplified temporal representation
-Resource          ${EXECDIR}/resources/ApiUtils.resource
-Resource          ${EXECDIR}/resources/AssertionUtils.resource
-Resource          ${EXECDIR}/resources/JsonUtils.resource
-Suite Setup       Setup Initial Entities
-Suite Teardown    Delete Initial Entities
+Documentation       Check that you can retrieve the temporal evolution of an entity with the simplified temporal representation
 
-*** Variable ***
-${vehicule_id_prefix}=    urn:ngsi-ld:Vehicle:
-${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-sample.jsonld
+Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+
+Suite Setup         Setup Initial Entities
+Suite Teardown      Delete Initial Entities
+
+
+*** Variables ***
+${vehicule_id_prefix}=          urn:ngsi-ld:Vehicle:
+${vehicle_payload_file}=        2020-08-vehicule-temporal-representation-sample.jsonld
 ${vehicle_expectation_file}=    vehicle-temporal-representation-020-10-expectation.jsonld
 
-*** Test Case ***
+
+*** Test Cases ***
 Retrieve the temporal evolution of an entity with the simplified temporal representation
     [Documentation]    Check that you can retrieve the temporal evolution of an entity with the simplified temporal representation
     [Tags]    te-retrieve    5_7_3
     @{options}=    Create List    temporalValues
-    Retrieve Temporal Representation Of Entity    ${temporal_entity_representation_id}    options=${options}    context=${ngsild_test_suite_context}
+    Retrieve Temporal Representation Of Entity
+    ...    ${temporal_entity_representation_id}
+    ...    options=${options}
+    ...    context=${ngsild_test_suite_context}
     Check Response Status Code Set To    200
-    Check Response Body Containing EntityTemporal element    ${vehicle_expectation_file}    ${temporal_entity_representation_id}
+    Check Response Body Containing EntityTemporal element
+    ...    ${vehicle_expectation_file}
+    ...    ${temporal_entity_representation_id}
+
 
 *** Keywords ***
 Setup Initial Entities
