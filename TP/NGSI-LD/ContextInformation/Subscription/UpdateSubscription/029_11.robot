@@ -19,12 +19,16 @@ ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscrip
 Update Subscription With ExpiresAt In The Past
     [Documentation]    Check that you cannot update a subscription: If expiresAt is included but referring to a DateTime in the past, then a BadRequestData error shall be raised
     [Tags]    sub-update    5_8_2
-    Update Subscription    ${subscription_id}    ${subscription_update_fragment_file_path}    ${CONTENT_TYPE_JSON}
-    Check Response Status Code Set To    400
+    ${response}=    Update Subscription
+    ...    ${subscription_id}
+    ...    ${subscription_update_fragment_file_path}
+    ...    ${CONTENT_TYPE_JSON}
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+
 
 
 *** Keywords ***

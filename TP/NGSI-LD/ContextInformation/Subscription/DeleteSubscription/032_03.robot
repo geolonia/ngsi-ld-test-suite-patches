@@ -18,9 +18,9 @@ ${subscription_payload_file_path}=      subscriptions/subscription-sample.jsonld
 Delete Subscription
     [Documentation]    Check that you can delete a subscription
     [Tags]    sub-delete    5_8_5
-    Delete Subscription    ${subscription_id}
-    Check Response Status Code Set To    204
-    Retrieve Subscription    ${subscription_id}
+    ${response}=    Delete Subscription    ${subscription_id}
+    Check Response Status Code    204    ${response.status_code}
+    ${response}=    Retrieve Subscription    ${subscription_id}
     Check SUT Not Containing Resource
 
 

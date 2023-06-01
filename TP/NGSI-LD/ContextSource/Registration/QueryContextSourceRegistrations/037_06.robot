@@ -28,9 +28,12 @@ Query Without Properties And Relationships
 Query Context Source Registration Matching Properties And Relationships Of RegistrationInfo
     [Documentation]    Check that you can query context source registrations matching property and relationship names of RegistrationInfo
     [Arguments]    ${attrs_value}    ${expectation_file_path}
-    Query Context Source Registrations    context=${ngsild_test_suite_context}    type=Building    attrs=${attrs_value}
+    ${response}=    Query Context Source Registrations
+    ...    context=${ngsild_test_suite_context}
+    ...    type=Building
+    ...    attrs=${attrs_value}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
-    Check Response Status Code Set To    200
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Context Source Registrations elements
     ...    ${expectation_file_path}
     ...    ${expected_context_source_registration_ids}

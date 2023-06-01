@@ -30,7 +30,7 @@ Query the temporal evolution of entities
     [Documentation]    Check that you can query the temporal evolution of entities
     [Arguments]    ${timerel}    ${timeAt}    ${expectation_file}
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
-    Query Temporal Representation Of Entities
+    ${response}=    Query Temporal Representation Of Entities
     ...    entity_types=${entity_types_to_be_retrieved}
     ...    timerel=${timerel}
     ...    timeAt=${timeAt}
@@ -38,7 +38,7 @@ Query the temporal evolution of entities
     @{temporal_entities_representation_ids}=    Create List
     ...    ${first_temporal_entity_representation_id}
     ...    ${second_temporal_entity_representation_id}
-    Check Response Status Code Set To    200
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing EntityTemporal elements
     ...    ${expectation_file}
     ...    ${temporal_entities_representation_ids}

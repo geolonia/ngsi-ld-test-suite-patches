@@ -32,9 +32,9 @@ Create Invalid Context Source Registration Subscription
     [Arguments]    ${filepath}
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Test Sample    ${filepath}    ${subscription_id}
-    Create Context Source Registration Subscription    ${subscription_payload}
-    Check Response Status Code Set To    400
+    ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

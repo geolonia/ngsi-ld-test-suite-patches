@@ -36,11 +36,11 @@ Delete attribute from temporal entity with unknow entity/attribute id
     ...    ${CONTENT_TYPE_JSON}
     ...    ${EMPTY}
     ...    false
-    Check Response Status Code    ${status_code}    ${response['status']}
+    Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 Create Temporal Entity
     ${valid_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
@@ -48,7 +48,7 @@ Create Temporal Entity
     ...    ${valid_temporal_entity_id}
     ...    ${filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     Set Suite Variable    ${valid_temporal_entity_id}
 
 Delete Temporal Entity

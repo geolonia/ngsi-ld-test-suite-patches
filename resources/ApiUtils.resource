@@ -1,6 +1,6 @@
 *** Settings ***
 Variables       ./variables.py
-Library         REST    ${url}
+Library         ${EXECDIR}/libraries/logUtils.py
 Library         RequestsLibrary
 Library         OperatingSystem
 Library         Collections
@@ -43,16 +43,15 @@ ${response}                                                     ${EMPTY}
 *** Keywords ***
 Delete Entity by Id Returning Response
     [Arguments]    ${id}
-    ${response}=    REST.DELETE    ${ENTITIES_ENDPOINT_PATH}${id}
-    Output    request
-    Output    response
+    ${response}=    DELETE    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}    expected_status=any
+    Output    ${response}
     RETURN    ${response}
 
 Delete Entity by Id
     [Arguments]    ${id}
-    ${response}=    REST.DELETE    ${ENTITIES_ENDPOINT_PATH}${id}
-    Output    request
-    Output    response
+    ${response}=    DELETE    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}    expected_status=any
+    Output    ${response}
+    RETURN    ${response}
 
 Query Entity
     [Arguments]
@@ -83,11 +82,14 @@ Query Entity
         Set To Dictionary    ${params}    options=${options}
     END
 
-    ${response}=    REST.GET    ${ENTITIES_ENDPOINT_PATH}${id}    headers=${headers}    query=${params}
-    ${request}=    Output    request
-    Output    response
+    ${response}=    GET
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
     Set Test Variable    ${response}
-    RETURN    ${request}    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Query Entities
     [Arguments]
@@ -143,10 +145,13 @@ Query Entities
         Set To Dictionary    ${params}    geometry=${geometry}
     END
 
-    ${response}=    REST.GET    ${ENTITIES_ENDPOINT_PATH}    headers=${headers}    query=${params}
-    Output    request
-    Output    response
+    ${response}=    GET
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
     RETURN    ${response}
 
 Query Entities Via POST
@@ -176,9 +181,12 @@ Query Entities Via POST
     IF    '${geoproperty}'!=''
         Set To Dictionary    ${params}    geoproperty=${geoproperty}
     END
-    ${response}=    REST.POST    ${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}    body=${params}    headers=${headers}
-    Output    request
-    Output    response
+    ${response}=    POST
+    ...    url=${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}
+    ...    json=${params}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}
     RETURN    ${response}
 
 Retrieve Entity by Id
@@ -190,10 +198,10 @@ Retrieve Entity by Id
         ...    ${headers}
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
-    ${response}=    REST.GET    ${ENTITIES_ENDPOINT_PATH}${id}    headers=${headers}
-    Output    request
-    Output    response
+    ${response}=    GET    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}    headers=${headers}    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Create Entity Selecting Content Type
     [Arguments]    ${filename}    ${entity_id}    ${content_type}    ${context}=${EMPTY}    ${accept}=${EMPTY}
@@ -208,73 +216,48 @@ Create Entity Selecting Content Type
         ...    ${headers}
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
-    ${response}=    REST.POST    ${ENTITIES_ENDPOINT_PATH}    body=${entity}    headers=${headers}
-    ${request}=    Output    request
-    Output    response
-    RETURN    ${request}    ${response}
+    ${response}=    POST
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    json=${entity}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}
+    RETURN    ${response}
 
 Append Entity Attributes
     [Arguments]    ${id}    ${fragment_filename}    ${content_type}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
-    ${fragment_payload}=    Load JSON From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
-    ${response}=    REST.POST
-    ...    ${ENTITIES_ENDPOINT_PATH}${id}/attrs/
-    ...    body=${fragment_payload}
+    ${file_content}=    Get File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
+    ${response}=    POST
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}/attrs/
+    ...    data=${file_content}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
+    Output    ${response}
     RETURN    ${response}
 
 Append Entity Attributes With Parameters
     [Arguments]    ${id}    ${fragment_filename}    ${content_type}    ${options}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     ${fragment_payload}=    Load JSON From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
-    ${response}=    REST.POST
-    ...    ${ENTITIES_ENDPOINT_PATH}${id}/attrs/?options=${options}
-    ...    body=${fragment_payload}
+    ${response}=    POST
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}/attrs/?options=${options}
+    ...    json=${fragment_payload}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
+    Output    ${response}
     RETURN    ${response}
-
-Append Entity Attributes Using Session
-    [Arguments]    ${id}    ${filename}    ${content_type}    ${options}
-    ${file_content}=    Get File    ${EXECDIR}/data/entities/fragmentEntities/${filename}
-    Create Session    OneRequest    ${url}
-    &{headers}=    Create Dictionary    Content-Type=${content_type}
-    ${response}=    POST On Session
-    ...    OneRequest
-    ...    ${ENTITIES_ENDPOINT_PATH}${id}/attrs/
-    ...    params=options=${options}
-    ...    data=${file_content}
-    ...    headers=${headers}
-    ...    expected_status=any
-    Set Test Variable    ${response}
-
-Update Entity Attributes Using Session
-    [Arguments]    ${id}    ${fragment_filename}    ${content_type}    ${options}
-    ${file_content}=    Get File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
-    Create Session    OneRequest    ${url}
-    &{headers}=    Create Dictionary    Content-Type=${content_type}
-    ${response}=    PATCH On Session
-    ...    OneRequest
-    ...    ${ENTITIES_ENDPOINT_PATH}${id}/attrs/
-    ...    data=${file_content}
-    ...    headers=${headers}
-    ...    expected_status=any
-    Output    ${response.json()}
-    Set Test Variable    ${response}
 
 Update Entity Attributes
     [Arguments]    ${id}    ${fragment_filename}    ${content_type}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
-    ${fragment_payload}=    Load JSON From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
-    ${response}=    REST.PATCH
-    ...    ${ENTITIES_ENDPOINT_PATH}${id}/attrs/
-    ...    body=${fragment_payload}
+    ${file_content}=    Get File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
+    ${response}=    PATCH
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}/attrs/
+    ...    data=${file_content}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
+    Output    ${response}
     RETURN    ${response}
 
 Delete Entity Attributes
@@ -293,11 +276,11 @@ Delete Entity Attributes
         Append To List    ${params}    deleteAll=${deleteAll}
     END
     ${params_as_string}=    Catenate    SEPARATOR=&    @{params}
-    ${response}=    REST.DELETE
-    ...    ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}?${params_as_string}
+    ${response}=    DELETE
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}?${params_as_string}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
+    Output    ${response}
     RETURN    ${response}
 
 Partial Update Entity Attributes
@@ -318,12 +301,12 @@ Partial Update Entity Attributes
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
     ${fragment_payload}=    Load JSON From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
-    ${response}=    REST.PATCH
-    ...    ${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}
-    ...    body=${fragment_payload}
+    ${response}=    PATCH
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}
+    ...    json=${fragment_payload}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
+    Output    ${response}
     RETURN    ${response}
 
 Retrieve Entity Types
@@ -340,11 +323,14 @@ Retrieve Entity Types
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
     IF    ${details}    Set To Dictionary    ${params}    details=${details}
-    ${response}=    REST.GET    ${ENTITIES_TYPES_ENDPOINT_PATH}/    headers=${headers}    query=${params}
-    Output    request
-    Output    response
-
+    ${response}=    GET
+    ...    url=${url}/${ENTITIES_TYPES_ENDPOINT_PATH}/
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Retrieve Entity Type
     [Arguments]    ${type}    ${context}=${EMPTY}    ${accept}=${EMPTY}
@@ -358,11 +344,13 @@ Retrieve Entity Type
         ...    ${headers}
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
-    ${response}=    REST.GET    ${ENTITIES_TYPES_ENDPOINT_PATH}/${type}    headers=${headers}
-    Output    request
-    Output    response
-
+    ${response}=    GET
+    ...    url=${url}/${ENTITIES_TYPES_ENDPOINT_PATH}/${type}
+    ...    headers=${headers}
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Retrieve Attributes
     [Arguments]    ${context}=${EMPTY}    ${details}=${FALSE}    ${accept}=${EMPTY}
@@ -378,11 +366,14 @@ Retrieve Attributes
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
     IF    ${details}    Set To Dictionary    ${params}    details=${details}
-    ${response}=    REST.GET    ${ATTRIBUTES_ENDPOINT_PATH}    headers=${headers}    query=${params}
-    Output    request
-    Output    response
-
+    ${response}=    GET
+    ...    url=${url}/${ATTRIBUTES_ENDPOINT_PATH}
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Retrieve Attribute
     [Arguments]    ${attribute_name}    ${context}=${EMPTY}    ${accept}=${EMPTY}
@@ -396,11 +387,13 @@ Retrieve Attribute
         ...    ${headers}
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
-    ${response}=    REST.GET    ${ATTRIBUTES_ENDPOINT_PATH}/${attribute_name}    headers=${headers}
-    Output    request
-    Output    response
-
+    ${response}=    GET
+    ...    url=${url}/${ATTRIBUTES_ENDPOINT_PATH}/${attribute_name}
+    ...    headers=${headers}
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Create Context Source Registration With Return
     [Arguments]    ${payload}    ${content_type}=${CONTENT_TYPE_LD_JSON}    ${context}=${EMPTY}    ${accept}=${EMPTY}
@@ -413,57 +406,32 @@ Create Context Source Registration With Return
         ...    ${headers}
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
-    ${response}=    REST.POST    ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}    body=${payload}    headers=${headers}
-    ${request}=    Output    request
-    Output    response
-    RETURN    ${request}    ${response}
-
-Create Context Source Registration Using Session
-    [Arguments]    ${filename}    ${content_type}
-    ${file_content}=    Get File    ${EXECDIR}/data/csourceRegistrations/${filename}
-    Create Session    OneRequest    ${url}
-    &{headers}=    Create Dictionary    Content-Type=${content_type}
-    ${response}=    POST On Session
-    ...    OneRequest
-    ...    ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
-    ...    data=${file_content}
+    ${response}=    POST
+    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
+    ...    json=${payload}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response.json()}
+    Output    ${response}
     RETURN    ${response}
 
 Update Context Source Registration With Return
     [Arguments]    ${registration_id}    ${fragment}    ${content_type}    ${accept}=${EMPTY}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     IF    '${accept}'!=''    Set To Dictionary    ${headers}    Accept=${accept}
-    ${response}=    REST.PATCH
-    ...    ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
-    ...    body=${fragment}
-    ...    headers=${headers}
-    ${request}=    Output    request
-    Output    response
-    RETURN    ${response}
-
-Update Context Source Registration Using Session
-    [Arguments]    ${registration_id}    ${filename}    ${content_type}
-    ${file_content}=    Get File    ${EXECDIR}/data/csourceRegistrations/${filename}
-    Create Session    OneRequest    ${url}
-    &{headers}=    Create Dictionary    Content-Type=${content_type}
-    ${response}=    PATCH On Session
-    ...    OneRequest
-    ...    ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
-    ...    data=${file_content}
+    ${response}=    PATCH
+    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
+    ...    json=${fragment}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    request
-    Output    response
+    Output    ${response}
     RETURN    ${response}
 
 Delete Context Source Registration With Return
     [Arguments]    ${registration_id}
-    ${response}=    REST.DELETE    ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
-    Output    request
-    Output    response
+    ${response}=    DELETE
+    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
+    ...    expected_status=any
+    Output    ${response}
     RETURN    ${response}
 
 Create Entity
@@ -471,9 +439,13 @@ Create Entity
     ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/${filename}
     ${entity}=    Update Value To JSON    ${entity_payload}    $..id    ${entity_id}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
-    ${response}=    REST.POST    ${ENTITIES_ENDPOINT_PATH}    body=${entity}    headers=${headers}
-    Output    request
-    Output    response
+    ${response}=    POST
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    json=${entity}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}
+    RETURN    ${response}
 
 Create Or Update Temporal Representation Of Entity Selecting Content Type
     [Arguments]    ${temporal_entity_representation_id}    ${filename}    ${content_type}    ${accept}=${EMPTY}
@@ -486,54 +458,37 @@ Create Or Update Temporal Representation Of Entity Selecting Content Type
     IF    '${accept}'!=''
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
-    ${response}=    REST.POST
-    ...    ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/
-    ...    body=${temporal_entity_representation}
+    ${response}=    POST
+    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/
+    ...    json=${temporal_entity_representation}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
+    Output    ${response}
     RETURN    ${response}
 
-Create Temporal Representation Of Entity Selecting Content Type Using Session
+Create Temporal Representation Of Entity Selecting Content Type
     [Arguments]    ${filename}    ${content_type}
     ${file_content}=    Get File    ${EXECDIR}/data/temporalEntities/${filename}
-    Create Session    OneRequest    ${url}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
-    ${response}=    POST On Session
-    ...    OneRequest
-    ...    ${TEMPORAL_ENTITIES_ENDPOINT_PATH}
+    ${response}=    POST
+    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response.json()}
     Set Test Variable    ${response}
+    Output    ${response}
     RETURN    ${response}
 
 Append Attribute To Temporal Entity
     [Arguments]    ${temporal_entity_id}    ${fragment_filename}    ${content_type}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
-    ${fragment_payload}=    Load JSON From File    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
-    ${response}=    REST.POST
-    ...    ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs
-    ...    body=${fragment_payload}
-    ...    headers=${headers}
-    Output    request
-    Output    response
-    RETURN    ${response}
-
-Append Attribute To Temporal Entity Using Session
-    [Arguments]    ${temporal_entity_id}    ${fragment_filename}    ${content_type}
     ${file_content}=    Get File    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
-    Create Session    OneRequest    ${url}
-    &{headers}=    Create Dictionary    Content-Type=${content_type}
-    ${response}=    POST On Session
-    ...    OneRequest
-    ...    ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs
+    ${response}=    POST
+    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response.json()}
-    Set Test Variable    ${response}
+    Output    ${response}
     RETURN    ${response}
 
 Modify Attribute Instance From Temporal Entity
@@ -551,12 +506,12 @@ Modify Attribute Instance From Temporal Entity
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
     ${fragment_payload}=    Load JSON From File    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
-    ${response}=    REST.PATCH
-    ...    ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}
-    ...    body=${fragment_payload}
+    ${response}=    PATCH
+    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}
+    ...    json=${fragment_payload}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
+    Output    ${response}
     RETURN    ${response}
 
 Delete Attribute From Temporal Entity
@@ -581,25 +536,20 @@ Delete Attribute From Temporal Entity
         Append To List    ${params}    deleteAll=${deleteAll}
     END
     ${params_as_string}=    Catenate    SEPARATOR=&    @{params}
-    ${response}=    REST.DELETE
-    ...    ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${entityId}/attrs/${attributeId}?${params_as_string}
+    ${response}=    DELETE
+    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${entityId}/attrs/${attributeId}?${params_as_string}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
+    Output    ${response}
     RETURN    ${response}
 
 Delete Temporal Representation Of Entity With Returning Response
     [Arguments]    ${temporal_entity_representation_id}
-    ${response}=    REST.DELETE    ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
-    Output    request
-    Output    response
+    ${response}=    DELETE
+    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
+    ...    expected_status=any
+    Output    ${response}
     RETURN    ${response}
-
-Delete Several Temporal Representations Of Entities
-    [Arguments]    @{temporal_entity_representation_ids}
-    FOR    ${temporal_entity_representation_id}    IN    @{temporal_entity_representation_ids}
-        Delete Temporal Representation Of Entity With Returning Response    ${temporal_entity_representation_id}
-    END
 
 Get Temporal Representation Of Entity
     [Arguments]
@@ -621,12 +571,12 @@ Get Temporal Representation Of Entity
     IF    ${options_length}>0
         Set To Dictionary    ${params}    options=${options}
     END
-    ${response}=    REST.GET
-    ...    ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
+    ${response}=    GET
+    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
     ...    headers=${headers}
-    ...    query=${params}
-    Output    request
-    Output    response
+    ...    params=${params}
+    ...    expected_status=any
+    Output    ${response}
     RETURN    ${response}
 
 Delete Attribute Instance From Temporal Entity
@@ -637,11 +587,11 @@ Delete Attribute Instance From Temporal Entity
         ...    ${headers}
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
-    ${response}=    REST.DELETE
-    ...    ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}
+    ${response}=    DELETE
+    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
+    Output    ${response}
     RETURN    ${response}
 
 Update Temporal Representation Of Entity Selecting Content Type
@@ -654,12 +604,12 @@ Update Temporal Representation Of Entity Selecting Content Type
     ${temporal_entity_fragment}=    Load JSON From File
     ...    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
-    ${response}=    REST.PATCH
-    ...    ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}/attrs/${attrId}/${instanceId}
-    ...    body=${temporal_entity_fragment}
+    ${response}=    PATCH
+    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}/attrs/${attrId}/${instanceId}
+    ...    json=${temporal_entity_fragment}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
+    Output    ${response}
     RETURN    ${response}
 
 Batch Create Entities
@@ -678,70 +628,77 @@ Batch Create Entities
         ...    ${headers}
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
-    ${response}=    REST.POST    ${BATCH_CREATE_ENDPOINT_PATH}    body=@{entities_to_be_created}    headers=${headers}
-    Output    request
-    Output    response
+    ${response}=    POST
+    ...    url=${url}/${BATCH_CREATE_ENDPOINT_PATH}
+    ...    json=@{entities_to_be_created}
+    ...    headers=${headers}
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Batch Upsert Entities
     [Arguments]    @{entities_to_be_upserted}    ${update_option}=replace
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
-    ${response}=    REST.POST
-    ...    ${BATCH_UPSERT_ENDPOINT_PATH}?options=${update_option}
-    ...    body=@{entities_to_be_upserted}
+    ${response}=    POST
+    ...    url=${url}/${BATCH_UPSERT_ENDPOINT_PATH}?options=${update_option}
+    ...    json=@{entities_to_be_upserted}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Batch Update Entities
     [Arguments]    @{entities_to_be_updated}    ${overwrite_option}=overwrite
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
-    ${response}=    REST.POST
-    ...    ${BATCH_UPDATE_ENDPOINT_PATH}?options=${overwrite_option}
-    ...    body=@{entities_to_be_updated}
+    ${response}=    POST
+    ...    url=${url}/${BATCH_UPDATE_ENDPOINT_PATH}?options=${overwrite_option}
+    ...    json=@{entities_to_be_updated}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Batch Delete Entities
     [Arguments]    @{entities_ids_to_be_deleted}    ${teardown}=False
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
-    ${response}=    REST.POST
-    ...    ${BATCH_DELETE_ENDPOINT_PATH}
-    ...    body=@{entities_ids_to_be_deleted}
+    ${response}=    POST
+    ...    url=${url}/${BATCH_DELETE_ENDPOINT_PATH}
+    ...    json=@{entities_ids_to_be_deleted}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
     IF    not ${teardown}    Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Request Entity From File
     [Arguments]    ${filename}
     ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
-    Create Session    OneRequest    ${url}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
-    ${response}=    POST On Session
-    ...    OneRequest
-    ...    ${ENTITIES_ENDPOINT_PATH}
+    ${response}=    POST
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Batch Request Entities From File
     [Arguments]    ${batchOperation}    ${filename}
     ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
     ${endpoint_url}=    Get From Dictionary    ${BATCH_OPERATION_ENDPOINT_MAPPING}    ${batchOperation}
-    Create Session    BatchRequest    ${url}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
-    ${response}=    POST On Session
-    ...    BatchRequest
-    ...    ${endpoint_url}
+    ${response}=    POST
+    ...    url=${url}/${endpoint_url}
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Create Temporal Representation Of Entity
     [Arguments]    ${filename}    ${temporal_entity_representation_id}
@@ -752,12 +709,13 @@ Create Temporal Representation Of Entity
     ...    ${temporal_entity_representation_id}
 
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
-    ${response}=    REST.POST
-    ...    ${TEMPORAL_ENTITIES_ENDPOINT_PATH}
-    ...    body=${temporal_entity_representation}
+    ${response}=    POST
+    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
+    ...    json=${temporal_entity_representation}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
+    Output    ${response}
+    RETURN    ${response}
 
 Retrieve Temporal Representation Of Entity
     [Arguments]
@@ -794,13 +752,14 @@ Retrieve Temporal Representation Of Entity
     END
     IF    '${lastN}'!=''    Set To Dictionary    ${params}    lastN=${lastN}
 
-    ${response}=    REST.GET
-    ...    ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
+    ${response}=    GET
+    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
     ...    headers=${headers}
-    ...    query=${params}
-    Output    request
-    Output    response
+    ...    params=${params}
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Query Temporal Representation Of Entities
     [Arguments]
@@ -862,10 +821,14 @@ Query Temporal Representation Of Entities
     END
     IF    '${limit}'!=''    Set To Dictionary    ${params}    limit=${limit}
 
-    ${response}=    REST.GET    ${TEMPORAL_ENTITIES_ENDPOINT_PATH}    headers=${headers}    query=${params}
-    Output    request
-    Output    response
+    ${response}=    GET
+    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Query Temporal Representation Of Entities Via Post
     [Arguments]    ${query_file_name}    ${content_type}=${CONTENT_TYPE_JSON}    ${context}=${EMPTY}
@@ -875,45 +838,47 @@ Query Temporal Representation Of Entities Via Post
     ...    ${headers}
     ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     ${query_payload}=    Load JSON From File    ${EXECDIR}/data/temporalEntities/${query_file_name}
-    ${response}=    REST.POST
-    ...    ${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}/query
-    ...    body=${query_payload}
+    ${response}=    POST
+    ...    url=${url}/${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}/query
+    ...    json=${query_payload}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Delete Temporal Representation Of Entity
     [Arguments]    ${temporal_entity_representation_id}
 
-    ${response}=    REST.DELETE    ${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
-    Output    request
-    Output    response
+    ${response}=    DELETE
+    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
+    ...    expected_status=any
+    Output    ${response}
+    RETURN    ${response}
 
 Create Context Source Registration
     [Arguments]    ${context_source_registration_payload}
 
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
-    ${response}=    REST.POST
-    ...    ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
-    ...    body=${context_source_registration_payload}
+    ${response}=    POST
+    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
+    ...    json=${context_source_registration_payload}
     ...    headers=${headers}
-    ${request}=    Output    request
-    Output    response
-
-    Set Suite Variable    ${request}
+    ...    expected_status=any
     Set Suite Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Update Context Source Registration
     [Arguments]    ${context_source_registration_id}    ${update_fragment}
 
-    ${response}=    REST.PATCH
-    ...    ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
-    ...    body=${update_fragment}
-    Output    request
-    Output    response
-
+    ${response}=    PATCH
+    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
+    ...    json=${update_fragment}
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Query Context Source Registrations
     [Arguments]
@@ -932,6 +897,7 @@ Query Context Source Registrations
     ...    ${timeAt}=${EMPTY}
     ...    ${limit}=${EMPTY}
     ...    ${page}=${EMPTY}
+    ...    ${accept}=${EMPTY}
 
     &{headers}=    Create Dictionary
     &{params}=    Create Dictionary
@@ -966,20 +932,22 @@ Query Context Source Registrations
     IF    '${limit}'!=''    Set To Dictionary    ${params}    limit=${limit}
     IF    '${page}'!=''    Set To Dictionary    ${params}    page=${page}
 
-    ${response}=    REST.GET    ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}    headers=${headers}    query=${params}
-    Output    request
-    Output    response
-
+    ${response}=    GET
+    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Delete Context Source Registration
     [Arguments]    ${context_source_registration_id}
 
-    ${response}=    REST.DELETE    ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
-    Output    request
-    Output    response
-
+    ${response}=    DELETE    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
     Set Suite Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Retrieve Context Source Registration
     [Arguments]    ${context_source_registration_id}    ${context}=${EMPTY}    ${accept}=${EMPTY}
@@ -991,13 +959,13 @@ Retrieve Context Source Registration
         ...    ${headers}
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
-    ${response}=    REST.GET
-    ...    ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
+    ${response}=    GET
+    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
     ...    headers=${headers}
-    Output    request
-    Output    response
-
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Create Context Source Registration Subscription
     [Arguments]    ${subscription_payload}    ${accept}=${EMPTY}    ${content_type}=${CONTENT_TYPE_LD_JSON}
@@ -1006,26 +974,25 @@ Create Context Source Registration Subscription
     IF    '${accept}'!=''
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
-    ${response}=    REST.POST
-    ...    ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}
-    ...    body=${subscription_payload}
+    ${response}=    POST
+    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}
+    ...    json=${subscription_payload}
     ...    headers=${headers}
-    ${request}=    Output    request
-    Output    response
-
-    Set Suite Variable    ${request}
+    ...    expected_status=any
     Set Suite Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Update Context Source Registration Subscription
     [Arguments]    ${subscription_id}    ${subscription_update_fragment}
 
-    ${response}=    REST.PATCH
-    ...    ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
-    ...    body=${subscription_update_fragment}
-    Output    request
-    Output    response
-
+    ${response}=    PATCH
+    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
+    ...    json=${subscription_update_fragment}
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Retrieve Context Source Registration Subscription
     [Arguments]    ${subscription_id}    ${context}=${EMPTY}    ${accept}=${CONTENT_TYPE_JSON}
@@ -1037,13 +1004,13 @@ Retrieve Context Source Registration Subscription
         ...    ${headers}
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
-    ${response}=    REST.GET
-    ...    ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
+    ${response}=    GET
+    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     ...    headers=${headers}
-    Output    request
-    Output    response
-
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Query Context Source Registration Subscriptions
     [Arguments]    ${context}=${EMPTY}    ${limit}=${EMPTY}    ${page}=${EMPTY}    ${accept}=${EMPTY}
@@ -1059,34 +1026,33 @@ Query Context Source Registration Subscriptions
     IF    '${limit}'!=''    Set To Dictionary    ${params}    limit=${limit}
     IF    '${page}'!=''    Set To Dictionary    ${params}    page=${page}
 
-    ${response}=    REST.GET
-    ...    ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}
+    ${response}=    GET
+    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}
     ...    headers=${headers}
-    ...    query=${params}
-    Output    request
-    Output    response
-
+    ...    params=${params}
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Delete Context Source Registration Subscription
     [Arguments]    ${subscription_id}
 
-    ${response}=    REST.DELETE    ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
-    Output    request
-    Output    response
-
+    ${response}=    DELETE    ${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     Set Suite Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Update Context Source Registration Subscription From File
     [Arguments]    ${subscription_id}    ${file_path}
     ${file_content}=    Get File    ${EXECDIR}/data/${file_path}
-    Create Session    CsrsUpdateRequest    ${url}
-    ${response}=    PATCH On Session
-    ...    CsrsUpdateRequest
-    ...    ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
+    ${response}=    PATCH
+    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     ...    data=${file_content}
     ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Create Subscription
     [Arguments]
@@ -1106,9 +1072,12 @@ Create Subscription
     END
     ${subscription_payload}=    Load JSON From File    ${EXECDIR}/data/${filename_path}
     ${subscription}=    Update Value To JSON    ${subscription_payload}    $..id    ${subscription_id}
-    ${response}=    REST.POST    ${SUBSCRIPTION_ENDPOINT_PATH}    body=${subscription}    headers=${headers}
-    Output    request
-    Output    response
+    ${response}=    POST
+    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}
+    ...    json=${subscription}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}
     RETURN    ${response}
 
 Create Subscription From Subscription Payload
@@ -1126,22 +1095,26 @@ Create Subscription From Subscription Payload
         ...    ${headers}
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
-    ${response}=    REST.POST    ${SUBSCRIPTION_ENDPOINT_PATH}    body=${subscription_payload}    headers=${headers}
-    Output    request
-    Output    response
+    ${response}=    POST
+    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}
+    ...    json=${subscription_payload}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}
+    RETURN    ${response}
 
 Create Subscription From File
     [Arguments]    ${filename}
     ${file_content}=    Get File    ${EXECDIR}/data/subscriptions/${filename}
-    Create Session    SubscriptionCreateRequest    ${url}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
-    ${response}=    POST On Session
-    ...    SubscriptionCreateRequest
-    ...    ${SUBSCRIPTION_ENDPOINT_PATH}
+    ${response}=    POST
+    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Update Subscription
     [Arguments]
@@ -1160,13 +1133,13 @@ Update Subscription
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
     ${subscription_update_fragment}=    Load JSON From File    ${EXECDIR}/data/${fragment_filename}
-    ${response}=    REST.PATCH
-    ...    ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
-    ...    body=${subscription_update_fragment}
+    ${response}=    PATCH
+    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
+    ...    json=${subscription_update_fragment}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
     RETURN    ${response}
 
 Update Subscription With Payload
@@ -1180,21 +1153,20 @@ Update Subscription With Payload
         ...    ${headers}
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
-    ${response}=    REST.PATCH
-    ...    ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
-    ...    body=${payload}
+    ${response}=    PATCH
+    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
+    ...    json=${payload}
     ...    headers=${headers}
-    Output    request
-    Output    response
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
     RETURN    ${response}
 
 Delete Subscription
     [Arguments]    ${subscription_id}
-    ${response}=    REST.DELETE    ${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
-    Output    request
-    Output    response
+    ${response}=    DELETE    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}    expected_status=any
     Set Suite Variable    ${response}
+    Output    ${response}
     RETURN    ${response}
 
 Query Subscriptions
@@ -1213,11 +1185,14 @@ Query Subscriptions
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
 
-    ${response}=    REST.GET    ${SUBSCRIPTION_ENDPOINT_PATH}    headers=${headers}    query=${params}
-    Output    request
-    Output    response
-
+    ${response}=    GET
+    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
     Set Test Variable    ${response}
+    Output    ${response}
+    RETURN    ${response}
 
 Retrieve Subscription
     [Arguments]    ${id}    ${accept}=${EMPTY}    ${context}=${EMPTY}    ${content_type}=${CONTENT_TYPE_LD_JSON}
@@ -1232,117 +1207,10 @@ Retrieve Subscription
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
 
-    ${response}=    REST.GET    ${SUBSCRIPTION_ENDPOINT_PATH}${id}    headers=${headers}
-    ${request}=    Output    request
-    Output    response
+    ${response}=    GET    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${id}    headers=${headers}    expected_status=any
     Set Test Variable    ${response}
-    RETURN    ${request}    ${response}
-
-Update Context Source Registration Subscription By Selecting Content Type
-    [Arguments]    ${subscription_id}    ${subscription_update_fragment}    ${content_type}    ${accept}=${EMPTY}
-    &{headers}=    Create Dictionary    Content-Type=${content_type}
-    IF    '${accept}'!=''
-        Set To Dictionary    ${headers}    Accept    ${accept}
-    END
-    ${response}=    REST.PATCH
-    ...    ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
-    ...    body=${subscription_update_fragment}
-    ...    headers=${headers}
-    Output    request
-    Output    response
-    RETURN    ${response}
-
-Retrieve Entity Types With Return
-    [Arguments]    ${accept}=${EMPTY}
-    &{headers}=    Create Dictionary
-    IF    '${accept}'!=''
-        Set To Dictionary    ${headers}    Accept    ${accept}
-    END
-    ${response}=    REST.GET    ${ENTITIES_TYPES_ENDPOINT_PATH}    headers=${headers}
-    Output    request
-    Output    response
-    RETURN    ${response}
-
-Retrieve Entity Type With Return
-    [Arguments]    ${type}    ${accept}=${EMPTY}
-    &{headers}=    Create Dictionary
-    IF    '${accept}'!=''
-        Set To Dictionary    ${headers}    Accept    ${accept}
-    END
-    ${response}=    REST.GET    ${ENTITIES_TYPES_ENDPOINT_PATH}/${type}    headers=${headers}
-    Output    request
-    Output    response
-    RETURN    ${response}
-
-Retrieve Attributes With Return
-    [Arguments]    ${accept}=${EMPTY}
-    &{headers}=    Create Dictionary
-    IF    '${accept}'!=''
-        Set To Dictionary    ${headers}    Accept    ${accept}
-    END
-    ${response}=    REST.GET    ${ATTRIBUTES_ENDPOINT_PATH}    headers=${headers}
-    Output    request
-    Output    response
-    RETURN    ${response}
-
-Retrieve Attribute With Return
-    [Arguments]    ${attribute_name}    ${accept}=${EMPTY}
-    &{headers}=    Create Dictionary
-    IF    '${accept}'!=''
-        Set To Dictionary    ${headers}    Accept    ${accept}
-    END
-    ${response}=    REST.GET    ${ATTRIBUTES_ENDPOINT_PATH}/${attribute_name}    headers=${headers}
-    Output    request
-    Output    response
-    RETURN    ${response}
-
-Create Context Source Registration Subscription With Return
-    [Arguments]    ${subscription_payload}    ${content_type}
-    &{headers}=    Create Dictionary    Content-Type=${content_type}
-    ${response}=    REST.POST
-    ...    ${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}
-    ...    body=${subscription_payload}
-    ...    headers=${headers}
-    ${request}=    Output    request
     Output    ${response}
-    RETURN    ${request}    ${response}
-
-Batch Upsert Entities By Selecting Content Type
-    [Arguments]    @{entities_to_be_upserted}    ${content_type}=${CONTENT_TYPE_LD_JSON}    ${update_option}=replace
-    &{headers}=    Create Dictionary    Content-Type=${content_type}
-    ${response}=    REST.POST
-    ...    ${BATCH_UPSERT_ENDPOINT_PATH}?options=${update_option}
-    ...    body=@{entities_to_be_upserted}
-    ...    headers=${headers}
-    Output    request
-    Output    response
-    Set Test Variable    ${response}
-
-Batch Update Entities By Selecting Content Type
-    [Arguments]
-    ...    @{entities_to_be_updated}
-    ...    ${content_type}=${CONTENT_TYPE_LD_JSON}
-    ...    ${overwrite_option}=overwrite
-    &{headers}=    Create Dictionary    Content-Type=${content_type}
-    ${response}=    REST.POST
-    ...    ${BATCH_UPDATE_ENDPOINT_PATH}?options=${overwrite_option}
-    ...    body=@{entities_to_be_updated}
-    ...    headers=${headers}
-    Output    request
-    Output    response
-    Set Test Variable    ${response}
-
-Batch Delete Entities By Selecting Content Type
-    [Arguments]    @{entities_ids_to_be_deleted}    ${content_type}=${CONTENT_TYPE_LD_JSON}    ${teardown}=False
-    &{headers}=    Create Dictionary    Content-Type=${content_type}
-    ${response}=    REST.POST
-    ...    ${BATCH_DELETE_ENDPOINT_PATH}
-    ...    body=@{entities_ids_to_be_deleted}
-    ...    headers=${headers}
-    Output    request
-    Output    response
-    IF    not ${teardown}    Set Test Variable    ${response}
-    Set Test Variable    ${response}
+    RETURN    ${response}
 
 Query Context Source Registrations With Return
     [Arguments]
@@ -1396,10 +1264,13 @@ Query Context Source Registrations With Return
     IF    '${limit}'!=''    Set To Dictionary    ${params}    limit=${limit}
     IF    '${page}'!=''    Set To Dictionary    ${params}    page=${page}
 
-    ${response}=    REST.GET    ${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}    headers=${headers}    query=${params}
-    ${request}=    Output    request
-    Output    response
-    RETURN    ${request}    ${response}
+    ${response}=    GET
+    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
+    Output    ${response}
+    RETURN    ${response}
 
 Query Temporal Representation Of Entities With Return
     [Arguments]
@@ -1461,7 +1332,10 @@ Query Temporal Representation Of Entities With Return
     END
     IF    '${limit}'!=''    Set To Dictionary    ${params}    limit=${limit}
 
-    ${response}=    REST.GET    ${TEMPORAL_ENTITIES_ENDPOINT_PATH}    headers=${headers}    query=${params}
-    ${request}=    Output    request
-    Output    response
-    RETURN    ${request}    ${response}
+    ${response}=    GET
+    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
+    Output    ${response}
+    RETURN    ${response}

@@ -19,12 +19,12 @@ Create Context Source Registration Subscription Without expiresAt Member
     [Documentation]    Check that you can create a context source registration subscription without an expiresAt member and it will be considered as perpetual
     [Tags]    csrsub-create    5_11_2
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
-    Create Context Source Registration Subscription    ${subscription_payload}
-    Check Response Status Code Set To    201
-    Check Response Headers Containing URI set to    ${request['path']}/    ${subscription_id}    ${response}
+    ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
+    Check Response Status Code    201    ${response.status_code}
+    Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
     # Let's say if the subscription stills active after 10s it will be considered as perpetual, but this is not enough
     Sleep    10s
-    Retrieve context source registration subscription    ${subscription_id}
+    ${response}=    Retrieve context source registration subscription    ${subscription_id}
     Check Response Body Containing an Attribute set to    status    active
 
 

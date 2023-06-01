@@ -40,16 +40,16 @@ Update Context Source
     [Arguments]    ${registration_id}    ${fragment_filename}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${valid_registration_id}
-    ${request}    ${response}=    Create Context Source Registration With Return    ${updated_payload}
-    Check Response Status Code    201    ${response['status']}
+    ${response}=    Create Context Source Registration With Return    ${updated_payload}
+    Check Response Status Code    201    ${response.status_code}
     ${fragment}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${fragment_filename}
     ${fragment_with_id}=    Update Value To JSON    ${fragment}    $..id    ${registration_id}
     ${response}=    Update Context Source Registration With Return
     ...    ${registration_id}
     ...    ${fragment_with_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    400    ${response['status']}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Status Code    400    ${response.status_code}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
     [Teardown]    Delete Context Source Registration    ${valid_registration_id}
 
 Update a context source registration if the request body is invalid
@@ -58,13 +58,12 @@ Update a context source registration if the request body is invalid
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
-    ${request}    ${response}=    Create Context Source Registration With Return    ${updated_payload}
-    Check Response Status Code    201    ${response['status']}
-    ${response}=    Update Context Source Registration Using Session
+    ${response}=    Create Context Source Registration With Return    ${updated_payload}
+    Check Response Status Code    201    ${response.status_code}
+    ${response}=    Update Context Source Registration
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    <Response [400]>    ${response}
+    Check Response Status Code    <Response [400]>    ${response.json()}
     Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Title When Using Session Request    ${response.json()}
     [Teardown]    Delete Context Source Registration    ${registration_id}

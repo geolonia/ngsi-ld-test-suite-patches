@@ -27,9 +27,9 @@ If A cSourceNotification Is Successfully Sent The Notification Member Shall Be U
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}
     Set Suite Variable    ${context_source_registration_id}
-    Create Context Source Registration    ${context_source_registration_payload}
+    ${response}=    Create Context Source Registration    ${context_source_registration_payload}
     Wait for notification
-    Retrieve Context Source Registration Subscription    ${subscription_id}
+    ${response}=    Retrieve Context Source Registration Subscription    ${subscription_id}
     @{expected_notification_additional_members}=    Create List    lastNotification    lastSuccess
     Check NotificationParams    ${notification_expectation_file_path}    ${expected_notification_additional_members}
 

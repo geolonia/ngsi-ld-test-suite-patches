@@ -21,17 +21,17 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
 Update Subscription With Term to Uri Expansion
     [Documentation]    Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed
     [Tags]    sub-update    5_8_2
-    Update Subscription
+    ${response}=    Update Subscription
     ...    ${subscription_id}
     ...    ${subscription_update_fragment_file_path}
     ...    ${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
-    Check Response Status Code Set To    204
-    Retrieve Subscription    ${subscription_id}    context=${ngsild_test_suite_context}
+    Check Response Status Code    204    ${response.status_code}
+    ${response}=    Retrieve Subscription    ${subscription_id}    context=${ngsild_test_suite_context}
     Check Response Body Containing Subscription element
     ...    ${expected_subscription_payload_file_path}
     ...    ${subscription_id}
-    Retrieve Subscription    ${subscription_id}
+    ${response}=    Retrieve Subscription    ${subscription_id}
     Check Response Body Containing Subscription element
     ...    ${expected_expanded_subscription_payload_file_path}
     ...    ${subscription_id}

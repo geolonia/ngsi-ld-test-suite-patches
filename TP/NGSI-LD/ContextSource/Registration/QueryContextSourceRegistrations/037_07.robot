@@ -27,7 +27,7 @@ Within Polygon    [Tags]    csr-query    5_10_2
 Query Context Source Registration Matching Geoquery
     [Documentation]    Check that you can query context source registrations. If present, the geoquery is matched against the GeoProperty programmatic parameter identified in the geoquery
     [Arguments]    ${georel}    ${geometry}    ${coordinates}    ${geoproperty}    ${expectation_file_path}
-    Query Context Source Registrations
+    ${response}=    Query Context Source Registrations
     ...    context=${ngsild_test_suite_context}
     ...    type=Building
     ...    georel=${georel}
@@ -35,7 +35,7 @@ Query Context Source Registration Matching Geoquery
     ...    coordinates=${coordinates}
     ...    geoproperty=${geoproperty}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
-    Check Response Status Code Set To    200
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Context Source Registrations elements
     ...    ${expectation_file_path}
     ...    ${expected_context_source_registration_ids}

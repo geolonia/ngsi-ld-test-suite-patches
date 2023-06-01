@@ -17,9 +17,9 @@ Create a batch of one entity containing a JSON-LD @context with a JSON content t
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${entity}=    Load Entity    building-simple-attributes-sample.jsonld    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
-    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_JSON}
-    Check Response Status Code Set To    400
+    ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_JSON}
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

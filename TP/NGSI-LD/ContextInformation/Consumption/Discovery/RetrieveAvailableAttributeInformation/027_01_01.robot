@@ -18,12 +18,13 @@ ${filename}=                building-simple-attributes-sample.json
 Retrieve Detailed Representation Of Available Attribute Without Context
     [Documentation]    Check that you cannot retrieve a detailed representation of an unknown NGSI-LD attribute
     [Tags]    ed-attr    5_7_10
-    Retrieve Attribute    attribute_name=airQualityLevel
-    Check Response Status Code Set To    404
+    ${response}=    Retrieve Attribute    attribute_name=airQualityLevel
+    Check Response Status Code    404    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+
 
 
 *** Keywords ***

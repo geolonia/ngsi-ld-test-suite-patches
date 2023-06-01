@@ -31,34 +31,33 @@ Append Attributes
     [Tags]    ea-append    5_6_3
     [Arguments]    ${entity_invalid_id}
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${response}=    Append Entity Attributes    ${entity_invalid_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    ${status_code}    ${response['status']}
+    Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
 
 Append entity attributes with invalid entity fragments
     [Documentation]    Check that you cannot append entity attributes with invalid entity fragments
     [Tags]    ea-append    5_6_3
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
-    Append Entity Attributes Using Session
+    Check Response Status Code    201    ${response.status_code}
+    ${response}=    Append Entity Attributes
     ...    ${entity_id}
     ...    ${invalid_fragment_filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    ...    ${EMPTY}
-    Check RL Response Status Code Set To    ${status_code}
+    Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_INVALID_REQUEST}
     Check Response Body Title When Using Session Request    ${response.json()}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}

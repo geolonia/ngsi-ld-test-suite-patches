@@ -32,13 +32,12 @@ Check that lastNotification is updated
 
     Wait for notification    timeout=${10}
 
-    Retrieve Subscription
+    ${response}=    Retrieve Subscription
     ...    ${subscription_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    context=${ngsild_test_suite_context}
 
-    ${notification_info}=    Get Value From JSON    ${response}    $.body.notification
-    Output    ${notification_info}
+    ${notification_info}=    Get Value From Json    ${response.json()}    $.notification
 
     Dictionary Should Contain Key    ${notification_info}[0]    status
     Should Be Equal    ok    ${notification_info}[0][status]
@@ -69,7 +68,7 @@ Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}
 
 Before Test
-    NotificationUtils.Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Start Local Server    ${notification_server_host}    ${notification_server_port}
 
 After Test
     Delete Initial Subscriptions

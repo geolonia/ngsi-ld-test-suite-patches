@@ -19,15 +19,15 @@ ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscrip
 Update Subscription
     [Documentation]    Check that you can update a subcription: The implementation shall modify the target Subscription
     [Tags]    sub-update    5_8_2
-    Update Subscription
+    ${response}=    Update Subscription
     ...    ${subscription_id}
     ...    ${subscription_update_fragment_file_path}
     ...    ${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
-    Check Response Status Code Set To    204
+    Check Response Status Code    204    ${response.status_code}
     ${subscription_update_fragment}=    Load Test Sample    ${subscription_update_fragment_file_path}
     ${subscription}=    Upsert Element In Entity    ${subscription_payload}    ${subscription_update_fragment}
-    Retrieve Subscription
+    ${response}=    Retrieve Subscription
     ...    ${subscription_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    context=${ngsild_test_suite_context}

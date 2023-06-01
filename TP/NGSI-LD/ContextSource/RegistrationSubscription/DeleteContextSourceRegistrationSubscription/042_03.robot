@@ -10,9 +10,9 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 Delete Unknown Context Source Registration Subscription With Invalid Uri
     [Documentation]    Check that you cannot delete an unknown context source registration subscription
     [Tags]    csrsub-delete    5_11_6
-    Delete Context Source Registration Subscription    urn:ngsi-ld:Subscription:unknowSubscription
-    Check Response Status Code Set To    404
+    ${response}=    Delete Context Source Registration Subscription    urn:ngsi-ld:Subscription:unknowSubscription
+    Check Response Status Code    404    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

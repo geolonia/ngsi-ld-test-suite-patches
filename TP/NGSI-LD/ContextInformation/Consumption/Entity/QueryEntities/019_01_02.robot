@@ -24,31 +24,31 @@ Query several entities based on the entities types
     [Documentation]    Check that you can query several entities based on the entities types
     [Tags]    e-query    5_7_2
     ${building_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${building_filename}
     ...    ${building_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${vehicle_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${vehicle_filename}
     ...    ${vehicle_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${parking_entity_id}=    Generate Random Entity Id    ${parking_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${parking_filename}
     ...    ${parking_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${vehicle_entity_type}    ${parking_entity_type}
     ${response}=    Query Entities    entity_types=${entity_types_to_be_retrieved}    accept=${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    200    ${response['status']}
+    Check Response Status Code    200    ${response.status_code}
     @{entities_ids_to_be_compared}=    Create List    ${vehicle_entity_id}    ${parking_entity_id}
     Check Response Body Containing List Containing Entity Elements With Different Types
     ...    ${expectation_filename}
     ...    ${entities_ids_to_be_compared}
-    ...    ${response['body']}
+    ...    ${response.json()}
     [Teardown]    Delete Entities    ${building_entity_id}    ${vehicle_entity_id}    ${parking_entity_id}
 
 

@@ -30,20 +30,23 @@ Delete Attributes
     [Tags]    ea-delete    5_6_5
     [Arguments]    ${datasetId}    ${deleteAll}    ${expectation_filename}
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${response}=    Delete Entity Attributes
     ...    ${entity_id}
     ...    ${attribute_id}
     ...    ${datasetId}
     ...    ${deleteAll}
     ...    ${ngsild_test_suite_context}
-    Check Response Status Code    ${status_code}    ${response['status']}
+    Check Response Status Code    ${status_code}    ${response.status_code}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
-    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}    accept=${CONTENT_TYPE_LD_JSON}
+    ${response}=    Retrieve Entity by Id
+    ...    ${entity_id}
+    ...    context=${ngsild_test_suite_context}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    @context
     Check Updated Resource Set To    ${entity_expectation_payload}    ${ignored_attributes}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}

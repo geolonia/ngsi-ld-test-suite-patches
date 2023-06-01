@@ -10,9 +10,9 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 Retrieve Unknown Context Source Registration Subscription
     [Documentation]    Check that you cannot retrieve an unknown context source registration subscription, an error of type ResourceNotFound shall be raised
     [Tags]    csrsub-retrieve    5_11_4
-    Retrieve Context Source Registration Subscription    urn:ngsi-ld:Subscription:unknowSubscription
-    Check Response Status Code Set To    404
+    ${response}=    Retrieve Context Source Registration Subscription    urn:ngsi-ld:Subscription:unknowSubscription
+    Check Response Status Code    404    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

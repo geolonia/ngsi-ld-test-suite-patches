@@ -21,14 +21,15 @@ Query the temporal evolution of entities matching the given NGSI-LD context sour
     [Documentation]    Check that you can query the temporal evolution of entities matching the given NGSI-LD Context Source filter
     [Tags]    te-query    5_7_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Building
-    Query Temporal Representation Of Entities
+    ${response}=    Query Temporal Representation Of Entities
     ...    entity_types=${entity_types_to_be_retrieved}
     ...    csf=endpoint=="${context_source_url}"
     ...    timerel=after
     ...    timeAt=2020-07-01T12:05:00Z
     ...    context=${ngsild_test_suite_context}
     Wait for redirected request
-    Check Response Status Code Set To    200
+    Check Response Status Code    200    ${response.status_code}
+
 
 
 *** Keywords ***

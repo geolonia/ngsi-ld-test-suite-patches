@@ -33,10 +33,10 @@ Query Context Source Registration
     ...    ${query_param_value}
     ...    ${expectation_file_path}
     ...    @{expected_context_source_registration_ids}
-    Query Context Source Registrations
+    ${response}=    Query Context Source Registrations
     ...    context=${ngsild_test_suite_context}
     ...    ${query_param_name}=${query_param_value}
-    Check Response Status Code Set To    200
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Context Source Registrations elements
     ...    ${expectation_file_path}
     ...    ${expected_context_source_registration_ids}

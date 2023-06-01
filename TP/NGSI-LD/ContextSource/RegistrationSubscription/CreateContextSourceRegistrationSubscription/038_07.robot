@@ -19,12 +19,13 @@ Create Existing Context Source Registration Subscription
     [Documentation]    Check that you cannot create a context source registration subscription where another context source registration subscription whose id is equivalent exists
     [Tags]    csrsub-create    5_11_2
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
-    Create Context Source Registration Subscription    ${subscription_payload}
-    Check Response Status Code Set To    409
+    ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
+    Check Response Status Code    409    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_ALREADY_EXISTS}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+
 
 
 *** Keywords ***

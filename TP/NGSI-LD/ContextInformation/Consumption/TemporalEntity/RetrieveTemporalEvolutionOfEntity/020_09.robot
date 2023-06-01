@@ -28,16 +28,16 @@ Between    [Tags]    te-retrieve    5_7_3
 Retrieve the temporal evolution of an entity with an invalid request content
     [Documentation]    Check that you cannot retrieve the temporal evolution of an entity with an invalid request content
     [Arguments]    ${timerel}    ${timeAt}    ${endTimeAt}
-    Retrieve Temporal Representation Of Entity
+    ${response}=    Retrieve Temporal Representation Of Entity
     ...    ${temporal_entity_representation_id}
     ...    timerel=${timerel}
     ...    timeAt=${timeAt}
     ...    endTimeAt=${endTimeAt}
-    Check Response Status Code Set To    400
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 Setup Initial Entities
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}

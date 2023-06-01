@@ -29,13 +29,12 @@ Check that lastFailure and status are updated if a notification could not be sen
 
     Sleep    10s
 
-    Retrieve Subscription
+    ${response}=    Retrieve Subscription
     ...    ${subscription_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    context=${ngsild_test_suite_context}
 
-    ${notification_info}=    Get Value From Json    ${response}    $.body.notification
-    Output    ${notification_info}
+    ${notification_info}=    Get Value From Json    ${response.json()}    $.notification
 
     Dictionary Should Contain Key    ${notification_info}[0]    status
     Should Be Equal    failed    ${notification_info}[0][status]

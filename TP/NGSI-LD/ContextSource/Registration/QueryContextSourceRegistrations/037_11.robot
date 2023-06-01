@@ -33,12 +33,12 @@ Query All Subscriptions
 Query Context Source Registration With Limit And Page Parameters
     [Documentation]    Check that you can query context source registrations with providing page and limit parameters, pagination logic shall be in place as mandated by clause 5.5.9.
     [Arguments]    ${limit}    ${page}    ${expected_number}    ${prev_link}    ${next_link}
-    Query Context Source Registrations
+    ${response}=    Query Context Source Registrations
     ...    context=${ngsild_test_suite_context}
     ...    type=Building
     ...    limit=${limit}
     ...    page=${page}
-    Check Response Status Code Set To    200
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Number Of Entities    ContextSourceRegistration    ${expected_number}
     Check Pagination Prev And Next Headers    ${prev_link}    ${next_link}
 

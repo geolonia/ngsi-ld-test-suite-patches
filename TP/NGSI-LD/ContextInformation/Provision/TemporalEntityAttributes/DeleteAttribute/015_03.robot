@@ -31,7 +31,7 @@ Delete Attribute
     ...    ${valid_temporal_entity_id}
     ...    ${filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${response}=    Delete Attribute From Temporal Entity
     ...    ${entity_id}
     ...    ${attribute_id}
@@ -39,11 +39,11 @@ Delete Attribute
     ...    ${EMPTY}
     ...    false
     ...    ${ngsild_test_suite_context}
-    Check Response Status Code    ${status_code}    ${response['status']}
+    Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
     [Teardown]    Delete Temporal Representation Of Entity    ${valid_temporal_entity_id}
 
 Create Id

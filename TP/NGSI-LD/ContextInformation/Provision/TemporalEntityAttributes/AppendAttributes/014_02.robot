@@ -37,12 +37,12 @@ Add an Attribute To a Temporal Entity From File
     ...    ${temporal_entity_representation_id}
     ...    ${filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
-    Append Attribute To Temporal Entity Using Session
+    Check Response Status Code    201    ${response.status_code}
+    ${response}=    Append Attribute To Temporal Entity
     ...    ${temporal_entity_representation_id}
     ...    ${update_filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check RL Response Status Code Set To    ${status_code}
+    Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_INVALID_REQUEST}
     Check Response Body Title When Using Session Request    ${response.json()}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
@@ -56,7 +56,7 @@ Add Attribute To Temporal Entity
     ...    ${temporal_entity_representation_id}
     ...    ${filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${response}=    Append Attribute To Temporal Entity    ${id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    ${status_code}    ${response['status']}
+    Check Response Status Code    ${status_code}    ${response.status_code}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

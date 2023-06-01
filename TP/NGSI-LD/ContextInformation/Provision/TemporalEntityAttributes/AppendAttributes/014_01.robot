@@ -22,16 +22,16 @@ ${expectation_filename}=    vehicle-temporal-representation-added-attribute-expe
     ...    ${temporal_entity_representation_id}
     ...    ${filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${response}=    Append Attribute To Temporal Entity
     ...    ${temporal_entity_representation_id}
     ...    ${fragment_filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    204    ${response['status']}
+    Check Response Status Code    204    ${response.status_code}
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}
-    Retrieve Temporal Representation Of Entity
+    ${response}=    Retrieve Temporal Representation Of Entity
     ...    ${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}

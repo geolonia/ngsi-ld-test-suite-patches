@@ -19,9 +19,9 @@ Create Subscription With Invalid Request
     [Documentation]    Check that you cannot create a subscription with an invalid request
     [Tags]    sub-create    5_8_1
     [Arguments]    ${filename}    ${expected_status}
-    Create Subscription From File    ${filename}
-    Check RL Response Status Code Set To    400
+    ${response}=    Create Subscription From File    ${filename}
+    Check Response Status Code    400    ${response.status_code}
     Check RL Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${expected_status}
-    Check RL Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check RL Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

@@ -27,16 +27,16 @@ Update Context Source
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${registration_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
-    ${request}    ${response}=    Create Context Source Registration With Return    ${registration_payload}
-    Check Response Status Code    201    ${response['status']}
+    ${response}=    Create Context Source Registration With Return    ${registration_payload}
+    Check Response Status Code    201    ${response.status_code}
     ${fragment}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${update_filename}
     ${registration_update_fragment}=    Update Value To JSON    ${fragment}    $..id    ${registration_id}
     ${response}=    Update Context Source Registration With Return
     ...    ${registration_id}
     ...    ${registration_update_fragment}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    204    ${response['status']}
-    Retrieve Context Source Registration
+    Check Response Status Code    204    ${response.status_code}
+    ${response}=    Retrieve Context Source Registration
     ...    ${registration_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}

@@ -27,9 +27,9 @@ If A cSourceNotification Is Not Successfully Sent The Notification Member Shall 
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}
     Set Suite Variable    ${context_source_registration_id}
-    Create Context Source Registration    ${context_source_registration_payload}
+    ${response}=    Create Context Source Registration    ${context_source_registration_payload}
     Wait for no notification
-    Retrieve Context Source Registration Subscription    ${subscription_id}
+    ${response}=    Retrieve Context Source Registration Subscription    ${subscription_id}
     @{expected_notification_additional_members}=    Create List    lastNotification    lastFailure
     Check NotificationParams    ${notification_expectation_file_path}    ${expected_notification_additional_members}
 

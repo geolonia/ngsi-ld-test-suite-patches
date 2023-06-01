@@ -22,7 +22,7 @@ Query the temporal evolution of certain attributes of entities
     [Tags]    te-query    5_7_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
     ${temporal_attributes_to_be_retrieved}=    Catenate    SEPARATOR=,    speed
-    Query Temporal Representation Of Entities
+    ${response}=    Query Temporal Representation Of Entities
     ...    entity_types=${entity_types_to_be_retrieved}
     ...    timerel=after
     ...    timeAt=2020-07-01T12:05:00Z
@@ -31,7 +31,7 @@ Query the temporal evolution of certain attributes of entities
     @{temporal_entities_representation_ids}=    Create List
     ...    ${first_temporal_entity_representation_id}
     ...    ${second_temporal_entity_representation_id}
-    Check Response Status Code Set To    200
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing EntityTemporal elements
     ...    ${expectation_file}
     ...    ${temporal_entities_representation_ids}

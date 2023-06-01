@@ -59,7 +59,7 @@ Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}
 
 Before Test
-    NotificationUtils.Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Start Local Server    ${notification_server_host}    ${notification_server_port}
 
 After Test
     Delete Initial Subscriptions

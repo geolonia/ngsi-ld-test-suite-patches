@@ -33,21 +33,21 @@ Update Attributes
     [Documentation]    Check that you cannot perform a partial update on an entity attribute with invalid/missing ids
     [Tags]    ea-partial-update    5_6_4
     [Arguments]    ${entity_id}    ${attribute_id}    ${fragment_filename}
-    ${request}    ${response}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${valid_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${response}=    Partial Update Entity Attributes
     ...    ${entity_id}
     ...    ${attribute_id}
     ...    ${fragment_filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    ${status_code}    ${response['status']}
+    Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
     [Teardown]    Delete Entity by Id Returning Response    ${valid_entity_id}
 
 Setup Initial Entities

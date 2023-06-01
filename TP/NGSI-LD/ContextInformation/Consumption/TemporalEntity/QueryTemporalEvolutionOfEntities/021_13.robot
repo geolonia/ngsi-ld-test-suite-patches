@@ -27,11 +27,13 @@ Before    [Tags]    te-query    5_7_4
 Query the temporal evolution of entities using the entityOperations method
     [Documentation]    Check that you can query the temporal evolution of entities using the entityOperations method
     [Arguments]    ${payload_file}    ${expectation_file}
-    Query Temporal Representation Of Entities Via Post    ${payload_file}    context=${ngsild_test_suite_context}
+    ${response}=    Query Temporal Representation Of Entities Via Post
+    ...    ${payload_file}
+    ...    context=${ngsild_test_suite_context}
     @{temporal_entities_representation_ids}=    Create List
     ...    ${first_temporal_entity_representation_id}
     ...    ${second_temporal_entity_representation_id}
-    Check Response Status Code Set To    200
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing EntityTemporal elements
     ...    ${expectation_file}
     ...    ${temporal_entities_representation_ids}

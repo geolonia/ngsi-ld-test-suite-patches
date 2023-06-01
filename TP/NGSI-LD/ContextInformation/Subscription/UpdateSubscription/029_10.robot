@@ -25,11 +25,17 @@ Activate Expired Subscription
     ${update_template_fragment}=    Load JSON From File
     ...    ${EXECDIR}/data/subscriptions/fragments/subscription-expiresAt-update-sample.json
     ${update_fragment}=    Update Value To JSON    ${update_template_fragment}    $..expiresAt    ${in_5_seconds}
-    Update Subscription With Payload    ${subscription_id}    ${update_fragment}    ${CONTENT_TYPE_JSON}
+    ${response}=    Update Subscription With Payload
+    ...    ${subscription_id}
+    ...    ${update_fragment}
+    ...    ${CONTENT_TYPE_JSON}
     Sleep    10s
-    Update Subscription    ${subscription_id}    ${subscription_update_fragment_file_path}    ${CONTENT_TYPE_JSON}
-    Check Response Status Code Set To    204
-    Retrieve Subscription    ${subscription_id}
+    ${response}=    Update Subscription
+    ...    ${subscription_id}
+    ...    ${subscription_update_fragment_file_path}
+    ...    ${CONTENT_TYPE_JSON}
+    Check Response Status Code    204    ${response.status_code}
+    ${response}=    Retrieve Subscription    ${subscription_id}
     Check Response Body Containing an Attribute set to    status    active
 
 

@@ -19,12 +19,12 @@ Get an entity by id that can be returned in a geoJSON format
     [Documentation]    Check that the queried entity by id can be returned in a geoJSON format
     [Tags]    e-retrieve    6_3_7
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
-    ${request}    ${response}=    Query Entity    ${entity_id}    ${accept_header}    options=${options_parameter}
-    Check Response Status Code    200    ${response['status']}
-    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response}
+    Check Response Status Code    201    ${response.status_code}
+    ${response}=    Query Entity    ${entity_id}    ${accept_header}    options=${options_parameter}
+    Check Response Status Code    200    ${response.status_code}
+    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response.json()}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}

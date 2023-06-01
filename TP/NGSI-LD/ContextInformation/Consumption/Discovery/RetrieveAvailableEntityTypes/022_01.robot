@@ -29,8 +29,8 @@ WithJsonLdContext    [Tags]    ed-types    5_7_5
 Retrieve Available Entity Types
     [Documentation]    Check that you can retrieve a list of NGSI-LD entity types
     [Arguments]    ${context}    ${expectation_file}
-    Retrieve Entity Types    ${context}
-    Check Response Status Code Set To    200
+    ${response}=    Retrieve Entity Types    ${context}
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing EntityTypeList element    ${expectation_file}
 
 Setup Initial Entities

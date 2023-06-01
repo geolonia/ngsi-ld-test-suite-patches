@@ -22,11 +22,11 @@ Create Context Source Registration Subscription With expiresAt Member
     ${current_date}=    Get Current Date    time_zone=UTC    result_format=${date_format}
     ${expiresAt}=    Add Time To Date    ${current_date}    10 seconds    date_format=${date_format}
     ${subscription_payload}=    Update Value To JSON    ${subscription_payload_sample}    $..expiresAt    ${expiresAt}
-    Create Context Source Registration Subscription    ${subscription_payload}
-    Check Response Status Code Set To    201
-    Check Response Headers Containing URI set to    ${request['path']}/    ${subscription_id}    ${response}
+    ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
+    Check Response Status Code    201    ${response.status_code}
+    Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
     Sleep    15s
-    Retrieve context source registration subscription    ${subscription_id}
+    ${response}=    Retrieve context source registration subscription    ${subscription_id}
     Check Response Body Containing an Attribute set to    status    expired
 
 

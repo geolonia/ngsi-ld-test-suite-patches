@@ -28,8 +28,6 @@ Check that a notification is sent with all matching entities
     ...    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}=    Wait for notification    timeout=${10}
-
-    Output    ${notification}
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
     Should be Equal    ${entity_id}    ${notification}[data][0][id]
 
@@ -43,7 +41,7 @@ Setup Server And Subscriptions
     ...    ${notification_server_send_url}
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
-    NotificationUtils.Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Start Local Server    ${notification_server_host}    ${notification_server_port}
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${entity_id}
 

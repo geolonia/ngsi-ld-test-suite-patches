@@ -19,8 +19,10 @@ ${expectation_file_path}=                               csourceRegistrations/exp
 Retrieve Context Source Registration
     [Documentation]    Check that you can retrieve a Context Source Registration
     [Tags]    csr-retrieve    5_10_1
-    Retrieve Context Source Registration    ${context_source_registration_id}    context=${ngsild_test_suite_context}
-    Check Response Status Code Set To    200
+    ${response}=    Retrieve Context Source Registration
+    ...    ${context_source_registration_id}
+    ...    context=${ngsild_test_suite_context}
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Context Source Registration element
     ...    ${expectation_file_path}
     ...    ${context_source_registration_id}

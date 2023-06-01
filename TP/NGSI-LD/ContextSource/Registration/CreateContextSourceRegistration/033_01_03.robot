@@ -16,11 +16,11 @@ Create Context Source Registration Without A Sprecified ID
     [Documentation]    Check that you can create a context source registration without specifying an ID
     [Tags]    csr-create
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
-    ${request}    ${response}=    Create Context Source Registration With Return    ${payload}
-    Check Response Status Code    201    ${response['status']}
-    ${registration_id}=    Check Response Headers ID Not Empty    ${response}
+    ${response}=    Create Context Source Registration With Return    ${payload}
+    Check Response Status Code    201    ${response.status_code}
+    ${registration_id}=    Check Response Headers ID Not Empty    ${response.headers}
     ${registration_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
-    Retrieve Context Source Registration
+    ${response}=    Retrieve Context Source Registration
     ...    ${registration_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}

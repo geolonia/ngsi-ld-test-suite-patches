@@ -22,9 +22,9 @@ Invalid Limit And Page
 Query Context Source Registration Subscriptions With Invalid Limit And Page Parameters
     [Documentation]    Check that you cannot query context source registration subscriptions with invalid page and limit parameters
     [Arguments]    ${limit}    ${page}
-    Query Context Source Registration Subscriptions    limit=${limit}    page=${page}
-    Check Response Status Code Set To    400
+    ${response}=    Query Context Source Registration Subscriptions    limit=${limit}    page=${page}
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

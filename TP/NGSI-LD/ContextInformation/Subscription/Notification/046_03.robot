@@ -28,7 +28,6 @@ Check that a notification is sent with all entities
     Setup Initial Subscriptions
 
     ${notification}=    Wait for notification    ${5}
-    Output    ${notification}
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
     Dictionary Should Contain Key    ${notification}    data
     Should Not Be Empty    ${notification}[data]    Notification data should not be empty
@@ -61,7 +60,7 @@ Delete Initial Entity
     Delete Entity by Id    ${entity_id}
 
 Before Test
-    NotificationUtils.Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Start Local Server    ${notification_server_host}    ${notification_server_port}
 
 After Test
     Delete Initial Subscriptions

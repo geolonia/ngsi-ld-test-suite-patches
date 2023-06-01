@@ -21,8 +21,8 @@ Delete Entity Scenarios
     [Tags]    e-delete    5_6_6
     [Arguments]    ${entity_id}    ${expected_status_code}    ${problem_type}
     ${response}=    Delete Entity by Id Returning Response    ${entity_id}
-    Check Response Status Code    ${expected_status_code}    ${response['status']}
+    Check Response Status Code    ${expected_status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${problem_type}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

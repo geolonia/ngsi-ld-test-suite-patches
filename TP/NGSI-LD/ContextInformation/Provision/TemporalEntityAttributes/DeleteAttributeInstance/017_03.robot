@@ -35,7 +35,7 @@ Delete Attribute Instance
     ...    ${instanceId}
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
-    Check Response Status Code    ${status_code}    ${response['status']}
+    Check Response Status Code    ${status_code}    ${response.status_code}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
 
 Create Id
@@ -45,7 +45,7 @@ Create Id
     ...    ${temporal_entity_representation_id}
     ...    ${filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${unknown_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Suite Variable    ${unknown_temporal_entity_id}
     ${response}=    Get Temporal Representation Of Entity
@@ -53,5 +53,5 @@ Create Id
     ...    ${CONTENT_TYPE_LD_JSON}
     ...    sysAttrs
     ...    ${ngsild_test_suite_context}
-    ${valid_instanceId}=    Set Variable    ${response['body']['speed'][0]['instanceId']}
+    ${valid_instanceId}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
     Set Suite Variable    ${valid_instanceId}

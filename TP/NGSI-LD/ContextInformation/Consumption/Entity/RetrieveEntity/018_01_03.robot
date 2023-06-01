@@ -18,15 +18,15 @@ ${geometry_property}=       location
     [Documentation]    Check that you can query the geometry property from an entity
     [Tags]    e-retrieve    5_7_1
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
-    ${request}    ${response}=    Query Entity
+    Check Response Status Code    201    ${response.status_code}
+    ${response}=    Query Entity
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     ...    geoproperty=${geometry_property}
-    Check Response Status Code    200    ${response['status']}
-    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response['body']}
+    Check Response Status Code    200    ${response.status_code}
+    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response.json()}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}

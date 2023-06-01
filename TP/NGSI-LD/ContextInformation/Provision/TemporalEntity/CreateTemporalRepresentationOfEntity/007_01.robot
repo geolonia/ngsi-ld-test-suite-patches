@@ -29,15 +29,15 @@ Create Temporal Entity
     ...    ${temporal_entity_representation_id}
     ...    ${filename}
     ...    ${content_type}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${created_temporal_entity}=    Load Test Sample
     ...    temporalEntities/${filename}
     ...    ${temporal_entity_representation_id}
     IF    '${content_type}'=='application/json'
-        Retrieve Temporal Representation Of Entity    ${temporal_entity_representation_id}
+        ${response}=    Retrieve Temporal Representation Of Entity    ${temporal_entity_representation_id}
     END
     IF    '${content_type}'=='application/ld+json'
-        Retrieve Temporal Representation Of Entity
+        ${response}=    Retrieve Temporal Representation Of Entity
         ...    ${temporal_entity_representation_id}
         ...    context=${ngsild_test_suite_context}
     END

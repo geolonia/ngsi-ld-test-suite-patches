@@ -23,7 +23,7 @@ Receive cSourceNotification For Matching Context Source Registrations Providing 
     [Documentation]    Check if a context source registration subscription does not define a temporalQ member, a CsourceNotification will be triggered from matching context source registrations for context sources providing latest information
     [Tags]    csrsub-notification    5_11_7
     ${update_fragment}=    Load Test Sample    ${update_fragment_file_path}
-    Update Context Source Registration    ${context_source_registration_id}    ${update_fragment}
+    ${response}=    Update Context Source Registration    ${context_source_registration_id}    ${update_fragment}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
     Wait for notification and validate it
     ...    ${subscription_id}

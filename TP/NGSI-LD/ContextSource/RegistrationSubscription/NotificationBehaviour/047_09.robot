@@ -23,7 +23,7 @@ Receive cSourceNotification For No Longer Matching Context Source Registrations 
     [Documentation]    Check if a context source registration subscription defines an "entities" member, a CsourceNotification will be triggered from context source registrations with information member matching the described "entities"
     [Tags]    csrsub-notification    5_11_7
     ${update_fragment}=    Load Test Sample    ${update_fragment_file_path}
-    Update Context Source Registration    ${context_source_registration_id}    ${update_fragment}
+    ${response}=    Update Context Source Registration    ${context_source_registration_id}    ${update_fragment}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
     Wait for notification and validate it
     ...    ${subscription_id}

@@ -19,9 +19,9 @@ Get Entity With Invalid/Missing Id
     [Documentation]    Check that you cannot get an entity with invalid/missing id
     [Tags]    e-retrieve    5_7_1
     [Arguments]    ${entity_id}    ${expected_status_code}    ${problem_type}
-    ${request}    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    ${expected_status_code}    ${response['status']}
+    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    ${expected_status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${problem_type}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

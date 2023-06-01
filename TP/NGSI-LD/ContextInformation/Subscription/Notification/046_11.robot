@@ -34,13 +34,13 @@ Check that timesSent is increased by one
 
     Wait for notification    timeout=${10}
 
-    Retrieve Subscription
+    ${response}=    Retrieve Subscription
     ...    ${subscription_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    context=${ngsild_test_suite_context}
 
-    Dictionary Should Contain Key    ${response}[body][notification]    timesSent
-    Should Be Equal    ${1}    ${response}[body][notification][timesSent]
+    Dictionary Should Contain Key    ${response.json()}[notification]    timesSent
+    Should Be Equal    ${1}    ${response.json()}[notification][timesSent]
 
 
 *** Keywords ***
@@ -58,7 +58,7 @@ Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}
 
 Before Test
-    NotificationUtils.Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Start Local Server    ${notification_server_host}    ${notification_server_port}
 
 After Test
     Delete Initial Subscriptions

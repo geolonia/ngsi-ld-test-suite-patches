@@ -35,17 +35,17 @@ Update Attributes
     [Tags]    ea-update    5_6_2
     [Arguments]    ${entity_invalid_id}    ${filename}    ${fragment_filename}
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${response}=    Update Entity Attributes    ${entity_invalid_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    400    ${response['status']}
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
 
 Update entity attributes with invalid entity fragments
@@ -53,17 +53,16 @@ Update entity attributes with invalid entity fragments
     [Tags]    ea-update    5_6_2
     [Arguments]    ${filename}    ${fragment_filename}
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
-    Update Entity Attributes Using Session
+    Check Response Status Code    201    ${response.status_code}
+    ${response}=    Update Entity Attributes
     ...    ${entity_id}
     ...    ${fragment_filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    ...    ${EMPTY}
-    Check RL Response Status Code Set To    400
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_INVALID_REQUEST}
     Check Response Body Title When Using Session Request    ${response.json()}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}

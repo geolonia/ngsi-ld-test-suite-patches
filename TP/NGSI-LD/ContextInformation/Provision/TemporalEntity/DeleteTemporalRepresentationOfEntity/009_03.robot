@@ -17,8 +17,8 @@ ${status_code}=             404
     [Tags]    te-delete    5_6_16
     ${temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=    Delete Temporal Representation Of Entity With Returning Response    ${temporal_entity_id}
-    Check Response Status Code    ${status_code}    ${response['status']}
+    Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
