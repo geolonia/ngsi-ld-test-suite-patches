@@ -56,7 +56,6 @@ Query several entities via POST Interaction based on the entities types
     ...    ${response.json()}
 
 
-
 *** Keywords ***
 Delete Entities
     Delete Entity by Id Returning Response    ${building_entity_id}

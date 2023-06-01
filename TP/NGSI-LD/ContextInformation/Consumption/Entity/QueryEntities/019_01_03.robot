@@ -46,7 +46,6 @@ Query several entities based on the given id pattern
     ...    ${response.json()}
 
 
-
 *** Keywords ***
 Delete Entities
     Delete Entity by Id Returning Response    ${first_entity_id}

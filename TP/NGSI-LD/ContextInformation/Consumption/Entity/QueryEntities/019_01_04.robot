@@ -53,7 +53,6 @@ Query several entities based on attribute names
     ...    ${expectation_filename}
     ...    ${entities_ids_to_be_compared}
     ...    ${response.json()}
-    [Teardown]    Delete Entities    ${first_entity_id}    ${second_entity_id}
 
 
 *** Keywords ***

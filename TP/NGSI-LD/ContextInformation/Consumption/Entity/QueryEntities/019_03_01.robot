@@ -46,7 +46,6 @@ Query entities based on incorrect ids
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 
-
 *** Keywords ***
 Delete Entities
     Delete Entity by Id Returning Response    ${first_entity_id}

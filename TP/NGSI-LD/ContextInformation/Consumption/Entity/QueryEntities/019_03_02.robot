@@ -47,7 +47,6 @@ Query entities based on incorrect entity types
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 
-
 *** Keywords ***
 Delete Entities
     Delete Entity by Id Returning Response    ${building_entity_id}

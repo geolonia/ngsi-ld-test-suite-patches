@@ -48,7 +48,6 @@ Query several entities based on a list of properties
     ...    ${response.json()}
 
 
-
 *** Keywords ***
 Delete Entities
     Delete Entity by Id Returning Response    ${first_entity_id}

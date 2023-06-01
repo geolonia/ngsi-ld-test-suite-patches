@@ -5,5 +5,6 @@ Library         String
 
 *** Keywords ***
 Fetch Id From Response Location Header
-    ${id}=    Fetch From Right    ${response.headers['Location']}    /
+    [Arguments]    ${response_headers}
+    ${id}=    Fetch From Right    ${response_headers['Location']}    /
     RETURN    ${id}

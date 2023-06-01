@@ -33,5 +33,7 @@ Create a subscription with an id known to the system
     ...    ${ERROR_TYPE_ALREADY_EXISTS}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
+
+*** Keywords ***
 Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}

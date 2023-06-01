@@ -31,5 +31,7 @@ Create Subscription
     ...    context=${ngsild_test_suite_context}
     Check Created Resource Set To    ${expected_subscription}    ${response.json()}
 
+
+*** Keywords ***
 Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}
