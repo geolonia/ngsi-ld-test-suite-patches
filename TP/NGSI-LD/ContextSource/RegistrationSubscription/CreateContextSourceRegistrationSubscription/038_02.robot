@@ -28,7 +28,7 @@ Create Context Source Registration Subscription Without An Id
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    ${id_regex_expr}    ${status_regex_expr}
-    Check Created Resource Set To    ${subscription_payload}    ${ignored_attributes}
+    Check Created Resource Set To    ${subscription_payload}    ${response.json()}    ${ignored_attributes}
 
 
 *** Keywords ***

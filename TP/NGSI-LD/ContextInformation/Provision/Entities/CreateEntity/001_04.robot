@@ -23,8 +23,10 @@ Create one entity using a provided Link header with JSON content type
     ...    context=${ngsild_test_suite_context}
     ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}
     # Attribute should be compacted as we used the same context as provided when creating the entity
-    Check Response Body Containing an Attribute set to    almostFull
+    Check Response Body Containing an Attribute set to    almostFull    ${response.json()}
     ${response}=    Retrieve Entity by Id    ${entity_id}
     # Attribute should not be compacted as we did not provide a context containing this term
-    Check Response Body Containing an Attribute set to    https://ngsi-ld-test-suite/context#almostFull
+    Check Response Body Containing an Attribute set to
+    ...    https://ngsi-ld-test-suite/context#almostFull
+    ...    ${response.json()}
     ${response}=    Delete Entity by Id    ${entity_id}

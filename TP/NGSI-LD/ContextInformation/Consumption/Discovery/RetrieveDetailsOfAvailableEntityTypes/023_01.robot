@@ -31,7 +31,7 @@ Retrieve Details Of Available Entity Types
     [Arguments]    ${context}    ${expectation_file}
     ${response}=    Retrieve Entity Types    context=${context}    details=${TRUE}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing EntityType element    ${expectation_file}
+    Check Response Body Containing EntityType element    ${expectation_file}    ${response.json()}
 
 Setup Initial Entities
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

@@ -31,7 +31,10 @@ If A cSourceNotification Is Successfully Sent The Notification Member Shall Be U
     Wait for notification
     ${response}=    Retrieve Context Source Registration Subscription    ${subscription_id}
     @{expected_notification_additional_members}=    Create List    lastNotification    lastSuccess
-    Check NotificationParams    ${notification_expectation_file_path}    ${expected_notification_additional_members}
+    Check NotificationParams
+    ...    ${notification_expectation_file_path}
+    ...    ${expected_notification_additional_members}
+    ...    ${response.json()}
 
 
 *** Keywords ***

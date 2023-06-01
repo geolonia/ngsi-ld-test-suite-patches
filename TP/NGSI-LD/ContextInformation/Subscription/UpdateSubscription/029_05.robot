@@ -31,10 +31,12 @@ Update Subscription With Term to Uri Expansion
     Check Response Body Containing Subscription element
     ...    ${expected_subscription_payload_file_path}
     ...    ${subscription_id}
+    ...    ${response.json()}
     ${response}=    Retrieve Subscription    ${subscription_id}
     Check Response Body Containing Subscription element
     ...    ${expected_expanded_subscription_payload_file_path}
     ...    ${subscription_id}
+    ...    ${response.json()}
 
 
 *** Keywords ***

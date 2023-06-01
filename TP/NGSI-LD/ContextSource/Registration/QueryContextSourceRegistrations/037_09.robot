@@ -52,4 +52,5 @@ Query Context Source Registration Matching Temporal Query
     Check Response Body Containing List Containing Context Source Registrations elements
     ...    ${expectation_file_path}
     ...    ${expected_context_source_registration_ids}
+    ...    ${response.json()}
     [Teardown]    Delete Context Source Registration    ${context_source_registration_id}

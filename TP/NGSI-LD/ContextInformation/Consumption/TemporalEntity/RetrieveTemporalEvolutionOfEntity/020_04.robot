@@ -38,6 +38,7 @@ Retrieve the temporal evolution of an entity matching the given NGSI-LD temporal
     Check Response Body Containing EntityTemporal element
     ...    ${vehicle_expectation_file}
     ...    ${temporal_entity_representation_id}
+    ...    ${response.json()}
 
 Setup Initial Entities
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}

@@ -34,6 +34,7 @@ Query the temporal evolution of entities matching the given NGSI-LD query
     Check Response Body Containing List Containing EntityTemporal elements
     ...    ${expectation_file}
     ...    ${temporal_entities_representation_ids}
+    ...    ${response.json()}
 
 
 *** Keywords ***

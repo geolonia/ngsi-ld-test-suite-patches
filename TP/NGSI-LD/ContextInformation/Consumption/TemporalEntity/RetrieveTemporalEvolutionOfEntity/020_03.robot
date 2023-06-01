@@ -28,6 +28,7 @@ Retrieve the temporal evolution of certain attributes of an entity
     Check Response Body Containing EntityTemporal element
     ...    ${vehicle_expectation_file}
     ...    ${temporal_entity_representation_id}
+    ...    ${response.json()}
 
 
 *** Keywords ***

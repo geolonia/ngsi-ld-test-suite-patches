@@ -21,18 +21,9 @@ Check Response Status Code
     ${response_status_code}=    convert to string    ${response_status_code}
     Should Be Equal    ${expected_status_code}    ${response_status_code}
 
-Check Response Status Code Set To
-    [Arguments]  ${expected_status}
-    ${response_status}=  convert to string  ${response['status']}
-    Should Be Equal  ${response_status}  ${expected_status}
-
-Check RL Response Status Code Set To
-    [Arguments]  ${expected_status}
-    Status Should Be    ${expected_status}     ${response}
-
 Check Response Body Containing Array Of URIs set to
-    [Arguments]    @{expected_entities_ids}
-    Lists Should Be Equal    ${expected_entities_ids}    ${response.json()}    ignore_order=True
+    [Arguments]    ${expected_entities_ids}    ${response_body}
+    Lists Should Be Equal    ${expected_entities_ids}    ${response_body}    ignore_order=True
 
 Check Response Body Content
     [Arguments]    ${expectation_filename}    ${response_body}    ${additional_ignored_path}=${EMPTY}
@@ -45,22 +36,22 @@ Check Response Body Content
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Headers Containing Content-Type set to
-    [Arguments]    ${response}    ${expected_content_type_content}
-    Should Be Equal    ${response['Content-Type']}    ${expected_content_type_content}
+    [Arguments]    ${expected_content_type_content}    ${response_headers}
+    Should Be Equal    ${response_headers['Content-Type']}    ${expected_content_type_content}
 
 Check Response Headers Link Not Empty
-    [Arguments]    ${response}
-    Should Not Be Empty    ${response['Link']}
+    [Arguments]    ${response_headers}
+    Should Not Be Empty    ${response_headers['Link']}
 
 # Since Http headers names are case-insensitive (from Http specification)
 # We check both Location and location headers
 
 Check Response Headers Containing URI set to
-    [Arguments]    ${expected_entity_id}    ${response}
+    [Arguments]    ${expected_entity_id}    ${response_headers}
 
-    IF    'Location' in ${response}
+    IF    'Location' in ${response_headers}
         Should Contain
-        ...    ${response['Location']}
+        ...    ${response_headers['Location']}
         ...    ${expected_entity_id}
         ...    ignore_order=True
     END
@@ -69,32 +60,32 @@ Check Response Headers Containing URI set to
 # We check both Location and location headers
 
 Check Response Headers ID Not Empty
-    [Arguments]    ${response}
+    [Arguments]    ${response_headers}
 
     ${location_header}=    Set Variable If
-    ...    'Location' in ${response}
-    ...    ${response['Location']}
+    ...    'Location' in ${response_headers}
+    ...    ${response_headers['Location']}
     ${id}=    Fetch From Right    ${location_header}    /
     Should Not Be Empty    ${id}
     RETURN    ${id}
 
 Check Response Body Containing an Attribute set to
-    [Arguments]    ${expected_attribute_name}    ${expected_attribute_value}=${EMPTY}
-    Should Not Be Empty    ${response.json()['${expected_attribute_name}']}
+    [Arguments]    ${expected_attribute_name}    ${response_body}    ${expected_attribute_value}=${EMPTY}
+    Should Not Be Empty    ${response_body['${expected_attribute_name}']}
     IF    '${expected_attribute_value}'!=''
-        Should Be Equal    ${response.json()['${expected_attribute_name}']}    ${expected_attribute_value}
+        Should Be Equal    ${response_body['${expected_attribute_name}']}    ${expected_attribute_value}
     END
 
 Check Response Body Containing Batch Operation Result
-    [Arguments]    ${expected_batch_operation_result}
+    [Arguments]    ${expected_batch_operation_result}    ${response_body}
     @{expected_successful_entities_ids}=    Get From Dictionary    ${expected_batch_operation_result}    success
     @{expected_failed_entities_ids}=    Get From Dictionary    ${expected_batch_operation_result}    errors
-    @{response_errors}=    Get From Dictionary    ${response.json()}    errors
+    @{response_errors}=    Get From Dictionary    ${response_body}    errors
 
     ${expected_failed_entities_ids_length}=    Get Length    ${expected_failed_entities_ids}
     ${response_errors_length}=    Get Length    ${response_errors}
 
-    Lists Should Be Equal    ${expected_successful_entities_ids}    ${response.json()['success']}    ignore_order=True
+    Lists Should Be Equal    ${expected_successful_entities_ids}    ${response_body['success']}    ignore_order=True
     Should be Equal as Integers    ${expected_failed_entities_ids_length}    ${response_errors_length}
     FOR    ${response_error}    IN    @{response_errors}
         List Should Contain Value    ${expected_failed_entities_ids}    ${response_error['entityId']}
@@ -137,7 +128,7 @@ Check Response Body Containing List Containing Entity Elements With Different Ty
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing EntityTemporal element
-    [Arguments]    ${filename}    ${temporal_entity_representation_id}
+    [Arguments]    ${filename}    ${temporal_entity_representation_id}    ${response_body}
     ${temporal_entity_representation_payload}=    Load JSON From File
     ...    ${EXECDIR}/data/temporalEntities/expectations/${filename}
     ${temporal_entity_representation}=    Update Value To JSON
@@ -146,12 +137,12 @@ Check Response Body Containing EntityTemporal element
     ...    ${temporal_entity_representation_id}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${temporal_entity_representation}
-    ...    ${response.json()}
+    ...    ${response_body}
     ...    ${instance_id_regex_expr}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing List Containing EntityTemporal elements
-    [Arguments]    ${filename}    ${temporal_entities_representation_ids}
+    [Arguments]    ${filename}    ${temporal_entities_representation_ids}    ${response_body}
     ${temporal_entities_representation_payload}=    Load JSON From File
     ...    ${EXECDIR}/data/temporalEntities/expectations/${filename}
     ${index}=    Set Variable    0
@@ -164,24 +155,24 @@ Check Response Body Containing List Containing EntityTemporal elements
     END
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${temporal_entities_representation_payload}
-    ...    ${response.json()}
+    ...    ${response_body}
     ...    ${instance_id_regex_expr}
     ...    group_by=id
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing Subscription element
-    [Arguments]    ${expectation_filename}    ${subscription_id}
+    [Arguments]    ${expectation_filename}    ${subscription_id}    ${response_body}
     ${subscription_payload}=    Load JSON From File    ${EXECDIR}/data/${expectation_filename}
     ${subscription}=    Update Value To JSON    ${subscription_payload}    $..id    ${subscription_id}
     ${ignored_keys}=    Create List    ${context_regex_expr}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${subscription}
-    ...    ${response.json()}
+    ...    ${response_body}
     ...    ${ignored_keys}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing List Containing Subscription elements
-    [Arguments]    ${expectation_file_path}    ${subscription_ids}
+    [Arguments]    ${expectation_file_path}    ${subscription_ids}    ${response_body}
     ${subscription_payload}=    Load JSON From File    ${EXECDIR}/data/${expectation_file_path}
     ${index}=    Set Variable    0
     FOR    ${subscription_id}    IN    @{subscription_ids}
@@ -194,7 +185,7 @@ Check Response Body Containing List Containing Subscription elements
     ${ignored_keys}=    Create List    ${context_regex_expr}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${subscription_payload}
-    ...    ${response.json()}
+    ...    ${response_body}
     ...    ${ignored_keys}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
@@ -202,10 +193,10 @@ Check Response Body Containing List Containing Subscription elements
 # A check on the response body type is needed
 
 Check Response Body Containing Number Of Entities
-    [Arguments]    ${expected_entity_type}    ${expected_length}
+    [Arguments]    ${expected_entity_type}    ${expected_length}    ${response_body}
 
-    ${response_body_length}=    Get Length    ${response.json()}
-    ${is_list}=    Run Keyword    Evaluate    type(${response.json()})==list
+    ${response_body_length}=    Get Length    ${response_body}
+    ${is_list}=    Run Keyword    Evaluate    type(${response_body})==list
 
     IF    ${is_list}
         Should Be Equal    ${response_body_length}    ${expected_length}
@@ -215,15 +206,15 @@ Check Response Body Containing Number Of Entities
 
     FOR    ${index}    IN RANGE    ${expected_length}
         IF    ${is_list}
-            Should Be Equal    ${response.json()[${index}]['type']}    ${expected_entity_type}
+            Should Be Equal    ${response_body[${index}]['type']}    ${expected_entity_type}
         END
     END
     IF    ${is_list} is ${FALSE}
-        Should Be Equal    ${response.json()['type']}    ${expected_entity_type}
+        Should Be Equal    ${response_body['type']}    ${expected_entity_type}
     END
 
 Check Response Body Containing Context Source Registration element
-    [Arguments]    ${expectation_filename}    ${context_source_registration_id}
+    [Arguments]    ${expectation_filename}    ${context_source_registration_id}    ${response_body}
     ${context_source_registration_payload}=    Load JSON From File    ${EXECDIR}/data/${expectation_filename}
     ${context_source_registration}=    Update Value To JSON
     ...    ${context_source_registration_payload}
@@ -232,62 +223,62 @@ Check Response Body Containing Context Source Registration element
     ${ignored_keys}=    Create List    ${context_regex_expr}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${context_source_registration}
-    ...    ${response.json()}
+    ...    ${response_body}
     ...    ${ignored_keys}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing EntityTypeList element
-    [Arguments]    ${expectation_filename}
+    [Arguments]    ${expectation_filename}    ${response_body}
     ${entity_type_list_payload}=    Load JSON From File    ${EXECDIR}/data/${expectation_filename}
     ${ignored_keys}=    Create List    ${id_regex_expr}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${entity_type_list_payload}
-    ...    ${response.json()}
+    ...    ${response_body}
     ...    ${ignored_keys}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing EntityType element
-    [Arguments]    ${expectation_filename}
+    [Arguments]    ${expectation_filename}    ${response_body}
     ${entity_type_payload}=    Load JSON From File    ${EXECDIR}/data/${expectation_filename}
     ${ignored_keys}=    Create List
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${entity_type_payload}
-    ...    ${response.json()}
+    ...    ${response_body}
     ...    ${ignored_keys}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing EntityTypeInfo element
-    [Arguments]    ${expectation_filename}
+    [Arguments]    ${expectation_filename}    ${response_body}
     ${entity_type_info_payload}=    Load JSON From File    ${EXECDIR}/data/${expectation_filename}
     ${ignored_keys}=    Create List
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${entity_type_info_payload}
-    ...    ${response.json()}
+    ...    ${response_body}
     ...    ${ignored_keys}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing AttributeList element
-    [Arguments]    ${expectation_filename}
+    [Arguments]    ${expectation_filename}    ${response_body}
     ${attribute_list_payload}=    Load JSON From File    ${EXECDIR}/data/${expectation_filename}
     ${ignored_keys}=    Create List    ${id_regex_expr}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${attribute_list_payload}
-    ...    ${response.json()}
+    ...    ${response_body}
     ...    ${ignored_keys}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing Attribute element
-    [Arguments]    ${expectation_filename}
+    [Arguments]    ${expectation_filename}    ${response_body}
     ${attribute_payload}=    Load JSON From File    ${EXECDIR}/data/${expectation_filename}
     ${ignored_keys}=    Create List
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${attribute_payload}
-    ...    ${response.json()}
+    ...    ${response_body}
     ...    ${ignored_keys}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing List Containing Context Source Registrations elements
-    [Arguments]    ${expectation_file_path}    ${expected_context_source_registrations_ids}
+    [Arguments]    ${expectation_file_path}    ${expected_context_source_registrations_ids}    ${response_body}
     ${expected_context_source_registrations_payload}=    Load JSON From File
     ...    ${EXECDIR}/data/${expectation_file_path}
     ${index}=    Set Variable    0
@@ -300,106 +291,108 @@ Check Response Body Containing List Containing Context Source Registrations elem
     END
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${expected_context_source_registrations_payload}
-    ...    ${response.json()}
+    ...    ${response_body}
     ...    ${EMPTY}
     ...    group_by=id
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Type When Using Session Request
-    [Arguments]    ${response}    ${type}
-    Should Be Equal    ${response['type']}    ${type}
+    [Arguments]    ${response_body}    ${type}
+    Should Be Equal    ${response_body['type']}    ${type}
 
 Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    [Arguments]    ${response}    ${type}
-    Should Be Equal    ${response['type']}    ${type}
+    [Arguments]    ${response_body}    ${type}
+    Should Be Equal    ${response_body['type']}    ${type}
 
 Check Response Body Title When Using Session Request
-    [Arguments]    ${response}
-    Should Not Be Empty    ${response['title']}
+    [Arguments]    ${response_body}
+    Should Not Be Empty    ${response_body['title']}
 
 Check Response Body Containing ProblemDetails Element Containing Title Element
-    [Arguments]    ${response}
-    Should Not Be Empty    ${response['title']}
+    [Arguments]    ${response_body}
+    Should Not Be Empty    ${response_body['title']}
 
 Check RL Response Body Containing ProblemDetails Element Containing Type Element set to
-    [Arguments]    ${response}    ${type}
-    ${json_response_body}=    Set Variable    ${response}
+    [Arguments]    ${response_body}    ${type}
+    ${json_response_body}=    Set Variable    ${response_body}
 
     Should Be Equal    ${json_response_body['type']}    ${type}
 
 Check RL Response Body Containing ProblemDetails Element Containing Title Element
-    [Arguments]    ${response}
-    ${json_response_body}=    Set Variable    ${response}
+    [Arguments]    ${response_body}
+    ${json_response_body}=    Set Variable    ${response_body}
     Should Not Be Empty    ${json_response_body['title']}
 
 Check JSON Value In Response Body
-    [Arguments]    ${json_path_expr}    ${value_to_check}
-    Should Be Equal As Strings    ${response.json()${json_path_expr}}    ${value_to_check}
+    [Arguments]    ${json_path_expr}    ${value_to_check}    ${response_body}
+    Should Be Equal As Strings    ${response_body${json_path_expr}}    ${value_to_check}
 
 Check NotificationParams
-    [Arguments]    ${filename}    ${expected_additional_members}
+    [Arguments]    ${filename}    ${expected_additional_members}    ${response_body}
 
     ${expected_notification}=    Load JSON From File    ${EXECDIR}/data/${filename}
     ${ignored_keys}=    Create List    ${notification_timestamps_regex_expr}    ${notification_endpoint_uri_regex_expr}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${expected_notification}
-    ...    ${response.json()['notification']}
+    ...    ${response_body['notification']}
     ...    ${ignored_keys}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
     FOR    ${expected_additional_member}    IN    @{expected_additional_members}
-        Should Not Be Empty    ${response.json()['notification']['${expected_additional_member}']}
+        Should Not Be Empty    ${response_body['notification']['${expected_additional_member}']}
     END
 
 Check Pagination Prev And Next Headers
-    [Arguments]    ${prev_link}    ${next_link}
+    [Arguments]    ${prev_link}    ${next_link}    ${response_headers}
     ${expected_links}=    Create List    ${prev_link}    ${next_link}
     IF    '${prev_link}'!='' and '${next_link}'!=''
         Lists Should Be Equal
-        ...    ${response.headers['Link'].replace(" ", "").split(',')}
+        ...    ${response_headers['Link'].replace(" ", "").split(',')}
         ...    ${expected_links}
         ...    ignore_order=True
     END
     IF    '${prev_link}'!='' and '${next_link}'==''
-        Should Be Equal    ${response.headers['Link']}    ${prev_link}
+        Should Be Equal    ${response_headers['Link']}    ${prev_link}
     END
     IF    '${prev_link}'=='' and '${next_link}'!=''
-        Should Be Equal    ${response.headers['Link']}    ${next_link}
+        Should Be Equal    ${response_headers['Link']}    ${next_link}
     END
 
 Check Resource Set To
-    [Arguments]    ${expected_resource}    ${ignored_keys}=${None}    ${group_by}=${None}
+    [Arguments]    ${expected_resource}    ${response_body}    ${ignored_keys}=${None}    ${group_by}=${None}
 
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${expected_resource}
-    ...    ${response.json()}
+    ...    ${response_body}
     ...    ${ignored_keys}
     ...    ${group_by}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Created Resource Set To
-    [Arguments]    ${created_resource}    ${ignored_keys}=${None}
+    [Arguments]    ${created_resource}    ${response_body}    ${ignored_keys}=${None}
 
-    Check Resource Set To    ${created_resource}    ${ignored_keys}
+    Check Resource Set To    ${created_resource}    ${response_body}    ${ignored_keys}
 
 Check Created Resources Set To
-    [Arguments]    ${expected_resources}    ${ignored_keys}=${None}
+    [Arguments]    ${expected_resources}    ${response_body}    ${ignored_keys}=${None}
 
-    Check Resource Set To    ${expected_resources}    ${ignored_keys}    group_by=id
+    Check Resource Set To    ${expected_resources}    ${response_body}    ${ignored_keys}    group_by=id
 
 Check Updated Resource Set To
-    [Arguments]    ${updated_resource}    ${ignored_keys}=${None}
+    [Arguments]    ${updated_resource}    ${response_body}    ${ignored_keys}=${None}
 
-    Check Resource Set To    ${updated_resource}    ${ignored_keys}
+    Check Resource Set To    ${updated_resource}    ${response_body}    ${ignored_keys}
 
 Check Updated Resources Set To
-    [Arguments]    ${updated_resources}    ${ignored_keys}=${None}
+    [Arguments]    ${updated_resources}    ${response_body}    ${ignored_keys}=${None}
 
-    Check Resource Set To    ${updated_resources}    ${ignored_keys}    group_by=id
+    Check Resource Set To    ${updated_resources}    ${response_body}    ${ignored_keys}    group_by=id
 
 Check SUT Not Containing Resource
-    ${response_status}=    convert to string    ${response.status_code}
-    Should Be Equal    ${response_status}    404
+    [Arguments]    ${response_status}
+    ${response_status_string}=    convert to string    ${response_status}
+    Should Be Equal    ${response_status_string}    404
 
 Check SUT Not Containing Resources
-    Should Be Empty    ${response.json()}
+    [Arguments]    ${response_body}
+    Should Be Empty    ${response_body}

@@ -27,7 +27,6 @@ Create Existing Context Source Registration Subscription
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 
-
 *** Keywords ***
 Setup Initial Context Source Registration Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}

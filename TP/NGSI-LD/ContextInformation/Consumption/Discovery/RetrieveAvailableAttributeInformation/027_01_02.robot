@@ -21,7 +21,7 @@ Retrieve Detailed Representation Of Available Attribute
     [Tags]    ed-attr    5_7_10
     ${response}=    Retrieve Attribute    attribute_name=airQualityLevel    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing Attribute element    ${expectation_file}
+    Check Response Body Containing Attribute element    ${expectation_file}    ${response.json()}
 
 
 *** Keywords ***

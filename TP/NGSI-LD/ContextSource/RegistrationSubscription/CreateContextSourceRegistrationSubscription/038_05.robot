@@ -27,7 +27,7 @@ Create Context Source Registration Subscription With expiresAt Member
     Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
     Sleep    15s
     ${response}=    Retrieve context source registration subscription    ${subscription_id}
-    Check Response Body Containing an Attribute set to    status    expired
+    Check Response Body Containing an Attribute set to    status    ${response.json()}    expired
 
 
 *** Keywords ***

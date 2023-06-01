@@ -25,6 +25,7 @@ Query Context Source Registrations Without Context
     Check Response Body Containing List Containing Context Source Registrations elements
     ...    ${expectation_file_path}
     ...    ${expected_context_source_registration_ids}
+    ...    ${response.json()}
 
 
 *** Keywords ***

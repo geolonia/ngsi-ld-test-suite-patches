@@ -37,6 +37,7 @@ Query Context Source Registration Matching Properties And Relationships Of Regis
     Check Response Body Containing List Containing Context Source Registrations elements
     ...    ${expectation_file_path}
     ...    ${expected_context_source_registration_ids}
+    ...    ${response.json()}
 
 Setup Initial Context Source Registration
     ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}

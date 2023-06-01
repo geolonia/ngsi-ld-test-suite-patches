@@ -25,7 +25,7 @@ Update Subscription Status To Paused
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
     ${response}=    Retrieve Subscription    ${subscription_id}
-    Check Response Body Containing an Attribute set to    status    paused
+    Check Response Body Containing an Attribute set to    status    ${response.json()}    paused
 
 
 *** Keywords ***

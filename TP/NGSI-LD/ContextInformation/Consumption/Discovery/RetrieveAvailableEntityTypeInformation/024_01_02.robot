@@ -21,7 +21,7 @@ Retrieve Detailed Representation Of Available Entity Type
     [Tags]    ed-type    5_7_7
     ${response}=    Retrieve Entity Type    type=Building    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing EntityTypeInfo element    ${expectation_file}
+    Check Response Body Containing EntityTypeInfo element    ${expectation_file}    ${response.json()}
 
 
 *** Keywords ***

@@ -25,7 +25,7 @@ Create Context Source Registration Subscription Without expiresAt Member
     # Let's say if the subscription stills active after 10s it will be considered as perpetual, but this is not enough
     Sleep    10s
     ${response}=    Retrieve context source registration subscription    ${subscription_id}
-    Check Response Body Containing an Attribute set to    status    active
+    Check Response Body Containing an Attribute set to    status    ${response.json()}    active
 
 
 *** Keywords ***

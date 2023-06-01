@@ -34,7 +34,7 @@ Update a batch of non-existing and existing entities
     ...    ${expected_successful_entities_ids}
     ...    ${expected_failed_entities_ids}
     Check Response Status Code    207    ${response.status_code}
-    Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}
+    Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}    ${response.json()}
     ${first_created_entity}=    Load Test Sample    entities/${entity_payload_filename}    ${first_existing_entity_id}
     ${second_created_entity}=    Load Test Sample
     ...    entities/${entity_payload_filename}
@@ -49,7 +49,7 @@ Update a batch of non-existing and existing entities
     ...    Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    Check Updated Resources Set To    ${updated_entities}
+    Check Updated Resources Set To    ${updated_entities}    ${response.json()}
     ${response}=    Batch Delete Entities    @{expected_successful_entities_ids}
 
 

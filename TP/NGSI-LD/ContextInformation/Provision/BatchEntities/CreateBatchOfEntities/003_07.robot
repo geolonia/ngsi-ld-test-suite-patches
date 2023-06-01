@@ -21,9 +21,11 @@ Create a batch of one entity using a JSON-LD @context obtained from the request 
     Check Response Status Code    201    ${response.status_code}
     ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}
     # Attribute should be compacted as we used the same context as provided when creating the entity
-    Check Response Body Containing an Attribute set to    almostFull
+    Check Response Body Containing an Attribute set to    almostFull    ${response.json()}
     ${response}=    Retrieve Entity by Id    ${entity_id}
     # Attribute should not be compacted as we did not provide a context containing this term
-    Check Response Body Containing an Attribute set to    https://ngsi-ld-test-suite/context#almostFull
+    Check Response Body Containing an Attribute set to
+    ...    https://ngsi-ld-test-suite/context#almostFull
+    ...    ${response.json()}
     @{entities_ids_to_be_deleted}=    Create List    ${entity_id}
     ${response}=    Batch Delete Entities    @{entities_ids_to_be_deleted}

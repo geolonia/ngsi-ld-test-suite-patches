@@ -26,6 +26,7 @@ Query Context Source Registration Subscriptions
     Check Response Body Containing List Containing Subscription elements
     ...    ${expectation_file_path}
     ...    ${subscription_ids}
+    ...    ${response.json()}
 
 
 *** Keywords ***

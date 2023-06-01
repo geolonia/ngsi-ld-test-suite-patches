@@ -21,7 +21,7 @@ Delete a batch of entities
     Check Response Status Code    204    ${response.status_code}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{entities_ids_to_be_deleted}
     ${response}=    Query Entities    ${expected_entities_ids}    Building    context=${ngsild_test_suite_context}
-    Check SUT Not Containing Resources
+    Check SUT Not Containing Resources    ${response.json()}
 
 
 *** Keywords ***

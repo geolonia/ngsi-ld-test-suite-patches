@@ -22,7 +22,7 @@ Delete Context Source Registration Subscription
     ${response}=    Retrieve Context Source Registration Subscription
     ...    ${subscription_id}
     ...    context=${ngsild_test_suite_context}
-    Check SUT Not Containing Resource
+    Check SUT Not Containing Resource    ${response.status_code}
 
 
 *** Keywords ***

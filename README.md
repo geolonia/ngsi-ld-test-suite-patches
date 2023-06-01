@@ -115,6 +115,10 @@ For more running instructions please consult [scripts/run_tests.sh](./scripts/ru
 
 ```$ python3 -m robot.testdoc TP/NGSI-LD api_docs/TestCases.html```
 
+## Tidy the Test Cases
+
+```$ python3 -m robot.tidy --recursive TP/NGSI-LD```
+
 # Frameworks and libraries used in the project
 
 * [Robot Framework](https://github.com/robotframework/robotframework)

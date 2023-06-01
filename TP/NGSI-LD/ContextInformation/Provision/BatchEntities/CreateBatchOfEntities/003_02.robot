@@ -30,7 +30,7 @@ Create a batch of two valid entities and one invalid entity
     ...    ${expected_successful_entities_ids}
     ...    ${expected_failed_entities_ids}
     Check Response Status Code    207    ${response.status_code}
-    Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}
+    Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}    ${response.json()}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{expected_successful_entities_ids}
     ${response}=    Query Entities
     ...    ${expected_entities_ids}
@@ -38,10 +38,9 @@ Create a batch of two valid entities and one invalid entity
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     @{created_entities}=    Create List    ${first_entity}    ${second_entity}
-    Check Created Resources Set To    ${created_entities}
+    Check Created Resources Set To    ${created_entities}    ${response.json()}
     @{entities_ids_to_be_deleted}=    Create List    ${first_entity_id}    ${second_entity_id}    ${existing_entity_id}
     ${response}=    Batch Delete Entities    @{entities_ids_to_be_deleted}
-
 
 
 *** Keywords ***

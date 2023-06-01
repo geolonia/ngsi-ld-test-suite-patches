@@ -32,7 +32,7 @@ ${content_type}=                application/json
     Check Response Status Code    201    ${response.status_code}
     ${response}=    Query Entity    ${id}    context=${ngsild_test_suite_context}    accept=*/*
     Check Response Status Code    200    ${response.status_code}
-    Check Response Headers Containing Content-Type set to    ${response.headers}    ${content_type}
+    Check Response Headers Containing Content-Type set to    ${content_type}    ${response.headers}
     Check Response Headers Link Not Empty    ${response.headers}
     [Teardown]    Delete Entity by Id Returning Response    ${id}
 
@@ -44,7 +44,7 @@ ${content_type}=                application/json
     Check Response Status Code    201    ${response.status_code}
     ${response}=    Retrieve Subscription    ${id}    accept=*/*
     Check Response Status Code    200    ${response.status_code}
-    Check Response Headers Containing Content-Type set to    ${response.headers}    ${content_type}
+    Check Response Headers Containing Content-Type set to    ${content_type}    ${response.headers}
     Check Response Headers Link Not Empty    ${response.headers}
     [Teardown]    Delete Subscription    ${id}
 
@@ -62,7 +62,7 @@ ${content_type}=                application/json
     ...    context=${ngsild_test_suite_context}
     ...    accept=*/*
     Check Response Status Code    200    ${response.status_code}
-    Check Response Headers Containing Content-Type set to    ${response.headers}    ${content_type}
+    Check Response Headers Containing Content-Type set to    ${content_type}    ${response.headers}
     Check Response Headers Link Not Empty    ${response.headers}
     [Teardown]    Delete Context Source Registration    ${registration_id}
 
@@ -83,6 +83,6 @@ ${content_type}=                application/json
     ...    accept=*/*
     Check Response Status Code    200    ${response.status_code}
     Set Test Variable    ${response}
-    Check Response Headers Containing Content-Type set to    ${response.headers}    ${content_type}
+    Check Response Headers Containing Content-Type set to    ${content_type}    ${response.headers}
     Check Response Headers Link Not Empty    ${response.headers}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

@@ -36,5 +36,8 @@ ${expectation_filename}=    vehicle-temporal-representation-added-attribute-expe
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    instanceId    @context
-    Check Updated Resource Set To    ${temporal_entity_expectation_payload}    ${ignored_attributes}
+    Check Updated Resource Set To
+    ...    ${temporal_entity_expectation_payload}
+    ...    ${response.json()}
+    ...    ${ignored_attributes}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

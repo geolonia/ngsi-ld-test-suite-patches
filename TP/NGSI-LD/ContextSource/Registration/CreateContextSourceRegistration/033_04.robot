@@ -24,9 +24,10 @@ Create one context source registration using a provided Link header with JSON co
     ...    ${ngsild_test_suite_context}
     Check Response Status Code    201    ${response.status_code}
     ${response}=    Retrieve Context Source Registration    ${registration_id}    context=${ngsild_test_suite_context}
-    Check JSON Value In Response Body    ['information']['entities'][0]['type']    Building
+    Check JSON Value In Response Body    ['information']['entities'][0]['type']    Building    ${response.json()}
     ${response}=    Retrieve Context Source Registration    ${registration_id}
     Check JSON Value In Response Body
     ...    ['information']['entities'][0]['type']
     ...    https://ngsi-ld-test-suite/context#Building
+    ...    ${response.json()}
     [Teardown]    Delete Context Source Registration    ${registration_id}

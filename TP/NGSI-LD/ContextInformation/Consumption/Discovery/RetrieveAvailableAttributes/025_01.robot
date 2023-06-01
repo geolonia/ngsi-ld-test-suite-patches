@@ -29,7 +29,7 @@ Retrieve Available Attributes
     [Arguments]    ${context}    ${expectation_file}
     ${response}=    Retrieve Attributes    ${context}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing AttributeList element    ${expectation_file}
+    Check Response Body Containing AttributeList element    ${expectation_file}    ${response.json()}
 
 Setup Initial Entities
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}

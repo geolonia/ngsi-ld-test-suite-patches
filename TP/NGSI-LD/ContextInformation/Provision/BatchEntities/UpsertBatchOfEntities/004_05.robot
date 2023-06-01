@@ -29,7 +29,7 @@ Upsert a batch of two valid entities and one invalid entity
     ...    ${expected_successful_entities_ids}
     ...    ${expected_failed_entities_ids}
     Check Response Status Code    207    ${response.status_code}
-    Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}
+    Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}    ${response.json()}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{expected_successful_entities_ids}
     ${response}=    Query Entities
     ...    ${expected_updated_entities_ids}
@@ -37,5 +37,5 @@ Upsert a batch of two valid entities and one invalid entity
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     @{upserted_entities}=    Create List    ${first_entity}    ${second_entity}
-    Check Updated Resources Set To    ${upserted_entities}
+    Check Updated Resources Set To    ${upserted_entities}    ${response.json()}
     ${response}=    Batch Delete Entities    @{expected_successful_entities_ids}

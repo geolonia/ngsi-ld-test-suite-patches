@@ -49,7 +49,7 @@ Batch Update Entity Scenarios
     ...    Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    Check Updated Resources Set To    ${updated_entities}
+    Check Updated Resources Set To    ${updated_entities}    ${response.json()}
 
 Setup Initial Entities
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

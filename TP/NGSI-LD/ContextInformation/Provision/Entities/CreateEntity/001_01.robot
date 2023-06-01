@@ -45,5 +45,5 @@ Create Entity Scenarios
         ...    ${content_type}
         ...    context=${ngsild_test_suite_context}
     END
-    Check Created Resource Set To    ${created_entity}
+    Check Created Resource Set To    ${created_entity}    ${response.json()}
     [Teardown]    Delete Entity by Id    ${entity_id}
