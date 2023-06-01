@@ -19,9 +19,9 @@ ${expectation_file_path}=                               csourceRegistrations/exp
 Query Context Source Registration Without Temporal Query
     [Documentation]    Check that you can query context source registrations. If no temporal query is present, only Context Source Registrations for Context Sources providing latest information are considered
     [Tags]    csr-query    5_10_2
-    Query Context Source Registrations    context=${ngsild_test_suite_context}    type=Building
+    ${response}=    Query Context Source Registrations    context=${ngsild_test_suite_context}    type=Building
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
-    Check Response Status Code Set To    200
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Context Source Registrations elements
     ...    ${expectation_file_path}
     ...    ${expected_context_source_registration_ids}

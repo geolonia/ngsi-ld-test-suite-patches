@@ -31,17 +31,17 @@ Delete Attributes
     [Tags]    ea-delete    5_6_5
     [Arguments]    ${entity_id}    ${attribute_id}    ${datasetId}
     ${response}=    Delete Entity Attributes    ${entity_id}    ${attribute_id}    ${datasetId}    false
-    Check Response Status Code    ${status_code}    ${response['status']}
+    Check Response Status Code    ${status_code}    ${response.status_code}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
 
 Setup Initial Entities
     ${valid_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Suite Variable    ${valid_entity_id}
-    ${request}    ${response}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${valid_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${not_found_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Suite Variable    ${not_found_entity_id}
 

@@ -28,13 +28,13 @@ Between    [Tags]    te-retrieve    5_7_3
 Retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
     [Documentation]    Check that you can retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
     [Arguments]    ${timerel}    ${timeAt}    ${endTimeAt}    ${vehicle_expectation_file}
-    Retrieve Temporal Representation Of Entity
+    ${response}=    Retrieve Temporal Representation Of Entity
     ...    ${temporal_entity_representation_id}
     ...    timerel=${timerel}
     ...    timeAt=${timeAt}
     ...    endTimeAt=${endTimeAt}
     ...    context=${ngsild_test_suite_context}
-    Check Response Status Code Set To    200
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing EntityTemporal element
     ...    ${vehicle_expectation_file}
     ...    ${temporal_entity_representation_id}

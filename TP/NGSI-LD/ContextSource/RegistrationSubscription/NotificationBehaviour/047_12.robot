@@ -26,7 +26,7 @@ Receive cSourceNotification For Matching Context Source Registrations On Watched
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}
     Set Suite Variable    ${context_source_registration_id}
-    Create Context Source Registration    ${context_source_registration_payload}
+    ${response}=    Create Context Source Registration    ${context_source_registration_payload}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
     Wait for notification and validate it
     ...    ${subscription_id}

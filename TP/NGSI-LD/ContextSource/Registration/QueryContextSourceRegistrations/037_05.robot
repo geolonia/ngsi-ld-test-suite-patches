@@ -29,11 +29,14 @@ Query Context Source Registration Matching EntityInfo of RegistrationInfo
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${registration_file_path}
     ...    ${context_source_registration_id}
-    Create Context Source Registration    ${context_source_registration_payload}
+    ${response}=    Create Context Source Registration    ${context_source_registration_payload}
     Set Suite Variable    ${context_source_registration_id}
-    Query Context Source Registrations    context=${ngsild_test_suite_context}    type=Building    attrs=name
+    ${response}=    Query Context Source Registrations
+    ...    context=${ngsild_test_suite_context}
+    ...    type=Building
+    ...    attrs=name
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
-    Check Response Status Code Set To    200
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Context Source Registrations elements
     ...    ${expectation_file_path}
     ...    ${expected_context_source_registration_ids}

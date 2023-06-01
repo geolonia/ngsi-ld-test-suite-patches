@@ -17,8 +17,8 @@ Delete an entity with an id not known to the system
     [Tags]    e-delete    5_6_6
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${response}=    Delete Entity by Id Returning Response    ${entity_id}
-    Check Response Status Code    ${expected_status_code}    ${response['status']}
+    Check Response Status Code    ${expected_status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

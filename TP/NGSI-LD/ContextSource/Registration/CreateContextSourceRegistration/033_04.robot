@@ -18,14 +18,14 @@ Create one context source registration using a provided Link header with JSON co
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
-    ${request}    ${response}=    Create Context Source Registration With Return
+    ${response}=    Create Context Source Registration With Return
     ...    ${updated_payload}
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
-    Check Response Status Code    201    ${response['status']}
-    Retrieve Context Source Registration    ${registration_id}    context=${ngsild_test_suite_context}
+    Check Response Status Code    201    ${response.status_code}
+    ${response}=    Retrieve Context Source Registration    ${registration_id}    context=${ngsild_test_suite_context}
     Check JSON Value In Response Body    ['information']['entities'][0]['type']    Building
-    Retrieve Context Source Registration    ${registration_id}
+    ${response}=    Retrieve Context Source Registration    ${registration_id}
     Check JSON Value In Response Body
     ...    ['information']['entities'][0]['type']
     ...    https://ngsi-ld-test-suite/context#Building

@@ -18,12 +18,12 @@ Create one context source registration with a Link header and a JSON-LD content 
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
-    ${request}    ${response}=    Create Context Source Registration With Return
+    ${response}=    Create Context Source Registration With Return
     ...    ${updated_payload}
     ...    ${CONTENT_TYPE_LD_JSON}
     ...    ${ngsild_test_suite_context}
-    Check Response Status Code    400    ${response['status']}
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

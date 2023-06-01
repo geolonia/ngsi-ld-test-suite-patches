@@ -23,23 +23,23 @@ ${expectation_filename}=    vehicle-temporal-representation-delete-speed-instanc
     ...    ${temporal_entity_representation_id}
     ...    ${filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
-    Retrieve Temporal Representation Of Entity
+    Check Response Status Code    201    ${response.status_code}
+    ${response}=    Retrieve Temporal Representation Of Entity
     ...    ${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    ${instanceId}=    Set Variable    ${response['body']['speed'][0]['instanceId']}
+    ${instanceId}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
     ${response}=    Delete Attribute Instance From Temporal Entity
     ...    ${temporal_entity_representation_id}
     ...    ${attributeId}
     ...    ${instanceId}
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
-    Check Response Status Code    204    ${response['status']}
+    Check Response Status Code    204    ${response.status_code}
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}
-    Retrieve Temporal Representation Of Entity
+    ${response}=    Retrieve Temporal Representation Of Entity
     ...    ${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}

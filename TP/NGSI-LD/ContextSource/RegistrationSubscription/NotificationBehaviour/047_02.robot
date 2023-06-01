@@ -27,14 +27,14 @@ Receive cSourceNotification Initially On Subscription And Whenever There Is A Ch
     ...    ${subscription_payload_file_path}
     ...    ${subscription_id}
     Set Suite Variable    ${subscription_id}
-    Create Context Source Registration Subscription    ${subscription_payload}
+    ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
     Wait for notification and validate it
     ...    ${subscription_id}
     ...    ${expected_context_source_registration_ids}
     ...    newlyMatching
     ${update_fragment}=    Load Test Sample    ${update_fragment_file_path}
-    Update Context Source Registration    ${context_source_registration_id}    ${update_fragment}
+    ${response}=    Update Context Source Registration    ${context_source_registration_id}    ${update_fragment}
     Wait for notification and validate it
     ...    ${subscription_id}
     ...    ${expected_context_source_registration_ids}

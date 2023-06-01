@@ -18,12 +18,12 @@ Create one context source registration using the default context with JSON conte
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
-    ${request}    ${response}=    Create Context Source Registration With Return
+    ${response}=    Create Context Source Registration With Return
     ...    ${updated_payload}
     ...    ${CONTENT_TYPE_JSON}
-    Check Response Status Code    201    ${response['status']}
-    Retrieve Context Source Registration    ${registration_id}    context=${ngsild_test_suite_context}
+    Check Response Status Code    201    ${response.status_code}
+    ${response}=    Retrieve Context Source Registration    ${registration_id}    context=${ngsild_test_suite_context}
     Check JSON Value In Response Body    ['information']['entities'][0]['type']    ngsi-ld:default-context/Building
-    Retrieve Context Source Registration    ${registration_id}
+    ${response}=    Retrieve Context Source Registration    ${registration_id}
     Check JSON Value In Response Body    ['information']['entities'][0]['type']    Building
     [Teardown]    Delete Context Source Registration    ${registration_id}

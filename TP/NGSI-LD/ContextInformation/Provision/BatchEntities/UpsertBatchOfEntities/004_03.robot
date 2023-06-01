@@ -33,11 +33,11 @@ Batch Upsert Existing Entities Scenarios
     ${first_existing_entity}=    Load Entity    ${filename}    ${first_existing_entity_id}
     ${second_existing_entity}=    Load Entity    ${filename}    ${second_existing_entity_id}
     @{entities_to_be_upserted}=    Create List    ${first_existing_entity}    ${second_existing_entity}
-    Batch Upsert Entities    @{entities_to_be_upserted}
-    Check Response Status Code Set To    204
+    ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}
+    Check Response Status Code    204    ${response.status_code}
     @{upserted_entities_ids}=    Create List    ${first_existing_entity_id}    ${second_existing_entity_id}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{upserted_entities_ids}
-    Query Entities
+    ${response}=    Query Entities
     ...    ${expected_updated_entities_ids}
     ...    Building
     ...    context=${ngsild_test_suite_context}

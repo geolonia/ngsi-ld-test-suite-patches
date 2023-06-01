@@ -18,9 +18,9 @@ InvalidId    [Tags]    sub-delete    5_8_5
 Delete Subscription With Non present Or Invalid Id
     [Documentation]    Check that you cannot delete a subscription: If the subscription Id is not present or it is not a valid URI, then an error of type BadRequestData shall be raised
     [Arguments]    ${id}
-    Delete Subscription    ${id}
-    Check Response Status Code Set To    400
+    ${response}=    Delete Subscription    ${id}
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

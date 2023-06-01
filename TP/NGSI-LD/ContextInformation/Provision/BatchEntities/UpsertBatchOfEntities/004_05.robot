@@ -22,20 +22,20 @@ Upsert a batch of two valid entities and one invalid entity
     ${third_entity}=    Load Entity    building-minimal-sample.jsonld    ${third_entity_id}
     ${invalid_entity}=    Remove Entity Type    ${third_entity}
     @{entities_to_be_upserted}=    Create List    ${first_entity}    ${second_entity}    ${invalid_entity}
-    Batch Upsert Entities    @{entities_to_be_upserted}
+    ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}
     @{expected_successful_entities_ids}=    Create List    ${first_entity_id}    ${second_entity_id}
     @{expected_failed_entities_ids}=    Create List    ${third_entity_id}
     &{expected_batch_operation_result}=    Create Batch Operation Result
     ...    ${expected_successful_entities_ids}
     ...    ${expected_failed_entities_ids}
-    Check Response Status Code Set To    207
+    Check Response Status Code    207    ${response.status_code}
     Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{expected_successful_entities_ids}
-    Query Entities
+    ${response}=    Query Entities
     ...    ${expected_updated_entities_ids}
     ...    Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     @{upserted_entities}=    Create List    ${first_entity}    ${second_entity}
     Check Updated Resources Set To    ${upserted_entities}
-    Batch Delete Entities    @{expected_successful_entities_ids}
+    ${response}=    Batch Delete Entities    @{expected_successful_entities_ids}

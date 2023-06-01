@@ -28,17 +28,19 @@ Update Context Source Registration Subscription With Invalid Fragment
     [Documentation]    Check that you cannot update a context source registration subscription with a fragment that does not meet the data types and restrictions expressed by clause 5.2.12
     [Arguments]    ${filepath}
     ${subscription_update_fragment}=    Load Test Sample    ${filepath}
-    Update Context Source Registration Subscription    ${subscription_id}    ${subscription_update_fragment}
-    Check Response Status Code Set To    400
+    ${response}=    Update Context Source Registration Subscription
+    ...    ${subscription_id}
+    ...    ${subscription_update_fragment}
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 Setup Initial Context Source Registration Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
-    Create Context Source Registration Subscription    ${subscription_payload}
+    ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
     Set Suite Variable    ${subscription_id}
 
 Delete Initial Context Source Registration Subscriptions

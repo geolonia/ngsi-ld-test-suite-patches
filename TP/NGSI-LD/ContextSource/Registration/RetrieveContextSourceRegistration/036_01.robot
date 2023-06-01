@@ -19,9 +19,9 @@ Invalid Id    [Tags]    csr-retrieve    5_10_1
 Retrieve Context Source Registration With A Not Present Or Invalid Id
     [Documentation]    Check that you cannot retrieve a Context Source Registration, if the context source registration id is not present or it is not a valid URI
     [Arguments]    ${id}
-    Retrieve Context Source Registration    ${id}
-    Check Response Status Code Set To    400
+    ${response}=    Retrieve Context Source Registration    ${id}
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

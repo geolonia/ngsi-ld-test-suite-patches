@@ -10,9 +10,9 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 Query Context Source Registrations Without Entity Types and Attribute Names
     [Documentation]    Check that you cannot query context source registrations, if neither Entity types nor Attribute names are provided, an error of type 400 shall be raised.
     [Tags]    csr-query    5_10_2
-    Query Context Source Registrations    context=${ngsild_test_suite_context}
-    Check Response Status Code Set To    400
+    ${response}=    Query Context Source Registrations    context=${ngsild_test_suite_context}
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

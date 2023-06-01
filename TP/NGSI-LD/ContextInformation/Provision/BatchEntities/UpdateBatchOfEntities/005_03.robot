@@ -27,13 +27,13 @@ Update a batch of non-existing and existing entities
     ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${new_entity}=    Load Entity    building-relationship-of-property-sample.jsonld    ${new_entity_id}
     @{entities_to_be_updated}=    Create List    ${first_existing_entity}    ${second_existing_entity}    ${new_entity}
-    Batch Update Entities    @{entities_to_be_updated}
+    ${response}=    Batch Update Entities    @{entities_to_be_updated}
     @{expected_successful_entities_ids}=    Create List    ${first_existing_entity_id}    ${second_existing_entity_id}
     @{expected_failed_entities_ids}=    Create List    ${new_entity_id}
     &{expected_batch_operation_result}=    Create Batch Operation Result
     ...    ${expected_successful_entities_ids}
     ...    ${expected_failed_entities_ids}
-    Check Response Status Code Set To    207
+    Check Response Status Code    207    ${response.status_code}
     Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}
     ${first_created_entity}=    Load Test Sample    entities/${entity_payload_filename}    ${first_existing_entity_id}
     ${second_created_entity}=    Load Test Sample
@@ -44,13 +44,13 @@ Update a batch of non-existing and existing entities
     ${second_updated_entity}=    Upsert Element In Entity    ${second_created_entity}    ${update_fragment}
     @{updated_entities}=    Create List    ${first_updated_entity}    ${second_updated_entity}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{expected_successful_entities_ids}
-    Query Entities
+    ${response}=    Query Entities
     ...    ${expected_entities_ids}
     ...    Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resources Set To    ${updated_entities}
-    Batch Delete Entities    @{expected_successful_entities_ids}
+    ${response}=    Batch Delete Entities    @{expected_successful_entities_ids}
 
 
 *** Keywords ***

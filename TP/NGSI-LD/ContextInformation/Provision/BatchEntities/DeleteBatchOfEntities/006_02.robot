@@ -18,16 +18,16 @@ Delete a batch of non-existing and existing entities
     [Tags]    be-delete    5_6_10
     ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     @{entities_ids_to_be_deleted}=    Create List    ${existing_entity_id}    ${new_entity_id}
-    Batch Delete Entities    @{entities_ids_to_be_deleted}
+    ${response}=    Batch Delete Entities    @{entities_ids_to_be_deleted}
     @{expected_successful_entities_ids}=    Create List    ${existing_entity_id}
     @{expected_failed_entities_ids}=    Create List    ${new_entity_id}
     &{expected_batch_operation_result}=    Create Batch Operation Result
     ...    ${expected_successful_entities_ids}
     ...    ${expected_failed_entities_ids}
-    Check Response Status Code Set To    207
+    Check Response Status Code    207    ${response.status_code}
     Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{expected_successful_entities_ids}
-    Query Entities    ${expected_entities_ids}    Building    context=${ngsild_test_suite_context}
+    ${response}=    Query Entities    ${expected_entities_ids}    Building    context=${ngsild_test_suite_context}
     Check SUT Not Containing Resources
 
 

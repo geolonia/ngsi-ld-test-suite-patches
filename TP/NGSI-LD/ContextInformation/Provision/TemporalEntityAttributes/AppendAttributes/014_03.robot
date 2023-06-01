@@ -22,11 +22,11 @@ Add Attribute To Temporal Entity
     ...    ${temporal_entity_representation_id}
     ...    ${filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${not_found_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=    Append Attribute To Temporal Entity
     ...    ${not_found_temporal_entity_representation_id}
     ...    ${fragment_filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    ${status_code}    ${response['status']}
+    Check Response Status Code    ${status_code}    ${response.status_code}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

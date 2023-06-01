@@ -10,9 +10,9 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 Retrieve the temporal evolution of an entity with an invalid id
     [Documentation]    Check that you cannot retrieve the temporal evolution of an entity with an invalid id (invalid URI)
     [Tags]    te-retrieve    5_7_3
-    Retrieve Temporal Representation Of Entity    invalidUri
-    Check Response Status Code Set To    400
+    ${response}=    Retrieve Temporal Representation Of Entity    invalidUri
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

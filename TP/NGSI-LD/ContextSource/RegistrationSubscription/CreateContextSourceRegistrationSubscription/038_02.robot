@@ -18,12 +18,12 @@ Create Context Source Registration Subscription Without An Id
     [Documentation]    Check that you can create a context source registration subscription without providing an id and it will be automatically generated
     [Tags]    csrsub-create    5_11_2
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}
-    Create Context Source Registration Subscription    ${subscription_payload}
+    ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
     ${subscription_id}=    Fetch Id From Response Location Header
-    Check Response Status Code Set To    201
-    Check Response Headers Containing URI set to    ${request['path']}/    ${subscription_id}    ${response}
+    Check Response Status Code    201    ${response.status_code}
+    Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
     Set Suite Variable    ${subscription_id}
-    Retrieve Context Source Registration Subscription
+    ${response}=    Retrieve Context Source Registration Subscription
     ...    ${subscription_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}

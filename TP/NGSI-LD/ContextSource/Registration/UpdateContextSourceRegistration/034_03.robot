@@ -22,6 +22,6 @@ Update a context source registration by id if the id is not known to the system
     ...    ${registration_id}
     ...    ${fragment_with_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    404    ${response['status']}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Status Code    404    ${response.status_code}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
     [Teardown]    Delete Context Source Registration    ${registration_id}

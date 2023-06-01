@@ -27,8 +27,8 @@ WithJsonLdContext    [Tags]    ed-attrs    5_7_8
 Retrieve Available Attributes
     [Documentation]    Check that you can retrieve a list of NGSI-LD attributes
     [Arguments]    ${context}    ${expectation_file}
-    Retrieve Attributes    ${context}
-    Check Response Status Code Set To    200
+    ${response}=    Retrieve Attributes    ${context}
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing AttributeList element    ${expectation_file}
 
 Setup Initial Entities

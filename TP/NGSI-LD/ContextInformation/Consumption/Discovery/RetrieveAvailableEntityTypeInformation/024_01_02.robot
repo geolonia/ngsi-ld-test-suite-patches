@@ -19,8 +19,8 @@ ${expectation_file}=        types/expectations/entity-type-info-024-01-expectati
 Retrieve Detailed Representation Of Available Entity Type
     [Documentation]    Check that you can retrieve a detailed representation of a specified NGSI-LD entity type
     [Tags]    ed-type    5_7_7
-    Retrieve Entity Type    type=Building    context=${ngsild_test_suite_context}
-    Check Response Status Code Set To    200
+    ${response}=    Retrieve Entity Type    type=Building    context=${ngsild_test_suite_context}
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing EntityTypeInfo element    ${expectation_file}
 
 

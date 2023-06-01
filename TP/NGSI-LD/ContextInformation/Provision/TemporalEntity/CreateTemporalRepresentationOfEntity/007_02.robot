@@ -29,10 +29,10 @@ Create Temporal Entity From File
     [Documentation]    Check that you cannot create a temporal entity with an empty/invalid json/id
     [Tags]    te-create    5_6_11
     [Arguments]    ${filename}
-    Create Temporal Representation Of Entity Selecting Content Type Using Session
+    ${response}=    Create Temporal Representation Of Entity Selecting Content Type
     ...    ${filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check RL Response Status Code Set To    400
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_INVALID_REQUEST}
     Check Response Body Title When Using Session Request    ${response.json()}
 
@@ -44,5 +44,5 @@ Create Temporal Entity
     ...    ${entity_id}
     ...    ${filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    ${status_code}    ${response['status']}
+    Check Response Status Code    ${status_code}    ${response.status_code}
     [Teardown]    Delete Temporal Representation Of Entity    ${entity_id}

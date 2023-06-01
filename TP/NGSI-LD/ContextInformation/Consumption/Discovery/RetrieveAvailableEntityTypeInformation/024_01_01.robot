@@ -18,12 +18,13 @@ ${filename}=                building-simple-attributes-sample.json
 Retrieve Detailed Representation Of Available Entity Type Without Context
     [Documentation]    Check that you cannot retrieve a detailed representation of an unknown NGSI-LD entity type
     [Tags]    ed-type    5_7_7
-    Retrieve Entity Type    type=Building
-    Check Response Status Code Set To    404
+    ${response}=    Retrieve Entity Type    type=Building
+    Check Response Status Code    404    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+
 
 
 *** Keywords ***

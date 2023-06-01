@@ -18,15 +18,16 @@ ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-sample.json
 Query the temporal evolution of entities with an invalid request
     [Documentation]    Check that you cannot query the temporal evolution of entities with an invalid request
     [Tags]    te-query    5_7_4
-    Query Temporal Representation Of Entities
+    ${response}=    Query Temporal Representation Of Entities
     ...    timerel=after
     ...    timeAt=2020-07-01T12:05:00Z
     ...    context=${ngsild_test_suite_context}
-    Check Response Status Code Set To    400
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+
 
 
 *** Keywords ***

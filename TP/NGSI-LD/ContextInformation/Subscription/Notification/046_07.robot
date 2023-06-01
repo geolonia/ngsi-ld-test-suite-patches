@@ -66,7 +66,6 @@ Check URI expansion is observed
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}=    Wait for notification
-    Output    ${notification}
     Should Be Equal    ${notification}[type]    Notification
     Should Be Equal    ${notification}[subscriptionId]    ${subscription_id}
     ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}
@@ -104,7 +103,7 @@ Delete Fixture Data
     Delete Initial Entity
 
 Before Test
-    NotificationUtils.Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Start Local Server    ${notification_server_host}    ${notification_server_port}
 
 After Test
     Stop Local Server

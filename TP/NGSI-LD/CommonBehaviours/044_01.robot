@@ -21,18 +21,18 @@ ${subscription_fragment}=       subscriptions/fragments/subscription-update-samp
     [Documentation]    Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type
     [Tags]    ea-partial-update    6_3_4
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${vehicle_filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${response}=    Partial Update Entity Attributes
     ...    ${entity_id}
     ...    ${attribute_id}
     ...    ${vehicle_fragment}
     ...    ${CONTENT_TYPE_MERGE_PATCH_JSON}
     ...    context=${ngsild_test_suite_context}
-    Check Response Status Code    204    ${response['status']}
+    Check Response Status Code    204    ${response.status_code}
     [Teardown]    Delete Entity by Id    ${entity_id}
 
 044_01_02_endpoint /subscriptions/{subscriptionId}
@@ -40,11 +40,11 @@ ${subscription_fragment}=       subscriptions/fragments/subscription-update-samp
     [Tags]    sub-update    6_3_4
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${response}=    Create Subscription    ${subscription_id}    ${subscription_filename}    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${response}=    Update Subscription
     ...    ${subscription_id}
     ...    ${subscription_fragment}
     ...    ${CONTENT_TYPE_MERGE_PATCH_JSON}
     ...    context=${ngsild_test_suite_context}
-    Check Response Status Code    204    ${response['status']}
+    Check Response Status Code    204    ${response.status_code}
     [Teardown]    Delete Subscription    ${subscription_id}

@@ -31,7 +31,6 @@ Check that a notification is sent with all attributes
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}=    Wait for notification    ${5}
-    Output    ${notification}
 
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
     Dictionary Should Contain Key    ${notification}    data
@@ -64,7 +63,6 @@ Check that a notification is sent with all attributes in simplified format
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}=    Wait for notification    ${5}
-    Output    ${notification}
 
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
     Dictionary Should Contain Key    ${notification}    data
@@ -101,7 +99,7 @@ Delete Fixture Data
     Delete Initial Entity
 
 Before Test
-    NotificationUtils.Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Start Local Server    ${notification_server_host}    ${notification_server_port}
 
 After Test
     Stop Local Server

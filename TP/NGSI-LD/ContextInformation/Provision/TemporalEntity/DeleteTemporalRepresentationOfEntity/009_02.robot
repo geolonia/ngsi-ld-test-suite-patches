@@ -25,8 +25,8 @@ Delete Temporal Entity
     [Tags]    te-delete    5_6_16
     [Arguments]    ${status_code}    ${id}    ${problem_type}
     ${response}=    Delete Temporal Representation Of Entity With Returning Response    ${id}
-    Check Response Status Code    ${status_code}    ${response['status']}
+    Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${problem_type}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

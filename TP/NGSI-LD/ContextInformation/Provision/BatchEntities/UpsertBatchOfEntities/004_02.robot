@@ -38,23 +38,23 @@ Batch Upsert Non-existing And Existing Entities Scenarios
     ...    ${new_entity}
     ...    ${first_existing_entity}
     ...    ${second_existing_entity}
-    Batch Upsert Entities    @{entities_to_be_upserted}
+    ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}
     @{expected_entities_ids}=    Create List    ${new_entity_id}
-    Check Response Status Code Set To    201
+    Check Response Status Code    201    ${response.status_code}
     Check Response Body Containing Array Of URIs set to    @{expected_entities_ids}
     @{upserted_entities_ids}=    Create List
     ...    ${new_entity_id}
     ...    ${first_existing_entity_id}
     ...    ${second_existing_entity_id}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{upserted_entities_ids}
-    Query Entities
+    ${response}=    Query Entities
     ...    ${expected_updated_entities_ids}
     ...    Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resources Set To    ${entities_to_be_upserted}
     @{entities_ids_to_be_deleted}=    Create List    ${new_entity_id}
-    Batch Delete Entities    @{entities_ids_to_be_deleted}
+    ${response}=    Batch Delete Entities    @{entities_ids_to_be_deleted}
 
 Setup Initial Entities
     ${first_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

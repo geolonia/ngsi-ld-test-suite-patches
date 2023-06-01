@@ -17,19 +17,19 @@ Get an entity if an attribute is not known to the system
     [Documentation]    Check that you cannot get an entity if an attribute is not known to the system
     [Tags]    e-retrieve    5_6_6
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
     ${attributes_to_be_retrieved}=    Catenate    SEPARATOR=,    ${attribute_not_known}
-    ${request}    ${response}=    Query Entity
+    ${response}=    Query Entity
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     ...    attrs=${attributes_to_be_retrieved}
-    Check Response Status Code    404    ${response['status']}
+    Check Response Status Code    404    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}

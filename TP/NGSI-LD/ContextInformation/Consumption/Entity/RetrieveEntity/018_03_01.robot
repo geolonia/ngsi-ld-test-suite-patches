@@ -15,9 +15,9 @@ Get an entity if the Entity Id is not known to the system
     [Documentation]    Check that you cannot get an entity if the entity id or attributes are not known to the system
     [Tags]    e-retrieve    5_6_6
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${request}    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    404    ${response['status']}
+    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    404    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

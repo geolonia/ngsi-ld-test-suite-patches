@@ -18,9 +18,9 @@ InvalidJsonLd    [Tags]    be-update    5_6_9
 Batch Update Entity With Invalid Request Scenarios
     [Documentation]    Check that you cannot update a batch of entities with an invalid request
     [Arguments]    ${filename}    ${problem_type}
-    Batch Request Entities From File    update    filename=${filename}
-    Check RL Response Status Code Set To    400
+    ${response}=    Batch Request Entities From File    update    filename=${filename}
+    Check Response Status Code    400    ${response.status_code}
     Check RL Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${problem_type}
-    Check RL Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check RL Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

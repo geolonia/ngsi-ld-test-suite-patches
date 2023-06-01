@@ -33,12 +33,12 @@ Query All Subscriptions
 Query Subscriptions With Limit And Page Parameters
     [Documentation]    Check that you can query a list of subscriptions: Pagination logic shall be in place
     [Arguments]    ${limit}    ${offset}    ${expectation_subscription_number}    ${prev_link}    ${next_link}
-    Query Subscriptions
+    ${response}=    Query Subscriptions
     ...    context=${ngsild_test_suite_context}
     ...    limit=${limit}
     ...    offset=${offset}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code Set To    200
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Number Of Entities    Subscription    ${expectation_subscription_number}
     Check Pagination Prev And Next Headers    ${prev_link}    ${next_link}
 

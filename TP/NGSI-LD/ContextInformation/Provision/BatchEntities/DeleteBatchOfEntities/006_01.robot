@@ -17,10 +17,10 @@ Delete a batch of entities
     [Documentation]    Check that you can delete a batch of entities
     [Tags]    be-delete    5_6_10
     @{entities_ids_to_be_deleted}=    Create List    ${first_entity_id}    ${second_entity_id}
-    Batch Delete Entities    @{entities_ids_to_be_deleted}
-    Check Response Status Code Set To    204
+    ${response}=    Batch Delete Entities    @{entities_ids_to_be_deleted}
+    Check Response Status Code    204    ${response.status_code}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{entities_ids_to_be_deleted}
-    Query Entities    ${expected_entities_ids}    Building    context=${ngsild_test_suite_context}
+    ${response}=    Query Entities    ${expected_entities_ids}    Building    context=${ngsild_test_suite_context}
     Check SUT Not Containing Resources
 
 

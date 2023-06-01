@@ -18,10 +18,10 @@ Create Context Source Registration That Never Expires
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
     ${registration_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
-    ${request}    ${response}=    Create Context Source Registration With Return    ${registration_payload}
-    Check Response Status Code    201    ${response['status']}
-    Check Response Headers Containing URI set to    ${request['path']}/    ${registration_id}    ${response}
-    Retrieve Context Source Registration
+    ${response}=    Create Context Source Registration With Return    ${registration_payload}
+    Check Response Status Code    201    ${response.status_code}
+    Check Response Headers Containing URI set to    ${registration_id}    ${response.headers}
+    ${response}=    Retrieve Context Source Registration
     ...    ${registration_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}

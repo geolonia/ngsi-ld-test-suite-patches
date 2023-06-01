@@ -19,15 +19,16 @@ Retrieve the temporal evolution of non-existing entity attributes
     [Documentation]    Check that you cannot retrieve the temporal evolution of non-existing entity attributes
     [Tags]    te-retrieve    5_7_3
     @{temporal_attributes_to_be_retrieved}=    Create List    unknownAttribute
-    Retrieve Temporal Representation Of Entity
+    ${response}=    Retrieve Temporal Representation Of Entity
     ...    ${temporal_entity_representation_id}
     ...    attrs=${temporal_attributes_to_be_retrieved}
     ...    context=${ngsild_test_suite_context}
-    Check Response Status Code Set To    404
+    Check Response Status Code    404    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response}
+    ...    ${response.json()}
     ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+
 
 
 *** Keywords ***

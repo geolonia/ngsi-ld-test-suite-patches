@@ -25,13 +25,13 @@ ${attributeId}=             speed
     ...    ${temporal_entity_representation_id}
     ...    ${filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response['status']}
+    Check Response Status Code    201    ${response.status_code}
 
-    Retrieve Temporal Representation Of Entity
+    ${response}=    Retrieve Temporal Representation Of Entity
     ...    ${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    ${instanceId_before_update}=    Set Variable    ${response['body']['speed'][0]['instanceId']}
+    ${instanceId_before_update}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
 
     ${response}=    Modify Attribute Instance From Temporal Entity
     ...    ${temporal_entity_representation_id}
@@ -40,16 +40,16 @@ ${attributeId}=             speed
     ...    ${fragment_filename}
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
-    Check Response Status Code    204    ${response['status']}
+    Check Response Status Code    204    ${response.status_code}
 
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}
-    Retrieve Temporal Representation Of Entity
+    ${response}=    Retrieve Temporal Representation Of Entity
     ...    ${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    ${instanceId_after_update}=    Set Variable    ${response['body']['speed'][0]['instanceId']}
+    ${instanceId_after_update}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
 
     Should Be Equal As Strings    ${instanceId_before_update}    ${instanceId_after_update}
 

@@ -25,9 +25,12 @@ ActiveTrueExpiresAt
 Activate Paused Subscription With isActive And ExpiresAt Members
     [Documentation]    Check that you can update a subcription: If isActive is equal to true and expiresAt corresponds to a DateTime in the future, then status shall be updated to "active"
     [Arguments]    ${subscription_update_fragment_file_path}
-    Update Subscription    ${subscription_id}    ${subscription_update_fragment_file_path}    ${CONTENT_TYPE_JSON}
-    Check Response Status Code Set To    204
-    Retrieve Subscription    ${subscription_id}
+    ${response}=    Update Subscription
+    ...    ${subscription_id}
+    ...    ${subscription_update_fragment_file_path}
+    ...    ${CONTENT_TYPE_JSON}
+    Check Response Status Code    204    ${response.status_code}
+    ${response}=    Retrieve Subscription    ${subscription_id}
     Check Response Body Containing an Attribute set to    status    active
 
 Setup Initial Subscriptions

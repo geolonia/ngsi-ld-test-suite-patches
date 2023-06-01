@@ -19,9 +19,9 @@ ${expectation_file_path}=                               csourceRegistrations/exp
 Query Context Source Registrations Without Context
     [Documentation]    Check that you can query context source registrations. If a JSON-LD context is not provided, then all the query terms shall be resolved against the default JSON-LD @context
     [Tags]    csr-query    5_10_2
-    Query Context Source Registrations    id=${context_source_registration_id}
+    ${response}=    Query Context Source Registrations    id=${context_source_registration_id}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
-    Check Response Status Code Set To    200
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Context Source Registrations elements
     ...    ${expectation_file_path}
     ...    ${expected_context_source_registration_ids}

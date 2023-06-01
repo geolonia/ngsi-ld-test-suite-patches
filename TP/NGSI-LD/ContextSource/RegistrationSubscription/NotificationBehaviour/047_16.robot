@@ -36,7 +36,9 @@ Receive cSourceNotification For Newly Matching Context Source Registrations
     [Documentation]    Check if you update a context source registration subscription, a CsourceNotification will be sent with all currently matching context source registrations
     [Arguments]    ${filepath}    @{notification_csr_ids}
     ${subscription_update_fragment}=    Load Test Sample    ${filepath}
-    Update Context Source Registration Subscription    ${subscription_id}    ${subscription_update_fragment}
+    ${response}=    Update Context Source Registration Subscription
+    ...    ${subscription_id}
+    ...    ${subscription_update_fragment}
     Wait for notification and validate it    ${subscription_id}    ${notification_csr_ids}    newlyMatching
 
 Setup Initial Context Source Registrations And Subscriptions

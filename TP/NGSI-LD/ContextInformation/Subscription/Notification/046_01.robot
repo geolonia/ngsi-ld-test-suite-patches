@@ -32,7 +32,6 @@ Check that a notification is only sent if status is active
 
     ${notification}=    Wait for notification    timeout=${10}
 
-    Output    ${notification}
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
     Should be Equal    ${entity_id}    ${notification}[data][0][id]
     Should be Equal    ${5}    ${notification}[data][0][airQualityLevel][value]
@@ -53,7 +52,7 @@ Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}
 
 Before Test
-    NotificationUtils.Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Start Local Server    ${notification_server_host}    ${notification_server_port}
 
 After Test
     Delete Initial Subscriptions

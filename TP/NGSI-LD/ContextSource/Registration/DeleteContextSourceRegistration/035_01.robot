@@ -18,9 +18,9 @@ Delete a context source registration by id
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${registration_payload_file_path}
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
-    ${request}    ${response}=    Create Context Source Registration With Return    ${updated_payload}
-    Check Response Status Code    201    ${response['status']}
+    ${response}=    Create Context Source Registration With Return    ${updated_payload}
+    Check Response Status Code    201    ${response.status_code}
     ${response}=    Delete Context Source Registration With Return    ${registration_id}
-    Check Response Status Code    204    ${response['status']}
-    Retrieve Context Source Registration    ${registration_id}    context=${ngsild_test_suite_context}
+    Check Response Status Code    204    ${response.status_code}
+    ${response}=    Retrieve Context Source Registration    ${registration_id}    context=${ngsild_test_suite_context}
     Check SUT Not Containing Resource

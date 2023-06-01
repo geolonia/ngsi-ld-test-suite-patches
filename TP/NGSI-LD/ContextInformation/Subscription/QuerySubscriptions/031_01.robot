@@ -21,12 +21,12 @@ ${expectation_file_path}=                       subscriptions/expectations/subsc
 Query Subscriptions
     [Documentation]    Check that you can query a list of subscriptions
     [Tags]    sub-query    5_8_4
-    Query Subscriptions    context=${ngsild_test_suite_context}
+    ${response}=    Query Subscriptions    context=${ngsild_test_suite_context}
     @{subscription_ids}=    Create List
     ...    ${first_subscription_id}
     ...    ${second_subscription_id}
     ...    ${third_subscription_id}
-    Check Response Status Code Set To    200
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Subscription elements
     ...    ${expectation_file_path}
     ...    ${subscription_ids}

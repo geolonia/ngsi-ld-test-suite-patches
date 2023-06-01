@@ -29,18 +29,21 @@ Create Entity Scenarios
     [Tags]    e-create    5_6_1
     [Arguments]    ${filename}    ${content_type}
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${request}    ${response}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${content_type}
-    Check Response Status Code    201    ${response['status']}
-    Check Response Headers Containing URI set to    ${request['path']}    ${entity_id}    ${response}
+    Check Response Status Code    201    ${response.status_code}
+    Check Response Headers Containing URI set to    ${entity_id}    ${response.headers}
     ${created_entity}=    Load Test Sample    entities/${filename}    ${entity_id}
     IF    '${content_type}'=='application/json'
-        Retrieve Entity by Id    ${entity_id}    ${content_type}
+        ${response}=    Retrieve Entity by Id    ${entity_id}    ${content_type}
     END
     IF    '${content_type}'=='application/ld+json'
-        Retrieve Entity by Id    ${entity_id}    ${content_type}    context=${ngsild_test_suite_context}
+        ${response}=    Retrieve Entity by Id
+        ...    ${entity_id}
+        ...    ${content_type}
+        ...    context=${ngsild_test_suite_context}
     END
     Check Created Resource Set To    ${created_entity}
     [Teardown]    Delete Entity by Id    ${entity_id}

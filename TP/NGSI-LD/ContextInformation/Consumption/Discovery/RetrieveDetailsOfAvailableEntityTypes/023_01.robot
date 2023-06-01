@@ -29,8 +29,8 @@ WithJsonLdContext    [Tags]    ed-types-details    5_7_6
 Retrieve Details Of Available Entity Types
     [Documentation]    Check that you can retrieve a list with a detailed representation of NGSI-LD entity types
     [Arguments]    ${context}    ${expectation_file}
-    Retrieve Entity Types    context=${context}    details=${TRUE}
-    Check Response Status Code Set To    200
+    ${response}=    Retrieve Entity Types    context=${context}    details=${TRUE}
+    Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing EntityType element    ${expectation_file}
 
 Setup Initial Entities
