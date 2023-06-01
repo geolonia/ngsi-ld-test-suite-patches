@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Updated Context Source Registration
+
 
 *** Variables ***
 ${registration_id_prefix}=      urn:ngsi-ld:Registration:
@@ -16,6 +18,7 @@ Update a context source registration by id if the id is not known to the system
     [Documentation]    Check that you cannot update a context source registration by id if the id is not known to the system
     [Tags]    csr-update
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    Set Suite Variable    ${registration_id}
     ${fragment}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${fragment_with_id}=    Update Value To JSON    ${fragment}    $..id    ${registration_id}
     ${response}=    Update Context Source Registration With Return
@@ -24,4 +27,8 @@ Update a context source registration by id if the id is not known to the system
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    404    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Delete Context Source Registration    ${registration_id}
+
+
+*** Keywords ***
+Delete Updated Context Source Registration
+    Delete Context Source Registration    ${registration_id}

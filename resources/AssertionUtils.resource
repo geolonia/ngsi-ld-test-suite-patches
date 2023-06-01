@@ -27,6 +27,14 @@ Check Response Body Containing Array Of URIs set to
 
 Check Response Body Content
     [Arguments]    ${expectation_filename}    ${response_body}    ${additional_ignored_path}=${EMPTY}
+    ${entity_payload}=    Load Json From File    ${EXECDIR}/data/entities/expectations/${expectation_filename}
+    ${all_ignored_paths}=    Create List    ${instance_id_regex_expr}    ${additional_ignored_path}
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys
+    ...    ${entity_payload}
+    ...    ${response_body}
+    ...    ${all_ignored_paths}
+    Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
+    [Arguments]    ${expectation_filename}    ${response_body}    ${additional_ignored_path}=${EMPTY}
     ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/expectations/${expectation_filename}
     ${all_ignored_paths}=    Create List    ${instance_id_regex_expr}    ${additional_ignored_path}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys

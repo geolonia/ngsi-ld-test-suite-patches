@@ -5,6 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Teardown       Delete Initial Entity
 Test Template       Create Entity Scenarios
 
 
@@ -29,6 +30,7 @@ Create Entity Scenarios
     [Tags]    e-create    5_6_1
     [Arguments]    ${filename}    ${content_type}
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
@@ -46,4 +48,6 @@ Create Entity Scenarios
         ...    context=${ngsild_test_suite_context}
     END
     Check Created Resource Set To    ${created_entity}    ${response.json()}
-    [Teardown]    Delete Entity by Id    ${entity_id}
+
+Delete Initial Entity
+    Delete Entity by Id    ${entity_id}

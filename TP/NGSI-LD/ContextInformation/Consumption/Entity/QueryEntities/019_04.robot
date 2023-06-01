@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Entities
+
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
@@ -19,18 +21,21 @@ Query entities in a simplified representation
     [Documentation]    Check that the queried entities by Id can be returned in a simplified representation
     [Tags]    e-query    6_3_7
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Suite Variable    ${first_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${first_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Suite Variable    ${second_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${second_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${third_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Suite Variable    ${third_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${third_entity_id}
@@ -48,12 +53,11 @@ Query entities in a simplified representation
     ...    ${expectation_filename}
     ...    ${entities_ids_to_be_compared}
     ...    ${response.json()}
-    [Teardown]    Delete Entities    ${first_entity_id}    ${second_entity_id}    ${third_entity_id}
+
 
 
 *** Keywords ***
 Delete Entities
-    [Arguments]    ${first_entity_id}    ${second_entity_id}    ${third_entity_id}
     Delete Entity by Id Returning Response    ${first_entity_id}
     Delete Entity by Id Returning Response    ${second_entity_id}
     Delete Entity by Id Returning Response    ${third_entity_id}

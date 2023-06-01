@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Created Context Source Registrations
+
 
 *** Variables ***
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
@@ -16,6 +18,7 @@ Create Context Source Registration With Specific Date Expiration Date
     [Documentation]    Check that you can create a context source registration with specific ID and expiration date
     [Tags]    csr-create
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    Set Suite Variable    ${registration_id}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
     ${registration_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
     ${response}=    Create Context Source Registration With Return    ${registration_payload}
@@ -26,4 +29,8 @@ Create Context Source Registration With Specific Date Expiration Date
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    ${status_regex_expr}
     Check Created Resource Set To    ${registration_payload}    ${response.json()}    ${ignored_attributes}
-    [Teardown]    Delete Context Source Registration    ${registration_id}
+
+
+*** Keywords ***
+Delete Created Context Source Registrations
+    Delete Context Source Registration    ${registration_id}

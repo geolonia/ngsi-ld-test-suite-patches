@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Context Source Registrations
-Suite Teardown      Delete Created Context Source Registrations
+Test Setup          Setup Initial Context Source Registrations
+Test Teardown       Delete Created Context Source Registrations
 Test Template       Query Context Source Registration With Query Params
 
 
@@ -62,9 +62,9 @@ Setup Initial Context Source Registrations
     Create Context Source Registration    ${first_context_source_registration_payload}
     Create Context Source Registration    ${second_context_source_registration_payload}
     Create Context Source Registration    ${third_context_source_registration_payload}
-    Set Suite Variable    ${first_context_source_registration_id}
-    Set Suite Variable    ${second_context_source_registration_id}
-    Set Suite Variable    ${third_context_source_registration_id}
+    Set Test Variable    ${first_context_source_registration_id}
+    Set Test Variable    ${second_context_source_registration_id}
+    Set Test Variable    ${third_context_source_registration_id}
 
 Delete Created Context Source Registrations
     Delete Context Source Registration    ${first_context_source_registration_id}

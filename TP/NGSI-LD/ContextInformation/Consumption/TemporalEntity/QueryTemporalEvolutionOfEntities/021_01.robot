@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Entities
-Suite Teardown      Delete Initial Entities
+Test Setup          Setup Initial Entities
+Test Teardown       Delete Initial Entities
 Test Template       Query the temporal evolution of entities
 
 
@@ -55,9 +55,9 @@ Setup Initial Entities
     ...    ${second_vehicle_payload_file}
     ...    ${second_temporal_entity_representation_id}
     Create Temporal Representation Of Entity    ${bus_payload_file}    ${third_temporal_entity_representation_id}
-    Set Suite Variable    ${first_temporal_entity_representation_id}
-    Set Suite Variable    ${second_temporal_entity_representation_id}
-    Set Suite Variable    ${third_temporal_entity_representation_id}
+    Set Test Variable    ${first_temporal_entity_representation_id}
+    Set Test Variable    ${second_temporal_entity_representation_id}
+    Set Test Variable    ${third_temporal_entity_representation_id}
 
 Delete Initial Entities
     Delete Temporal Representation Of Entity    ${first_temporal_entity_representation_id}

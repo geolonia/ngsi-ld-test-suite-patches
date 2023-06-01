@@ -56,9 +56,9 @@ Setup Initial Entities
     ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity    ${entity_payload_filename}    ${first_entity_id}
     Create Entity    ${entity_payload_filename}    ${second_entity_id}
-    Set Suite Variable    ${first_entity_id}
-    Set Suite Variable    ${second_entity_id}
+    Set Test Variable    ${first_entity_id}
+    Set Test Variable    ${second_entity_id}
 
 Delete Initial Entities
     @{entities_ids_to_be_deleted}=    Create List    ${first_entity_id}    ${second_entity_id}
-    Batch Delete Entities    @{entities_ids_to_be_deleted}    teardown=True
+    Batch Delete Entities    @{entities_ids_to_be_deleted}

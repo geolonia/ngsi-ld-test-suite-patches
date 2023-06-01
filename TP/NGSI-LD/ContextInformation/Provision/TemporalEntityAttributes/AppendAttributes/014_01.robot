@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Temporal Entity
+
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
@@ -18,6 +20,7 @@ ${expectation_filename}=    vehicle-temporal-representation-added-attribute-expe
     [Documentation]    Check that you can add a simple temporal attribute to a temporal representation of an entity
     [Tags]    tea-append    5_6_12
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    Set Suite Variable    ${temporal_entity_representation_id}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    ${temporal_entity_representation_id}
     ...    ${filename}
@@ -40,4 +43,8 @@ ${expectation_filename}=    vehicle-temporal-representation-added-attribute-expe
     ...    ${temporal_entity_expectation_payload}
     ...    ${response.json()}
     ...    ${ignored_attributes}
-    [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
+
+
+*** Keywords ***
+Delete Temporal Entity
+    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

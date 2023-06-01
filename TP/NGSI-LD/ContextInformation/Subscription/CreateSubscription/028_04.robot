@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Initial Subscriptions
+
 
 *** Variables ***
 ${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
@@ -16,6 +18,7 @@ Create a subscription with an id known to the system
     [Documentation]    Check that you cannot create a subscription with an existing id
     [Tags]    sub-create    5_8_1
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    Set Suite Variable    ${subscription_id}
     ${response}=    Create Subscription
     ...    ${subscription_id}
     ...    ${subscription_payload_file_path}
@@ -29,4 +32,6 @@ Create a subscription with an id known to the system
     ...    ${response.json()}
     ...    ${ERROR_TYPE_ALREADY_EXISTS}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Delete Subscription    ${subscription_id}
+
+Delete Initial Subscriptions
+    Delete Subscription    ${subscription_id}

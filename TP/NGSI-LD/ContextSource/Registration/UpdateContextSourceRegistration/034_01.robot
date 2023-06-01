@@ -5,6 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Teardown       Delete Updated Context Source Registration
 Test Template       Update Context Source
 
 
@@ -25,6 +26,7 @@ Update Context Source
     [Tags]    csr-update
     [Arguments]    ${filename}    ${update_filename}
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    Set Test Variable    ${registration_id}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${registration_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
     ${response}=    Create Context Source Registration With Return    ${registration_payload}
@@ -42,4 +44,6 @@ Update Context Source
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    ${status_regex_expr}    @context
     Check Updated Resource Set To    ${registration_payload}    ${response.json()}    ${ignored_attributes}
-    [Teardown]    Delete Context Source Registration    ${registration_id}
+
+Delete Updated Context Source Registration
+    Delete Context Source Registration    ${registration_id}

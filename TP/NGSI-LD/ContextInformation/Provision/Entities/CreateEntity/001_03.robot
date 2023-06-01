@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Initial Entity
+
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
@@ -17,6 +19,7 @@ Create one valid entity and one invalid entity
     [Documentation]    Check that you cannot create an entity with an existing id
     [Tags]    e-create    5_6_1
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Suite Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
@@ -31,4 +34,8 @@ Create one valid entity and one invalid entity
     ...    ${response.json()}
     ...    ${ERROR_TYPE_ALREADY_EXISTS}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Delete Entity by Id    ${entity_id}
+
+
+*** Keywords ***
+Delete Initial Entity
+    Delete Entity by Id    ${entity_id}

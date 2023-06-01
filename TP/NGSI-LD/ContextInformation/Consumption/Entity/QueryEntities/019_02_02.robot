@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Entities
+
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
@@ -24,18 +26,21 @@ Query several entities via POST Interaction based on the entities types
     [Documentation]    Check that you can query several entities via POST Interaction based on the entities types
     [Tags]    e-query    5_7_2
     ${building_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Suite Variable    ${building_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${building_filename}
     ...    ${building_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${vehicle_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    Set Suite Variable    ${vehicle_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${vehicle_filename}
     ...    ${vehicle_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${parking_entity_id}=    Generate Random Entity Id    ${parking_id_prefix}
+    Set Suite Variable    ${parking_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${parking_filename}
     ...    ${parking_entity_id}
@@ -49,12 +54,11 @@ Query several entities via POST Interaction based on the entities types
     ...    ${expectation_filename}
     ...    ${entity_types_to_be_compared}
     ...    ${response.json()}
-    [Teardown]    Delete Entities    ${building_entity_id}    ${vehicle_entity_id}    ${parking_entity_id}
+
 
 
 *** Keywords ***
 Delete Entities
-    [Arguments]    ${building_entity_id}    ${vehicle_entity_id}    ${parking_entity_id}
     Delete Entity by Id Returning Response    ${building_entity_id}
     Delete Entity by Id Returning Response    ${vehicle_entity_id}
     Delete Entity by Id Returning Response    ${parking_entity_id}

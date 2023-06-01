@@ -5,6 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Teardown       Delete Initial Entities
 Test Template       Batch Upsert Entity Scenarios
 
 
@@ -35,6 +36,7 @@ Batch Upsert Entity Scenarios
     @{entities_to_be_upserted}=    Create List    ${first_entity}    ${second_entity}
     ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}
     @{expected_entities_ids}=    Create List    ${first_entity_id}    ${second_entity_id}
+    Set Test Variable    @{expected_entities_ids}
     Check Response Status Code    201    ${response.status_code}
     Check Response Body Containing Array Of URIs set to    ${expected_entities_ids}    ${response.json()}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{expected_entities_ids}
@@ -45,3 +47,6 @@ Batch Upsert Entity Scenarios
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resources Set To    ${entities_to_be_upserted}    ${response.json()}
     ${response}=    Batch Delete Entities    @{expected_entities_ids}
+
+Delete Initial Entities
+    Batch Delete Entities    @{expected_entities_ids}

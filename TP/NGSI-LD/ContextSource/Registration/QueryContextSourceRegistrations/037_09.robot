@@ -5,6 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Created Context Source Registrations
 Test Template       Query Context Source Registration Matching Temporal Query
 
 
@@ -53,4 +54,6 @@ Query Context Source Registration Matching Temporal Query
     ...    ${expectation_file_path}
     ...    ${expected_context_source_registration_ids}
     ...    ${response.json()}
-    [Teardown]    Delete Context Source Registration    ${context_source_registration_id}
+
+Delete Created Context Source Registrations
+    Delete Context Source Registration    ${context_source_registration_id}

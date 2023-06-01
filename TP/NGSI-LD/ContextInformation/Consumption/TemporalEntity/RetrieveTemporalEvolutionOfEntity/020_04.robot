@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Entities
-Suite Teardown      Delete Initial Entities
+Test Setup          Setup Initial Entities
+Test Teardown       Delete Initial Entities
 Test Template       Retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
 
 
@@ -43,7 +43,7 @@ Retrieve the temporal evolution of an entity matching the given NGSI-LD temporal
 Setup Initial Entities
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     Create Temporal Representation Of Entity    ${vehicle_payload_file}    ${temporal_entity_representation_id}
-    Set Suite Variable    ${temporal_entity_representation_id}
+    Set Test Variable    ${temporal_entity_representation_id}
 
 Delete Initial Entities
     Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

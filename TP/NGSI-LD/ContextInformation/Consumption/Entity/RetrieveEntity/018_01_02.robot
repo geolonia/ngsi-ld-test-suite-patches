@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Created Entity
+
 
 *** Variables ***
 ${building_id_prefix}=              urn:ngsi-ld:Building:
@@ -19,6 +21,7 @@ ${attribute_subcategory}=           https://ngsi-ld-test-suite/context#subCatego
     [Documentation]    Check that you can query some attributes from an entity
     [Tags]    e-retrieve    5_7_1
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Suite Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
@@ -34,4 +37,8 @@ ${attribute_subcategory}=           https://ngsi-ld-test-suite/context#subCatego
     ...    attrs=${attributes_to_be_retrieved}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response.json()}
-    [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
+
+
+*** Keywords ***
+Delete Created Entity
+    Delete Entity by Id Returning Response    ${entity_id}

@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Teardown      Delete Entities
+
 
 *** Variables ***
 ${building_id_prefix}=          urn:ngsi-ld:Building:
@@ -20,12 +22,14 @@ Query entities based on incorrect entity types
     [Documentation]    Check that you cannot query entities if the requested entity types are incorrect
     [Tags]    e-query    5_7_2
     ${building_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Suite Variable    ${building_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${building_filename}
     ...    ${building_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${vehicle_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    Set Suite Variable    ${vehicle_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${vehicle_filename}
     ...    ${vehicle_entity_id}
@@ -41,11 +45,10 @@ Query entities based on incorrect entity types
     ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Delete Entities    ${building_entity_id}    ${vehicle_entity_id}
+
 
 
 *** Keywords ***
 Delete Entities
-    [Arguments]    ${building_entity_id}    ${vehicle_entity_id}
     Delete Entity by Id Returning Response    ${building_entity_id}
     Delete Entity by Id Returning Response    ${vehicle_entity_id}

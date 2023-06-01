@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Entities
-Suite Teardown      Delete Initial Entities
+Test Setup          Setup Initial Entities
+Test Teardown       Delete Initial Entities
 Test Template       Retrieve Available Attributes
 
 
@@ -38,7 +38,7 @@ Setup Initial Entities
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
-    Set Suite Variable    ${entity_id}
+    Set Test Variable    ${entity_id}
 
 Delete Initial Entities
     Delete Entity by Id Returning Response    ${entity_id}
