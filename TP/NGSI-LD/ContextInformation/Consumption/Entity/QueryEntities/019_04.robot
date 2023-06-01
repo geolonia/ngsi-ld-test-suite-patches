@@ -55,7 +55,6 @@ Query entities in a simplified representation
     ...    ${response.json()}
 
 
-
 *** Keywords ***
 Delete Entities
     Delete Entity by Id Returning Response    ${first_entity_id}

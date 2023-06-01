@@ -56,7 +56,6 @@ Query several entities based on the entities types
     ...    ${response.json()}
 
 
-
 *** Keywords ***
 Delete Entities
     Delete Entity by Id Returning Response    ${building_entity_id}

@@ -19,7 +19,7 @@ Create Context Source Registration Subscription Without An Id
     [Tags]    csrsub-create    5_11_2
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
-    ${subscription_id}=    Fetch Id From Response Location Header
+    ${subscription_id}=    Fetch Id From Response Location Header    ${response.headers}
     Check Response Status Code    201    ${response.status_code}
     Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
     Set Suite Variable    ${subscription_id}

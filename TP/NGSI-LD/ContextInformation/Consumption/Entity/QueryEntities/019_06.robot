@@ -55,7 +55,6 @@ Query entities specifying a maximum number of results
     Check Response Body Containing Number Of Entities    ${entity_type}    ${2}    ${response.json()}
 
 
-
 *** Keywords ***
 Delete Entities
     Delete Entity by Id Returning Response    ${first_entity_id}

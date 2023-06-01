@@ -55,7 +55,6 @@ Get an entity by id that can be returned in a geoJSON format
     ...    ${response.json()}
 
 
-
 *** Keywords ***
 Delete Entities
     Delete Entity by Id Returning Response    ${first_entity_id}
