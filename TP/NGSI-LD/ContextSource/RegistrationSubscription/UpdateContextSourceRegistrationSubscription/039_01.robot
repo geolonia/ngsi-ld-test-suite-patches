@@ -29,7 +29,7 @@ Update Context Source Registration Subscription
     ...    ${subscription_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    Check Updated Resource Set To    ${subscription}
+    Check Updated Resource Set To    ${subscription}    ${response.json()}
 
 
 *** Keywords ***

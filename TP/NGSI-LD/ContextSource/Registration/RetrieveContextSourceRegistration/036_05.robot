@@ -35,6 +35,7 @@ Check JSON-LD resolution when retrieving a context source registration
     Check Response Body Containing Context Source Registration element
     ...    ${expected_payload}
     ...    ${context_source_registration_id}
+    ...    ${response.json()}
 
 Setup Initial Context Source Registration
     ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}

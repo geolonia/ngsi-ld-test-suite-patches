@@ -30,7 +30,7 @@ Activate Paused Subscription With isActive Member
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
     ${response}=    Retrieve Subscription    ${subscription_id}
-    Check Response Body Containing an Attribute set to    status    active
+    Check Response Body Containing an Attribute set to    status    ${response.json()}    active
 
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}

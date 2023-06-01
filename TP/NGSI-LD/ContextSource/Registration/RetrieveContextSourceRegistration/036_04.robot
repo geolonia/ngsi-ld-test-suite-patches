@@ -26,6 +26,7 @@ Retrieve Context Source Registration
     Check Response Body Containing Context Source Registration element
     ...    ${expectation_file_path}
     ...    ${context_source_registration_id}
+    ...    ${response.json()}
 
 
 *** Keywords ***

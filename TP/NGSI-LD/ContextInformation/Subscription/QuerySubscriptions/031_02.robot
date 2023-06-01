@@ -39,8 +39,11 @@ Query Subscriptions With Limit And Page Parameters
     ...    offset=${offset}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing Number Of Entities    Subscription    ${expectation_subscription_number}
-    Check Pagination Prev And Next Headers    ${prev_link}    ${next_link}
+    Check Response Body Containing Number Of Entities
+    ...    Subscription
+    ...    ${expectation_subscription_number}
+    ...    ${response.json()}
+    Check Pagination Prev And Next Headers    ${prev_link}    ${next_link}    ${response.headers}
 
 Setup Initial Subscriptions
     ${first_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}

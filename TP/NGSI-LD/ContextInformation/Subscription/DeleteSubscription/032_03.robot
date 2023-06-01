@@ -21,7 +21,7 @@ Delete Subscription
     ${response}=    Delete Subscription    ${subscription_id}
     Check Response Status Code    204    ${response.status_code}
     ${response}=    Retrieve Subscription    ${subscription_id}
-    Check SUT Not Containing Resource
+    Check SUT Not Containing Resource    ${response.status_code}
 
 
 *** Keywords ***

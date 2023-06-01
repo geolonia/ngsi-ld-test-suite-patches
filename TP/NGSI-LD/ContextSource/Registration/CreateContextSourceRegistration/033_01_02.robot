@@ -26,5 +26,5 @@ Create Context Source Registration That Never Expires
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    ${status_regex_expr}
-    Check Created Resource Set To    ${registration_payload}    ${ignored_attributes}
+    Check Created Resource Set To    ${registration_payload}    ${response.json()}    ${ignored_attributes}
     [Teardown]    Delete Context Source Registration    ${registration_id}

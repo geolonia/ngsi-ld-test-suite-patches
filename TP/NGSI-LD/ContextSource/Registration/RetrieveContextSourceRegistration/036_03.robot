@@ -24,6 +24,7 @@ Retrieve Context Source Registration With Default Core Context
     Check Response Body Containing Context Source Registration element
     ...    ${expectation_file_path}
     ...    ${context_source_registration_id}
+    ...    ${response.json()}
 
 
 *** Keywords ***

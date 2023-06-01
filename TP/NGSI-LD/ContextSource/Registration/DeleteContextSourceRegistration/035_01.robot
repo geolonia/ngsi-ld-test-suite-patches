@@ -23,4 +23,4 @@ Delete a context source registration by id
     ${response}=    Delete Context Source Registration With Return    ${registration_id}
     Check Response Status Code    204    ${response.status_code}
     ${response}=    Retrieve Context Source Registration    ${registration_id}    context=${ngsild_test_suite_context}
-    Check SUT Not Containing Resource
+    Check SUT Not Containing Resource    ${response.status_code}

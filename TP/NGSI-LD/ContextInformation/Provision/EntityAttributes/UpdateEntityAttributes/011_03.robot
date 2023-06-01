@@ -25,6 +25,5 @@ Update entity attributes when the entity id is not known to the system
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 
-
 *** Keywords ***
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}

@@ -47,7 +47,7 @@ Query entities specifying a maximum number of results
     ...    limit=${limit}
     Check Response Status Code    200    ${response.status_code}
     @{entities_ids_to_be_compared}=    Create List    ${first_entity_id}    ${second_entity_id}
-    Check Response Body Containing Number Of Entities    ${entity_type}    ${2}
+    Check Response Body Containing Number Of Entities    ${entity_type}    ${2}    ${response.json()}
     [Teardown]    Delete Entities    ${first_entity_id}    ${second_entity_id}    ${third_entity_id}
 
 

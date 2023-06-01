@@ -36,6 +36,7 @@ Retrieve the temporal evolution of the last N instances of entity attributes
     Check Response Body Containing EntityTemporal element
     ...    ${vehicle_expectation_file}
     ...    ${temporal_entity_representation_id}
+    ...    ${response.json()}
 
 Setup Initial Entities
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}

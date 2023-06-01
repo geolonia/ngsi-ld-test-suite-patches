@@ -19,11 +19,11 @@ Create one entity using the default context with JSON content type
     ${response}=    Create Entity Selecting Content Type    ${filename}    ${entity_id}    ${CONTENT_TYPE_JSON}
     ${response}=    Retrieve Entity by Id    ${entity_id}
     # Attribute should be compacted as we used the same default context as provided when creating the entity
-    Check Response Body Containing an Attribute set to    almostFull
+    Check Response Body Containing an Attribute set to    almostFull    ${response.json()}
     ${response}=    Retrieve Entity by Id
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
     # Attribute should not be compacted as we did not provide a context containing this term
-    Check Response Body Containing an Attribute set to    ngsi-ld:default-context/almostFull
+    Check Response Body Containing an Attribute set to    ngsi-ld:default-context/almostFull    ${response.json()}
     ${response}=    Delete Entity by Id    ${entity_id}

@@ -38,7 +38,10 @@ Query Context Source Registration Subscriptions With Limit Parameter
     ...    context=${ngsild_test_suite_context}
     ...    limit=${limit}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing Number Of Entities    Subscription    ${expectation_subscription_number}
+    Check Response Body Containing Number Of Entities
+    ...    Subscription
+    ...    ${expectation_subscription_number}
+    ...    ${response.json()}
 
 Setup Initial Context Source Registration Subscriptions
     ${first_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}

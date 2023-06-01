@@ -26,7 +26,6 @@ Retrieve Detailed Representation Of Available Entity Type Without Context
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 
-
 *** Keywords ***
 Setup Initial Entities
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

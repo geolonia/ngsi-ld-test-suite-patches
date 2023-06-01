@@ -42,7 +42,7 @@ Batch Upsert Existing Entities Scenarios
     ...    Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    Check Updated Resources Set To    ${entities_to_be_upserted}
+    Check Updated Resources Set To    ${entities_to_be_upserted}    ${response.json()}
 
 Setup Initial Entities
     ${first_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

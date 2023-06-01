@@ -36,7 +36,7 @@ Activate Expired Subscription
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
     ${response}=    Retrieve Subscription    ${subscription_id}
-    Check Response Body Containing an Attribute set to    status    active
+    Check Response Body Containing an Attribute set to    status    ${response.json()}    active
 
 
 *** Keywords ***

@@ -23,7 +23,7 @@ Create Context Source Registration Subscription Without isActive Member
     Check Response Status Code    201    ${response.status_code}
     Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
     ${response}=    Retrieve context source registration subscription    ${subscription_id}
-    Check Response Body Containing an Attribute set to    status    active
+    Check Response Body Containing an Attribute set to    status    ${response.json()}    active
 
 
 *** Keywords ***

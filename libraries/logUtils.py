@@ -9,7 +9,8 @@ from robot.api.deco import keyword
 @keyword(name="Output", tags=("I/O",))
 def output(response, console=True):
     """*Request and response are output to terminal and file (in JSON).*
-    ``console``: If false, the JSON is not written to terminal. Default is true.
+    :param response: response to a request
+    :param console: If false, the JSON is not written to terminal. Default is true.
     """
 
     try:

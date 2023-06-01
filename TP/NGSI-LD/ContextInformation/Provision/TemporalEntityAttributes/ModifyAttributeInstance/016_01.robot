@@ -57,5 +57,8 @@ ${attributeId}=             speed
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}
     ${ignored_attributes}=    Create List    instanceId    @context    modifiedAt
-    Check Updated Resource Set To    ${temporal_entity_expectation_payload}    ${ignored_attributes}
+    Check Updated Resource Set To
+    ...    ${temporal_entity_expectation_payload}
+    ...    ${response.json()}
+    ...    ${ignored_attributes}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

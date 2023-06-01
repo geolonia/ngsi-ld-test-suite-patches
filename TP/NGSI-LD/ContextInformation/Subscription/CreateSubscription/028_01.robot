@@ -26,5 +26,5 @@ Create Subscription
     ...    ${subscription_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    context=${ngsild_test_suite_context}
-    Check Created Resource Set To    ${expected_subscription}
+    Check Created Resource Set To    ${expected_subscription}    ${response.json()}
     [Teardown]    Delete Subscription    ${subscription_id}

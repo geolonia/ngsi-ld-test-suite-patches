@@ -87,7 +87,6 @@ Query Entity
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -150,7 +149,6 @@ Query Entities
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -199,7 +197,6 @@ Retrieve Entity by Id
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
     ${response}=    GET    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}    headers=${headers}    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -328,7 +325,6 @@ Retrieve Entity Types
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -348,7 +344,6 @@ Retrieve Entity Type
     ...    url=${url}/${ENTITIES_TYPES_ENDPOINT_PATH}/${type}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -371,7 +366,6 @@ Retrieve Attributes
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -391,7 +385,6 @@ Retrieve Attribute
     ...    url=${url}/${ATTRIBUTES_ENDPOINT_PATH}/${attribute_name}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -475,7 +468,6 @@ Create Temporal Representation Of Entity Selecting Content Type
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -633,7 +625,6 @@ Batch Create Entities
     ...    json=@{entities_to_be_created}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -645,7 +636,6 @@ Batch Upsert Entities
     ...    json=@{entities_to_be_upserted}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -657,7 +647,6 @@ Batch Update Entities
     ...    json=@{entities_to_be_updated}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -669,7 +658,6 @@ Batch Delete Entities
     ...    json=@{entities_ids_to_be_deleted}
     ...    headers=${headers}
     ...    expected_status=any
-    IF    not ${teardown}    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -682,7 +670,6 @@ Request Entity From File
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -696,7 +683,6 @@ Batch Request Entities From File
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -757,7 +743,6 @@ Retrieve Temporal Representation Of Entity
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -826,7 +811,6 @@ Query Temporal Representation Of Entities
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -843,7 +827,6 @@ Query Temporal Representation Of Entities Via Post
     ...    json=${query_payload}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -865,7 +848,6 @@ Create Context Source Registration
     ...    json=${context_source_registration_payload}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Suite Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -876,7 +858,6 @@ Update Context Source Registration
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
     ...    json=${update_fragment}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -937,7 +918,6 @@ Query Context Source Registrations
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -945,7 +925,6 @@ Delete Context Source Registration
     [Arguments]    ${context_source_registration_id}
 
     ${response}=    DELETE    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
-    Set Suite Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -963,7 +942,6 @@ Retrieve Context Source Registration
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -979,7 +957,6 @@ Create Context Source Registration Subscription
     ...    json=${subscription_payload}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Suite Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -990,7 +967,6 @@ Update Context Source Registration Subscription
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     ...    json=${subscription_update_fragment}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -1008,7 +984,6 @@ Retrieve Context Source Registration Subscription
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -1031,7 +1006,6 @@ Query Context Source Registration Subscriptions
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -1039,7 +1013,6 @@ Delete Context Source Registration Subscription
     [Arguments]    ${subscription_id}
 
     ${response}=    DELETE    ${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
-    Set Suite Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -1050,7 +1023,6 @@ Update Context Source Registration Subscription From File
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     ...    data=${file_content}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -1112,7 +1084,6 @@ Create Subscription From File
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -1138,7 +1109,6 @@ Update Subscription
     ...    json=${subscription_update_fragment}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -1158,14 +1128,12 @@ Update Subscription With Payload
     ...    json=${payload}
     ...    headers=${headers}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
 Delete Subscription
     [Arguments]    ${subscription_id}
     ${response}=    DELETE    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}    expected_status=any
-    Set Suite Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -1190,7 +1158,6 @@ Query Subscriptions
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 
@@ -1208,7 +1175,6 @@ Retrieve Subscription
     END
 
     ${response}=    GET    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${id}    headers=${headers}    expected_status=any
-    Set Test Variable    ${response}
     Output    ${response}
     RETURN    ${response}
 

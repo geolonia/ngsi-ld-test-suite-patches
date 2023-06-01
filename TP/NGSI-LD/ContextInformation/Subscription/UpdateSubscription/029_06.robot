@@ -32,7 +32,7 @@ Update Subscription
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    context=${ngsild_test_suite_context}
     ${ignored_attributes}=    Create List    ${status_regex_expr}
-    Check Updated Resource Set To    ${subscription}    ${ignored_attributes}
+    Check Updated Resource Set To    ${subscription}    ${response.json()}    ${ignored_attributes}
 
 
 *** Keywords ***

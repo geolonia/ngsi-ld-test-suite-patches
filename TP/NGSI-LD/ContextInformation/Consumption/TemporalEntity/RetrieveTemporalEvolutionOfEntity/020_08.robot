@@ -30,7 +30,6 @@ Retrieve the temporal evolution of non-existing entity attributes
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 
-
 *** Keywords ***
 Setup Initial Entities
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}

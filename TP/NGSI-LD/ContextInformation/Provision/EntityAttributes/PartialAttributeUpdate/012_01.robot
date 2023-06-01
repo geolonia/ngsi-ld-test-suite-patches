@@ -44,5 +44,5 @@ Update Attributes
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    @context
-    Check Updated Resource Set To    ${entity_expectation_payload}    ${ignored_attributes}
+    Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}    ${ignored_attributes}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}

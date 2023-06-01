@@ -30,7 +30,6 @@ Update Subscription With Null Mandatory Properties
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 
-
 *** Keywords ***
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}

@@ -45,5 +45,8 @@ Create Temporal Entity
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}
-    Check Created Resource Set To    ${temporal_entity_expectation_payload}    ${ignored_attributes}
+    Check Created Resource Set To
+    ...    ${temporal_entity_expectation_payload}
+    ...    ${response.json()}
+    ...    ${ignored_attributes}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

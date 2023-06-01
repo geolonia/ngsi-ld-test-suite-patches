@@ -42,6 +42,7 @@ Query the temporal evolution of entities
     Check Response Body Containing List Containing EntityTemporal elements
     ...    ${expectation_file}
     ...    ${temporal_entities_representation_ids}
+    ...    ${response.json()}
 
 Setup Initial Entities
     ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}

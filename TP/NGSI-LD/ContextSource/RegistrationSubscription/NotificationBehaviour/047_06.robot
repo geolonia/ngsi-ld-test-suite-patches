@@ -31,7 +31,10 @@ If A cSourceNotification Is Not Successfully Sent The Notification Member Shall 
     Wait for no notification
     ${response}=    Retrieve Context Source Registration Subscription    ${subscription_id}
     @{expected_notification_additional_members}=    Create List    lastNotification    lastFailure
-    Check NotificationParams    ${notification_expectation_file_path}    ${expected_notification_additional_members}
+    Check NotificationParams
+    ...    ${notification_expectation_file_path}
+    ...    ${expected_notification_additional_members}
+    ...    ${response.json()}
 
 
 *** Keywords ***

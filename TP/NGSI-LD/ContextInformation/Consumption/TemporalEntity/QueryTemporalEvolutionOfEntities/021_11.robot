@@ -37,7 +37,7 @@ Query the temporal evolution of entities with a limit to the number of entities 
     ...    timeAt=2020-07-01T12:05:00Z
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing Number Of Entities    Vehicle    ${limit}
+    Check Response Body Containing Number Of Entities    Vehicle    ${limit}    ${response.json()}
 
 Setup Initial Entities
     ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}

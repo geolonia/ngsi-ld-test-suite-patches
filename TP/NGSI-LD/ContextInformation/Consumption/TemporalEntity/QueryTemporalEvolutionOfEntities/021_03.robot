@@ -34,6 +34,7 @@ Query the temporal evolution of the last N instances of entities attributes
     Check Response Body Containing List Containing EntityTemporal elements
     ...    ${expectation_file}
     ...    ${temporal_entities_representation_ids}
+    ...    ${response.json()}
 
 
 *** Keywords ***

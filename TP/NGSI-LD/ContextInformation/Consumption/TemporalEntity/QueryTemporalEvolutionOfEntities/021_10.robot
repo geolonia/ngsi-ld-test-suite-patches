@@ -31,7 +31,6 @@ Query the temporal evolution of entities matching the given NGSI-LD context sour
     Check Response Status Code    200    ${response.status_code}
 
 
-
 *** Keywords ***
 Create Initial Context Source Registration
     Start Context Source Mock Server
