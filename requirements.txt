@@ -3,5 +3,6 @@ robotframework==6.0.2
 robotframework-jsonlibrary==0.5
 robotframework-requests==0.9.4
 deepdiff==6.3.0
+prettydiff==0.1.0
 robotframework-httpctrl==0.3.1
 robotframework-tidy==4.2.1

@@ -1,15 +1,15 @@
 from __future__ import unicode_literals
 from __future__ import division
-from pygments import highlight, lexers, formatters
 from json import dumps, JSONDecodeError, loads
 from robot.api import logger
 from robot.api.deco import keyword
 
 
 @keyword(name="Output", tags=("I/O",))
-def output(response, console=True):
+def output(response, description, console=True):
     """*Request and response are output to terminal and file (in JSON).*
     :param response: response to a request
+    :param description: explains what request is being made
     :param console: If false, the JSON is not written to terminal. Default is true.
     """
 
@@ -34,16 +34,8 @@ def output(response, console=True):
     pretty_request_json = dumps(request_json, indent=4, sort_keys=False, separators=(",", ": "))
     pretty_response_json = dumps(response_json, indent=4, sort_keys=False, separators=(",", ": "))
 
-    logger.info(pretty_request_json)
-    logger.info(pretty_response_json)
-
-    if console:
-        pretty_request_json_colored = highlight(
-            pretty_request_json, lexers.JsonLexer(), formatters.TerminalFormatter()
-        )
-        pretty_response_json_colored = highlight(
-            pretty_response_json, lexers.JsonLexer(), formatters.TerminalFormatter()
-        )
-
-        logger.console(pretty_request_json_colored)
-        logger.console(pretty_response_json_colored)
+    logger.info("\n" + description, also_console=True)
+    logger.info("Request ->", also_console=True)
+    logger.info(pretty_request_json, also_console=True)
+    logger.info("Response ->", also_console=True)
+    logger.info(pretty_response_json, also_console=True)

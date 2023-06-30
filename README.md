@@ -107,6 +107,19 @@ Launch the tests with the following command:
 
 For more running instructions please consult [scripts/run_tests.sh](./scripts/run_tests.sh).
 
+## Redirect console output to have 
+
+To have the whole messages it is necessary to modify the width of the test execution output with the option --consolewidth (-W). The default width is 78 characters.
+
+```$ robot --consolewidth 150  .```
+
+The messages in the console are clear and without noise, only the strictly necessary (request and response to the CB and a nice message which shows the difference between two documents when they are).
+However, it can be difficult to follow all the messages in the console when there is a lot of testing and a lot of CB calls. 
+This is why a command to redirect the console output to a file can be used.
+You must add a chevron at the end of the test launch command followed by the file name.
+
+```$ robot . > 'results.log```
+
 ## Generate a documentation for the support keywords
 
 ```$ python3 -m robot.libdoc resources/ApiUtils.resource api_docs/ApiUtils.html```

@@ -19,7 +19,10 @@ ${status_regex_expr}=                       root\\['status'\\]
 Check Response Status Code
     [Arguments]    ${expected_status_code}    ${response_status_code}
     ${response_status_code}=    convert to string    ${response_status_code}
-    Should Be Equal    ${expected_status_code}    ${response_status_code}
+    Should Be Equal
+    ...    ${expected_status_code}
+    ...    ${response_status_code}
+    ...    HTTP status code comparison failed with (expected, actual) ->
 
 Check Response Body Containing Array Of URIs set to
     [Arguments]    ${expected_entities_ids}    ${response_body}
