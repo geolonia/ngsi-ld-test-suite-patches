@@ -44,13 +44,13 @@ ${response}                                                     ${EMPTY}
 Delete Entity by Id Returning Response
     [Arguments]    ${id}
     ${response}=    DELETE    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}    expected_status=any
-    Output    ${response}
+    Output    ${response}    Delete Entity by Id Returning Response
     RETURN    ${response}
 
 Delete Entity by Id
     [Arguments]    ${id}
     ${response}=    DELETE    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}    expected_status=any
-    Output    ${response}
+    Output    ${response}    Delete Entity by Id
     RETURN    ${response}
 
 Query Entity
@@ -87,7 +87,7 @@ Query Entity
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Query Entity
     RETURN    ${response}
 
 Query Entities
@@ -149,7 +149,7 @@ Query Entities
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Query Entities
     RETURN    ${response}
 
 Query Entities Via POST
@@ -184,7 +184,7 @@ Query Entities Via POST
     ...    json=${params}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Query Entities Via POST
     RETURN    ${response}
 
 Retrieve Entity by Id
@@ -197,7 +197,7 @@ Retrieve Entity by Id
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
     ${response}=    GET    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}    headers=${headers}    expected_status=any
-    Output    ${response}
+    Output    ${response}    Retrieve Entity by Id
     RETURN    ${response}
 
 Create Entity Selecting Content Type
@@ -218,7 +218,7 @@ Create Entity Selecting Content Type
     ...    json=${entity}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Create Entity Selecting Content Type
     RETURN    ${response}
 
 Append Entity Attributes
@@ -230,7 +230,7 @@ Append Entity Attributes
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Append Entity Attributes
     RETURN    ${response}
 
 Append Entity Attributes With Parameters
@@ -242,7 +242,7 @@ Append Entity Attributes With Parameters
     ...    json=${fragment_payload}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Append Entity Attributes With Parameters
     RETURN    ${response}
 
 Update Entity Attributes
@@ -254,7 +254,7 @@ Update Entity Attributes
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Update Entity Attributes
     RETURN    ${response}
 
 Delete Entity Attributes
@@ -277,7 +277,7 @@ Delete Entity Attributes
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}?${params_as_string}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Delete Entity Attributes
     RETURN    ${response}
 
 Partial Update Entity Attributes
@@ -303,7 +303,7 @@ Partial Update Entity Attributes
     ...    json=${fragment_payload}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Partial Update Entity Attributes
     RETURN    ${response}
 
 Retrieve Entity Types
@@ -325,7 +325,7 @@ Retrieve Entity Types
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Retrieve Entity Types
     RETURN    ${response}
 
 Retrieve Entity Type
@@ -344,7 +344,7 @@ Retrieve Entity Type
     ...    url=${url}/${ENTITIES_TYPES_ENDPOINT_PATH}/${type}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Retrieve Entity Type
     RETURN    ${response}
 
 Retrieve Attributes
@@ -366,7 +366,7 @@ Retrieve Attributes
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Retrieve Attributes
     RETURN    ${response}
 
 Retrieve Attribute
@@ -385,7 +385,7 @@ Retrieve Attribute
     ...    url=${url}/${ATTRIBUTES_ENDPOINT_PATH}/${attribute_name}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Retrieve Attribute
     RETURN    ${response}
 
 Create Context Source Registration With Return
@@ -404,7 +404,7 @@ Create Context Source Registration With Return
     ...    json=${payload}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Create Context Source Registration
     RETURN    ${response}
 
 Update Context Source Registration With Return
@@ -416,7 +416,7 @@ Update Context Source Registration With Return
     ...    json=${fragment}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Update Context Source Registration
     RETURN    ${response}
 
 Delete Context Source Registration With Return
@@ -424,7 +424,7 @@ Delete Context Source Registration With Return
     ${response}=    DELETE
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Delete Context Source Registration
     RETURN    ${response}
 
 Create Entity
@@ -437,7 +437,7 @@ Create Entity
     ...    json=${entity}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Create Entity
     RETURN    ${response}
 
 Create Or Update Temporal Representation Of Entity Selecting Content Type
@@ -456,7 +456,7 @@ Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    json=${temporal_entity_representation}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Create Or Update Temporal Representation Of Entity Selecting Content Type
     RETURN    ${response}
 
 Create Temporal Representation Of Entity Selecting Content Type
@@ -468,7 +468,7 @@ Create Temporal Representation Of Entity Selecting Content Type
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Create Temporal Representation Of Entity Selecting Content Type
     RETURN    ${response}
 
 Append Attribute To Temporal Entity
@@ -480,7 +480,7 @@ Append Attribute To Temporal Entity
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Append Attribute To Temporal Entity
     RETURN    ${response}
 
 Modify Attribute Instance From Temporal Entity
@@ -503,7 +503,7 @@ Modify Attribute Instance From Temporal Entity
     ...    json=${fragment_payload}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Modify Attribute Instance From Temporal Entity
     RETURN    ${response}
 
 Delete Attribute From Temporal Entity
@@ -532,7 +532,7 @@ Delete Attribute From Temporal Entity
     ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${entityId}/attrs/${attributeId}?${params_as_string}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Delete Attribute From Temporal Entity
     RETURN    ${response}
 
 Delete Temporal Representation Of Entity With Returning Response
@@ -540,7 +540,7 @@ Delete Temporal Representation Of Entity With Returning Response
     ${response}=    DELETE
     ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Delete Temporal Representation Of Entity
     RETURN    ${response}
 
 Get Temporal Representation Of Entity
@@ -568,7 +568,7 @@ Get Temporal Representation Of Entity
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Get Temporal Representation Of Entity
     RETURN    ${response}
 
 Delete Attribute Instance From Temporal Entity
@@ -583,7 +583,7 @@ Delete Attribute Instance From Temporal Entity
     ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Delete Attribute Instance From Temporal Entity
     RETURN    ${response}
 
 Update Temporal Representation Of Entity Selecting Content Type
@@ -601,7 +601,7 @@ Update Temporal Representation Of Entity Selecting Content Type
     ...    json=${temporal_entity_fragment}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Update Temporal Representation Of Entity Selecting Content Type
     RETURN    ${response}
 
 Batch Create Entities
@@ -625,7 +625,7 @@ Batch Create Entities
     ...    json=@{entities_to_be_created}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Batch Create Entities
     RETURN    ${response}
 
 Batch Upsert Entities
@@ -636,7 +636,7 @@ Batch Upsert Entities
     ...    json=@{entities_to_be_upserted}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Batch Upsert Entities
     RETURN    ${response}
 
 Batch Update Entities
@@ -647,7 +647,7 @@ Batch Update Entities
     ...    json=@{entities_to_be_updated}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Batch Update Entities
     RETURN    ${response}
 
 Batch Delete Entities
@@ -658,7 +658,7 @@ Batch Delete Entities
     ...    json=@{entities_ids_to_be_deleted}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Batch Delete Entities
     RETURN    ${response}
 
 Request Entity From File
@@ -670,7 +670,7 @@ Request Entity From File
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Request Entity From File
     RETURN    ${response}
 
 Batch Request Entities From File
@@ -683,7 +683,7 @@ Batch Request Entities From File
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Batch Request Entities From File
     RETURN    ${response}
 
 Create Temporal Representation Of Entity
@@ -700,7 +700,7 @@ Create Temporal Representation Of Entity
     ...    json=${temporal_entity_representation}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Create Temporal Representation Of Entity
     RETURN    ${response}
 
 Retrieve Temporal Representation Of Entity
@@ -743,7 +743,7 @@ Retrieve Temporal Representation Of Entity
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Retrieve Temporal Representation Of Entity
     RETURN    ${response}
 
 Query Temporal Representation Of Entities
@@ -811,7 +811,7 @@ Query Temporal Representation Of Entities
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Query Temporal Representation Of Entities
     RETURN    ${response}
 
 Query Temporal Representation Of Entities Via Post
@@ -827,7 +827,7 @@ Query Temporal Representation Of Entities Via Post
     ...    json=${query_payload}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Query Temporal Representation Of Entities Via Post
     RETURN    ${response}
 
 Delete Temporal Representation Of Entity
@@ -836,7 +836,7 @@ Delete Temporal Representation Of Entity
     ${response}=    DELETE
     ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Delete Temporal Representation Of Entity
     RETURN    ${response}
 
 Create Context Source Registration
@@ -848,7 +848,7 @@ Create Context Source Registration
     ...    json=${context_source_registration_payload}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Create Context Source Registration
     RETURN    ${response}
 
 Update Context Source Registration
@@ -858,7 +858,7 @@ Update Context Source Registration
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
     ...    json=${update_fragment}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Update Context Source Registration
     RETURN    ${response}
 
 Query Context Source Registrations
@@ -918,14 +918,14 @@ Query Context Source Registrations
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Query Context Source Registrations
     RETURN    ${response}
 
 Delete Context Source Registration
     [Arguments]    ${context_source_registration_id}
 
     ${response}=    DELETE    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
-    Output    ${response}
+    Output    ${response}    Delete Context Source Registration
     RETURN    ${response}
 
 Retrieve Context Source Registration
@@ -942,7 +942,7 @@ Retrieve Context Source Registration
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Retrieve Context Source Registration
     RETURN    ${response}
 
 Create Context Source Registration Subscription
@@ -957,7 +957,7 @@ Create Context Source Registration Subscription
     ...    json=${subscription_payload}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Create Context Source Registration Subscription
     RETURN    ${response}
 
 Update Context Source Registration Subscription
@@ -967,7 +967,7 @@ Update Context Source Registration Subscription
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     ...    json=${subscription_update_fragment}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Update Context Source Registration Subscription
     RETURN    ${response}
 
 Retrieve Context Source Registration Subscription
@@ -984,7 +984,7 @@ Retrieve Context Source Registration Subscription
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Retrieve Context Source Registration Subscription
     RETURN    ${response}
 
 Query Context Source Registration Subscriptions
@@ -1006,14 +1006,14 @@ Query Context Source Registration Subscriptions
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Query Context Source Registration Subscriptions
     RETURN    ${response}
 
 Delete Context Source Registration Subscription
     [Arguments]    ${subscription_id}
 
     ${response}=    DELETE    ${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
-    Output    ${response}
+    Output    ${response}    Delete Context Source Registration Subscription
     RETURN    ${response}
 
 Update Context Source Registration Subscription From File
@@ -1023,7 +1023,7 @@ Update Context Source Registration Subscription From File
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     ...    data=${file_content}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Update Context Source Registration Subscription From File
     RETURN    ${response}
 
 Create Subscription
@@ -1049,7 +1049,7 @@ Create Subscription
     ...    json=${subscription}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Create Subscription
     RETURN    ${response}
 
 Create Subscription From Subscription Payload
@@ -1072,7 +1072,7 @@ Create Subscription From Subscription Payload
     ...    json=${subscription_payload}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Create Subscription From Subscription Payload
     RETURN    ${response}
 
 Create Subscription From File
@@ -1084,7 +1084,7 @@ Create Subscription From File
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Create Subscription From File
     RETURN    ${response}
 
 Update Subscription
@@ -1109,7 +1109,7 @@ Update Subscription
     ...    json=${subscription_update_fragment}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Update Subscription
     RETURN    ${response}
 
 Update Subscription With Payload
@@ -1128,13 +1128,13 @@ Update Subscription With Payload
     ...    json=${payload}
     ...    headers=${headers}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Update Subscription With Payload
     RETURN    ${response}
 
 Delete Subscription
     [Arguments]    ${subscription_id}
     ${response}=    DELETE    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}    expected_status=any
-    Output    ${response}
+    Output    ${response}    Delete Subscription
     RETURN    ${response}
 
 Query Subscriptions
@@ -1158,7 +1158,7 @@ Query Subscriptions
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Query Subscriptions
     RETURN    ${response}
 
 Retrieve Subscription
@@ -1175,7 +1175,7 @@ Retrieve Subscription
     END
 
     ${response}=    GET    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${id}    headers=${headers}    expected_status=any
-    Output    ${response}
+    Output    ${response}    Retrieve Subscription
     RETURN    ${response}
 
 Query Context Source Registrations With Return
@@ -1235,7 +1235,7 @@ Query Context Source Registrations With Return
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Query Context Source Registrations
     RETURN    ${response}
 
 Query Temporal Representation Of Entities With Return
@@ -1303,5 +1303,5 @@ Query Temporal Representation Of Entities With Return
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Output    ${response}
+    Output    ${response}    Query Temporal Representation Of Entities
     RETURN    ${response}
