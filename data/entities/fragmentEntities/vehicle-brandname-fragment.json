@@ -1,6 +1,4 @@
 {
-    "brandName": {
-        "type": "Property",
-        "value": "BMW"
-    }
+    "type": "Property",
+    "value": "BMW"
 }
