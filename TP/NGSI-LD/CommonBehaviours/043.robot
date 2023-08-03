@@ -69,13 +69,14 @@ ${registration_filename}=       csourceRegistrations/context-source-registration
     ${first_entity}=    Load Entity    ${building_filename}    ${first_entity_id}
     ${second_entity}=    Load Entity    ${building_filename}    ${second_entity_id}
     @{entities_to_be_created}=    Create List    ${first_entity}    ${second_entity}
+    @{entities_ids_to_be_created}=    Create List    ${first_entity_id}    ${second_entity_id}
     ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${expected_status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}
     ...    ${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Batch Delete Entities    @{entities_to_be_created}
+    [Teardown]    Batch Delete Entities    @{entities_ids_to_be_created}
 
 043_05 Create context source registration
     [Documentation]    Verify throwing 503 – LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create context source registration)
