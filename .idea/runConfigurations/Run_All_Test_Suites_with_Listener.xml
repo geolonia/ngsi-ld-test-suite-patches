@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run All tests with Listener" type="RobotFramework" factoryName="RobotFramework">
+  <configuration default="false" name="Run All Test Suites with Listener" type="RobotFramework" factoryName="RobotFramework">
     <option name="target" value="$ProjectFileDir$" />
     <option name="args">
       <list>
