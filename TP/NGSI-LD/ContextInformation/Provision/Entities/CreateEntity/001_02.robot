@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you cannot create an entity with an invalid request
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision/ApiUtils.resource
+# Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 
 Test Template       Create Entity With Invalid Request Scenarios
