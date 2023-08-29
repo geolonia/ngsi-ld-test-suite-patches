@@ -8,18 +8,22 @@ Library         JSONLibrary
 
 
 *** Variables ***
-${BATCH_CREATE_ENDPOINT_PATH}       entityOperations/create
-${BATCH_DELETE_ENDPOINT_PATH}       entityOperations/delete
+${BATCH_CREATE_ENDPOINT_PATH}           entityOperations/create
+${BATCH_DELETE_ENDPOINT_PATH}           entityOperations/delete
+&{BATCH_OPERATION_ENDPOINT_MAPPING}
+...                                     create=${BATCH_CREATE_ENDPOINT_PATH}
+${BATCH_UPDATE_ENDPOINT_PATH}           entityOperations/update
+${BATCH_UPSERT_ENDPOINT_PATH}           entityOperations/upsert
 
-${ENTITIES_ENDPOINT_PATH}           entities/
+${ENTITIES_ENDPOINT_PATH}               entities/
 
-${CONTENT_TYPE_JSON}                application/json
-${CONTENT_TYPE_LD_JSON}             application/ld+json
+${CONTENT_TYPE_JSON}                    application/json
+${CONTENT_TYPE_LD_JSON}                 application/ld+json
 
-${ERROR_TYPE_ALREADY_EXISTS}        https://uri.etsi.org/ngsi-ld/errors/AlreadyExists
-${ERROR_TYPE_BAD_REQUEST_DATA}      https://uri.etsi.org/ngsi-ld/errors/BadRequestData
-${ERROR_TYPE_INVALID_REQUEST}       https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
-${ERROR_TYPE_RESOURCE_NOT_FOUND}    https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
+${ERROR_TYPE_ALREADY_EXISTS}            https://uri.etsi.org/ngsi-ld/errors/AlreadyExists
+${ERROR_TYPE_BAD_REQUEST_DATA}          https://uri.etsi.org/ngsi-ld/errors/BadRequestData
+${ERROR_TYPE_INVALID_REQUEST}           https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
+${ERROR_TYPE_RESOURCE_NOT_FOUND}        https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
 
 
 *** Keywords ***
@@ -80,6 +84,54 @@ Batch Delete Entities
     ...    headers=${headers}
     ...    expected_status=any
     Output    ${response}    Batch Delete Entities
+    RETURN    ${response}
+
+Batch Request Entities From File
+    [Arguments]    ${batchOperation}    ${filename}
+    ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
+    ${endpoint_url}=    Get From Dictionary    ${BATCH_OPERATION_ENDPOINT_MAPPING}    ${batchOperation}
+    &{headers}=    Create Dictionary    Content-Type=application/ld+json
+    ${response}=    POST
+    ...    url=${url}/${endpoint_url}
+    ...    data=${file_content}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}    Batch Request Entities From File
+    RETURN    ${response}
+
+Batch Update Entities
+    [Arguments]    @{entities_to_be_updated}    ${overwrite_option}=overwrite
+    &{headers}=    Create Dictionary    Content-Type=application/ld+json
+    ${response}=    POST
+    ...    url=${url}/${BATCH_UPDATE_ENDPOINT_PATH}?options=${overwrite_option}
+    ...    json=@{entities_to_be_updated}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}    Batch Update Entities
+    RETURN    ${response}
+
+Batch Upsert Entities
+    [Arguments]    @{entities_to_be_upserted}    ${update_option}=replace
+    &{headers}=    Create Dictionary    Content-Type=application/ld+json
+    ${response}=    POST
+    ...    url=${url}/${BATCH_UPSERT_ENDPOINT_PATH}?options=${update_option}
+    ...    json=@{entities_to_be_upserted}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}    Batch Upsert Entities
+    RETURN    ${response}
+
+Create Entity
+    [Arguments]    ${filename}    ${entity_id}
+    ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/${filename}
+    ${entity}=    Update Value To JSON    ${entity_payload}    $..id    ${entity_id}
+    &{headers}=    Create Dictionary    Content-Type=application/ld+json
+    ${response}=    POST
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    json=${entity}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}    Create Entity
     RETURN    ${response}
 
 Create Entity Selecting Content Type
