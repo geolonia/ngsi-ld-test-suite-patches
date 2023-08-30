@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that the queried entities by Id can be returned in a simplified representation
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption/ApiUtils.resource
+# Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

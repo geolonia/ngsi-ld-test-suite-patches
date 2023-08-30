@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can query entities specifying a maximum number of results
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption/ApiUtils.resource
+# Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

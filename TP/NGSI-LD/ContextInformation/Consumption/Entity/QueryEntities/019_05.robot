@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that the queried entities by id can be returned in a geoJSON format
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption/ApiUtils.resource
+# Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

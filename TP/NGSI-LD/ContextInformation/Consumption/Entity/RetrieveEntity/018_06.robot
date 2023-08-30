@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that the JSON-LD @context is obtained from a Link header if present and that the default JSON-LD @context is used if not present
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption/ApiUtils.resource
+# Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

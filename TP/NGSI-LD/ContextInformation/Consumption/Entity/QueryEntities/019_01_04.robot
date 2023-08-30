@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can query several entities based on attribute names
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption/ApiUtils.resource
+# Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

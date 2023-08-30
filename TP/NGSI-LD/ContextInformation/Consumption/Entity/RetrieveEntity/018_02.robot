@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you cannot get an entity with invalid/missing id
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption/ApiUtils.resource
+# Resource    ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 
 Test Template       Get Entity With Invalid/Missing Id
