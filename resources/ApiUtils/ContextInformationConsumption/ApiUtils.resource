@@ -7,7 +7,9 @@ Library         RequestsLibrary
 
 
 *** Variables ***
+${ATTRIBUTES_ENDPOINT_PATH}         attributes
 ${ENTITIES_ENDPOINT_PATH}           entities/
+${ENTITIES_TYPES_ENDPOINT_PATH}     types
 
 ${CONTENT_TYPE_JSON}                application/json
 ${CONTENT_TYPE_LD_JSON}             application/ld+json
@@ -141,4 +143,86 @@ Query Entity
     ...    params=${params}
     ...    expected_status=any
     Output    ${response}    Query Entity
+    RETURN    ${response}
+
+Retrieve Attribute
+    [Arguments]    ${attribute_name}    ${context}=${EMPTY}    ${accept}=${EMPTY}
+
+    &{headers}=    Create Dictionary
+    IF    '${accept}'!=''
+        Set To Dictionary    ${headers}    Accept    ${accept}
+    END
+    IF    '${context}'!=''
+        Set To Dictionary
+        ...    ${headers}
+        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    END
+    ${response}=    GET
+    ...    url=${url}/${ATTRIBUTES_ENDPOINT_PATH}/${attribute_name}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}    Retrieve Attribute
+    RETURN    ${response}
+
+Retrieve Attributes
+    [Arguments]    ${context}=${EMPTY}    ${details}=${FALSE}    ${accept}=${EMPTY}
+
+    &{headers}=    Create Dictionary
+    &{params}=    Create Dictionary
+    IF    '${accept}'!=''
+        Set To Dictionary    ${headers}    Accept    ${accept}
+    END
+    IF    '${context}'!=''
+        Set To Dictionary
+        ...    ${headers}
+        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    END
+    IF    ${details}    Set To Dictionary    ${params}    details=${details}
+    ${response}=    GET
+    ...    url=${url}/${ATTRIBUTES_ENDPOINT_PATH}
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
+    Output    ${response}    Retrieve Attributes
+    RETURN    ${response}
+
+Retrieve Entity Type
+    [Arguments]    ${type}    ${context}=${EMPTY}    ${accept}=${EMPTY}
+
+    &{headers}=    Create Dictionary
+    IF    '${accept}'!=''
+        Set To Dictionary    ${headers}    Accept    ${accept}
+    END
+    IF    '${context}'!=''
+        Set To Dictionary
+        ...    ${headers}
+        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    END
+    ${response}=    GET
+    ...    url=${url}/${ENTITIES_TYPES_ENDPOINT_PATH}/${type}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}    Retrieve Entity Type
+    RETURN    ${response}
+
+Retrieve Entity Types
+    [Arguments]    ${context}=${EMPTY}    ${details}=${FALSE}    ${accept}=${EMPTY}
+
+    &{headers}=    Create Dictionary
+    &{params}=    Create Dictionary
+    IF    '${accept}'!=''
+        Set To Dictionary    ${headers}    Accept    ${accept}
+    END
+    IF    '${context}'!=''
+        Set To Dictionary
+        ...    ${headers}
+        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    END
+    IF    ${details}    Set To Dictionary    ${params}    details=${details}
+    ${response}=    GET
+    ...    url=${url}/${ENTITIES_TYPES_ENDPOINT_PATH}/
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
+    Output    ${response}    Retrieve Entity Types
     RETURN    ${response}
