@@ -16,27 +16,31 @@ ${registration_payload_file_path}=      context-source-registration-invalid-samp
 
 *** Test Cases ***
 034_02_01_Update a context source registration by id if the Id is not present
+    [Tags]    csr-update    5_9_3
     Update Context Source    ${EMPTY}    fragments/context-source-registration-different-type-sample.jsonld
 
 034_02_02_Update a context source registration by id if the Id is not a valid URI
+    [Tags]    csr-update    5_9_3
     Update Context Source    invalidURI    fragments/context-source-registration-different-type-sample.jsonld
 
 034_02_03_Update a context source registration if the request body is not of the same data type
+    [Tags]    csr-update    5_9_3
     Update Context Source
     ...    ${valid_registration_id}
     ...    fragments/context-source-registration-different-type-sample.jsonld
 
 034_02_04_Update a context source registration if you attempt to remove a mandatory property
+    [Tags]    csr-update    5_9_3
     Update Context Source    ${valid_registration_id}    context-source-registration-invalid-structure-sample.jsonld
 
 034_02_05_Update a context source registration if the request body is invalid
+    [Tags]    csr-update    5_9_3
     Update a context source registration if the request body is invalid
 
 
 *** Keywords ***
 Update Context Source
     [Documentation]    Check that you cannot update a context source registration under some conditions
-    [Tags]    csr-update
     [Arguments]    ${registration_id}    ${fragment_filename}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${valid_registration_id}

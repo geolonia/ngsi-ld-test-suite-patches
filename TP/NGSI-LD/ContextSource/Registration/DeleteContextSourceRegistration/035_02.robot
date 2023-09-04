@@ -16,15 +16,16 @@ ${filename}=                    context-source-registration-simple-sample.jsonld
 
 *** Test Cases ***    INVALID_REGISTRATION_ID
 035_02_01_Delete a Context Source Registration if the Id is not present
+    [Tags]    csr-delete    5_9_4
     ${EMPTY}
 035_02_02_Delete a Context Source Registration if the Id is not a valid URI
+    [Tags]    csr-delete    5_9_4
     invalidURI
 
 
 *** Keywords ***
 Delete Context Source
     [Documentation]    Check that you cannot delete a context source registration under some conditions
-    [Tags]    csr-delete
     [Arguments]    ${invalid_registration_id}
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Test Variable    ${registration_id}

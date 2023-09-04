@@ -15,15 +15,16 @@ ${registration_id_prefix}=      urn:ngsi-ld:Registration:
 
 *** Test Cases ***    FILENAME    UPDATE_FILENAME
 034_01_01_Update a context source registration by id
+    [Tags]    csr-update    5_9_3
     context-source-registration-sample.jsonld    context-source-registration-with-expiration-sample.jsonld
 034_01_02_Update a context source registration to never expire
+    [Tags]    csr-update    5_9_3
     context-source-registration-with-expiration-sample.jsonld    context-source-registration-simple-sample.jsonld
 
 
 *** Keywords ***
 Update Context Source
     [Documentation]    Check that you can update a context source registration by id
-    [Tags]    csr-update
     [Arguments]    ${filename}    ${update_filename}
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Test Variable    ${registration_id}
