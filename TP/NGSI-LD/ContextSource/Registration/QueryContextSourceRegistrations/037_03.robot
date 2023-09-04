@@ -9,11 +9,14 @@ Test Template       Query Context Source Registration With Invalid Query Param
 
 
 *** Test Cases ***    QUERY_PARAM_NAME    QUERY_PARAM_VALUE
-Invalid URI    [Tags]    csr-query    5_10_2
+Invalid URI
+    [Tags]    csr-query    5_10_2
     id    invalidUri
-Invalid Query    [Tags]    csr-query    5_10_2
+Invalid Query
+    [Tags]    csr-query    5_10_2
     q    invalidQuery
-Invalid GeoQuery    [Tags]    csr-query    5_10_2
+Invalid GeoQuery
+    [Tags]    csr-query    5_10_2
     georel    within
 Invalid Temporal Query
     [Tags]    csr-query    5_10_2
