@@ -16,6 +16,7 @@ specification of the ETSI NGSI-LD API.
     -   [Install IDE (PyCharm)](#install-ide-pycharm)
     -   [Run configurations (PyCharm)](#run-configurations-pycharm)
     -   [Pre commit](#pre-commit)
+-   [Tooling](#tooling)
 -   [Frameworks and libraries used in the project](#frameworks-and-libraries-used-in-the-project)
 -   [Useful links](#useful-links)   
 -   [LICENSE](#license)
@@ -185,6 +186,27 @@ To manually launch the tool, the following command can be used:
 
 Further details can be found on the [pre-commit](https://pre-commit.com) site.
 
+## Tooling
+
+### Find unused test data files
+
+The `find_unused_test_data.py` script in the `scripts` directory can be used to get a list of the test data files
+that are not used by any Test Case:
+
+```
+python3 scripts/find_unused_test_data.py
+```
+
+### Find and run Test Cases using a given test data file
+
+The `find_tc_using_test_data.py` script in the `scripts` directory can be used to find the Test Cases that are using a 
+given test data file. It can optionally run all the matching Test Cases:
+
+```
+python3 scripts/find_tc_using_test_data.py
+```
+
+When launched, the script asks for a test date file name and if the matching Test Cases should be executed.
 
 ## Frameworks and libraries used in the project
 
