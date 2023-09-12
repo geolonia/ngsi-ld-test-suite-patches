@@ -24,10 +24,10 @@ Observation Interval With observedAt
 Observation Interval Without timeproperty
     [Tags]    csr-query    5_10_2
     ${context_source_registration_observation_interval_payload_file_path}    ${EMPTY}    ${observation_interval_expectation_file_path}
-Mqnagement Interval With createdAt
+Management Interval With createdAt
     [Tags]    csr-query    5_10_2
     ${context_source_registration_management_interval_payload_file_path}    createdAt    ${management_interval_expectation_file_path}
-Mqnagement Interval With modifiedAt
+Management Interval With modifiedAt
     [Tags]    csr-query    5_10_2
     ${context_source_registration_management_interval_payload_file_path}    modifiedAt    ${management_interval_expectation_file_path}
 
