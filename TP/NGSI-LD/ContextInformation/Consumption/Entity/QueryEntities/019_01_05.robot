@@ -46,6 +46,7 @@ Query several entities based on a list of properties
     ...    ${expectation_filename}
     ...    ${entities_ids_to_be_compared}
     ...    ${response.json()}
+    ...    ${True}
 
 
 *** Keywords ***

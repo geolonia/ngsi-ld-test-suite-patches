@@ -31,7 +31,11 @@ Get an entity in a simplified representation
     ...    ${CONTENT_TYPE_LD_JSON}
     ...    options=${options_parameter}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response.json()}
+    Check Response Body Containing Entity element
+    ...    ${expectation_filename}
+    ...    ${entity_id}
+    ...    ${response.json()}
+    ...    ${True}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
 
 
