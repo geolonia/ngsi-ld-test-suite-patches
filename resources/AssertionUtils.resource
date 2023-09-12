@@ -382,7 +382,7 @@ Check Resource Set To
     ...    ${expected_resource}
     ...    ${response_body}
     ...    ${ignored_keys}
-    ...    ${group_by}
+    ...    group_by=${group_by}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Created Resource Set To
