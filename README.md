@@ -1,71 +1,158 @@
-# Quick start guide
+# ETSI NGSI-LD Test Suite
 
-## Install Python & PIP   
+This repository contains the ETSI NGSI-LD Test Suite to test the compliance of the Context Brokers with the
+specification of the ETSI NGSI-LD API.
 
-* Install Python3 by running the following command:
+## Contents
 
-```$ sudo dnf install python3``` (Ubuntu)
+<details>
 
-```$ brew install python3``` (MacOS)
+<summary><strong>Details</strong></summary>
 
-* Confirm its installation with:   
+-   [Install the Test Suite](#install-the-test-suite)
+-   [Configure the test suite](#configure-the-test-suite)
+-   [Execute the NGSI-LD Test Suite](#execute-the-ngsi-ld-test-suite)
+-   [Contribute to the Test Suite](#contribute-to-the-test-suite)
+    -   [Install IDE (PyCharm)](#install-ide-pycharm)
+    -   [Run configurations (PyCharm)](#run-configurations-pycharm)
+    -   [Pre commit](#pre-commit)
+-   [Frameworks and libraries used in the project](#frameworks-and-libraries-used-in-the-project)
+-   [Useful links](#useful-links)   
+-   [LICENSE](#license)
 
-```$ python3 --version``` (Ubuntu)
+</details>
 
-```$ python3 --version``` (MacOS)
 
-* At this point, you can launch Python3 interpreter:    
+## Install the Test Suite
 
-```$ python3``` (Ubuntu)
+In order to install the ETSI NGSI-LD Test Suite, download the configuration script:
 
-```$ python3``` (MacOS)
+- For MacOS and Ubuntu, download the following file:
 
-* Pip should be included by default. To confirm, run:   
+```$ curl https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/windows11/scripts/configure.sh > configure.sh```
 
-```$ command -v pip``` (Ubuntu)
+- For Windows, using Powershell download the following file (curl is an alias for Invoke-WebRequest in Powershell):
 
-```$ pip3 --version``` (MacOS)
+```> curl https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/windows11/scripts/configure.ps1 > configure.ps1```
 
-* In case pip is not installed, [follow the official pip installation guide](https://pip.pypa.io/en/latest/installing/).
+- For MacOS and Ubuntu, be sure that you have the proper execution permissions of the file and the user is included 
+in the sudoers group, then execute the following script:
 
-## Install IDE (PyCharm)
+```$ configure.sh```
 
-* Install [PyCharm](https://www.jetbrains.com/fr-fr/pycharm/download)
+- In Windows 11, using Powershell, make sure you can run the script:
 
-* Install [Robot Framework Language Server](https://plugins.jetbrains.com/plugin/16086-robot-framework-language-server)
+```> powershell -executionpolicy bypass configure.ps1```
 
-* Define as variable the path of the working directory: in Settings > Languages & Frameworks > Robot Framework (Project), 
+These scripts develop a set of operations, the same in the different Operating System, which consist of:
+- Installation of the corresponding software requirements:
+  - Python3.11
+  - Git
+  - Virtualenv
+  - Pip
+- Cloning the NGSI-LD Test Suite repository in the local folder and create the corresponding Python Virtual Environment
+taking into account the content of `requirements.txt` file. Further details on each library can be found in 
+[PyPi](https://pypi.org/) and 
+[Robot Framework Standard Libraries](http://robotframework.org/robotframework/#standard-libraries).
+
+
+## Configure the test suite
+
+In the `resources/variables.py` file, configure the following parameters:
+
+- `url` : It is the url of the context broker which is to be tested (including the `ngsi-ld/v1` path, 
+e.g., http://localhost:8080/ngsi-ld/v1).
+- `notification_server_host` and `notification_server_port` : This is the address and port used to create the local 
+server to listen to notifications (the address must be accessible by the context broker). 
+Default value: `0.0.0.0` and `8085`.
+- `send_notification_server_host` and `send_notification_server_port` : This is the address and port used when 
+creating the subscription on the context broker (generally it is the same information as `notification_server_host` 
+and `notification_server_port`). Default value: `0.0.0.0` and `8085`.
+- `context_source_host` and `context_source_port` : The address and port used for the context source. 
+Default value: `0.0.0.0` and `8086`.
+
+When you execute locally the tests, you can leave the default values as they are. NGSI-LD Test Suite provides
+some mockup services to provide the required functionality.
+
+
+## Execute the NGSI-LD Test Suite
+
+The first operation that you have to develop is the activation of the Python Virtual Environment through the
+execution of the following command in MacOS or Ubuntu:
+
+```$ source .venv/bin/activate```
+
+In case of Windows, you need to execute the following command:
+
+```> .\.venv\scripts\activate.bat ```
+
+Now, you can launch the tests with the following command in MacOS or Linux:
+
+```$ robot --outputdir ./results .```  
+
+For Windows system, you can lauch the tests with the following command:
+
+```> robot --outputdir .\results .\TP\NGSI-LD```
+
+For more running instructions, please consult [scripts/run_tests.sh](./scripts/run_tests.sh) or [scripts/run_tests.ps1](./scripts/run_tests.ps1)
+
+To have the whole messages, it is necessary to modify the width of the test execution output with the option 
+--consolewidth (-W). The default width is 78 characters.
+
+```$ robot --consolewidth 150  .```
+
+The messages in the console are clear and without noise, only the strictly necessary (request and response to the 
+Context Brokers and a nice message which shows the difference between two documents when they are). However, it can be 
+difficult to follow all the messages in the console when there is a lot of testing and a lot of Context Broker calls. 
+This is why a command to redirect the console output to a file can be used. You must add a chevron at the end of the 
+test launch command followed by the file name.
+
+```$ robot . > results.log```
+
+If you want to generate a documentation for the support keywords:
+
+```$ python3 -m robot.libdoc resources/ApiUtils.resource api_docs/ApiUtils.html```
+
+If you want to generate a documentation for the Test Cases:
+
+```$ python3 -m robot.testdoc TP/NGSI-LD api_docs/TestCases.html```
+
+And if you want to tidy the Test Cases:
+
+```$ python3 -m robot.tidy --recursive TP/NGSI-LD```
+
+> **Note:** if you want to deactivate the Python Virtual Environment just execute the command in 
+> MacOS and Ubuntu systems:
+> 
+> ```console
+> $ deactivate
+> ```
+> And in Window system:
+> 
+> ```console
+> > .venv\scripts\deactivate.bat
+> ```
+
+
+## Contribute to the Test Suite
+
+In order to contribute to the ETSI NGSI-LD Test Suite, you recommend the installation of an IDE with the corresponding
+Robot Framework. Our recommendations are:
+
+- PyCharm
+
+
+### Install IDE (PyCharm)
+
+- Install [PyCharm](https://www.jetbrains.com/fr-fr/pycharm/download)
+
+- Install [Robot Framework Language Server](https://plugins.jetbrains.com/plugin/16086-robot-framework-language-server)
+
+- Define as variable the path of the working directory. In Settings > Languages & Frameworks > Robot Framework (Project), 
 insert the following: `{"EXECDIR": "{path}/auth-test-suite"}`
 
-## Install IDE (VSCode)
 
-* Install [Visual Studio Code](https://code.visualstudio.com/docs/setup/linux)
-
-* Install [Robot Framework Intellisense](https://marketplace.visualstudio.com/items?itemName=TomiTurtiainen.rf-intellisense)
-
-## Checkout the base project   
-
-```$ git clone git@forge.etsi.org:cim/ngsi-ld-test-suite.git```
-
-## Configure the environment
-
-In the `resources/variables.py` file, configure the following:
-* `url` : It is the url of the context broker which is to be tested (including the `ngsi-ld/v1` path, e.g., http://localhost:8080/ngsi-ld/v1).
-* `notification_server_host` and `notification_server_port` : This is the address and port used to create the local server to listen to notifications (the address must be accessible by the context broker).
-* `send_notification_server_host` and `send_notification_server_port` : This is the address and port used when creating the subscription on the context broker (generally it is the same information as `notification_server_host` and `notification_server_port`).
-* `context_source_host` and `context_source_port` : The address and port used for the context source.
-
-## Install the project requirements
-
-Browse the base project root folder and execute the following command:   
-
-```$ python3 -m pip install -r requirements.txt``` (Ubuntu)
-
-```$ python3 -m pip install -r requirements.txt``` (MacOS)
-
-Further details on each library can be found in [PyPi](https://pypi.org/) and [Robot Framework Standard Libraries](http://robotframework.org/robotframework/#standard-libraries)
-
-## Run configurations (PyCharm)
+### Run configurations (PyCharm)
 
 Two sample configurations have been created:
 
@@ -74,12 +161,13 @@ Two sample configurations have been created:
 
 To launch a run configuration, choose one of the two configurations from the Run menu and click on it to run it.
 
-## Pre commit
 
-Before each commit, a formatting according to the rules of [Robotidy](https://github.com/MarketSquare/robotframework-tidy)
- is done for files with the `.robot` or `.resource` extension. If nothing has been modified, the commit is done normally.
- Otherwise, the commit displays an error message with all the modifications made by Robotidy to format the file. Modified
- files can then be added to the commit.
+### Pre commit
+
+Before each commit, a formatting according to the rules of 
+[Robotidy](https://github.com/MarketSquare/robotframework-tidy) is done for files with the `.robot` or `.resource` 
+extension. If nothing has been modified, the commit is done normally. Otherwise, the commit displays an error message 
+with all the modifications made by Robotidy to format the file. Modified files can then be added to the commit.
 
 To use it, install `pre-commit` with the following commands (using pip):
 
@@ -93,46 +181,12 @@ Now, it will run automatically on every commit.
 
 To manually launch the tool, the following command can be used:
 
-```$ ./venv/bin/python -m robotidy .```
+```$ python -m robotidy .```
 
 Further details can be found on the [pre-commit](https://pre-commit.com) site.
 
-## Execute the tests
 
-Configure the context broker URL in the resources/variables.py file
-
-Launch the tests with the following command:
-
-```$ robot --outputdir ./results .```   
-
-For more running instructions please consult [scripts/run_tests.sh](./scripts/run_tests.sh).
-
-## Redirect console output to have 
-
-To have the whole messages it is necessary to modify the width of the test execution output with the option --consolewidth (-W). The default width is 78 characters.
-
-```$ robot --consolewidth 150  .```
-
-The messages in the console are clear and without noise, only the strictly necessary (request and response to the CB and a nice message which shows the difference between two documents when they are).
-However, it can be difficult to follow all the messages in the console when there is a lot of testing and a lot of CB calls. 
-This is why a command to redirect the console output to a file can be used.
-You must add a chevron at the end of the test launch command followed by the file name.
-
-```$ robot . > 'results.log```
-
-## Generate a documentation for the support keywords
-
-```$ python3 -m robot.libdoc resources/ApiUtils.resource api_docs/ApiUtils.html```
-
-## Generate a documentation for the Test Cases
-
-```$ python3 -m robot.testdoc TP/NGSI-LD api_docs/TestCases.html```
-
-## Tidy the Test Cases
-
-```$ python3 -m robot.tidy --recursive TP/NGSI-LD```
-
-# Frameworks and libraries used in the project
+## Frameworks and libraries used in the project
 
 * [Robot Framework](https://github.com/robotframework/robotframework)
 * [JSON Library](https://github.com/robotframework-thailand/robotframework-jsonlibrary)
@@ -141,6 +195,15 @@ You must add a chevron at the end of the test launch command followed by the fil
 * [HttpCtrl Library](https://github.com/annoviko/robotframework-httpctrl)
 * [Robotidy Library ](https://github.com/MarketSquare/robotframework-tidy)
 
-# Useful links   
+
+## Useful links
 
 * [Robot Framework User Guide](http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#output-file)   
+
+
+## LICENSE
+
+Copyright 2021 ETSI
+
+The content of this repository and the files contained are released under the [ETSI Software License](LICENSE) a 
+(BSD-3-Clause LICENSE).
