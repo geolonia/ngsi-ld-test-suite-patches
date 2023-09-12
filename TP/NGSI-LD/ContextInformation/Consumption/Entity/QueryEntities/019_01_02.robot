@@ -54,6 +54,7 @@ Query several entities based on the entities types
     ...    ${expectation_filename}
     ...    ${entities_ids_to_be_compared}
     ...    ${response.json()}
+    ...    ${True}
 
 
 *** Keywords ***

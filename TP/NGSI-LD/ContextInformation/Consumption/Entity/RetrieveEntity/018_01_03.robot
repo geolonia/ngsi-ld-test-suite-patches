@@ -31,7 +31,11 @@ ${geometry_property}=       location
     ...    ${CONTENT_TYPE_LD_JSON}
     ...    geoproperty=${geometry_property}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response.json()}
+    Check Response Body Containing Entity element
+    ...    ${expectation_filename}
+    ...    ${entity_id}
+    ...    ${response.json()}
+    ...    ${True}
 
 
 *** Keywords ***
