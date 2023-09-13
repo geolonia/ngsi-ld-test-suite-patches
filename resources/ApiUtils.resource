@@ -640,10 +640,15 @@ Batch Upsert Entities
     RETURN    ${response}
 
 Batch Update Entities
-    [Arguments]    @{entities_to_be_updated}    ${overwrite_option}=overwrite
+    [Arguments]    @{entities_to_be_updated}    ${overwrite_option}=${EMPTY}
+    @{params}=    Create List
+    IF    '${overwrite_option}'!=''
+        Append To List    ${params}    options=${overwrite_option}
+    END
+    ${params_as_string}=    Catenate    SEPARATOR=&    @{params}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${url}/${BATCH_UPDATE_ENDPOINT_PATH}?options=${overwrite_option}
+    ...    url=${url}/${BATCH_UPDATE_ENDPOINT_PATH}?${params_as_string}
     ...    json=@{entities_to_be_updated}
     ...    headers=${headers}
     ...    expected_status=any
