@@ -65,7 +65,8 @@ class ParseRobotFile:
         else:
             string = self.file_contents[index_start+len(initial_string):]
 
-        index_end = string.find(final_string)
-        string = string[:index_end]
+        if final_string is not '':
+            index_end = string.find(final_string)
+            string = string[:index_end]
 
         return string
