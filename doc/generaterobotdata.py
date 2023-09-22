@@ -12,6 +12,10 @@ class GenerateRobotData:
         self.suite = TestSuiteBuilder().build(robot_file)
         self.test_cases = list()
         self.test_suite = dict()
+        self.tags_template = list()
+        self.documentation_template = str()
+        self.arguments = list()
+        self.args = list()
         self.identifier = {
             'ContextInformation': 'CI',
             'CommonBehaviours': 'CB',
@@ -108,7 +112,6 @@ class GenerateRobotData:
         expected_status_code = self.robot.get_expected_status_code(keyword='Check Response Status Code')
         self.test_cases[index]['expected_status_code'] = expected_status_code
 
-
     def check_header_parameters(self, params: list, test: str):
         value = str()
 
@@ -201,14 +204,40 @@ class GenerateRobotData:
         }
 
     def visit_test(self, test):
+        # Get Tags associated to the test
+        if len(test.tags) == 0 and self.tags_template is not None:
+            tags = self.tags_template
+        else:
+            tags = list(test.tags)
+
+        # Get the Documentation associated to the test
+        if len(test.doc) == 0 and self.documentation_template is not None:
+            documentation = self.documentation_template
+        else:
+            documentation = test.doc
+
+        # Get the Content-Type and Body associated to the Test
+        if len(self.args) != 0:
+            params = self.args[test.name]
+            index = [index for index, value in enumerate(self.arguments) if value == '${content_type}'][0]
+            content_type = params[index]
+
+            body = self.get_body(string=test.name)
+        else:
+            # Need to develop this case
+            content_type = ''
+            body = ''
+
         test_case = {
             'name': test.name,
             'permutation_tp_id': f'{self.base_TP_id}/{test.name.split(" ")[0]}',
-            'doc': test.doc,
-            'tags': list(test.tags),
+            'doc': documentation,
+            'tags': tags,
             'setup': test.setup.name,
             'teardown': test.teardown.name,
-            'template': test.template
+            'template': test.template,
+            'content-type': content_type,
+            'body': body
         }
 
         try:
@@ -217,6 +246,19 @@ class GenerateRobotData:
             self.test_suite['initial_condition'] = self.initial_conditions['Initial State']
 
         self.test_cases.append(test_case)
+
+    def get_body(self, string: str) -> str:
+        aux = string.split(' ')[1:]
+
+        if len(aux) >= 2:
+            aux = [self.get_body(x) for x in aux]
+            aux = ' '.join(aux)
+        elif len(aux) == 1:
+            aux = re.sub(r'([a-z])([A-Z])', r'\1 \2', aux[0])
+        else:
+            aux = re.sub(r'([a-z])([A-Z])', r'\1 \2', string)
+
+        return aux
 
     def generate_name(self):
         current_path = getcwd()
@@ -253,9 +295,13 @@ class GenerateRobotData:
         # Get the list of arguments, we select the first one because the 2nd keyword corresponds
         # to the teardown operation
         args = [list(x.keywords)[0] for x in self.suite.tests]
-        self.args = [{x.name: list(x.args)} for x in args]
+        args = [{str(x.parent): list(x.args)} for x in args]
+        self.args = dict()
+        _ = [self.args.update(x) for x in args]
 
-        template_name = list(set([list(x.keys())[0] for x in self.args]))[0]
+
+        template_name = list(set([list(x.keywords)[0].name for x in self.suite.tests]))[0]
+
         # Due to the information of the tags are contained in the Keyword description of the template, we need to
         # analyse the Keyword.
         string = self.robot.get_substring(initial_string='** Keywords ***', final_string='', include=False)
@@ -269,12 +315,19 @@ class GenerateRobotData:
 
         # Get the Tags line and the tag value
         tags = self.get_substring(string=string, key='[Tags]')
+        self.tags_template = tags[1:]
+
         tag = list(set([element for sublist in tags for element in tags if element[0].isdigit()]))[0]
         reference = f'{self.references[version]}{tag.replace("_", ".")}'
         pics = f'PICS_{tag}'
 
         # Get the arguments
-        arguments = self.get_substring(string=string, key='[Arguments]')
+        self.arguments = self.get_substring(string=string, key='[Arguments]')
+        self.arguments = self.arguments[1:]
+
+        # Get the documentation
+        self.documentation_template = self.get_substring(string=string, key='[Documentation]')
+        self.documentation_template = self.documentation_template[1:][0]
 
         return reference, pics
 
@@ -289,7 +342,7 @@ class GenerateRobotData:
         check_tags = all(item == tags[0] for item in tags)
 
         if check_tags is False or len(tags) == 0:
-            print(f'ERROR: the Test Suite {self.suite.name} has different clauses or no clauses (Tags): {aux}\n'
+            print(f'ERROR: the Test Suite {self.suite.name} has different clauses or no clauses (Tags): {tags}\n'
                   f'Unable to select the corresponding Reference of this Test Suite')
             reference = ''
             pics = ''

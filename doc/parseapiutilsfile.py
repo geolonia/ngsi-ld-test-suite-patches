@@ -11,7 +11,6 @@ class ParseApiUtilsFile:
 
         self.get_variables_data()
 
-
     def get_response(self, keyword):
         string = self.get_substring(initial_string=keyword, final_string='RETURN', include=True)
         index = string.find('    ${response}')
@@ -40,7 +39,8 @@ class ParseApiUtilsFile:
         for match in matches:
             # Check that we have two groups matched
             if len(match.groups()) == 2:
-                self.variables[match.group(1)] = match.group(2)
+                if match.group(1) not in self.variables.keys():
+                    self.variables[match.group(1)] = match.group(2)
             else:
                 print("Error, the variable is not following the format ${thing} = <value>")
 
