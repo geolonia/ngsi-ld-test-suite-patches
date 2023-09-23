@@ -33,7 +33,19 @@ class Checks:
             'Check Response Body Containing Subscription element':
                 Checks.check_response_body_containing_subscription_element,
             'Check Response Body Containing List Containing Subscription elements':
-                Checks.check_response_body_containing_list_containing_subscription_elements
+                Checks.check_response_body_containing_list_containing_subscription_elements,
+            'Check Response Body Containing Number Of Entities':
+                Checks.check_response_body_containing_number_of_entities,
+            'Check Response Body Containing Context Source Registration element':
+                Checks.check_response_body_containing_context_source_registration_element,
+            'Check Response Body Containing EntityTypeList element':
+                Checks.check_response_body_containing_entitytypelist_element,
+            'Check Response Body Containing EntityType element':
+                Checks.check_response_body_containing_entitytype_element,
+            'Check Response Body Containing EntityTypeInfo element':
+                Checks.check_response_body_containing_entitytypeinfo_element,
+            'Check Response Body Containing AttributeList element':
+                Checks.check_response_body_containing_attributelist_element
         }
 
     @staticmethod
@@ -119,6 +131,7 @@ class Checks:
     def check_response_body_containing_subscription_element(kwargs: list) -> str:
         return 'Response Body containing the representation of CSRS1'
 
+    @staticmethod
     def check_response_body_containing_list_containing_subscription_elements(kwargs: list) -> str:
         if "number" in kwargs:
             number = kwargs['number']
@@ -135,6 +148,46 @@ class Checks:
                 raise Exception(f'ERROR, number attribute must be an integer value')
         else:
             raise Exception(f'ERROR, number attribute was not provided, but received: {kwargs}')
+
+    @staticmethod
+    def check_response_body_containing_number_of_entities(kwargs: list) -> str:
+        if "entity_type" in kwargs and 'number_entities' in kwargs:
+            mumber_entityes = kwargs['number_entities']
+            entity_type = kwargs['entity_type']
+            return f"Response Body containing a list of entities ({mumber_entityes}) of type '{entity_type}'"
+        else:
+            raise Exception(f'ERROR, expected entity_type and number_entities attributes, but received: {kwargs}')
+
+    @staticmethod
+    def check_response_body_containing_context_source_registration_element(kwargs: list) -> str:
+        if 'csr_description' in kwargs:
+            csr = kwargs['csr_description']
+            return f"Response body containing a '{csr}'"
+        else:
+            raise Exception(f"ERROR, expected csr_description attribute, but received: {kwargs}")
+
+
+    @staticmethod
+    def check_response_body_containing_entitytypelist_element(kwargs: list) -> str:
+        if 'description' in kwargs:
+            description = kwargs['description']
+            return f"Response Body containing a '{description}'"
+        else:
+            raise Exception(f"ERROR, expected description attribute, but received: {kwargs}")
+
+    @staticmethod
+    def check_response_body_containing_entitytype_element(kwargs: list) -> str:
+        if 'description' in kwargs:
+            description = kwargs['description']
+            return f"Response Body containing a '{description}'"
+        else:
+            raise Exception(f"ERROR, expected description attribute, but received: {kwargs}")
+
+    def check_response_body_containing_entitytypeinfo_element(kwargs: list) -> str:
+        return 'Response Body containing an Entity Type Info'
+
+    def check_response_body_containing_attributelist_element(kwargs: list) -> str:
+        return 'Response Body containing an Attribute List element'
 
     def get_checks(self, **kwargs) -> str:
         checking = None
@@ -175,19 +228,7 @@ then {
     * Check Response Body Content
     
     (is not a final check) Check Response Body Containing Batch Operation Result
-                        
-    Check Response Body Containing Number Of Entities
-    
-    Check Response Body Containing Context Source Registration element
-    
-    Check Response Body Containing EntityTypeList element
-    
-    Check Response Body Containing EntityType element
-    
-    Check Response Body Containing EntityTypeInfo element
-    
-    Check Response Body Containing AttributeList element
-    
+                                              
     Check Response Body Containing Attribute element
     
     Check Response Body Containing List Containing Context Source Registrations elements
@@ -253,6 +294,17 @@ if __name__ == "__main__":
                           number=2))
     print(data.get_checks(checks='Check Response Body Containing List Containing Subscription elements',
                           number=1))
+    print(data.get_checks(checks='Check Response Body Containing Number Of Entities',
+                          entity_type="Vehicle",
+                          number_entities=3))
+    print(data.get_checks(checks='Check Response Body Containing Context Source Registration element',
+                          csr_description='Context Source Registration'))
+    print(data.get_checks(checks='Check Response Body Containing EntityTypeList element',
+                          description='Json object with list of entity types with context'))
+    print(data.get_checks(checks='Check Response Body Containing EntityType element',
+                          description='Json object with an entity type with context'))
+    print(data.get_checks(checks='Check Response Body Containing EntityTypeInfo element'))
+    print(data.get_checks(checks='Check Response Body Containing AttributeList element'))
 
     print()
     print(data.get_checks(checks=
