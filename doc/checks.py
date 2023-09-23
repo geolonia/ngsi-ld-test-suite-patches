@@ -6,7 +6,12 @@ class Checks:
         self.checks = {
             'Check Response Status Code': Checks.check_response_status_code,
             'Check Response Body Containing Array Of URIs set to': Checks.check_response_body_containing_array_of_uris_set_to,
-            'Check Created Resources Set To': Checks.check_created_resources_set_to
+            'Check Created Resources Set To': Checks.check_created_resources_set_to,
+            'Check Response Headers Containing Content-Type set to': Checks.check_response_headers_containing_content_type_set_to,
+            'Check Response Headers Link Not Empty':Checks.check_response_headers_link_not_empty,
+            'Check Response Headers Containing URI set to': Checks.check_response_headers_containing_uri_set_to,
+            'Check Response Headers ID Not Empty': Checks.check_response_headers_id_not_empty,
+            'Check Response Body Containing an Attribute set to': Checks.check_response_body_containing_an_attribute_set_to
         }
 
     @staticmethod
@@ -24,6 +29,41 @@ class Checks:
     @staticmethod
     def check_created_resources_set_to(kwargs: list) -> str:
         return 'Created resources set to ${entities}'
+
+    @staticmethod
+    def check_response_headers_containing_content_type_set_to(kwargs: list) -> str:
+        if "content_type" in kwargs:
+            content_type = kwargs['content_type']
+            return f'Response Header: Content-Type set to {content_type}'
+        else:
+            raise Exception(f'ERROR, Expected status_code parameter but received: {kwargs}')
+
+    @staticmethod
+    def check_response_headers_link_not_empty(kwargs: list) -> str:
+        return f'Response Header: Link is not Empty'
+
+    @staticmethod
+    def check_response_headers_containing_uri_set_to(kwargs: list) -> str:
+        return 'Response Header: Location containing ${registration_id}'
+
+    @staticmethod
+    def check_response_headers_id_not_empty(kwargs: list) -> str:
+        return 'Response Header: Location is not Empty'
+
+    @staticmethod
+    def check_response_body_containing_an_attribute_set_to(kwargs: list) -> str:
+        if "attribute_name" in kwargs:
+            attribute_name = kwargs['attribute_name']
+
+            if "attribute_value" in kwargs:
+                attribute_value = kwargs['attribute_value']
+                result = f"Response Body contains the attribute: '{attribute_name}', with the value: '{attribute_value}'"
+            else:
+                result = f"Response Body contains the attribute: '{attribute_name}'"
+
+            return result
+        else:
+            raise Exception(f'ERROR, Expected status_code parameter but received: {kwargs}')
 
     def get_checks(self, **kwargs) -> str:
         checking = None
@@ -43,17 +83,6 @@ class Checks:
 
         return result
     """
-    003_01
-        Check Response Status Code    201    ${response.status_code}
-        Check Response Body Containing Array Of URIs set to    ${expected_entities_ids}    ${response.json()}
-        ${response}=    Query Entities
-        ...    ${entities_to_be_queried}
-        ...    Building
-        ...    context=${ngsild_test_suite_context}
-        ...    accept=${CONTENT_TYPE_LD_JSON}
-        Check Created Resources Set To    ${entities_to_be_created}    ${response.json()}
-    
-    
     then {
              the SUT sends a valid Response containing 
                       Response Status Code set to 201 (Created) and
@@ -61,20 +90,17 @@ class Checks:
     
             and created resources set to ${entities}
     }
+then {
+         the SUT sends a valid Response containing 
+                  Response Status Code set to ${status_code}
+                  Response Body containing 
+                         ${appended_attrs_list}
+         and contains ${entity} with ${appended_attrs_list}
+}
     """
 
     """
-    Check Response Body Content
-    
-    Check Response Headers Containing Content-Type set to
-    
-    Check Response Headers Link Not Empty
-    
-    Check Response Headers Containing URI set to
-    
-    Check Response Headers ID Not Empty
-    
-    Check Response Body Containing an Attribute set to
+    * Check Response Body Content
     
     Check Response Body Containing Batch Operation Result
     
@@ -146,6 +172,12 @@ if __name__ == "__main__":
     print(data.get_checks(checks='Check Response Status Code', status_code=201))
     print(data.get_checks(checks='Check Response Body Containing Array Of URIs set to'))
     print(data.get_checks(checks='Check Created Resources Set To'))
+    print(data.get_checks(checks='Check Response Headers Containing Content-Type set to', content_type='application/json'))
+    print(data.get_checks(checks='Check Response Headers Link Not Empty'))
+    print(data.get_checks(checks='Check Response Headers Containing URI set to'))
+    print(data.get_checks(checks='Check Response Headers ID Not Empty'))
+    print(data.get_checks(checks='Check Response Body Containing an Attribute set to', attribute_name='status'))
+    print(data.get_checks(checks='Check Response Body Containing an Attribute set to', attribute_name='status', attribute_value='active'))
 
     print()
     print(data.get_checks(checks=
