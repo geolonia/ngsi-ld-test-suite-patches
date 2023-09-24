@@ -59,13 +59,28 @@ class Checks:
             'Check Response Body Containing ProblemDetails Element Containing Title Element':
                 Checks.check_response_body_containing_problemdetails_element_containing_title_element,
             'Check RL Response Body Containing ProblemDetails Element Containing Type Element set to':
-                Checks.check_rl_response_body_containing_problemdetails_element_containing_type_element_set_to
+                Checks.check_rl_response_body_containing_problemdetails_element_containing_type_element_set_to,
+            'Check RL Response Body Containing ProblemDetails Element Containing Title Element':
+                Checks.check_rl_response_body_containing_problemdetails_element_containing_title_element,
+            'Check JSON Value In Response Body':
+                Checks.check_json_value_in_response_body,
+            'Check Pagination Prev And Next Headers':
+                Checks.check_pagination_prev_and_next_headers,
+            'Check Created Resource Set To':
+                Checks.check_created_resource_set_to,
+            'Check Updated Resource Set To':
+                Checks.check_updated_resource_set_to,
+            'Check SUT Not Containing Resource':
+                Checks.check_sut_not_containing_resource
         }
 
         self.args = {
             'Check Response Body Type When Using Session Request': [2],
             'Check Response Body Containing ProblemDetails Element Containing Type Element set to': [2],
-            'Check RL Response Body Containing ProblemDetails Element Containing Type Element set to': [2]
+            'Check RL Response Body Containing ProblemDetails Element Containing Type Element set to': [2],
+            'Check JSON Value In Response Body': [1, 2],
+            'Check Pagination Prev And Next Headers': [2, 3],
+            'Check SUT Not Containing Resource': [1]
         }
 
     @staticmethod
@@ -243,12 +258,63 @@ class Checks:
     def check_response_body_containing_problemdetails_element_containing_title_element(kwargs: list) -> str:
         return "Response body containing 'title' element"
 
+    @staticmethod
     def check_rl_response_body_containing_problemdetails_element_containing_type_element_set_to(kwargs: list) -> str:
         if 'type' in kwargs:
             type = kwargs['type']
             return f"Response Body containing the type '{type}'"
         else:
             raise Exception(f"ERROR, expected type attribute, but received: {kwargs}")
+
+    @staticmethod
+    def check_rl_response_body_containing_problemdetails_element_containing_title_element(kwargs: list) -> str:
+        return "Response body containing 'title' element"
+
+    @staticmethod
+    def check_json_value_in_response_body(kwargs: list) -> str:
+        if 'key' in kwargs and 'value' in kwargs:
+            key = kwargs['key']
+            value = kwargs['value']
+            return f"Response Body containing the key '{key}', with the value '{value}'"
+        else:
+            raise Exception(f"ERROR, expected key and value attributes, but received: {kwargs}")
+
+    @staticmethod
+    def check_pagination_prev_and_next_headers(kwargs: list) -> str:
+        previous = None
+        next = None
+        if 'previous' in kwargs:
+            previous = kwargs['previous']
+            previous_text = f"with 'Prev' header equal to '{previous}'"
+
+        if 'next' in kwargs:
+            next = kwargs['next']
+            next_text = f"with 'Next' header equal to '{next}'"
+
+        if previous is None and next is None:
+            raise Exception(f"ERROR, expected previous or next attributes, but received: {kwargs}")
+        elif previous is not None and next is None:
+            result = f"Response header {previous_text}"
+        elif previous is None and next is not None:
+            result = f"Response header {next_text}"
+        else:
+            result = f"Response heacer {previous_text} and {next_text}"
+
+        return result
+
+    @staticmethod
+    def check_created_resource_set_to(kwargs: list) -> str:
+            return "Created Entity set to ${entity}"
+
+    def check_updated_resource_set_to(kwargs: list) -> str:
+            return "Updated Entity set to ${entity}"
+
+    def check_sut_not_containing_resource(kwargs: list) -> str:
+        if "status_code" in kwargs:
+            status_code = kwargs['status_code']
+            return f'Response Status Code set to {status_code} ({HTTPStatus(status_code).phrase})'
+        else:
+            raise Exception(f'ERROR, Expected status_code parameter but received: {kwargs}')
 
     def get_checks(self, **kwargs) -> str:
         checking = None
@@ -289,26 +355,13 @@ then {
     * Check Response Body Content
     
     (is not a final check) Check Response Body Containing Batch Operation Result
-                                                                                         
-    Check RL Response Body Containing ProblemDetails Element Containing Title Element
-    
-    Check JSON Value In Response Body
-    
-    Check NotificationParams
-    
-    Check Pagination Prev And Next Headers
-    
-    Check Resource Set To
-    
-    Check Created Resource Set To
-    
-    Check Updated Resource Set To
-    
+                                                                                             
+    * Check NotificationParams
+            
     Check Updated Resources Set To
-    
-    Check SUT Not Containing Resource
-    
+        
     Check SUT Not Containing Resources
+    and the SUT not containing resources with id in ${existing_entities_ids}
     """
 
 
@@ -362,6 +415,26 @@ if __name__ == "__main__":
     print(data.get_checks(checks='Check Response Body Containing ProblemDetails Element Containing Title Element'))
     print(data.get_checks(checks='Check RL Response Body Containing ProblemDetails Element Containing Type Element set to',
                           type='https://uri.etsi.org/ngsi-ld/errors/BadRequestData'))
+    print(data.get_checks(checks='Check RL Response Body Containing ProblemDetails Element Containing Title Element'))
+    print(data.get_checks(checks='Check JSON Value In Response Body',
+                          key="['information']['entities'][0]['type']",
+                          value="Building"))
+    print(data.get_checks(checks='Check Pagination Prev And Next Headers',
+                          previous='</ngsi-ld/v1/csourceSubscriptions?limit=1&page=1>;rel="prev";type="application/ld+json"',
+                          next='</ngsi-ld/v1/csourceSubscriptions?limit=1&page=3>;rel="next";type="application/ld+json"'))
+    print(data.get_checks(checks='Check Pagination Prev And Next Headers',
+                          previous='',
+                          next='</ngsi-ld/v1/csourceSubscriptions?limit=1&page=3>;rel="next";type="application/ld+json"'))
+    print(data.get_checks(checks='Check Pagination Prev And Next Headers',
+                          previous='</ngsi-ld/v1/csourceSubscriptions?limit=1&page=1>;rel="prev";type="application/ld+json"',
+                          next=''))
+    print(data.get_checks(checks='Check Pagination Prev And Next Headers',
+                          previous='',
+                          next=''))
+    print(data.get_checks(checks='Check Created Resource Set To'))
+    print(data.get_checks(checks='Check Updated Resource Set To'))
+    print(data.get_checks(checks='Check SUT Not Containing Resource',
+                          status_code=404))
 
     print()
     print(data.get_checks(checks=
