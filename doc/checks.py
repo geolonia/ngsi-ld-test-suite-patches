@@ -45,7 +45,27 @@ class Checks:
             'Check Response Body Containing EntityTypeInfo element':
                 Checks.check_response_body_containing_entitytypeinfo_element,
             'Check Response Body Containing AttributeList element':
-                Checks.check_response_body_containing_attributelist_element
+                Checks.check_response_body_containing_attributelist_element,
+            'Check Response Body Containing Attribute element':
+                Checks.check_response_body_containing_attribute_element,
+            'Check Response Body Containing List Containing Context Source Registrations elements':
+                Checks.check_response_body_containing_list_containing_context_source_registrations_elements,
+            'Check Response Body Type When Using Session Request':
+                Checks.check_response_body_type_when_using_session_request,
+            'Check Response Body Containing ProblemDetails Element Containing Type Element set to':
+                Checks.check_response_body_containing_problemdetails_element_containing_type_element_set_to,
+            'Check Response Body Title When Using Session Request':
+                Checks.check_response_body_title_when_using_session_request,
+            'Check Response Body Containing ProblemDetails Element Containing Title Element':
+                Checks.check_response_body_containing_problemdetails_element_containing_title_element,
+            'Check RL Response Body Containing ProblemDetails Element Containing Type Element set to':
+                Checks.check_rl_response_body_containing_problemdetails_element_containing_type_element_set_to
+        }
+
+        self.args = {
+            'Check Response Body Type When Using Session Request': [2],
+            'Check Response Body Containing ProblemDetails Element Containing Type Element set to': [2],
+            'Check RL Response Body Containing ProblemDetails Element Containing Type Element set to': [2]
         }
 
     @staticmethod
@@ -183,11 +203,52 @@ class Checks:
         else:
             raise Exception(f"ERROR, expected description attribute, but received: {kwargs}")
 
+    @staticmethod
     def check_response_body_containing_entitytypeinfo_element(kwargs: list) -> str:
         return 'Response Body containing an Entity Type Info'
 
+    @staticmethod
     def check_response_body_containing_attributelist_element(kwargs: list) -> str:
         return 'Response Body containing an Attribute List element'
+
+    @staticmethod
+    def check_response_body_containing_attribute_element(kwargs: list) -> str:
+        return 'Response Body containing an array of Attributes'
+
+    @staticmethod
+    def check_response_body_containing_list_containing_context_source_registrations_elements(kwargs: list) -> str:
+        return 'Response body set to list of all matching Context Source Registrations resolved against the default JSON-LD context'
+
+    @staticmethod
+    def check_response_body_type_when_using_session_request(kwargs: list) -> str:
+        if 'type' in kwargs:
+            type = kwargs['type']
+            return f"Response Body containing the type '{type}'"
+        else:
+            raise Exception(f"ERROR, expected type attribute, but received: {kwargs}")
+
+    @staticmethod
+    def check_response_body_containing_problemdetails_element_containing_type_element_set_to(kwargs: list) -> str:
+        if 'type' in kwargs:
+            type = kwargs['type']
+            return f"Response Body containing the type '{type}'"
+        else:
+            raise Exception(f"ERROR, expected type attribute, but received: {kwargs}")
+
+    @staticmethod
+    def check_response_body_title_when_using_session_request(kwargs: list) -> str:
+        return "Response body containing 'title' element"
+
+    @staticmethod
+    def check_response_body_containing_problemdetails_element_containing_title_element(kwargs: list) -> str:
+        return "Response body containing 'title' element"
+
+    def check_rl_response_body_containing_problemdetails_element_containing_type_element_set_to(kwargs: list) -> str:
+        if 'type' in kwargs:
+            type = kwargs['type']
+            return f"Response Body containing the type '{type}'"
+        else:
+            raise Exception(f"ERROR, expected type attribute, but received: {kwargs}")
 
     def get_checks(self, **kwargs) -> str:
         checking = None
@@ -228,21 +289,7 @@ then {
     * Check Response Body Content
     
     (is not a final check) Check Response Body Containing Batch Operation Result
-                                              
-    Check Response Body Containing Attribute element
-    
-    Check Response Body Containing List Containing Context Source Registrations elements
-    
-    Check Response Body Type When Using Session Request
-    
-    Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    
-    Check Response Body Title When Using Session Request
-    
-    Check Response Body Containing ProblemDetails Element Containing Title Element
-    
-    Check RL Response Body Containing ProblemDetails Element Containing Type Element set to
-    
+                                                                                         
     Check RL Response Body Containing ProblemDetails Element Containing Title Element
     
     Check JSON Value In Response Body
@@ -305,6 +352,16 @@ if __name__ == "__main__":
                           description='Json object with an entity type with context'))
     print(data.get_checks(checks='Check Response Body Containing EntityTypeInfo element'))
     print(data.get_checks(checks='Check Response Body Containing AttributeList element'))
+    print(data.get_checks(checks='Check Response Body Containing Attribute element'))
+    print(data.get_checks(checks='Check Response Body Containing List Containing Context Source Registrations elements'))
+    print(data.get_checks(checks='Check Response Body Type When Using Session Request',
+                          type='https://uri.etsi.org/ngsi-ld/errors/BadRequestData'))
+    print(data.get_checks(checks='Check Response Body Containing ProblemDetails Element Containing Type Element set to',
+                          type='https://uri.etsi.org/ngsi-ld/errors/BadRequestData'))
+    print(data.get_checks(checks='Check Response Body Title When Using Session Request'))
+    print(data.get_checks(checks='Check Response Body Containing ProblemDetails Element Containing Title Element'))
+    print(data.get_checks(checks='Check RL Response Body Containing ProblemDetails Element Containing Type Element set to',
+                          type='https://uri.etsi.org/ngsi-ld/errors/BadRequestData'))
 
     print()
     print(data.get_checks(checks=
