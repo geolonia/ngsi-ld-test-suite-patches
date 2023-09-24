@@ -1,8 +1,12 @@
 import re
+import os
+from checks import Checks
 
 
 class ParseRobotFile:
     def __init__(self, filename: str, execdir: str):
+        self.test_suite = os.path.basename(filename).split('.')[0]
+
         with open(filename, 'r') as file:
             # Read the contents of the file
             self.file_contents = file.read()
@@ -13,6 +17,7 @@ class ParseRobotFile:
 
         self.get_variables_data()
         self.get_apiutils_path()
+        self.get_test_cases()
 
     def get_variables_data(self):
         string = self.get_substring(initial_string='*** Variables ***\n', final_string='*** ', include=False)
@@ -70,3 +75,70 @@ class ParseRobotFile:
             string = string[:index_end]
 
         return string
+
+    def get_test_cases(self):
+        index_start = self.file_contents.find('*** Test Cases ***')
+        string = self.file_contents[index_start+len('*** Test Cases ***')+1:]
+        print(string)
+
+        pattern = f'{self.test_suite}_\d+\s.*'
+        matches = re.findall(pattern=pattern, string=string)
+
+        indexes = list()
+        self.test_case_names = list()
+        for match in matches:
+            name = match.strip()
+            self.test_case_names.append(name)
+            indexes.append(string.find(name))
+
+        self.test_cases = dict()
+        for i in range(0, len(indexes)-1):
+            self.test_cases[self.test_case_names[i]] = string[indexes[i]:indexes[i+1]]
+
+        self.test_cases[self.test_case_names[-1]] = string[indexes[-1]:]
+        print()
+
+    def get_checks(self, test_name, apiutils):
+        data = Checks()
+
+        test_content = self.test_cases[test_name]
+
+        # Get The lines starting by 'Check'
+        checks = list()
+        param = dict()
+        lines_starting_with_check = re.findall(r'^\s*Check.*', test_content, re.MULTILINE)
+        for line in lines_starting_with_check:
+            check, param = self.get_data_check(content=test_content, checks=data, line=line.strip())
+            result = data.get_checks(checks=check, **param)
+            checks.append(check)
+
+        return checks
+
+    def get_data_check(self, content, checks, line):
+        content = line.split("    ")
+        aux = len(content)
+        position_params = checks.args[content[0]]
+
+        if aux == 1:
+            # We are in multiline classification of the Check, need to extract the parameter for the next lines
+            self.find_attributes_next_line(content=content, name=content[0])
+        elif aux > 1:
+            # We are in one line definiton
+            param = dict()
+            for i in range(0, len(position_params['position'])):
+                param_key = position_params['params'][i]
+                param_position = position_params['position'][i]
+                param_value = self.variables[content[param_position]]
+                param[param_key] = param_value
+
+                return content[0], param
+        else:
+            raise Exception("ERROR, line should contain data")
+
+    def find_attributes_next_line(self, content, name):
+        index_start = content.find(name)
+
+        aux = content[index_start+len(name)+1:]
+
+
+

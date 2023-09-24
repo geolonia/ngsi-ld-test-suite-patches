@@ -228,6 +228,9 @@ class GenerateRobotData:
             content_type = ''
             body = ''
 
+        # Generate Checks for Test Data
+        list_checks = self.robot.get_checks(test_name=test.name, apiutils=self.apiutil)
+
         test_case = {
             'name': test.name,
             'permutation_tp_id': f'{self.base_TP_id}/{test.name.split(" ")[0]}',

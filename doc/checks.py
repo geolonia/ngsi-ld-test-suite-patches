@@ -70,24 +70,50 @@ class Checks:
                 Checks.check_created_resource_set_to,
             'Check Updated Resource Set To':
                 Checks.check_updated_resource_set_to,
+            'Check Updated Resources Set To':
+                Checks.check_updated_resources_set_to,
             'Check SUT Not Containing Resource':
-                Checks.check_sut_not_containing_resource
+                Checks.check_sut_not_containing_resource,
+            'Check SUT Not Containing Resources':
+                Checks.check_sut_not_containing_resources,
+            'Check NotificationParams':
+                Checks.check_notificationparams
         }
 
         self.args = {
-            'Check Response Body Type When Using Session Request': [2],
-            'Check Response Body Containing ProblemDetails Element Containing Type Element set to': [2],
-            'Check RL Response Body Containing ProblemDetails Element Containing Type Element set to': [2],
-            'Check JSON Value In Response Body': [1, 2],
-            'Check Pagination Prev And Next Headers': [2, 3],
-            'Check SUT Not Containing Resource': [1]
+            'Check Response Status Code': {
+                'params': ['status_code'],
+                'position': [1]
+            },
+            'Check Response Body Type When Using Session Request': {
+                'position': [2],
+            },
+            'Check Response Body Containing ProblemDetails Element Containing Type Element set to': {
+                'params': ['type'],
+                'position': [2],
+            },
+            'Check RL Response Body Containing ProblemDetails Element Containing Type Element set to': {
+                'position': [2],
+            },
+            'Check JSON Value In Response Body': {
+                'position': [1, 2],
+            },
+            'Check Pagination Prev And Next Headers': {
+                'position': [2, 3],
+            },
+            'Check SUT Not Containing Resource': {
+                'position': [1],
+            }
         }
 
     @staticmethod
     def check_response_status_code(kwargs: list) -> str:
         if "status_code" in kwargs:
             status_code = kwargs['status_code']
-            return f'Response Status Code set to {status_code} ({HTTPStatus(status_code).phrase})'
+            try:
+                return f'Response Status Code set to {status_code} ({HTTPStatus(status_code).phrase})'
+            except ValueError:
+                return f'Response Status Code set to {status_code}'
         else:
             raise Exception(f'ERROR, Expected status_code parameter but received: {kwargs}')
 
@@ -309,12 +335,38 @@ class Checks:
     def check_updated_resource_set_to(kwargs: list) -> str:
             return "Updated Entity set to ${entity}"
 
+    def check_updated_resources_set_to(kwargs: list) -> str:
+        if 'number_entities' in kwargs:
+            number_entities = kwargs['number_entities']
+            return f"Updated Entities set to '{number_entities}' valid entities"
+
     def check_sut_not_containing_resource(kwargs: list) -> str:
         if "status_code" in kwargs:
             status_code = kwargs['status_code']
             return f'Response Status Code set to {status_code} ({HTTPStatus(status_code).phrase})'
         else:
             raise Exception(f'ERROR, Expected status_code parameter but received: {kwargs}')
+
+    def check_sut_not_containing_resources(kwargs: list) -> str:
+        return f'Response body is empty'
+
+    def check_notificationparams(kwargs: list) -> str:
+        expected_parameters = ["format", "uri", "accept", "status", "timesSent"]
+        result = [x for x in expected_parameters if x not in kwargs]
+
+        if len(result) == 0:
+            response = ("Response containing:\n"
+                        f"    * payload['format'] is equal to '{kwargs['format']}'\n"
+                        f"    * payload['endpoint']['uri'] is equal to '{kwargs['uri']}'\n"
+                        f"    * payload['endpoint']['accept'] is equal to '{kwargs['accept']}'\n"
+                        f"    * payload['status'] is equal to '{kwargs['status']}'\n"
+                        f"    * payload['timesSent'] is equal to '{kwargs['timesSent']}\n"
+                        f"    * payload['notification']['lastNotification'] is not Empty\n"
+                        f"    * payload['notification']['lastSuccess'] is not Empty\n")
+            return response
+        else:
+            raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                            f"'{expected_parameters}', but received: {kwargs}")
 
     def get_checks(self, **kwargs) -> str:
         checking = None
@@ -333,36 +385,6 @@ class Checks:
             raise Exception(f"ERROR, checks type not supported: {checking}")
 
         return result
-
-    """
-    then {
-             the SUT sends a valid Response containing 
-                      Response Status Code set to 201 (Created) and
-                      Response Body set to an array of created entities ids
-    
-            and created resources set to ${entities}
-    }
-then {
-         the SUT sends a valid Response containing 
-                  Response Status Code set to ${status_code}
-                  Response Body containing 
-                         ${appended_attrs_list}
-         and contains ${entity} with ${appended_attrs_list}
-}
-    """
-
-    """
-    * Check Response Body Content
-    
-    (is not a final check) Check Response Body Containing Batch Operation Result
-                                                                                             
-    * Check NotificationParams
-            
-    Check Updated Resources Set To
-        
-    Check SUT Not Containing Resources
-    and the SUT not containing resources with id in ${existing_entities_ids}
-    """
 
 
 if __name__ == "__main__":
@@ -433,8 +455,17 @@ if __name__ == "__main__":
                           next=''))
     print(data.get_checks(checks='Check Created Resource Set To'))
     print(data.get_checks(checks='Check Updated Resource Set To'))
+    print(data.get_checks(checks='Check Updated Resources Set To',
+                          number_entities=2))
     print(data.get_checks(checks='Check SUT Not Containing Resource',
                           status_code=404))
+    print(data.get_checks(checks='Check SUT Not Containing Resources'))
+    print(data.get_checks(checks='Check NotificationParams',
+                          format="keyValues",
+                          uri="http://my.endpoint.org/notify",
+                          accept="application/json",
+                          status="ok",
+                          timesSent="1"))
 
     print()
     print(data.get_checks(checks=
