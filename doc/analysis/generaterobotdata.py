@@ -108,6 +108,9 @@ class GenerateRobotData:
 
         self.test_cases[index]['http_verb'] = verb
         self.test_cases[index]['endpoint'] = self.get_header_value(key=url)
+        self.test_cases[index]['when'] = self.robot.generate_when_content(http_verb=self.test_cases[index]['http_verb'],
+                                                                          endpoint=self.test_cases[index]['endpoint'],
+                                                                          when=self.test_cases[index]['when'])
 
         #expected_status_code = self.robot.get_expected_status_code(keyword='Check Response Status Code')
         #self.test_cases[index]['expected_status_code'] = expected_status_code
@@ -236,6 +239,9 @@ class GenerateRobotData:
             # Generate Checks for Test Data
             then = self.robot.get_checks(test_name=test.name, apiutils=self.apiutil)
 
+            # Generate Request for Test Data
+            when = self.robot.get_request(test_name=test.name)
+
         test_case = {
             'name': test.name,
             'permutation_tp_id': f'{self.base_TP_id}/{test.name.split(" ")[0]}',
@@ -246,7 +252,8 @@ class GenerateRobotData:
             'template': test.template,
             'content-type': content_type,
             'body': body,
-            'then': then
+            'then': then,
+            'when': when
         }
 
         try:

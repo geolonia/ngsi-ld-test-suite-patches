@@ -1,6 +1,7 @@
 import re
 import os
 from doc.analysis.checks import Checks
+from doc.analysis.requests import Requests
 
 
 class ParseRobotFile:
@@ -118,6 +119,12 @@ class ParseRobotFile:
 
         return result
 
+    def get_request(self, test_name):
+        print(test_name)
+        data = Requests(variables=self.variables, apiutils_variables=self.apiutils.variables)
+        description = data.get_description(string=self.test_cases[test_name])
+        return description
+
     def generate_then_content(self, content):
         if len(content) > 1:
             checks = " and\n        ".join(content)
@@ -128,6 +135,16 @@ class ParseRobotFile:
             raise Exception("ERROR, It is expected at least 1 Check operation in the Test Case")
 
         return checks
+
+    def generate_when_content(self, http_verb, endpoint, when):
+        url = f"URL set to '/ngsi-ld/v1/{endpoint}'"
+        method = f"method set to '{http_verb}'"
+        when = (f"when {{\n    the SUT receives a Request from the client containing:\n"
+                f"        {url}\n"
+                f"        {method}\n"
+                f"        {when}")
+
+        return when
 
     def get_data_check(self, test_case, checks, line):
         content = line.split("    ")

@@ -85,24 +85,69 @@ class Checks:
                 'params': ['status_code'],
                 'position': [1]
             },
-            'Check Response Body Type When Using Session Request': {
-                'position': [2],
-            },
             'Check Response Body Containing ProblemDetails Element Containing Type Element set to': {
                 'params': ['type'],
-                'position': [2],
+                'position': [2]
+            },
+            'Check Response Headers Containing Content-Type set to': {
+                'params': ['content_type'],
+                'position': []
+            },
+            'Check Response Body Containing an Attribute set to': {
+                'params': ['attribute_name'],
+                'position': []
+            },
+            'Check Response Body Containing List Containing EntityTemporal elements': {
+                'params': ['timeRel', 'timeAt'],
+                'position': []
+            },
+            'Check Response Body Containing List Containing Subscription elements': {
+                'params': ['number'],
+                'position': []
+            },
+            'Check Response Body Containing Number Of Entities': {
+                'params': ['entity_type', 'number_entities'],
+                'position': []
+            },
+            'Check Response Body Containing Context Source Registration element': {
+                'params': ['csr_description'],
+                'position': []
+            },
+            'Check Response Body Containing EntityTypeList element': {
+                'params': ['description'],
+                'position': []
+            },
+            'Check Response Body Containing EntityType element': {
+                'params': ['description'],
+                'position': []
+            },
+            'Check Response Body Type When Using Session Request': {
+                'params': ['type'],
+                'position': [2]
             },
             'Check RL Response Body Containing ProblemDetails Element Containing Type Element set to': {
-                'position': [2],
+                'params': ['type'],
+                'position': [2]
             },
             'Check JSON Value In Response Body': {
-                'position': [1, 2],
+                'params': ['key', 'value'],
+                'position': [1, 2]
             },
             'Check Pagination Prev And Next Headers': {
-                'position': [2, 3],
+                'params': ['previous', 'next'],
+                'position': [2, 3]
+            },
+            'Check Updated Resources Set To': {
+                'params': ['number_entities'],
+                'position': []
             },
             'Check SUT Not Containing Resource': {
-                'position': [1],
+                'params': ['status_code'],
+                'position': [1]
+            },
+            'Check NotificationParams': {
+                'params': ['format', 'uri', 'accept', 'status', 'timesSent'],
+                'position': []
             }
         }
 
@@ -227,7 +272,6 @@ class Checks:
         else:
             raise Exception(f"ERROR, expected csr_description attribute, but received: {kwargs}")
 
-
     @staticmethod
     def check_response_body_containing_entitytypelist_element(kwargs: list) -> str:
         if 'description' in kwargs:
@@ -332,14 +376,17 @@ class Checks:
     def check_created_resource_set_to(kwargs: list) -> str:
             return "Created Entity set to ${entity}"
 
+    @staticmethod
     def check_updated_resource_set_to(kwargs: list) -> str:
             return "Updated Entity set to ${entity}"
 
+    @staticmethod
     def check_updated_resources_set_to(kwargs: list) -> str:
         if 'number_entities' in kwargs:
             number_entities = kwargs['number_entities']
             return f"Updated Entities set to '{number_entities}' valid entities"
 
+    @staticmethod
     def check_sut_not_containing_resource(kwargs: list) -> str:
         if "status_code" in kwargs:
             status_code = kwargs['status_code']
@@ -347,9 +394,11 @@ class Checks:
         else:
             raise Exception(f'ERROR, Expected status_code parameter but received: {kwargs}')
 
+    @staticmethod
     def check_sut_not_containing_resources(kwargs: list) -> str:
         return f'Response body is empty'
 
+    @staticmethod
     def check_notificationparams(kwargs: list) -> str:
         expected_parameters = ["format", "uri", "accept", "status", "timesSent"]
         result = [x for x in expected_parameters if x not in kwargs]
