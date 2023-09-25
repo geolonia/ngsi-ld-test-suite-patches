@@ -1,6 +1,6 @@
 import re
 import os
-from checks import Checks
+from doc.analysis.checks import Checks
 
 
 class ParseRobotFile:

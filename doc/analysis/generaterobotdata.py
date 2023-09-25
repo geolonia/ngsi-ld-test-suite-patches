@@ -1,7 +1,7 @@
 from os import getcwd
 from robot.api import TestSuiteBuilder
-from parserobotfile import ParseRobotFile
-from parseapiutilsfile import ParseApiUtilsFile
+from doc.analysis.parserobotfile import ParseRobotFile
+from doc.analysis.parseapiutilsfile import ParseApiUtilsFile
 import re
 
 
@@ -220,18 +220,23 @@ class GenerateRobotData:
 
         # Get the Content-Type and Body associated to the Test
         if len(self.args) != 0:
+            # We are talking about Test Cases with Test Template, so we need to check the keyword content with the
+            # definition of the template
             params = self.args[test.name]
             index = [index for index, value in enumerate(self.arguments) if value == '${content_type}'][0]
             content_type = params[index]
 
             body = self.get_body(string=test.name)
+
+            # Generate Checks for Test Data
+            then = self.robot.get_checks(test_name=test.template, apiutils=self.apiutil)
         else:
-            # Need to develop this case
+            # We are talking about a Test Cases without Test Template
             content_type = ''
             body = ''
 
-        # Generate Checks for Test Data
-        then = self.robot.get_checks(test_name=test.name, apiutils=self.apiutil)
+            # Generate Checks for Test Data
+            then = self.robot.get_checks(test_name=test.name, apiutils=self.apiutil)
 
         test_case = {
             'name': test.name,
