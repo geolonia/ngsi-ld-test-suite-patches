@@ -42,7 +42,7 @@ class ParseApiUtilsFile:
                 if match.group(1) not in self.variables.keys():
                     self.variables[match.group(1)] = match.group(2)
             else:
-                print("Error, the variable is not following the format ${thing} = <value>")
+                raise Exception("Error, the variable is not following the format ${thing} = <value>")
 
     def get_substring(self, initial_string: str, final_string: str, include: bool) -> str:
         index_start = self.file_contents.find(initial_string)

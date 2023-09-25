@@ -53,8 +53,6 @@ class GenerateRobotData:
         _ = [self.get_step_data(test=x.name) for x in self.suite.tests]
         self.test_suite['test_cases'] = self.test_cases
 
-        print()
-
     def get_params(self, string: str):
         params = list()
         request = str()
@@ -89,7 +87,7 @@ class GenerateRobotData:
                     # Get the list of keys
                     params = aux.split('    ')[1:]
                 else:
-                    print("Error, unexpected format")
+                    raise Exception(f"Error, unexpected format, received: '{string}'")
 
         return request, params
 
@@ -159,7 +157,7 @@ class GenerateRobotData:
                     value = self.robot.variables[key]
                 except KeyError:
                     # ERROR, the header key is not defined
-                    print(f'ERROR, the header key {key} is undefined')
+                    raise Exception(f"ERROR, the header key '{key}' is undefined")
         elif count == 2:
             keys = key.split("$")
             key = f'${keys[1]}'
@@ -168,7 +166,7 @@ class GenerateRobotData:
             try:
                 second_key = self.ids[key]
             except KeyError:
-                print(f"ERROR: Need to manage the {second_key} in GenerateRobotData::self.ids")
+                raise Exception(f"ERROR: Need to manage the '{second_key}' in GenerateRobotData::self.ids")
             # Get the value of the Header key
             try:
                 value = self.apiutil.variables[key]
@@ -180,7 +178,7 @@ class GenerateRobotData:
                     value = f'{value}{second_key}'
                 except KeyError:
                     # ERROR, the header key is not defined
-                    print(f'ERROR, the header key {key} is undefined')
+                    raise Exception(f"ERROR, the header key '{key}' is undefined")
 
 
 
@@ -321,7 +319,7 @@ class GenerateRobotData:
         return reference, pics
 
     def get_info_from_template(self, name: str, string: str, version: str):
-        # Check that the name of the template is in the string receive
+        # TODO: Check that the name of the template is in the string receive
         print(name)
 
         # Get the Tags line and the tag value

@@ -34,7 +34,7 @@ class ParseRobotFile:
             if len(match.groups()) == 2:
                 self.variables[match.group(1)] = match.group(2)
             else:
-                print("Error, the variable is not following the format ${thing} = <value>")
+                raise Exception("Error, the variable is not following the format ${thing} = <value>")
 
     # def get_expected_status_code(self, keyword: str):
     #     #     Check Response Status Code    ${expected_status_code}    ${response.status_code}
@@ -62,7 +62,7 @@ class ParseRobotFile:
                 if len(match.groups()) == 1:
                     self.resource_file = match.group(1)
                 else:
-                    print("Error, unexpected format")
+                    raise Exception("Error, unexpected format")
 
             self.resource_file = self.resource_file.replace('${EXECDIR}', self.execdir)
 
@@ -83,7 +83,6 @@ class ParseRobotFile:
     def get_test_cases(self):
         index_start = self.file_contents.find('*** Test Cases ***')
         string = self.file_contents[index_start+len('*** Test Cases ***')+1:]
-        print(string)
 
         pattern = f'{self.test_suite}_\d+\s.*'
         matches = re.findall(pattern=pattern, string=string)
