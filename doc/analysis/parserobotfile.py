@@ -109,15 +109,31 @@ class ParseRobotFile:
         # Get The lines starting by 'Check'
         checks = list()
         param = dict()
-        lines_starting_with_check = re.findall(r'^\s*Check.*', test_content, re.MULTILINE)
+        # lines_starting_with_check = re.findall(r'^\s*Check.*', test_content, re.MULTILINE)
+        lines_starting_with_check = self.get_lines_with_checks(content=test_content)
         for line in lines_starting_with_check:
-            check, param = self.get_data_check(test_case=test_content, checks=data, line=line.strip())
+            check, param = self.get_data_check(test_case=test_content, checks=data, line=line)
             result = data.get_checks(checks=check, **param)
             checks.append(result)
 
         result = self.generate_then_content(content=checks)
 
         return result
+
+    def get_lines_with_checks(self, content):
+        # Obtain the complete list of lines that contains a Check
+        lines_starting_with_check = re.findall(r'^\s*Check.*', content, re.MULTILINE)
+
+        # From the list of Checks, we need to discard all 'Check Response Status Code' except the last one
+        check_string = 'Check Response Status Code'
+        lines_starting_with_check = [x.strip() for x in lines_starting_with_check]
+        new_list = [value for value in lines_starting_with_check if not value.startswith(check_string)]
+        abb_values = [value for value in lines_starting_with_check if value.startswith(check_string)]
+
+        if abb_values:
+            new_list.append(abb_values[-1])
+
+        return new_list
 
     def get_request(self, test_name):
         print(test_name)
@@ -158,7 +174,7 @@ class ParseRobotFile:
                                                         position_params=position_params)
                 return content[0], params
             elif aux > 1:
-                # We are in one line definiton
+                # We are in one line definition
                 params = self.find_attributes_same_line(params=position_params, content=content)
                 return content[0], params
             else:
@@ -206,6 +222,9 @@ class ParseRobotFile:
         try:
             result = self.variables[position]
         except KeyError:
-            result = self.apiutils.variables[position]
+            try:
+                result = self.apiutils.variables[position]
+            except KeyError:
+                result = position
 
         return result

@@ -53,6 +53,19 @@ class GenerateRobotData:
         _ = [self.get_step_data(test=x.name) for x in self.suite.tests]
         self.test_suite['test_cases'] = self.test_cases
 
+        # Generate the permutation key to provide the keys in test_cases list that are different
+        self.test_suite['permutations'] = self.get_permutation_keys(data=self.test_suite['test_cases'])
+
+    def get_permutation_keys(self, data):
+        all_keys = set().union(*data)
+        excluded_keys = ['doc', 'permutation_tp_id', 'setup', 'teardown', 'name', 'params', 'tags']
+        all_keys = [x for x in all_keys if x not in excluded_keys]
+        keys_with_different_values = [
+            key for key in all_keys if any(d.get(key) != data[0].get(key) for d in data[1:])
+        ]
+
+        return keys_with_different_values
+
     def get_params(self, string: str):
         params = list()
         request = str()
@@ -200,8 +213,8 @@ class GenerateRobotData:
             'config_id': '',
             'parent_release': version,
             'pics_selection': pics,
-            'keywords': self.suite.keywords,
-            'teardown': self.suite.teardown,
+            'keywords': list(self.suite.keywords),
+            'teardown': str(self.suite.teardown),
             'initial_condition': self.suite.setup,
             'test_cases': list()
         }
@@ -223,19 +236,16 @@ class GenerateRobotData:
         if len(self.args) != 0:
             # We are talking about Test Cases with Test Template, so we need to check the keyword content with the
             # definition of the template
-            params = self.args[test.name]
-            index = [index for index, value in enumerate(self.arguments) if value == '${content_type}'][0]
-            content_type = params[index]
-
-            body = self.get_body(string=test.name)
+            # params = self.args[test.name]
+            # index = [index for index, value in enumerate(self.arguments) if value == '${content_type}'][0]
+            # content_type = params[index]
+            #
+            # body = self.get_body(string=test.name)
 
             # Generate Checks for Test Data
             then = self.robot.get_checks(test_name=test.template, apiutils=self.apiutil)
         else:
             # We are talking about a Test Cases without Test Template
-            content_type = ''
-            body = ''
-
             # Generate Checks for Test Data
             then = self.robot.get_checks(test_name=test.name, apiutils=self.apiutil)
 
@@ -250,8 +260,6 @@ class GenerateRobotData:
             'setup': test.setup.name,
             'teardown': test.teardown.name,
             'template': test.template,
-            'content-type': content_type,
-            'body': body,
             'then': then,
             'when': when
         }
