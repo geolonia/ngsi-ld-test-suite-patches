@@ -12,6 +12,9 @@ class ParseApiUtilsFile:
         self.get_variables_data()
 
     def get_response(self, keyword):
+        verb = str()
+        url = list()
+
         string = self.get_substring(initial_string=keyword, final_string='RETURN', include=True)
         index = string.find('    ${response}')
         string = string[index:]
@@ -26,9 +29,22 @@ class ParseApiUtilsFile:
                 if match:
                     verb = match.groups()[0]
             elif 'url' in item:
-                url = item.split('/')[1]
+                #url = item.split('/')[1]
+                url = self.get_url_request(url=item)
 
         return verb, url
+
+    @staticmethod
+    def get_url_request(url: str) -> list:
+        regex = r"\s*\.{3}\s*url=\$\{url\}\/(.*)"
+
+        match = re.match(pattern=regex, string=url)
+        if match:
+            aux = match.groups()[0]
+            keys = re.split(r'\$|/', aux)
+            keys = [k for k in keys if k != '']
+
+        return keys
 
     def get_variables_data(self):
         string = self.get_substring(initial_string='*** Variables ***\n', final_string='*** ', include=False)

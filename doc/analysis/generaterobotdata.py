@@ -1,4 +1,4 @@
-from os import getcwd
+from os.path import dirname
 from robot.api import TestSuiteBuilder
 from doc.analysis.parserobotfile import ParseRobotFile
 from doc.analysis.parseapiutilsfile import ParseApiUtilsFile
@@ -53,12 +53,12 @@ class GenerateRobotData:
         _ = [self.get_step_data(test=x.name) for x in self.suite.tests]
         self.test_suite['test_cases'] = self.test_cases
 
-        # Generate the permutation key to provide the keys in test_cases list that are different
+        # Generate the permutation keys to provide the keys in test_cases list that are different
         self.test_suite['permutations'] = self.get_permutation_keys(data=self.test_suite['test_cases'])
 
     def get_permutation_keys(self, data):
         all_keys = set().union(*data)
-        excluded_keys = ['doc', 'permutation_tp_id', 'setup', 'teardown', 'name', 'params', 'tags']
+        excluded_keys = ['doc', 'permutation_tp_id', 'setup', 'teardown', 'name', 'tags']
         all_keys = [x for x in all_keys if x not in excluded_keys]
         keys_with_different_values = [
             key for key in all_keys if any(d.get(key) != data[0].get(key) for d in data[1:])
@@ -67,14 +67,30 @@ class GenerateRobotData:
         return keys_with_different_values
 
     def get_params(self, string: str):
+        # New content
+        test_case = self.robot.test_cases[string]
+
+        lines_starting_response = re.findall(r'^\s*\$\{response\}.*', test_case, re.MULTILINE)
+
+        # If there is more than one line, it means that the test case has several operations, all of them to
+        # create the environment content to execute the last one, which is the correct one to test the Test Case
+        if len(lines_starting_response) > 1:
+            response_to_check = lines_starting_response[-1]
+        else:
+            response_to_check = lines_starting_response[0]
+
+        index = test_case.find(response_to_check)
+        aux = test_case[index:].split('\n')
+
+        # Previuos content
         params = list()
         request = str()
-        index_start = string.find('${response}')
-        aux = string[index_start:].split('\n')
-
+        #index_start = string.find('${response}')
+        #aux = string[index_start:].split('\n')
+        # End previous content
         # Get the list of params of the function, they are the keys
         if '    ...    ' in aux[1]:
-            request = aux[0].split('    ')[1]
+            request = aux[0].split('    ')[2]
             # We are in the case that the attributes are in following lines
             for i in range(1, len(aux)):
                 if '    ...    ' in aux[i]:
@@ -88,7 +104,7 @@ class GenerateRobotData:
             # the attributes are in the same line
             regex = r"\s*\$\{response\}=\s{4}(.*)\n"
             matches = re.finditer(regex, string, re.MULTILINE)
-            request = aux[0].split('    ')[1]
+            request = aux[0].split('    ')[2]
 
             # We have two options from here, or the parameters are defined in the same line or the parameters are defined in
             # following lines, next lines
@@ -107,9 +123,10 @@ class GenerateRobotData:
     def get_step_data(self, test: str):
         string = self.robot.get_substring(initial_string=test, final_string=self.suite.name, include=False)
 
-        request, params = self.get_params(string=string)
+        # request, params = self.get_params(string=string)
+        request, params = self.get_params(string=test)
 
-        self.check_header_parameters(params=params, test=test)
+        #self.check_header_parameters(params=params, test=test)
 
         verb, url = self.apiutil.get_response(keyword=request)
 
@@ -120,7 +137,7 @@ class GenerateRobotData:
                 break
 
         self.test_cases[index]['http_verb'] = verb
-        self.test_cases[index]['endpoint'] = self.get_header_value(key=url)
+        self.test_cases[index]['endpoint'] = self.get_values_url(keys=url)
         self.test_cases[index]['when'] = self.robot.generate_when_content(http_verb=self.test_cases[index]['http_verb'],
                                                                           endpoint=self.test_cases[index]['endpoint'],
                                                                           when=self.test_cases[index]['when'])
@@ -156,8 +173,27 @@ class GenerateRobotData:
                     index = i
                     break
 
-            self.test_cases[index]['params'] = params
+            # self.test_cases[index]['params'] = params
             self.test_cases[index][self.headers[key]] = value
+
+    def get_values_url(self, keys: list) -> str:
+        data = [self.get_value_url(key=x) for x in keys]
+        data = '/'.join(data).replace('//', '/')
+        return data
+
+    def get_value_url(self, key: str) -> str:
+        key_to_search = f'${key}'
+        try:
+            value = self.apiutil.variables[key_to_search]
+        except KeyError:
+            # It is not defined in ApiUtils, maybe in Robot File?
+            try:
+                value = self.robot.variables[key_to_search]
+            except KeyError:
+                # The variable is not defined, so it is keep as it is in the url
+                value = key
+
+        return value
 
     def get_header_value(self, key: str):
         value = str()
@@ -285,11 +321,8 @@ class GenerateRobotData:
         return aux
 
     def generate_name(self):
-        current_path = getcwd()
-        tp_id = str(self.suite.source.parent)[len(current_path):]
-
-        if tp_id[0:4] == '/../':
-            tp_id = tp_id[4:]
+        base_dir = dirname(dirname(dirname(__file__)))
+        tp_id = str(self.suite.source.parent).replace(f'{base_dir}/', "")
 
         for key, value in self.identifier.items():
             tp_id = tp_id.replace(key, value)
