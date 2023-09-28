@@ -2,13 +2,16 @@ from doc.analysis.generaterobotdata import GenerateRobotData
 from json import dump
 from sys import argv
 from os.path import dirname, exists
-from os import makedirs
+from os import makedirs, walk
 
-def create_json_of_robotfile(robot_path_to_be_processed: str, robot_file_to_be_processed: str):
+
+def create_json_of_robotfile(robot_file_to_be_processed: str):
     folder_test_suites = dirname(dirname(__file__))
+
     folder_result_path = f'{folder_test_suites}/doc/results'
     result_file = f'{folder_result_path}/{robot_file_to_be_processed}.json'
-    robot_file = f'{folder_test_suites}/TP/NGSI-LD/{robot_path_to_be_processed}/{robot_file_to_be_processed}.robot'
+    robot_path_to_be_processed, robot_file = find_robot_file(basedir=folder_test_suites,
+                                                             filename=robot_file_to_be_processed)
 
     # Check that the folder '/results' exists and if not, create it
     if not exists(folder_result_path):
@@ -32,9 +35,18 @@ def create_json_of_robotfile(robot_path_to_be_processed: str, robot_file_to_be_p
     return info
 
 
+def find_robot_file(basedir: str, filename: str):
+    filename = f'{filename}.robot'
+    for root, dirs, files in walk(basedir):
+        if filename in files:
+            return root.replace(f'{basedir}/TP/NGSI-LD', ''), f'{root}/{filename}'
+
+    return None, None
+
+
 if __name__ == "__main__":
+    # Call with the folder below /TP/NGSI-LD which contains the robot file with name args[0]
     args = argv[1:]
-    robot_path_tbp = args[0]
-    robot_file_tbp = args[1]
-    resulting_json = create_json_of_robotfile(robot_path_tbp, robot_file_tbp)
+    robot_file_tbp = args[0]
+    resulting_json = create_json_of_robotfile(robot_file_tbp)
     print("Correctly exiting")
