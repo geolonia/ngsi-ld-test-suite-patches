@@ -64,8 +64,13 @@ class Requests:
             'Retrieve Entity Type': {
                 'positions': [0, 1],
                 'params': ['type', 'context']
+            },
+            'Query Entities': {
+                'positions': [0, 1],
+                'params': ['entity_ids', 'entity_types']
             }
         }
+
         self.description = {
             'Create Entity Selecting Content Type':
                 Requests.create_entity_selecting_content_type,
@@ -96,9 +101,10 @@ class Requests:
             'Retrieve Attribute':
                 Requests.retrieve_attribute,
             'Retrieve Entity Type':
-                Requests.retrieve_entity_type
-            }
-
+                Requests.retrieve_entity_type,
+            'Query Entities':
+                Requests.query_entities
+        }
 
         self.variables = variables
         self.apiutils_variables = apiutils_variables
@@ -332,6 +338,14 @@ class Requests:
             raise Exception(f"ERROR, expected type or context attributes, received '{kwargs}'")
 
         return result
+
+    @staticmethod
+    def query_entities(kwargs) -> str:
+        if 'entity_ids' in kwargs and 'entity_types' in kwargs:
+            return (f"Request Query Entities with entity_ids set to '{kwargs['entity_ids']}' "
+                    f"and entity_types set to '{kwargs['entity_types']}")
+        else:
+            raise Exception(f"ERROR, expected entity_ids and entity_types attributes but received '{kwargs}'")
 
     def get_value(self, params, param_position, param_key):
         data = [x for x in params if f'{param_key}=' in x]

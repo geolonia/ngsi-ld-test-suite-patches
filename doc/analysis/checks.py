@@ -212,7 +212,7 @@ class Checks:
 
     @staticmethod
     def check_response_body_containing_list_containing_entity_elements(kwargs: list) -> str:
-        return 'Response Body containing a list containing Entity elements, containing ${value} provided'
+        return 'Response Body containing a list containing Entity Elements, containing ${value} provided'
 
     @staticmethod
     def check_response_body_containing_list_containing_entity_elements_with_different_types(kwargs: list) -> str:

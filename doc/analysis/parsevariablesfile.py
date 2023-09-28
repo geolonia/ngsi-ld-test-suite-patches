@@ -12,7 +12,7 @@ class ParseVariablesFile:
             file_content = file.read()
 
         file_content = file_content.split('\n')
-        file_content = [x.split('=') for x in file_content if x is not '']
+        file_content = [x.split('=') for x in file_content if x != '']
 
         self.variables = {x[0].strip(): x[1].replace("'", "").strip() for x in file_content}
 

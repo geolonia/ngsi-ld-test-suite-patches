@@ -31,6 +31,7 @@ class GenerateRobotData:
             'Discovery/RetrieveAvailableEntityTypeInformation': 'DISC',
             'Entity/RetrieveEntity': 'E',
             'Entities/CreateEntity': 'E',
+            'Entity/QueryEntities': 'E',
             'Provision': 'Prov'
         }
         self.references = {

@@ -39,19 +39,6 @@ class ParseRobotFile:
             else:
                 raise Exception("Error, the variable is not following the format ${thing} = <value>")
 
-    # def get_expected_status_code(self, keyword: str):
-    #     #     Check Response Status Code    ${expected_status_code}    ${response.status_code}
-    #     #     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    #     #     ...    ${response.json()}
-    #     #     ...    ${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}
-    #     string = self.get_substring(initial_string=keyword, final_string='\n', include=True)
-    #     expected_status_code = string.split('    ')[1]
-    #
-    #     if expected_status_code.isdigit():
-    #         return expected_status_code
-    #     else:
-    #         return self.variables[expected_status_code]
-
     def get_apiutils_path(self):
         string = self.get_substring(initial_string='Resource', final_string='*** Variables ***', include=True)
         result = [item for item in string.split('\n') if 'ApiUtils.resource' in item and item[0] != '#']
@@ -92,10 +79,20 @@ class ParseRobotFile:
 
         indexes = list()
         self.test_case_names = list()
-        for match in matches:
-            name = match.strip()
-            self.test_case_names.append(name)
-            indexes.append(string.find(name))
+        if matches:
+            for match in matches:
+                name = match.strip()
+                self.test_case_names.append(name)
+                indexes.append(string.find(name))
+        else:
+            # The test case has the same id. number as the test suite
+            pattern = f'{self.test_suite}\s.*'
+            matches = re.findall(pattern=pattern, string=string)
+
+            for match in matches:
+                name = match.strip()
+                self.test_case_names.append(name)
+                indexes.append(string.find(name))
 
         self.test_cases = dict()
         for i in range(0, len(indexes)-1):
