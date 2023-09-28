@@ -1,8 +1,8 @@
 from os.path import dirname
 from robot.api import TestSuiteBuilder
-from doc.analysis.parserobotfile import ParseRobotFile
-from doc.analysis.parseapiutilsfile import ParseApiUtilsFile
-from doc.analysis.parsevariablesfile import ParseVariablesFile
+from analysis.parserobotfile import ParseRobotFile
+from analysis.parseapiutilsfile import ParseApiUtilsFile
+from analysis.parsevariablesfile import ParseVariablesFile
 import re
 
 

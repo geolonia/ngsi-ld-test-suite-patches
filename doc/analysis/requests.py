@@ -1,5 +1,4 @@
 import re
-import resources.variables
 
 
 class Requests:

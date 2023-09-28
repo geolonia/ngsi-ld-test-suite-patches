@@ -1,4 +1,4 @@
-from doc.analysis.generaterobotdata import GenerateRobotData
+from analysis.generaterobotdata import GenerateRobotData
 from json import dump
 from sys import argv
 from os.path import dirname, exists
