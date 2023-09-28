@@ -56,9 +56,16 @@ class Requests:
             'Query Temporal Representation Of Entities': {
                 'positions': [0, 1, 2, 3],
                 'params': ['entity_types', 'timerel', 'timeAt', 'accept']
+            },
+            'Retrieve Attribute': {
+                'positions': [0],
+                'params': ['attribute_name']
+            },
+            'Retrieve Entity Type': {
+                'positions': [0, 1],
+                'params': ['type', 'context']
             }
         }
-
         self.description = {
             'Create Entity Selecting Content Type':
                 Requests.create_entity_selecting_content_type,
@@ -85,8 +92,13 @@ class Requests:
             'Query Context Source Registration Subscriptions':
                 Requests.query_context_source_registration_subscriptions,
             'Query Temporal Representation Of Entities':
-                Requests.query_temporal_representation_of_entities
+                Requests.query_temporal_representation_of_entities,
+            'Retrieve Attribute':
+                Requests.retrieve_attribute,
+            'Retrieve Entity Type':
+                Requests.retrieve_entity_type
             }
+
 
         self.variables = variables
         self.apiutils_variables = apiutils_variables
@@ -301,6 +313,25 @@ class Requests:
         else:
             raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
                             f"'{expected_parameters}', but received: {kwargs}")
+
+    @staticmethod
+    def retrieve_attribute(kwargs) -> str:
+        if 'attribute_name' in kwargs:
+            return f"Retrieve Attribute with attributeName set to '{kwargs['attribute_name']}'"
+
+    @staticmethod
+    def retrieve_entity_type(kwargs) -> str:
+        result = "Retrieve Entity Type"
+        if 'type' in kwargs:
+            result = f"{result}, with type set to '{kwargs['type']}'"
+
+        if 'context' in kwargs and kwargs['context'] != '':
+            result = f"{result}, with Header['Link'] containing '{kwargs['context']}'"
+
+        if 'type' not in kwargs or 'context' not in kwargs:
+            raise Exception(f"ERROR, expected type or context attributes, received '{kwargs}'")
+
+        return result
 
     def get_value(self, params, param_position, param_key):
         data = [x for x in params if f'{param_key}=' in x]

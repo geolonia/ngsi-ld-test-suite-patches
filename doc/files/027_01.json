@@ -1,0 +1,35 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/CONS/DISC/027_01",
+  "test_objective": "Check that you cannot retrieve a detailed representation of an unknown NGSI-LD attribute",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.10",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_7_10",
+  "keywords": [
+    "Setup Initial Entities",
+    "Delete Initial Entities"
+  ],
+  "teardown": "Delete Initial Entities",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "027_01_01 Retrieve Detailed Representation Of Available Attribute Without Context",
+      "permutation_tp_id": "TP/NGSI-LD/CI/CONS/DISC/027_01_01",
+      "doc": "Check that you cannot retrieve a detailed representation of an unknown NGSI-LD attribute",
+      "tags": [
+        "5_7_10",
+        "ed-attr"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound' and\n        Response body containing 'title' element and\n        Response Status Code set to 404\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/attributes/{attribute_name}'\n        method set to 'GET'\n        Retrieve Attribute with attributeName set to 'airQualityLevel'",
+      "http_verb": "GET",
+      "endpoint": "attributes/{attribute_name}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Consumption/Discovery/RetrieveAvailableAttributeInformation",
+  "robotfile": "027_01"
+}

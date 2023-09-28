@@ -101,7 +101,11 @@ class ParseRobotFile:
         for i in range(0, len(indexes)-1):
             self.test_cases[self.test_case_names[i]] = string[indexes[i]:indexes[i+1]]
 
-        self.test_cases[self.test_case_names[-1]] = string[indexes[-1]:]
+        try:
+            self.test_cases[self.test_case_names[-1]] = string[indexes[-1]:]
+        except IndexError:
+            raise Exception(f"ERROR, List index out of range, "
+                            f"probably the name of the Test Case is not following the pattern '{pattern}'")
 
     def get_checks(self, test_name, apiutils):
         data = Checks()

@@ -26,7 +26,9 @@ class GenerateRobotData:
         self.identifier = {
             'ContextInformation': 'CI',
             'CommonBehaviours': 'CB',
-            'Consumption': 'Cons',
+            'Consumption': 'CONS',
+            'Discovery/RetrieveAvailableAttributeInformation': 'DISC',
+            'Discovery/RetrieveAvailableEntityTypeInformation': 'DISC',
             'Entity/RetrieveEntity': 'E',
             'Entities/CreateEntity': 'E',
             'Provision': 'Prov'
@@ -261,7 +263,7 @@ class GenerateRobotData:
             'config_id': '',
             'parent_release': version,
             'pics_selection': pics,
-            'keywords': list(self.suite.keywords),
+            'keywords': [str(x) for x in self.suite.keywords],
             'teardown': str(self.suite.teardown),
             'initial_condition': self.suite.setup,
             'test_cases': list()
