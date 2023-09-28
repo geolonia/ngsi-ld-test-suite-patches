@@ -8,6 +8,9 @@ import re
 
 class GenerateRobotData:
     def __init__(self, robot_file: str, execdir: str):
+        self.robot_file = robot_file
+        self.execdir = execdir
+
         self.config_variables = ParseVariablesFile()
         self.robot = ParseRobotFile(filename=robot_file, execdir=execdir, config_file=self.config_variables)
         self.apiutil = ParseApiUtilsFile(filename=self.robot.resource_file)
@@ -46,6 +49,9 @@ class GenerateRobotData:
         self.base_TP_id = str()
 
     def get_info(self):
+        self.test_suite['robotpath'] = (self.robot_file.replace(f'{self.execdir}/TP/NGSI-LD/', '')
+                                        .replace(f'/{self.robot.test_suite}.robot', ''))
+        self.test_suite['robotfile'] = self.robot.test_suite
         return self.test_suite
 
     def parse_robot(self):

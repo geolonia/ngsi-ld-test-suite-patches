@@ -21,7 +21,7 @@
       "teardown": "Delete Entity by Id",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Update Entity Attributes and \nHeader['Link'] contain the context 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and \nHeader['Content-Type'] set to 'application/merge-patch+json' and\nPayload defined in file 'vehicle-brandname-fragment.json'",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and \nHeader['Link'] contain the context 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and \nHeader['Content-Type'] set to 'application/merge-patch+json' and\nPayload defined in file 'vehicle-brandname-fragment.json'",
       "http_verb": "PATCH",
       "endpoint": "entities/{entityId}/attrs/{attributeId}"
     },
@@ -37,7 +37,7 @@
       "teardown": "Delete Subscription",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Request Update Subscription and \nHeader['Link'] contain the context 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and \nHeader['Content-Type'] set to 'application/merge-patch+json' and\nPayload defined in file 'subscriptions/fragments/subscription-update-sample.json'",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Request Update Subscription and \nHeader['Link'] contain the context 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\nHeader['Content-Type'] set to 'application/merge-patch+json' and\nPayload defined in file 'subscriptions/fragments/subscription-update-sample.json'",
       "http_verb": "PATCH",
       "endpoint": "subscriptions/{subscription_id}"
     }
@@ -45,5 +45,7 @@
   "permutations": [
     "when",
     "endpoint"
-  ]
+  ],
+  "robotpath": "CommonBehaviours",
+  "robotfile": "044_01"
 }

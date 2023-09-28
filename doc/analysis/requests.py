@@ -25,16 +25,16 @@ class Requests:
                 'params': ['filename']
             },
             'Query Entity': {
-                'positions': [1],
-                'params': ['context']
+                'positions': [1, 1],
+                'params': ['context', 'accept']
             },
             'Retrieve Subscription': {
-                'positions': [],
-                'params': []
+                'positions': [1],
+                'params': ['accept']
             },
             'Query Context Source Registrations With Return': {
-                'positions': [],
-                'params': []
+                'positions': [0, 1],
+                'params': ["type", "accept"]
             },
             'Query Temporal Representation Of Entities With Return': {
                 'positions': [],
@@ -48,9 +48,17 @@ class Requests:
                 'positions': [1, 2, 3],
                 'params': ['filename', 'content', 'context']
 
+            },
+            'Query Context Source Registration Subscriptions': {
+                'positions': [0],
+                'params': ['accept']
+            },
+            'Query Temporal Representation Of Entities': {
+                'positions': [0, 1, 2, 3],
+                'params': ['entity_types', 'timerel', 'timeAt', 'accept']
             }
-
         }
+
         self.description = {
             'Create Entity Selecting Content Type':
                 Requests.create_entity_selecting_content_type,
@@ -73,8 +81,13 @@ class Requests:
             'Partial Update Entity Attributes':
                 Requests.partial_update_entity_attributes,
             'Update Subscription':
-                Requests.update_subscription
+                Requests.update_subscription,
+            'Query Context Source Registration Subscriptions':
+                Requests.query_context_source_registration_subscriptions,
+            'Query Temporal Representation Of Entities':
+                Requests.query_temporal_representation_of_entities
             }
+
         self.variables = variables
         self.apiutils_variables = apiutils_variables
         self.config_file = config_file
@@ -135,25 +148,6 @@ class Requests:
                     raise Exception(f"Error, unexpected format, received: '{response_to_check}'")
 
             params = self.find_attributes_in_the_same_line(request_name=request, params=params)
-
-        # return request, params
-        # Previous version
-        # index = None
-        # for k in keys:
-        #     index = string.find(k)
-        #     if index != -1:
-        #         break
-        #
-        # pattern = f"^.*{k}.*\n"
-        # lines_starting_with_request = re.findall(pattern, string, re.MULTILINE)
-        # for line in lines_starting_with_request:
-        #     data = line.strip().split("    ")
-        #     if len(data) == 2:
-        #         # We are in multiline definition
-        #         params = self.find_attributes_next_line(string=string, position=index, request_name=k)
-        #     else:
-        #         # The definition of the request is in the same line
-        #         params = self.find_attributes_in_the_same_line(request_name=k, params=data[1:])
 
         description = self.description[request](params)
         return description
@@ -218,18 +212,38 @@ class Requests:
 
     @staticmethod
     def query_entity(kwargs) -> str:
-        if 'context' in kwargs:
+        result = ''
+        if 'context' in kwargs and kwargs['context'] != '':
             result = f"Request Header['Link'] contain the context {kwargs['context']}"
-            return result
-        else:
+
+        if 'accept' in kwargs:
+            result = f"{result}\nHeader['Accept'] set to {kwargs['accept']}"
+
+        if 'context' not in kwargs and 'accept' not in kwargs:
             raise Exception(f"ERROR, expected context attribute, but received {kwargs}")
+
+        return result
 
     @staticmethod
     def retrieve_subscription(kwargs) -> str:
-        return "Request a subscription"
+        if 'accept' in kwargs:
+            return f"Request a subscription\nHeader['Accept'] set to '{kwargs['accept']}'"
+        else:
+            return "Request a subscription"
 
     def query_context_source_registrations_with_return(kwargs) -> str:
-        return "Request a Context Source Registration with Return"
+        if 'type' in kwargs and 'accept' in kwargs:
+            result = "Request a Context Source Registration with Return"
+
+            if kwargs['type'] != '':
+                result = f"{result}\nEntity Type set to '{kwargs['type']}'"
+
+            if kwargs['accept'] != '':
+                result = f"{result}\nHeader['Accept'] set to '{kwargs['accept']}'"
+        else:
+            result = "Request a Context Source Registration with Return"
+
+        return result
 
     def query_temporal_representation_of_entities_with_return(kwargs) -> str:
         return "Request a Temporal Representation of Entities with Return"
@@ -264,19 +278,51 @@ class Requests:
         else:
             raise Exception(f"ERROR, expected context attribute, but received {kwargs}")
 
-    def get_value(self, params, param_position, param_key):
-        try:
-            data = params[param_position]
-        except IndexError:
-            return ''
+    @staticmethod
+    def query_context_source_registration_subscriptions(kwargs) -> str:
+        if 'accept' in kwargs:
+            return (f"Request Context Source Registration Subscriptions\n"
+                    f"Header['Accept'] set to '{kwargs['accept']}'")
+        else:
+            raise Exception(f"ERROR, expected accept attribute, but received {kwargs}")
 
-        if '=' in data:
+    @staticmethod
+    def query_temporal_representation_of_entities(kwargs) -> str:
+        expected_parameters = ['entity_types', 'timerel', 'timeAt', 'accept']
+        result = [x for x in expected_parameters if x not in kwargs]
+
+        if len(result) == 0:
+            response = ("Response containing:\n"
+                        f"    * Entity-Type is equal to '{kwargs['entity_types']}'\n"
+                        f"    * timeRel is equal to '{kwargs['timerel']}'\n"
+                        f"    * timeAt is equal to '{kwargs['timeAt']}'\n"
+                        f"    * Accept is equal to '{kwargs['accept']}'")
+            return response
+        else:
+            raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                            f"'{expected_parameters}', but received: {kwargs}")
+
+    def get_value(self, params, param_position, param_key):
+        data = [x for x in params if f'{param_key}=' in x]
+
+        if len(data) == 1:
             # The name of the attribute is passed to the function in the form attribute=value
+            data = data[0]
             data = data.split('=')
             if data[0] != param_key:
-                raise Exception(f"ERROR, uncontrolled param_key: {params} {param_key}")
+                return ''
 
             data = data[1]
+        elif len(data) == 0:
+            # There is no attribute=something therefore we have to apply the position
+            try:
+                data = params[param_position]
+
+                # Workaround
+                if 'accept' in data and param_key != 'accept':
+                    data = ''
+            except IndexError:
+                return ''
 
         try:
             value = self.variables[data]

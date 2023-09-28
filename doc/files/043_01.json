@@ -94,5 +94,7 @@
     "endpoint",
     "when",
     "then"
-  ]
+  ],
+  "robotpath": "CommonBehaviours",
+  "robotfile": "043"
 }

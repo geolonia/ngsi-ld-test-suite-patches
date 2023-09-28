@@ -61,3 +61,24 @@ class TestCommonBehaviours(TestCase):
         difference_file = f'{self.folder_test_suites}/doc/results/out_044_02.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_044_03(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/044_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/044_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_044_03.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_044_04(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/044_04.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/044_04.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_044_04.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_044_05(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/044_05.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/044_05.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_044_05.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)

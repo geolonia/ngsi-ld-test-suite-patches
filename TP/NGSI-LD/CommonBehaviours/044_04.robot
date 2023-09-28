@@ -16,7 +16,7 @@ ${subscription_filename}=       csourceSubscriptions/subscription-sample.jsonld
 
 
 *** Test Cases ***
-044_04_01_endpoint get /entities/{entityId}
+044_04_01 endpoint get /entities/{entityId}
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /entities/{entityId})
     [Tags]    e-query    6_3_4
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
@@ -29,7 +29,7 @@ ${subscription_filename}=       csourceSubscriptions/subscription-sample.jsonld
     Check Response Status Code    ${status_code}    ${response.status_code}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
 
-044_04_02_endpoint get /subscriptions/{subscriptionId}
+044_04_02 endpoint get /subscriptions/{subscriptionId}
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /subscriptions/{subscriptionId})
     [Tags]    sub-retrieve    6_3_4
     ${id}=    Generate Random Entity Id    ${subscription_id_prefix}
@@ -39,19 +39,19 @@ ${subscription_filename}=       csourceSubscriptions/subscription-sample.jsonld
     Check Response Status Code    ${status_code}    ${response.status_code}
     [Teardown]    Delete Subscription    ${id}
 
-044_04_03_endpoint get /csourceRegistrations/
+044_04_03 endpoint get /csourceRegistrations/
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /csourceRegistrations/)
     [Tags]    csr-query    6_3_4
     ${response}=    Query Context Source Registrations With Return    type=Building    accept=${accept}
     Check Response Status Code    ${status_code}    ${response.status_code}
 
-044_04_04_endpoint get /csourceSubscriptions/
+044_04_04 endpoint get /csourceSubscriptions/
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /csourceSubscriptions/)
     [Tags]    csrsub-query
-    Query Context Source Registration Subscriptions    accept=${accept}
+    ${response}=    Query Context Source Registration Subscriptions    accept=${accept}
     Check Response Status Code    ${status_code}    ${response.status_code}
 
-044_04_05_endpoint get /temporal/entities
+044_04_05 endpoint get /temporal/entities
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /temporal/entities)
     [Tags]    te-query    6_3_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
