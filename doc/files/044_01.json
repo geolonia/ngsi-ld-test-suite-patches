@@ -1,49 +1,49 @@
 {
-    "tp_id": "TP/NGSI-LD/CB/044_01",
-    "test_objective": "Verify that PATCH HTTP requests can be done with \"application/merge-patch+json\" as Content-Type",
-    "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.4",
-    "config_id": "",
-    "parent_release": "v1.3.1",
-    "pics_selection": "PICS_6_3_4",
-    "keywords": [],
-    "teardown": "None",
-    "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
-    "test_cases": [
-        {
-            "name": "044_01_01 endpoint /entities/{entityId}/attrs/{attrId}",
-            "permutation_tp_id": "TP/NGSI-LD/CB/044_01_01",
-            "doc": "Verify that PATCH HTTP requests can be done with \"application/merge-patch+json\" as Content-Type",
-            "tags": [
-                "6_3_4",
-                "ea-partial-update"
-            ],
-            "setup": null,
-            "teardown": "Delete Entity by Id",
-            "template": null,
-            "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 204\n}",
-            "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: 'vehicle-simple-attributes-sample.jsonld'",
-            "http_verb": "PATCH",
-            "endpoint": "entities/{entityId}/attrs/{attributeId}"
-        },
-        {
-            "name": "044_01_02 endpoint /subscriptions/{subscriptionId}",
-            "permutation_tp_id": "TP/NGSI-LD/CB/044_01_02",
-            "doc": "Verify that PATCH HTTP requests can be done with \"application/merge-patch+json\" as Content-Type",
-            "tags": [
-                "6_3_4",
-                "sub-update"
-            ],
-            "setup": null,
-            "teardown": "Delete Subscription",
-            "template": null,
-            "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 204\n}",
-            "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: 'subscriptions/subscription-sample.jsonld'",
-            "http_verb": "PATCH",
-            "endpoint": "subscriptions/{subscription_id}"
-        }
-    ],
-    "permutations": [
-        "endpoint",
-        "when"
-    ]
+  "tp_id": "TP/NGSI-LD/CB/044_01",
+  "test_objective": "Verify that PATCH HTTP requests can be done with \"application/merge-patch+json\" as Content-Type",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.4",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_6_3_4",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "044_01_01 endpoint /entities/{entityId}/attrs/{attrId}",
+      "permutation_tp_id": "TP/NGSI-LD/CB/044_01_01",
+      "doc": "Verify that PATCH HTTP requests can be done with \"application/merge-patch+json\" as Content-Type",
+      "tags": [
+        "6_3_4",
+        "ea-partial-update"
+      ],
+      "setup": null,
+      "teardown": "Delete Entity by Id",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 204\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Update Entity Attributes and \nHeader['Link'] contain the context 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and \nHeader['Content-Type'] set to 'application/merge-patch+json' and\nPayload defined in file 'vehicle-brandname-fragment.json'",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    },
+    {
+      "name": "044_01_02 endpoint /subscriptions/{subscriptionId}",
+      "permutation_tp_id": "TP/NGSI-LD/CB/044_01_02",
+      "doc": "Verify that PATCH HTTP requests can be done with \"application/merge-patch+json\" as Content-Type",
+      "tags": [
+        "6_3_4",
+        "sub-update"
+      ],
+      "setup": null,
+      "teardown": "Delete Subscription",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 204\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Request Update Subscription and \nHeader['Link'] contain the context 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and \nHeader['Content-Type'] set to 'application/merge-patch+json' and\nPayload defined in file 'subscriptions/fragments/subscription-update-sample.json'",
+      "http_verb": "PATCH",
+      "endpoint": "subscriptions/{subscription_id}"
+    }
+  ],
+  "permutations": [
+    "when",
+    "endpoint"
+  ]
 }

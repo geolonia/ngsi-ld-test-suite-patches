@@ -69,7 +69,7 @@
       "teardown": "Batch Delete Entities",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/LdContextNotAvailable' and\n        Response body containing 'title' element and\n        Response Status Code set to 503\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/create'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'content_type=${CONTENT_TYPE_LD_JSON}' and\n payload set to a list of entities to be created",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/create'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload set to a list of entities to be created",
       "http_verb": "POST",
       "endpoint": "entityOperations/create"
     },
@@ -91,8 +91,8 @@
     }
   ],
   "permutations": [
-    "when",
     "endpoint",
+    "when",
     "then"
   ]
 }

@@ -8,9 +8,10 @@ from os import listdir, remove, makedirs
 
 
 class TestCommonBehaviours(TestCase):
-    def setUp(self) -> None:
-        self.folder_test_suites = dirname(dirname(dirname(__file__)))
-        folder_results = f'{self.folder_test_suites}/doc/results'
+    @classmethod
+    def setUpClass(cls):
+        TestCommonBehaviours.folder_test_suites = dirname(dirname(dirname(__file__)))
+        folder_results = f'{TestCommonBehaviours.folder_test_suites}/doc/results'
 
         # Check that the folder '/results' exists and if not, create it
         if not exists(folder_results):
@@ -18,6 +19,9 @@ class TestCommonBehaviours(TestCase):
         else:
             # Delete the /results folder
             [remove(f'{folder_results}/{x}') for x in listdir(folder_results) if x.startswith('out')]
+
+    def setUp(self) -> None:
+        self.folder_test_suites = dirname(dirname(dirname(__file__)))
 
     def common_function(self, robot_file, expected_value, difference_file):
         data = GenerateRobotData(robot_file=robot_file,
@@ -51,3 +55,9 @@ class TestCommonBehaviours(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
+    def test_044_02(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/044_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/044_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_044_02.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)

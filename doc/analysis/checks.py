@@ -91,7 +91,7 @@ class Checks:
             },
             'Check Response Headers Containing Content-Type set to': {
                 'params': ['content_type'],
-                'position': []
+                'position': [1]
             },
             'Check Response Body Containing an Attribute set to': {
                 'params': ['attribute_name'],

@@ -2,12 +2,14 @@ from os.path import dirname
 from robot.api import TestSuiteBuilder
 from doc.analysis.parserobotfile import ParseRobotFile
 from doc.analysis.parseapiutilsfile import ParseApiUtilsFile
+from doc.analysis.parsevariablesfile import ParseVariablesFile
 import re
 
 
 class GenerateRobotData:
     def __init__(self, robot_file: str, execdir: str):
-        self.robot = ParseRobotFile(filename=robot_file, execdir=execdir)
+        self.config_variables = ParseVariablesFile()
+        self.robot = ParseRobotFile(filename=robot_file, execdir=execdir, config_file=self.config_variables)
         self.apiutil = ParseApiUtilsFile(filename=self.robot.resource_file)
         self.robot.set_apiutils(self.apiutil)
 
@@ -66,15 +68,17 @@ class GenerateRobotData:
 
         return keys_with_different_values
 
-    def get_params(self, string: str):
+    def get_params(self, test_case: str):
         # New content
-        test_case = self.robot.test_cases[string]
+        # test_case = self.robot.test_cases[string]
 
         lines_starting_response = re.findall(r'^\s*\$\{response\}.*', test_case, re.MULTILINE)
 
         # If there is more than one line, it means that the test case has several operations, all of them to
         # create the environment content to execute the last one, which is the correct one to test the Test Case
         if len(lines_starting_response) > 1:
+            # The last one corresponds to the execution of the test, the rest corresponds to the initial condition of
+            # test case...
             response_to_check = lines_starting_response[-1]
         else:
             response_to_check = lines_starting_response[0]
@@ -102,8 +106,8 @@ class GenerateRobotData:
                     break
         else:
             # the attributes are in the same line
-            regex = r"\s*\$\{response\}=\s{4}(.*)\n"
-            matches = re.finditer(regex, string, re.MULTILINE)
+            regex = r"\s*\$\{response\}=\s{4}(.*)"
+            matches = re.finditer(regex, response_to_check, re.MULTILINE)
             request = aux[0].split('    ')[2]
 
             # We have two options from here, or the parameters are defined in the same line or the parameters are defined in
@@ -115,16 +119,18 @@ class GenerateRobotData:
 
                     # Get the list of keys
                     params = aux.split('    ')[1:]
+                    print(params)
                 else:
-                    raise Exception(f"Error, unexpected format, received: '{string}'")
+                    raise Exception(f"Error, unexpected format, received: '{response_to_check}'")
 
         return request, params
 
     def get_step_data(self, test: str):
-        string = self.robot.get_substring(initial_string=test, final_string=self.suite.name, include=False)
+        # string = self.robot.get_substring(initial_string=test, final_string=self.suite.name, include=False)
+        string = self.robot.test_cases[test]
 
         # request, params = self.get_params(string=string)
-        request, params = self.get_params(string=test)
+        request, params = self.get_params(test_case=string)
 
         #self.check_header_parameters(params=params, test=test)
 

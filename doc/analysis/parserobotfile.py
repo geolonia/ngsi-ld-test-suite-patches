@@ -5,7 +5,7 @@ from doc.analysis.requests import Requests
 
 
 class ParseRobotFile:
-    def __init__(self, filename: str, execdir: str):
+    def __init__(self, filename: str, execdir: str, config_file):
         self.test_suite = os.path.basename(filename).split('.')[0]
 
         with open(filename, 'r') as file:
@@ -20,6 +20,8 @@ class ParseRobotFile:
         self.get_variables_data()
         self.get_apiutils_path()
         self.get_test_cases()
+
+        self.config_file = config_file
 
     def set_apiutils(self, apiutils):
         self.apiutils = apiutils
@@ -136,8 +138,9 @@ class ParseRobotFile:
         return new_list
 
     def get_request(self, test_name):
-        print(test_name)
-        data = Requests(variables=self.variables, apiutils_variables=self.apiutils.variables)
+        data = Requests(variables=self.variables,
+                        apiutils_variables=self.apiutils.variables,
+                        config_file=self.config_file)
         description = data.get_description(string=self.test_cases[test_name])
         return description
 
