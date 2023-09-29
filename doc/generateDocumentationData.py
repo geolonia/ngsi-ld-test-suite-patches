@@ -5,7 +5,7 @@ from os.path import dirname, exists
 from os import makedirs, walk
 
 
-def create_json_of_robotfile(robot_file_to_be_processed: str):
+def create_json_of_robotfile(robot_file_to_be_processed: str, computestatistics: bool=False):
     folder_test_suites = dirname(dirname(__file__))
 
     folder_result_path = f'{folder_test_suites}/doc/results'
@@ -17,18 +17,24 @@ def create_json_of_robotfile(robot_file_to_be_processed: str):
     if not exists(folder_result_path):
         makedirs(folder_result_path)
 
-    try:
+    if computestatistics:
+        try:
+            data = GenerateRobotData(robot_file=robot_file, execdir=folder_test_suites)
+            data.parse_robot()
+            info = data.get_info()
+        except Exception as e:
+            print("WHILE GENERATING ROBOT DATA:", e)
+            info = dict()
+            info["error_while_parsing"] = True
+            info["robotfile"] = robot_file_to_be_processed
+            if(robot_path_to_be_processed.startswith("/")):
+                robot_path_to_be_processed = robot_path_to_be_processed[1:]
+            info["robotpath"] = robot_path_to_be_processed
+    else:
         data = GenerateRobotData(robot_file=robot_file, execdir=folder_test_suites)
         data.parse_robot()
         info = data.get_info()
-    except Exception as e:
-        print("WHILE GENERATING ROBOT DATA:", e)
-        info = dict()
-        info["error_while_parsing"] = True
-        info["robotfile"] = robot_file_to_be_processed
-        if(robot_path_to_be_processed.startswith("/")):
-            robot_path_to_be_processed = robot_path_to_be_processed[1:]
-        info["robotpath"] = robot_path_to_be_processed
+
 
     with open(result_file, 'w') as fp:
         dump(obj=info, indent=2, fp=fp)

@@ -14,7 +14,7 @@ if __name__ == "__main__":
             if filename.endswith(".robot"):
                 number_of_testcases += 1
                 name_of_test_case = filename[:-6]
-                json_of_test_case = create_json_of_robotfile(name_of_test_case)
+                json_of_test_case = create_json_of_robotfile(name_of_test_case, True)
                 statistics[name_of_test_case] = dict()
                 strippedpath = root[len(fullpath)+1:]
                 statistics[name_of_test_case]["path"] = strippedpath
