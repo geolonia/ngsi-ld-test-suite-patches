@@ -9,9 +9,9 @@ Test Template       Get Entity With Invalid/Missing Id
 
 
 *** Test Cases ***    ENTITY_ID    EXPECTED_STATUS_CODE    PROBLEM_TYPE
-018_02_01_Get an entity if the Entity Id is not present
+018_02_01 Get an entity if the Entity Id is not present
     ${EMPTY}    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
-018_02_02_Get an entity if the Entity Id is not a valid URI
+018_02_02 Get an entity if the Entity Id is not a valid URI
     thisisaninvaliduri    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 

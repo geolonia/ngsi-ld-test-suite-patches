@@ -1,10 +1,10 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/CONS/E/019_01_01",
-  "test_objective": "Check that you can query several entities based on ids",
-  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.2",
+  "tp_id": "TP/NGSI-LD/CI/CONS/E/019_05",
+  "test_objective": "Check that the queried entities by id can be returned in a geoJSON format",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.7",
   "config_id": "",
   "parent_release": "v1.3.1",
-  "pics_selection": "PICS_5_7_2",
+  "pics_selection": "PICS_6_3_7",
   "keywords": [
     "Delete Entities"
   ],
@@ -12,11 +12,11 @@
   "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
   "test_cases": [
     {
-      "name": "019_01_01 Query several entities based on ids",
-      "permutation_tp_id": "TP/NGSI-LD/CI/CONS/E/019_01_01",
-      "doc": "Check that you can query several entities based on ids",
+      "name": "019_05_01 Get an entity by id that can be returned in a geoJSON format",
+      "permutation_tp_id": "TP/NGSI-LD/CI/CONS/E/019_05_01",
+      "doc": "Check that the queried entities by id can be returned in a geoJSON format",
       "tags": [
-        "5_7_2",
+        "6_3_7",
         "e-query"
       ],
       "setup": null,
@@ -30,5 +30,5 @@
   ],
   "permutations": [],
   "robotpath": "ContextInformation/Consumption/Entity/QueryEntities",
-  "robotfile": "019_01_01"
+  "robotfile": "019_05"
 }

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query entitites via POST Interaction based on a list of properties
+Documentation       Check that you can query entities via POST Interaction based on a list of properties
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption/ApiUtils.resource
 # Resource    ${EXECDIR}/resources/ApiUtils.resource
@@ -18,8 +18,8 @@ ${geometry_property}=       location
 
 
 *** Test Cases ***
-Query several entities via POST Interaction based on a list of properties
-    [Documentation]    Check that you can query entitites via POST Interaction based on a list of properties
+019_02_05 Query several entities via POST Interaction based on a list of properties
+    [Documentation]    Check that you can query entities via POST Interaction based on a list of properties
     [Tags]    e-query    5_7_2
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${first_entity_id}
@@ -41,7 +41,7 @@ Query several entities via POST Interaction based on a list of properties
     ...    entity_types=${entity_types_to_be_retrieved}
     ...    geoproperty=${geometry_property}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing List Containing Entity elements
+    Check Response Body Containing List Containing Entity Elements
     ...    ${expectation_filename}
     ...    ${entities_ids_to_be_compared}
     ...    ${response.json()}

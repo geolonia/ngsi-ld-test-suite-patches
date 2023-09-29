@@ -18,7 +18,7 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 
 
 *** Test Cases ***
-Query entities in a simplified representation
+019_04_01 Query entities in a simplified representation
     [Documentation]    Check that the queried entities by Id can be returned in a simplified representation
     [Tags]    e-query    6_3_7
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
@@ -50,7 +50,7 @@ Query entities in a simplified representation
     ...    entity_types=${entity_types_to_be_retrieved}
     ...    options=${options_parameter}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing List Containing Entity elements
+    Check Response Body Containing List Containing Entity Elements
     ...    ${expectation_filename}
     ...    ${entities_ids_to_be_compared}
     ...    ${response.json()}

@@ -1,6 +1,6 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/CONS/E/019_01_01",
-  "test_objective": "Check that you can query several entities based on ids",
+  "tp_id": "TP/NGSI-LD/CI/CONS/E/019_02_01",
+  "test_objective": "Check that you can query several entities via POST Interaction based on ids",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.2",
   "config_id": "",
   "parent_release": "v1.3.1",
@@ -12,9 +12,9 @@
   "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
   "test_cases": [
     {
-      "name": "019_01_01 Query several entities based on ids",
-      "permutation_tp_id": "TP/NGSI-LD/CI/CONS/E/019_01_01",
-      "doc": "Check that you can query several entities based on ids",
+      "name": "019_02_01 Query several entities via POST Interaction based on ids",
+      "permutation_tp_id": "TP/NGSI-LD/CI/CONS/E/019_02_01",
+      "doc": "Check that you can query several entities via POST Interaction based on ids",
       "tags": [
         "5_7_2",
         "e-query"
@@ -30,5 +30,5 @@
   ],
   "permutations": [],
   "robotpath": "ContextInformation/Consumption/Entity/QueryEntities",
-  "robotfile": "019_01_01"
+  "robotfile": "019_02_01"
 }

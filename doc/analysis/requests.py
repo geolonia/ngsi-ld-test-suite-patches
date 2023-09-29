@@ -67,7 +67,7 @@ class Requests:
             },
             'Query Entities': {
                 'positions': [0, 1],
-                'params': ['entity_ids', 'entity_types']
+                'params': ['entity_ids', 'entity_types', 'accepts']
             }
         }
 
@@ -341,11 +341,17 @@ class Requests:
 
     @staticmethod
     def query_entities(kwargs) -> str:
-        if 'entity_ids' in kwargs and 'entity_types' in kwargs:
-            return (f"Request Query Entities with entity_ids set to '{kwargs['entity_ids']}' "
-                    f"and entity_types set to '{kwargs['entity_types']}")
-        else:
-            raise Exception(f"ERROR, expected entity_ids and entity_types attributes but received '{kwargs}'")
+        result = "Request Query Entities"
+        if 'entity_ids' in kwargs and kwargs['entity_ids'] != '':
+            result = f"{result} with entity_ids set to '{kwargs['entity_ids']}'"
+
+        if 'entity_types' in kwargs and kwargs['entity_types'] != '':
+            result = f"{result} with entity_types set to '{kwargs['entity_types']}"
+
+        if 'accept' in kwargs and kwargs['accept'] != '':
+            result = f"{result} with Header['Accept'] set to '{kwargs['accept']}'"
+
+        return result
 
     def get_value(self, params, param_position, param_key):
         data = [x for x in params if f'{param_key}=' in x]

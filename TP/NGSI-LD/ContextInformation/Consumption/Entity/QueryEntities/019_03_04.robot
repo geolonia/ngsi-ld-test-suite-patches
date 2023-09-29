@@ -18,7 +18,7 @@ ${invalid_attribute_two}=       type
 
 
 *** Test Cases ***
-Query several entities based on incorrect attribute names
+019_03_04 Query several entities based on incorrect attribute names
     [Documentation]    Check that you cannot query entities if the requested attribute names are incorrect
     [Tags]    e-query    5_7_2
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
