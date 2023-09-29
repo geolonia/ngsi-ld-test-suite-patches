@@ -98,9 +98,9 @@ class Checks:
                 'position': []
             },
             'Check Response Body Containing List Containing EntityTemporal elements': {
-                'params': ['timeRel', 'timeAt'],
-                'position': []
-            },
+                'params': ['filename', 'entity_ids'],
+                'position': [1, 2]
+        },
             'Check Response Body Containing List Containing Subscription elements': {
                 'params': ['number'],
                 'position': []
@@ -226,12 +226,12 @@ class Checks:
 
     @staticmethod
     def check_response_body_containing_list_containing_entitytemporal_elements(kwargs: list) -> str:
-        if "timeRel" in kwargs and "timeAt" in kwargs:
-            return (f"Response Body containing a list containing EntityTemporal elements containing entity type in the "
-                    f"list of entity types provided and entity id matching id pattern provided and attribute instances "
-                    f"'{kwargs['timeRel']}' '{kwargs['timeAt']}'")
+        if 'filename' in kwargs and 'entity_ids' in kwargs:
+            return (f"Request response body containing a list that contains Entity Temporal Elements\n"
+                    f"    compared with file '{kwargs['filename']}'\n"
+                    f"    and using the list of entity ids define in '{kwargs['entity_ids']}'")
         else:
-            raise Exception(f'ERROR, timeRel and/or timeAt attributes were not provided, but received: {kwargs}')
+            raise Exception(f"ERROR, expected parameters 'filename' and 'entity_ids', but received '{kwargs}'")
 
     @staticmethod
     def check_response_body_containing_subscription_element(kwargs: list) -> str:

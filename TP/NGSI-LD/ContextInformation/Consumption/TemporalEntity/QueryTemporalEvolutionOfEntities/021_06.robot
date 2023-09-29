@@ -17,7 +17,7 @@ ${expectation_file}=                vehicles-temporal-representation-021-06-expe
 
 
 *** Test Cases ***
-Query the temporal evolution of entities matching the given identifier(s)
+021_06_01 Query the temporal evolution of entities matching the given identifier(s)
     [Documentation]    Check that you can query the temporal evolution of entities matching the given identifier(s)
     [Tags]    te-query    5_7_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle

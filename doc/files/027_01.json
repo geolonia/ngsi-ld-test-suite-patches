@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/CONS/DISC/027_01",
+  "tp_id": "TP/NGSI-LD/CI/Cons/DISC/027_01",
   "test_objective": "Check that you cannot retrieve a detailed representation of an unknown NGSI-LD attribute",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.10",
   "config_id": "",
@@ -14,7 +14,7 @@
   "test_cases": [
     {
       "name": "027_01_01 Retrieve Detailed Representation Of Available Attribute Without Context",
-      "permutation_tp_id": "TP/NGSI-LD/CI/CONS/DISC/027_01_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/DISC/027_01_01",
       "doc": "Check that you cannot retrieve a detailed representation of an unknown NGSI-LD attribute",
       "tags": [
         "5_7_10",

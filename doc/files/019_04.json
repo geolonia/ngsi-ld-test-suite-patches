@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/CONS/E/019_04",
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/019_04",
   "test_objective": "Check that the queried entities by Id can be returned in a simplified representation",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.7",
   "config_id": "",
@@ -13,7 +13,7 @@
   "test_cases": [
     {
       "name": "019_04_01 Query entities in a simplified representation",
-      "permutation_tp_id": "TP/NGSI-LD/CI/CONS/E/019_04_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_04_01",
       "doc": "Check that the queried entities by Id can be returned in a simplified representation",
       "tags": [
         "6_3_7",

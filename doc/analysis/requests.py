@@ -68,6 +68,9 @@ class Requests:
             'Query Entities': {
                 'positions': [0, 1],
                 'params': ['entity_ids', 'entity_types', 'accepts']
+            },
+            'Retrieve Temporal Representation Of Entity': {
+                'params': ['entity_ids', 'entity_types', 'accepts']
             }
         }
 

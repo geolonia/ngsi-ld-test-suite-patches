@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/CONS/E/019_01_04",
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/019_01_04",
   "test_objective": "Check that you can query several entities based on attribute names",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.2",
   "config_id": "",
@@ -13,7 +13,7 @@
   "test_cases": [
     {
       "name": "019_01_04 Query several entities based on attribute names",
-      "permutation_tp_id": "TP/NGSI-LD/CI/CONS/E/019_01_04",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_01_04",
       "doc": "Check that you can query several entities based on attribute names",
       "tags": [
         "5_7_2",

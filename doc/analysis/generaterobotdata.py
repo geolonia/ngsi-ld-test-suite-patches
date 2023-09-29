@@ -26,13 +26,14 @@ class GenerateRobotData:
         self.identifier = {
             'ContextInformation': 'CI',
             'CommonBehaviours': 'CB',
-            'Consumption': 'CONS',
+            'Consumption': 'Cons',
+            'Provision': 'Prov',
             'Discovery/RetrieveAvailableAttributeInformation': 'DISC',
             'Discovery/RetrieveAvailableEntityTypeInformation': 'DISC',
             'Entity/RetrieveEntity': 'E',
             'Entities/CreateEntity': 'E',
             'Entity/QueryEntities': 'E',
-            'Provision': 'Prov'
+            'TemporalEntity/QueryTemporalEvolutionOfEntities': 'TE'
         }
         self.references = {
             'v1.3.1': 'ETSI GS CIM 009 V1.3.1 [], clause '

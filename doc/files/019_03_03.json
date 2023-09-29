@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/CONS/E/019_03_03",
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/019_03_03",
   "test_objective": "Check that you cannot query entities if the requested id pattern is incorrect",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.2",
   "config_id": "",
@@ -13,7 +13,7 @@
   "test_cases": [
     {
       "name": "019_03_03 Query several entities based on incorrect id pattern",
-      "permutation_tp_id": "TP/NGSI-LD/CI/CONS/E/019_03_03",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_03_03",
       "doc": "Check that you cannot query entities if the requested id pattern is incorrect",
       "tags": [
         "5_7_2",

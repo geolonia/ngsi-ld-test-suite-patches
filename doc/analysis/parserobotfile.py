@@ -216,7 +216,6 @@ class ParseRobotFile:
         for i in range(0, len(position_params['position'])):
             param_key = position_params['params'][i]
             param_position = position_params['position'][i]
-            # param_value = self.variables[params[param_position]-1]
             param_value = self.get_param_value(position=params[param_position-1])
             param[param_key] = param_value
 

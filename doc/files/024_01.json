@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/CONS/DISC/024_01",
+  "tp_id": "TP/NGSI-LD/CI/Cons/DISC/024_01",
   "test_objective": "Check that you cannot retrieve a detailed representation of an unknown NGSI-LD entity type",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.7",
   "config_id": "",
@@ -14,7 +14,7 @@
   "test_cases": [
     {
       "name": "024_01_01 Retrieve Detailed Representation Of Available Entity Type Without Context",
-      "permutation_tp_id": "TP/NGSI-LD/CI/CONS/DISC/024_01_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/DISC/024_01_01",
       "doc": "Check that you cannot retrieve a detailed representation of an unknown NGSI-LD entity type",
       "tags": [
         "5_7_7",
