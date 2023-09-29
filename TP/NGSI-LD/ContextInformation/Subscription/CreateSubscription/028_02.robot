@@ -1,16 +1,16 @@
 *** Settings ***
 Documentation       Check that you cannot create a subscription with an invalid request
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 
 Test Template       Create Subscription With Invalid Request
 
 
 *** Test Cases ***    FILENAME    EXPECTED_STATUS
-028_02_01_InvalidJson
+028_02_01 InvalidJson
     subscription-invalid-json-sample.jsonld    ${ERROR_TYPE_INVALID_REQUEST}
-028_02_02_EmptyJson
+028_02_02 EmptyJson
     subscription-empty-sample.jsonld    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 

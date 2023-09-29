@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can query entities specifying a maximum number of results
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,7 +17,7 @@ ${limit}=                   2
 
 
 *** Test Cases ***
-Query entities specifying a maximum number of results
+019_06_01 Query entities specifying a maximum number of results
     [Documentation]    Check that you can query entities specifying a maximum number of results
     [Tags]    e-query    6_3_10
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

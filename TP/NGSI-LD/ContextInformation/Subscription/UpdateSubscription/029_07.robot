@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can update a subscription: If isActive is equal to true and expiresAt is not present, then status shall be updated to "active", if and only if, the previous value of status was different than "expired"
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,7 +16,7 @@ ${subscription_payload_file_path}=      subscriptions/subscription-inactive-samp
 
 
 *** Test Cases ***    SUBSCRIPTION_UPDATE_FRAGMENT_FILE_PATH
-ActiveTrue    [Tags]    sub-update    5_8_2
+029_07_01 ActiveTrue    [Tags]    sub-update    5_8_2
     subscriptions/fragments/subscription-isActive-true-update-sample.json
 
 

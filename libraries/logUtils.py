@@ -39,3 +39,21 @@ def output(response, description, console=True):
     logger.info(pretty_request_json, also_console=True)
     logger.info("Response ->", also_console=True)
     logger.info(pretty_response_json, also_console=True)
+
+
+@keyword(name="Output Notification", tags=("I/O",))
+def output_notification(body, headers, description, console=True):
+    """*Body and headers of the notification are output to terminal and file (in JSON).*
+    :param body: body of the notification received
+    :param headers: headers of the notification received
+    :param description: explains what request is being made
+    :param console: If false, the JSON is not written to terminal. Default is true.
+    """
+
+    request_json = {'headers': dict(headers), 'body': body}
+
+    pretty_request_json = dumps(request_json, indent=4, sort_keys=False, separators=(",", ": "))
+
+    logger.info("\n" + description, also_console=True)
+    logger.info("Notification ->", also_console=True)
+    logger.info(pretty_request_json, also_console=True)

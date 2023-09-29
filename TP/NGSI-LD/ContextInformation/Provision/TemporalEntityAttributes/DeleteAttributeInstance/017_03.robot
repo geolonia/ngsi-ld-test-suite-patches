@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you cannot delete an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -17,11 +18,11 @@ ${status_code}=             404
 
 
 *** Test Cases ***    TEMPORAL_ENTITY_ID    ATTRIBUTE_ID    INSTANCE_ID
-017_03_01_delete an attribute instance in temporal representation of an entity if the entity with given id is not found
+017_03_01 Delete an attribute instance in temporal representation of an entity if the entity with given id is not found
     ${unknown_temporal_entity_id}    speed    ${valid_instanceId}
-017_03_02_delete an attribute instance in temporal representation of an entity if the target attribute is not found
+017_03_02 Delete an attribute instance in temporal representation of an entity if the target attribute is not found
     ${temporal_entity_representation_id}    speed2    ${valid_instanceId}
-017_03_03_delete an attribute instance in temporal representation of an entity if the target attribute instance is not found
+017_03_03 Delete an attribute instance in temporal representation of an entity if the target attribute instance is not found
     ${temporal_entity_representation_id}    speed    urn:ngsi-ld:01234567890123456789
 
 
@@ -48,11 +49,11 @@ Create Id
     Check Response Status Code    201    ${response.status_code}
     ${unknown_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${unknown_temporal_entity_id}
-    ${response}=    Get Temporal Representation Of Entity
+    ${response}=    Retrieve Temporal Representation Of Entity
     ...    ${temporal_entity_representation_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    ...    sysAttrs
-    ...    ${ngsild_test_suite_context}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
+    ...    options=sysAttrs
+    ...    context=${ngsild_test_suite_context}
     ${valid_instanceId}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
     Set Test Variable    ${valid_instanceId}
 

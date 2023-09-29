@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot update a subcription: If the data types and restriction are not met by the Subscription Fragment, then an error of type BadRequestData shall be raised
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,7 +16,7 @@ ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscrip
 
 
 *** Test Cases ***
-Update Subscription With Invalid Fragment
+029_03_01 Update Subscription With Invalid Fragment
     [Documentation]    Check that you cannot update a subcription: If the data types and restriction are not met by the Subscription Fragment, then an error of type BadRequestData shall be raised
     [Tags]    sub-update    5_8_2
     ${response}=    Update Subscription

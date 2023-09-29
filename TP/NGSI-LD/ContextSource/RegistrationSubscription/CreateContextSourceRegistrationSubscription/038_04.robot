@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can create a context source registration subscription with isActive member set to false and it's initial status will be set to "paused"
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -15,7 +15,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-inacti
 
 
 *** Test Cases ***
-Create Inactive Context Source Registration Subscription
+038_04_01 Create Inactive Context Source Registration Subscription
     [Documentation]    Check that you can create a context source registration subscription with isActive member set to false and it's initial status will be set to "paused"
     [Tags]    csrsub-create    5_11_2
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}

@@ -1,13 +1,13 @@
 *** Settings ***
 Documentation       Check that you cannot delete a context source registration subscription with an invalid URI
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 
 *** Test Cases ***
-Delete Context Source Registration Subscription With Invalid Uri
+042_02_01 Delete Context Source Registration Subscription With Invalid Uri
     [Documentation]    Check that you cannot delete a context source registration subscription with an invalid URI
     [Tags]    csrsub-delete    5_11_6
     ${response}=    Delete Context Source Registration Subscription    invalidUri

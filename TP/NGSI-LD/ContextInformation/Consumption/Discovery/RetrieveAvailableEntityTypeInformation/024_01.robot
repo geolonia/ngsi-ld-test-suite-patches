@@ -1,0 +1,49 @@
+*** Settings ***
+Documentation       Check that you cannot retrieve a detailed representation of an unknown NGSI-LD entity type
+
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+
+Suite Setup         Setup Initial Entities
+Suite Teardown      Delete Initial Entities
+
+
+*** Variables ***
+${building_id_prefix}=      urn:ngsi-ld:Building:
+${filename}=                building-simple-attributes-sample.json
+
+
+*** Test Cases ***
+024_01_01 Retrieve Detailed Representation Of Available Entity Type Without Context
+    [Documentation]    Check that you cannot retrieve a detailed representation of an unknown NGSI-LD entity type
+    [Tags]    ed-type    5_7_7
+    ${response}=    Retrieve Entity Type    type=Building
+    Check Response Status Code    404    ${response.status_code}
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to
+    ...    ${response.json()}
+    ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+
+
+*** Keywords ***
+Setup Initial Entities
+    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Create Entity Selecting Content Type
+    ...    ${filename}
+    ...    ${first_entity_id}
+    ...    ${CONTENT_TYPE_JSON}
+    ...    ${ngsild_test_suite_context}
+    Create Entity Selecting Content Type
+    ...    ${filename}
+    ...    ${second_entity_id}
+    ...    ${CONTENT_TYPE_JSON}
+    ...    ${ngsild_test_suite_context}
+    Set Suite Variable    ${first_entity_id}
+    Set Suite Variable    ${second_entity_id}
+
+Delete Initial Entities
+    Delete Entity by Id Returning Response    ${first_entity_id}
+    Delete Entity by Id Returning Response    ${second_entity_id}

@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can query the temporal evolution of entities
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -19,9 +20,9 @@ ${bus_payload_file}=                2020-08-bus-temporal-representation-sample.j
 
 
 *** Test Cases ***    TIMEREL    TIMEAT    EXPECTATION_FILE
-After    [Tags]    te-query    5_7_4
+021_01_01 After    [Tags]    te-query    5_7_4
     after    2020-08-01T12:04:00Z    vehicles-temporal-representation-021-01-01-expectation.jsonld
-Before    [Tags]    te-query    5_7_4
+021_01_02 Before    [Tags]    te-query    5_7_4
     before    2020-09-01T13:06:00Z    vehicles-temporal-representation-021-01-02-expectation.jsonld
 
 

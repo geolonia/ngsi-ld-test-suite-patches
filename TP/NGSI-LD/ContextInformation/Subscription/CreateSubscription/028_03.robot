@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot create a subscription with an invalid/empty id
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -14,9 +14,9 @@ ${subscription_payload_file_path}=      subscriptions/subscription-sample.jsonld
 
 
 *** Test Cases ***    ID
-028_03_01_InvalidId
+028_03_01 InvalidId
     invalidId
-028_03_02_EmptyId    ${EMPTY}
+028_03_02 EmptyId    ${EMPTY}
 
 
 *** Keywords ***

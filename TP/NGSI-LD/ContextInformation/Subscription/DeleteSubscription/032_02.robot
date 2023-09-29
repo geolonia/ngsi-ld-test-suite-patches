@@ -1,12 +1,12 @@
 *** Settings ***
 Documentation       Check that you cannot delete a subscription: If the subscription id provided does not correspond to any existing subscription in the system then an error of type ResourceNotFound shall be raised
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 
 
 *** Test Cases ***
-Delete Unknown Subscription
+032_02_01 Delete Unknown Subscription
     [Documentation]    Check that you cannot delete a subscription: If the subscription id provided does not correspond to any existing subscription in the system then an error of type ResourceNotFound shall be raised
     [Tags]    sub-delete    5_8_5
     ${response}=    Delete Subscription    urn:ngsi-ld:Subscription:unknowSubscription

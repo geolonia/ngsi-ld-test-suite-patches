@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that an error is raised if you delete a temporal entity with an unknown EntityId/Attribute Id
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -17,9 +17,9 @@ ${status_code}=             404
 
 
 *** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID
-015_03_01_Delete an attribute to a temporal entity if the entity id does not exist
+015_03_01 Delete an attribute to a temporal entity if the entity id does not exist
     ${unknown_temporal_entity_id}    fuelLevel
-015_03_02_Delete an attribute to a temporal entity if the entity does not contain the target attribute
+015_03_02 Delete an attribute to a temporal entity if the entity does not contain the target attribute
     ${valid_temporal_entity_id}    notExistingAttribute
 
 

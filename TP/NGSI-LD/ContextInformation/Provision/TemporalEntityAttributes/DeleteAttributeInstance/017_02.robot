@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you cannot delete an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -17,15 +18,15 @@ ${status_code}=             400
 
 
 *** Test Cases ***    TEMPORAL_ENTITY_ID    ATTRIBUTE_ID    INSTANCE_ID
-017_02_01_delete an attribute instance in temporal representation of an entity if the entity id is not valid
+017_02_01 Delete an attribute instance in temporal representation of an entity if the entity id is not valid
     invalidId    speed    ${valid_instanceId}
-017_02_02_delete an attribute instance in temporal representation of an entity if the entity id is not present
+017_02_02 Delete an attribute instance in temporal representation of an entity if the entity id is not present
     ${EMPTY}    speed    ${valid_instanceId}
-017_02_03_delete an attribute instance in temporal representation of an entity if the instance id is not valid
+017_02_03 Delete an attribute instance in temporal representation of an entity if the instance id is not valid
     ${temporal_entity_representation_id}    speed    invalidId
-017_02_04_delete an attribute instance in temporal representation of an entity if the attribute name is not a valid name
+017_02_04 Delete an attribute instance in temporal representation of an entity if the attribute name is not a valid name
     ${temporal_entity_representation_id}    invalid(Name    ${valid_instanceId}
-017_02_05_delete an attribute instance in temporal representation of an entity if the attribute name is not present
+017_02_05 Delete an attribute instance in temporal representation of an entity if the attribute name is not present
     ${temporal_entity_representation_id}    ${EMPTY}    ${valid_instanceId}
 
 
@@ -50,11 +51,11 @@ Create Temporal Entity
     ...    ${filename}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Get Temporal Representation Of Entity
+    ${response}=    Retrieve Temporal Representation Of Entity
     ...    ${temporal_entity_representation_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    ...    sysAttrs
-    ...    ${ngsild_test_suite_context}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
+    ...    options=sysAttrs
+    ...    context=${ngsild_test_suite_context}
     ${valid_instanceId}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
     Set Test Variable    ${valid_instanceId}
 

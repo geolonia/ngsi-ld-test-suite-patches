@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can query the temporal evolution of entities matching the given NGSI-LD Context Source filter
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
@@ -17,7 +18,7 @@ ${context_source_url}=                                  http://${context_source_
 
 
 *** Test Cases ***
-Query the temporal evolution of entities matching the given NGSI-LD context source filter
+021_10_01 Query the temporal evolution of entities matching the given NGSI-LD context source filter
     [Documentation]    Check that you can query the temporal evolution of entities matching the given NGSI-LD Context Source filter
     [Tags]    te-query    5_7_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Building

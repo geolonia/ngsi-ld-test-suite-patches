@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can upsert a batch of entities where some will succeed and others will fail
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +12,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***
-Upsert a batch of two valid entities and one invalid entity
+004_05_01 Upsert a batch of two valid entities and one invalid entity
     [Documentation]    Check that you can upsert a batch of two valid entities and one invalid entity
     [Tags]    be-upsert    5_6_8
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot delete an attribute from an entity with invalid/missing ids
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -17,11 +17,11 @@ ${filename}=                vehicle-two-datasetid-attributes-sample.jsonld
 
 
 *** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID
-013_02_01_delete an attribute if the Entity Id is not present
+013_02_01 Delete an attribute if the Entity Id is not present
     ${EMPTY}    speed
-013_02_02_delete an attribute if the Entity Id is not a valid URI
+013_02_02 Delete an attribute if the Entity Id is not a valid URI
     thisIsAnInvalidURI    speed
-013_02_03_delete an attribute if the Attribute Name is not present
+013_02_03 Delete an attribute if the Attribute Name is not present
     ${valid_entity_id}    ${EMPTY}
 
 

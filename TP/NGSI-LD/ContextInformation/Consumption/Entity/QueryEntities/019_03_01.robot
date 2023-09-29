@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you cannot query entities if the requested ids are incorrect
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -17,7 +18,7 @@ ${entity_invalid_id_two}=       thisisaninvaliduri2
 
 
 *** Test Cases ***
-Query entities based on incorrect ids
+019_03_01 Query entities based on incorrect ids
     [Documentation]    Check that you cannot query entities if the requested ids are incorrect
     [Tags]    e-query    5_7_2
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

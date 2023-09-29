@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that an error is raised if you delete a temporal entity with an empty/invalid EntityId
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -13,7 +13,7 @@ ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 
 
 *** Test Cases ***    STATUS_CODE    ID    PROBLEM_TYPE
-009_02_01_Delete a temporal representation of an entity with an empty entity id
+009_02_01 Delete a temporal representation of an entity with an empty entity id
     400    ${EMPTY}    ${ERROR_TYPE_BAD_REQUEST_DATA}
 009_02_02 Delete a temporal representation of an entity with an invalid entity id
     400    invalidId    ${ERROR_TYPE_BAD_REQUEST_DATA}

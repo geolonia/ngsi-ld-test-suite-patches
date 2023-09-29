@@ -1,20 +1,20 @@
 *** Settings ***
 Documentation       Check that you cannot create an entity with an invalid request
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 
 Test Template       Create Entity With Invalid Request Scenarios
 
 
 *** Test Cases ***    FILENAME    ERROR_TYPE
-001_02_01_InvalidJson
+001_02_01 InvalidJson
     [Tags]    e-create    5_6_1
     invalid-json-sample.jsonld    ${ERROR_TYPE_INVALID_REQUEST}
-001_02_02_EmptyJson
+001_02_02 EmptyJson
     [Tags]    e-create    5_6_1
     empty-sample.jsonld    ${ERROR_TYPE_INVALID_REQUEST}
-001_02_03_EntityWithNoContext
+001_02_03 EntityWithNoContext
     [Tags]    e-create    5_6_1
     building-minimal-without-context-sample.jsonld    ${ERROR_TYPE_BAD_REQUEST_DATA}
 

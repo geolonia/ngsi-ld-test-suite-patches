@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can query several entities based on attribute names
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -19,7 +20,7 @@ ${attribute_subcategory}=           https://ngsi-ld-test-suite/context#subCatego
 
 
 *** Test Cases ***
-Query several entities based on attribute names
+019_01_04 Query several entities based on attribute names
     [Documentation]    Check that you can query several entities based on attribute names
     [Tags]    e-query    5_7_2
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

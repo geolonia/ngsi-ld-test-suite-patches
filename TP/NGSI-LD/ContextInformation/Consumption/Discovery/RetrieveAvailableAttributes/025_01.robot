@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can retrieve a list of NGSI-LD attributes
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,10 +17,10 @@ ${filename}=                building-simple-attributes-sample.json
 
 
 *** Test Cases ***    CONTEXT    EXPECTATION_FILE
-WithoutJsonLdContext
+025_01_01 WithoutJsonLdContext
     [Tags]    ed-attrs    5_7_8
     ${EMPTY}    types/expectations/attribute-list-025-01-01-expectation.json
-WithJsonLdContext    [Tags]    ed-attrs    5_7_8
+025_01_02 WithJsonLdContext    [Tags]    ed-attrs    5_7_8
     ${ngsild_test_suite_context}    types/expectations/attribute-list-025-01-02-expectation.json
 
 

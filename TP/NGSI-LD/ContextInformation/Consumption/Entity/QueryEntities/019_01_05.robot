@@ -1,7 +1,8 @@
 *** Settings ***
-Documentation       Check that you can query entitites based on a list of properties
+Documentation       Check that you can query entitites based on a geoquery
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -13,12 +14,14 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 ${filename}=                building-location-attribute-sample.jsonld
 ${expectation_filename}=    building-geoproperty-query-expectation.jsonld
 ${entity_type}=             https://ngsi-ld-test-suite/context#Building
-${geometry_property}=       location
+${georal}=                  equals
+${geometry}=                Point
+${coordinates}=             [13.3986, 52.5547]
 
 
 *** Test Cases ***
-Query several entities based on a list of properties
-    [Documentation]    Check that you can query entitites based on a list of properties
+019_01_05 Query several entities based on a geoquery
+    [Documentation]    Check that you can query entitites based on a geoquery
     [Tags]    e-query    5_7_2
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${first_entity_id}
@@ -39,8 +42,10 @@ Query several entities based on a list of properties
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${entity_type}
     ${response}=    Query Entities
     ...    entity_types=${entity_types_to_be_retrieved}
-    ...    geoproperty=${geometry_property}
     ...    accept=${CONTENT_TYPE_LD_JSON}
+    ...    georel=${georal}
+    ...    geometry=${geometry}
+    ...    coordinates=${coordinates}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Entity elements
     ...    ${expectation_filename}

@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot delete a context source registration under some conditions
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -15,10 +15,10 @@ ${filename}=                    context-source-registration-simple-sample.jsonld
 
 
 *** Test Cases ***    INVALID_REGISTRATION_ID
-035_02_01_Delete a Context Source Registration if the Id is not present
+035_02_01 Delete a Context Source Registration if the Id is not present
     [Tags]    csr-delete    5_9_4
     ${EMPTY}
-035_02_02_Delete a Context Source Registration if the Id is not a valid URI
+035_02_02 Delete a Context Source Registration if the Id is not a valid URI
     [Tags]    csr-delete    5_9_4
     invalidURI
 

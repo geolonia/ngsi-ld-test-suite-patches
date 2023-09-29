@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot delete an attribute from an entity with invalid/missing ids
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -17,11 +17,11 @@ ${filename}=                vehicle-two-datasetid-attributes-sample.jsonld
 
 
 *** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID    DATASETID
-013_03_01_delete an attribute when the Entity Id is not known to the system
+013_03_01 Delete an attribute when the Entity Id is not known to the system
     ${not_found_entity_id}    speed    urn:ngsi-ld:Property:gpsBxyz123-speed
-013_03_02_delete an attribute when the Entity does not contain the target attribute id
+013_03_02 Delete an attribute when the Entity does not contain the target attribute id
     ${valid_entity_id}    notFound    ${EMPTY}
-013_03_03_delete an attribute when the Entity does not contain the target attribute with same datasetId
+013_03_03 Delete an attribute when the Entity does not contain the target attribute with same datasetId
     ${valid_entity_id}    speed    urn:ngsi-ld:Property:notFound
 
 

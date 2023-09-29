@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you cannot retrieve the temporal evolution of an entity with an invalid request content
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,11 +17,11 @@ ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-sample.json
 
 
 *** Test Cases ***    TIMEREL    TIMEAT    ENDTIMEAT
-After    [Tags]    te-retrieve    5_7_3
+020_09_01 After    [Tags]    te-retrieve    5_7_3
     after    ${EMPTY}    ${EMPTY}
-Before    [Tags]    te-retrieve    5_7_3
+020_09_02 Before    [Tags]    te-retrieve    5_7_3
     before    ${EMPTY}    ${EMPTY}
-Between    [Tags]    te-retrieve    5_7_3
+020_09_03 Between    [Tags]    te-retrieve    5_7_3
     between    2020-08-01T12:00:00Z    ${EMPTY}
 
 

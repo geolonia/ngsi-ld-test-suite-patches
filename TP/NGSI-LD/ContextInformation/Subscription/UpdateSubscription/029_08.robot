@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can update a subcription: If isActive is equal to true and expiresAt corresponds to a DateTime in the future, then status shall be updated to "active"
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,7 +16,7 @@ ${subscription_payload_file_path}=      subscriptions/subscription-inactive-samp
 
 
 *** Test Cases ***    SUBSCRIPTION_UPDATE_FRAGMENT_FILE_PATH
-ActiveTrueExpiresAt
+029_08_01 ActiveTrueExpiresAt
     [Tags]    sub-update    5_8_2
     subscriptions/fragments/subscription-isActive-expiresAt-update-sample.json
 

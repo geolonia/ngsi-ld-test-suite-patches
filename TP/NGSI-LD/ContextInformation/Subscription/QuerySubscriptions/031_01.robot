@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can query a list of subscriptions
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -18,7 +18,7 @@ ${expectation_file_path}=                       subscriptions/expectations/subsc
 
 
 *** Test Cases ***
-Query Subscriptions
+031_01_01 Query Subscriptions
     [Documentation]    Check that you can query a list of subscriptions
     [Tags]    sub-query    5_8_4
     ${response}=    Query Subscriptions    context=${ngsild_test_suite_context}

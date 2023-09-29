@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you cannot get an entity if an attribute is not known to the system
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -15,9 +16,9 @@ ${attribute_not_known}=     property_not_found
 
 
 *** Test Cases ***
-Get an entity if an attribute is not known to the system
+018_03_02 Get an entity if an attribute is not known to the system
     [Documentation]    Check that you cannot get an entity if an attribute is not known to the system
-    [Tags]    e-retrieve    5_6_6
+    [Tags]    e-retrieve    5_7_1
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type

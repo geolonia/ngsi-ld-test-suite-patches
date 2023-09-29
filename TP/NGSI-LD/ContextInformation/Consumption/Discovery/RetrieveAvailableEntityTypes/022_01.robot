@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can retrieve a list of NGSI-LD entity types
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -18,10 +19,10 @@ ${second_filename}=         vehicle-simple-attributes-sample.json
 
 
 *** Test Cases ***    CONTEXT    EXPECTATION_FILE
-WithoutJsonLdContext
+022_01_01 WithoutJsonLdContext
     [Tags]    ed-types    5_7_5
     ${EMPTY}    types/expectations/entity-type-list-022-01-01-expectation.json
-WithJsonLdContext    [Tags]    ed-types    5_7_5
+022_01_02 WithJsonLdContext    [Tags]    ed-types    5_7_5
     ${ngsild_test_suite_context}    types/expectations/entity-type-list-022-01-02-expectation.json
 
 

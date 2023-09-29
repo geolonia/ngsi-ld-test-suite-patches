@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can upsert a batch of non-existing and existing entities where non-existing will be created and existing will be replaced
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -15,13 +16,13 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***    FILENAME
-EntityWithSimpleProperties
+004_02_01 EntityWithSimpleProperties
     [Tags]    be-upsert    5_6_8
     building-simple-attributes-sample.jsonld
-EntityWithSimpleRelationships
+004_02_02 EntityWithSimpleRelationships
     [Tags]    be-upsert    5_6_8
     building-relationship-sample.jsonld
-EntityWithRelationshipsProperties
+004_02_03 EntityWithRelationshipsProperties
     [Tags]    be-upsert    5_6_8
     building-relationship-of-property-sample.jsonld
 

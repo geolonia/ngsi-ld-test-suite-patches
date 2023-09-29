@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that the queried entity by Id can be returned in a simplified representation
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,7 +17,7 @@ ${options_parameter}=       keyValues
 
 
 *** Test Cases ***
-Get an entity in a simplified representation
+018_04_01 Get an entity in a simplified representation
     [Documentation]    Check that the queried entity by Id can be returned in a simplified representation
     [Tags]    e-retrieve    6_3_7
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}

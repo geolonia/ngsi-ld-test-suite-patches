@@ -1,16 +1,16 @@
 *** Settings ***
 Documentation       Check that you cannot update a batch of entities with an invalid request
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 
 Test Template       Batch Update Entity With Invalid Request Scenarios
 
 
 *** Test Cases ***    FILENAME    PROBLEM_TYPE
-InvalidJson    [Tags]    be-update    5_6_9
+005_04_01 InvalidJson    [Tags]    be-update    5_6_9
     batch/invalid-json-sample.jsonld    ${ERROR_TYPE_INVALID_REQUEST}
-InvalidJsonLd    [Tags]    be-update    5_6_9
+005_04_02 InvalidJsonLd    [Tags]    be-update    5_6_9
     batch/invalid-json-ld-sample.jsonld    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 

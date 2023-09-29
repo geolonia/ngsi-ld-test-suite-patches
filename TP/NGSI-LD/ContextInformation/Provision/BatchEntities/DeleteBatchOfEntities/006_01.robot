@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can delete a batch of entities
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -13,7 +14,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***
-Delete a batch of entities
+006_01_01 Delete a batch of entities
     [Documentation]    Check that you can delete a batch of entities
     [Tags]    be-delete    5_6_10
     @{entities_ids_to_be_deleted}=    Create List    ${first_entity_id}    ${second_entity_id}
