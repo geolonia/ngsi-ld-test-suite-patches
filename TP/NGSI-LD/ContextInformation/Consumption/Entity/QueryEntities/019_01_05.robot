@@ -18,7 +18,7 @@ ${geometry_property}=       location
 
 
 *** Test Cases ***
-Query several entities based on a list of properties
+019_01_05 Query several entities based on a list of properties
     [Documentation]    Check that you can query entitites based on a list of properties
     [Tags]    e-query    5_7_2
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
@@ -43,7 +43,7 @@ Query several entities based on a list of properties
     ...    geoproperty=${geometry_property}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing List Containing Entity elements
+    Check Response Body Containing List Containing Entity Elements
     ...    ${expectation_filename}
     ...    ${entities_ids_to_be_compared}
     ...    ${response.json()}

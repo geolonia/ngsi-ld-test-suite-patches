@@ -18,7 +18,7 @@ ${attribute_subcategory}=           https://ngsi-ld-test-suite/context#subCatego
 
 
 *** Test Cases ***
-Query several entities via POST Interaction based on attribute names
+019_02_04 Query several entities via POST Interaction based on attribute names
     [Documentation]    Check that you can query several entities via POST Interaction based on attribute names
     [Tags]    e-query    5_7_2
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
@@ -42,7 +42,7 @@ Query several entities via POST Interaction based on attribute names
     @{entities_ids_to_be_retrieved}=    Create List    ${first_entity_id}    ${second_entity_id}
     ${response}=    Query Entities    attrs=${attributes_to_be_retrieved}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing List Containing Entity elements
+    Check Response Body Containing List Containing Entity Elements
     ...    ${expectation_filename}
     ...    ${entities_ids_to_be_retrieved}
     ...    ${response.json()}

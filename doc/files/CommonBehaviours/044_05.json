@@ -1,0 +1,67 @@
+{
+  "tp_id": "TP/NGSI-LD/CB/044_05",
+  "test_objective": "Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the \"Accept\" header is \"application/geo+json\" for operations different than \"Retrieve Entity\" and \"Query Entity\"",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.4",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_6_3_4",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "044_05_01 Retrieve subscription by id",
+      "permutation_tp_id": "TP/NGSI-LD/CB/044_05_01",
+      "doc": "Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the \"Accept\" header does not imply \"application/json\" nor \"application/ld+json\" (get /subscriptions/{subscriptionId})",
+      "tags": [
+        "6_3_4",
+        "sub-retrieve"
+      ],
+      "setup": null,
+      "teardown": "Delete Subscription",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 406\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Request a subscription\nHeader['Accept'] set to 'application/geo+json'",
+      "http_verb": "GET",
+      "endpoint": "subscriptions/{id}"
+    },
+    {
+      "name": "044_05_02 Query temporal entities",
+      "permutation_tp_id": "TP/NGSI-LD/CB/044_05_02",
+      "doc": "Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the \"Accept\" header does not imply \"application/json\" nor \"application/ld+json\" (get /temporal/entities)",
+      "tags": [
+        "6_3_4",
+        "te-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 406\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n        Response containing:\n    * Entity-Type is equal to '${entity_types_to_be_retrieved}'\n    * timeRel is equal to 'after'\n    * timeAt is equal to '2020-08-01T12:05:00Z'\n    * Accept is equal to 'application/geo+json'",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities"
+    },
+    {
+      "name": "044_05_03 Query context source registration",
+      "permutation_tp_id": "TP/NGSI-LD/CB/044_05_03",
+      "doc": "Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the \"Accept\" header does not imply \"application/json\" nor \"application/ld+json\" (get /csourceRegistrations)",
+      "tags": [
+        "6_3_4",
+        "csr-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 406\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Request a Context Source Registration with Return\nEntity Type set to 'Building'\nHeader['Accept'] set to 'application/geo+json'",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations"
+    }
+  ],
+  "permutations": [
+    "endpoint",
+    "when"
+  ],
+  "robotpath": "CommonBehaviours",
+  "robotfile": "044_05"
+}

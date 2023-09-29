@@ -1,11 +1,11 @@
 import re
 import os
-from doc.analysis.checks import Checks
-from doc.analysis.requests import Requests
+from analysis.checks import Checks
+from analysis.requests import Requests
 
 
 class ParseRobotFile:
-    def __init__(self, filename: str, execdir: str):
+    def __init__(self, filename: str, execdir: str, config_file):
         self.test_suite = os.path.basename(filename).split('.')[0]
 
         with open(filename, 'r') as file:
@@ -20,6 +20,8 @@ class ParseRobotFile:
         self.get_variables_data()
         self.get_apiutils_path()
         self.get_test_cases()
+
+        self.config_file = config_file
 
     def set_apiutils(self, apiutils):
         self.apiutils = apiutils
@@ -36,19 +38,6 @@ class ParseRobotFile:
                 self.variables[match.group(1)] = match.group(2)
             else:
                 raise Exception("Error, the variable is not following the format ${thing} = <value>")
-
-    # def get_expected_status_code(self, keyword: str):
-    #     #     Check Response Status Code    ${expected_status_code}    ${response.status_code}
-    #     #     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    #     #     ...    ${response.json()}
-    #     #     ...    ${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}
-    #     string = self.get_substring(initial_string=keyword, final_string='\n', include=True)
-    #     expected_status_code = string.split('    ')[1]
-    #
-    #     if expected_status_code.isdigit():
-    #         return expected_status_code
-    #     else:
-    #         return self.variables[expected_status_code]
 
     def get_apiutils_path(self):
         string = self.get_substring(initial_string='Resource', final_string='*** Variables ***', include=True)
@@ -90,16 +79,30 @@ class ParseRobotFile:
 
         indexes = list()
         self.test_case_names = list()
-        for match in matches:
-            name = match.strip()
-            self.test_case_names.append(name)
-            indexes.append(string.find(name))
+        if matches:
+            for match in matches:
+                name = match.strip()
+                self.test_case_names.append(name)
+                indexes.append(string.find(name))
+        else:
+            # The test case has the same id. number as the test suite
+            pattern = f'{self.test_suite}\s.*'
+            matches = re.findall(pattern=pattern, string=string)
+
+            for match in matches:
+                name = match.strip()
+                self.test_case_names.append(name)
+                indexes.append(string.find(name))
 
         self.test_cases = dict()
         for i in range(0, len(indexes)-1):
             self.test_cases[self.test_case_names[i]] = string[indexes[i]:indexes[i+1]]
 
-        self.test_cases[self.test_case_names[-1]] = string[indexes[-1]:]
+        try:
+            self.test_cases[self.test_case_names[-1]] = string[indexes[-1]:]
+        except IndexError:
+            raise Exception(f"ERROR, List index out of range, "
+                            f"probably the name of the Test Case is not following the pattern '{pattern}'")
 
     def get_checks(self, test_name, apiutils):
         data = Checks()
@@ -136,8 +139,9 @@ class ParseRobotFile:
         return new_list
 
     def get_request(self, test_name):
-        print(test_name)
-        data = Requests(variables=self.variables, apiutils_variables=self.apiutils.variables)
+        data = Requests(variables=self.variables,
+                        apiutils_variables=self.apiutils.variables,
+                        config_file=self.config_file)
         description = data.get_description(string=self.test_cases[test_name])
         return description
 
@@ -212,7 +216,6 @@ class ParseRobotFile:
         for i in range(0, len(position_params['position'])):
             param_key = position_params['params'][i]
             param_position = position_params['position'][i]
-            # param_value = self.variables[params[param_position]-1]
             param_value = self.get_param_value(position=params[param_position-1])
             param[param_key] = param_value
 

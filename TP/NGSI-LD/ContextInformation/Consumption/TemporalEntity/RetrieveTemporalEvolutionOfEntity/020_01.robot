@@ -16,7 +16,7 @@ ${vehicle_expectation_file}=    vehicle-temporal-representation-020-01-expectati
 
 
 *** Test Cases ***
-Retrieve the temporal evolution of an entity
+020_01_01 Retrieve the temporal evolution of an entity
     [Documentation]    Check that you can retrieve the temporal evolution of an entity
     [Tags]    te-retrieve    5_7_3
     ${response}=    Retrieve Temporal Representation Of Entity    ${temporal_entity_representation_id}

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot retrieve a detailed representation of an unknown NGSI-LD attribute
+Documentation       Check that you cannot retrieve a detailed representation of an unknown NGSI-LD entity type
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption/ApiUtils.resource
 # Resource    ${EXECDIR}/resources/ApiUtils.resource
@@ -16,10 +16,10 @@ ${filename}=                building-simple-attributes-sample.json
 
 
 *** Test Cases ***
-Retrieve Detailed Representation Of Available Attribute Without Context
-    [Documentation]    Check that you cannot retrieve a detailed representation of an unknown NGSI-LD attribute
-    [Tags]    ed-attr    5_7_10
-    ${response}=    Retrieve Attribute    attribute_name=airQualityLevel
+024_01_01 Retrieve Detailed Representation Of Available Entity Type Without Context
+    [Documentation]    Check that you cannot retrieve a detailed representation of an unknown NGSI-LD entity type
+    [Tags]    ed-type    5_7_7
+    ${response}=    Retrieve Entity Type    type=Building
     Check Response Status Code    404    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}
@@ -29,13 +29,21 @@ Retrieve Detailed Representation Of Available Attribute Without Context
 
 *** Keywords ***
 Setup Initial Entities
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity Selecting Content Type
     ...    ${filename}
-    ...    ${entity_id}
+    ...    ${first_entity_id}
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
-    Set Suite Variable    ${entity_id}
+    Create Entity Selecting Content Type
+    ...    ${filename}
+    ...    ${second_entity_id}
+    ...    ${CONTENT_TYPE_JSON}
+    ...    ${ngsild_test_suite_context}
+    Set Suite Variable    ${first_entity_id}
+    Set Suite Variable    ${second_entity_id}
 
 Delete Initial Entities
-    Delete Entity by Id Returning Response    ${entity_id}
+    Delete Entity by Id Returning Response    ${first_entity_id}
+    Delete Entity by Id Returning Response    ${second_entity_id}

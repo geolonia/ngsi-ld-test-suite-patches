@@ -17,7 +17,7 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 
 
 *** Test Cases ***
-Query several entities via POST Interaction based on ids
+019_02_01 Query several entities via POST Interaction based on ids
     [Documentation]    Check that you can query several entities via POST Interaction based on ids
     [Tags]    e-query    5_7_2
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
@@ -53,7 +53,7 @@ Query several entities via POST Interaction based on ids
     ...    entity_ids=${entities_ids_to_be_retrieved}
     ...    entity_types=${entity_types_to_be_retrieved}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing List Containing Entity elements
+    Check Response Body Containing List Containing Entity Elements
     ...    ${expectation_filename}
     ...    ${entities_ids_to_be_compared}
     ...    ${response.json()}

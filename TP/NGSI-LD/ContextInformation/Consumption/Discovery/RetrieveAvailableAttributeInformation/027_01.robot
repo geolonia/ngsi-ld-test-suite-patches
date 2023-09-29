@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can retrieve a list with a detailed representation of NGSI-LD attributes
+Documentation       Check that you cannot retrieve a detailed representation of an unknown NGSI-LD attribute
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption/ApiUtils.resource
 # Resource    ${EXECDIR}/resources/ApiUtils.resource
@@ -13,16 +13,18 @@ Suite Teardown      Delete Initial Entities
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
 ${filename}=                building-simple-attributes-sample.json
-${expectation_file}=        types/expectations/attribute-027-01-expectation.json
 
 
 *** Test Cases ***
-Retrieve Detailed Representation Of Available Attribute
-    [Documentation]    Check that you can retrieve a list with a detailed representation of NGSI-LD attributes
+027_01_01 Retrieve Detailed Representation Of Available Attribute Without Context
+    [Documentation]    Check that you cannot retrieve a detailed representation of an unknown NGSI-LD attribute
     [Tags]    ed-attr    5_7_10
-    ${response}=    Retrieve Attribute    attribute_name=airQualityLevel    context=${ngsild_test_suite_context}
-    Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing Attribute element    ${expectation_file}    ${response.json()}
+    ${response}=    Retrieve Attribute    attribute_name=airQualityLevel
+    Check Response Status Code    404    ${response.status_code}
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to
+    ...    ${response.json()}
+    ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 
 *** Keywords ***
