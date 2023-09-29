@@ -1,0 +1,34 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/019_03_03",
+  "test_objective": "Check that you cannot query entities if the requested id pattern is incorrect",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.2",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_7_2",
+  "keywords": [
+    "Delete Entities"
+  ],
+  "teardown": "Delete Entities",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "019_03_03 Query several entities based on incorrect id pattern",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_03_03",
+      "doc": "Check that you cannot query entities if the requested id pattern is incorrect",
+      "tags": [
+        "5_7_2",
+        "e-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Request Query Entities with entity_ids set to 'entity_id_pattern=${invalid_entity_id_pattern}' with entity_types set to '${entity_types_to_be_retrieved}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Consumption/Entity/QueryEntities",
+  "robotfile": "019_03_03"
+}
