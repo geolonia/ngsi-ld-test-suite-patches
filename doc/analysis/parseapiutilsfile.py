@@ -23,12 +23,13 @@ class ParseApiUtilsFile:
         index = None
         for i, item in enumerate(string):
             if 'response' in item:
-                regex = "\s{4}\$\{response\}=\s{4}(.*)"
+                regex = "\s{4}\$\{response\}=\s{4}(POST|GET|PUT|PATCH|DELETE).*"
                 match = re.match(pattern=regex, string=item)
 
                 if match:
                     verb = match.groups()[0]
-            elif 'url' in item:
+
+            if 'url' in item:
                 #url = item.split('/')[1]
                 url = self.get_url_request(url=item)
 
@@ -36,7 +37,14 @@ class ParseApiUtilsFile:
 
     @staticmethod
     def get_url_request(url: str) -> list:
-        regex = r"\s*\.{3}\s*url=\$\{url\}\/(.*)"
+        # We have two options, the url is defined in the same line of the response or it is defined in the following
+        # lines with '...'
+        keys = list()
+
+        if 'response' in url:
+            url = [x for x in url.split('    ') if 'url' in x][0]
+
+        regex = r"\s*\.*\s*url=\$\{url\}\/(.*)"
 
         match = re.match(pattern=regex, string=url)
         if match:

@@ -1,0 +1,35 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/DISC/024_02",
+  "test_objective": "Check that you can retrieve a detailed representation of a specified NGSI-LD entity type",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.7",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_7_7",
+  "keywords": [
+    "Setup Initial Entities",
+    "Delete Initial Entities"
+  ],
+  "teardown": "Delete Initial Entities",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "024_02_01 Retrieve Detailed Representation Of Available Entity Type",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/DISC/024_02_01",
+      "doc": "Check that you can retrieve a detailed representation of a specified NGSI-LD entity type",
+      "tags": [
+        "5_7_7",
+        "ed-type"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing an Entity Type Info and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/types/{type}'\n        method set to 'GET'\n        Retrieve Entity Type, with type set to 'Building', with Header['Link'] containing 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'",
+      "http_verb": "GET",
+      "endpoint": "types/{type}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Consumption/Discovery/RetrieveAvailableEntityTypeInformation",
+  "robotfile": "024_02"
+}

@@ -18,7 +18,7 @@ ${accept_header}=           application/geo+json
 
 
 *** Test Cases ***
-Get an entity by id that can be returned in a geoJSON format
+019_05_01 Get an entity by id that can be returned in a geoJSON format
     [Documentation]    Check that the queried entities by id can be returned in a geoJSON format
     [Tags]    e-query    6_3_7
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
@@ -50,7 +50,7 @@ Get an entity by id that can be returned in a geoJSON format
     ...    entity_types=${entity_types_to_be_retrieved}
     ...    accept=${accept_header}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing List Containing Entity elements
+    Check Response Body Containing List Containing Entity Elements
     ...    ${expectation_filename}
     ...    ${entities_ids_to_be_compared}
     ...    ${response.json()}

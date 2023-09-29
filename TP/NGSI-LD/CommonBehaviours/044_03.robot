@@ -22,7 +22,7 @@ ${content_type}=                application/xml
 
 
 *** Test Cases ***
-044_03_01_endpoint patch /entities/{entityId}/attrs/{attrId}
+044_03_01 endpoint patch /entities/{entityId}/attrs/{attrId}
     [Documentation]    Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json" (patch /entities/{entityId}/attrs/{attrId})
     [Tags]    ea-partial-update    6_3_4
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
@@ -39,7 +39,7 @@ ${content_type}=                application/xml
     Check Response Status Code    415    ${response.status_code}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
 
-044_03_02_endpoint patch /subscriptions/{subscriptionId}
+044_03_02 endpoint patch /subscriptions/{subscriptionId}
     [Documentation]    Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json" (patch /subscriptions/{subscriptionId})
     [Tags]    sub-update    6_3_4
     ${id}=    Generate Random Entity Id    ${subscription_id_prefix}
@@ -49,7 +49,7 @@ ${content_type}=                application/xml
     Check Response Status Code    415    ${response.status_code}
     [Teardown]    Delete Subscription    ${id}
 
-044_03_03_endpoint post /entities/
+044_03_03 endpoint post /entities/
     [Documentation]    Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json" (post /entities/)
     [Tags]    e-create    6_3_4
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
@@ -60,7 +60,7 @@ ${content_type}=                application/xml
     Check Response Status Code    415    ${response.status_code}
     [Teardown]    Delete Entity by Id    ${entity_id}
 
-044_03_04_endpoint post /subscriptions/
+044_03_04 endpoint post /subscriptions/
     [Documentation]    Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json" (post /subscriptions/)
     [Tags]    sub-create    6_3_4
     ${subscriptions_id}=    Generate Random Entity Id    ${subscription_id_prefix}
@@ -68,7 +68,7 @@ ${content_type}=                application/xml
     Check Response Status Code    415    ${response.status_code}
     [Teardown]    Delete Subscription    ${subscriptions_id}
 
-044_03_05_endpoint post /entityOperations/create
+044_03_05 endpoint post /entityOperations/create
     [Documentation]    Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json" (post /entityOperations/create)
     [Tags]    be-create    6_3_4
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
@@ -81,7 +81,7 @@ ${content_type}=                application/xml
     Check Response Status Code    415    ${response.status_code}
     [Teardown]    Batch Delete Entities    @{expected_entities_ids}
 
-044_03_06_endpoint post /temporal/entities/
+044_03_06 endpoint post /temporal/entities/
     [Documentation]    Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json" (post /temporal/entities/)
     [Tags]    te-create    6_3_4
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${tea_id_prefix}

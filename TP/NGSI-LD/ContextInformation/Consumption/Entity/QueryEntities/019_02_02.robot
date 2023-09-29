@@ -23,7 +23,7 @@ ${parking_entity_type}=     https://ngsi-ld-test-suite/context#OffStreetParking
 
 
 *** Test Cases ***
-Query several entities via POST Interaction based on the entities types
+019_02_02 Query several entities via POST Interaction based on the entities types
     [Documentation]    Check that you can query several entities via POST Interaction based on the entities types
     [Tags]    e-query    5_7_2
     ${building_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
@@ -51,7 +51,7 @@ Query several entities via POST Interaction based on the entities types
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${vehicle_entity_type}    ${parking_entity_type}
     ${response}=    Query Entities    entity_types=${entity_types_to_be_retrieved}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing List Containing Entity elements
+    Check Response Body Containing List Containing Entity Elements
     ...    ${expectation_filename}
     ...    ${entity_types_to_be_compared}
     ...    ${response.json()}

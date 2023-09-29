@@ -17,7 +17,7 @@ ${subscription_fragment}=       subscriptions/fragments/subscription-update-samp
 
 
 *** Test Cases ***
-044_01_01_endpoint /entities/{entityId}/attrs/{attrId}
+044_01_01 endpoint /entities/{entityId}/attrs/{attrId}
     [Documentation]    Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type
     [Tags]    ea-partial-update    6_3_4
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
@@ -35,7 +35,7 @@ ${subscription_fragment}=       subscriptions/fragments/subscription-update-samp
     Check Response Status Code    204    ${response.status_code}
     [Teardown]    Delete Entity by Id    ${entity_id}
 
-044_01_02_endpoint /subscriptions/{subscriptionId}
+044_01_02 endpoint /subscriptions/{subscriptionId}
     [Documentation]    Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type
     [Tags]    sub-update    6_3_4
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}

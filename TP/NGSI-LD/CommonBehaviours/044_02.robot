@@ -21,7 +21,7 @@ ${content_type}=                application/json
 
 
 *** Test Cases ***
-044_02_01_endpoint /entities/{entityId}
+044_02_01 endpoint /entities/{entityId}
     [Documentation]    Verify that on a GET HTTP request if nothing is specified on the Accept header, "application/json" is assumed (/entities/{entityId})
     [Tags]    e-query    6_3_4
     ${id}=    Generate Random Entity Id    ${building_id_prefix}
@@ -36,7 +36,7 @@ ${content_type}=                application/json
     Check Response Headers Link Not Empty    ${response.headers}
     [Teardown]    Delete Entity by Id Returning Response    ${id}
 
-044_02_02_endpoint /subscriptions/{subscriptionId}
+044_02_02 endpoint /subscriptions/{subscriptionId}
     [Documentation]    Verify that on a GET HTTP request if nothing is specified on the Accept header, "application/json" is assumed (/subscriptions/{subscriptionId})
     [Tags]    sub-retrieve    6_3_4
     ${id}=    Generate Random Entity Id    ${subscription_id_prefix}
@@ -48,7 +48,7 @@ ${content_type}=                application/json
     Check Response Headers Link Not Empty    ${response.headers}
     [Teardown]    Delete Subscription    ${id}
 
-044_02_03_endpoint /csourceRegistrations/
+044_02_03 endpoint /csourceRegistrations/
     [Documentation]    Verify that on a GET HTTP request if nothing is specified on the Accept header, "application/json" is assumed (/csourceRegistrations/)
     [Tags]    csr-query    6_3_4
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
@@ -66,7 +66,7 @@ ${content_type}=                application/json
     Check Response Headers Link Not Empty    ${response.headers}
     [Teardown]    Delete Context Source Registration    ${registration_id}
 
-044_02_04_endpoint /temporal/entities
+044_02_04 endpoint /temporal/entities
     [Documentation]    Verify that on a GET HTTP request if nothing is specified on the Accept header, "application/json" is assumed (/temporal/entities)
     [Tags]    te-query    6_3_4
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${tea_id_prefix}
