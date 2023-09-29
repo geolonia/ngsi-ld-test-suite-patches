@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json"
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,7 @@ ${filename}=                building-simple-attributes-sample.jsonld
 
 
 *** Test Cases ***
-Create one entity using a JSON-LD @context obtained from the request payload
+001_07_01 Create one entity using a JSON-LD @context obtained from the request payload
     [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json"
     [Tags]    e-create    6_3_5
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}

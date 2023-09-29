@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can update a subscription: If only expiresAt is included and refers to a DateTime in the future, then status shall be updated to "active", if and only if the previous value of status was "expired"
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,7 +16,7 @@ ${subscription_update_fragment_file_path}       subscriptions/fragments/subscrip
 
 
 *** Test Cases ***
-Activate Expired Subscription
+029_10_01 Activate Expired Subscription
     [Documentation]    Check that you can update a subscription: If only expiresAt is included and refers to a DateTime in the future, then status shall be updated to "active", if and only if the previous value of status was "expired"
     [Tags]    sub-update    5_8_2
     # Update subscription to expire in 5 seconds

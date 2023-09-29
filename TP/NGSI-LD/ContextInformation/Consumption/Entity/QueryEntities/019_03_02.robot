@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you cannot query entities if the requested entity types are incorrect
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -18,7 +19,7 @@ ${invalid_entity_type_two}=     invalid_entity_type_two
 
 
 *** Test Cases ***
-Query entities based on incorrect entity types
+019_03_02 Query entities based on incorrect entity types
     [Documentation]    Check that you cannot query entities if the requested entity types are incorrect
     [Tags]    e-query    5_7_2
     ${building_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

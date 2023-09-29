@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can query several entities based on the given id pattern
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -17,7 +18,7 @@ ${entity_id_pattern}=       urn:ngsi-ld:Building:.*
 
 
 *** Test Cases ***
-Query several entities based on the given id pattern
+019_01_03 Query several entities based on the given id pattern
     [Documentation]    Check that you can query several entities based on the given id pattern
     [Tags]    e-query    5_7_2
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

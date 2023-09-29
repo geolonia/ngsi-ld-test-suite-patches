@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can query several entities based on ids
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,7 +17,7 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 
 
 *** Test Cases ***
-Query several entities based on ids
+019_01_01 Query several entities based on ids
     [Documentation]    Check that you can query several entities based on ids
     [Tags]    e-query    5_7_2
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

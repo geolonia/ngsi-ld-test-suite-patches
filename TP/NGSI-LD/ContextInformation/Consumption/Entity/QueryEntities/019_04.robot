@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that the queried entities by Id can be returned in a simplified representation
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -17,7 +18,7 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 
 
 *** Test Cases ***
-Query entities in a simplified representation
+019_04_01 Query entities in a simplified representation
     [Documentation]    Check that the queried entities by Id can be returned in a simplified representation
     [Tags]    e-query    6_3_7
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

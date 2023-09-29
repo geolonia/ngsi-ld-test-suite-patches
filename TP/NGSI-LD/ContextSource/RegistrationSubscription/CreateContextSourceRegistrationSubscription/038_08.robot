@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot create a context source registration subscription If the data types, cardinalities and restrictions expressed by clause 5.2.12 are not met
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -14,14 +14,14 @@ ${subscription_payload_file_path}=      ${EMPTY}
 
 
 *** Test Cases ***    FILEPATH
-WithoutNotification
+038_08_01 WithoutNotification
     [Tags]    csrsub-create    5_11_2
     csourceSubscriptions/subscription-without-notification-sample.jsonld
-InvalidType    [Tags]    csrsub-create    5_11_2
+038_08_02 InvalidType    [Tags]    csrsub-create    5_11_2
     csourceSubscriptions/subscription-invalid-type-sample.jsonld
-InvalidQuery    [Tags]    csrsub-create    5_11_2
+038_08_03 InvalidQuery    [Tags]    csrsub-create    5_11_2
     csourceSubscriptions/subscription-invalid-query-sample.jsonld
-EmptyWatchedAttributes
+038_08_04 EmptyWatchedAttributes
     [Tags]    csrsub-create    5_11_2
     csourceSubscriptions/subscription-empty-watchedAttributes-sample.jsonld
 

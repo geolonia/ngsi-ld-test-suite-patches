@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot update a context source registration by id if the id is not known to the system
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -14,7 +14,7 @@ ${filename}=                    context-source-registration-simple-sample.jsonld
 
 
 *** Test Cases ***
-Update a context source registration by id if the id is not known to the system
+034_03_01 Update a context source registration by id if the id is not known to the system
     [Documentation]    Check that you cannot update a context source registration by id if the id is not known to the system
     [Tags]    csr-update
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}

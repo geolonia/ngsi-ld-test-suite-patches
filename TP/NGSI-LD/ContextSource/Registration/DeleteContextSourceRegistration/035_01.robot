@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can delete a context source registration by id
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,7 @@ ${registration_payload_file_path}=      context-source-registration-simple-sampl
 
 
 *** Test Cases ***
-Delete a context source registration by id
+035_01_01 Delete a context source registration by id
     [Documentation]    Check that you can delete a context source registration by id
     [Tags]    csr-delete
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}

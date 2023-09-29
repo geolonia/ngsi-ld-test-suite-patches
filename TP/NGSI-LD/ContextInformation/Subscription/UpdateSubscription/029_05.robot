@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -18,7 +18,7 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
 
 
 *** Test Cases ***
-Update Subscription With Term to Uri Expansion
+029_05_01 Update Subscription With Term to Uri Expansion
     [Documentation]    Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed
     [Tags]    sub-update    5_8_2
     ${response}=    Update Subscription

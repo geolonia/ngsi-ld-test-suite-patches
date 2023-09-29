@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can query the geometry property from an entity
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,7 +17,7 @@ ${geometry_property}=       location
 
 
 *** Test Cases ***
-018_01_03_Query the geometry property from an entity
+018_01_03 Query the geometry property from an entity
     [Documentation]    Check that you can query the geometry property from an entity
     [Tags]    e-retrieve    5_7_1
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}

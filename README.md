@@ -61,19 +61,28 @@ taking into account the content of `requirements.txt` file. Further details on e
 
 In the `resources/variables.py` file, configure the following parameters:
 
-- `url` : It is the url of the context broker which is to be tested (including the `ngsi-ld/v1` path, 
+- `url` : It is the url of the context broker which is to be tested (including the `/ngsi-ld/v1` path, 
 e.g., http://localhost:8080/ngsi-ld/v1).
+-`temporal_api_url` : This is the url of the GET temporal operation API, in case that a Context Broker splits 
+this portion of the API (e.g., http://localhost:8080/ngsi-ld/v1).
+- `ngsild_test_suite_context` : This is the url of the default context used in the ETSI NGSI-LD requests 
+(e.g., 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld').
 - `notification_server_host` and `notification_server_port` : This is the address and port used to create the local 
 server to listen to notifications (the address must be accessible by the context broker). 
 Default value: `0.0.0.0` and `8085`.
-- `send_notification_server_host` and `send_notification_server_port` : This is the address and port used when 
-creating the subscription on the context broker (generally it is the same information as `notification_server_host` 
-and `notification_server_port`). Default value: `0.0.0.0` and `8085`.
 - `context_source_host` and `context_source_port` : The address and port used for the context source. 
 Default value: `0.0.0.0` and `8086`.
 
 When you execute locally the tests, you can leave the default values as they are. NGSI-LD Test Suite provides
-some mockup services to provide the required functionality.
+a mockup services to provide the notification functionality and therefore the notification_server_host can be
+assigned to '0.0.0.0'. In case that you deploy the Context Broker on a docker engine, you need to specify the
+url of the Docker Host. In this case you have two options to specify the IP address of your host machine:
+
+- (Windows, MacOS) As of Docker v18.03+ you can use the `host.docker.internal` hostname to connect to your 
+Docker host.
+- (Linux) Need to extract the IP of the `docker0` interface. Execute the following command:
+``` ifconfig docker0 | grep inet | awk '{print $2}' ``` and that IP is the one that you need to use for 
+notification purposes.
 
 
 ## Execute the NGSI-LD Test Suite
@@ -109,18 +118,6 @@ This is why a command to redirect the console output to a file can be used. You 
 test launch command followed by the file name.
 
 ```$ robot . > results.log```
-
-If you want to generate a documentation for the support keywords:
-
-```$ python3 -m robot.libdoc resources/ApiUtils.resource api_docs/ApiUtils.html```
-
-If you want to generate a documentation for the Test Cases:
-
-```$ python3 -m robot.testdoc TP/NGSI-LD api_docs/TestCases.html```
-
-And if you want to tidy the Test Cases:
-
-```$ python3 -m robot.tidy --recursive TP/NGSI-LD```
 
 > **Note:** if you want to deactivate the Python Virtual Environment just execute the command in 
 > MacOS and Ubuntu systems:
@@ -194,7 +191,7 @@ The `find_unused_test_data.py` script in the `scripts` directory can be used to 
 that are not used by any Test Case:
 
 ```
-python3 scripts/find_unused_test_data.py
+$ python3 scripts/find_unused_test_data.py
 ```
 
 ### Find and run Test Cases using a given test data file
@@ -203,10 +200,37 @@ The `find_tc_using_test_data.py` script in the `scripts` directory can be used t
 given test data file. It can optionally run all the matching Test Cases:
 
 ```
-python3 scripts/find_tc_using_test_data.py
+$ python3 scripts/find_tc_using_test_data.py
 ```
 
 When launched, the script asks for a test date file name and if the matching Test Cases should be executed.
+
+### Find the list of defined Variables and Keywords in all resources files
+
+The `apiutils.py` script in the `scripts` directory can be used to find the Variables and Keywords that are defined
+in all resources files defined in the folder `resources/ApiUtils`.
+
+```
+$ python3 scripts/apiutils.py
+```
+
+### Generate documentation content
+
+If you want to generate a documentation for the support keywords, for example for Context Information Consumption 
+resources:
+
+```$ python3  -m robot.libdoc  resources/ApiUtils/ContextInformationConsumption.resource  api_docs/ContextInformationConsumption.html```
+
+And, if you want to generate a documentation for the Test Cases:
+
+```$ python3  -m robot.testdoc  TP/NGSI-LD  api_docs/TestCases.html```
+
+### Coding Style of Test Suites
+
+And if you want to tidy (code style) the Test Suites:
+
+```$ python3  -m robot.tidy  --recursive TP/NGSI-LD```
+
 
 ## Frameworks and libraries used in the project
 

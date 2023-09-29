@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can query the temporal evolution of entities with a limit to the number of entities to be retrieved
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -17,10 +18,10 @@ ${second_vehicle_payload_file}=     2020-09-vehicule-temporal-representation-sam
 
 
 *** Test Cases ***    LIMIT
-Query Some entities
+021_11_01 Query Some entities
     [Tags]    te-query    5_7_4
     ${2}
-Query All entities
+021_11_02 Query All entities
     [Tags]    te-query    5_7_4
     ${3}
 

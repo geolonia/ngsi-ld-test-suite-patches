@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot create a temporal entity with an empty/invalid json/id
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,16 +11,16 @@ ${status_code}=     400
 
 
 *** Test Cases ***
-007_02_01_Create a temporal entity with an invalid json
+007_02_01 Create a temporal entity with an invalid json
     Create Temporal Entity From File    vehicle-temporal-representation-invalid-json-sample.jsonld
 
-007_02_02_Create a temporal entity with an empty json
+007_02_02 Create a temporal entity with an empty json
     Create Temporal Entity From File    vehicle-temporal-representation-empty-json-sample.jsonld
 
-007_02_03_Create a temporal entity with missing id
+007_02_03 Create a temporal entity with missing id
     Create Temporal Entity    ${EMPTY}    vehicle-temporal-representation-without-id-sample.jsonld
 
-007_02_04_Create a temporal invalid URI
+007_02_04 Create a temporal invalid URI
     Create Temporal Entity    invalidId    vehicle-temporal-representation-sample.jsonld
 
 

@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can update a batch of entities where some will succeed and others will fail
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,7 +17,7 @@ ${update_fragment_filename}=    fragmentEntities/simple-attributes-relationship-
 
 
 *** Test Cases ***
-Update a batch of non-existing and existing entities
+005_03_01 Update a batch of non-existing and existing entities
     [Documentation]    Check that you can update a batch of non-existing and existing entities
     [Tags]    be-update    5_6_9
     ${first_existing_entity}=    Load Entity

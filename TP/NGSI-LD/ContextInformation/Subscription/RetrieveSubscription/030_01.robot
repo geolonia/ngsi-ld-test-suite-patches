@@ -1,14 +1,14 @@
 *** Settings ***
 Documentation       Check that you cannot retrieve a subscription if the subscription Id is not a valid URI, then an error of type BadRequestData shall be raised
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 
 Test Template       Retrieve Subscription With Non present Or Invalid Id
 
 
 *** Test Cases ***    id
-InvalidId    [Tags]    sub-retrieve    5_8_3
+030_01_01 InvalidId    [Tags]    sub-retrieve    5_8_3
     InvalidUri
 
 

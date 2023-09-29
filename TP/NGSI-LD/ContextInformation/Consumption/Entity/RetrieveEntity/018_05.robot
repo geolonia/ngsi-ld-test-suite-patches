@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that the queried entity by id can be returned in a geoJSON format
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -17,7 +18,7 @@ ${accept_header}=           application/geo+json
 
 
 *** Test Cases ***
-Get an entity by id that can be returned in a geoJSON format
+018_05_01 Get an entity by id that can be returned in a geoJSON format
     [Documentation]    Check that the queried entity by id can be returned in a geoJSON format
     [Tags]    e-retrieve    6_3_7
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}

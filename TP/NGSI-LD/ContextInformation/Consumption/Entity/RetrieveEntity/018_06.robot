@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that the JSON-LD @context is obtained from a Link header if present and that the default JSON-LD @context is used if not present
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -18,10 +19,10 @@ ${creation_jsonld_expectation_filename}=    building-simple-attributes-sample-co
 
 
 *** Test Cases ***    CONTEXT    EXPECTED_PAYLOAD
-EmptyJsonLdContext
+018_06_01 EmptyJsonLdContext
     [Tags]    e-retrieve    6_3_5
     ${EMPTY}    ${empty_jsonld_expectation_filename}
-CreationTimeJsonLdContext
+018_06_02 CreationTimeJsonLdContext
     [Tags]    e-retrieve    6_3_5
     ${ngsild_test_suite_context}    ${creation_jsonld_expectation_filename}
 

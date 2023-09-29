@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you cannot query entitites if the request has a wrong geometryProperty
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -19,7 +20,7 @@ ${geoproperty}=             location
 
 
 *** Test Cases ***
-Query entitites when the request has a wrong geometryProperty
+019_03_05 Query entitites when the request has a wrong geometryProperty
     [Documentation]    Check that you cannot query entitites if the request has a wrong geometryProperty
     [Tags]    e-query    5_7_2
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

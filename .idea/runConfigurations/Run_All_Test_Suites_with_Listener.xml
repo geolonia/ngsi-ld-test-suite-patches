@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run All Test Suites with Listener" type="RobotFramework" factoryName="RobotFramework">
+    <option name="target" value="$ProjectFileDir$" />
+    <option name="args">
+      <list>
+        <option value="--listener" />
+        <option value="libraries/ErrorListener.py" />
+        <option value="--outputdir" />
+        <option value="./results" />
+      </list>
+    </option>
+    <option name="env">
+      <map />
+    </option>
+    <option name="workingDir" value="$ProjectFileDir$" />
+    <option name="makeSuite" value="true" />
+    <method v="2" />
+  </configuration>
+</component>

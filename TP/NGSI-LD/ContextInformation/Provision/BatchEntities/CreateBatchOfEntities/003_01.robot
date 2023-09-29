@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can create a batch of entities
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -14,16 +15,16 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***    FILENAME
-MinimalEntity
+003_01_01 MinimalEntity
     [Tags]    be-create    5_6_7
     building-minimal-sample.jsonld
-EntityWithSimpleProperties
+003_01_02 EntityWithSimpleProperties
     [Tags]    be-create    5_6_7
     building-simple-attributes-sample.jsonld
-EntityWithSimpleRelationships
+003_01_03 EntityWithSimpleRelationships
     [Tags]    be-create    5_6_7
     building-relationship-sample.jsonld
-EntityWithRelationshipsProperties
+003_01_04 EntityWithRelationshipsProperties
     [Tags]    be-create    5_6_7
     building-relationship-of-property-sample.jsonld
 

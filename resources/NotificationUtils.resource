@@ -31,8 +31,11 @@ Wait for notification
     Reply By    200
 
     ${notification_payload}=    Get Request Body
+    ${notification_headers}=    Get Request Headers
     ${notification}=    Evaluate    json.loads('''${notification_payload}''')    json
-    RETURN    ${notification}
+    ${headers}=    Convert To Dictionary    ${notification_headers}
+    Output Notification    ${notification}    ${notification_headers}    Wait for notification
+    RETURN    ${notification}    ${headers}
 
 Wait for notification and validate it
     [Arguments]
@@ -49,12 +52,13 @@ Wait for notification and validate it
     Reply By    200
 
     ${notification_payload}=    Get Request Body
+    ${notification_headers}=    Get Request Headers
     ${notification}=    Evaluate    json.loads('''${notification_payload}''')    json
     ${notification_data_length}=    Get length    ${notification}[data]
     ${expected_notification_data_entities_length}=    Get length    ${expected_notification_data_entities}
     ${expected_notification_data_length}=    Get length    ${expected_context_source_registration_ids}
 
-    log    ${notification}
+    Output Notification    ${notification}    ${notification_headers}    Wait for notification
     Should Be Equal    ${notification}[type]    ${notification_type}
     Should Be Equal    ${notification}[subscriptionId]    ${expected_subscription_id}
     ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}

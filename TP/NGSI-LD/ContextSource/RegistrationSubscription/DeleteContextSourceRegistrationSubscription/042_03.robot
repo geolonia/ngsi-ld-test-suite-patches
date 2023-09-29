@@ -1,13 +1,13 @@
 *** Settings ***
 Documentation       Check that you cannot delete an unknown context source registration subscription
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 
 *** Test Cases ***
-Delete Unknown Context Source Registration Subscription With Invalid Uri
+042_03_01 Delete Unknown Context Source Registration Subscription With Invalid Uri
     [Documentation]    Check that you cannot delete an unknown context source registration subscription
     [Tags]    csrsub-delete    5_11_6
     ${response}=    Delete Context Source Registration Subscription    urn:ngsi-ld:Subscription:unknowSubscription

@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot append entity attributes if the entity id is not known to the system
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -14,7 +14,7 @@ ${fragment_filename}=       vehicle-attribute-to-add-fragment.jsonld
 
 
 *** Test Cases ***
-Append entity attributes when the entity id is not known to the system
+010_03_01 Append entity attributes when the entity id is not known to the system
     [Documentation]    Check that you cannot append entity attributes if the entity id is not known to the system
     [Tags]    ea-append    5_6_3
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}

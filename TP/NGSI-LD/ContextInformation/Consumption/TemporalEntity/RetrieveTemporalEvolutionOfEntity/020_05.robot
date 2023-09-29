@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can retrieve the temporal evolution of the last N instances of entity attributes
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,10 +17,10 @@ ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-multiple-in
 
 
 *** Test Cases ***    LASTN    VEHICLE_EXPECTATION_FILE
-Retrieve Some Instances
+020_05_01 Retrieve Some Instances
     [Tags]    te-retrieve    5_7_3
     ${10}    vehicle-temporal-representation-020-05-01-expectation.jsonld
-Retrieve All Instances
+020_05_02 Retrieve All Instances
     [Tags]    te-retrieve    5_7_3
     ${20}    vehicle-temporal-representation-020-05-02-expectation.jsonld
 

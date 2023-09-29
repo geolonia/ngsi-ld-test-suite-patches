@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can delete an entity by id
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +12,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***
-Delete an entity
+002_01_01 Delete an entity
     [Documentation]    Check that you can delete an entity by id
     [Tags]    e-delete    5_6_6
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}

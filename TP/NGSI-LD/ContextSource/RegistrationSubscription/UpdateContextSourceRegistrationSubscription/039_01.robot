@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can update a context source registration subscription
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,7 +16,7 @@ ${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/s
 
 
 *** Test Cases ***
-Update Context Source Registration Subscription
+039_01_01 Update Context Source Registration Subscription
     [Documentation]    Check that you can update a context source registration subscription
     [Tags]    csrsub-update    5_11_3
     ${subscription_update_fragment}=    Load Test Sample    ${subscription_update_fragment_file_path}

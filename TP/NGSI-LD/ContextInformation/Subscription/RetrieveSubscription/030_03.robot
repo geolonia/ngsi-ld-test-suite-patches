@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can retrieve a subscription
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,7 +16,7 @@ ${expectation_file_path}=               subscriptions/expectations/subscriptions
 
 
 *** Test Cases ***
-Retrieve Subscription
+030_03_01 Retrieve Subscription
     [Documentation]    Check that you can retrieve a subscription
     [Tags]    sub-retrieve    5_8_3
     ${response}=    Retrieve Subscription    ${subscription_id}    context=${ngsild_test_suite_context}

@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is "application/ld+json" and the request payload body does not contain a @context term
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +12,7 @@ ${filename}=                building-simple-attributes-sample.json
 
 
 *** Test Cases ***
-Create one entity not containing a JSON-LD @context with a JSON-LD content type
+001_08_01 Create one entity not containing a JSON-LD @context with a JSON-LD content type
     [Documentation]    Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is "application/ld+json" and the request payload body does not contain a @context term
     [Tags]    e-create    6_3_5
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}

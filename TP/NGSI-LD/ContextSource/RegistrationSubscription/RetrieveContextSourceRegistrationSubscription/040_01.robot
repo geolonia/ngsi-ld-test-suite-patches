@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can retrieve a context source registration subscription
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,7 +16,7 @@ ${expectation_file_path}=               csourceSubscriptions/expectations/subscr
 
 
 *** Test Cases ***
-Retrieve Context Source Registration Subscription
+040_01_01 Retrieve Context Source Registration Subscription
     [Documentation]    Check that you can retrieve a context source registration subscription
     [Tags]    csrsub-retrieve    5_11_4
     ${response}=    Retrieve Context Source Registration Subscription

@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot update entity attributes with invalid/missing id or invalid request body
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,19 +11,19 @@ ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 
 
 *** Test Cases ***
-011_02_01_Update an attribute if the Entity Id is not present
+011_02_01 Update an attribute if the Entity Id is not present
     Update Attributes
     ...    ${EMPTY}
     ...    vehicle-two-datasetid-attributes-sample.jsonld
     ...    vehicle-speed-two-datasetid-01-fragment.jsonld
 
-011_02_02_Update an attribute if the Entity Id is not a valid URI
+011_02_02 Update an attribute if the Entity Id is not a valid URI
     Update Attributes
     ...    thisisaninvaliduri
     ...    vehicle-two-datasetid-attributes-sample.jsonld
     ...    vehicle-speed-two-datasetid-01-fragment.jsonld
 
-011_02_03_Update entity attributes with invalid entity fragments
+011_02_03 Update entity attributes with invalid entity fragments
     Update entity attributes with invalid entity fragments
     ...    vehicle-speed-two-datasetid-sample.jsonld
     ...    invalid-fragment.jsonld

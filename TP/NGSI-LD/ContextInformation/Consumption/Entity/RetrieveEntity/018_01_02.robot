@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can query some attributes from an entity
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -17,7 +18,7 @@ ${attribute_subcategory}=           https://ngsi-ld-test-suite/context#subCatego
 
 
 *** Test Cases ***
-018_01_02_Query some attributes from an entity
+018_01_02 Query some attributes from an entity
     [Documentation]    Check that you can query some attributes from an entity
     [Tags]    e-retrieve    5_7_1
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}

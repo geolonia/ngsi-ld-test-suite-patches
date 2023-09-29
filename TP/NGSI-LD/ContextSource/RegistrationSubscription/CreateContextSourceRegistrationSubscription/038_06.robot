@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can create a context source registration subscription without an expiresAt member and it will be considered as perpetual
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -15,7 +15,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
 
 
 *** Test Cases ***
-Create Context Source Registration Subscription Without expiresAt Member
+038_06_01 Create Context Source Registration Subscription Without expiresAt Member
     [Documentation]    Check that you can create a context source registration subscription without an expiresAt member and it will be considered as perpetual
     [Tags]    csrsub-create    5_11_2
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}

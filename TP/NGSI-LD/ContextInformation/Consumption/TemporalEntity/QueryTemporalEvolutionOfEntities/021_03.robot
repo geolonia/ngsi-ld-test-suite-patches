@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can query the temporal evolution of the last N instances of entities attributes
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -17,7 +18,7 @@ ${expectation_file}=                vehicles-temporal-representation-021-03-expe
 
 
 *** Test Cases ***
-Query the temporal evolution of the last N instances of entities attributes
+021_03_01 Query the temporal evolution of the last N instances of entities attributes
     [Documentation]    Check that you can query the temporal evolution of the last N instances of entities attributes
     [Tags]    te-query    5_7_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
