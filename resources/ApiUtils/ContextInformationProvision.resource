@@ -167,6 +167,18 @@ Create Entity Selecting Content Type
     Output    ${response}    Create Entity Selecting Content Type
     RETURN    ${response}
 
+Create Entity From File
+    [Arguments]    ${filename}
+    ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
+    &{headers}=    Create Dictionary    Content-Type=application/ld+json
+    ${response}=    POST
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    data=${file_content}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}    Create Entity From File
+    RETURN    ${response}
+
 Delete Entity Attributes
     [Arguments]    ${entityId}    ${attributeId}    ${datasetId}    ${deleteAll}    ${context}=${EMPTY}
     &{headers}=    Create Dictionary    Content-Type=${CONTENT_TYPE_JSON}
