@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that an error is raised if you delete a temporal entity with empty/invalid content
+Documentation       Check that an error is raised if you add an attribute to a temporal entity with invalid content
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
