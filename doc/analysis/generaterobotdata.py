@@ -136,14 +136,9 @@ class GenerateRobotData:
         return request, params
 
     def get_step_data(self, test: str):
-        # string = self.robot.get_substring(initial_string=test, final_string=self.suite.name, include=False)
         string = self.robot.test_cases[test]
 
-        # request, params = self.get_params(string=string)
         request, params = self.get_params(test_case=string)
-
-        #self.check_header_parameters(params=params, test=test)
-
         verb, url = self.apiutil.get_response(keyword=request)
 
         index = None
@@ -157,9 +152,6 @@ class GenerateRobotData:
         self.test_cases[index]['when'] = self.robot.generate_when_content(http_verb=self.test_cases[index]['http_verb'],
                                                                           endpoint=self.test_cases[index]['endpoint'],
                                                                           when=self.test_cases[index]['when'])
-
-        #expected_status_code = self.robot.get_expected_status_code(keyword='Check Response Status Code')
-        #self.test_cases[index]['expected_status_code'] = expected_status_code
 
     def check_header_parameters(self, params: list, test: str):
         value = str()
