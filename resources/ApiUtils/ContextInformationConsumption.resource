@@ -197,18 +197,6 @@ Retrieve Attributes
     Output    ${response}    Retrieve Attributes
     RETURN    ${response}
 
-Request Entity From File
-    [Arguments]    ${filename}
-    ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
-    &{headers}=    Create Dictionary    Content-Type=application/ld+json
-    ${response}=    POST
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
-    ...    data=${file_content}
-    ...    headers=${headers}
-    ...    expected_status=any
-    Output    ${response}    Request Entity From File
-    RETURN    ${response}
-
 Retrieve Entity by Id
     [Arguments]    ${id}    ${accept}=${CONTENT_TYPE_LD_JSON}    ${context}=${EMPTY}
     ${headers}=    Create Dictionary
