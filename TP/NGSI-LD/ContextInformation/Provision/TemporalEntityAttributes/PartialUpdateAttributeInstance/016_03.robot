@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot modify an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right
+Documentation       Check that you cannot partially modify attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not found
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
