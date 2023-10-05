@@ -1,0 +1,35 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/TE/021_05",
+  "test_objective": "Check that you can query the temporal evolution of entities matching the given type(s)",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.4",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_7_4",
+  "keywords": [
+    "Setup Initial Entities",
+    "Delete Initial Entities"
+  ],
+  "teardown": "Delete Initial Entities",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "021_05_01 Query the temporal evolution of entities matching the given type(s)",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_05_01",
+      "doc": "Check that you can query the temporal evolution of entities matching the given type(s)",
+      "tags": [
+        "5_7_4",
+        "te-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Request response body containing a list that contains Entity Temporal Elements\n    compared with file 'vehicles-temporal-representation-021-05-expectation.jsonld'\n    and using the list of entity ids define in '${temporal_entities_representation_ids}' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n         and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: timerel set to 'after' and\n    Query Parameter: timeAt set to '2020-07-01T12:05:00Z' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities",
+  "robotfile": "021_05"
+}

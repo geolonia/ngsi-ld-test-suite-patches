@@ -54,8 +54,12 @@ class Requests:
                 'params': ['accept']
             },
             'Query Temporal Representation Of Entities': {
-                'positions': [0, 1, 2, 3],
-                'params': ['entity_types', 'timerel', 'timeAt', 'accept']
+                'positions': [],
+                'params': ['context', 'entity_types', 'entity_ids', 'entity_id_pattern',
+                           'ngsild_query', 'csf', 'georel', 'geometry',
+                           'coordinates', 'geoproperty', 'timerel', 'timeAt',
+                           'attrs', 'limit', 'lastN', 'accept']
+
             },
             'Retrieve Attribute': {
                 'positions': [0],
@@ -175,11 +179,17 @@ class Requests:
 
     def find_attributes_in_the_same_line(self, request_name, params):
         param = dict()
-        for i in range(0, len(self.op[request_name]['positions'])):
-            param_position = self.op[request_name]['positions'][i]
-            param_key = self.op[request_name]['params'][i]
-            param_value = self.get_value(params=params, param_position=param_position, param_key=param_key)
-            param[param_key] = param_value
+        if len(self.op[request_name]['positions']) == 0:
+            # We do not know the position of the different parameters and the order in which they are received,
+            # therefore in these cases all the parameters have identified the corresponding name
+            param = {x.split('=')[0]: self.get_value_simple(x.split('=')[1]) for x in params}
+
+        else:
+            for i in range(0, len(self.op[request_name]['positions'])):
+                param_position = self.op[request_name]['positions'][i]
+                param_key = self.op[request_name]['params'][i]
+                param_value = self.get_value(params=params, param_position=param_position, param_key=param_key)
+                param[param_key] = param_value
 
         return param
 
@@ -309,19 +319,57 @@ class Requests:
 
     @staticmethod
     def query_temporal_representation_of_entities(kwargs) -> str:
-        expected_parameters = ['entity_types', 'timerel', 'timeAt', 'accept']
-        result = [x for x in expected_parameters if x not in kwargs]
+        # This function is a little bit special because we have a number of parameters not always defined and not always
+        # in the same position, so we make a different analysis to extract the values
+        expected_parameters = ['context', 'entity_types', 'entity_ids', 'entity_id_pattern',
+                               'ngsild_query', 'csf', 'georel', 'geometry',
+                               'coordinates', 'geoproperty', 'timerel', 'timeAt',
+                               'attrs', 'limit', 'lastN', 'accept']
 
-        if len(result) == 0:
-            response = ("Response containing:\n"
-                        f"    * Entity-Type is equal to '{kwargs['entity_types']}'\n"
-                        f"    * timeRel is equal to '{kwargs['timerel']}'\n"
-                        f"    * timeAt is equal to '{kwargs['timeAt']}'\n"
-                        f"    * Accept is equal to '{kwargs['accept']}'")
-            return response
-        else:
-            raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                            f"'{expected_parameters}', but received: {kwargs}")
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = ""
+        for key, value in kwargs.items():
+            match key:
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case 'entity_types':
+                    response = f"{response} and\n    Query Parameter: entity_types set to '{value}'"
+                case 'entity_ids':
+                    response = f"{response} and\n    Query Parameter: entity_ids set to '{value}'"
+                case 'entity_id_pattern':
+                    response = f"{response} and\n    Query Parameter: entity_id_pattern set to '{value}'"
+                case 'ngsild_query':
+                    response = f"{response} and\n    Query Parameter: ngsild_query set to '{value}'"
+                case 'csf':
+                    response = f"{response} and\n    Query Parameter: csf set to '{value}'"
+                case 'georel':
+                    response = f"{response} and\n    Query Parameter: georel set to '{value}'"
+                case 'geometry':
+                    response = f"{response} and\n    Query Parameter: geometry set to '{value}'"
+                case 'coordinates':
+                    response = f"{response} and\n    Query Parameter: coordinates set to '{value}'"
+                case 'geoproperty':
+                    response = f"{response} and\n    Query Parameter: geoproperty set to '{value}'"
+                case 'timerel':
+                    response = f"{response} and\n    Query Parameter: timerel set to '{value}'"
+                case 'timeAt':
+                    response = f"{response} and\n    Query Parameter: timeAt set to '{value}'"
+                case 'attrs':
+                    response = f"{response} and\n    Query Parameter: attrs set to '{value}'"
+                case 'limit':
+                    response = f"{response} and\n    Query Parameter: limit set to '{value}'"
+                case 'lastN':
+                    value = re.search(pattern=r'\d+', string=value).group()
+                    response = f"{response} and\n    Query Parameter: lastN set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+
+            # If an exact match is not confirmed, this last case will be used if provided
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
 
     @staticmethod
     def retrieve_attribute(kwargs) -> str:
@@ -378,6 +426,9 @@ class Requests:
             except IndexError:
                 return ''
 
+        return self.get_value_simple(data=data)
+
+    def get_value_simple(self, data):
         try:
             value = self.variables[data]
             return value
