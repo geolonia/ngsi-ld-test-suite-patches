@@ -21,7 +21,7 @@
       "teardown": "Delete Entity by Id Returning Response",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 415\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and \nHeader['Content-Type'] set to 'application/xml' and\nPayload defined in file 'vehicle-brandname-fragment.jsonld'",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and \nHeader['Content-Type'] set to 'application/xml' and\nPayload defined in file 'vehicle-brandname-fragment.jsonld'\n}",
       "http_verb": "PATCH",
       "endpoint": "entities/{entityId}/attrs/{attributeId}"
     },
@@ -37,7 +37,7 @@
       "teardown": "Delete Subscription",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 415\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Request Update Subscription and \nHeader['Content-Type'] set to 'application/xml' and\nPayload defined in file 'csourceSubscriptions/fragments/subscription-update-sample.jsonld'",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Request Update Subscription and \nHeader['Content-Type'] set to 'application/xml' and\nPayload defined in file 'csourceSubscriptions/fragments/subscription-update-sample.jsonld'\n}",
       "http_verb": "PATCH",
       "endpoint": "subscriptions/{subscription_id}"
     },
@@ -53,7 +53,7 @@
       "teardown": "Delete Entity by Id",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 415\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/xml' and\n payload defined in file: 'building-simple-attributes-sample.jsonld'",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/xml' and\n payload defined in file: 'building-simple-attributes-sample.jsonld'\n}",
       "http_verb": "POST",
       "endpoint": "entities/"
     },
@@ -69,7 +69,7 @@
       "teardown": "Delete Subscription",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 415\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/xml' and\n payload defined in file: 'csourceSubscriptions/subscription-sample.jsonld'",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/xml' and\n payload defined in file: 'csourceSubscriptions/subscription-sample.jsonld'\n}",
       "http_verb": "POST",
       "endpoint": "subscriptions/"
     },
@@ -85,7 +85,7 @@
       "teardown": "Batch Delete Entities",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 415\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/create'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/xml' and\n payload set to a list of entities to be created",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/create'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/xml' and\n payload set to a list of entities to be created\n}",
       "http_verb": "POST",
       "endpoint": "entityOperations/create"
     },
@@ -101,7 +101,7 @@
       "teardown": "Delete Temporal Representation Of Entity",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 415\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/xml' and\n payload defined in file: 'vehicle-temporal-representation-sample.jsonld'",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/xml' and\n payload defined in file: 'vehicle-temporal-representation-sample.jsonld'\n}",
       "http_verb": "POST",
       "endpoint": "temporal/entities"
     }

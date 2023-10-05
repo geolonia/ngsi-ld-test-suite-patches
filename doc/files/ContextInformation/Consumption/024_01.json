@@ -24,7 +24,7 @@
       "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound' and\n        Response body containing 'title' element and\n        Response Status Code set to 404\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/types/{type}'\n        method set to 'GET'\n        Retrieve Entity Type, with type set to 'Building'",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/types/{type}'\n        method set to 'GET'\n        Retrieve Entity Type, with type set to 'Building'\n}",
       "http_verb": "GET",
       "endpoint": "types/{type}"
     }

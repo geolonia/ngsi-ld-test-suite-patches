@@ -17,13 +17,13 @@ ${entity_payload_filename}=     building-simple-attributes-sample.jsonld
 
 
 *** Test Cases ***    FILENAME    UPDATE_FRAGMENT_FILENAME    EXPECTED_STATUS
-EntityWithSimpleProperties
+005_02_01 EntityWithSimpleProperties
     [Tags]    be-update    5_6_9
     building-simple-attributes-sample.jsonld    fragmentEntities/empty-fragment.json    207
-EntityWithSimpleRelationships
+005_02_02 EntityWithSimpleRelationships
     [Tags]    be-update    5_6_9
     building-relationship-sample.jsonld    fragmentEntities/locatedAt-fragment.json    204
-EntityWithRelationshipsProperties
+005_02_03 EntityWithRelationshipsProperties
     [Tags]    be-update    5_6_9
     building-relationship-of-property-sample.jsonld    fragmentEntities/empty-fragment.json    207
 

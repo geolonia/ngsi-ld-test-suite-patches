@@ -14,7 +14,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***
-Delete a batch of non-existing and existing entities
+006_01_01 Delete a batch of non-existing and existing entities
     [Documentation]    Check that you can delete a batch of non-existing and existing entities
     [Tags]    be-delete    5_6_10
     ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

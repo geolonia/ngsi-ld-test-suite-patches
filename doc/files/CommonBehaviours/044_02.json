@@ -21,7 +21,7 @@
       "teardown": "Delete Entity by Id Returning Response",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Content-Type set to application/json and\n        Response Header: Link is not Empty and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Header['Link'] contain the context https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld\nHeader['Accept'] set to */*",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Header['Link'] contain the context https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld\nHeader['Accept'] set to */*\n}",
       "http_verb": "GET",
       "endpoint": "entities/{id}"
     },
@@ -37,7 +37,7 @@
       "teardown": "Delete Subscription",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Content-Type set to application/json and\n        Response Header: Link is not Empty and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Request a subscription\nHeader['Accept'] set to '*/*'",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Request a subscription\nHeader['Accept'] set to '*/*'\n}",
       "http_verb": "GET",
       "endpoint": "subscriptions/{id}"
     },
@@ -53,7 +53,7 @@
       "teardown": "Delete Context Source Registration",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Content-Type set to application/json and\n        Response Header: Link is not Empty and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Request a Context Source Registration with Return\nEntity Type set to 'Vehicle'\nHeader['Accept'] set to '*/*'",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Request a Context Source Registration with Return\nEntity Type set to 'Vehicle'\nHeader['Accept'] set to '*/*'\n}",
       "http_verb": "GET",
       "endpoint": "csourceRegistrations"
     },
@@ -69,7 +69,7 @@
       "teardown": "Delete Temporal Representation Of Entity",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Content-Type set to application/json and\n        Response Header: Link is not Empty and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n        Request a Temporal Representation of Entities with Return",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n        Request a Temporal Representation of Entities with Return\n}",
       "http_verb": "GET",
       "endpoint": "temporal/entities"
     }

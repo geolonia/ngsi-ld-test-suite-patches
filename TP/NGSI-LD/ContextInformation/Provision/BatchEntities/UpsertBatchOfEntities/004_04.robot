@@ -17,13 +17,13 @@ ${existing_entity_payload_filename}=    building-minimal-sample.jsonld
 
 
 *** Test Cases ***    FILENAME    UPDATE_FRAGMENT_FILENAME
-EntityWithSimpleProperties
+004_04_01 EntityWithSimpleProperties
     [Tags]    be-upsert    5_6_8
     building-simple-attributes-sample.jsonld    fragmentEntities/simple-attributes-fragment.json
-EntityWithSimpleRelationships
+004_04_02 EntityWithSimpleRelationships
     [Tags]    be-upsert    5_6_8
     building-relationship-sample.jsonld    fragmentEntities/locatedAt-fragment.json
-EntityWithRelationshipsProperties
+004_04_03 EntityWithRelationshipsProperties
     [Tags]    be-upsert    5_6_8
     building-relationship-of-property-sample.jsonld    fragmentEntities/simple-attributes-relationship-of-property-fragment.json
 

@@ -41,12 +41,80 @@ class TestCIProvision(TestCase):
 
             assert False, f'They are some difference between the expected and obtained dictionaries: \n {result}'
 
-    # def test_027_01(self):
-    #     robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Discovery/RetrieveAvailableAttributeInformation/027_01.robot'
-    #     expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/027_01.json'
-    #     difference_file = f'{self.folder_test_suites}/doc/results/out_027_01.json'
-    #
-    #     self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
-    #
-    # def test_025_01(self):
-    #     self.fail("(025_01) Test Suite with Test Template, not yet implemented")
+    def test_003_01(self):
+        self.fail("(003_01) Test Suite with Test Template, not yet implemented")
+
+    def test_003_02(self):
+        self.fail("(003_02) Test Suite result is wrong, need to be checked")
+
+    def test_003_03(self):
+        self.fail("(003_03) Test Suite with Test Template, not yet implemented")
+
+    def test_003_04(self):
+        self.fail("(003_04) Test Suite with 'Check Response Body Containing an Attribute set to' with different set of parameters")
+
+    def test_003_05(self):
+        self.fail("(003_05) Test Suite with 'Check Response Body Containing an Attribute set to' with different set of parameters")
+
+    def test_003_06(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/BatchEntities/CreateBatchOfEntities/003_06.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/003_06.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_003_06.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_003_07(self):
+        self.fail("(003_07) Test Suite with 'Check Response Body Containing an Attribute set to' with different set of parameters")
+
+    def test_003_08(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/BatchEntities/CreateBatchOfEntities/003_08.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/003_08.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_003_08.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_003_09(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/BatchEntities/CreateBatchOfEntities/003_09.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/003_09.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_003_09.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_006_01(self):
+        self.fail("(006_01) The first operation is not a setup operation of the environment but a Delete operation that have to be controlled")
+
+    def test_006_02(self):
+        self.fail("(006_02) The first operation is not a setup operation of the environment but a Delete operation that have to be controlled")
+
+    def test_006_03(self):
+        self.fail("(006_03) Test Suite with Test Template, not yet implemented")
+
+    def test_005_01(self):
+        self.fail("(005_01) Test Suite with Test Template, not yet implemented")
+
+    def test_005_02(self):
+        self.fail("(005_02) Test Suite with Test Template, not yet implemented")
+
+    def test_005_03(self):
+        self.fail("(005_03) Test Suite error content empty when generate then sentence")
+
+    def test_005_04(self):
+        self.fail("(005_04) Test Suite with Test Template, not yet implemented")
+
+    def test_004_01(self):
+        self.fail("(005_02) Test Suite with Test Template, not yet implemented")
+
+    def test_004_02(self):
+        self.fail("(004_02) Test Suite with Test Template, not yet implemented")
+
+    def test_004_03(self):
+        self.fail("(004_03) Test Suite with Test Template, not yet implemented")
+
+    def test_004_04(self):
+        self.fail("(004_04) Test Suite with Test Template, not yet implemented")
+
+    def test_004_05(self):
+        self.fail("(004_05) Test Suite error content empty when generate then sentence")
+
+    def test_004_06(self):
+        self.fail("(004_06) Test Suite with Test Template, not yet implemented")

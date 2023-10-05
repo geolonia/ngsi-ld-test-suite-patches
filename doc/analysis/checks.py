@@ -77,7 +77,9 @@ class Checks:
             'Check SUT Not Containing Resources':
                 Checks.check_sut_not_containing_resources,
             'Check NotificationParams':
-                Checks.check_notificationparams
+                Checks.check_notificationparams,
+            'Check Response Body Containing Batch Operation Result':
+                Checks.check_response_body_containing_batch_operation_result
         }
 
         self.args = {
@@ -95,7 +97,7 @@ class Checks:
             },
             'Check Response Body Containing an Attribute set to': {
                 'params': ['attribute_name'],
-                'position': []
+                'position': [1]
             },
             'Check Response Body Containing List Containing EntityTemporal elements': {
                 'params': ['filename', 'entity_ids'],
@@ -148,6 +150,10 @@ class Checks:
             'Check NotificationParams': {
                 'params': ['format', 'uri', 'accept', 'status', 'timesSent'],
                 'position': []
+            },
+            'Check Response Body Containing Batch Operation Result': {
+                'params': ['operation'],
+                'position': [1]
             }
         }
 
@@ -416,6 +422,13 @@ class Checks:
         else:
             raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
                             f"'{expected_parameters}', but received: {kwargs}")
+
+    @staticmethod
+    def check_response_body_containing_batch_operation_result(kwargs: list) -> str:
+        if "operation" in kwargs:
+            return f"Response Status Code set to '{kwargs['operation']}'"
+        else:
+            raise Exception(f'ERROR, Expected operation parameter but received: {kwargs}')
 
     def get_checks(self, **kwargs) -> str:
         checking = None

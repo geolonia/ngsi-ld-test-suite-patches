@@ -9,9 +9,11 @@ Test Template       Create Batch Entity With Invalid Request Scenarios
 
 
 *** Test Cases ***    FILENAME    PROBLEM_TYPE
-InvalidJson    [Tags]    be-create    5_6_7
+003_03_01 InvalidJson
+    [Tags]    be-create    5_6_7
     batch/invalid-json-sample.jsonld    ${ERROR_TYPE_INVALID_REQUEST}
-EmptyJson    [Tags]    be-create    5_6_7
+003_03_01 EmptyJson
+    [Tags]    be-create    5_6_7
     batch/empty-sample.jsonld    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 
