@@ -34,9 +34,6 @@
             [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0],
             [100.0, 1.0], [100.0, 0.0]] ]
     },
-    "timestamp": {
-        "startAt": "2017-11-29T14:53:15Z"
-    },
     "expiresAt": "2025-11-29T14:53:15Z",
     "@context": [
         "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"

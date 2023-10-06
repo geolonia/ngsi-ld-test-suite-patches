@@ -10,7 +10,7 @@ Suite Teardown      Delete Created Context Source Registrations
 
 *** Variables ***
 ${registration_id_prefix}=      urn:ngsi-ld:Registration:
-${filename}=                    csourceRegistrations/context-source-registration-simple-sample.jsonld
+${filename}=                    csourceRegistrations/context-source-registration-sample.jsonld
 
 
 *** Test Cases ***
