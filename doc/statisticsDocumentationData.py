@@ -10,13 +10,14 @@ if __name__ == "__main__":
     number_of_failures = 0
     number_of_all_testcases = 0
     number_of_successes = 0
+    ROBOT_FILE_EXTENSION = ".robot"
 
     fullpath = basedir+"/TP/NGSI-LD"
     for root, dirs, files in walk(fullpath):
         for filename in files:
-            if filename.endswith(".robot"):
+            if filename.endswith(ROBOT_FILE_EXTENSION):
                 number_of_all_testcases += 1
-                name_of_test_case = filename[:-6]
+                name_of_test_case = filename[:-len(ROBOT_FILE_EXTENSION)]
                 json_of_test_case = create_json_of_robotfile(name_of_test_case, True)
                 statistics[name_of_test_case] = dict()
                 strippedpath = root[len(fullpath)+1:]
