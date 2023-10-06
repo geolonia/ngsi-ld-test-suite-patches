@@ -9,11 +9,11 @@ Test Template       Create Entity With Invalid Request Scenarios
 
 
 *** Test Cases ***    FILENAME    ERROR_TYPE
-001_02_01_InvalidJson
+001_02_01 InvalidJson
     invalid-json-sample.jsonld    ${ERROR_TYPE_INVALID_REQUEST}
-001_02_02_EmptyJson
+001_02_02 EmptyJson
     empty-sample.jsonld    ${ERROR_TYPE_INVALID_REQUEST}
-001_02_03_EntityWithNoContext
+001_02_03 EntityWithNoContext
     building-minimal-without-context-sample.jsonld    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 

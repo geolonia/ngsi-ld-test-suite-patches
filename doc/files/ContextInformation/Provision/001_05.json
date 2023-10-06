@@ -1,0 +1,53 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/E/001_05",
+  "test_objective": "Check that the default @context is used if the Content-Type header is \"application/json\" and the Link header does not contain a JSON-LD @context",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.5",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_6_3_5",
+  "keywords": [
+    "Delete Initial Entity"
+  ],
+  "teardown": "Delete Initial Entity",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "001_05_01 Create one entity using the default context with JSON content type and request without context",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_05_01",
+      "doc": "Check that the default @context is used if the Content-Type header is \"application/json\" and the Link header does not contain a JSON-LD @context",
+      "tags": [
+        "6_3_5",
+        "e-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body contains the attribute: 'almostFull'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    },
+    {
+      "name": "001_05_02 Create one entity using the default context with JSON content type and request with context",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_05_02",
+      "doc": "Check that the default @context is used if the Content-Type header is \"application/json\" and the Link header does not contain a JSON-LD @context",
+      "tags": [
+        "6_3_5",
+        "e-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body contains the attribute: 'ngsi-ld:default-context/almostFull'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: accept set to 'application/json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    }
+  ],
+  "permutations": [
+    "then",
+    "when"
+  ],
+  "robotpath": "ContextInformation/Provision/Entities/CreateEntity",
+  "robotfile": "001_05"
+}

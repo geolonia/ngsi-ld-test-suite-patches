@@ -69,12 +69,20 @@ class Requests:
                 'positions': [0, 1],
                 'params': ['type', 'context']
             },
+            'Retrieve Entity by Id': {
+                'positions': [],
+                'params': ['id', 'accept', 'context']
+            },
             'Query Entities': {
                 'positions': [0, 1],
                 'params': ['entity_ids', 'entity_types', 'accepts']
             },
             'Retrieve Temporal Representation Of Entity': {
                 'params': ['entity_ids', 'entity_types', 'accepts']
+            },
+            'Delete Entity by Id Returning Response': {
+                'positions': [0],
+                'params': ['id']
             }
         }
 
@@ -109,8 +117,12 @@ class Requests:
                 Requests.retrieve_attribute,
             'Retrieve Entity Type':
                 Requests.retrieve_entity_type,
+            'Retrieve Entity by Id':
+                Requests.retrieve_entity_by_id,
             'Query Entities':
-                Requests.query_entities
+                Requests.query_entities,
+            'Delete Entity by Id Returning Response':
+                Requests.delete_entity_by_id_returning_response
         }
 
         self.variables = variables
@@ -403,6 +415,32 @@ class Requests:
             result = f"{result} with Header['Accept'] set to '{kwargs['accept']}'"
 
         return result
+
+    @staticmethod
+    def retrieve_entity_by_id(kwargs) -> str:
+        expected_parameters = ['id', 'accept', 'context']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = 'Request Retrieve Entity by Id'
+        for key, value in kwargs.items():
+            match key:
+                case 'id':
+                    response = f"{response} and\n    Query Parameter: id set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
+    def delete_entity_by_id_returning_response(kwargs) -> str:
+        if 'id' in kwargs:
+            return f"Delete Entity Request with id set to '{kwargs['id']}'"
 
     def get_value(self, params, param_position, param_key):
         data = [x for x in params if f'{param_key}=' in x]

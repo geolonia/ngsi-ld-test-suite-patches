@@ -396,7 +396,10 @@ class Checks:
     def check_sut_not_containing_resource(kwargs: list) -> str:
         if "status_code" in kwargs:
             status_code = kwargs['status_code']
-            return f'Response Status Code set to {status_code} ({HTTPStatus(status_code).phrase})'
+            try:
+                return f'Response Status Code set to {status_code} ({HTTPStatus(status_code).phrase})'
+            except ValueError:
+                return f'Response Status Code set to {status_code}'
         else:
             raise Exception(f'ERROR, Expected status_code parameter but received: {kwargs}')
 
