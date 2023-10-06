@@ -21,7 +21,7 @@
       "teardown": "Delete Entity by Id Returning Response",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 406\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        \nHeader['Accept'] set to application/xml",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        \nHeader['Accept'] set to application/xml\n}",
       "http_verb": "GET",
       "endpoint": "entities/{id}"
     },
@@ -37,7 +37,7 @@
       "teardown": "Delete Subscription",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 406\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Request a subscription\nHeader['Accept'] set to 'application/xml'",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Request a subscription\nHeader['Accept'] set to 'application/xml'\n}",
       "http_verb": "GET",
       "endpoint": "subscriptions/{id}"
     },
@@ -53,7 +53,7 @@
       "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 406\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Request a Context Source Registration with Return\nEntity Type set to 'Building'\nHeader['Accept'] set to 'application/xml'",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Request a Context Source Registration with Return\nEntity Type set to 'Building'\nHeader['Accept'] set to 'application/xml'\n}",
       "http_verb": "GET",
       "endpoint": "csourceRegistrations"
     },
@@ -68,7 +68,7 @@
       "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 406\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'GET'\n        Request Context Source Registration Subscriptions\nHeader['Accept'] set to 'application/xml'",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'GET'\n        Request Context Source Registration Subscriptions\nHeader['Accept'] set to 'application/xml'\n}",
       "http_verb": "GET",
       "endpoint": "csourceSubscriptions"
     },
@@ -84,7 +84,7 @@
       "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 406\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n        Response containing:\n    * Entity-Type is equal to '${entity_types_to_be_retrieved}'\n    * timeRel is equal to 'after'\n    * timeAt is equal to '2020-08-01T12:05:00Z'\n    * Accept is equal to 'application/xml'",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n         and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: timerel set to 'after' and\n    Query Parameter: timeAt set to '2020-08-01T12:05:00Z' and\n    Query Parameter: accept set to 'application/xml'\n}",
       "http_verb": "GET",
       "endpoint": "temporal/entities"
     }

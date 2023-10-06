@@ -15,13 +15,13 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***    FILENAME
-EntityWithSimpleProperties
+004_01_01 EntityWithSimpleProperties
     [Tags]    be-upsert    5_6_8
     building-simple-attributes-sample.jsonld
-EntityWithSimpleRelationships
+004_01_02 EntityWithSimpleRelationships
     [Tags]    be-upsert    5_6_8
     building-relationship-sample.jsonld
-EntityWithRelationshipsProperties
+004_01_03 EntityWithRelationshipsProperties
     [Tags]    be-upsert    5_6_8
     building-relationship-of-property-sample.jsonld
 

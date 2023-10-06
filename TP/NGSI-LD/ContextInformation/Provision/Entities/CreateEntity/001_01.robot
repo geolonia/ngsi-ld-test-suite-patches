@@ -15,13 +15,13 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***    FILENAME    CONTENT_TYPE
-001_01_01_MinimalEntity
+001_01_01 MinimalEntity
     building-minimal-without-context-sample.jsonld    application/json
-001_01_02_EntityWithSimpleProperties
+001_01_02 EntityWithSimpleProperties
     building-simple-attributes-sample.jsonld    application/ld+json
-001_01_03_EntityWithRelationshipsProperties
+001_01_03 EntityWithRelationshipsProperties
     building-relationship-of-property-sample.jsonld    application/ld+json
-001_01_04_EntityWithLocationAttribute
+001_01_04 EntityWithLocationAttribute
     building-location-attribute-sample.jsonld    application/ld+json
 
 
@@ -40,12 +40,12 @@ Create Entity Scenarios
     Check Response Headers Containing URI set to    ${entity_id}    ${response.headers}
     ${created_entity}=    Load Test Sample    entities/${filename}    ${entity_id}
     IF    '${content_type}'=='application/json'
-        ${response}=    Retrieve Entity by Id    ${entity_id}    ${content_type}
+        ${response}=    Retrieve Entity by Id    id=${entity_id}    accept=${content_type}
     END
     IF    '${content_type}'=='application/ld+json'
         ${response}=    Retrieve Entity by Id
-        ...    ${entity_id}
-        ...    ${content_type}
+        ...    id=${entity_id}
+        ...    accept=${content_type}
         ...    context=${ngsild_test_suite_context}
     END
     Check Created Resource Set To    ${created_entity}    ${response.json()}

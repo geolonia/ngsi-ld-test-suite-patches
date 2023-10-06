@@ -47,7 +47,7 @@ Delete Attributes
     Check Response Status Code    ${status_code}    ${response.status_code}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response}=    Retrieve Entity by Id
-    ...    ${entity_id}
+    ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    @context

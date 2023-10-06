@@ -162,7 +162,8 @@ class ParseRobotFile:
         when = (f"when {{\n    the SUT receives a Request from the client containing:\n"
                 f"        {url}\n"
                 f"        {method}\n"
-                f"        {when}")
+                f"        {when}\n"
+                f"}}")
 
         return when
 

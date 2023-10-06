@@ -15,7 +15,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***
-Create a batch of two valid entities and one invalid entity
+003_02_01 Create a batch of two valid entities and one invalid entity
     [Documentation]    Check that you can create a batch of two valid entities and one invalid entity
     [Tags]    be-create    5_6_7
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

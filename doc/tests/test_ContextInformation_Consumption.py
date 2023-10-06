@@ -216,34 +216,66 @@ class TestCIConsumptions(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_021_03(self):
-        self.fail("(021_03) Problems with Request parameters, 'Query Temporal Representation Of Entities'")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities/021_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/021_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_021_03.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_021_04(self):
-        self.fail("(021_04) Problems with Request parameters, 'Query Temporal Representation Of Entities'")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities/021_04.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/021_04.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_021_04.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_021_05(self):
-        self.fail("(021_05) Problems with Request parameters, 'Query Temporal Representation Of Entities'")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities/021_05.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/021_05.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_021_05.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_021_06(self):
-        self.fail("(021_06) Problems with Request parameters, 'Query Temporal Representation Of Entities'")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities/021_06.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/021_06.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_021_06.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_021_07(self):
-        self.fail("(021_07) Problems with Request parameters, 'Query Temporal Representation Of Entities'")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities/021_07.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/021_07.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_021_07.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_021_08(self):
-        self.fail("(021_08) Problems with Request parameters, 'Query Temporal Representation Of Entities'")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities/021_08.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/021_08.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_021_08.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_021_09(self):
         self.fail("(021_09) Test Suite with Test Template, not yet implemented")
 
     def test_021_10(self):
-        self.fail("(021_10) Problems with Request parameters, 'Query Temporal Representation Of Entities'")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities/021_10.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/021_10.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_021_10.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_021_11(self):
         self.fail("(021_11) Test Suite with Test Template, not yet implemented")
 
     def test_021_12(self):
-        self.fail("(021_12) Problems with Request parameters, 'Query Temporal Representation Of Entities'")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities/021_12.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/021_12.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_021_12.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_021_13(self):
         self.fail("(021_13) Test Suite with Test Template, not yet implemented")
