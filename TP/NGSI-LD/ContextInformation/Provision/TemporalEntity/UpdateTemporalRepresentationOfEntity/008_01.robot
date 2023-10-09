@@ -35,7 +35,7 @@ ${expectation_filename}=    vehicle-temporal-representation-update-expectation.j
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}
     ${response}=    Retrieve Temporal Representation Of Entity
-    ...    ${temporal_entity_representation_id}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    instanceId    @context

@@ -31,7 +31,7 @@ ${attributeId}=             speed
     Check Response Status Code    201    ${response.status_code}
 
     ${response}=    Retrieve Temporal Representation Of Entity
-    ...    ${temporal_entity_representation_id}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${instanceId_before_update}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
@@ -49,7 +49,7 @@ ${attributeId}=             speed
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}
     ${response}=    Retrieve Temporal Representation Of Entity
-    ...    ${temporal_entity_representation_id}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${instanceId_after_update}=    Set Variable    ${response.json()['speed'][0]['instanceId']}

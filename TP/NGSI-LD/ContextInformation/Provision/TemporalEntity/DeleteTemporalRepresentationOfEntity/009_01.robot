@@ -13,7 +13,7 @@ ${filename}=                vehicle-temporal-representation-sample.jsonld
 
 
 *** Test Cases ***
-Delete a temporal representation of an entity with simple temporal properties
+009_01_01 Delete a temporal representation of an entity with simple temporal properties
     [Documentation]    Check that you can delete a temporal representation of an entity with simple temporal properties
     [Tags]    te-delete    5_6_16
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
@@ -26,6 +26,6 @@ Delete a temporal representation of an entity with simple temporal properties
     ...    ${temporal_entity_representation_id}
     Check Response Status Code    204    ${response.status_code}
     ${response}=    Retrieve Temporal Representation Of Entity
-    ...    ${temporal_entity_representation_id}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     Check SUT Not Containing Resource    ${response.status_code}

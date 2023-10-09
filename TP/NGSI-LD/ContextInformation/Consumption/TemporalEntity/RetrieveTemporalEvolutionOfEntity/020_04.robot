@@ -29,7 +29,7 @@ Retrieve the temporal evolution of an entity matching the given NGSI-LD temporal
     [Documentation]    Check that you can retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
     [Arguments]    ${timerel}    ${timeAt}    ${endTimeAt}    ${vehicle_expectation_file}
     ${response}=    Retrieve Temporal Representation Of Entity
-    ...    ${temporal_entity_representation_id}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    timerel=${timerel}
     ...    timeAt=${timeAt}
     ...    endTimeAt=${endTimeAt}

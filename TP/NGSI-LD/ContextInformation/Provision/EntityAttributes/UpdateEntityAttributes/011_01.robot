@@ -16,11 +16,11 @@ ${filename}=                vehicle-two-datasetid-attributes-sample.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_RESPONSE_FILENAME    EXPECTATION_FILENAME
-011_01_01_Check that you can update existing attributes with no datasetId
+011_01_01 Check that you can update existing attributes with no datasetId
     204    vehicle-speed-two-datasetid-01-fragment.jsonld    ${EMPTY}    expectations/vehicle-update-attributes-expectation.jsonld
-011_01_02_Check that you can update existing attributes with the datasetId
+011_01_02 Check that you can update existing attributes with the datasetId
     204    vehicle-speed-two-datasetid-02-fragment.jsonld    ${EMPTY}    expectations/vehicle-update-datasetid-attributes-expectation.jsonld
-011_01_03_Check that you can update only some attributes while others failed
+011_01_03 Check that you can update only some attributes while others failed
     207    vehicle-speed-two-datasetid-03-fragment.jsonld    vehicle-speed-datasetid-expectation.jsonld    expectations/vehicle-multi-attributes-expectation.jsonld
 
 

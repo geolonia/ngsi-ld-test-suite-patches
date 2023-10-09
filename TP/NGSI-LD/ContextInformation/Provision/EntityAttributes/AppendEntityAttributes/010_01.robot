@@ -13,26 +13,26 @@ ${filename}=                vehicle-speed-two-datasetid-sample.jsonld
 
 
 *** Test Cases ***
-010_01_01_Append entity attributes
+010_01_01 Append entity attributes
     Append Attributes Without Params
     ...    204
     ...    vehicle-new-attribute-fragment.jsonld
     ...    vehicle-speed-appended-expectation.jsonld
 
-010_01_02_Append entity attributes
+010_01_02 Append entity attributes
     Append Attributes With Params
     ...    207
     ...    vehicle-attribute-to-add-fragment.jsonld
     ...    add-attribute-expectation.jsonld
     ...    vehicle-speed-appended-expectation.jsonld
 
-010_01_03_Append entity attributes
+010_01_03 Append entity attributes
     Append Attributes Without Params
     ...    204
     ...    vehicle-speed-different-datasetid-fragment.jsonld
     ...    vehicle-speed-different-datasetid-expectation.jsonld
 
-010_01_04_Append entity attributes
+010_01_04 Append entity attributes
     Append Attributes With Params
     ...    204
     ...    vehicle-speed-different-datasetid-fragment.jsonld

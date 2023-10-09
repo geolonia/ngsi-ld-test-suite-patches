@@ -281,13 +281,25 @@ class TestCIConsumptions(TestCase):
         self.fail("(021_13) Test Suite with Test Template, not yet implemented")
 
     def test_020_01(self):
-        self.fail("(020_01) Problems with Request parameters, 'Retrieve Temporal Representation Of Entity'")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_01.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/020_01.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_020_01.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_020_02(self):
-        self.fail("(020_02) Problems with Request parameters, 'Retrieve Temporal Representation Of Entity'")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/020_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_020_02.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_020_03(self):
-        self.fail("(020_03) Problems with Request parameters, 'Retrieve Temporal Representation Of Entity'")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/020_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_020_03.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_020_04(self):
         self.fail("(020_04) Test Suite with Test Template, not yet implemented")
@@ -296,16 +308,32 @@ class TestCIConsumptions(TestCase):
         self.fail("(020_05) Test Suite with Test Template, not yet implemented")
 
     def test_020_06(self):
-        self.fail("(020_06) Problems with Request parameters, 'Retrieve Temporal Representation Of Entity'")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_06.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/020_06.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_020_06.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_020_07(self):
-        self.fail("(020_07) Problems with Request parameters, 'Retrieve Temporal Representation Of Entity'")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_07.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/020_07.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_020_07.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_020_08(self):
-        self.fail("(020_08) Problems with Request parameters, 'Retrieve Temporal Representation Of Entity'")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_08.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/020_08.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_020_08.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_020_09(self):
         self.fail("(020_09) Test Suite with Test Template, not yet implemented")
 
     def test_020_10(self):
-        self.fail("(020_10) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_10.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/020_10.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_020_10.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)

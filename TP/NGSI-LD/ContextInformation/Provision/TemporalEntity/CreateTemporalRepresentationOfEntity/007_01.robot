@@ -15,9 +15,9 @@ ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 
 
 *** Test Cases ***    FILENAME    EXPECTATION_FILENAME    CONTENT_TYPE
-007_01_01_Create a temporal representation of an entity
+007_01_01 Create a temporal representation of an entity
     vehicle-create-temporal-representation-sample.jsonld    vehicle-temporal-representation-create-expectation.jsonld    application/ld+json
-007_01_02_Create a temporal entity with no context
+007_01_02 Create a temporal entity with no context
     vehicle-create-temporal-representation-without-context-sample.jsonld    vehicle-temporal-representation-create-with-no-context-expectation.jsonld    application/json
 
 
@@ -37,11 +37,12 @@ Create Temporal Entity
     ...    temporalEntities/${filename}
     ...    ${temporal_entity_representation_id}
     IF    '${content_type}'=='application/json'
-        ${response}=    Retrieve Temporal Representation Of Entity    ${temporal_entity_representation_id}
+        ${response}=    Retrieve Temporal Representation Of Entity
+        ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     END
     IF    '${content_type}'=='application/ld+json'
         ${response}=    Retrieve Temporal Representation Of Entity
-        ...    ${temporal_entity_representation_id}
+        ...    temporal_entity_representation_id=${temporal_entity_representation_id}
         ...    context=${ngsild_test_suite_context}
     END
     ${ignored_attributes}=    Create List    instanceId    @context

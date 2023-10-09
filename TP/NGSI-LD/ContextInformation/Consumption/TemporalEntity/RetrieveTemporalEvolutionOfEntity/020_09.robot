@@ -29,7 +29,7 @@ Retrieve the temporal evolution of an entity with an invalid request content
     [Documentation]    Check that you cannot retrieve the temporal evolution of an entity with an invalid request content
     [Arguments]    ${timerel}    ${timeAt}    ${endTimeAt}
     ${response}=    Retrieve Temporal Representation Of Entity
-    ...    ${temporal_entity_representation_id}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    timerel=${timerel}
     ...    timeAt=${timeAt}
     ...    endTimeAt=${endTimeAt}

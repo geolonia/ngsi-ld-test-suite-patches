@@ -29,7 +29,7 @@ Retrieve the temporal evolution of the last N instances of entity attributes
     [Documentation]    Check that you can retrieve the temporal evolution of the last N instances of entity attributes
     [Arguments]    ${lastN}    ${vehicle_expectation_file}
     ${response}=    Retrieve Temporal Representation Of Entity
-    ...    ${temporal_entity_representation_id}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    lastN=${lastN}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}

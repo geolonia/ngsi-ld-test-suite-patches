@@ -17,9 +17,9 @@ ${status_code}=             204
 
 
 *** Test Cases ***    FRAGMENT_FILENAME    ATTRIBUTE_ID    EXPECTATION_FILENAME
-012_01_01_Check that you can partially update an attribute
+012_01_01 Check that you can partially update an attribute
     vehicle-isparked-fragment.jsonld    isParked    vehicle-isparked-update-expectation.jsonld
-012_01_02_Check that you can partially update an attribute by specifying the datasetId
+012_01_02 Check that you can partially update an attribute by specifying the datasetId
     vehicle-speed-equal-datasetid-fragment.jsonld    speed    vehicle-update-speed-expectation.jsonld
 
 

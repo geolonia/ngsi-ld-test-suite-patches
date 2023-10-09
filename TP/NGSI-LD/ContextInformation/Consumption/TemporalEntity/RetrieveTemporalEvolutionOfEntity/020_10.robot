@@ -21,7 +21,7 @@ ${vehicle_expectation_file}=    vehicle-temporal-representation-020-10-expectati
     [Tags]    te-retrieve    5_7_3
     @{options}=    Create List    temporalValues
     ${response}=    Retrieve Temporal Representation Of Entity
-    ...    ${temporal_entity_representation_id}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    options=${options}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}

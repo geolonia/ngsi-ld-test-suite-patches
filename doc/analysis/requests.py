@@ -78,11 +78,22 @@ class Requests:
                 'params': ['entity_ids', 'entity_types', 'accepts']
             },
             'Retrieve Temporal Representation Of Entity': {
-                'params': ['entity_ids', 'entity_types', 'accepts']
+                'positions': [],
+                'params': ['temporal_entity_representation_id', 'attrs', 'options',
+                           'context', 'timerel', 'timeAt',
+                           'endTimeAt', 'lastN', 'accept']
             },
             'Delete Entity by Id Returning Response': {
                 'positions': [0],
                 'params': ['id']
+            },
+            'Append Entity Attributes': {
+                'positions': [0, 1, 2],
+                'params': ['id', 'fragment_filename', 'content_type']
+            },
+            'Update Entity Attributes': {
+                'positions': [0, 1, 2],
+                'params': ['id', 'fragment_filename', 'content_type']
             }
         }
 
@@ -122,7 +133,13 @@ class Requests:
             'Query Entities':
                 Requests.query_entities,
             'Delete Entity by Id Returning Response':
-                Requests.delete_entity_by_id_returning_response
+                Requests.delete_entity_by_id_returning_response,
+            'Append Entity Attributes':
+                Requests.append_entity_attributes,
+            'Update Entity Attributes':
+                Requests.update_entity_attributes,
+            'Retrieve Temporal Representation Of Entity':
+                Requests.retrieve_temporal_representation_of_entity
         }
 
         self.variables = variables
@@ -384,6 +401,41 @@ class Requests:
         return response
 
     @staticmethod
+    def retrieve_temporal_representation_of_entity(kwargs) -> str:
+        expected_parameters = ['temporal_entity_representation_id', 'attrs', 'options',
+                               'context', 'timerel', 'timeAt',
+                               'endTimeAt', 'lastN', 'accept']
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Retrieve Temporal Representation of Entity"
+        for key, value in kwargs.items():
+            match key:
+                case 'temporal_entity_representation_id':
+                    response = f"{response} and\n    Query Parameter: id set to '{value}'"
+                case 'attrs':
+                    response = f"{response} and\n    Query Parameter: attrs set to '{value}'"
+                case 'options':
+                    response = f"{response} and\n    Query Parameter: options set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case 'timerel':
+                    response = f"{response} and\n    Query Parameter: timerel set to '{value}'"
+                case 'timeAt':
+                    response = f"{response} and\n    Query Parameter: timeAt set to '{value}'"
+                case 'endTimeAt':
+                    response = f"{response} and\n    Query Parameter: endTimeAt set to '{value}'"
+                case 'lastN':
+                    value = re.search(pattern=r'\d+', string=value).group()
+                    response = f"{response} and\n    Query Parameter: lastN set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
     def retrieve_attribute(kwargs) -> str:
         if 'attribute_name' in kwargs:
             return f"Retrieve Attribute with attributeName set to '{kwargs['attribute_name']}'"
@@ -441,6 +493,48 @@ class Requests:
     def delete_entity_by_id_returning_response(kwargs) -> str:
         if 'id' in kwargs:
             return f"Delete Entity Request with id set to '{kwargs['id']}'"
+
+    @staticmethod
+    def append_entity_attributes(kwargs) -> str:
+        expected_parameters = ['id', 'fragment_filename', 'content_type']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = 'Append Entity Attributes'
+        for key, value in kwargs.items():
+            match key:
+                case 'id':
+                    response = f"{response} and\n    Query Parameter: id set to '{value}'"
+                case 'fragment_filename':
+                    response = f"{response} and\n    Query Parameter: fragment_filename set to '{value}'"
+                case 'content_type':
+                    response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
+    def update_entity_attributes(kwargs) -> str:
+        expected_parameters = ['id', 'fragment_filename', 'content_type']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = 'Update Entity Attributes'
+        for key, value in kwargs.items():
+            match key:
+                case 'id':
+                    response = f"{response} and\n    Query Parameter: id set to '{value}'"
+                case 'fragment_filename':
+                    response = f"{response} and\n    Query Parameter: fragment_filename set to '{value}'"
+                case 'content_type':
+                    response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
 
     def get_value(self, params, param_position, param_key):
         data = [x for x in params if f'{param_key}=' in x]

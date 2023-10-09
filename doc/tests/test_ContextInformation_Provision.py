@@ -178,3 +178,59 @@ class TestCIProvision(TestCase):
         difference_file = f'{self.folder_test_suites}/doc/results/out_002_03.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_010_01(self):
+        self.fail("(010_01) Test Suite with something similar to Test Template, not yet implemented")
+
+    def test_010_02(self):
+        self.fail("(010_02) Test Suite with something similar to Test Template, not yet implemented")
+
+    def test_010_03(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/EntityAttributes/AppendEntityAttributes/010_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/010_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_010_03.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_013_01(self):
+        self.fail("(013_01) Test Suite with Test Template, not yet implemented")
+
+    def test_013_02(self):
+        self.fail("(013_02) Test Suite with Test Template, not yet implemented")
+
+    def test_013_03(self):
+        self.fail("(013_03) Test Suite with Test Template, not yet implemented")
+
+    def test_012_01(self):
+        self.fail("(012_01) Test Suite with Test Template, not yet implemented")
+
+    def test_012_02(self):
+        self.fail("(012_02) Test Suite with Test Template, not yet implemented")
+
+    def test_012_03(self):
+        self.fail("(012_03) Test Suite with Test Template, not yet implemented")
+
+    def test_011_01(self):
+        self.fail("(011_01) Test Suite with Test Template, not yet implemented")
+
+    def test_011_02(self):
+        self.fail("(011_02) Test Suite with something similar to Test Template, not yet implemented")
+
+    def test_011_03(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/EntityAttributes/UpdateEntityAttributes/011_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/011_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_011_03.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_007_01(self):
+        self.fail("(007_01) Test Suite with Test Template, not yet implemented")
+
+    def test_007_02(self):
+        self.fail("(007_02) Test Suite with Test Template, not yet implemented")
+
+    def test_007_03(self):
+        self.fail("(007_03) Test Suite with Test Template, not yet implemented")
+
+    def test_009_01(self):
+        self.fail("(009_01) Test Suite testing Delete operation but we are returning Retrieve solution")

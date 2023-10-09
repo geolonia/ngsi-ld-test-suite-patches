@@ -1,0 +1,33 @@
+*** Settings ***
+Documentation       Check that you cannot create a temporal entity with an empty/invalid json/id
+
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision/ApiUtils.resource
+# Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+
+Test Template       Create Temporal Entity
+
+
+*** Variables ***
+${status_code}=     400
+
+
+*** Test Cases ***
+007_03_01 Create a temporal entity with missing id
+    Create Temporal Entity    ${EMPTY}    vehicle-temporal-representation-without-id-sample.jsonld
+007_03_02 Create a temporal invalid URI
+    Create Temporal Entity    invalidId    vehicle-temporal-representation-sample.jsonld
+
+
+*** Keywords ***
+Create Temporal Entity
+    [Documentation]    Check that you cannot create a temporal entity with an invalid @context
+    [Tags]    te-create    5_6_11
+    [Arguments]    ${entity_id}    ${filename}
+    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
+    ...    ${entity_id}
+    ...    ${filename}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    ${status_code}    ${response.status_code}
+    [Teardown]    Delete Temporal Representation Of Entity    ${entity_id}

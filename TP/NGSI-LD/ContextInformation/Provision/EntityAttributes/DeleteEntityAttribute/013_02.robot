@@ -18,11 +18,11 @@ ${filename}=                vehicle-two-datasetid-attributes-sample.jsonld
 
 
 *** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID
-013_02_01_delete an attribute if the Entity Id is not present
+013_02_01 delete an attribute if the Entity Id is not present
     ${EMPTY}    speed
-013_02_02_delete an attribute if the Entity Id is not a valid URI
+013_02_02 delete an attribute if the Entity Id is not a valid URI
     thisIsAnInvalidURI    speed
-013_02_03_delete an attribute if the Attribute Name is not present
+013_02_03 delete an attribute if the Attribute Name is not present
     ${valid_entity_id}    ${EMPTY}
 
 

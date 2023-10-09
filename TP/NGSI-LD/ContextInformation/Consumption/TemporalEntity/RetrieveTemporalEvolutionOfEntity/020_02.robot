@@ -20,7 +20,7 @@ ${vehicle_expectation_file}=    vehicle-temporal-representation-020-02-expectati
     [Documentation]    Check that you can retrieve the temporal evolution of an entity using a context
     [Tags]    te-retrieve    5_7_3
     ${response}=    Retrieve Temporal Representation Of Entity
-    ...    ${temporal_entity_representation_id}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing EntityTemporal element

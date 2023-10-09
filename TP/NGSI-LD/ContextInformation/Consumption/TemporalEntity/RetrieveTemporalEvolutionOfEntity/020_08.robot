@@ -20,7 +20,7 @@ ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-sample.json
     [Tags]    te-retrieve    5_7_3
     @{temporal_attributes_to_be_retrieved}=    Create List    unknownAttribute
     ${response}=    Retrieve Temporal Representation Of Entity
-    ...    ${temporal_entity_representation_id}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    attrs=${temporal_attributes_to_be_retrieved}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    404    ${response.status_code}

@@ -18,15 +18,15 @@ ${status_code}=             400
 
 
 *** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID    FRAGMENT_FILENAME
-012_02_01_Make a partial attribute update if the Entity Id is not present
+012_02_01 Make a partial attribute update if the Entity Id is not present
     ${EMPTY}    speed    vehicle-speed-equal-datasetid-fragment.jsonld
-012_02_02_Make a partial attribute update if the Entity Id is not a valid URI
+012_02_02 Make a partial attribute update if the Entity Id is not a valid URI
     thisisaninvaliduri    speed    vehicle-speed-equal-datasetid-fragment.jsonld
-012_02_03_Make a partial attribute update if the Attribute Id is not present
+012_02_03 Make a partial attribute update if the Attribute Id is not present
     ${valid_entity_id}    ${EMPTY}    vehicle-speed-equal-datasetid-fragment.jsonld
-012_02_04_Make a partial attribute update if the Attribute type does not match
+012_02_04 Make a partial attribute update if the Attribute type does not match
     ${valid_entity_id}    speed    vehicle-speed-equal-datasetid-different-type-fragment.jsonld
-012_02_05_Make a partial attribute update if the entity fragment is empty
+012_02_05 Make a partial attribute update if the entity fragment is empty
     ${valid_entity_id}    speed    empty-fragment.json
 
 
