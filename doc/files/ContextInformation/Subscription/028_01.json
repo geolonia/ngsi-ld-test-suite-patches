@@ -1,0 +1,34 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/SUB/028_01",
+  "test_objective": "Check that you can create a subscription",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.1",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_8_1",
+  "keywords": [
+    "Delete Initial Subscriptions"
+  ],
+  "teardown": "Delete Initial Subscriptions",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "028_01_01 Create Subscription",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/028_01_01",
+      "doc": "Check that you can create a subscription",
+      "tags": [
+        "5_8_1",
+        "sub-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Created Entity set to ${entity}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Request a subscription\nHeader['Accept'] set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "subscriptions/{id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Subscription/CreateSubscription",
+  "robotfile": "028_01"
+}

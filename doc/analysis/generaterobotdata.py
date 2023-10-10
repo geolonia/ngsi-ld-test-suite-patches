@@ -33,7 +33,10 @@ class GenerateRobotData:
             'Entity/RetrieveEntity': 'E',
             'Entities/CreateEntity': 'E',
             'Entity/QueryEntities': 'E',
-            'TemporalEntity/QueryTemporalEvolutionOfEntities': 'TE'
+            'TemporalEntity/QueryTemporalEvolutionOfEntities': 'TE',
+            'TemporalEntity/DeleteTemporalRepresentationOfEntity': 'TE',
+            'TemporalEntity/UpdateTemporalRepresentationOfEntity': 'TE',
+            'Subscription/CreateSubscription': 'SUB'
         }
         self.references = {
             'v1.3.1': 'ETSI GS CIM 009 V1.3.1 [], clause '

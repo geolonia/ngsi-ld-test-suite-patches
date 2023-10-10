@@ -94,6 +94,14 @@ class Requests:
             'Update Entity Attributes': {
                 'positions': [0, 1, 2],
                 'params': ['id', 'fragment_filename', 'content_type']
+            },
+            'Delete Temporal Representation Of Entity With Returning Response': {
+                'positions': [0],
+                'params': ['id']
+            },
+            'Append Attribute To Temporal Entity': {
+                'positions': [0, 1, 2],
+                'params': ['id', 'fragment_filename', 'content_type']
             }
         }
 
@@ -139,7 +147,11 @@ class Requests:
             'Update Entity Attributes':
                 Requests.update_entity_attributes,
             'Retrieve Temporal Representation Of Entity':
-                Requests.retrieve_temporal_representation_of_entity
+                Requests.retrieve_temporal_representation_of_entity,
+            'Delete Temporal Representation Of Entity With Returning Response':
+                Requests.delete_temporal_representation_of_entity_with_returning_response,
+            'Append Attribute To Temporal Entity':
+                Requests.append_attribute_to_temporal_entity
         }
 
         self.variables = variables
@@ -493,6 +505,32 @@ class Requests:
     def delete_entity_by_id_returning_response(kwargs) -> str:
         if 'id' in kwargs:
             return f"Delete Entity Request with id set to '{kwargs['id']}'"
+
+    @staticmethod
+    def delete_temporal_representation_of_entity_with_returning_response(kwargs) -> str:
+        if 'id' in kwargs:
+            return f"Delete Temporal Representation Of Entity With Returning Response with id set to '{kwargs['id']}'"
+
+    @staticmethod
+    def append_attribute_to_temporal_entity(kwargs) -> str:
+        expected_parameters = ['id', 'fragment_filename', 'content_type']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = 'Append Attribute to Temporal Entity'
+        for key, value in kwargs.items():
+            match key:
+                case 'id':
+                    response = f"{response} and\n    Query Parameter: id set to '{value}'"
+                case 'fragment_filename':
+                    response = f"{response} and\n    Query Parameter: fragment_filename set to '{value}'"
+                case 'content_type':
+                    response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
 
     @staticmethod
     def append_entity_attributes(kwargs) -> str:

@@ -19,11 +19,11 @@ ${status_code}=             404
 
 
 *** Test Cases ***    TEMPORAL_ENTITY_ID    ATTRIBUTE_ID    INSTANCE_ID
-016_03_01_modify attribute instance in temporal representation of an entity if the entity with given id is not found
+016_03_01 Modify attribute instance in temporal representation of an entity if the entity with given id is not found
     ${unknown_temporal_entity_id}    speed    ${valid_instanceId}
-016_03_02_modify attribute instance in temporal representation of an entity if the target attribute is not found
+016_03_02 Modify attribute instance in temporal representation of an entity if the target attribute is not found
     ${temporal_entity_representation_id}    speed2    ${valid_instanceId}
-016_03_03_modify attribute instance in temporal representation of an entity if the target attribute instance is not found
+016_03_03 Modify attribute instance in temporal representation of an entity if the target attribute instance is not found
     ${temporal_entity_representation_id}    speed    urn:ngsi-ld:01234567890123456789
 
 

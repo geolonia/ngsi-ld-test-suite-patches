@@ -17,7 +17,7 @@ ${expectation_filename}=    vehicle-temporal-representation-delete-speed-instanc
 
 
 *** Test Cases ***
-017_01_Delete an attribute instance in temporal representation of an entity
+017_01_01 Delete an attribute instance in temporal representation of an entity
     [Documentation]    Check that you can delete an attribute instance in temporal representation of an entity
     [Tags]    tea-instance-delete    5_6_15
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}

@@ -1,0 +1,34 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/TemporalEntityAttributes/AppendAttributes/014_01",
+  "test_objective": "Check that you can add a simple temporal attribute to a temporal representation of an entity",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.12",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_6_12",
+  "keywords": [
+    "Delete Temporal Entity"
+  ],
+  "teardown": "Delete Temporal Entity",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "014_01_01 Add an attribute to a temporal entity with simple temporal properties",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TemporalEntityAttributes/AppendAttributes/014_01_01",
+      "doc": "Check that you can add a simple temporal attribute to a temporal representation of an entity",
+      "tags": [
+        "5_6_12",
+        "tea-append"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/TemporalEntityAttributes/AppendAttributes",
+  "robotfile": "014_01"
+}

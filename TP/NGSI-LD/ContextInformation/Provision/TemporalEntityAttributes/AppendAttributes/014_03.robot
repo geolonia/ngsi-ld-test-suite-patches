@@ -17,7 +17,7 @@ ${status_code}=             404
 
 
 *** Test Cases ***
-Add Attribute To Temporal Entity
+014_03_01 Add Attribute To Temporal Entity
     [Documentation]    Check that an error is raised if you add an attribute to a non-existent entity
     [Tags]    tea-append    5_6_12
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}

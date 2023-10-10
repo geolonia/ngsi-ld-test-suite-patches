@@ -19,17 +19,17 @@ ${status_code}=             400
 
 
 *** Test Cases ***    TEMPORAL_ENTITY_ID    ATTRIBUTE_ID    INSTANCE_ID
-016_02_01_modify attribute instance in temporal representation of an entity if the entity id is not valid
+016_02_01 Modify attribute instance in temporal representation of an entity if the entity id is not valid
     invalidId    speed    ${valid_instanceId}
-016_02_02_modify attribute instance in temporal representation of an entity if the entity id is not present
+016_02_02 Modify attribute instance in temporal representation of an entity if the entity id is not present
     ${EMPTY}    speed    ${valid_instanceId}
-016_02_03_modify attribute instance in temporal representation of an entity if the instance id is not valid
+016_02_03 Modify attribute instance in temporal representation of an entity if the instance id is not valid
     ${temporal_entity_representation_id}    speed    invalidId
-016_02_04_modify attribute instance in temporal representation of an entity if the instance id is not present
+016_02_04 Modify attribute instance in temporal representation of an entity if the instance id is not present
     ${temporal_entity_representation_id}    speed    ${EMPTY}
-016_02_05_modify attribute instance in temporal representation of an entity if the attribute name is not a valid name
+016_02_05 Modify attribute instance in temporal representation of an entity if the attribute name is not a valid name
     ${temporal_entity_representation_id}    invalid(Id    ${valid_instanceId}
-016_02_06_modify attribute instance in temporal representation of an entity if the attribute name is not present
+016_02_06 Modify attribute instance in temporal representation of an entity if the attribute name is not present
     ${temporal_entity_representation_id}    ${EMPTY}    ${valid_instanceId}
 
 
