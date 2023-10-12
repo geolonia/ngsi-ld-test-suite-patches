@@ -20,7 +20,7 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 
 
 *** Test Cases ***
-Check that lastFailure and status are updated if a notification could not be sent
+046_13_01 Check that lastFailure and status are updated if a notification could not be sent
     [Documentation]    If the response to the notification request is different than 200 OK then implementations shall: Update notification.lastFailure with a timestamp representing the current date and time, update notification.status to "failed"
     [Tags]    sub-notification    5_11_7    046_13
 
@@ -30,7 +30,7 @@ Check that lastFailure and status are updated if a notification could not be sen
     Sleep    10s
 
     ${response}=    Retrieve Subscription
-    ...    ${subscription_id}
+    ...    id=${subscription_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    context=${ngsild_test_suite_context}
 

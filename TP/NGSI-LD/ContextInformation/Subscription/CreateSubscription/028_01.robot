@@ -26,7 +26,7 @@ ${subscription_expectation_file_path}=      subscriptions/expectations/subscript
     ...    ${CONTENT_TYPE_LD_JSON}
     ${expected_subscription}=    Load Test Sample    ${subscription_expectation_file_path}    ${subscription_id}
     ${response}=    Retrieve Subscription
-    ...    ${subscription_id}
+    ...    id=${subscription_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    context=${ngsild_test_suite_context}
     Check Created Resource Set To    ${expected_subscription}    ${response.json()}

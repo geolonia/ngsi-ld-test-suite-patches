@@ -1,0 +1,34 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/SUB/028_04",
+  "test_objective": "Check that you cannot create a subscription with an existing id",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.1",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_8_1",
+  "keywords": [
+    "Delete Initial Subscriptions"
+  ],
+  "teardown": "Delete Initial Subscriptions",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "028_04_01 Create a subscription with an id known to the system",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/028_04_01",
+      "doc": "Check that you cannot create a subscription with an existing id",
+      "tags": [
+        "5_8_1",
+        "sub-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/AlreadyExists' and\n        Response body containing 'title' element and\n        Response Status Code set to 409\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: 'subscriptions/subscription-sample.jsonld'\n}",
+      "http_verb": "POST",
+      "endpoint": "subscriptions/"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Subscription/CreateSubscription",
+  "robotfile": "028_04"
+}

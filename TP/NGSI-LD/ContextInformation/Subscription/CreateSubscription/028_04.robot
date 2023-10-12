@@ -14,7 +14,7 @@ ${subscription_payload_file_path}=      subscriptions/subscription-sample.jsonld
 
 
 *** Test Cases ***
-Create a subscription with an id known to the system
+028_04_01 Create a subscription with an id known to the system
     [Documentation]    Check that you cannot create a subscription with an existing id
     [Tags]    sub-create    5_8_1
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}

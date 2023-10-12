@@ -16,7 +16,7 @@ ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscrip
 
 
 *** Test Cases ***
-Update Subscription Status To Paused
+029_09_01 Update Subscription Status To Paused
     [Documentation]    Check that you can update a subscription: If isActive is equal to false and expiresAt is not present, then status shall be updated to "paused", if and only if, the previous value of status was different than "expired"
     [Tags]    sub-update    5_8_2
     ${response}=    Update Subscription
@@ -24,7 +24,8 @@ Update Subscription Status To Paused
     ...    ${subscription_update_fragment_file_path}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
-    ${response}=    Retrieve Subscription    ${subscription_id}
+    ${response}=    Retrieve Subscription
+    ...    id=${subscription_id}
     Check Response Body Containing an Attribute set to    status    ${response.json()}    paused
 
 

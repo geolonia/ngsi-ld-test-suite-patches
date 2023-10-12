@@ -16,7 +16,7 @@ ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscrip
 
 
 *** Test Cases ***
-Update Subscription With ExpiresAt In The Past
+029_11_01 Update Subscription With ExpiresAt In The Past
     [Documentation]    Check that you cannot update a subscription: If expiresAt is included but referring to a DateTime in the past, then a BadRequestData error shall be raised
     [Tags]    sub-update    5_8_2
     ${response}=    Update Subscription

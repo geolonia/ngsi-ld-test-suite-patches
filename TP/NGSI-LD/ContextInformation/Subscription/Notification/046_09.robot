@@ -20,7 +20,7 @@ ${notification_server_send_url}=        http://${send_notification_server_host}:
 
 
 *** Test Cases ***
-Check that a notification is sent to the endpoint
+046_09_01 Check that a notification is sent to the endpoint
     [Documentation]    A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.info defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.1
     [Tags]    sub-notification    5_11_7    046_09
 
@@ -30,7 +30,8 @@ Check that a notification is sent to the endpoint
 
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
-    ${notification}=    Wait for notification    timeout=${10}
+    ${notification}    ${headers}=    Wait for notification    timeout=${10}
+    Dictionary Should Contain Key    ${headers}    X-Additional-Key
 
 
 *** Keywords ***

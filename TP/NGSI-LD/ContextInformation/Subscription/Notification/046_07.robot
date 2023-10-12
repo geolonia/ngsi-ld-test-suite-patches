@@ -24,7 +24,7 @@ ${date_format_with_millis}                              %Y-%m-%dT%H:%M:%S.%fZ
 
 
 *** Test Cases ***
-Check notification structure
+046_07_01 Check notification structure
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3. Valid notification with attributes as stated above
     [Tags]    sub-notification    5_8_6    046_07_01
     Add Initial Entity

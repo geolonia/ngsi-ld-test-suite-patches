@@ -16,13 +16,13 @@ ${subscription_payload_file_path}=      subscriptions/subscription-building-enti
 ${building_id_prefix}=                  urn:ngsi-ld:Building:
 ${entity_building_filepath}=            building-simple-attributes-sample.jsonld
 ${fragment_filename}=                   airQualityLevel-fragment.jsonld
-${notification_server_send_url}=        http://${send_notification_server_host}:${send_notification_server_port}/notify
+${notification_server_send_url}=        http://${notification_server_host}:${notification_server_port}/notify
 
 
 *** Test Cases ***
-Check that lastNotification is updated
+046_12_01 Check that lastNotification is updated
     [Documentation]    The status, lastNotification and lastSuccess members shall be updated with expected value and dates. This test will check these formats.
-    [Tags]    sub-notification    5_11_7    046_12
+    [Tags]    sub-notification    5_8_6    046_12
 
     Add Initial Entity
     Sleep    1s
@@ -33,7 +33,7 @@ Check that lastNotification is updated
     Wait for notification    timeout=${10}
 
     ${response}=    Retrieve Subscription
-    ...    ${subscription_id}
+    ...    id=${subscription_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    context=${ngsild_test_suite_context}
 
@@ -43,14 +43,12 @@ Check that lastNotification is updated
     Should Be Equal    ok    ${notification_info}[0][status]
 
     Dictionary Should Contain Key    ${notification_info}[0]    lastNotification
-    ${is_date}=    Is Date    ${notification_info}[0][lastNotification]    ${date_format}
-    ${is_date_with_millis}=    Is Date    ${notification_info}[0][lastNotification]    ${date_format_with_millis}
-    Should Be True    ${is_date} or ${is_date_with_millis}
+    ${last_notification_date}=    Parse Ngsild Date    ${notification_info}[0][lastNotification]
+    Should Not Be Equal    ${last_notification_date}    ${None}
 
     Dictionary Should Contain Key    ${notification_info}[0]    lastSuccess
-    ${is_date}=    Is Date    ${notification_info}[0][lastSuccess]    ${date_format}
-    ${is_date_with_millis}=    Is Date    ${notification_info}[0][lastSuccess]    ${date_format_with_millis}
-    Should Be True    ${is_date} or ${is_date_with_millis}
+    ${last_success_date}=    Parse Ngsild Date    ${notification_info}[0][lastSuccess]
+    Should Not Be Equal    ${last_success_date}    ${None}
 
 
 *** Keywords ***

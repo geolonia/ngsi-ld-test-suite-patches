@@ -42,7 +42,9 @@ ${content_type}=                application/json
     ${id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${response}=    Create Subscription    ${id}    ${subscription_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Retrieve Subscription    ${id}    accept=*/*
+    ${response}=    Retrieve Subscription
+    ...    id=${id}
+    ...    accept=*/*
     Check Response Status Code    200    ${response.status_code}
     Check Response Headers Containing Content-Type set to    ${content_type}    ${response.headers}
     Check Response Headers Link Not Empty    ${response.headers}

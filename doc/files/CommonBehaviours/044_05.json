@@ -21,7 +21,7 @@
       "teardown": "Delete Subscription",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 406\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Request a subscription\nHeader['Accept'] set to 'application/geo+json'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Subscription Retrieve with the following data: and\n    Query Parameter: id set to '${id}' and\n    Query Parameter: accept set to 'application/geo+json'\n}",
       "http_verb": "GET",
       "endpoint": "subscriptions/{id}"
     },

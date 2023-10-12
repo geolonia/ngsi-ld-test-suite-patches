@@ -16,21 +16,22 @@ ${subscription_payload_file_path}=      subscriptions/subscription-building-enti
 ${building_id_prefix}=                  urn:ngsi-ld:Building:
 ${entity_building_filepath}=            building-simple-attributes-sample.jsonld
 ${fragment_filename}=                   airQualityLevel-fragment.jsonld
-${notification_server_send_url}=        http://${send_notification_server_host}:${send_notification_server_port}/notify
+${notification_server_send_url}=        http://${notification_server_host}:${notification_server_port}/notify
 
 
 *** Test Cases ***
-Check that a notification is only sent if status is active
+046_01_01 Check that a notification is only sent if status is active
     [Documentation]    Check that a notification is only sent if and only if the status is active
-    [Tags]    sub-notification    5_11_7    046_01
+    [Tags]    sub-notification    5_8_6    046_01
 
     Add Initial Entity
     Sleep    1s
+
     Setup Initial Subscriptions
 
-    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
-    ${notification}=    Wait for notification    timeout=${10}
+    ${notification}    ${headers}=    Wait for notification    timeout=${10}
 
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
     Should be Equal    ${entity_id}    ${notification}[data][0][id]

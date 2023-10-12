@@ -16,7 +16,7 @@ ${subscription_update_fragment_file_path}       subscriptions/fragments/subscrip
 
 
 *** Test Cases ***
-Activate Expired Subscription
+029_10_01 Activate Expired Subscription
     [Documentation]    Check that you can update a subscription: If only expiresAt is included and refers to a DateTime in the future, then status shall be updated to "active", if and only if the previous value of status was "expired"
     [Tags]    sub-update    5_8_2
     # Update subscription to expire in 5 seconds
@@ -35,7 +35,8 @@ Activate Expired Subscription
     ...    ${subscription_update_fragment_file_path}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
-    ${response}=    Retrieve Subscription    ${subscription_id}
+    ${response}=    Retrieve Subscription
+    ...    id=${subscription_id}
     Check Response Body Containing an Attribute set to    status    ${response.json()}    active
 
 

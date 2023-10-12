@@ -18,13 +18,13 @@ ${third_subscription_payload_file_path}=        subscriptions/subscription-inact
 
 
 *** Test Cases ***    LIMIT    OFFSET    EXPECTED_SUBSCRIPTION_NUMBER    PREV_LINK    NEXT_LINK
-Query Second Subscription
+031_02_01 Query Second Subscription
     [Tags]    sub-query    5_8_4
     ${1}    ${1}    ${1}    </ngsi-ld/v1/subscriptions?limit=1&offset=0>;rel="prev";type="application/ld+json"    </ngsi-ld/v1/subscriptions?limit=1&offset=2>;rel="next";type="application/ld+json"
-Query Last Subscription
+031_02_02 Query Last Subscription
     [Tags]    sub-query    5_8_4
     ${1}    ${2}    ${1}    </ngsi-ld/v1/subscriptions?limit=1&offset=1>;rel="prev";type="application/ld+json"    ${EMPTY}
-Query All Subscriptions
+031_02_03 Query All Subscriptions
     [Tags]    sub-query    5_8_4
     ${15}    ${0}    ${3}    ${EMPTY}    ${EMPTY}
 

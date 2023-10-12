@@ -124,17 +124,25 @@ class ParseRobotFile:
         return result
 
     def get_lines_with_checks(self, content):
+        new_list = list()
+
         # Obtain the complete list of lines that contains a Check
         lines_starting_with_check = re.findall(r'^\s*Check.*', content, re.MULTILINE)
 
-        # From the list of Checks, we need to discard all 'Check Response Status Code' except the last one
-        check_string = 'Check Response Status Code'
-        lines_starting_with_check = [x.strip() for x in lines_starting_with_check]
-        new_list = [value for value in lines_starting_with_check if not value.startswith(check_string)]
-        abb_values = [value for value in lines_starting_with_check if value.startswith(check_string)]
+        if len(lines_starting_with_check) != 0:
+            # From the list of Checks, we need to discard all 'Check Response Status Code' except the last one
+            check_string = 'Check Response Status Code'
+            lines_starting_with_check = [x.strip() for x in lines_starting_with_check]
+            new_list = [value for value in lines_starting_with_check if not value.startswith(check_string)]
+            abb_values = [value for value in lines_starting_with_check if value.startswith(check_string)]
 
-        if abb_values:
-            new_list.append(abb_values[-1])
+            if abb_values:
+                new_list.append(abb_values[-1])
+        elif content.find('Wait for notification') != 0:
+            # There is no Check, we need to check if there is a 'Wait for notification',
+            # then we need to check the 'Should be Equal' sentences
+            lines_starting_with_should = re.findall(r'^\s*Should be Equal.*', content, re.MULTILINE)
+            new_list = [x.strip() for x in lines_starting_with_should]
 
         return new_list
 
@@ -146,13 +154,29 @@ class ParseRobotFile:
         return description
 
     def generate_then_content(self, content):
-        if len(content) > 1:
-            checks = " and\n        ".join(content)
-            checks = f"then {{\n    the SUT sends a valid Response containing:\n        {checks}\n}}"
-        elif len(content) == 1:
-            checks = f"then {{\n    the SUT sends a valid Response containing:\n        {content[0]}\n}}"
+        # Need to check if it is a Notification data or a normal Response
+        aux = [x for x in content if x.find('Notification data') != -1]
+
+        if len(aux) == 0:
+            # The SUT sends a valid Response
+            if len(content) > 1:
+                checks = " and\n        ".join(content)
+                checks = f"then {{\n    the SUT sends a valid Response containing:\n        {checks}\n}}"
+            elif len(content) == 1:
+                checks = f"then {{\n    the SUT sends a valid Response containing:\n        {content[0]}\n}}"
+            else:
+                raise Exception("ERROR, It is expected at least 1 Check operation in the Test Case")
         else:
-            raise Exception("ERROR, It is expected at least 1 Check operation in the Test Case")
+            # The Client receives a valid Notification
+            if len(content) > 1:
+                checks = " and\n        ".join(content)
+                checks = (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification containing:\n"
+                          f"        {checks}\n}}")
+            elif len(content) == 1:
+                checks = (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification containing:\n"
+                          f"        {content[0]}\n}}")
+            else:
+                raise Exception("ERROR, It is expected at least 1 Notification Check operation in the Test Case")
 
         return checks
 

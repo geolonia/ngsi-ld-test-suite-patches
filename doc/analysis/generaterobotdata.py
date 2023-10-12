@@ -36,7 +36,8 @@ class GenerateRobotData:
             'TemporalEntity/QueryTemporalEvolutionOfEntities': 'TE',
             'TemporalEntity/DeleteTemporalRepresentationOfEntity': 'TE',
             'TemporalEntity/UpdateTemporalRepresentationOfEntity': 'TE',
-            'Subscription/CreateSubscription': 'SUB'
+            'Subscription/CreateSubscription': 'SUB',
+            'Subscription/DeleteSubscription': 'SUB'
         }
         self.references = {
             'v1.3.1': 'ETSI GS CIM 009 V1.3.1 [], clause '
@@ -82,9 +83,6 @@ class GenerateRobotData:
         return keys_with_different_values
 
     def get_params(self, test_case: str):
-        # New content
-        # test_case = self.robot.test_cases[string]
-
         lines_starting_response = re.findall(r'^\s*\$\{response\}.*', test_case, re.MULTILINE)
 
         # If there is more than one line, it means that the test case has several operations, all of them to
@@ -98,13 +96,12 @@ class GenerateRobotData:
 
         index = test_case.find(response_to_check)
         aux = test_case[index:].split('\n')
+        aux = [x for x in aux if x != '']
 
         # Previuos content
         params = list()
         request = str()
-        #index_start = string.find('${response}')
-        #aux = string[index_start:].split('\n')
-        # End previous content
+
         # Get the list of params of the function, they are the keys
         if '    ...    ' in aux[1]:
             request = aux[0].split('    ')[2]
@@ -283,11 +280,6 @@ class GenerateRobotData:
         if len(self.args) != 0:
             # We are talking about Test Cases with Test Template, so we need to check the keyword content with the
             # definition of the template
-            # params = self.args[test.name]
-            # index = [index for index, value in enumerate(self.arguments) if value == '${content_type}'][0]
-            # content_type = params[index]
-            #
-            # body = self.get_body(string=test.name)
 
             # Generate Checks for Test Data
             then = self.robot.get_checks(test_name=test.template, apiutils=self.apiutil)
@@ -407,16 +399,26 @@ class GenerateRobotData:
         return result
 
     def generate_reference_testcases(self, tags: list, version: str):
-        check_tags = all(item == tags[0] for item in tags)
+        # check_tags = all(item == tags[0] for item in tags)
+        #
+        # if check_tags is False or len(tags) == 0:
+        #     raise Exception(f'ERROR: the Test Suite {{self.suite.name}} has different clauses or no clauses (Tags): {tags}\n'
+        #                     f'Unable to select the corresponding Reference of this Test Suite')
+        # else:
+        #     # All the clauses are the same, so we select the first one
+        #     reference = f'{{self.references[version]}}{tags[0].replace("_", ".")}'
+        #     pics = f'PICS_{tags[0]}'
+        #
+        # return reference, pics
+        aux = [x for x in tags if re.match(pattern='^(\d+_\d+_\d+)', string=x)]
 
-        if check_tags is False or len(tags) == 0:
-            print(f'ERROR: the Test Suite {self.suite.name} has different clauses or no clauses (Tags): {tags}\n'
-                  f'Unable to select the corresponding Reference of this Test Suite')
-            reference = ''
-            pics = ''
+        if len(aux) == 0:
+            raise Exception(
+                f'ERROR: the Test Suite {self.suite.name} has different clauses or no clauses (Tags): {tags}\n'
+                f'Unable to select the corresponding Reference of this Test Suite')
         else:
             # All the clauses are the same, so we select the first one
-            reference = f'{self.references[version]}{tags[0].replace("_", ".")}'
-            pics = f'PICS_{tags[0]}'
+            reference = f'{self.references[version]}{aux[0].replace("_", ".")}'
+            pics = f'PICS_{aux[0]}'
 
         return reference, pics

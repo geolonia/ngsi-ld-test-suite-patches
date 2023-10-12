@@ -8,9 +8,9 @@ Test Template       Delete Subscription With Non present Or Invalid Id
 
 
 *** Test Cases ***    id
-NotPresentId    [Tags]    sub-delete    5_8_5
+032_01_01 NotPresentId    [Tags]    sub-delete    5_8_5
     ${EMPTY}
-InvalidId    [Tags]    sub-delete    5_8_5
+032_01_02 InvalidId    [Tags]    sub-delete    5_8_5
     InvalidUri
 
 

@@ -13,9 +13,9 @@ ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscrip
 
 
 *** Test Cases ***    id
-NotPresentId    [Tags]    sub-update    5_8_2
+029_01_01 NotPresentId    [Tags]    sub-update    5_8_2
     ${EMPTY}
-InvalidId    [Tags]    sub-update    5_8_2
+029_01_02 InvalidId    [Tags]    sub-update    5_8_2
     InvalidUri
 
 

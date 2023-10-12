@@ -79,7 +79,9 @@ class Checks:
             'Check NotificationParams':
                 Checks.check_notificationparams,
             'Check Response Body Containing Batch Operation Result':
-                Checks.check_response_body_containing_batch_operation_result
+                Checks.check_response_body_containing_batch_operation_result,
+            'Should be Equal':
+                Checks.should_be_equal
         }
 
         self.args = {
@@ -104,8 +106,8 @@ class Checks:
                 'position': [1, 2]
         },
             'Check Response Body Containing List Containing Subscription elements': {
-                'params': ['number'],
-                'position': []
+                'params': ['file', 'id', 'response'],
+                'position': [1, 2, 3]
             },
             'Check Response Body Containing Number Of Entities': {
                 'params': ['entity_type', 'number_entities'],
@@ -154,6 +156,14 @@ class Checks:
             'Check Response Body Containing Batch Operation Result': {
                 'params': ['operation'],
                 'position': [1]
+            },
+            'Should be Equal': {
+                'params': ['expected_value', 'obtained_value'],
+                'position': [1, 2]
+            },
+            'Check Response Body Containing Subscription element': {
+                'params': ['filename', 'subscription_id', 'response_body'],
+                'position': [1, 2, 3]
             }
         }
 
@@ -241,25 +251,37 @@ class Checks:
 
     @staticmethod
     def check_response_body_containing_subscription_element(kwargs: list) -> str:
-        return 'Response Body containing the representation of CSRS1'
+        if 'filename' in kwargs and 'subscription_id' in kwargs and 'response_body' in kwargs:
+            return (f"Response Body containing the same content defined in file '{kwargs['filename']}'"
+                    f" with subscription id '{kwargs['subscription_id']}'")
+        else:
+            raise Exception(f"ERROR, expected parameters 'filename' and 'entity_ids', but received '{kwargs}'")
 
     @staticmethod
     def check_response_body_containing_list_containing_subscription_elements(kwargs: list) -> str:
-        if "number" in kwargs:
-            number = kwargs['number']
-            if isinstance(number, int):
-                number = int(number)
-
-                if number == 1:
-                    return f"body set to list containing '{number}' subscription"
-                elif number > 1:
-                    return f"body set to list containing '{number}' subscriptions"
-                else:
-                    raise Exception(f'ERROR, number attribute must be an integer value gt 1')
-            else:
-                raise Exception(f'ERROR, number attribute must be an integer value')
+        # 'params': ['file', 'id', 'response']
+        if 'file' in kwargs and 'id' in kwargs and 'response' in kwargs:
+            return (f"Response containing:\n"
+                    f"    * file set to '{kwargs['file']}'\n"
+                    f"    * id set to '{kwargs['id']}'\n"
+                    f"    * response set to '{kwargs['response']}'")
         else:
-            raise Exception(f'ERROR, number attribute was not provided, but received: {kwargs}')
+            raise Exception(f"ERROR, expected 'file', 'id', and 'response' attributes, received: '{kwargs}'")
+        # if "number" in kwargs:
+        #     number = kwargs['number']
+        #     if isinstance(number, int):
+        #         number = int(number)
+        #
+        #         if number == 1:
+        #             return f"body set to list containing '{number}' subscription"
+        #         elif number > 1:
+        #             return f"body set to list containing '{number}' subscriptions"
+        #         else:
+        #             raise Exception(f'ERROR, number attribute must be an integer value gt 1')
+        #     else:
+        #         raise Exception(f'ERROR, number attribute must be an integer value')
+        # else:
+        #     raise Exception(f'ERROR, number attribute was not provided, but received: {kwargs}')
 
     @staticmethod
     def check_response_body_containing_number_of_entities(kwargs: list) -> str:
@@ -432,6 +454,13 @@ class Checks:
             return f"Response Status Code set to '{kwargs['operation']}'"
         else:
             raise Exception(f'ERROR, Expected operation parameter but received: {kwargs}')
+
+    @staticmethod
+    def should_be_equal(kwargs: list) -> str:
+        if 'expected_value' in kwargs and 'obtained_value' in kwargs:
+            return f"Notification data: '{kwargs['obtained_value']}' equal to '{kwargs['expected_value']}'"
+        else:
+            raise Exception(f"ERROR, Expected 'expected_value' and 'obtained_value' parameters but received: '{kwargs}'")
 
     def get_checks(self, **kwargs) -> str:
         checking = None

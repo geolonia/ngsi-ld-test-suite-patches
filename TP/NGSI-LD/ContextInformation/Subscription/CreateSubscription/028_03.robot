@@ -14,9 +14,9 @@ ${subscription_payload_file_path}=      subscriptions/subscription-sample.jsonld
 
 
 *** Test Cases ***    ID
-028_03_01_InvalidId
+028_03_01 InvalidId
     invalidId
-028_03_02_EmptyId    ${EMPTY}
+028_03_02 EmptyId    ${EMPTY}
 
 
 *** Keywords ***

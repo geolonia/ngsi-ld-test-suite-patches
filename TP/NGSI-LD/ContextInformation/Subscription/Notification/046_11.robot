@@ -22,7 +22,7 @@ ${date_format_with_millis}=             %Y-%m-%dT%H:%M:%S.%fZ
 
 
 *** Test Cases ***
-Check that timesSent is increased by one
+046_11_01 Check that timesSent is increased by one
     [Documentation]    The notification.timesSent member shall be incremented by one.
     [Tags]    sub-notification    5_11_7    046_11
 
@@ -35,7 +35,7 @@ Check that timesSent is increased by one
     Wait for notification    timeout=${10}
 
     ${response}=    Retrieve Subscription
-    ...    ${subscription_id}
+    ...    id=${subscription_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    context=${ngsild_test_suite_context}
 

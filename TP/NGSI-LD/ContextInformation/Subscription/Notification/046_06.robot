@@ -19,10 +19,10 @@ ${notification_server_send_url}=        http://${send_notification_server_host}:
 
 
 *** Test Cases ***
-Check that a notification is sent with all matching entities
+046_06_01 Check that a notification is sent with all matching entities
     [Documentation]    only the subscribed Entities matching the query and watched attributes shall be included.
     [Tags]    sub-notification    5_11_7    046_06
-    ${entity_building}=    Create Entity Selecting Content Type
+    ${response}=    Create Entity Selecting Content Type
     ...    ${building_filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}

@@ -12,14 +12,14 @@ ${registration_payload_file_path}=      context-source-registration-invalid-samp
 
 
 *** Test Cases ***
-033_02_01_Create a context source registration with invalid JSON file
+033_02_01 Create a context source registration with invalid JSON file
     Create a context source registration with invalid JSON file
 
-033_02_02_Create a context source registration with a different data structure than CsourRegistration data type
+033_02_02 Create a context source registration with a different data structure than CsourRegistration data type
     Create Context Source With Invalid Content
     ...    csourceRegistrations/context-source-registration-invalid-structure-sample.jsonld
 
-033_02_03_Create a context source registration with a date in the past
+033_02_03 Create a context source registration with a date in the past
     Create Context Source With Invalid Content
     ...    csourceRegistrations/context-source-registration-past-expiration-sample.jsonld
 

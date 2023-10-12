@@ -21,7 +21,7 @@ ${expected_header_links}                <${ngsild_test_suite_context}>; rel="htt
 
 
 *** Test Cases ***
-Check that a notification is JSON
+046_10_01 Check that a notification is JSON
     [Documentation]    The Notification content shall be JSON by default
     [Tags]    sub-notification    5_11_7    046_10
 

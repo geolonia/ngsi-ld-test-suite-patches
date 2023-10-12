@@ -20,7 +20,7 @@ ${notification_server_send_url}         http://${send_notification_server_host}:
 
 
 *** Test Cases ***
-Check that a notification is sent as JSON-LD
+046_14_01 Check that a notification is sent as JSON-LD
     [Documentation]    The Notification content shall be JSON-LD when we set endpoint.accept to 'application/ld+json'
     [Tags]    sub-notification    5_11_7    046_14
 

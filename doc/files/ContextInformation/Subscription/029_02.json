@@ -1,0 +1,32 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Subscription/UpdateSubscription/029_02",
+  "test_objective": "Check that you cannot update a subscription: If the NGSI-LD System does not know about the target Subscription, because there is no existing Subscription whose id (URI) is equivalent, an error of type ResourceNotFound shall be raised",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.2",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_8_2",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "029_02_01 Update Unknown Subscription",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Subscription/UpdateSubscription/029_02_01",
+      "doc": "Check that you cannot update a subscription: If the NGSI-LD System does not know about the target Subscription, because there is no existing Subscription whose id (URI) is equivalent, an error of type ResourceNotFound shall be raised",
+      "tags": [
+        "5_8_2",
+        "sub-update"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound' and\n        Response body containing 'title' element and\n        Response Status Code set to 404\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Request Update Subscription and \nHeader['Content-Type'] set to 'application/json' and\nPayload defined in file 'subscriptions/fragments/subscription-update-sample.json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "subscriptions/{subscription_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Subscription/UpdateSubscription",
+  "robotfile": "029_02"
+}

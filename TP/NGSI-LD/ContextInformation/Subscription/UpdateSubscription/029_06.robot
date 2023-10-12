@@ -16,7 +16,7 @@ ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscrip
 
 
 *** Test Cases ***
-Update Subscription
+029_06_01 Update Subscription
     [Documentation]    Check that you can update a subcription: The implementation shall modify the target Subscription
     [Tags]    sub-update    5_8_2
     ${response}=    Update Subscription
@@ -28,7 +28,7 @@ Update Subscription
     ${subscription_update_fragment}=    Load Test Sample    ${subscription_update_fragment_file_path}
     ${subscription}=    Upsert Element In Entity    ${subscription_payload}    ${subscription_update_fragment}
     ${response}=    Retrieve Subscription
-    ...    ${subscription_id}
+    ...    id=${subscription_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    context=${ngsild_test_suite_context}
     ${ignored_attributes}=    Create List    ${status_regex_expr}

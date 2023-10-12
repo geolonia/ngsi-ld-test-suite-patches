@@ -29,8 +29,8 @@ class Requests:
                 'params': ['context', 'accept']
             },
             'Retrieve Subscription': {
-                'positions': [1],
-                'params': ['accept']
+                'positions': [],
+                'params': ['id', 'accept', 'context', 'content_type']
             },
             'Query Context Source Registrations With Return': {
                 'positions': [0, 1],
@@ -102,6 +102,14 @@ class Requests:
             'Append Attribute To Temporal Entity': {
                 'positions': [0, 1, 2],
                 'params': ['id', 'fragment_filename', 'content_type']
+            },
+            'Delete Subscription': {
+                'positions': [0],
+                'params': ['id']
+            },
+            'Query Subscriptions': {
+                'positions': [],
+                'params': ['context', 'limit', 'offset', 'accept']
             }
         }
 
@@ -151,7 +159,11 @@ class Requests:
             'Delete Temporal Representation Of Entity With Returning Response':
                 Requests.delete_temporal_representation_of_entity_with_returning_response,
             'Append Attribute To Temporal Entity':
-                Requests.append_attribute_to_temporal_entity
+                Requests.append_attribute_to_temporal_entity,
+            'Delete Subscription':
+                Requests.delete_subscription,
+            'Query Subscriptions':
+                Requests.query_subscriptions
         }
 
         self.variables = variables
@@ -176,6 +188,7 @@ class Requests:
 
         index = string.find(response_to_check)
         aux = string[index:].split('\n')
+        aux = [x for x in aux if x != '']
 
         params = list()
         request = str()
@@ -247,7 +260,6 @@ class Requests:
 
         param = dict()
         for i in range(0, len(self.op[request_name]['positions'])):
-            print(i)
             param_position = self.op[request_name]['positions'][i] - 1
             param_key = self.op[request_name]['params'][i]
             param_value = self.get_value(params=params, param_position=param_position, param_key=param_key)
@@ -298,10 +310,30 @@ class Requests:
 
     @staticmethod
     def retrieve_subscription(kwargs) -> str:
-        if 'accept' in kwargs:
-            return f"Request a subscription\nHeader['Accept'] set to '{kwargs['accept']}'"
-        else:
-            return "Request a subscription"
+        # if 'accept' in kwargs:
+        #     return f"Request a subscription\nHeader['Accept'] set to '{kwargs['accept']}'"
+        # else:
+        #     return "Request a subscription"
+        expected_parameters = ['id', 'accept', 'context', 'content_type']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Subscription Retrieve with the following data:"
+        for key, value in kwargs.items():
+            match key:
+                case 'id':
+                    response = f"{response} and\n    Query Parameter: id set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case 'content_type':
+                    response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
 
     def query_context_source_registrations_with_return(kwargs) -> str:
         if 'type' in kwargs and 'accept' in kwargs:
@@ -505,6 +537,34 @@ class Requests:
     def delete_entity_by_id_returning_response(kwargs) -> str:
         if 'id' in kwargs:
             return f"Delete Entity Request with id set to '{kwargs['id']}'"
+
+    @staticmethod
+    def delete_subscription(kwargs) -> str:
+        if 'id' in kwargs:
+            return f"Delete Subscription with id set to '{kwargs['id']}'"
+
+    @staticmethod
+    def query_subscriptions(kwargs) -> str:
+        expected_parameters = ['context', 'limit', 'offset', 'accept']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = 'Query Subscription Request with data:'
+        for key, value in kwargs.items():
+            match key:
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case 'limit':
+                    response = f"{response} and\n    Query Parameter: limit set to '{value}'"
+                case 'offset':
+                    response = f"{response} and\n    Query Parameter: offset set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
 
     @staticmethod
     def delete_temporal_representation_of_entity_with_returning_response(kwargs) -> str:

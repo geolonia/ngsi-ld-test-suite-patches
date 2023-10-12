@@ -35,7 +35,9 @@ ${subscription_filename}=       csourceSubscriptions/subscription-sample.jsonld
     ${id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${response}=    Create Subscription    ${id}    ${subscription_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Retrieve Subscription    ${id}    accept=${accept}
+    ${response}=    Retrieve Subscription
+    ...    id=${id}
+    ...    accept=${accept}
     Check Response Status Code    ${status_code}    ${response.status_code}
     [Teardown]    Delete Subscription    ${id}
 

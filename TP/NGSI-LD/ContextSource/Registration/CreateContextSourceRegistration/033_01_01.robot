@@ -14,7 +14,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***
-Create Context Source Registration With Specific Date Expiration Date
+033_01_01 Create Context Source Registration With Specific Date Expiration Date
     [Documentation]    Check that you can create a context source registration with specific ID and expiration date
     [Tags]    csr-create
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
