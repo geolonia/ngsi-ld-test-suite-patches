@@ -14,14 +14,14 @@ ${subscription_payload_file_path}=      ${EMPTY}
 
 
 *** Test Cases ***    FILEPATH
-WithoutNotification
+038_08_01 WithoutNotification
     [Tags]    csrsub-create    5_11_2
     csourceSubscriptions/subscription-without-notification-sample.jsonld
-InvalidType    [Tags]    csrsub-create    5_11_2
+038_08_02 InvalidType    [Tags]    csrsub-create    5_11_2
     csourceSubscriptions/subscription-invalid-type-sample.jsonld
-InvalidQuery    [Tags]    csrsub-create    5_11_2
+038_08_03 InvalidQuery    [Tags]    csrsub-create    5_11_2
     csourceSubscriptions/subscription-invalid-query-sample.jsonld
-EmptyWatchedAttributes
+038_08_04 EmptyWatchedAttributes
     [Tags]    csrsub-create    5_11_2
     csourceSubscriptions/subscription-empty-watchedAttributes-sample.jsonld
 

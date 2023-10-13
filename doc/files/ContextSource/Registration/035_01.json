@@ -1,0 +1,32 @@
+{
+  "tp_id": "TP/NGSI-LD/ContextSource/Registration/DeleteContextSourceRegistration/035_01",
+  "test_objective": "Check that you can delete a context source registration by id",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.9.4",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_9_4",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "035_01_01 Delete a context source registration by id",
+      "permutation_tp_id": "TP/NGSI-LD/ContextSource/Registration/DeleteContextSourceRegistration/035_01_01",
+      "doc": "Check that you can delete a context source registration by id",
+      "tags": [
+        "5_9_4",
+        "csr-delete"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to ${response.status_code} and\n        Response Status Code set to 204\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration with data: and\n    Query Parameter: context source registration id set to '${registration_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations/{context_source_registration_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/Registration/DeleteContextSourceRegistration",
+  "robotfile": "035_01"
+}

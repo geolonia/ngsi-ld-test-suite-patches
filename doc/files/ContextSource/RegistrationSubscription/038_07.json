@@ -1,0 +1,35 @@
+{
+  "tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_07",
+  "test_objective": "Check that you cannot create a context source registration subscription where another context source registration subscription whose id is equivalent exists",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.2",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_11_2",
+  "keywords": [
+    "Setup Initial Context Source Registration Subscriptions",
+    "Delete Initial Context Source Registration Subscriptions"
+  ],
+  "teardown": "Delete Initial Context Source Registration Subscriptions",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "038_07_01 Create Existing Context Source Registration Subscription",
+      "permutation_tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_07_01",
+      "doc": "Check that you cannot create a context source registration subscription where another context source registration subscription whose id is equivalent exists",
+      "tags": [
+        "5_11_2",
+        "csrsub-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/AlreadyExists' and\n        Response body containing 'title' element and\n        Response Status Code set to 409\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'POST'\n        Create Context Source Registration Subscription with filename set to '${subscription_payload}'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceSubscriptions"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription",
+  "robotfile": "038_07"
+}

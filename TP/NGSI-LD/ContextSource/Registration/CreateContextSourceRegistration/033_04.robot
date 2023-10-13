@@ -14,7 +14,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***
-Create one context source registration using a provided Link header with JSON content type
+033_04_01 Create one context source registration using a provided Link header with JSON content type with Context
     [Documentation]    Check that the @context is obtained from a Link Header if the Content-Type header is "application/json"
     [Tags]    csr-create    6_3_5
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
@@ -26,9 +26,28 @@ Create one context source registration using a provided Link header with JSON co
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Retrieve Context Source Registration    ${registration_id}    context=${ngsild_test_suite_context}
-    Check JSON Value In Response Body    ['information']['entities'][0]['type']    Building    ${response.json()}
-    ${response}=    Retrieve Context Source Registration    ${registration_id}
+    ${response}=    Retrieve Context Source Registration
+    ...    context_source_registration_id=${registration_id}
+    ...    context=${ngsild_test_suite_context}
+    Check JSON Value In Response Body
+    ...    ['information']['entities'][0]['type']
+    ...    Building
+    ...    ${response.json()}
+
+033_04_02 Create one context source registration using a provided Link header with JSON content type without Context
+    [Documentation]    Check that the @context is obtained from a Link Header if the Content-Type header is "application/json"
+    [Tags]    csr-create    6_3_5
+    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    Set Suite Variable    ${registration_id}
+    ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
+    ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
+    ${response}=    Create Context Source Registration With Return
+    ...    ${updated_payload}
+    ...    ${CONTENT_TYPE_JSON}
+    ...    ${ngsild_test_suite_context}
+    Check Response Status Code    201    ${response.status_code}
+    ${response}=    Retrieve Context Source Registration
+    ...    context_source_registration_id=${registration_id}
     Check JSON Value In Response Body
     ...    ['information']['entities'][0]['type']
     ...    https://ngsi-ld-test-suite/context#Building

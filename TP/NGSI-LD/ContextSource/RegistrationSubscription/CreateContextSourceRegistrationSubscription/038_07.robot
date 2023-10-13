@@ -15,7 +15,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
 
 
 *** Test Cases ***
-Create Existing Context Source Registration Subscription
+038_07_01 Create Existing Context Source Registration Subscription
     [Documentation]    Check that you cannot create a context source registration subscription where another context source registration subscription whose id is equivalent exists
     [Tags]    csrsub-create    5_11_2
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}

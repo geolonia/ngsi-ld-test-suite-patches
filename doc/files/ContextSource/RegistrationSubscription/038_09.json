@@ -1,0 +1,32 @@
+{
+  "tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_09",
+  "test_objective": "Check that you cannot create a context source registration subscription with an expiration timestamp representing a moment before the current date and time",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.2",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_11_2",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "038_09_01 Create Expired Context Source Registration Subscription",
+      "permutation_tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_09_01",
+      "doc": "Check that you cannot create a context source registration subscription with an expiration timestamp representing a moment before the current date and time",
+      "tags": [
+        "5_11_2",
+        "csrsub-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'POST'\n        Create Context Source Registration Subscription with filename set to '${subscription_payload}'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceSubscriptions"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription",
+  "robotfile": "038_09"
+}

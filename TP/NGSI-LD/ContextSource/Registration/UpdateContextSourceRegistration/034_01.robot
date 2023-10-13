@@ -14,9 +14,9 @@ ${registration_id_prefix}=      urn:ngsi-ld:Registration:
 
 
 *** Test Cases ***    FILENAME    UPDATE_FILENAME
-034_01_01_Update a context source registration by id
+034_01_01 Update a context source registration by id
     context-source-registration-sample.jsonld    context-source-registration-with-expiration-sample.jsonld
-034_01_02_Update a context source registration to never expire
+034_01_02 Update a context source registration to never expire
     context-source-registration-with-expiration-sample.jsonld    context-source-registration-simple-sample.jsonld
 
 
@@ -39,7 +39,7 @@ Update Context Source
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    204    ${response.status_code}
     ${response}=    Retrieve Context Source Registration
-    ...    ${registration_id}
+    ...    context_source_registration_id=${registration_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    ${status_regex_expr}    @context

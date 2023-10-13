@@ -14,13 +14,13 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
 
 
 *** Test Cases ***
-Delete Context Source Registration Subscription
+042_01_01 Delete Context Source Registration Subscription
     [Documentation]    Check that you can delete a context source registration subscription
     [Tags]    csrsub-delete    5_11_6
     ${response}=    Delete Context Source Registration Subscription    ${subscription_id}
     Check Response Status Code    204    ${response.status_code}
     ${response}=    Retrieve Context Source Registration Subscription
-    ...    ${subscription_id}
+    ...    subscription_id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
     Check SUT Not Containing Resource    ${response.status_code}
 

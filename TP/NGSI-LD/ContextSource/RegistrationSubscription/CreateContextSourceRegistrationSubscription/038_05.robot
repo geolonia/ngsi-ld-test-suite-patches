@@ -15,7 +15,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-expire
 
 
 *** Test Cases ***
-Create Context Source Registration Subscription With expiresAt Member
+038_05_01 Create Context Source Registration Subscription With expiresAt Member
     [Documentation]    Check that you can create a context source registration subscription with an expiresAt member and when it is due the status of the subscription changes to "expired"
     [Tags]    csrsub-create    5_11_2
     ${subscription_payload_sample}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
@@ -26,7 +26,8 @@ Create Context Source Registration Subscription With expiresAt Member
     Check Response Status Code    201    ${response.status_code}
     Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
     Sleep    15s
-    ${response}=    Retrieve context source registration subscription    ${subscription_id}
+    ${response}=    Retrieve Context Source Registration Subscription
+    ...    subscription_id=${subscription_id}
     Check Response Body Containing an Attribute set to    status    ${response.json()}    expired
 
 

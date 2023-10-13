@@ -18,7 +18,7 @@ ${subscription_payload_file_path}=                      csourceSubscriptions/sub
 
 
 *** Test Cases ***
-Receive cSourceNotification For Matching Context Source Registrations On Observation Interval
+047_10_01 Receive cSourceNotification For Matching Context Source Registrations On Observation Interval
     [Documentation]    Check if a context source registration subscription defines temporalQ member with timeproperty observedAt, the temporal query is matched against the observationInterval of matching context source registrations
     [Tags]    csrsub-notification    5_11_7
     ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}

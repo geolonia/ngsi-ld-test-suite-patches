@@ -19,7 +19,7 @@ ${notification_expectation_file_path}=                  notifications/expectatio
 
 
 *** Test Cases ***
-If A cSourceNotification Is Not Successfully Sent The Notification Member Shall Be Updated
+047_06_01 If A cSourceNotification Is Not Successfully Sent The Notification Member Shall Be Updated
     [Documentation]    Check that if a cSourceNotification is not sent successfully, the "notification.timesSent" member shall be incremented by one and the notification.lastFailure" and "notification.lastNotification" members shall be updated with the current timestamp and the status of the context source registration subscription shall be updated to "failed"
     [Tags]    csrsub-notification    5_11_7
     ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
@@ -29,7 +29,8 @@ If A cSourceNotification Is Not Successfully Sent The Notification Member Shall 
     Set Suite Variable    ${context_source_registration_id}
     ${response}=    Create Context Source Registration    ${context_source_registration_payload}
     Wait for no notification
-    ${response}=    Retrieve Context Source Registration Subscription    ${subscription_id}
+    ${response}=    Retrieve Context Source Registration Subscription
+    ...    subscription_id=${subscription_id}
     @{expected_notification_additional_members}=    Create List    lastNotification    lastFailure
     Check NotificationParams
     ...    ${notification_expectation_file_path}

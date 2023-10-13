@@ -18,13 +18,13 @@ ${third_subscription_payload_file_path}=        csourceSubscriptions/subscriptio
 
 
 *** Test Cases ***    LIMIT    PAGE    EXPECTED_SUBSCRIPTION_NUMBER    PREV_LINK    NEXT_LINK
-Query Second Subscription
+041_03_01 Query Second Subscription
     [Tags]    csrsub-query    5_11_5
     ${1}    ${2}    ${1}    </ngsi-ld/v1/csourceSubscriptions?limit=1&page=1>;rel="prev";type="application/ld+json"    </ngsi-ld/v1/csourceSubscriptions?limit=1&page=3>;rel="next";type="application/ld+json"
-Query Last Subscription
+041_03_02 Query Last Subscription
     [Tags]    csrsub-query    5_11_5
     ${2}    ${2}    ${1}    </ngsi-ld/v1/csourceSubscriptions?limit=2&page=1>;rel="prev";type="application/ld+json"    ${EMPTY}
-Query All Subscriptions
+041_03_03 Query All Subscriptions
     [Tags]    csrsub-query    5_11_5
     ${15}    ${1}    ${3}    ${EMPTY}    ${EMPTY}
 

@@ -50,8 +50,8 @@ class Requests:
 
             },
             'Query Context Source Registration Subscriptions': {
-                'positions': [0],
-                'params': ['accept']
+                'positions': [],
+                'params': ['context', 'limit', 'page', 'accept']
             },
             'Query Temporal Representation Of Entities': {
                 'positions': [],
@@ -110,6 +110,49 @@ class Requests:
             'Query Subscriptions': {
                 'positions': [],
                 'params': ['context', 'limit', 'offset', 'accept']
+            },
+            'Retrieve Context Source Registration Subscription': {
+                'positions': [],
+                'params': ['subscription_id', 'context', 'accept']
+            },
+            'Retrieve Context Source Registration': {
+                'positions': [],
+                'params': ['context_source_registration_id', 'context', 'accept']
+            },
+            'Delete Context Source Registration With Return': {
+                'positions': [0],
+                'params': ['id']
+            },
+            'Query Context Source Registrations': {
+                'positions': [],
+                'params': ['context', 'id', 'type', 'attrs',
+                           'q', 'csf', 'georel', 'geometry',
+                           'coordinates', 'geoproperty', 'timeproperty', 'timerel',
+                           'timeAt', 'limit', 'page', 'accept']
+            },
+            'Update Context Source Registration With Return': {
+                'positions': [0, 1, 2],
+                'params': ['id', 'filename', 'content']
+            },
+            'Retrieve context source registration subscription': {
+                'positions': [0],
+                'params': ['id']
+            },
+            'Create Context Source Registration Subscription': {
+                'positions': [0],
+                'params': ['filename']
+            },
+            'Delete Context Source Registration Subscription': {
+                'positions': [0],
+                'params': ['id']
+            },
+            'Update Context Source Registration Subscription': {
+                'positions': [0, 1],
+                'params': ['subscription_id', 'subscription_update_fragment']
+            },
+            'Update Context Source Registration Subscription From File': {
+                'positions': [0, 1],
+                'params': ['subscription_id', 'subscription_update_fragment']
             }
         }
 
@@ -163,7 +206,27 @@ class Requests:
             'Delete Subscription':
                 Requests.delete_subscription,
             'Query Subscriptions':
-                Requests.query_subscriptions
+                Requests.query_subscriptions,
+            'Retrieve Context Source Registration Subscription':
+                Requests.retrieve_context_source_registration_subscription,
+            'Retrieve Context Source Registration':
+                Requests.retrieve_context_source_registration,
+            'Delete Context Source Registration With Return':
+                Requests.delete_context_source_registration_with_return,
+            'Query Context Source Registrations':
+                Requests.query_context_source_registrations,
+            'Update Context Source Registration With Return':
+                Requests.update_context_source_registration_with_return,
+            'Retrieve context source registration subscription':
+                Requests.retrieve_context_source_registration_subscription_2,
+            'Create Context Source Registration Subscription':
+                Requests.create_context_source_registration_subscription,
+            'Delete Context Source Registration Subscription':
+                Requests.delete_context_source_registration_subscription,
+            'Update Context Source Registration Subscription':
+                Requests.update_context_source_registration_subscription,
+            'Update Context Source Registration Subscription From File':
+                Requests.update_context_source_registration_subscription_from_file
         }
 
         self.variables = variables
@@ -384,11 +447,31 @@ class Requests:
 
     @staticmethod
     def query_context_source_registration_subscriptions(kwargs) -> str:
-        if 'accept' in kwargs:
-            return (f"Request Context Source Registration Subscriptions\n"
-                    f"Header['Accept'] set to '{kwargs['accept']}'")
-        else:
-            raise Exception(f"ERROR, expected accept attribute, but received {kwargs}")
+        expected_parameters = ['context', 'limit', 'page', 'accept']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Query Context Source Registration Subscriptions"
+        for key, value in kwargs.items():
+            match key:
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case 'limit':
+                    response = f"{response} and\n    Query Parameter: limit set to '{value}'"
+                case 'page':
+                    response = f"{response} and\n    Query Parameter: page set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+        # if 'accept' in kwargs:
+        #     return (f"Request Context Source Registration Subscriptions\n"
+        #             f"Header['Accept'] set to '{kwargs['accept']}'")
+        # else:
+        #     raise Exception(f"ERROR, expected accept attribute, but received {kwargs}")
 
     @staticmethod
     def query_temporal_representation_of_entities(kwargs) -> str:
@@ -567,9 +650,152 @@ class Requests:
         return response
 
     @staticmethod
+    def retrieve_context_source_registration_subscription(kwargs) -> str:
+        expected_parameters = ['subscription_id', 'context', 'accept']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = 'Retrieve Context Source Registration Subscription with data:'
+        for key, value in kwargs.items():
+            match key:
+                case 'subscription_id':
+                    response = f"{response} and\n    Query Parameter: subscription id set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
+    def delete_context_source_registration_with_return(kwargs) -> str:
+        if 'id' in kwargs:
+            return f"Delete Context Source Registration with id set to '{kwargs['id']}'"
+
+    @staticmethod
+    def update_context_source_registration_subscription(kwargs) -> str:
+        if 'subscription_id' in kwargs and 'subscription_update_fragment' in kwargs:
+            return (f"Update Context Source Registration Subscription "
+                    f"with subscription id set to '{kwargs['subscription_id']}' and "
+                    f"subscription update fragment set to '{kwargs['subscription_update_fragment']}'")
+        else:
+            raise Exception(f"ERROR, expected 'subscription_id' and 'subscription_update_fragment' but received: {kwargs}")
+
+    @staticmethod
+    def update_context_source_registration_subscription_from_file(kwargs) -> str:
+        if 'subscription_id' in kwargs and 'subscription_update_fragment' in kwargs:
+            return (f"Update Context Source Registration Subscription from file "
+                    f"with subscription id set to '{kwargs['subscription_id']}' and "
+                    f"subscription update fragment set to '{kwargs['subscription_update_fragment']}'")
+        else:
+            raise Exception(f"ERROR, expected 'subscription_id' and 'subscription_update_fragment' but received: {kwargs}")
+
+    @staticmethod
+    def retrieve_context_source_registration(kwargs) -> str:
+        expected_parameters = ['context_source_registration_id', 'context', 'accept']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = 'Retrieve Context Source Registration with data:'
+        for key, value in kwargs.items():
+            match key:
+                case 'context_source_registration_id':
+                    response = f"{response} and\n    Query Parameter: context source registration id set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
+    def query_context_source_registrations(kwargs) -> str:
+        expected_parameters = ['context', 'id', 'type', 'attrs',
+                               'q', 'csf', 'georel', 'geometry',
+                               'coordinates', 'geoproperty', 'timeproperty', 'timerel',
+                               'timeAt', 'limit', 'page', 'accept']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Retrieve Temporal Representation of Entity"
+        for key, value in kwargs.items():
+            match key:
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case 'id':
+                    response = f"{response} and\n    Query Parameter: id set to '{value}'"
+                case 'type':
+                    response = f"{response} and\n    Query Parameter: type set to '{value}'"
+                case 'attrs':
+                    response = f"{response} and\n    Query Parameter: attrs set to '{value}'"
+                case 'q':
+                    response = f"{response} and\n    Query Parameter: q set to '{value}'"
+                case 'csf':
+                    response = f"{response} and\n    Query Parameter: csf set to '{value}'"
+                case 'georel':
+                    response = f"{response} and\n    Query Parameter: georel set to '{value}'"
+                case 'geometry':
+                    response = f"{response} and\n    Query Parameter: geometry set to '{value}'"
+                case 'coordinates':
+                    response = f"{response} and\n    Query Parameter: coordinates set to '{value}'"
+                case 'geoproperty':
+                    response = f"{response} and\n    Query Parameter: geoproperty set to '{value}'"
+                case 'timeproperty':
+                    response = f"{response} and\n    Query Parameter: timeproperty set to '{value}'"
+                case 'timerel':
+                    response = f"{response} and\n    Query Parameter: timerel set to '{value}'"
+                case 'timeAt':
+                    response = f"{response} and\n    Query Parameter: timeAt set to '{value}'"
+                case 'limit':
+                    response = f"{response} and\n    Query Parameter: limit set to '{value}'"
+                case 'page':
+                    response = f"{response} and\n    Query Parameter: page set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
+    def update_context_source_registration_with_return(kwargs) -> str:
+        if 'id' in kwargs and 'filename' in kwargs and 'content' in kwargs:
+            return (f"Update Context Source Registration with id set to '{kwargs['id']}' "
+                    f"and registration update fragment set to '{kwargs['filename']}' "
+                    f"and content-type set to '{kwargs['content']}'")
+
+    @staticmethod
     def delete_temporal_representation_of_entity_with_returning_response(kwargs) -> str:
         if 'id' in kwargs:
             return f"Delete Temporal Representation Of Entity With Returning Response with id set to '{kwargs['id']}'"
+
+    @staticmethod
+    def retrieve_context_source_registration_subscription_2(kwargs) -> str:
+        if 'id' in kwargs:
+            return f"Retrieve Context Source Registration Subscription with id set to '{kwargs['id']}'"
+        else:
+            raise Exception(f"ERROR, expected 'id' but received: '{kwargs}'")
+
+    @staticmethod
+    def delete_context_source_registration_subscription(kwargs) -> str:
+        if 'id' in kwargs:
+            return f"Delete Context Source Registration Subscription with id set to '{kwargs['id']}'"
+        else:
+            raise Exception(f"ERROR, expected 'id' but received: '{kwargs}'")
+
+    @staticmethod
+    def create_context_source_registration_subscription(kwargs) -> str:
+        if 'filename' in kwargs:
+            return f"Create Context Source Registration Subscription with filename set to '{kwargs['filename']}'"
+        else:
+            raise Exception(f"ERROR, expected 'filename' but received: '{kwargs}'")
 
     @staticmethod
     def append_attribute_to_temporal_entity(kwargs) -> str:

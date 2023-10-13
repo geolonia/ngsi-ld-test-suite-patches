@@ -18,13 +18,13 @@ ${third_context_source_registration_payload_file_path}=     csourceRegistrations
 
 
 *** Test Cases ***    LIMIT    PAGE    EXPECTED_NUMBER    PREV_LINK    NEXT_LINK
-Query Second Subscription
+037_11_01 Query Second Subscription
     [Tags]    csr-query    5_10_2
     ${1}    ${2}    ${1}    </ngsi-ld/v1/csourceRegistrations?type=Building&limit=1&page=1>;rel="prev";type="application/ld+json"    </ngsi-ld/v1/csourceSubscriptions?type=Building&limit=1&page=3>;rel="next";type="application/ld+json"
-Query Last Subscription
+037_11_02 Query Last Subscription
     [Tags]    csr-query    5_10_2
     ${2}    ${2}    ${1}    </ngsi-ld/v1/csourceRegistrations?type=Building&limit=2&page=1>;rel="prev";type="application/ld+json"    ${EMPTY}
-Query All Subscriptions
+037_11_03 Query All Subscriptions
     [Tags]    csr-query    5_10_2
     ${15}    ${1}    ${3}    ${EMPTY}    ${EMPTY}
 

@@ -18,7 +18,7 @@ ${subscription_payload_file_path}=                      csourceSubscriptions/sub
 
 
 *** Test Cases ***
-Receive cSourceNotification With Compliant Structure
+047_04_01 Receive cSourceNotification With Compliant Structure
     [Documentation]    The structure of the csource notification message shall be as mandated by clause 5.3.2
     [Tags]    csrsub-notification    5_11_7
     ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}

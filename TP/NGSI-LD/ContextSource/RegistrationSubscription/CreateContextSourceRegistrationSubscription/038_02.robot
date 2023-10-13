@@ -14,7 +14,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
 
 
 *** Test Cases ***
-Create Context Source Registration Subscription Without An Id
+038_02_01 Create Context Source Registration Subscription Without An Id
     [Documentation]    Check that you can create a context source registration subscription without providing an id and it will be automatically generated
     [Tags]    csrsub-create    5_11_2
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}
@@ -24,7 +24,7 @@ Create Context Source Registration Subscription Without An Id
     Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
     Set Suite Variable    ${subscription_id}
     ${response}=    Retrieve Context Source Registration Subscription
-    ...    ${subscription_id}
+    ...    subscription_id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    ${id_regex_expr}    ${status_regex_expr}

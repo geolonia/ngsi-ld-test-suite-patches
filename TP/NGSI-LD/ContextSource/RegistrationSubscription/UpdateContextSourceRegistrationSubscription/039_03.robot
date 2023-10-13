@@ -11,7 +11,7 @@ ${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/s
 
 
 *** Test Cases ***
-Update Unknown Context Source Registration Subscription
+039_03_01 Update Unknown Context Source Registration Subscription
     [Documentation]    Check that you cannot update an unknown context source registration subscription
     [Tags]    csrsub-update    5_11_3
     ${subscription_update_fragment}=    Load Test Sample    ${subscription_update_fragment_file_path}

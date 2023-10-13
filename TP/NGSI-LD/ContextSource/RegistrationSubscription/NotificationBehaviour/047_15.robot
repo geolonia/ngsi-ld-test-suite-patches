@@ -18,7 +18,7 @@ ${subscription_payload_file_path}=                      csourceSubscriptions/sub
 
 
 *** Test Cases ***
-Receive cSourceNotification For Matching Context Source Registrations On Location As Default
+047_15_01 Receive cSourceNotification For Matching Context Source Registrations On Location As Default
     [Documentation]    Check if a context source registrations subscription does not define a geoproperty in the geoQ member, a CsourceNotification will be triggered from matching context source registrations with a matching location member
     [Tags]    csrsub-notification    5_11_7
     ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}

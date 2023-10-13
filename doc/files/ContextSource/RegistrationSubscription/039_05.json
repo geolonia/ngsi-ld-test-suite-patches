@@ -1,0 +1,35 @@
+{
+  "tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/UpdateContextSourceRegistrationSubscription/039_05",
+  "test_objective": "Check that you cannot update a context source registration subscription with an invalid request body (invalid JSON document)",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.3",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_11_3",
+  "keywords": [
+    "Setup Initial Context Source Registration Subscriptions",
+    "Delete Initial Context Source Registration Subscriptions"
+  ],
+  "teardown": "Delete Initial Context Source Registration Subscriptions",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "039_05_01 Update Context Source Registration Subscription With Invalid JSON Fragment",
+      "permutation_tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/UpdateContextSourceRegistrationSubscription/039_05_01",
+      "doc": "Check that you cannot update a context source registration subscription with an invalid request body (invalid JSON document)",
+      "tags": [
+        "5_11_3",
+        "csrsub-update"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Update Context Source Registration Subscription from file with subscription id set to '${subscription_id}' and subscription update fragment set to 'csourceSubscriptions/fragments/subscription-update-invalid-json-sample.json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "csourceSubscriptions/{subscription_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/UpdateContextSourceRegistrationSubscription",
+  "robotfile": "039_05"
+}

@@ -16,7 +16,7 @@ ${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/s
 
 
 *** Test Cases ***
-Update Context Source Registration Subscription
+039_01_01 Update Context Source Registration Subscription
     [Documentation]    Check that you can update a context source registration subscription
     [Tags]    csrsub-update    5_11_3
     ${subscription_update_fragment}=    Load Test Sample    ${subscription_update_fragment_file_path}
@@ -26,7 +26,7 @@ Update Context Source Registration Subscription
     Check Response Status Code    204    ${response.status_code}
     ${subscription}=    Upsert Element In Entity    ${subscription_payload}    ${subscription_update_fragment}
     ${response}=    Retrieve Context Source Registration Subscription
-    ...    ${subscription_id}
+    ...    subscription_id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resource Set To    ${subscription}    ${response.json()}

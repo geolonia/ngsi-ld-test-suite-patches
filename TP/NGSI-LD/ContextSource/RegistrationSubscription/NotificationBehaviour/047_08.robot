@@ -19,7 +19,7 @@ ${update_fragment_file_path}=                           csourceRegistrations/fra
 
 
 *** Test Cases ***
-Receive cSourceNotification For Matching Context Source Registrations Providing Latest Information
+047_08_01 Receive cSourceNotification For Matching Context Source Registrations Providing Latest Information
     [Documentation]    Check if a context source registration subscription does not define a temporalQ member, a CsourceNotification will be triggered from matching context source registrations for context sources providing latest information
     [Tags]    csrsub-notification    5_11_7
     ${update_fragment}=    Load Test Sample    ${update_fragment_file_path}

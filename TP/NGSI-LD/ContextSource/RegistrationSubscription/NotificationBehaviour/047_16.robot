@@ -20,13 +20,13 @@ ${subscription_payload_file_path}=                          csourceSubscriptions
 
 
 *** Test Cases ***    FILEPATH    NOTIFICATION_CSR_IDS
-MatchFirstContextSourceRegistration
+047_16_01 MatchFirstContextSourceRegistration
     [Tags]    csrsub-notification    5_11_7
     csourceSubscriptions/fragments/subscription-vehicle-entities-sample.json    ${first_context_source_registration_id}
-MatchSecondContextSourceRegistration
+047_16_02 MatchSecondContextSourceRegistration
     [Tags]    csrsub-notification    5_11_7
     csourceSubscriptions/fragments/subscription-bus-entities-sample.json    ${second_context_source_registration_id}
-MatchBothContextSourceRegistrations
+047_16_03 MatchBothContextSourceRegistrations
     [Tags]    csrsub-notification    5_11_7
     csourceSubscriptions/fragments/subscription-vehicle-and-bus-entities-sample.json    ${first_context_source_registration_id}    ${second_context_source_registration_id}
 

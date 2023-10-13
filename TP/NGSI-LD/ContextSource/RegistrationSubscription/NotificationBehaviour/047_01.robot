@@ -18,7 +18,7 @@ ${subscription_payload_file_path}=                      csourceSubscriptions/sub
 
 
 *** Test Cases ***
-Receive cSourceNotification Periodically And Initially On Subscription
+047_01_01 Receive cSourceNotification Periodically And Initially On Subscription
     [Documentation]    Check that if the created context source registration subscription defines a timeInterval member, a cSourceNotification will be sent periodically, initially on subscription and when the time interval is reached
     [Tags]    csrsub-notification    5_11_7
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}

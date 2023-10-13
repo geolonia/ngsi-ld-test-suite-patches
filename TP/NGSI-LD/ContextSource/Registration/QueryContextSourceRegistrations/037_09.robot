@@ -18,16 +18,16 @@ ${management_interval_expectation_file_path}=                               csou
 
 
 *** Test Cases ***    PAYLOAD_FILE_PATH    TIMEPROPERTY    EXPECTATION_FILE_PATH
-Observation Interval With observedAt
+037_09_01 Observation Interval With observedAt
     [Tags]    csr-query    5_10_2
     ${context_source_registration_observation_interval_payload_file_path}    observedAt    ${observation_interval_expectation_file_path}
-Observation Interval Without timeproperty
+037_09_02 Observation Interval Without timeproperty
     [Tags]    csr-query    5_10_2
     ${context_source_registration_observation_interval_payload_file_path}    ${EMPTY}    ${observation_interval_expectation_file_path}
-Mqnagement Interval With createdAt
+037_09_03 Management Interval With createdAt
     [Tags]    csr-query    5_10_2
     ${context_source_registration_management_interval_payload_file_path}    createdAt    ${management_interval_expectation_file_path}
-Mqnagement Interval With modifiedAt
+037_09_04 Management Interval With modifiedAt
     [Tags]    csr-query    5_10_2
     ${context_source_registration_management_interval_payload_file_path}    modifiedAt    ${management_interval_expectation_file_path}
 

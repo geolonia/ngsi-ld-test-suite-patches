@@ -80,6 +80,8 @@ class Checks:
                 Checks.check_notificationparams,
             'Check Response Body Containing Batch Operation Result':
                 Checks.check_response_body_containing_batch_operation_result,
+            'Wait for notification':
+                Checks.wait_for_notification,
             'Should be Equal':
                 Checks.should_be_equal
         }
@@ -114,8 +116,8 @@ class Checks:
                 'position': []
             },
             'Check Response Body Containing Context Source Registration element': {
-                'params': ['csr_description'],
-                'position': []
+                'params': ['file', 'id', 'response'],
+                'position': [1, 2, 3]
             },
             'Check Response Body Containing EntityTypeList element': {
                 'params': ['description'],
@@ -150,7 +152,7 @@ class Checks:
                 'position': [1]
             },
             'Check NotificationParams': {
-                'params': ['format', 'uri', 'accept', 'status', 'timesSent'],
+                'params': ['filename', 'expected_additional_members', 'response_body'],
                 'position': []
             },
             'Check Response Body Containing Batch Operation Result': {
@@ -164,6 +166,10 @@ class Checks:
             'Check Response Body Containing Subscription element': {
                 'params': ['filename', 'subscription_id', 'response_body'],
                 'position': [1, 2, 3]
+            },
+            'Wait for notification': {
+                'params': ['timeout'],
+                'position': []
             }
         }
 
@@ -177,6 +183,14 @@ class Checks:
                 return f'Response Status Code set to {status_code}'
         else:
             raise Exception(f'ERROR, Expected status_code parameter but received: {kwargs}')
+
+    def wait_for_notification(kwargs: list) -> str:
+        if 'timeout' in kwargs and kwargs['timeout'] != '':
+            result = f"After waiting '{kwargs['timeout']}' seconds"
+        else:
+            result = f"After waiting '5' seconds"
+
+        return result
 
     @staticmethod
     def check_response_body_containing_array_of_uris_set_to(kwargs: list) -> str:
@@ -259,7 +273,6 @@ class Checks:
 
     @staticmethod
     def check_response_body_containing_list_containing_subscription_elements(kwargs: list) -> str:
-        # 'params': ['file', 'id', 'response']
         if 'file' in kwargs and 'id' in kwargs and 'response' in kwargs:
             return (f"Response containing:\n"
                     f"    * file set to '{kwargs['file']}'\n"
@@ -267,21 +280,6 @@ class Checks:
                     f"    * response set to '{kwargs['response']}'")
         else:
             raise Exception(f"ERROR, expected 'file', 'id', and 'response' attributes, received: '{kwargs}'")
-        # if "number" in kwargs:
-        #     number = kwargs['number']
-        #     if isinstance(number, int):
-        #         number = int(number)
-        #
-        #         if number == 1:
-        #             return f"body set to list containing '{number}' subscription"
-        #         elif number > 1:
-        #             return f"body set to list containing '{number}' subscriptions"
-        #         else:
-        #             raise Exception(f'ERROR, number attribute must be an integer value gt 1')
-        #     else:
-        #         raise Exception(f'ERROR, number attribute must be an integer value')
-        # else:
-        #     raise Exception(f'ERROR, number attribute was not provided, but received: {kwargs}')
 
     @staticmethod
     def check_response_body_containing_number_of_entities(kwargs: list) -> str:
@@ -294,11 +292,18 @@ class Checks:
 
     @staticmethod
     def check_response_body_containing_context_source_registration_element(kwargs: list) -> str:
-        if 'csr_description' in kwargs:
-            csr = kwargs['csr_description']
-            return f"Response body containing a '{csr}'"
+        if 'file' in kwargs and 'id' in kwargs and 'response' in kwargs:
+            return (f"Response containing:\n"
+                    f"    * file set to '{kwargs['file']}'\n"
+                    f"    * id set to '{kwargs['id']}'\n"
+                    f"    * response set to '{kwargs['response']}'")
         else:
-            raise Exception(f"ERROR, expected csr_description attribute, but received: {kwargs}")
+            raise Exception(f"ERROR, expected 'file', 'id', and 'response' attributes, received: '{kwargs}'")
+        # if 'csr_description' in kwargs:
+        #     csr = kwargs['csr_description']
+        #     return f"Response body containing a '{csr}'"
+        # else:
+        #     raise Exception(f"ERROR, expected csr_description attribute, but received: {kwargs}")
 
     @staticmethod
     def check_response_body_containing_entitytypelist_element(kwargs: list) -> str:
@@ -431,22 +436,31 @@ class Checks:
 
     @staticmethod
     def check_notificationparams(kwargs: list) -> str:
-        expected_parameters = ["format", "uri", "accept", "status", "timesSent"]
-        result = [x for x in expected_parameters if x not in kwargs]
-
-        if len(result) == 0:
-            response = ("Response containing:\n"
-                        f"    * payload['format'] is equal to '{kwargs['format']}'\n"
-                        f"    * payload['endpoint']['uri'] is equal to '{kwargs['uri']}'\n"
-                        f"    * payload['endpoint']['accept'] is equal to '{kwargs['accept']}'\n"
-                        f"    * payload['status'] is equal to '{kwargs['status']}'\n"
-                        f"    * payload['timesSent'] is equal to '{kwargs['timesSent']}\n"
-                        f"    * payload['notification']['lastNotification'] is not Empty\n"
-                        f"    * payload['notification']['lastSuccess'] is not Empty\n")
-            return response
+        if 'filename' in kwargs and 'expected_additional_members' in kwargs and 'response_body' in kwargs:
+            return (f"Response containing:\n"
+                    f"    * Notification expectation file path set to '{kwargs['filename']}'\n"
+                    f"    * Expected Additional Members set to '{kwargs['expected_additional_members']}'\n"
+                    f"    * Response Body set to '{kwargs['response_body']}'\n")
         else:
-            raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                            f"'{expected_parameters}', but received: {kwargs}")
+            raise Exception(f"ERROR, expected 'filename', 'expected_additional_members', and 'response_body', "
+                            f"but received '{kwargs}'")
+
+        # expected_parameters = ["format", "uri", "accept", "status", "timesSent"]
+        # result = [x for x in expected_parameters if x not in kwargs]
+        #
+        # if len(result) == 0:
+        #     response = ("Response containing:\n"
+        #                 f"    * payload['format'] is equal to '{kwargs['format']}'\n"
+        #                 f"    * payload['endpoint']['uri'] is equal to '{kwargs['uri']}'\n"
+        #                 f"    * payload['endpoint']['accept'] is equal to '{kwargs['accept']}'\n"
+        #                 f"    * payload['status'] is equal to '{kwargs['status']}'\n"
+        #                 f"    * payload['timesSent'] is equal to '{kwargs['timesSent']}\n"
+        #                 f"    * payload['notification']['lastNotification'] is not Empty\n"
+        #                 f"    * payload['notification']['lastSuccess'] is not Empty\n")
+        #     return response
+        # else:
+        #     raise Exception(f"ERROR, unexpected attributes '{result}', the attributes expected are "
+        #                     f"'{expected_parameters}', but received: {kwargs}")
 
     @staticmethod
     def check_response_body_containing_batch_operation_result(kwargs: list) -> str:

@@ -343,7 +343,7 @@ class GenerateRobotData:
         tags = [element for sublist in tags for element in sublist if element[0].isdigit()]
 
         if len(tags) == 0:
-            # We have different tests cases that call a test template
+            # We have different tests cases that call a test template, maybe the Tags are defined in the template
             reference, pics = self.generate_reference_template(version=version)
         else:
             # We have normal tests cases
@@ -371,13 +371,17 @@ class GenerateRobotData:
 
     def get_info_from_template(self, name: str, string: str, version: str):
         # TODO: Check that the name of the template is in the string receive
-        print(name)
+        # print(name)
 
         # Get the Tags line and the tag value
         tags = self.get_substring(string=string, key='[Tags]')
         self.tags_template = tags[1:]
 
-        tag = list(set([element for sublist in tags for element in tags if element[0].isdigit()]))[0]
+        try:
+            tag = list(set([element for sublist in tags for element in tags if element[0].isdigit()]))[0]
+        except IndexError:
+            raise Exception("ERROR, Probably [Tags] does not include reference to the section in the spec.")
+
         reference = f'{self.references[version]}{tag.replace("_", ".")}'
         pics = f'PICS_{tag}'
 

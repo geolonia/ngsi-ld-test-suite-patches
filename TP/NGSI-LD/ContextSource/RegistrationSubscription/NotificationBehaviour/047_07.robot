@@ -19,10 +19,10 @@ ${subscription_payload_file_path}=                      csourceSubscriptions/sub
 
 
 *** Test Cases ***    FILEPATH
-PausedSubscription
+047_07_01 PausedSubscription
     [Tags]    csrsub-notification    5_11_7
     csourceSubscriptions/fragments/subscription-isActive-update-sample.json
-ExpiredSubscription
+047_07_02 ExpiredSubscription
     [Tags]    csrsub-notification    5_11_7
     csourceSubscriptions/fragments/subscription-expiresAt-update-sample.json
 

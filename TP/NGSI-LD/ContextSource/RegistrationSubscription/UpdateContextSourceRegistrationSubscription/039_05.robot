@@ -16,7 +16,7 @@ ${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/s
 
 
 *** Test Cases ***
-Update Context Source Registration Subscription With Invalid JSON Fragment
+039_05_01 Update Context Source Registration Subscription With Invalid JSON Fragment
     [Documentation]    Check that you cannot update a context source registration subscription with an invalid request body (invalid JSON document)
     [Tags]    csrsub-update    5_11_3
     ${response}=    Update Context Source Registration Subscription From File

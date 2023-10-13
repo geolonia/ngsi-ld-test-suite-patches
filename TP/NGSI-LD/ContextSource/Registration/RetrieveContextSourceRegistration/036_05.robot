@@ -18,10 +18,10 @@ ${expectation_file_path_expanded}=                      csourceRegistrations/exp
 
 
 *** Test Cases ***    CONTEXT    EXPECTED_PAYLOAD
-EmptyJsonLdContext
+036_05_01 EmptyJsonLdContext
     [Tags]    csr-retrieve    6_3_5
     ${EMPTY}    ${expectation_file_path_expanded}
-CreationTimeJsonLdContext
+036_05_02 CreationTimeJsonLdContext
     [Tags]    csr-retrieve    6_3_5
     ${ngsild_test_suite_context}    ${expectation_file_path_compacted}
 
@@ -30,7 +30,9 @@ CreationTimeJsonLdContext
 Check JSON-LD resolution when retrieving a context source registration
     [Documentation]    Check that the JSON-LD @context is obtained from a Link header if present and that the default JSON-LD @context is used if not present
     [Arguments]    ${context}    ${expected_payload}
-    ${response}=    Retrieve Context Source Registration    ${context_source_registration_id}    context=${context}
+    ${response}=    Retrieve Context Source Registration
+    ...    context_source_registration_id=${context_source_registration_id}
+    ...    context=${context}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Context Source Registration element
     ...    ${expected_payload}

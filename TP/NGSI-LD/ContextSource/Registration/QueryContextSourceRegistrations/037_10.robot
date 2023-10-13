@@ -18,13 +18,13 @@ ${third_context_source_registration_payload_file_path}=     csourceRegistrations
 
 
 *** Test Cases ***    QUERY_PARAM_NAME    QUERY_PARAM_VALUE    EXPECTATION_FILE_PATH    EXPECTED_CONTEXT_SOURCE_REGISTRATION_IDS
-With list of Entity Ids
+037_10_01 With list of Entity Ids
     [Tags]    csr-query    5_10_2
     id    ${first_context_source_registration_id},${third_context_source_registration_id}    csourceRegistrations/expectations/context-source-registrations-037-10-01-expectation.json    ${first_context_source_registration_id}    ${third_context_source_registration_id}
-With NGSI-LD Query
+037_10_02 With NGSI-LD Query
     [Tags]    csr-query    5_10_2
     q    location.type=="GeoProperty"    csourceRegistrations/expectations/context-source-registrations-037-10-02-expectation.json    ${third_context_source_registration_id}
-With Context Source Filter
+037_10_03 With Context Source Filter
     [Tags]    csr-query    5_10_2
     csf    endpoint=="http://my.csource.org:1026"    csourceRegistrations/expectations/context-source-registrations-037-10-03-expectation.json    ${first_context_source_registration_id}    ${second_context_source_registration_id}    ${third_context_source_registration_id}
 

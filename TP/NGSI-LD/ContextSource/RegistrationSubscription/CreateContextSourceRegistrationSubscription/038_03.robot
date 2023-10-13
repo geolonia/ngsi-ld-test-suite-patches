@@ -15,14 +15,15 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
 
 
 *** Test Cases ***
-Create Context Source Registration Subscription Without isActive Member
+038_03_01 Create Context Source Registration Subscription Without isActive Member
     [Documentation]    Check that you can create a context source registration subscription without providing isActive member and will be active by default
     [Tags]    csrsub-create    5_11_2
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
     Check Response Status Code    201    ${response.status_code}
     Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
-    ${response}=    Retrieve context source registration subscription    ${subscription_id}
+    ${response}=    Retrieve Context Source Registration Subscription
+    ...    subscription_id=${subscription_id}
     Check Response Body Containing an Attribute set to    status    ${response.json()}    active
 
 

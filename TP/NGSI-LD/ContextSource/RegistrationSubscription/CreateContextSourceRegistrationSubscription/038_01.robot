@@ -15,7 +15,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
 
 
 *** Test Cases ***
-Create Context Source Registration Subscription
+038_01_01 Create Context Source Registration Subscription
     [Documentation]    Check that you can create a minimal context source registration subscription
     [Tags]    csrsub-create    5_11_2
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
@@ -23,7 +23,7 @@ Create Context Source Registration Subscription
     Check Response Status Code    201    ${response.status_code}
     Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
     ${response}=    Retrieve Context Source Registration Subscription
-    ...    ${subscription_id}
+    ...    subscription_id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    ${status_regex_expr}

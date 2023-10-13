@@ -19,7 +19,7 @@ ${update_fragment_file_path}=                           csourceRegistrations/fra
 
 
 *** Test Cases ***
-Receive cSourceNotification For No Longer Matching Context Source Registrations Providing Latest Information
+047_09_01 Receive cSourceNotification For No Longer Matching Context Source Registrations Providing Latest Information
     [Documentation]    Check if a context source registration subscription defines an "entities" member, a CsourceNotification will be triggered from context source registrations with information member matching the described "entities"
     [Tags]    csrsub-notification    5_11_7
     ${update_fragment}=    Load Test Sample    ${update_fragment_file_path}

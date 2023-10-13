@@ -16,10 +16,10 @@ ${context_source_registration_payload_file_path}=       csourceRegistrations/con
 
 
 *** Test Cases ***    ATTRS_VALUE    EXPECTATION_FILE_PATH
-Query With Matching Properties And Relationships
+037_06_01 Query With Matching Properties And Relationships
     [Tags]    csr-query    5_10_2
     name,locatedAt    csourceRegistrations/expectations/context-source-registrations-037-06-expectation.json
-Query Without Properties And Relationships
+037_06_02 Query Without Properties And Relationships
     [Tags]    csr-query    5_10_2
     ${EMPTY}    csourceRegistrations/expectations/context-source-registrations-037-06-expectation.json
 

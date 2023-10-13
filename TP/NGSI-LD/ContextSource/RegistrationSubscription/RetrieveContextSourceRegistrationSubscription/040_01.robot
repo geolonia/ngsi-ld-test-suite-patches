@@ -16,11 +16,11 @@ ${expectation_file_path}=               csourceSubscriptions/expectations/subscr
 
 
 *** Test Cases ***
-Retrieve Context Source Registration Subscription
+040_01_01 Retrieve Context Source Registration Subscription
     [Documentation]    Check that you can retrieve a context source registration subscription
     [Tags]    csrsub-retrieve    5_11_4
     ${response}=    Retrieve Context Source Registration Subscription
-    ...    ${subscription_id}
+    ...    subscription_id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Subscription element

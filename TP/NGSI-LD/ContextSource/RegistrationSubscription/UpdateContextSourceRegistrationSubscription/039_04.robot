@@ -16,9 +16,10 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
 
 
 *** Test Cases ***    FILEPATH
-InvalidType    [Tags]    csrsub-update    5_11_3
+039_04_01 InvalidType
+    [Tags]    csrsub-update    5_11_3
     csourceSubscriptions/fragments/subscription-update-invalid-type-sample.json
-InvalidNotification
+039_04_02 InvalidNotification
     [Tags]    csrsub-update    5_11_3
     csourceSubscriptions/fragments/subscription-update-invalid-notification-sample.json
 

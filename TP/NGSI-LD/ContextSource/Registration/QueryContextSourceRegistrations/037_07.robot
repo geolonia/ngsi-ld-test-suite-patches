@@ -17,9 +17,9 @@ ${expectation_file_path}=                               csourceRegistrations/exp
 
 
 *** Test Cases ***    GEOREL    GEOMETRY    COORDINATES    GEOPROPERTY    EXPECTATION_FILE_PATH
-Near Point    [Tags]    csr-query    5_10_2
+037_07_01 Near Point    [Tags]    csr-query    5_10_2
     near;maxDistance==2000    Point    [-8.503,41.202]    ${EMPTY}    ${expectation_file_path}
-Within Polygon    [Tags]    csr-query    5_10_2
+037_07_02 Within Polygon    [Tags]    csr-query    5_10_2
     within    Polygon    [[-13.503,47.202],[6.541, 52.961],[20.37,44.653],[9.46,32.57],[-15.23,21.37]]    location    ${expectation_file_path}
 
 

@@ -1,0 +1,34 @@
+{
+  "tp_id": "TP/NGSI-LD/ContextSource/Registration/CreateContextSourceRegistration/033_01_02",
+  "test_objective": "Check that you can create a context source registration that never expires",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.9.2",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_9_2",
+  "keywords": [
+    "Delete Created Context Source Registrations"
+  ],
+  "teardown": "Delete Created Context Source Registrations",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "033_01_02 Create Context Source Registration That Never Expires",
+      "permutation_tp_id": "TP/NGSI-LD/ContextSource/Registration/CreateContextSourceRegistration/033_01_02",
+      "doc": "Check that you can create a context source registration that never expires",
+      "tags": [
+        "5_9_2",
+        "csr-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Location containing ${registration_id} and\n        Created Entity set to ${entity} and\n        Response Status Code set to 201\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration with data: and\n    Query Parameter: context source registration id set to '${registration_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations/{context_source_registration_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/Registration/CreateContextSourceRegistration",
+  "robotfile": "033_01_02"
+}

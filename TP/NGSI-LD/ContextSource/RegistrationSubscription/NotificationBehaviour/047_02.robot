@@ -19,7 +19,7 @@ ${update_fragment_file_path}=                           csourceRegistrations/fra
 
 
 *** Test Cases ***
-Receive cSourceNotification Initially On Subscription And Whenever There Is A Change Of A Matching Context Source Registration
+047_02_01 Receive cSourceNotification Initially On Subscription And Whenever There Is A Change Of A Matching Context Source Registration
     [Documentation]    Check that if the created context source registration subscription does not define a timeInterval member, a cSourceNotification, with the appropriate trigger reason in the "triggerReason" member, will be sent initially on subscription and whenever there is a change of a matching Context Source Registration
     [Tags]    csrsub-notification    5_11_7
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}

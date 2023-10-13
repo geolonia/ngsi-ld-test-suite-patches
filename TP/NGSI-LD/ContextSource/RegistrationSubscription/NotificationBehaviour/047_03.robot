@@ -18,7 +18,7 @@ ${subscription_payload_file_path}=                      csourceSubscriptions/sub
 
 
 *** Test Cases ***
-Receive cSourceNotification With Relevant Information
+047_03_01 Receive cSourceNotification With Relevant Information
     [Documentation]    Check that instead of providing the original context source registration, implementations should return context source registration information relevant for the subscription, in particular only matching RegistrationInfo elements
     [Tags]    csrsub-notification    5_11_7
     ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}

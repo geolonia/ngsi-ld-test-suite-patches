@@ -112,7 +112,6 @@ class ParseRobotFile:
         # Get The lines starting by 'Check'
         checks = list()
         param = dict()
-        # lines_starting_with_check = re.findall(r'^\s*Check.*', test_content, re.MULTILINE)
         lines_starting_with_check = self.get_lines_with_checks(content=test_content)
         for line in lines_starting_with_check:
             check, param = self.get_data_check(test_case=test_content, checks=data, line=line)
@@ -130,7 +129,7 @@ class ParseRobotFile:
         lines_starting_with_check = re.findall(r'^\s*Check.*', content, re.MULTILINE)
 
         if len(lines_starting_with_check) != 0:
-            # From the list of Checks, we need to discard all 'Check Response Status Code' except the last one
+            # TODO: From the list of Checks, we need to discard all 'Check Response Status Code' except the last one. Should be respolve when clearly defined the Setup process of the Test Suite
             check_string = 'Check Response Status Code'
             lines_starting_with_check = [x.strip() for x in lines_starting_with_check]
             new_list = [value for value in lines_starting_with_check if not value.startswith(check_string)]
@@ -141,8 +140,10 @@ class ParseRobotFile:
         elif content.find('Wait for notification') != 0:
             # There is no Check, we need to check if there is a 'Wait for notification',
             # then we need to check the 'Should be Equal' sentences
+            param = re.findall(r'Wait for notification\s{4}(.*)', content, re.MULTILINE)
+            new_list.append(f'Wait for notification    {param[0]}')
             lines_starting_with_should = re.findall(r'^\s*Should be Equal.*', content, re.MULTILINE)
-            new_list = [x.strip() for x in lines_starting_with_should]
+            _ = [new_list.append(x.strip()) for x in lines_starting_with_should]
 
         return new_list
 
@@ -155,7 +156,7 @@ class ParseRobotFile:
 
     def generate_then_content(self, content):
         # Need to check if it is a Notification data or a normal Response
-        aux = [x for x in content if x.find('Notification data') != -1]
+        aux = [x for x in content if x.find('Notification data') != -1 or x.find('After waiting') != -1]
 
         if len(aux) == 0:
             # The SUT sends a valid Response
@@ -173,8 +174,7 @@ class ParseRobotFile:
                 checks = (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification containing:\n"
                           f"        {checks}\n}}")
             elif len(content) == 1:
-                checks = (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification containing:\n"
-                          f"        {content[0]}\n}}")
+                checks = (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification, {content[0]}\n}}")
             else:
                 raise Exception("ERROR, It is expected at least 1 Notification Check operation in the Test Case")
 
@@ -215,14 +215,42 @@ class ParseRobotFile:
     def find_attributes_same_line(self, params, content):
         result = dict()
 
-        for i in range(0, len(params['position'])):
-            param_key = params['params'][i]
-            param_position = params['position'][i]
-            # param_value = self.variables[content[param_position]]
-            param_value = self.get_param_value(position=content[param_position])
+        if len(params['position']) > 0:
+            for i in range(0, len(params['position'])):
+                param_key = params['params'][i]
+                param_position = params['position'][i]
+                param_value = self.get_param_value(position=content[param_position])
+                result[param_key] = param_value
+        elif len(params['position']) == 0:
+            param_key = params['params'][0]
+            param_value = self.get_param_value_for_waiting(param_key=param_key, content=content)
             result[param_key] = param_value
 
         return result
+
+    def get_param_value_for_waiting(self, param_key, content):
+        found = [x for x in content if x.find(param_key) != -1]
+        length = len(found)
+
+        if length != 0:
+            found = found[0]
+
+            if found.find('=') != -1:
+                # in the format variable=value
+                pattern = f"{param_key}=\${{(\d+)}}"
+        elif length == 0 and len(content) > 1:
+            # There is params but they are not written in the form key=value
+            found = content[1]
+            pattern = f"\${{(\d+)}}"
+
+        value = re.match(pattern=pattern, string=found)
+
+        try:
+            value = value.group(1)
+        except AttributeError:
+            value = ''
+
+        return value
 
     def find_attributes_next_line(self, test_case, name, position_params):
         index_start = test_case.find(name)

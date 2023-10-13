@@ -12,7 +12,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-expire
 
 
 *** Test Cases ***
-Create Expired Context Source Registration Subscription
+038_09_01 Create Expired Context Source Registration Subscription
     [Documentation]    Check that you cannot create a context source registration subscription with an expiration timestamp representing a moment before the current date and time
     [Tags]    csrsub-create    5_11_2
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}

@@ -1,0 +1,34 @@
+{
+  "tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_02",
+  "test_objective": "Check that you can create a context source registration subscription without providing an id and it will be automatically generated",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.2",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_11_2",
+  "keywords": [
+    "Delete Created Context Source Registration Subscriptions"
+  ],
+  "teardown": "Delete Created Context Source Registration Subscriptions",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "038_02_01 Create Context Source Registration Subscription Without An Id",
+      "permutation_tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_02_01",
+      "doc": "Check that you can create a context source registration subscription without providing an id and it will be automatically generated",
+      "tags": [
+        "5_11_2",
+        "csrsub-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Location containing ${registration_id} and\n        Created Entity set to ${entity} and\n        Response Status Code set to 201\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration Subscription with data: and\n    Query Parameter: subscription id set to '${subscription_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceSubscriptions/{subscription_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription",
+  "robotfile": "038_02"
+}

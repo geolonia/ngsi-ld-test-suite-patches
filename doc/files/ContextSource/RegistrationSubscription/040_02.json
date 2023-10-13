@@ -1,0 +1,32 @@
+{
+  "tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/RetrieveContextSourceRegistrationSubscription/040_02",
+  "test_objective": "Check that you cannot retrieve a context source registration subscription with an invalid URI, an error of type BadRequestData shall be raised",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.4",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_11_4",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "040_02_01 Retrieve Context Source Registration Subscription With An Invalid Id",
+      "permutation_tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/RetrieveContextSourceRegistrationSubscription/040_02_01",
+      "doc": "Check that you cannot retrieve a context source registration subscription with an invalid URI, an error of type BadRequestData shall be raised",
+      "tags": [
+        "5_11_4",
+        "csrsub-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration Subscription with data: and\n    Query Parameter: subscription id set to 'invalidUri'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceSubscriptions/{subscription_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/RetrieveContextSourceRegistrationSubscription",
+  "robotfile": "040_02"
+}

@@ -17,7 +17,7 @@ ${filename}=                    csourceRegistrations/context-source-registration
 *** Test Cases ***
 033_03_01 Create a context source registration that already exists
     [Documentation]    Check that you cannot create a context source registration that already exists
-    [Tags]    csr-create
+    [Tags]    csr-create    5_9_2
     ${response}=    Create Context Source Registration With Return    ${updated_payload}
     Check Response Status Code    409    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

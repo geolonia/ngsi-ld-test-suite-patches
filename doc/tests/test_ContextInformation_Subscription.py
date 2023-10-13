@@ -194,7 +194,7 @@ class TestCISubscription(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
-        print("WARNING, (029_09) there is a important miss alignment with the documentation")
+        self.assertWarns("WARNING, (029_09) there is a important miss alignment with the documentation")
 
     def test_029_10(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/UpdateSubscription/029_10.robot'
@@ -203,7 +203,7 @@ class TestCISubscription(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
-        print("WARNING, (029_10) there is a important miss alignment with the documentation")
+        self.assertWarns("WARNING, (029_10) there is a important miss alignment with the documentation")
 
     def test_029_11(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/UpdateSubscription/029_11.robot'

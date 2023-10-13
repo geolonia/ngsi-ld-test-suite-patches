@@ -12,7 +12,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***
-Create one context source registration not containing a JSON-LD @context with a JSON-LD content type
+033_08_01 Create one context source registration not containing a JSON-LD @context with a JSON-LD content type
     [Documentation]    Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is "application/ld+json" and the request payload body does not contain a @context term
     [Tags]    csr-create    6_3_5
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}

@@ -9,11 +9,11 @@ Test Template       Query Context Source Registration Subscriptions With Invalid
 
 
 *** Test Cases ***    LIMIT    PAGE
-Invalid Limit    [Tags]    csrsub-query    5_11_5
+041_04_01 Invalid Limit    [Tags]    csrsub-query    5_11_5
     ${-5}    ${2}
-Invalid Page    [Tags]    csrsub-query    5_11_5
+041_04_02 Invalid Page    [Tags]    csrsub-query    5_11_5
     ${2}    ${-3}
-Invalid Limit And Page
+041_04_03 Invalid Limit And Page
     [Tags]    csrsub-query    5_11_5
     ${0}    ${0}
 

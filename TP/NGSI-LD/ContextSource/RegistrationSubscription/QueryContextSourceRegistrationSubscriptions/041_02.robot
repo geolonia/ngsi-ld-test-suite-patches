@@ -19,13 +19,13 @@ ${expectation_file_path}=                       csourceSubscriptions/expectation
 
 
 *** Test Cases ***    LIMIT    EXPECTED_SUBSCRIPTION_NUMBER
-Query One Subscription
+041_02_01 Query One Subscription
     [Tags]    csrsub-query    5_11_5
     ${1}    ${1}
-Query Two Subscription
+041_02_02 Query Two Subscription
     [Tags]    csrsub-query    5_11_5
     ${2}    ${2}
-Query All Subscriptions
+041_02_03 Query All Subscriptions
     [Tags]    csrsub-query    5_11_5
     ${15}    ${3}
 
