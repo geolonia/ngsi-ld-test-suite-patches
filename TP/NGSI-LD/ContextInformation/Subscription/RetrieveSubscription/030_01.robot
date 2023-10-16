@@ -4,7 +4,7 @@ Documentation       Check that you cannot retrieve a subscription if the subscri
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 
-Test Template       Retrieve Subscription With Non present Or Invalid Id
+Test Template       Retrieve Subscription With Invalid Id
 
 
 *** Test Cases ***    id
@@ -13,7 +13,7 @@ Test Template       Retrieve Subscription With Non present Or Invalid Id
 
 
 *** Keywords ***
-Retrieve Subscription With Non present Or Invalid Id
+Retrieve Subscription With Invalid Id
     [Documentation]    Check that you cannot retrieve a subscription: If the subscription Id is not present or it is not a valid URI, then an error of type BadRequestData shall be raised
     [Arguments]    ${id}
     ${response}=    Retrieve Subscription    ${id}
