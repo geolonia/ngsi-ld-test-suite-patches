@@ -17,9 +17,11 @@ ${second_vehicle_payload_file}=     2020-09-vehicule-temporal-representation-sam
 
 
 *** Test Cases ***    PAYLOAD_FILE    EXPECTATION_FILE
-After    [Tags]    te-query    5_7_4
+021_13_01 After
+    [Tags]    te-query    5_7_4
     entity-operations-after-query.jsonld    vehicles-temporal-representation-021-13-01-expectation.jsonld
-Before    [Tags]    te-query    5_7_4
+021_13_01 Before
+    [Tags]    te-query    5_7_4
     entity-operations-before-query.jsonld    vehicles-temporal-representation-021-13-02-expectation.jsonld
 
 

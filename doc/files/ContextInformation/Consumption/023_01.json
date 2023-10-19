@@ -1,0 +1,51 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/Discovery/RetrieveDetailsOfAvailableEntityTypes/023_01",
+  "test_objective": "Check that you can retrieve a list with a detailed representation of NGSI-LD entity types",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.6",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_7_6",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "023_01_01 WithoutJsonLdContext",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/Discovery/RetrieveDetailsOfAvailableEntityTypes/023_01_01",
+      "doc": "",
+      "tags": [
+        "5_7_6",
+        "ed-types-details"
+      ],
+      "setup": "Setup Initial Entities",
+      "teardown": "Delete Initial Entities",
+      "template": "Retrieve Details Of Available Entity Types",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing an Entity Type Element with expectation body equal to file: 'types/expectations/entity-type-023-01-01-expectation.json' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/types'\n        method set to 'GET'\n        Retrieve entity types: and\n    Query Parameter: context set to '${EMPTY}' and\n    Query Parameter: details set to '${TRUE}'\n}",
+      "http_verb": "GET",
+      "endpoint": "types"
+    },
+    {
+      "name": "023_01_02 WithJsonLdContext",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/Discovery/RetrieveDetailsOfAvailableEntityTypes/023_01_02",
+      "doc": "",
+      "tags": [
+        "5_7_6",
+        "ed-types-details"
+      ],
+      "setup": "Setup Initial Entities",
+      "teardown": "Delete Initial Entities",
+      "template": "Retrieve Details Of Available Entity Types",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing an Entity Type Element with expectation body equal to file: 'types/expectations/entity-type-023-01-02-expectation.json' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/types'\n        method set to 'GET'\n        Retrieve entity types: and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: details set to '${TRUE}'\n}",
+      "http_verb": "GET",
+      "endpoint": "types"
+    }
+  ],
+  "permutations": [
+    "then",
+    "when"
+  ],
+  "robotpath": "ContextInformation/Consumption/Discovery/RetrieveDetailsOfAvailableEntityTypes",
+  "robotfile": "023_01"
+}

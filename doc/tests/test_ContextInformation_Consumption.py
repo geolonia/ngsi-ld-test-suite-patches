@@ -57,16 +57,32 @@ class TestCIConsumptions(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_025_01(self):
-        self.fail("(025_01) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Discovery/RetrieveAvailableAttributes/025_01.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/025_01.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_025_01.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_022_01(self):
-        self.fail("(022_01) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Discovery/RetrieveAvailableEntityTypes/022_01.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/022_01.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_022_01.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_026_01(self):
-        self.fail("(026_01) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Discovery/RetrieveDetailsOfAvailableAttributes/026_01.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/026_01.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_026_01.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_023_01(self):
-        self.fail("(023_01) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Discovery/RetrieveDetailsOfAvailableEntityTypes/023_01.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/023_01.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_023_01.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_024_01(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Discovery/RetrieveAvailableEntityTypeInformation/024_01.robot'
@@ -203,10 +219,18 @@ class TestCIConsumptions(TestCase):
         self.fail("(018_05) Problems with Request parameters, Query Entity missing options parameter")
 
     def test_018_06(self):
-        self.fail("(018_06) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Entity/RetrieveEntity/018_06.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/018_06.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_018_06.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_021_01(self):
-        self.fail("(021_01) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities/021_01.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/021_01.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_021_01.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_021_02(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities/021_02.robot'
@@ -258,7 +282,11 @@ class TestCIConsumptions(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_021_09(self):
-        self.fail("(021_09) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities/021_09.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/021_09.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_021_09.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_021_10(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities/021_10.robot'
@@ -302,10 +330,18 @@ class TestCIConsumptions(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_020_04(self):
-        self.fail("(020_04) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_04.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/020_04.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_020_04.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_020_05(self):
-        self.fail("(020_05) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_05.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/020_05.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_020_05.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_020_06(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_06.robot'
@@ -329,7 +365,11 @@ class TestCIConsumptions(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_020_09(self):
-        self.fail("(020_09) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_09.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/020_09.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_020_09.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_020_10(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_10.robot'

@@ -16,23 +16,26 @@ ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-sample.json
 
 
 *** Test Cases ***    TIMEREL    TIMEAT    ENDTIMEAT
-After    [Tags]    te-retrieve    5_7_3
+020_09_01 After
+    [Tags]    te-retrieve    5_7_3
     after    ${EMPTY}    ${EMPTY}
-Before    [Tags]    te-retrieve    5_7_3
+020_09_02 Before
+    [Tags]    te-retrieve    5_7_3
     before    ${EMPTY}    ${EMPTY}
-Between    [Tags]    te-retrieve    5_7_3
+020_09_03 Between
+    [Tags]    te-retrieve    5_7_3
     between    2020-08-01T12:00:00Z    ${EMPTY}
 
 
 *** Keywords ***
 Retrieve the temporal evolution of an entity with an invalid request content
     [Documentation]    Check that you cannot retrieve the temporal evolution of an entity with an invalid request content
-    [Arguments]    ${timerel}    ${timeAt}    ${endTimeAt}
+    [Arguments]    ${timerel}    ${timeat}    ${endtimeat}
     ${response}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    timerel=${timerel}
-    ...    timeAt=${timeAt}
-    ...    endTimeAt=${endTimeAt}
+    ...    timeAt=${timeat}
+    ...    endTimeAt=${endtimeat}
     Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}

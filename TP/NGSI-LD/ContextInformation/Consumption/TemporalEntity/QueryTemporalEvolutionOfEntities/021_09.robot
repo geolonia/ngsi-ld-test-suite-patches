@@ -18,9 +18,11 @@ ${expectation_file}=                vehicles-temporal-representation-021-09-expe
 
 
 *** Test Cases ***    GEOREL    GEOMETRY    COORDINATES    GEOPROPERTY    EXPECTATION_FILE
-021_09_01 Near Point    [Tags]    te-query    5_7_4
+021_09_01 Near Point
+    [Tags]    te-query    5_7_4
     near;maxDistance==2000    Point    [-8.503,41.202]    ${EMPTY}    vehicles-temporal-representation-021-09-01-expectation.jsonld
-021_09_02 Within Polygon    [Tags]    te-query    5_7_4
+021_09_02 Within Polygon
+    [Tags]    te-query    5_7_4
     contains    Polygon    [[[-13.503,47.202],[6.541, 52.961],[20.37,44.653],[9.46,32.57],[-13.503,32.57],[-13.503,47.202]]]    location    vehicles-temporal-representation-021-09-02-expectation.jsonld
 
 

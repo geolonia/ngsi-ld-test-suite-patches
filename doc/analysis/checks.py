@@ -120,12 +120,12 @@ class Checks:
                 'position': [1, 2, 3]
             },
             'Check Response Body Containing EntityTypeList element': {
-                'params': ['description'],
-                'position': []
+                'params': ['filename', 'response'],
+                'position': [1, 2]
             },
             'Check Response Body Containing EntityType element': {
-                'params': ['description'],
-                'position': []
+                'params': ['filename', 'response'],
+                'position': [1, 2]
             },
             'Check Response Body Type When Using Session Request': {
                 'params': ['type'],
@@ -170,7 +170,15 @@ class Checks:
             'Wait for notification': {
                 'params': ['timeout'],
                 'position': []
-            }
+            },
+            'Check Response Body Containing AttributeList element': {
+                'params': ['filename', 'response'],
+                'position': [1, 2]
+            },
+            'Check Response Body Containing Entity element': {
+                'params': ['filename', 'id', 'response'],
+                'position': [1, 2, 3]
+            },
         }
 
     @staticmethod
@@ -238,7 +246,8 @@ class Checks:
 
     @staticmethod
     def check_response_body_containing_entity_element(kwargs: list) -> str:
-        return 'Response Body containing ${entity_representation}'
+        if 'filename' in kwargs and 'id' in kwargs and 'response' in kwargs:
+            return f"Response Body containing en entity element with id set to '{kwargs['id']}' and body content set to '{kwargs['filename']}'"
 
     @staticmethod
     def check_response_body_containing_list_containing_entity_elements(kwargs: list) -> str:
@@ -307,19 +316,18 @@ class Checks:
 
     @staticmethod
     def check_response_body_containing_entitytypelist_element(kwargs: list) -> str:
-        if 'description' in kwargs:
-            description = kwargs['description']
-            return f"Response Body containing a '{description}'"
+        if 'filename' in kwargs and 'response' in kwargs:
+            return f"Response Body containing an Entity Type List with expectation body equal to file: '{kwargs['filename']}'"
         else:
-            raise Exception(f"ERROR, expected description attribute, but received: {kwargs}")
+            raise Exception(f"ERROR, expected filename and response attributes, but received: {kwargs}")
 
     @staticmethod
     def check_response_body_containing_entitytype_element(kwargs: list) -> str:
-        if 'description' in kwargs:
-            description = kwargs['description']
-            return f"Response Body containing a '{description}'"
+        if 'filename' in kwargs and 'response' in kwargs:
+            description = kwargs['filename']
+            return f"Response Body containing an Entity Type Element with expectation body equal to file: '{kwargs['filename']}'"
         else:
-            raise Exception(f"ERROR, expected description attribute, but received: {kwargs}")
+            raise Exception(f"ERROR, expected filename and response attributes, but received: {kwargs}")
 
     @staticmethod
     def check_response_body_containing_entitytypeinfo_element(kwargs: list) -> str:
@@ -327,7 +335,10 @@ class Checks:
 
     @staticmethod
     def check_response_body_containing_attributelist_element(kwargs: list) -> str:
-        return 'Response Body containing an Attribute List element'
+        if 'filename' in kwargs and 'response' in kwargs:
+            return (f"Response Body containing an Attribute List element"
+                    f"\n    * with filename set to '{kwargs['filename']}'"
+                    f"\n    * response set to '{kwargs['response']}'")
 
     @staticmethod
     def check_response_body_containing_attribute_element(kwargs: list) -> str:

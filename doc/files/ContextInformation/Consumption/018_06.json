@@ -1,0 +1,51 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/018_06",
+  "test_objective": "Check that the JSON-LD @context is obtained from a Link header if present and that the default JSON-LD @context is used if not present",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.5",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_6_3_5",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT containing an initial Entity ${entity} with an id set to ${entityId}\n}",
+  "test_cases": [
+    {
+      "name": "018_06_01 EmptyJsonLdContext",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/018_06_01",
+      "doc": "",
+      "tags": [
+        "6_3_5",
+        "e-retrieve"
+      ],
+      "setup": "Setup Initial Entity",
+      "teardown": "Delete Created Entity",
+      "template": "Review JSON-LD Resolution When retrieving an entity",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing en entity element with id set to '${entity_id}' and body content set to 'building-simple-attributes-sample-expanded-expectation.json' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Header['Link'] contain the context ${EMPTY}\nHeader['Accept'] set to application/json\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    },
+    {
+      "name": "018_06_02 CreationTimeJsonLdContext",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/018_06_02",
+      "doc": "",
+      "tags": [
+        "6_3_5",
+        "e-retrieve"
+      ],
+      "setup": "Setup Initial Entity",
+      "teardown": "Delete Created Entity",
+      "template": "Review JSON-LD Resolution When retrieving an entity",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing en entity element with id set to '${entity_id}' and body content set to 'building-simple-attributes-sample-compacted-expectation.json' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Header['Link'] contain the context https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld\nHeader['Accept'] set to application/json\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    }
+  ],
+  "permutations": [
+    "when",
+    "then"
+  ],
+  "robotpath": "ContextInformation/Consumption/Entity/RetrieveEntity",
+  "robotfile": "018_06"
+}

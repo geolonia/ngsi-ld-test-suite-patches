@@ -17,11 +17,25 @@ class ParseRobotFile:
         self.resource_file = str()
         self.apiutils = None
 
+        self.string_test_template = str()
+        self.test_template_name = str()
+        self.template_params_value = dict()
+        self.check_template()
+
         self.get_variables_data()
         self.get_apiutils_path()
         self.get_test_cases()
 
         self.config_file = config_file
+
+    def check_template(self):
+        # Check if there is a template and which template we have
+        aux = re.findall(pattern=r'Test Template[ ]+(.*)', string=self.file_contents)
+
+        if len(aux) != 0:
+            self.test_template_name = aux[0]
+        else:
+            self.test_template_name = ''
 
     def set_apiutils(self, apiutils):
         self.apiutils = apiutils
@@ -71,9 +85,45 @@ class ParseRobotFile:
         return string
 
     def get_test_cases(self):
-        index_start = self.file_contents.find('*** Test Cases ***')
-        string = self.file_contents[index_start+len('*** Test Cases ***')+1:]
+        if self.test_template_name == '':
+            self.get_test_cases_without_template()
+        else:
+            self.get_test_cases_with_template()
 
+    def get_test_cases_with_template(self):
+        # In case of template, we have to get the value of the tags and the parameters value from the Test Cases and
+        # the content of the operations from the corresponding Keyword content corresponding to the Test Template
+        index_start_test_cases = self.file_contents.find('*** Test Cases ***')
+        index_start_keywords = self.file_contents.find('*** Keywords ***')
+
+        string_test_cases = self.file_contents[index_start_test_cases+len('*** Test Cases ***')+1:index_start_keywords]
+        self.string_test_template = self.file_contents[index_start_keywords+len('*** Keywords ***')+1:]
+
+        self.get_test_cases_content(string=string_test_cases)
+        self.get_template_param_values(test_cases=string_test_cases)
+
+    def get_template_param_values(self, test_cases):
+        # Extract the parameter of the Test Cases
+        # the first line is the argument of the test case
+        params = test_cases.split("\n")[0].strip().split("    ")
+        params = [x.lower() for x in params]
+
+        # Obtain the params values
+        keys = self.test_cases.keys()
+        data = self.test_cases
+
+        for k in keys:
+            aux = data[k]
+            aux = aux.split('\n')[1:]
+            aux = [x.strip() for x in aux if x.find("[Tags]") == -1][0]
+            aux = aux.split("    ")
+
+            result = [{f"${{{k}}}": v} for k, v in zip(params, aux)]
+            result = {k: v for d in result for k, v in d.items()}
+
+            self.template_params_value[k] = result
+
+    def get_test_cases_content(self, string):
         pattern = f'{self.test_suite}_\d+\s.*'
         matches = re.findall(pattern=pattern, string=string)
 
@@ -104,10 +154,26 @@ class ParseRobotFile:
             raise Exception(f"ERROR, List index out of range, "
                             f"probably the name of the Test Case is not following the pattern '{pattern}'")
 
+    def get_test_cases_without_template(self):
+        index_start = self.file_contents.find('*** Test Cases ***')
+        string = self.file_contents[index_start+len('*** Test Cases ***')+1:]
+
+        self.get_test_cases_content(string=string)
+
+    def get_text_cases_content(self, name: str):
+        if self.test_template_name == '':
+            result = self.test_cases[name]
+        else:
+            result = self.string_test_template
+
+        return result
+
     def get_checks(self, test_name, apiutils):
         data = Checks()
+        self.test_name = test_name
 
-        test_content = self.test_cases[test_name]
+        # test_content = self.test_cases[test_name]
+        test_content = self.get_text_cases_content(name=test_name)
 
         # Get The lines starting by 'Check'
         checks = list()
@@ -150,8 +216,15 @@ class ParseRobotFile:
     def get_request(self, test_name):
         data = Requests(variables=self.variables,
                         apiutils_variables=self.apiutils.variables,
-                        config_file=self.config_file)
-        description = data.get_description(string=self.test_cases[test_name])
+                        config_file=self.config_file,
+                        template_params_value=self.template_params_value,
+                        test_name=test_name)
+
+        if self.test_template_name == '':
+            description = data.get_description(string=self.test_cases[test_name])
+        else:
+            description = data.get_description(string=self.string_test_template)
+
         return description
 
     def generate_then_content(self, content):
@@ -275,12 +348,45 @@ class ParseRobotFile:
         return param
 
     def get_param_value(self, position):
+        # try:
+        #     # Check if we can get the data from the current robot files
+        #     result = self.variables[position]
+        # except KeyError:
+        #     try:
+        #         # Check if we can get the data from the apiutils file
+        #         result = self.apiutils.variables[position]
+        #     except KeyError:
+        #         try:
+        #             # Check if we can get the data from the template
+        #             aux = self.template_params_value[self.test_name]
+        #             result = aux[position]
+        #         except KeyError:
+        #             result = position
+        #
+        # return result
         try:
+            # Check if we can get the data from the current robot files
             result = self.variables[position]
         except KeyError:
             try:
+                # Check if we can get the data from the apiutils file
                 result = self.apiutils.variables[position]
             except KeyError:
-                result = position
+                try:
+                    aux = re.findall(pattern=r'\$\{(.*)}', string=position)
+                    if len(aux) != 0:
+                        aux = aux[0]
+                    else:
+                        aux = position
+                    result = self.config_file.get_variable(aux)
+                except KeyError:
+                    try:
+                        aux = self.template_params_value[self.test_name]
+                        result = aux[position]
+
+                        if result[:2] == "${":
+                            result = self.get_param_value(result)
+                    except KeyError:
+                        result = position
 
         return result

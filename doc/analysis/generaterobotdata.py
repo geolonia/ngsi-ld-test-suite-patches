@@ -10,13 +10,13 @@ class GenerateRobotData:
     def __init__(self, robot_file: str, execdir: str):
         self.robot_file = robot_file
         self.execdir = execdir
+        self.suite = TestSuiteBuilder().build(robot_file)
 
         self.config_variables = ParseVariablesFile()
         self.robot = ParseRobotFile(filename=robot_file, execdir=execdir, config_file=self.config_variables)
         self.apiutil = ParseApiUtilsFile(filename=self.robot.resource_file)
         self.robot.set_apiutils(self.apiutil)
 
-        self.suite = TestSuiteBuilder().build(robot_file)
         self.test_cases = list()
         self.test_suite = dict()
         self.tags_template = list()
@@ -136,7 +136,10 @@ class GenerateRobotData:
         return request, params
 
     def get_step_data(self, test: str):
-        string = self.robot.test_cases[test]
+        if self.robot.string_test_template == '':
+            string = self.robot.test_cases[test]
+        else:
+            string = self.robot.string_test_template
 
         request, params = self.get_params(test_case=string)
         verb, url = self.apiutil.get_response(keyword=request)

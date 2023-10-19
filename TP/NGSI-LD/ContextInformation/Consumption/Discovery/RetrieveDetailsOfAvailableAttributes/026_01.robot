@@ -17,10 +17,11 @@ ${filename}=                building-simple-attributes-sample.json
 
 
 *** Test Cases ***    CONTEXT    EXPECTATION_FILE
-WithoutJsonLdContext
+026_01_01 WithoutJsonLdContext
     [Tags]    ed-attrs-details    5_7_9
     ${EMPTY}    types/expectations/attribute-026-01-01-expectation.json
-WithJsonLdContext    [Tags]    ed-attrs-details    5_7_9
+026_01_02 WithJsonLdContext
+    [Tags]    ed-attrs-details    5_7_9
     ${ngsild_test_suite_context}    types/expectations/attribute-026-01-02-expectation.json
 
 
@@ -28,7 +29,9 @@ WithJsonLdContext    [Tags]    ed-attrs-details    5_7_9
 Retrieve Details Of Available Attributes
     [Documentation]    Check that you can retrieve a list with a detailed representation of NGSI-LD attributes
     [Arguments]    ${context}    ${expectation_file}
-    ${response}=    Retrieve Attributes    context=${context}    details=${TRUE}
+    ${response}=    Retrieve Attributes
+    ...    context=${context}
+    ...    details=${TRUE}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Attribute element    ${expectation_file}    ${response.json()}
 

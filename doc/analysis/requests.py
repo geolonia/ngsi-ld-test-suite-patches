@@ -2,7 +2,7 @@ import re
 
 
 class Requests:
-    def __init__(self, variables, apiutils_variables, config_file):
+    def __init__(self, variables, apiutils_variables, config_file, template_params_value, test_name):
         self.op = {
             'Create Entity Selecting Content Type': {
                 'positions': [0, 2],
@@ -153,6 +153,14 @@ class Requests:
             'Update Context Source Registration Subscription From File': {
                 'positions': [0, 1],
                 'params': ['subscription_id', 'subscription_update_fragment']
+            },
+            'Retrieve Attributes': {
+                'positions': [],
+                'params': ['context', 'details', 'accept']
+            },
+            'Retrieve Entity Types': {
+                'positions': [],
+                'params': ['context', 'details', 'accept']
             }
         }
 
@@ -226,12 +234,18 @@ class Requests:
             'Update Context Source Registration Subscription':
                 Requests.update_context_source_registration_subscription,
             'Update Context Source Registration Subscription From File':
-                Requests.update_context_source_registration_subscription_from_file
+                Requests.update_context_source_registration_subscription_from_file,
+            'Retrieve Attributes':
+                Requests.retrieve_attributes,
+            'Retrieve Entity Types':
+                Requests.retrieve_entity_types
         }
 
         self.variables = variables
         self.apiutils_variables = apiutils_variables
         self.config_file = config_file
+        self.template_params_value = template_params_value
+        self.test_name = test_name
 
     def get_description(self, string):
         keys = self.op.keys()
@@ -291,6 +305,7 @@ class Requests:
 
             params = self.find_attributes_in_the_same_line(request_name=request, params=params)
 
+        params = self.change_param_value(params)
         description = self.description[request](params)
         return description
 
@@ -329,6 +344,40 @@ class Requests:
             param[param_key] = param_value
 
         return param
+
+    def change_param_value_iter(self, value):
+        try:
+            # Check if we can get the data from the current robot files
+            result = self.variables[value]
+        except KeyError:
+            try:
+                # Check if we can get the data from the apiutils file
+                result = self.apiutils_variables[value]
+            except KeyError:
+                try:
+                    aux = re.findall(pattern=r'\$\{(.*)}', string=value)
+                    if len(aux) != 0:
+                        aux = aux[0]
+                    else:
+                        aux = value
+                    result = self.config_file.get_variable(aux)
+                except KeyError:
+                    try:
+                        aux = self.template_params_value[self.test_name]
+                        result = aux[value]
+
+                        if result[:2] == "${":
+                            result = self.change_param_value_iter(result)
+                    except KeyError:
+                        result = value
+
+        return result
+
+    def change_param_value(self, position):
+        for k, v in position.items():
+            position[k] = self.change_param_value_iter(value=v)
+
+        return position
 
     @staticmethod
     def create_entity_selecting_content_type(kwargs) -> str:
@@ -370,6 +419,46 @@ class Requests:
             raise Exception(f"ERROR, expected context attribute, but received {kwargs}")
 
         return result
+
+    @staticmethod
+    def retrieve_attributes(kwargs) -> str:
+        expected_parameters = ['details', 'accept', 'context']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Retrieve attributes:"
+        for key, value in kwargs.items():
+            match key:
+                case 'details':
+                    response = f"{response} and\n    Query Parameter: details set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
+    def retrieve_entity_types(kwargs) -> str:
+        expected_parameters = ['details', 'accept', 'context']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Retrieve entity types:"
+        for key, value in kwargs.items():
+            match key:
+                case 'details':
+                    response = f"{response} and\n    Query Parameter: details set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
 
     @staticmethod
     def retrieve_subscription(kwargs) -> str:

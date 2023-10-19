@@ -16,23 +16,26 @@ ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-sample.json
 
 
 *** Test Cases ***    TIMEREL    TIMEAT    ENDTIMEAT    VEHICLE_EXPECTATION_FILE
-After    [Tags]    te-retrieve    5_7_3
+020_04_01 After
+    [Tags]    te-retrieve    5_7_3
     after    2020-08-01T13:03:00Z    ${EMPTY}    vehicle-temporal-representation-020-04-01-expectation.jsonld
-Before    [Tags]    te-retrieve    5_7_3
+020_04_02 Before
+    [Tags]    te-retrieve    5_7_3
     before    2020-08-01T12:05:00Z    ${EMPTY}    vehicle-temporal-representation-020-04-02-expectation.jsonld
-Between    [Tags]    te-retrieve    5_7_3
+020_04_03 Between
+    [Tags]    te-retrieve    5_7_3
     between    2020-08-01T12:00:00Z    2020-08-01T13:00:00Z    vehicle-temporal-representation-020-04-03-expectation.jsonld
 
 
 *** Keywords ***
 Retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
     [Documentation]    Check that you can retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
-    [Arguments]    ${timerel}    ${timeAt}    ${endTimeAt}    ${vehicle_expectation_file}
+    [Arguments]    ${timerel}    ${timeat}    ${endtimeat}    ${vehicle_expectation_file}
     ${response}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    timerel=${timerel}
-    ...    timeAt=${timeAt}
-    ...    endTimeAt=${endTimeAt}
+    ...    timeAt=${timeat}
+    ...    endTimeAt=${endtimeat}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing EntityTemporal element

@@ -16,10 +16,10 @@ ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-multiple-in
 
 
 *** Test Cases ***    LASTN    VEHICLE_EXPECTATION_FILE
-Retrieve Some Instances
+020_05_01 Retrieve Some Instances
     [Tags]    te-retrieve    5_7_3
     ${10}    vehicle-temporal-representation-020-05-01-expectation.jsonld
-Retrieve All Instances
+020_05_01 Retrieve All Instances
     [Tags]    te-retrieve    5_7_3
     ${20}    vehicle-temporal-representation-020-05-02-expectation.jsonld
 
@@ -27,10 +27,10 @@ Retrieve All Instances
 *** Keywords ***
 Retrieve the temporal evolution of the last N instances of entity attributes
     [Documentation]    Check that you can retrieve the temporal evolution of the last N instances of entity attributes
-    [Arguments]    ${lastN}    ${vehicle_expectation_file}
+    [Arguments]    ${lastn}    ${vehicle_expectation_file}
     ${response}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
-    ...    lastN=${lastN}
+    ...    lastN=${lastn}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing EntityTemporal element

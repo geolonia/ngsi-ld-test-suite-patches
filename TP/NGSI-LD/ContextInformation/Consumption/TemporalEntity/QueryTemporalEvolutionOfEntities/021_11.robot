@@ -17,10 +17,10 @@ ${second_vehicle_payload_file}=     2020-09-vehicule-temporal-representation-sam
 
 
 *** Test Cases ***    LIMIT
-Query Some entities
+021_11_01 Query Some entities
     [Tags]    te-query    5_7_4
     ${2}
-Query All entities
+021_11_02 Query All entities
     [Tags]    te-query    5_7_4
     ${3}
 

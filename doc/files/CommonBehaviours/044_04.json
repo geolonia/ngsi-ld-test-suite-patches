@@ -68,7 +68,7 @@
       "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 406\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'GET'\n        Request Context Source Registration Subscriptions\nHeader['Accept'] set to 'application/xml'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'GET'\n        Query Context Source Registration Subscriptions and\n    Query Parameter: accept set to 'application/xml'\n}",
       "http_verb": "GET",
       "endpoint": "csourceSubscriptions"
     },

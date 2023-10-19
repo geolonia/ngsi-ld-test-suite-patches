@@ -19,21 +19,23 @@ ${bus_payload_file}=                2020-08-bus-temporal-representation-sample.j
 
 
 *** Test Cases ***    TIMEREL    TIMEAT    EXPECTATION_FILE
-021_01_01 After    [Tags]    te-query    5_7_4
+021_01_01 After
+    [Tags]    te-query    5_7_4
     after    2020-08-01T12:04:00Z    vehicles-temporal-representation-021-01-01-expectation.jsonld
-021_01_02 Before    [Tags]    te-query    5_7_4
+021_01_02 Before
+    [Tags]    te-query    5_7_4
     before    2020-09-01T13:06:00Z    vehicles-temporal-representation-021-01-02-expectation.jsonld
 
 
 *** Keywords ***
 Query the temporal evolution of entities
     [Documentation]    Check that you can query the temporal evolution of entities
-    [Arguments]    ${timerel}    ${timeAt}    ${expectation_file}
+    [Arguments]    ${timerel}    ${timeat}    ${expectation_file}
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
     ${response}=    Query Temporal Representation Of Entities
     ...    entity_types=${entity_types_to_be_retrieved}
     ...    timerel=${timerel}
-    ...    timeAt=${timeAt}
+    ...    timeAt=${timeat}
     ...    context=${ngsild_test_suite_context}
     @{temporal_entities_representation_ids}=    Create List
     ...    ${first_temporal_entity_representation_id}
