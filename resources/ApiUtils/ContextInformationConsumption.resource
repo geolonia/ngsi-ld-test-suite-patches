@@ -12,7 +12,9 @@ ${ENTITIES_ENDPOINT_PATH}                   entities/
 ${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}    entityOperations/query
 ${ENTITIES_TYPES_ENDPOINT_PATH}             types
 
+${CONTENT_TYPE_JSON}                        application/json
 ${CONTENT_TYPE_LD_JSON}                     application/ld+json
+${CONTENT_TYPE_GEOJSON}                     application/geo+json
 
 ${ERROR_TYPE_BAD_REQUEST_DATA}              https://uri.etsi.org/ngsi-ld/errors/BadRequestData
 ${ERROR_TYPE_INVALID_REQUEST}               https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
@@ -86,34 +88,41 @@ Query Entities
 
 Query Entities Via POST
     [Arguments]
-    ...    ${entity_ids}=${EMPTY}
-    ...    ${entity_types}=${EMPTY}
-    ...    ${content_type}=${CONTENT_TYPE_LD_JSON}
+    ...    ${entity_id}=${EMPTY}
+    ...    ${entity_type}=${EMPTY}
+    ...    ${content_type}=${CONTENT_TYPE_JSON}
+    ...    ${accept}=${CONTENT_TYPE_JSON}
     ...    ${attrs}=${EMPTY}
     ...    ${entity_id_pattern}=${EMPTY}
-    ...    ${geoproperty}=${EMPTY}
+    ...    ${geometry_property}=${EMPTY}
     &{headers}=    Create Dictionary
-    &{params}=    Create Dictionary
-    ${entity_ids_length}=    Get Length    ${entity_ids}
-    ${entity_types_length}=    Get Length    ${entity_types}
-    ${attrs_length}=    Get Length    ${attrs}
     Set To Dictionary    ${headers}    Content-Type    ${content_type}
-    IF    ${entity_ids_length}>0
-        Set To Dictionary    ${params}    id=${entity_ids}
+    Set To Dictionary    ${headers}    Accept    ${accept}
+    &{body}=    Create Dictionary
+    Set To Dictionary    ${body}    type=Query
+    &{entities}=    Create Dictionary
+    IF    '${entity_id}'!=''
+        Set To Dictionary    ${entities}    id=${entity_id}
     END
-    IF    ${entity_types_length}>0
-        Set To Dictionary    ${params}    type=${entity_types}
+    IF    '${entity_type}'!=''
+        Set To Dictionary    ${entities}    type=${entity_type}
     END
-    IF    ${attrs_length}>0    Set To Dictionary    ${params}    attrs=${attrs}
     IF    '${entity_id_pattern}'!=''
-        Set To Dictionary    ${params}    idPattern=${entity_id_pattern}
+        Set To Dictionary    ${entities}    idPattern=${entity_id_pattern}
     END
-    IF    '${geoproperty}'!=''
-        Set To Dictionary    ${params}    geoproperty=${geoproperty}
+    ${entities_length}=    Get Length    ${entities}
+    IF    ${entities_length}>0
+        ${entities_list}=    Create List    ${entities}
+        Set To Dictionary    ${body}    entities=${entities_list}
+    END
+    ${attrs_length}=    Get Length    ${attrs}
+    IF    ${attrs_length}>0    Set To Dictionary    ${body}    attrs=${attrs}
+    IF    '${geometry_property}'!=''
+        Set To Dictionary    ${body}    geometryProperty=${geometry_property}
     END
     ${response}=    POST
     ...    url=${url}/${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}
-    ...    json=${params}
+    ...    json=${body}
     ...    headers=${headers}
     ...    expected_status=any
     Output    ${response}    Query Entities Via POST
