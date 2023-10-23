@@ -2,7 +2,7 @@ import re
 
 
 class Requests:
-    def __init__(self, variables, apiutils_variables, config_file, template_params_value, test_name):
+    def __init__(self, variables, apiutils_variables, config_file, template_params_value, test_name, name):
         self.op = {
             'Create Entity Selecting Content Type': {
                 'positions': [0, 2],
@@ -41,8 +41,8 @@ class Requests:
                 'params': []
             },
             'Partial Update Entity Attributes': {
-                'positions': [2, 3, 4],
-                'params': ['filename', "content", "context"]
+                'positions': [],
+                'params': ['entityId', 'attributeId', 'fragment_filename', 'content_type', 'accept', 'context']
             },
             'Update Subscription': {
                 'positions': [1, 2, 3],
@@ -161,6 +161,22 @@ class Requests:
             'Retrieve Entity Types': {
                 'positions': [],
                 'params': ['context', 'details', 'accept']
+            },
+            'Batch Request Entities From File': {
+                'positions': [0, 1],
+                'params': ['operation', 'filename']
+            },
+            'Batch Delete Entities': {
+                'positions': [],
+                'params': ['ids', 'teardown']
+            },
+            'Request Entity From File': {
+                'positions': [0],
+                'params': ['filename']
+            },
+            'Delete Entity Attributes': {
+                'positions': [],
+                'params': ['entityId', 'attributeId', 'datasetId', 'deleteAll', 'context']
             }
         }
 
@@ -238,7 +254,15 @@ class Requests:
             'Retrieve Attributes':
                 Requests.retrieve_attributes,
             'Retrieve Entity Types':
-                Requests.retrieve_entity_types
+                Requests.retrieve_entity_types,
+            'Batch Request Entities From File':
+                Requests.batch_request_entities_from_file,
+            'Batch Delete Entities':
+                Requests.batch_delete_entities,
+            'Request Entity From File':
+                Requests.request_entity_from_file,
+            'Delete Entity Attributes':
+                Requests.delete_entity_attributes
         }
 
         self.variables = variables
@@ -246,6 +270,7 @@ class Requests:
         self.config_file = config_file
         self.template_params_value = template_params_value
         self.test_name = test_name
+        self.name = name
 
     def get_description(self, string):
         keys = self.op.keys()
@@ -283,7 +308,6 @@ class Requests:
                 else:
                     break
 
-            #params = self.find_attributes_next_lines(string=string, position=index, request_name=request)
             params = self.find_attributes_in_the_same_line(request_name=request, params=params)
         else:
             # the attributes are in the same line
@@ -389,6 +413,22 @@ class Requests:
             raise Exception(f"ERROR, expected filename and content_type attributes, but received {kwargs}")
 
     @staticmethod
+    def batch_request_entities_from_file(kwargs) -> str:
+        if 'operation' in kwargs and 'filename' in kwargs:
+            result = (f"Batch Entity Delete Request with operation set to '{kwargs['operation']}' and body set to '{kwargs['filename']}")
+            return result
+        else:
+            raise Exception(f"ERROR, expected content_type attribute, but received {kwargs}")
+
+    @staticmethod
+    def request_entity_from_file(kwargs) -> str:
+        if 'filename' in kwargs:
+            result = f"Request Entity from file with filename set to '{kwargs['filename']}' and content-type set to 'application/ld+json'"
+            return result
+        else:
+            raise Exception(f"ERROR, expected filename attribute, but received {kwargs}")
+
+    @staticmethod
     def batch_create_entities(kwargs) -> str:
         if 'content_type' in kwargs:
             result = (f"Request Header['Content-Type'] set to '{kwargs['content_type']}' and\n "
@@ -421,8 +461,52 @@ class Requests:
         return result
 
     @staticmethod
+    def delete_entity_attributes(kwargs) -> str:
+        expected_parameters = ['entityId', 'attributeId', 'datasetId', 'deleteAll', 'context']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Delete Entity Attributes:"
+        for key, value in kwargs.items():
+            match key:
+                case 'entityId':
+                    response = f"{response} and\n    Query Parameter: entityId set to '{value}'"
+                case 'attributeId':
+                    response = f"{response} and\n    Query Parameter: attributeId set to '{value}'"
+                case 'datasetId':
+                    response = f"{response} and\n    Query Parameter: datasetId set to '{value}'"
+                case 'deleteAll':
+                    response = f"{response} and\n    Query Parameter: deleteAll set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
     def retrieve_attributes(kwargs) -> str:
         expected_parameters = ['details', 'accept', 'context']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Retrieve attributes:"
+        for key, value in kwargs.items():
+            match key:
+                case 'details':
+                    response = f"{response} and\n    Query Parameter: details set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
+    def batch_delete_entities(kwargs) -> str:
+        expected_parameters = ['ids', 'teardown']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Retrieve attributes:"
@@ -505,19 +589,44 @@ class Requests:
         return "Request a Temporal Representation of Entities with Return"
 
     def partial_update_entity_attributes(kwargs) -> str:
-        if 'context' in kwargs and 'content' in kwargs and 'filename' in kwargs:
-            context = kwargs['context']
-            if context == '':
-                return (f"Request Partial Update Entity Attributes and \n"
-                        f"Header['Content-Type'] set to '{kwargs['content']}' and\n"
-                        f"Payload defined in file '{kwargs['filename']}'")
-            else:
-                return (f"Request Partial Update Entity Attributes and \n"
-                        f"Header['Link'] contain the context '{kwargs['context']}' and \n"
-                        f"Header['Content-Type'] set to '{kwargs['content']}' and\n"
-                        f"Payload defined in file '{kwargs['filename']}'")
-        else:
-            raise Exception(f"ERROR, expected context attribute, but received {kwargs}")
+        expected_parameters = ['entityId', 'attributeId', 'fragment_filename', 'content_type', 'accept', 'context']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Request Partial Update Entity Attributes"
+        for key, value in kwargs.items():
+            match key:
+                case 'entityId':
+                    response = f"{response} and\n    Query Parameter: entityId set to '{value}'"
+                case 'attributeId':
+                    response = f"{response} and\n    Query Parameter: AttributeId set to '{value}'"
+                case 'fragment_filename':
+                    response = f"{response} and\n    Query Parameter: fragment_filename set to '{value}'"
+                case 'content_type':
+                    response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+        # if 'context' in kwargs and 'content' in kwargs and 'filename' in kwargs:
+        #     context = kwargs['context']
+        #     if context == '':
+        #         return (f"Request Partial Update Entity Attributes and \n"
+        #                 f"Header['Content-Type'] set to '{kwargs['content']}' and\n"
+        #                 f"Payload defined in file '{kwargs['filename']}'")
+        #     else:
+        #         return (f"Request Partial Update Entity Attributes and \n"
+        #                 f"Header['Link'] contain the context '{kwargs['context']}' and \n"
+        #                 f"Header['Content-Type'] set to '{kwargs['content']}' and\n"
+        #                 f"Payload defined in file '{kwargs['filename']}'")
+        # else:
+        #     raise Exception(f"ERROR, expected context attribute, but received {kwargs}")
 
     def update_subscription(kwargs) -> str:
         if 'context' in kwargs and 'content' in kwargs and 'filename' in kwargs:
@@ -556,11 +665,6 @@ class Requests:
                                     f"'{expected_parameters}', but received: {kwargs}")
 
         return response
-        # if 'accept' in kwargs:
-        #     return (f"Request Context Source Registration Subscriptions\n"
-        #             f"Header['Accept'] set to '{kwargs['accept']}'")
-        # else:
-        #     raise Exception(f"ERROR, expected accept attribute, but received {kwargs}")
 
     @staticmethod
     def query_temporal_representation_of_entities(kwargs) -> str:
@@ -677,7 +781,7 @@ class Requests:
             result = f"{result} with entity_ids set to '{kwargs['entity_ids']}'"
 
         if 'entity_types' in kwargs and kwargs['entity_types'] != '':
-            result = f"{result} with entity_types set to '{kwargs['entity_types']}"
+            result = f"{result} with entity_types set to '{kwargs['entity_types']}'"
 
         if 'accept' in kwargs and kwargs['accept'] != '':
             result = f"{result} with Header['Accept'] set to '{kwargs['accept']}'"
@@ -986,4 +1090,10 @@ class Requests:
                     value = self.config_file.get_variable(variable=data)
                     return value
                 except KeyError:
-                    return data
+                    try:
+                        aux = self.template_params_value[self.name]
+                        value = aux[data]
+                        return value
+                    except KeyError:
+                        return data
+

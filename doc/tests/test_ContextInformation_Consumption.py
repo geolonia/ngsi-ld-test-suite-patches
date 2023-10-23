@@ -8,6 +8,7 @@ from os import listdir, remove, makedirs
 
 
 class TestCIConsumptions(TestCase):
+    # 20 failed, 38 passed
     @classmethod
     def setUpClass(cls):
         # TODO: Test Suites checked until 019_01_01

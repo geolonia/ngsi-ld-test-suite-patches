@@ -82,7 +82,16 @@ class GenerateRobotData:
 
         return keys_with_different_values
 
+    def get_data_template(self, string: str) -> str:
+        if self.robot.test_template_name != '':
+            result = self.robot.string_test_template
+        else:
+            result = string
+
+        return result
+
     def get_params(self, test_case: str):
+        test_case = self.get_data_template(string=test_case)
         lines_starting_response = re.findall(r'^\s*\$\{response\}.*', test_case, re.MULTILINE)
 
         # If there is more than one line, it means that the test case has several operations, all of them to
@@ -151,7 +160,7 @@ class GenerateRobotData:
                 break
 
         self.test_cases[index]['http_verb'] = verb
-        self.test_cases[index]['endpoint'] = self.get_values_url(keys=url)
+        self.test_cases[index]['endpoint'] = self.get_values_url(keys=url, request=request, params=params)
         self.test_cases[index]['when'] = self.robot.generate_when_content(http_verb=self.test_cases[index]['http_verb'],
                                                                           endpoint=self.test_cases[index]['endpoint'],
                                                                           when=self.test_cases[index]['when'])
@@ -187,12 +196,12 @@ class GenerateRobotData:
             # self.test_cases[index]['params'] = params
             self.test_cases[index][self.headers[key]] = value
 
-    def get_values_url(self, keys: list) -> str:
-        data = [self.get_value_url(key=x) for x in keys]
+    def get_values_url(self, keys: list, request: str, params: list) -> str:
+        data = [self.get_value_url(key=x, request=request, params=params) for x in keys]
         data = '/'.join(data).replace('//', '/')
         return data
 
-    def get_value_url(self, key: str) -> str:
+    def get_value_url(self, key: str, request: str, params: list) -> str:
         key_to_search = f'${key}'
         try:
             value = self.apiutil.variables[key_to_search]
@@ -201,10 +210,43 @@ class GenerateRobotData:
             try:
                 value = self.robot.variables[key_to_search]
             except KeyError:
-                # The variable is not defined, so it is keep as it is in the url
-                value = key
+                # Maybe the url is defined in the proper resource file through an operation
+                try:
+                    value = self.check_resource_for_url(string=key_to_search, request=request, params=params)
+                except KeyError:
+                    # The variable is not defined, so it is keep as it is in the url
+                    value = key
 
         return value
+
+    def check_resource_for_url(self, string: str, request: str, params: list) -> str:
+        index1 = self.apiutil.file_contents.find(string)
+
+        if index1 != -1:
+            index2 = self.apiutil.file_contents[index1:].find("\n")
+            line = self.apiutil.file_contents[index1:index1+index2]
+            print(line)
+
+            if string in line:
+                if 'Get From Dictionary' in line:
+                    # We have to obtain the information of the endpoint from the dictionary
+                    aux = line.split("Get From Dictionary")[1].strip().split("    ")
+                    key = aux[0]
+                    value = aux[1]
+                    url_dict = self.apiutil.variables[key]
+
+                    if request == 'Batch Request Entities From File':
+                        url = url_dict[params[0]]
+                    else:
+                        raise KeyError
+
+                    return url
+                else:
+                    raise KeyError
+            else:
+                raise KeyError
+        else:
+            raise KeyError
 
     def get_header_value(self, key: str):
         value = str()
@@ -242,8 +284,6 @@ class GenerateRobotData:
                 except KeyError:
                     # ERROR, the header key is not defined
                     raise Exception(f"ERROR, the header key '{key}' is undefined")
-
-
 
         return value
 
@@ -285,14 +325,17 @@ class GenerateRobotData:
             # definition of the template
 
             # Generate Checks for Test Data
-            then = self.robot.get_checks(test_name=test.template, apiutils=self.apiutil)
+            then = self.robot.get_checks(test_name=test.template, apiutils=self.apiutil, name=test.name)
+
+            # Generate Request for Test Data
+            when = self.robot.get_request(test_name=test.template, name=test.name)
         else:
             # We are talking about a Test Cases without Test Template
             # Generate Checks for Test Data
-            then = self.robot.get_checks(test_name=test.name, apiutils=self.apiutil)
+            then = self.robot.get_checks(test_name=test.name, apiutils=self.apiutil, name=test.name)
 
             # Generate Request for Test Data
-            when = self.robot.get_request(test_name=test.name)
+            when = self.robot.get_request(test_name=test.name, name=test.name)
 
         test_case = {
             'name': test.name,

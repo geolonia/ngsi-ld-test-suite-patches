@@ -8,6 +8,7 @@ from os import listdir, remove, makedirs
 
 
 class TestCommonBehaviours(TestCase):
+    # 6 passed
     @classmethod
     def setUpClass(cls):
         TestCommonBehaviours.folder_test_suites = dirname(dirname(dirname(__file__)))

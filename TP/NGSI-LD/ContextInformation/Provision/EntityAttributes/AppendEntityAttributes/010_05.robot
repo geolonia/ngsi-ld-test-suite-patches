@@ -6,8 +6,6 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision/Ap
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Template       Append Attributes
-
 
 *** Variables ***
 ${vehicle_id_prefix}=               urn:ngsi-ld:Vehicle:
@@ -17,28 +15,21 @@ ${status_code}=                     400
 ${invalid_fragment_filename}=       invalid-fragment.jsonld
 
 
-*** Test Cases ***    ENTITY_INVALID_ID
-010_02_01 Append entity attributes if the entity Id is not present
-    ${EMPTY}
-010_02_02 Append entity attributes if the Entity Id is not a valid URI
-    thisisaninvaliduri
-
-
-*** Keywords ***
-Append Attributes
-    [Documentation]    Check that you cannot append entity attributes with invalid/missing id or invalid request body
+*** Test Cases ***
+010_05_01 Append entity attributes with invalid entity fragments
+    [Documentation]    Check that you cannot append entity attributes with invalid entity fragments
     [Tags]    ea-append    5_6_3
-    [Arguments]    ${entity_invalid_id}
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Append Entity Attributes    ${entity_invalid_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Append Entity Attributes
+    ...    ${entity_id}
+    ...    ${invalid_fragment_filename}
+    ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
-    Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response.json()}
-    ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+    Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_INVALID_REQUEST}
+    Check Response Body Title When Using Session Request    ${response.json()}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}

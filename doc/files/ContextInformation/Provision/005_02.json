@@ -1,0 +1,66 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/UpdateBatchOfEntities/005_02",
+  "test_objective": "Check that you can update a batch of entities with noOverwrite option",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.9",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_6_9",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "005_02_01 EntityWithSimpleProperties",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/UpdateBatchOfEntities/005_02_01",
+      "doc": "",
+      "tags": [
+        "5_6_9",
+        "be-update"
+      ],
+      "setup": "Setup Initial Entities",
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Update Entity With NoOverwrite Option Scenarios",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entities set to '${updated_entities}' valid entities and\n        Response Status Code set to 207\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Request Query Entities with entity_ids set to '${expected_entities_ids}' with entity_types set to 'Building'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "005_02_02 EntityWithSimpleRelationships",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/UpdateBatchOfEntities/005_02_02",
+      "doc": "",
+      "tags": [
+        "5_6_9",
+        "be-update"
+      ],
+      "setup": "Setup Initial Entities",
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Update Entity With NoOverwrite Option Scenarios",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entities set to '${updated_entities}' valid entities and\n        Response Status Code set to 204\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Request Query Entities with entity_ids set to '${expected_entities_ids}' with entity_types set to 'Building'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "005_02_03 EntityWithRelationshipsProperties",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/UpdateBatchOfEntities/005_02_03",
+      "doc": "",
+      "tags": [
+        "5_6_9",
+        "be-update"
+      ],
+      "setup": "Setup Initial Entities",
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Update Entity With NoOverwrite Option Scenarios",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entities set to '${updated_entities}' valid entities and\n        Response Status Code set to 207\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Request Query Entities with entity_ids set to '${expected_entities_ids}' with entity_types set to 'Building'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [
+    "then"
+  ],
+  "robotpath": "ContextInformation/Provision/BatchEntities/UpdateBatchOfEntities",
+  "robotfile": "005_02"
+}

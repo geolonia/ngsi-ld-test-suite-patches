@@ -23,7 +23,7 @@
       "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Request Query Entities with entity_ids set to 'entity_types=${entity_types_to_be_retrieved}' with entity_types set to '${entity_types_to_be_retrieved}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Request Query Entities with entity_ids set to 'entity_types=${entity_types_to_be_retrieved}' with entity_types set to '${entity_types_to_be_retrieved}'\n}",
       "http_verb": "GET",
       "endpoint": "entities/"
     }

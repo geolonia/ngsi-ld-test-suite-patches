@@ -30,7 +30,6 @@ class ParseApiUtilsFile:
                     verb = match.groups()[0]
 
             if 'url' in item:
-                #url = item.split('/')[1]
                 url = self.get_url_request(url=item)
 
         return verb, url
@@ -57,7 +56,12 @@ class ParseApiUtilsFile:
     def get_variables_data(self):
         string = self.get_substring(initial_string='*** Variables ***\n', final_string='*** ', include=False)
 
-        regex = "(\$\{.*\})\s*(.*)\n"
+        self.get_variables_data_variables(string=string)
+        self.get_variables_data_dictionaries(string=string)
+
+    def get_variables_data_variables(self, string):
+        # Get the simple variables from the file
+        regex = "^(\$\{.*\})\s*(.*)\n"
 
         matches = re.finditer(regex, string, re.MULTILINE)
         for match in matches:
@@ -65,6 +69,42 @@ class ParseApiUtilsFile:
             if len(match.groups()) == 2:
                 if match.group(1) not in self.variables.keys():
                     self.variables[match.group(1)] = match.group(2)
+            else:
+                raise Exception("Error, the variable is not following the format ${thing} = <value>")
+
+    def get_variables_data_dictionaries(self, string):
+        # Get the dictionary variables from the file
+        regex = '(\&\{.*\})'
+        matches = re.finditer(regex, string, re.MULTILINE)
+        for match in matches:
+            # Check that we have two groups matched
+            if len(match.groups()) == 1:
+                # We need to find in the string the index to know the next lines from which extract the data
+                key_dict = match.group(1).replace("&", "$")
+
+                index = string.find(match.group(1))
+                aux = string[index:]
+                index = aux.find('\n')
+                aux = aux[index:]
+                index = aux.find('\n${')
+                aux = aux[:index + 1]
+
+                regex = '\.{3}[ ]*([a-zA-Z]+)=(.*)\n'
+                matches2 = re.finditer(regex, aux, re.MULTILINE)
+                dict_values = dict()
+                for match2 in matches2:
+                    # Check that we have two groups matched
+                    if len(match2.groups()) == 2:
+                        key = match2.group(1)
+                        value = match2.group(2)
+
+                        value_is_variable = re.match(pattern=r'\$\{.*\}', string=value)
+                        if value_is_variable:
+                            value = self.variables[value]
+
+                        dict_values[key] = value
+
+                self.variables[key_dict] = dict_values
             else:
                 raise Exception("Error, the variable is not following the format ${thing} = <value>")
 

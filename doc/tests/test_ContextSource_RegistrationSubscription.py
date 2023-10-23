@@ -9,6 +9,7 @@ import warnings
 
 
 class TestCSRegistrationSubscription(TestCase):
+    # 22 failed, 18 passed
     @classmethod
     def setUpClass(cls):
         TestCSRegistrationSubscription.folder_test_suites = dirname(dirname(dirname(__file__)))
@@ -99,21 +100,21 @@ class TestCSRegistrationSubscription(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_042_01(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/042_01.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/DeleteContextSourceRegistrationSubscription/042_01.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/042_01.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_042_01.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_042_02(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/042_02.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/DeleteContextSourceRegistrationSubscription/042_02.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/042_02.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_042_02.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_042_03(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/042_03.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/DeleteContextSourceRegistrationSubscription/042_03.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/042_03.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_042_03.json'
 

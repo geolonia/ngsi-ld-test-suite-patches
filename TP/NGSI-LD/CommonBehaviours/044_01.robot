@@ -27,10 +27,10 @@ ${subscription_fragment}=       subscriptions/fragments/subscription-update-samp
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${response}=    Partial Update Entity Attributes
-    ...    ${entity_id}
-    ...    ${attribute_id}
-    ...    ${vehicle_fragment}
-    ...    ${CONTENT_TYPE_MERGE_PATCH_JSON}
+    ...    entityId=${entity_id}
+    ...    attributeId=${attribute_id}
+    ...    fragment_filename=${vehicle_fragment}
+    ...    content_type=${CONTENT_TYPE_MERGE_PATCH_JSON}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
     [Teardown]    Delete Entity by Id    ${entity_id}

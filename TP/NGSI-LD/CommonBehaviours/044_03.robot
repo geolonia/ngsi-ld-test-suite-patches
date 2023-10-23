@@ -32,10 +32,10 @@ ${content_type}=                application/xml
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${response}=    Partial Update Entity Attributes
-    ...    ${entity_id}
-    ...    ${vehicle_attribute}
-    ...    ${vehicle_fragment}
-    ...    ${content_type}
+    ...    entityId=${entity_id}
+    ...    attributeId=${vehicle_attribute}
+    ...    fragment_filename=${vehicle_fragment}
+    ...    content_type=${content_type}
     Check Response Status Code    415    ${response.status_code}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
 

@@ -23,7 +23,7 @@ ${entity_payload_filename}=     building-simple-attributes-sample.jsonld
 005_01_02 EntityWithSimpleRelationships
     [Tags]    be-update    5_6_9
     building-relationship-sample.jsonld    fragmentEntities/locatedAt-fragment.json
-EntityWithRelationshipsProperties
+005_01_03 EntityWithRelationshipsProperties
     [Tags]    be-update    5_6_9
     building-relationship-of-property-sample.jsonld    fragmentEntities/airQualityLevel-with-relationship-fragment.json
 

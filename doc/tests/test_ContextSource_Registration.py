@@ -9,6 +9,7 @@ import warnings
 
 
 class TestCSRegistration(TestCase):
+    # 17 failed, 19 passed
     @classmethod
     def setUpClass(cls):
         TestCSRegistration.folder_test_suites = dirname(dirname(dirname(__file__)))

@@ -10,10 +10,12 @@ Library         JSONLibrary
 *** Variables ***
 ${BATCH_CREATE_ENDPOINT_PATH}           entityOperations/create
 ${BATCH_DELETE_ENDPOINT_PATH}           entityOperations/delete
-&{BATCH_OPERATION_ENDPOINT_MAPPING}
-...                                     create=${BATCH_CREATE_ENDPOINT_PATH}
 ${BATCH_UPDATE_ENDPOINT_PATH}           entityOperations/update
 ${BATCH_UPSERT_ENDPOINT_PATH}           entityOperations/upsert
+&{BATCH_OPERATION_ENDPOINT_MAPPING}
+...                                     create=${BATCH_CREATE_ENDPOINT_PATH}
+...                                     delete=${BATCH_DELETE_ENDPOINT_PATH}
+...                                     update=${BATCH_UPDATE_ENDPOINT_PATH}
 
 ${ENTITIES_ENDPOINT_PATH}               entities/
 

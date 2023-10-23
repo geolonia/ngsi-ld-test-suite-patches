@@ -8,6 +8,7 @@ from os import listdir, remove, makedirs
 
 
 class TestCISubscription(TestCase):
+    # 25 failed, 11 passed
     @classmethod
     def setUpClass(cls):
         TestCISubscription.folder_test_suites = dirname(dirname(dirname(__file__)))

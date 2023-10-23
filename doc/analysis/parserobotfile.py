@@ -98,9 +98,27 @@ class ParseRobotFile:
 
         string_test_cases = self.file_contents[index_start_test_cases+len('*** Test Cases ***')+1:index_start_keywords]
         self.string_test_template = self.file_contents[index_start_keywords+len('*** Keywords ***')+1:]
+        self.get_template_content(string=self.string_test_template)
 
         self.get_test_cases_content(string=string_test_cases)
         self.get_template_param_values(test_cases=string_test_cases)
+
+    def get_template_content(self, string: str):
+        matches = re.findall(pattern=r'^(([a-zA-z0-9\-]+[ ]*)+)$', string=string, flags=re.MULTILINE)
+
+        indexes = list()
+        for match in matches:
+            indexes.append(string.find(match[0]))
+
+        print(indexes)
+        subdata = list()
+        for i in range(0, len(indexes) - 1):
+            subdata.append(string[indexes[i]:indexes[i + 1]])
+
+        index = indexes[len(indexes) - 1]
+        subdata.append(string[index:])
+
+        self.string_test_template = [x for x in subdata if self.test_template_name in x][0]
 
     def get_template_param_values(self, test_cases):
         # Extract the parameter of the Test Cases
@@ -168,9 +186,10 @@ class ParseRobotFile:
 
         return result
 
-    def get_checks(self, test_name, apiutils):
+    def get_checks(self, test_name, apiutils, name):
         data = Checks()
         self.test_name = test_name
+        self.test_case_name = name
 
         # test_content = self.test_cases[test_name]
         test_content = self.get_text_cases_content(name=test_name)
@@ -213,12 +232,13 @@ class ParseRobotFile:
 
         return new_list
 
-    def get_request(self, test_name):
+    def get_request(self, test_name, name):
         data = Requests(variables=self.variables,
                         apiutils_variables=self.apiutils.variables,
                         config_file=self.config_file,
                         template_params_value=self.template_params_value,
-                        test_name=test_name)
+                        test_name=test_name,
+                        name=name)
 
         if self.test_template_name == '':
             description = data.get_description(string=self.test_cases[test_name])
@@ -381,7 +401,7 @@ class ParseRobotFile:
                     result = self.config_file.get_variable(aux)
                 except KeyError:
                     try:
-                        aux = self.template_params_value[self.test_name]
+                        aux = self.template_params_value[self.test_case_name]
                         result = aux[position]
 
                         if result[:2] == "${":

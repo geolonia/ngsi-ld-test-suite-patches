@@ -34,16 +34,11 @@ Partial Update Attributes
     [Documentation]    Check that you cannot perform a partial update on an entity attribute if the entity id or attribute is not known to the system
     [Tags]    ea-partial-update    5_6_4
     [Arguments]    ${entity_id}    ${fragment_filename}
-    ${response}=    Create Entity Selecting Content Type
-    ...    ${filename}
-    ...    ${valid_entity_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
     ${response}=    Partial Update Entity Attributes
-    ...    ${entity_id}
-    ...    ${attribute_id}
-    ...    ${fragment_filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
+    ...    entityId=${entity_id}
+    ...    attributeId=${attribute_id}
+    ...    fragment_filename=${fragment_filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}
@@ -55,6 +50,11 @@ Setup Initial Entities
     Set Test Variable    ${valid_entity_id}
     ${not_found_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${not_found_entity_id}
+    ${response}=    Create Entity Selecting Content Type
+    ...    ${filename}
+    ...    ${valid_entity_id}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${response.status_code}
 
 Delete Initial Entities
     Delete Entity by Id Returning Response    ${valid_entity_id}

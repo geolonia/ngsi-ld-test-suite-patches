@@ -1,0 +1,48 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/PartialAttributeUpdate/012_01",
+  "test_objective": "Check that you can perform a partial update on an entity attribute",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.4",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_6_4",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "012_01_01 Check that you can partially update an attribute",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/PartialAttributeUpdate/012_01_01",
+      "doc": "Check that you can perform a partial update on an entity attribute",
+      "tags": [
+        "ea-partial-update",
+        "5_6_4"
+      ],
+      "setup": "Initiate Test Suite",
+      "teardown": "Delete Initial Entities",
+      "template": "Update Attributes",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    },
+    {
+      "name": "012_01_02 Check that you can partially update an attribute by specifying the datasetId",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/PartialAttributeUpdate/012_01_02",
+      "doc": "Check that you can perform a partial update on an entity attribute",
+      "tags": [
+        "ea-partial-update",
+        "5_6_4"
+      ],
+      "setup": "Initiate Test Suite",
+      "teardown": "Delete Initial Entities",
+      "template": "Update Attributes",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/EntityAttributes/PartialAttributeUpdate",
+  "robotfile": "012_01"
+}

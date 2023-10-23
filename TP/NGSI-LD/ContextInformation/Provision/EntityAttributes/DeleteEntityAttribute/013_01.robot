@@ -39,11 +39,11 @@ Delete Attributes
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${response}=    Delete Entity Attributes
-    ...    ${entity_id}
-    ...    ${attribute_id}
-    ...    ${datasetId}
-    ...    ${deleteAll}
-    ...    ${ngsild_test_suite_context}
+    ...    entityId=${entity_id}
+    ...    attributeId=${attribute_id}
+    ...    datasetId=${datasetId}
+    ...    deleteAll=${deleteAll}
+    ...    context=${ngsild_test_suite_context}
     Check Response Status Code    ${status_code}    ${response.status_code}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response}=    Retrieve Entity by Id

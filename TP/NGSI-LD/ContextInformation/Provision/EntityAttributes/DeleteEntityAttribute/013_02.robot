@@ -36,7 +36,11 @@ Delete Attributes
     ...    ${valid_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Delete Entity Attributes    ${entity_id}    ${attribute_id}    ${EMPTY}    false
+    ${response}=    Delete Entity Attributes
+    ...    entityId=${entity_id}
+    ...    attributeId=${attribute_id}
+    ...    datasetId=${EMPTY}
+    ...    deleteAll=false
     Check Response Status Code    ${status_code}    ${response.status_code}
 
 Setup Initial Entities

@@ -145,7 +145,7 @@ class Checks:
             },
             'Check Updated Resources Set To': {
                 'params': ['number_entities'],
-                'position': []
+                'position': [1]
             },
             'Check SUT Not Containing Resource': {
                 'params': ['status_code'],
