@@ -36,6 +36,7 @@ class GenerateRobotData:
             'Entity/QueryEntities': 'E',
             'BatchEntities/CreateBatchOfEntities': 'BE',
             'BatchEntities/UpsertBatchOfEntities': 'BE',
+            'BatchEntities/UpdateBatchOfEntities': 'BE',
             'TemporalEntity/QueryTemporalEvolutionOfEntities': 'TE',
             'TemporalEntity/DeleteTemporalRepresentationOfEntity': 'TE',
             'TemporalEntity/UpdateTemporalRepresentationOfEntity': 'TE',

@@ -1,0 +1,34 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/019_01_02",
+  "test_objective": "Check that you can query several entities based on the entities types",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.2",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_7_2",
+  "keywords": [
+    "Delete Entities"
+  ],
+  "teardown": "Delete Entities",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "019_01_02 Query several entities based on the entities types",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_01_02",
+      "doc": "Check that you can query several entities based on the entities types",
+      "tags": [
+        "5_7_2",
+        "e-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list containing Entity elements, containing a list of entity types to be retrieved and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Consumption/Entity/QueryEntities",
+  "robotfile": "019_01_02"
+}

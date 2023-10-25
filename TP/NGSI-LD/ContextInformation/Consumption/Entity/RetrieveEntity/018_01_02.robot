@@ -33,8 +33,8 @@ ${attribute_subcategory}=           https://ngsi-ld-test-suite/context#subCatego
     ...    ${attribute_airqualitylevel}
     ...    ${attribute_subcategory}
     ${response}=    Query Entity
-    ...    ${entity_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
+    ...    id=${entity_id}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    attrs=${attributes_to_be_retrieved}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response.json()}

@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/UpdateBatchOfEntities/005_01",
+  "tp_id": "TP/NGSI-LD/CI/Prov/BE/005_01",
   "test_objective": "Check that you can update a batch of entities",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.9",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "005_01_01 EntityWithSimpleProperties",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/UpdateBatchOfEntities/005_01_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/005_01_01",
       "doc": "",
       "tags": [
         "5_6_9",
@@ -21,13 +21,13 @@
       "teardown": "Delete Initial Entities",
       "template": "Batch Update Entity Scenarios",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entities set to '${updated_entities}' valid entities and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Request Query Entities with entity_ids set to '${expected_entities_ids}' with entity_types set to 'Building'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_ids set to '${expected_entities_ids}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
       "http_verb": "GET",
       "endpoint": "entities/"
     },
     {
       "name": "005_01_02 EntityWithSimpleRelationships",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/UpdateBatchOfEntities/005_01_02",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/005_01_02",
       "doc": "",
       "tags": [
         "5_6_9",
@@ -37,13 +37,13 @@
       "teardown": "Delete Initial Entities",
       "template": "Batch Update Entity Scenarios",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entities set to '${updated_entities}' valid entities and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Request Query Entities with entity_ids set to '${expected_entities_ids}' with entity_types set to 'Building'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_ids set to '${expected_entities_ids}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
       "http_verb": "GET",
       "endpoint": "entities/"
     },
     {
       "name": "005_01_03 EntityWithRelationshipsProperties",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/UpdateBatchOfEntities/005_01_03",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/005_01_03",
       "doc": "",
       "tags": [
         "5_6_9",
@@ -53,7 +53,7 @@
       "teardown": "Delete Initial Entities",
       "template": "Batch Update Entity Scenarios",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entities set to '${updated_entities}' valid entities and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Request Query Entities with entity_ids set to '${expected_entities_ids}' with entity_types set to 'Building'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_ids set to '${expected_entities_ids}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
       "http_verb": "GET",
       "endpoint": "entities/"
     }

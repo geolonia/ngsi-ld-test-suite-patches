@@ -28,8 +28,8 @@ ${attribute_not_known}=     property_not_found
     Check Response Status Code    201    ${response.status_code}
     ${attributes_to_be_retrieved}=    Catenate    SEPARATOR=,    ${attribute_not_known}
     ${response}=    Query Entity
-    ...    ${entity_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
+    ...    id=${entity_id}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    attrs=${attributes_to_be_retrieved}
     Check Response Status Code    404    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to

@@ -48,8 +48,8 @@ ${update_fragment_filename}=    fragmentEntities/simple-attributes-relationship-
     @{updated_entities}=    Create List    ${first_updated_entity}    ${second_updated_entity}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{expected_successful_entities_ids}
     ${response}=    Query Entities
-    ...    ${expected_entities_ids}
-    ...    Building
+    ...    entity_ids=${expected_entities_ids}
+    ...    entity_types=Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resources Set To    ${updated_entities}    ${response.json()}

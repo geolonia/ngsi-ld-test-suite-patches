@@ -30,7 +30,10 @@ ${content_type}=                application/json
     ...    ${id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Query Entity    ${id}    context=${ngsild_test_suite_context}    accept=*/*
+    ${response}=    Query Entity
+    ...    id=${id}
+    ...    context=${ngsild_test_suite_context}
+    ...    accept=*/*
     Check Response Status Code    200    ${response.status_code}
     Check Response Headers Containing Content-Type set to    ${content_type}    ${response.headers}
     Check Response Headers Link Not Empty    ${response.headers}

@@ -49,7 +49,7 @@ ${parking_entity_type}=     https://ngsi-ld-test-suite/context#OffStreetParking
     Check Response Status Code    201    ${response.status_code}
     @{entity_types_to_be_compared}=    Create List    ${vehicle_entity_type}    ${parking_entity_type}
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${vehicle_entity_type}    ${parking_entity_type}
-    ${response}=    Query Entities    entity_types=${entity_types_to_be_retrieved}
+    ${response}=    Query Entities Via POST    entity_types=${entity_types_to_be_retrieved}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Entity Elements
     ...    ${expectation_filename}

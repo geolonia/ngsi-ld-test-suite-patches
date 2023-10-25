@@ -24,7 +24,7 @@
       "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Request response body containing a list that contains Entity Temporal Elements\n    compared with file 'vehicles-temporal-representation-021-08-expectation.jsonld'\n    and using the list of entity ids define in '${temporal_entities_representation_ids}' and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n         and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: ngsild_query set to 'speed>90' and\n    Query Parameter: timerel set to 'after' and\n    Query Parameter: timeAt set to '2020-07-01T12:05:00Z' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n        Query Temporal Representation of Entities and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: ngsild_query set to 'speed>90' and\n    Query Parameter: timerel set to 'after' and\n    Query Parameter: timeAt set to '2020-07-01T12:05:00Z' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
       "http_verb": "GET",
       "endpoint": "temporal/entities"
     }

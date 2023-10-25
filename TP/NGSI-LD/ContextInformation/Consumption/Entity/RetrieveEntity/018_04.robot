@@ -28,8 +28,8 @@ ${options_parameter}=       keyValues
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${response}=    Query Entity
-    ...    ${entity_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
+    ...    id=${entity_id}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    options=${options_parameter}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response.json()}

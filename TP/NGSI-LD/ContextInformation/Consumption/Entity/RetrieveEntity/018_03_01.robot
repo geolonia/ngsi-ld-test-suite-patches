@@ -16,7 +16,9 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     [Documentation]    Check that you cannot get an entity if the entity id or attributes are not known to the system
     [Tags]    e-retrieve    5_7_1
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Query Entity
+    ...    id=${entity_id}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    404    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}

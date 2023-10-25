@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can query the temporal evolution of entities using the entityOperations method
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -30,7 +30,7 @@ Query the temporal evolution of entities using the entityOperations method
     [Documentation]    Check that you can query the temporal evolution of entities using the entityOperations method
     [Arguments]    ${payload_file}    ${expectation_file}
     ${response}=    Query Temporal Representation Of Entities Via Post
-    ...    ${payload_file}
+    ...    query_file_name=${payload_file}
     ...    context=${ngsild_test_suite_context}
     @{temporal_entities_representation_ids}=    Create List
     ...    ${first_temporal_entity_representation_id}

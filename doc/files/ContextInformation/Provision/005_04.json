@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/UpdateBatchOfEntities/005_04",
+  "tp_id": "TP/NGSI-LD/CI/Prov/BE/005_04",
   "test_objective": "Check that you cannot update a batch of entities with an invalid request",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.9",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "005_04_01 InvalidJson",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/UpdateBatchOfEntities/005_04_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/005_04_01",
       "doc": "",
       "tags": [
         "5_6_9",
@@ -27,7 +27,7 @@
     },
     {
       "name": "005_04_02 InvalidJsonLd",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/UpdateBatchOfEntities/005_04_02",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/005_04_02",
       "doc": "",
       "tags": [
         "5_6_9",

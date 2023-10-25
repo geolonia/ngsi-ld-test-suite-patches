@@ -28,7 +28,10 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     Check Response Status Code    207    ${response.status_code}
     Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}    ${response.json()}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{expected_successful_entities_ids}
-    ${response}=    Query Entities    ${expected_entities_ids}    Building    context=${ngsild_test_suite_context}
+    ${response}=    Query Entities
+    ...    entity_ids=${expected_entities_ids}
+    ...    entity_types=Building
+    ...    context=${ngsild_test_suite_context}
     Check SUT Not Containing Resources    ${response.json()}
 
 

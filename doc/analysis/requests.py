@@ -25,9 +25,9 @@ class Requests:
                 'params': ['filename']
             },
             'Query Entity': {
-                'positions': [1, 1],
-                'params': ['context', 'accept']
-            },
+                'positions': [],
+                'params': ['id', 'accept', 'attrs', 'context', 'geoproperty', 'options']
+        },
             'Retrieve Subscription': {
                 'positions': [],
                 'params': ['id', 'accept', 'context', 'content_type']
@@ -59,7 +59,10 @@ class Requests:
                            'ngsild_query', 'csf', 'georel', 'geometry',
                            'coordinates', 'geoproperty', 'timerel', 'timeAt',
                            'attrs', 'limit', 'lastN', 'accept']
-
+            },
+            'Query Temporal Representation Of Entities Via Post': {
+                'positions': [],
+                'params': ['query_file_name', 'content_type', 'context']
             },
             'Retrieve Attribute': {
                 'positions': [0],
@@ -74,8 +77,16 @@ class Requests:
                 'params': ['id', 'accept', 'context']
             },
             'Query Entities': {
-                'positions': [0, 1],
-                'params': ['entity_ids', 'entity_types', 'accepts']
+                'positions': [],
+                'params': ['entity_ids', 'entity_types', 'accept',
+                           'attrs', 'context', 'geoproperty',
+                           'options', 'limit', 'entity_id_pattern',
+                           'georel', 'coordinates', 'geometry']
+            },
+            'Query Entities Via POST': {
+                'positions': [],
+                'params': ['entity_ids', 'entity_types', 'content_type',
+                           'attrs', 'entity_id_pattern', 'geoproperty']
             },
             'Retrieve Temporal Representation Of Entity': {
                 'positions': [],
@@ -304,7 +315,11 @@ class Requests:
             'Wait for notification':
                 Requests.wait_for_notification,
             'Create Context Source Registration':
-                Requests.create_context_source_registration
+                Requests.create_context_source_registration,
+            'Query Entities Via POST':
+                Requests.query_entities_via_post,
+            'Query Temporal Representation Of Entities Via Post':
+                Requests.query_temporal_representation_of_entities_via_post
         }
 
         self.variables = variables
@@ -531,17 +546,30 @@ class Requests:
 
     @staticmethod
     def query_entity(kwargs) -> str:
-        result = ''
-        if 'context' in kwargs and kwargs['context'] != '':
-            result = f"Request Header['Link'] contain the context {kwargs['context']}"
+        expected_parameters = ['id', 'accept', 'attrs', 'context', 'geoproperty', 'options']
 
-        if 'accept' in kwargs:
-            result = f"{result}\nHeader['Accept'] set to {kwargs['accept']}"
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Get Entity Request:"
+        for key, value in kwargs.items():
+            match key:
+                case 'id':
+                    response = f"{response} and\n    Query Parameter: id set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                case 'attrs':
+                    response = f"{response} and\n    Query Parameter: attrs set to '{value}'"
+                case 'context':
+                    response = (f"{response} and\n    Query Parameter: Link set to "
+                                f"'<${value}>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'")
+                case 'geoproperty':
+                    response = f"{response} and\n    Query Parameter: geoproperty set to '{value}'"
+                case 'options':
+                    response = f"{response} and\n    Query Parameter: options set to '{value}'"
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
 
-        if 'context' not in kwargs and 'accept' not in kwargs:
-            raise Exception(f"ERROR, expected context attribute, but received {kwargs}")
-
-        return result
+        return response
 
     @staticmethod
     def modify_attribute_instance_from_temporal_entity(kwargs) -> str:
@@ -871,7 +899,7 @@ class Requests:
                                'attrs', 'limit', 'lastN', 'accept']
 
         result = [x for x in kwargs if x not in expected_parameters]
-        response = ""
+        response = "Query Temporal Representation of Entities"
         for key, value in kwargs.items():
             match key:
                 case 'context':
@@ -971,17 +999,98 @@ class Requests:
 
     @staticmethod
     def query_entities(kwargs) -> str:
-        result = "Request Query Entities"
-        if 'entity_ids' in kwargs and kwargs['entity_ids'] != '':
-            result = f"{result} with entity_ids set to '{kwargs['entity_ids']}'"
+        expected_parameters = ['entity_ids', 'entity_types', 'accept',
+                               'attrs', 'context', 'geoproperty',
+                               'options', 'limit', 'entity_id_pattern',
+                               'georel', 'coordinates', 'geometry']
 
-        if 'entity_types' in kwargs and kwargs['entity_types'] != '':
-            result = f"{result} with entity_types set to '{kwargs['entity_types']}'"
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Get Entities Request:"
+        for key, value in kwargs.items():
+            match key:
+                case 'entity_ids':
+                    response = f"{response} and\n    Query Parameter: entity_ids set to '{value}'"
+                case 'entity_types':
+                    response = f"{response} and\n    Query Parameter: entity_types set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                case 'attrs':
+                    response = f"{response} and\n    Query Parameter: attrs set to '{value}'"
+                case 'context':
+                    response = (f"{response} and\n    Query Parameter: Link set to "
+                                f"'<${value}>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'")
+                case 'geoproperty':
+                    response = f"{response} and\n    Query Parameter: geoproperty set to '{value}'"
+                case 'options':
+                    response = f"{response} and\n    Query Parameter: options set to '{value}'"
+                case 'limit':
+                    response = f"{response} and\n    Query Parameter: limit set to '{value}'"
+                case 'entity_id_pattern':
+                    response = f"{response} and\n    Query Parameter: entity_id_pattern set to '{value}'"
+                case 'georel':
+                    response = f"{response} and\n    Query Parameter: georel set to '{value}'"
+                case 'coordinates':
+                    response = f"{response} and\n    Query Parameter: coordinates set to '{value}'"
+                case 'geometry':
+                    response = f"{response} and\n    Query Parameter: geometry set to '{value}'"
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
 
-        if 'accept' in kwargs and kwargs['accept'] != '':
-            result = f"{result} with Header['Accept'] set to '{kwargs['accept']}'"
+        return response
 
-        return result
+    def query_entities_via_post(kwargs) -> str:
+        expected_parameters = ['entity_ids', 'entity_types', 'content_type',
+                               'attrs', 'entity_id_pattern', 'geoproperty']
+
+        if 'content_type' not in kwargs:
+            kwargs['content_type'] = 'application/ld+json'
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Get Entities Via POST Request:"
+        for key, value in kwargs.items():
+            match key:
+                case 'entity_ids':
+                    response = f"{response} and\n    Query Parameter: entity_ids set to '{value}'"
+                case 'entity_types':
+                    response = f"{response} and\n    Query Parameter: entity_types set to '{value}'"
+                case 'content_type':
+                    response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
+                case 'attrs':
+                    response = f"{response} and\n    Query Parameter: attrs set to '{value}'"
+                case 'geoproperty':
+                    response = f"{response} and\n    Query Parameter: geoproperty set to '{value}'"
+                case 'entity_id_pattern':
+                    response = f"{response} and\n    Query Parameter: entity_id_pattern set to '{value}'"
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    def query_temporal_representation_of_entities_via_post(kwargs) -> str:
+        expected_parameters = ['query_file_name', 'content_type', 'context']
+
+        if 'content_type' not in kwargs:
+            kwargs['content_type'] = 'application/json'
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Query Temporal Representation of Entities Via POST Request:"
+        for key, value in kwargs.items():
+            match key:
+                case 'query_file_name':
+                    response = f"{response} and\n    Query Parameter: query_file_name set to '{value}'"
+                case 'content_type':
+                    response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
+                case 'context':
+                    response = (f"{response} and\n    Query Parameter: Link set to "
+                                f"'<${value}>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'")
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
 
     @staticmethod
     def retrieve_entity_by_id(kwargs) -> str:

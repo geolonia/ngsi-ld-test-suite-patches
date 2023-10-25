@@ -21,7 +21,10 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     ${response}=    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}
     Check Response Status Code    204    ${response.status_code}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{entities_ids_to_be_deleted}
-    ${response}=    Query Entities    ${expected_entities_ids}    Building    context=${ngsild_test_suite_context}
+    ${response}=    Query Entities
+    ...    entity_ids=${expected_entities_ids}
+    ...    entity_types=Building
+    ...    context=${ngsild_test_suite_context}
     Check SUT Not Containing Resources    ${response.json()}
 
 

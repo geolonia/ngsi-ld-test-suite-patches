@@ -40,7 +40,7 @@ ${attribute_subcategory}=           https://ngsi-ld-test-suite/context#subCatego
     ...    ${attribute_airqualitylevel}
     ...    ${attribute_subcategory}
     @{entities_ids_to_be_retrieved}=    Create List    ${first_entity_id}    ${second_entity_id}
-    ${response}=    Query Entities    attrs=${attributes_to_be_retrieved}
+    ${response}=    Query Entities Via POST    attrs=${attributes_to_be_retrieved}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Entity Elements
     ...    ${expectation_filename}

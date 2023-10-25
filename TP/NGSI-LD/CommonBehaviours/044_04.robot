@@ -25,7 +25,9 @@ ${subscription_filename}=       csourceSubscriptions/subscription-sample.jsonld
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Query Entity    ${entity_id}    accept=${accept}
+    ${response}=    Query Entity
+    ...    id=${entity_id}
+    ...    accept=${accept}
     Check Response Status Code    ${status_code}    ${response.status_code}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
 

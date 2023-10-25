@@ -45,8 +45,8 @@ Batch Create Entity Scenarios
     Check Response Status Code    201    ${response.status_code}
     Check Response Body Containing Array Of URIs set to    ${expected_entities_ids}    ${response.json()}
     ${response}=    Query Entities
-    ...    ${entities_to_be_queried}
-    ...    Building
+    ...    entity_ids=${entities_to_be_queried}
+    ...    entity_types=Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Created Resources Set To    ${entities_to_be_created}    ${response.json()}

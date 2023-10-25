@@ -8,14 +8,15 @@ Library         RequestsLibrary
 
 
 *** Variables ***
-${TEMPORAL_ENTITIES_ENDPOINT_PATH}      temporal/entities
+${TEMPORAL_ENTITIES_ENDPOINT_PATH}              temporal/entities
+${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}     temporal/entityOperations
 
-${CONTENT_TYPE_JSON}                    application/json
-${CONTENT_TYPE_LD_JSON}                 application/ld+json
+${CONTENT_TYPE_JSON}                            application/json
+${CONTENT_TYPE_LD_JSON}                         application/ld+json
 
-${ERROR_TYPE_BAD_REQUEST_DATA}          https://uri.etsi.org/ngsi-ld/errors/BadRequestData
-${ERROR_TYPE_INVALID_REQUEST}           https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
-${ERROR_TYPE_RESOURCE_NOT_FOUND}        https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
+${ERROR_TYPE_BAD_REQUEST_DATA}                  https://uri.etsi.org/ngsi-ld/errors/BadRequestData
+${ERROR_TYPE_INVALID_REQUEST}                   https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
+${ERROR_TYPE_RESOURCE_NOT_FOUND}                https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
 
 
 *** Keywords ***
@@ -48,6 +49,23 @@ Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    headers=${headers}
     ...    expected_status=any
     Output    ${response}    Create Or Update Temporal Representation Of Entity Selecting Content Type
+    RETURN    ${response}
+
+Create Temporal Representation Of Entity
+    [Arguments]    ${filename}    ${temporal_entity_representation_id}
+    ${temporal_entity_representation_payload}=    Load JSON From File    ${EXECDIR}/data/temporalEntities/${filename}
+    ${temporal_entity_representation}=    Update Value To JSON
+    ...    ${temporal_entity_representation_payload}
+    ...    $..id
+    ...    ${temporal_entity_representation_id}
+
+    &{headers}=    Create Dictionary    Content-Type=application/ld+json
+    ${response}=    POST
+    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
+    ...    json=${temporal_entity_representation}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}    Create Temporal Representation Of Entity
     RETURN    ${response}
 
 Create Temporal Representation Of Entity Selecting Content Type
@@ -121,6 +139,22 @@ Delete Temporal Representation Of Entity With Returning Response
     ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
     ...    expected_status=any
     Output    ${response}    Delete Temporal Representation Of Entity
+    RETURN    ${response}
+
+Query Temporal Representation Of Entities Via Post
+    [Arguments]    ${query_file_name}    ${content_type}=${CONTENT_TYPE_JSON}    ${context}=${EMPTY}
+    ${headers}=    Create Dictionary
+    Set To Dictionary    ${headers}    Content-Type    ${content_type}
+    Set To Dictionary
+    ...    ${headers}
+    ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    ${query_payload}=    Load JSON From File    ${EXECDIR}/data/temporalEntities/${query_file_name}
+    ${response}=    POST
+    ...    url=${url}/${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}/query
+    ...    json=${query_payload}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}    Query Temporal Representation Of Entities Via Post
     RETURN    ${response}
 
 Get Temporal Representation Of Entity
