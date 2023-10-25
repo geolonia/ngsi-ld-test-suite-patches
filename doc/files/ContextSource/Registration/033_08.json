@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/ContextSource/Registration/CreateContextSourceRegistration/033_08",
+  "tp_id": "TP/NGSI-LD/CS/REG/033_08",
   "test_objective": "Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is \"application/ld+json\" and the request payload body does not contain a @context term",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.5",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "033_08_01 Create one context source registration not containing a JSON-LD @context with a JSON-LD content type",
-      "permutation_tp_id": "TP/NGSI-LD/ContextSource/Registration/CreateContextSourceRegistration/033_08_01",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REG/033_08_01",
       "doc": "Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is \"application/ld+json\" and the request payload body does not contain a @context term",
       "tags": [
         "6_3_5",

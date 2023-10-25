@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/DeleteContextSourceRegistrationSubscription/042_01",
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/042_01",
   "test_objective": "Check that you can delete a context source registration subscription",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.6",
   "config_id": "",
@@ -13,7 +13,7 @@
   "test_cases": [
     {
       "name": "042_01_01 Delete Context Source Registration Subscription",
-      "permutation_tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/DeleteContextSourceRegistrationSubscription/042_01_01",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/042_01_01",
       "doc": "Check that you can delete a context source registration subscription",
       "tags": [
         "5_11_6",

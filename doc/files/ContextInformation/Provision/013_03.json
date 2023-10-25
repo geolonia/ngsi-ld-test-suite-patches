@@ -21,9 +21,9 @@
       "teardown": "Delete Initial Entities",
       "template": "Delete Attributes",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 404\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?/{params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${not_found_entity_id}' and\n    Query Parameter: attributeId set to 'speed' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: deleteAll set to 'false'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?{params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${not_found_entity_id}' and\n    Query Parameter: attributeId set to 'speed' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: deleteAll set to 'false'\n}",
       "http_verb": "DELETE",
-      "endpoint": "entities/{entityId}/attrs/{attributeId}?/{params_as_string}"
+      "endpoint": "entities/{entityId}/attrs/{attributeId}?{params_as_string}"
     },
     {
       "name": "013_03_02 Delete an attribute when the Entity does not contain the target attribute id",
@@ -37,9 +37,9 @@
       "teardown": "Delete Initial Entities",
       "template": "Delete Attributes",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 404\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?/{params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: attributeId set to 'notFound' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: deleteAll set to 'false'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?{params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: attributeId set to 'notFound' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: deleteAll set to 'false'\n}",
       "http_verb": "DELETE",
-      "endpoint": "entities/{entityId}/attrs/{attributeId}?/{params_as_string}"
+      "endpoint": "entities/{entityId}/attrs/{attributeId}?{params_as_string}"
     },
     {
       "name": "013_03_03 Delete an attribute when the Entity does not contain the target attribute with same datasetId",
@@ -53,9 +53,9 @@
       "teardown": "Delete Initial Entities",
       "template": "Delete Attributes",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 404\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?/{params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: attributeId set to 'speed' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: deleteAll set to 'false'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?{params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: attributeId set to 'speed' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: deleteAll set to 'false'\n}",
       "http_verb": "DELETE",
-      "endpoint": "entities/{entityId}/attrs/{attributeId}?/{params_as_string}"
+      "endpoint": "entities/{entityId}/attrs/{attributeId}?{params_as_string}"
     }
   ],
   "permutations": [

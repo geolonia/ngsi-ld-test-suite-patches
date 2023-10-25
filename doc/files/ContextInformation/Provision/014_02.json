@@ -1,0 +1,50 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/TemporalEntityAttributes/AppendAttributes/014_02",
+  "test_objective": "Check that an error is raised if you delete a temporal entity with empty/invalid content",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.12",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_6_12",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "014_02_01 Add an attribute to a temporal representation of an entity with an empty entity id",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TemporalEntityAttributes/AppendAttributes/014_02_01",
+      "doc": "Check that an error is raised if you add a temporal entity attribute with a non-existing/invalid EntityId",
+      "tags": [
+        "tea-append",
+        "5_6_12"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Add Attribute To Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 400\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs'\n        method set to 'POST'\n        Append Attribute to Temporal Entity and\n    Query Parameter: id set to '${EMPTY}' and\n    Query Parameter: fragment_filename set to 'vehicle-temporal-representation-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "temporal/entities/{temporal_entity_id}/attrs"
+    },
+    {
+      "name": "014_02_02 Add an attribute to a temporal representation of an entity with an invalid entity id",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TemporalEntityAttributes/AppendAttributes/014_02_02",
+      "doc": "Check that an error is raised if you add a temporal entity attribute with a non-existing/invalid EntityId",
+      "tags": [
+        "tea-append",
+        "5_6_12"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Add Attribute To Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 400\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs'\n        method set to 'POST'\n        Append Attribute to Temporal Entity and\n    Query Parameter: id set to 'thisIsAninvalidId' and\n    Query Parameter: fragment_filename set to 'vehicle-temporal-representation-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "temporal/entities/{temporal_entity_id}/attrs"
+    }
+  ],
+  "permutations": [
+    "when"
+  ],
+  "robotpath": "ContextInformation/Provision/TemporalEntityAttributes/AppendAttributes",
+  "robotfile": "014_02"
+}

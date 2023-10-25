@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Subscription/UpdateSubscription/029_04",
+  "tp_id": "TP/NGSI-LD/CI/SUB/029_04",
   "test_objective": "Check that you cannot update a subscription: Any attempt to remove (by setting them to null in the Fragment) mandatory properties of a Subscription (clause 5.2.12) shall result in an error of type BadRequestData",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.2",
   "config_id": "",
@@ -14,7 +14,7 @@
   "test_cases": [
     {
       "name": "029_04_01 Update Subscription With Null Mandatory Properties",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Subscription/UpdateSubscription/029_04_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/029_04_01",
       "doc": "Check that you cannot update a subscription: Any attempt to remove (by setting them to null in the Fragment) mandatory properties of a Subscription (clause 5.2.12) shall result in an error of type BadRequestData",
       "tags": [
         "5_8_2",

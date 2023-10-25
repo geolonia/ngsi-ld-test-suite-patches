@@ -9,7 +9,7 @@ import warnings
 
 
 class TestCSRegistrationSubscription(TestCase):
-    # 22 failed, 18 passed
+    # 18 failed, 22 passed -> 047_01 is broken now
     @classmethod
     def setUpClass(cls):
         TestCSRegistrationSubscription.folder_test_suites = dirname(dirname(dirname(__file__)))
@@ -90,7 +90,11 @@ class TestCSRegistrationSubscription(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_038_08(self):
-        self.fail("(038_08) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_08.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/038_08.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_038_08.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_038_09(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_09.robot'
@@ -121,20 +125,21 @@ class TestCSRegistrationSubscription(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_01(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/NotificationBehaviour/047_01.robot'
-        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_01.json'
-        difference_file = f'{self.folder_test_suites}/doc/results/out_047_01.json'
-
-        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+        # robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/NotificationBehaviour/047_01.robot'
+        # expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_01.json'
+        # difference_file = f'{self.folder_test_suites}/doc/results/out_047_01.json'
+        #
+        # self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+        self.fail("(047_01) Test Suite with no Check operations, Notifications")
 
     def test_047_02(self):
-        self.fail("(047_02) Test Suite with no Check operations")
+        self.fail("(047_02) Test Suite with no Check operations, Notifications")
 
     def test_047_03(self):
-        self.fail("(047_03) Test Suite with no Check operations")
+        self.fail("(047_03) Test Suite with no Check operations, Notifications")
 
     def test_047_04(self):
-        self.fail("(047_04) Test Suite with no Check operations")
+        self.fail("(047_04) Test Suite with no Check operations, Notifications")
 
     def test_047_05(self):
         self.fail("(047_05) Test Suite, problem with 'Check NotificationParams' no parameters selected")
@@ -180,13 +185,25 @@ class TestCSRegistrationSubscription(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_041_02(self):
-        self.fail("(041_02) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/QueryContextSourceRegistrationSubscriptions/041_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/041_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_041_02.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_041_03(self):
-        self.fail("(041_03) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/QueryContextSourceRegistrationSubscriptions/041_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/041_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_041_03.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_041_04(self):
-        self.fail("(041_04) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/QueryContextSourceRegistrationSubscriptions/041_04.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/041_04.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_041_04.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_040_01(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/RetrieveContextSourceRegistrationSubscription/040_01.robot'
@@ -231,7 +248,11 @@ class TestCSRegistrationSubscription(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_039_04(self):
-        self.fail("(039_04) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/UpdateContextSourceRegistrationSubscription/039_04.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/039_04.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_039_04.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_039_05(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/UpdateContextSourceRegistrationSubscription/039_05.robot'

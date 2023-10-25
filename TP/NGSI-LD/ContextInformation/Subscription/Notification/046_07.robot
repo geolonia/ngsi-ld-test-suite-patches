@@ -40,7 +40,7 @@ ${date_format_with_millis}                              %Y-%m-%dT%H:%M:%S.%fZ
     Should Be True    ${is_date} or ${is_date_with_millis}
     [Teardown]    Delete Fixture Data
 
-Check correct attributes are included
+046_07_02 Check correct attributes are included
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3.    The Entity Attributes included (Properties or Relationships) shall be those specified by the notification.attributes member in the Subscription data type (clause 5.2.12).
     [Tags]    sub-notification    5_8_6    046_07_02
     Add Initial Entity
@@ -57,7 +57,7 @@ Check correct attributes are included
     Dictionary Should Contain Key    ${notification}[data][0]    airQualityLevel
     [Teardown]    Delete Fixture Data
 
-Check URI expansion is observed
+046_07_03 Check URI expansion is observed
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3.    URI expansion shall be observed (clause 5.5.7).
     [Tags]    sub-notification    5_8_6    046_07_03
     Add Initial Entity

@@ -17,9 +17,11 @@ ${subscription_payload_file_path}=      ${EMPTY}
 038_08_01 WithoutNotification
     [Tags]    csrsub-create    5_11_2
     csourceSubscriptions/subscription-without-notification-sample.jsonld
-038_08_02 InvalidType    [Tags]    csrsub-create    5_11_2
+038_08_02 InvalidType
+    [Tags]    csrsub-create    5_11_2
     csourceSubscriptions/subscription-invalid-type-sample.jsonld
-038_08_03 InvalidQuery    [Tags]    csrsub-create    5_11_2
+038_08_03 InvalidQuery
+    [Tags]    csrsub-create    5_11_2
     csourceSubscriptions/subscription-invalid-query-sample.jsonld
 038_08_04 EmptyWatchedAttributes
     [Tags]    csrsub-create    5_11_2

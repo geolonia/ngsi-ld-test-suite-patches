@@ -1,0 +1,51 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/SUB/028_02",
+  "test_objective": "Check that you cannot create a subscription with an invalid request",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.1",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_8_1",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "028_02_01 InvalidJson",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/028_02_01",
+      "doc": "Check that you cannot create a subscription with an invalid request",
+      "tags": [
+        "sub-create",
+        "5_8_1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Create Subscription With Invalid Request",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/'\n        method set to 'POST'\n        Create Subscription Request with Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: 'subscription-invalid-json-sample.jsonld'\n}",
+      "http_verb": "POST",
+      "endpoint": "subscriptions/"
+    },
+    {
+      "name": "028_02_02 EmptyJson",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/028_02_02",
+      "doc": "Check that you cannot create a subscription with an invalid request",
+      "tags": [
+        "sub-create",
+        "5_8_1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Create Subscription With Invalid Request",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/'\n        method set to 'POST'\n        Create Subscription Request with Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: 'subscription-empty-sample.jsonld'\n}",
+      "http_verb": "POST",
+      "endpoint": "subscriptions/"
+    }
+  ],
+  "permutations": [
+    "when",
+    "then"
+  ],
+  "robotpath": "ContextInformation/Subscription/CreateSubscription",
+  "robotfile": "028_02"
+}

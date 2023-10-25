@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Subscription/UpdateSubscription/029_05",
+  "tp_id": "TP/NGSI-LD/CI/SUB/029_05",
   "test_objective": "Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.2",
   "config_id": "",
@@ -14,7 +14,7 @@
   "test_cases": [
     {
       "name": "029_05_01 Update Subscription With Term to Uri Expansion with Context",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Subscription/UpdateSubscription/029_05_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/029_05_01",
       "doc": "Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed",
       "tags": [
         "5_8_2",
@@ -30,7 +30,7 @@
     },
     {
       "name": "029_05_02 Update Subscription With Term to Uri Expansion without Context",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Subscription/UpdateSubscription/029_05_02",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/029_05_02",
       "doc": "Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed",
       "tags": [
         "5_8_2",

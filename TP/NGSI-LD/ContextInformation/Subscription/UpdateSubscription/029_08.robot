@@ -32,7 +32,10 @@ Activate Paused Subscription With isActive And ExpiresAt Members
     Check Response Status Code    204    ${response.status_code}
     ${response}=    Retrieve Subscription
     ...    id=${subscription_id}
-    Check Response Body Containing an Attribute set to    status    ${response.json()}    active
+    Check Response Body Containing an Attribute set to
+    ...    expected_attribute_name=status
+    ...    response_body=${response.json()}
+    ...    expected_attribute_value=active
 
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}

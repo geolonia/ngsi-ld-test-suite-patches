@@ -13,11 +13,11 @@ Test Template       Create Temporal Entity From File
 ${status_code}=     400
 
 
-*** Test Cases ***
+*** Test Cases ***    FILENAME
 007_02_01 Create a temporal entity with an invalid json
-    Create Temporal Entity From File    vehicle-temporal-representation-invalid-json-sample.jsonld
+    vehicle-temporal-representation-invalid-json-sample.jsonld
 007_02_02 Create a temporal entity with an empty json
-    Create Temporal Entity From File    vehicle-temporal-representation-empty-json-sample.jsonld
+    vehicle-temporal-representation-empty-json-sample.jsonld
 
 
 *** Keywords ***

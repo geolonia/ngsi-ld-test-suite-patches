@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/UpdateContextSourceRegistrationSubscription/039_01",
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/039_01",
   "test_objective": "Check that you can update a context source registration subscription",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.3",
   "config_id": "",
@@ -14,7 +14,7 @@
   "test_cases": [
     {
       "name": "039_01_01 Update Context Source Registration Subscription",
-      "permutation_tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/UpdateContextSourceRegistrationSubscription/039_01_01",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/039_01_01",
       "doc": "Check that you can update a context source registration subscription",
       "tags": [
         "5_11_3",

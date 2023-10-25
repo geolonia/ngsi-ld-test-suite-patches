@@ -101,7 +101,7 @@
       "teardown": "Delete Temporal Representation Of Entity",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 415\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/xml' and\n payload defined in file: 'vehicle-temporal-representation-sample.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'POST'\n        Create or Update Temporal Representation of Entity Selecting Content Type: and\n    Query Parameter: temporal_entity_representation_id set to '${temporal_entity_representation_id}' and\n    Query Parameter: filename set to 'vehicle-temporal-representation-sample.jsonld' and\n    Query Parameter: content_type set to 'application/xml' and\n    Query Parameter: accept set to '${EMPTY}'\n}",
       "http_verb": "POST",
       "endpoint": "temporal/entities"
     }

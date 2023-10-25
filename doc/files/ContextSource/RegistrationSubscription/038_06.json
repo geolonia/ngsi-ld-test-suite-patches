@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_06",
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/038_06",
   "test_objective": "Check that you can create a context source registration subscription without an expiresAt member and it will be considered as perpetual",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.2",
   "config_id": "",
@@ -14,7 +14,7 @@
   "test_cases": [
     {
       "name": "038_06_01 Create Context Source Registration Subscription Without expiresAt Member",
-      "permutation_tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_06_01",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/038_06_01",
       "doc": "Check that you can create a context source registration subscription without an expiresAt member and it will be considered as perpetual",
       "tags": [
         "5_11_2",
@@ -23,7 +23,7 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Location containing ${registration_id} and\n        Response Body contains the attribute: 'status' and\n        Response Status Code set to 201\n}",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Location containing ${registration_id} and\n        Check Response Body containing an Attribute set to and\n    Query Parameter: expected_attribute_name set to 'status' and\n    Query Parameter: response_body set to 'response.json()' and\n    Query Parameter: expected_attribute_value set to 'active' and\n        Response Status Code set to 201\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration Subscription with data: and\n    Query Parameter: subscription id set to '${subscription_id}'\n}",
       "http_verb": "GET",
       "endpoint": "csourceSubscriptions/{subscription_id}"

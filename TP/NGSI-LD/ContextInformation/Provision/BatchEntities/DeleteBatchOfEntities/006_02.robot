@@ -19,7 +19,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     [Tags]    be-delete    5_6_10
     ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     @{entities_ids_to_be_deleted}=    Create List    ${existing_entity_id}    ${new_entity_id}
-    ${response}=    Batch Delete Entities    @{entities_ids_to_be_deleted}
+    ${response}=    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}
     @{expected_successful_entities_ids}=    Create List    ${existing_entity_id}
     @{expected_failed_entities_ids}=    Create List    ${new_entity_id}
     &{expected_batch_operation_result}=    Create Batch Operation Result

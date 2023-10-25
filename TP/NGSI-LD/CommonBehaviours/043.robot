@@ -51,9 +51,9 @@ ${registration_filename}=       csourceRegistrations/context-source-registration
     [Tags]    te-create    5_2_2
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${tea_id_prefix}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    ${temporal_entity_representation_id}
-    ...    ${tea_filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    filename=${tea_filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${expected_status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}
@@ -76,7 +76,7 @@ ${registration_filename}=       csourceRegistrations/context-source-registration
     ...    ${response.json()}
     ...    ${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Batch Delete Entities    @{entities_ids_to_be_created}
+    [Teardown]    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_created}
 
 043_05 Create context source registration
     [Documentation]    Verify receiving 503 – LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create context source registration)

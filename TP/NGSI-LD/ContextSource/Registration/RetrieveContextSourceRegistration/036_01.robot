@@ -9,9 +9,11 @@ Test Template       Retrieve Context Source Registration With A Not Present Or I
 
 
 *** Test Cases ***    ID
-036_01_01 Not Present Id    [Tags]    csr-retrieve    5_10_1
+036_01_01 Not Present Id
+    [Tags]    csr-retrieve    5_10_1
     ${EMPTY}
-036_01_02 Invalid Id    [Tags]    csr-retrieve    5_10_1
+036_01_02 Invalid Id
+    [Tags]    csr-retrieve    5_10_1
     invalidUri
 
 

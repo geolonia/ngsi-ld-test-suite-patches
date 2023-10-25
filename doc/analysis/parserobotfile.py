@@ -104,13 +104,12 @@ class ParseRobotFile:
         self.get_template_param_values(test_cases=string_test_cases)
 
     def get_template_content(self, string: str):
-        matches = re.findall(pattern=r'^(([a-zA-z0-9\-]+[ ]*)+)$', string=string, flags=re.MULTILINE)
+        matches = re.findall(pattern=r'^(([a-zA-z0-9\-\/]+[ ]*)+)$', string=string, flags=re.MULTILINE)
 
         indexes = list()
         for match in matches:
             indexes.append(string.find(match[0]))
 
-        print(indexes)
         subdata = list()
         for i in range(0, len(indexes) - 1):
             subdata.append(string[indexes[i]:indexes[i + 1]])
@@ -226,7 +225,10 @@ class ParseRobotFile:
             # There is no Check, we need to check if there is a 'Wait for notification',
             # then we need to check the 'Should be Equal' sentences
             param = re.findall(r'Wait for notification\s{4}(.*)', content, re.MULTILINE)
-            new_list.append(f'Wait for notification    {param[0]}')
+            if len(param) == 1:
+                new_list.append(f'Wait for notification    {param[0]}')
+            elif len(param) == 0:
+                new_list.append(f'Wait for notification    5')
             lines_starting_with_should = re.findall(r'^\s*Should be Equal.*', content, re.MULTILINE)
             _ = [new_list.append(x.strip()) for x in lines_starting_with_should]
 
@@ -286,6 +288,9 @@ class ParseRobotFile:
 
     def get_data_check(self, test_case, checks, line):
         content = line.split("    ")
+
+        # Discard lines that are comments
+        content = [x for x in content if x.strip()[0] != '#']
         aux = len(content)
 
         try:
@@ -297,7 +302,7 @@ class ParseRobotFile:
                 return content[0], params
             elif aux > 1:
                 # We are in one line definition
-                params = self.find_attributes_same_line(params=position_params, content=content)
+                params = self.find_attributes_same_line(params=position_params, content=content[1:])
                 return content[0], params
             else:
                 raise Exception("ERROR, line should contain data")
@@ -315,9 +320,12 @@ class ParseRobotFile:
                 param_value = self.get_param_value(position=content[param_position])
                 result[param_key] = param_value
         elif len(params['position']) == 0:
-            param_key = params['params'][0]
-            param_value = self.get_param_value_for_waiting(param_key=param_key, content=content)
-            result[param_key] = param_value
+            for i in range(0, len(params['params'])):
+                param_key = params['params'][i]
+                param_value = self.get_param_value_for_waiting(param_key=param_key, content=content)
+
+                if param_value is not None:
+                    result[param_key] = param_value
 
         return result
 
@@ -329,17 +337,29 @@ class ParseRobotFile:
             found = found[0]
 
             if found.find('=') != -1:
-                # in the format variable=value
-                pattern = f"{param_key}=\${{(\d+)}}"
-        elif length == 0 and len(content) > 1:
-            # There is params but they are not written in the form key=value
-            found = content[1]
-            pattern = f"\${{(\d+)}}"
+                # in the format variable=${value}
+                # pattern = f"{param_key}=\${{(\d+)}}"
+                pattern = f"{param_key}=\${{([\w\W]+)}}|{param_key}=([\w\W]+)"
+            else:
+                pattern = f"\${{([\w\W]+)}}|([\w\W]+)"
+
+        # elif length == 0 and len(content) > 1:
+        #     # There is params but they are not written in the form key=value
+        #     found = content[1]
+        #     # pattern = f"\${{(\d+)}}"
+        #     pattern = f"\${{([\w\W]+)}}|([\w\W]+)"
+        else:
+            pattern = ''
+            found = ''
+            return
 
         value = re.match(pattern=pattern, string=found)
 
         try:
-            value = value.group(1)
+            aux = value.group(2)
+            if aux is None:
+                aux = value.group(1)
+            value = aux
         except AttributeError:
             value = ''
 
@@ -358,32 +378,34 @@ class ParseRobotFile:
             else:
                 break
 
-        param = dict()
-        for i in range(0, len(position_params['position'])):
-            param_key = position_params['params'][i]
-            param_position = position_params['position'][i]
-            param_value = self.get_param_value(position=params[param_position-1])
-            param[param_key] = param_value
-
+        param = self.find_attributes_same_line(params=position_params, content=params)
         return param
 
+#         param = dict()
+#         for i in range(0, len(position_params['position'])):
+#             param_key = position_params['params'][i]
+#             param_position = position_params['position'][i]
+#             param_value = self.get_param_value(position=params[param_position-1])
+#             param[param_key] = param_value
+#
+#         return param
+#
+# #     def find_attributes_same_line(self, params, content):
+#         result = dict()
+#         if len(params['position']) > 0:
+#             for i in range(0, len(params['position'])):
+#                 param_key = params['params'][i]
+#                 param_position = params['position'][i]
+#                 param_value = self.get_param_value(position=content[param_position])
+#                 result[param_key] = param_value
+#         elif len(params['position']) == 0:
+#             param_key = params['params'][0]
+#             param_value = self.get_param_value_for_waiting(param_key=param_key, content=content)
+#             result[param_key] = param_value
+#
+#         return result
+
     def get_param_value(self, position):
-        # try:
-        #     # Check if we can get the data from the current robot files
-        #     result = self.variables[position]
-        # except KeyError:
-        #     try:
-        #         # Check if we can get the data from the apiutils file
-        #         result = self.apiutils.variables[position]
-        #     except KeyError:
-        #         try:
-        #             # Check if we can get the data from the template
-        #             aux = self.template_params_value[self.test_name]
-        #             result = aux[position]
-        #         except KeyError:
-        #             result = position
-        #
-        # return result
         try:
             # Check if we can get the data from the current robot files
             result = self.variables[position]

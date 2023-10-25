@@ -18,9 +18,9 @@ ${filename}=                vehicle-temporal-representation-sample.jsonld
     [Tags]    te-delete    5_6_16
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    ${temporal_entity_representation_id}
-    ...    ${filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    filename=${filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${response}=    Delete Temporal Representation Of Entity With Returning Response
     ...    ${temporal_entity_representation_id}

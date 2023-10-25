@@ -6,6 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProv
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Setup          Initialize Setup
 Test Teardown       Delete Temporal Entity
 Test Template       Delete Attribute From A Temporal Entity
 
@@ -17,7 +18,7 @@ ${status_code}=             204
 ${attribute_id}=            fuelLevel
 
 
-*** Test Cases ***    DELETEALL    DATASETID    EXPECTATION_FILE
+*** Test Cases ***    DELETE_ALL    DATASET_ID    EXPECTATION_FILE
 015_01_01 Delete an attribute from a temporal representation of an entity without deleteAll/datasetId
     false    ${EMPTY}    vehicle-temporal-representation-delete-fuelLevel-expectation.jsonld
 015_01_02 Delete an attribute from a temporal representation of an entity with datasetId
@@ -30,21 +31,14 @@ ${attribute_id}=            fuelLevel
 Delete Attribute From A Temporal Entity
     [Documentation]    Check that you can delete an attribute of a temporal representation of an entity with simple temporal properties
     [Tags]    tea-delete    5_6_13
-    [Arguments]    ${deleteAll}    ${datasetId}    ${expectation_filename}
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Test Variable    ${temporal_entity_representation_id}
-    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    ${temporal_entity_representation_id}
-    ...    ${filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
+    [Arguments]    ${delete_all}    ${dataset_id}    ${expectation_filename}
     ${response}=    Delete Attribute From Temporal Entity
-    ...    ${temporal_entity_representation_id}
-    ...    ${attribute_id}
-    ...    ${CONTENT_TYPE_JSON}
-    ...    ${datasetId}
-    ...    ${deleteAll}
-    ...    ${ngsild_test_suite_context}
+    ...    entityId=${temporal_entity_representation_id}
+    ...    attributeId=${attribute_id}
+    ...    content_type=${CONTENT_TYPE_JSON}
+    ...    datasetId=${datasetid}
+    ...    deleteAll=${deleteall}
+    ...    context=${ngsild_test_suite_context}
     Check Response Status Code    ${status_code}    ${response.status_code}
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}
@@ -58,6 +52,15 @@ Delete Attribute From A Temporal Entity
     ...    ${temporal_entity_expectation_payload}
     ...    ${response.json()}
     ...    ${ignored_attributes}
+
+Initialize Setup
+    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    Set Test Variable    ${temporal_entity_representation_id}
+    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    filename=${filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${response.status_code}
 
 Delete Temporal Entity
     Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

@@ -1,0 +1,48 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REG/037_07",
+  "test_objective": "Check that you can query context source registrations. If present, the geoquery is matched against the GeoProperty programmatic parameter identified in the geoquery",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.10.2",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_10_2",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "037_07_01 Near Point",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REG/037_07_01",
+      "doc": "",
+      "tags": [
+        "5_10_2",
+        "csr-query"
+      ],
+      "setup": "Setup Initial Context Source Registration",
+      "teardown": "Delete Created Context Source Registration",
+      "template": "Query Context Source Registration Matching Geoquery",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response body set to list of all matching Context Source Registrations resolved against the default JSON-LD context and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: type set to 'Building' and\n    Query Parameter: georel set to '${georel}' and\n    Query Parameter: geometry set to '${geometry}' and\n    Query Parameter: coordinates set to '${coordinates}' and\n    Query Parameter: geoproperty set to '${geoproperty}'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations"
+    },
+    {
+      "name": "037_07_02 Within Polygon",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REG/037_07_02",
+      "doc": "",
+      "tags": [
+        "5_10_2",
+        "csr-query"
+      ],
+      "setup": "Setup Initial Context Source Registration",
+      "teardown": "Delete Created Context Source Registration",
+      "template": "Query Context Source Registration Matching Geoquery",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response body set to list of all matching Context Source Registrations resolved against the default JSON-LD context and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: type set to 'Building' and\n    Query Parameter: georel set to '${georel}' and\n    Query Parameter: geometry set to '${geometry}' and\n    Query Parameter: coordinates set to '${coordinates}' and\n    Query Parameter: geoproperty set to '${geoproperty}'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/Registration/QueryContextSourceRegistrations",
+  "robotfile": "037_07"
+}

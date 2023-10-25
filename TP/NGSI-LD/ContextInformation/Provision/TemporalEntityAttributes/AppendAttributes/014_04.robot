@@ -6,6 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProv
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Setup          Initialize Test Suite
 Test Template       Add an Attribute To a Temporal Entity From File
 
 
@@ -16,11 +17,11 @@ ${fragment_filename}=       vehicle-temporal-representation-fragment.jsonld
 ${status_code}=             400
 
 
-*** Test Cases ***
+*** Test Cases ***    UPDATE_FILENAME
 014_04_01 Add an attribute to a temporal representation of an entity with invalid content
-    Add an Attribute To a Temporal Entity From File    vehicle-temporal-representation-invalid-json-fragment.jsonld
+    vehicle-temporal-representation-invalid-json-fragment.jsonld
 014_04_02 Add an attribute to a temporal representation of an entity with empty content
-    Add an Attribute To a Temporal Entity From File    vehicle-temporal-representation-empty-json-fragment.jsonld
+    vehicle-temporal-representation-empty-json-fragment.jsonld
 
 
 *** Keywords ***
@@ -28,12 +29,6 @@ Add an Attribute To a Temporal Entity From File
     [Documentation]    Check that an error is raised if you add a temporal entity attribute with empty/invalid content
     [Tags]    tea-append    5_6_12
     [Arguments]    ${update_filename}
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    ${temporal_entity_representation_id}
-    ...    ${filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
     ${response}=    Append Attribute To Temporal Entity
     ...    ${temporal_entity_representation_id}
     ...    ${update_filename}
@@ -42,3 +37,12 @@ Add an Attribute To a Temporal Entity From File
     Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_INVALID_REQUEST}
     Check Response Body Title When Using Session Request    ${response.json()}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
+
+Initialize Test Suite
+    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    Set Global Variable    ${temporal_entity_representation_id}
+    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    filename=${filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${response.status_code}

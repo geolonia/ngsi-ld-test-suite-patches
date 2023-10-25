@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/CreateBatchOfEntities/003_06",
+  "tp_id": "TP/NGSI-LD/CI/Prov/BE/003_06",
   "test_objective": "Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is \"application/json\" and the request payload body (as JSON) contains a \"@context\" term",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.5",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "003_06_01 Create a batch of one entity containing a JSON-LD @context with a JSON content type",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/CreateBatchOfEntities/003_06_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/003_06_01",
       "doc": "Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is \"application/json\" and the request payload body (as JSON) contains a \"@context\" term",
       "tags": [
         "6_3_5",

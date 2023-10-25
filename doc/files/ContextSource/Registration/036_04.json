@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/ContextSource/Registration/RetrieveContextSourceRegistration/036_04",
+  "tp_id": "TP/NGSI-LD/CS/REG/036_04",
   "test_objective": "Check that you can retrieve a Context Source Registration",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.10.1",
   "config_id": "",
@@ -14,7 +14,7 @@
   "test_cases": [
     {
       "name": "036_04_01 Retrieve Context Source Registration",
-      "permutation_tp_id": "TP/NGSI-LD/ContextSource/Registration/RetrieveContextSourceRegistration/036_04_01",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REG/036_04_01",
       "doc": "Check that you can retrieve a Context Source Registration",
       "tags": [
         "5_10_1",

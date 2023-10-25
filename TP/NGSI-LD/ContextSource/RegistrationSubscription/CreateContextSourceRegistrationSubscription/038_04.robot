@@ -24,7 +24,10 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-inacti
     Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
     ${response}=    Retrieve Context Source Registration Subscription
     ...    subscription_id=${subscription_id}
-    Check Response Body Containing an Attribute set to    status    ${response.json()}    paused
+    Check Response Body Containing an Attribute set to
+    ...    expected_attribute_name=status
+    ...    response_body=${response.json()}
+    ...    expected_attribute_value=paused
 
 
 *** Keywords ***

@@ -45,9 +45,9 @@ Create Id
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Suite Variable    ${temporal_entity_representation_id}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    ${temporal_entity_representation_id}
-    ...    ${filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    filename=${filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${unknown_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${unknown_temporal_entity_id}

@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/UpdateContextSourceRegistrationSubscription/039_05",
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/039_05",
   "test_objective": "Check that you cannot update a context source registration subscription with an invalid request body (invalid JSON document)",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.3",
   "config_id": "",
@@ -14,7 +14,7 @@
   "test_cases": [
     {
       "name": "039_05_01 Update Context Source Registration Subscription With Invalid JSON Fragment",
-      "permutation_tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/UpdateContextSourceRegistrationSubscription/039_05_01",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/039_05_01",
       "doc": "Check that you cannot update a context source registration subscription with an invalid request body (invalid JSON document)",
       "tags": [
         "5_11_3",

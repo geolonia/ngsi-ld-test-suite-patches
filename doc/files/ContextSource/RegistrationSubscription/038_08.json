@@ -1,0 +1,80 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/038_08",
+  "test_objective": "Check that you cannot create a context source registration subscription If the data types, cardinalities and restrictions expressed by clause 5.2.12 are not met",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.2",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_11_2",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "038_08_01 WithoutNotification",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/038_08_01",
+      "doc": "",
+      "tags": [
+        "5_11_2",
+        "csrsub-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Create Invalid Context Source Registration Subscription",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'POST'\n        Create Context Source Registration Subscription with filename set to '${subscription_payload}', accept set to '${EMPTY}', and content-type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceSubscriptions"
+    },
+    {
+      "name": "038_08_02 InvalidType",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/038_08_02",
+      "doc": "",
+      "tags": [
+        "5_11_2",
+        "csrsub-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Create Invalid Context Source Registration Subscription",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'POST'\n        Create Context Source Registration Subscription with filename set to '${subscription_payload}', accept set to '${EMPTY}', and content-type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceSubscriptions"
+    },
+    {
+      "name": "038_08_03 InvalidQuery",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/038_08_03",
+      "doc": "",
+      "tags": [
+        "5_11_2",
+        "csrsub-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Create Invalid Context Source Registration Subscription",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'POST'\n        Create Context Source Registration Subscription with filename set to '${subscription_payload}', accept set to '${EMPTY}', and content-type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceSubscriptions"
+    },
+    {
+      "name": "038_08_04 EmptyWatchedAttributes",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/038_08_04",
+      "doc": "",
+      "tags": [
+        "5_11_2",
+        "csrsub-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Create Invalid Context Source Registration Subscription",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'POST'\n        Create Context Source Registration Subscription with filename set to '${subscription_payload}', accept set to '${EMPTY}', and content-type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceSubscriptions"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription",
+  "robotfile": "038_08"
+}

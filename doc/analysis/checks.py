@@ -83,73 +83,75 @@ class Checks:
             'Wait for notification':
                 Checks.wait_for_notification,
             'Should be Equal':
-                Checks.should_be_equal
+                Checks.should_be_equal,
+            'Check Response Body Content':
+                Checks.check_response_body_content
         }
 
         self.args = {
             'Check Response Status Code': {
                 'params': ['status_code'],
-                'position': [1]
+                'position': [0]
             },
             'Check Response Body Containing ProblemDetails Element Containing Type Element set to': {
                 'params': ['type'],
-                'position': [2]
+                'position': [1]
             },
             'Check Response Headers Containing Content-Type set to': {
                 'params': ['content_type'],
-                'position': [1]
+                'position': [0]
             },
             'Check Response Body Containing an Attribute set to': {
-                'params': ['attribute_name'],
-                'position': [1]
+                'params': ['expected_attribute_name', 'response_body', 'expected_attribute_value'],
+                'position': []
             },
             'Check Response Body Containing List Containing EntityTemporal elements': {
                 'params': ['filename', 'entity_ids'],
-                'position': [1, 2]
+                'position': [0, 1]
         },
             'Check Response Body Containing List Containing Subscription elements': {
                 'params': ['file', 'id', 'response'],
-                'position': [1, 2, 3]
+                'position': [0, 1, 2]
             },
             'Check Response Body Containing Number Of Entities': {
-                'params': ['entity_type', 'number_entities'],
-                'position': []
+                'params': ['entity_type', 'number_entities', 'response'],
+                'position': [0, 1, 2]
             },
             'Check Response Body Containing Context Source Registration element': {
                 'params': ['file', 'id', 'response'],
-                'position': [1, 2, 3]
+                'position': [0, 1, 2]
             },
             'Check Response Body Containing EntityTypeList element': {
                 'params': ['filename', 'response'],
-                'position': [1, 2]
+                'position': [0, 1]
             },
             'Check Response Body Containing EntityType element': {
                 'params': ['filename', 'response'],
-                'position': [1, 2]
+                'position': [0, 1]
             },
             'Check Response Body Type When Using Session Request': {
                 'params': ['type'],
-                'position': [2]
+                'position': [1]
             },
             'Check RL Response Body Containing ProblemDetails Element Containing Type Element set to': {
                 'params': ['type'],
-                'position': [2]
+                'position': [1]
             },
             'Check JSON Value In Response Body': {
                 'params': ['key', 'value'],
-                'position': [1, 2]
+                'position': [0, 1]
             },
             'Check Pagination Prev And Next Headers': {
                 'params': ['previous', 'next'],
-                'position': [2, 3]
+                'position': [1, 2]
             },
             'Check Updated Resources Set To': {
                 'params': ['number_entities'],
-                'position': [1]
+                'position': [0]
             },
             'Check SUT Not Containing Resource': {
                 'params': ['status_code'],
-                'position': [1]
+                'position': [0]
             },
             'Check NotificationParams': {
                 'params': ['filename', 'expected_additional_members', 'response_body'],
@@ -157,15 +159,15 @@ class Checks:
             },
             'Check Response Body Containing Batch Operation Result': {
                 'params': ['operation'],
-                'position': [1]
+                'position': [0]
             },
             'Should be Equal': {
                 'params': ['expected_value', 'obtained_value'],
-                'position': [1, 2]
+                'position': [0, 1]
             },
             'Check Response Body Containing Subscription element': {
                 'params': ['filename', 'subscription_id', 'response_body'],
-                'position': [1, 2, 3]
+                'position': [0, 1, 2]
             },
             'Wait for notification': {
                 'params': ['timeout'],
@@ -173,12 +175,16 @@ class Checks:
             },
             'Check Response Body Containing AttributeList element': {
                 'params': ['filename', 'response'],
-                'position': [1, 2]
+                'position': [0, 1]
             },
             'Check Response Body Containing Entity element': {
                 'params': ['filename', 'id', 'response'],
-                'position': [1, 2, 3]
+                'position': [0, 1, 2]
             },
+            'Check Response Body Content': {
+                'params': ['expectation_filename', 'response_body', 'additional_ignored_path'],
+                'position': []
+            }
         }
 
     @staticmethod
@@ -230,19 +236,26 @@ class Checks:
 
     @staticmethod
     def check_response_body_containing_an_attribute_set_to(kwargs: list) -> str:
-        if "attribute_name" in kwargs:
-            attribute_name = kwargs['attribute_name']
+        expected_parameters = ['checks', 'expected_attribute_name', 'response_body', 'expected_attribute_value']
 
-            if "attribute_value" in kwargs:
-                attribute_value = kwargs['attribute_value']
-                result = (f"Response Body contains the attribute: '{attribute_name}', "
-                          f"with the value: '{attribute_value}'")
-            else:
-                result = f"Response Body contains the attribute: '{attribute_name}'"
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Check Response Body containing an Attribute set to"
+        for key, value in kwargs.items():
+            match key:
+                case 'expected_attribute_name':
+                    response = f"{response} and\n    Query Parameter: expected_attribute_name set to '{value}'"
+                case 'response_body':
+                    response = f"{response} and\n    Query Parameter: response_body set to '{value}'"
+                case 'expected_attribute_value':
+                    response = f"{response} and\n    Query Parameter: expected_attribute_value set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case 'checks':
+                    pass
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
 
-            return result
-        else:
-            raise Exception(f'ERROR, Expected status_code parameter but received: {kwargs}')
+        return response
 
     @staticmethod
     def check_response_body_containing_entity_element(kwargs: list) -> str:
@@ -292,10 +305,12 @@ class Checks:
 
     @staticmethod
     def check_response_body_containing_number_of_entities(kwargs: list) -> str:
-        if "entity_type" in kwargs and 'number_entities' in kwargs:
-            mumber_entityes = kwargs['number_entities']
+        if "entity_type" in kwargs and 'number_entities' in kwargs and 'response' in kwargs:
+            number_entities = kwargs['number_entities']
             entity_type = kwargs['entity_type']
-            return f"Response Body containing a list of entities ({mumber_entityes}) of type '{entity_type}'"
+            response = kwargs['response']
+            return (f"Response Body containing a list of entities equal to '{number_entities}' of type '{entity_type}' "
+                    f"with response set to '{response}'")
         else:
             raise Exception(f'ERROR, expected entity_type and number_entities attributes, but received: {kwargs}')
 
@@ -412,7 +427,7 @@ class Checks:
         elif previous is None and next is not None:
             result = f"Response header {next_text}"
         else:
-            result = f"Response heacer {previous_text} and {next_text}"
+            result = f"Response header {previous_text} and {next_text}"
 
         return result
 
@@ -456,29 +471,39 @@ class Checks:
             raise Exception(f"ERROR, expected 'filename', 'expected_additional_members', and 'response_body', "
                             f"but received '{kwargs}'")
 
-        # expected_parameters = ["format", "uri", "accept", "status", "timesSent"]
-        # result = [x for x in expected_parameters if x not in kwargs]
-        #
-        # if len(result) == 0:
-        #     response = ("Response containing:\n"
-        #                 f"    * payload['format'] is equal to '{kwargs['format']}'\n"
-        #                 f"    * payload['endpoint']['uri'] is equal to '{kwargs['uri']}'\n"
-        #                 f"    * payload['endpoint']['accept'] is equal to '{kwargs['accept']}'\n"
-        #                 f"    * payload['status'] is equal to '{kwargs['status']}'\n"
-        #                 f"    * payload['timesSent'] is equal to '{kwargs['timesSent']}\n"
-        #                 f"    * payload['notification']['lastNotification'] is not Empty\n"
-        #                 f"    * payload['notification']['lastSuccess'] is not Empty\n")
-        #     return response
-        # else:
-        #     raise Exception(f"ERROR, unexpected attributes '{result}', the attributes expected are "
-        #                     f"'{expected_parameters}', but received: {kwargs}")
-
     @staticmethod
     def check_response_body_containing_batch_operation_result(kwargs: list) -> str:
         if "operation" in kwargs:
             return f"Response Status Code set to '{kwargs['operation']}'"
         else:
             raise Exception(f'ERROR, Expected operation parameter but received: {kwargs}')
+
+    @staticmethod
+    def check_response_body_content(kwargs: list) -> str:
+        expected_parameters = ['expectation_filename', 'response_body', 'additional_ignored_path']
+
+        if 'additional_ignored_path' not in kwargs:
+            kwargs['additional_ignored_path'] = '${EMPTY}'
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Check Response Body Content"
+        for key, value in kwargs.items():
+            match key:
+                case 'expectation_filename':
+                    response = f"{response} and\n    Query Parameter: expectation_filename set to '{value}'"
+                case 'response_body':
+                    response = f"{response} and\n    Query Parameter: response_body set to '{value}'"
+                case 'additional_ignored_path':
+                    response = f"{response} and\n    Query Parameter: additional_ignored_path set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case 'checks':
+                    pass
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
 
     @staticmethod
     def should_be_equal(kwargs: list) -> str:

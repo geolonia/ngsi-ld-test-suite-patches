@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/ContextSource/Registration/DeleteContextSourceRegistration/035_01",
+  "tp_id": "TP/NGSI-LD/CS/REG/035_01",
   "test_objective": "Check that you can delete a context source registration by id",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.9.4",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "035_01_01 Delete a context source registration by id",
-      "permutation_tp_id": "TP/NGSI-LD/ContextSource/Registration/DeleteContextSourceRegistration/035_01_01",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REG/035_01_01",
       "doc": "Check that you can delete a context source registration by id",
       "tags": [
         "5_9_4",

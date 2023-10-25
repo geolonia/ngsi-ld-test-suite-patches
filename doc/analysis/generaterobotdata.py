@@ -28,16 +28,36 @@ class GenerateRobotData:
             'CommonBehaviours': 'CB',
             'Consumption': 'Cons',
             'Provision': 'Prov',
+            'ContextSource': 'CS',
             'Discovery/RetrieveAvailableAttributeInformation': 'DISC',
             'Discovery/RetrieveAvailableEntityTypeInformation': 'DISC',
             'Entity/RetrieveEntity': 'E',
             'Entities/CreateEntity': 'E',
             'Entity/QueryEntities': 'E',
+            'BatchEntities/CreateBatchOfEntities': 'BE',
+            'BatchEntities/UpsertBatchOfEntities': 'BE',
             'TemporalEntity/QueryTemporalEvolutionOfEntities': 'TE',
             'TemporalEntity/DeleteTemporalRepresentationOfEntity': 'TE',
             'TemporalEntity/UpdateTemporalRepresentationOfEntity': 'TE',
+            'TemporalEntityAttributes/DeleteAttributeInstance': 'TEA',
+            'TemporalEntityAttributes/DeleteAttribute': 'TEA',
+            'TemporalEntityAttributes/ModifyAttributeInstance': 'TEA',
             'Subscription/CreateSubscription': 'SUB',
-            'Subscription/DeleteSubscription': 'SUB'
+            'Subscription/DeleteSubscription': 'SUB',
+            'Subscription/QuerySubscriptions': 'SUB',
+            'Subscription/RetrieveSubscription': 'SUB',
+            'Subscription/UpdateSubscription': 'SUB',
+            'Registration/CreateContextSourceRegistration': 'REG',
+            'Registration/CreateCSRegistration': 'REG',
+            'Registration/QueryCSRegistrations': 'REG',
+            'Registration/RetrieveCSRegistration': 'REG',
+            'Registration/UpdateCSRegistration': 'REG',
+            'Registration/DeleteCSRegistration': 'REG',
+            'RegistrationSubscription/CreateCSRegistrationSubscription': 'REGSUB',
+            'RegistrationSubscription/UpdateCSRegistrationSubscription': 'REGSUB',
+            'RegistrationSubscription/RetrieveCSRegistrationSubscription': 'REGSUB',
+            'RegistrationSubscription/QueryCSRegistrationSubscriptions': 'REGSUB',
+            'RegistrationSubscription/DeleteCSRegistrationSubscription': 'REGSUB'
         }
         self.references = {
             'v1.3.1': 'ETSI GS CIM 009 V1.3.1 [], clause '
@@ -92,7 +112,7 @@ class GenerateRobotData:
 
     def get_params(self, test_case: str):
         test_case = self.get_data_template(string=test_case)
-        lines_starting_response = re.findall(r'^\s*\$\{response\}.*', test_case, re.MULTILINE)
+        lines_starting_response = re.findall(r'^\s*\$\{response\}.*|^\s*\$\{notification\}.*', test_case, re.MULTILINE)
 
         # If there is more than one line, it means that the test case has several operations, all of them to
         # create the environment content to execute the last one, which is the correct one to test the Test Case
@@ -138,7 +158,6 @@ class GenerateRobotData:
 
                     # Get the list of keys
                     params = aux.split('    ')[1:]
-                    print(params)
                 else:
                     raise Exception(f"Error, unexpected format, received: '{response_to_check}'")
 
@@ -198,7 +217,7 @@ class GenerateRobotData:
 
     def get_values_url(self, keys: list, request: str, params: list) -> str:
         data = [self.get_value_url(key=x, request=request, params=params) for x in keys]
-        data = '/'.join(data).replace('//', '/')
+        data = '/'.join(data).replace('//', '/').replace('?/','?')
         return data
 
     def get_value_url(self, key: str, request: str, params: list) -> str:
@@ -225,7 +244,6 @@ class GenerateRobotData:
         if index1 != -1:
             index2 = self.apiutil.file_contents[index1:].find("\n")
             line = self.apiutil.file_contents[index1:index1+index2]
-            print(line)
 
             if string in line:
                 if 'Get From Dictionary' in line:
@@ -417,8 +435,6 @@ class GenerateRobotData:
 
     def get_info_from_template(self, name: str, string: str, version: str):
         # TODO: Check that the name of the template is in the string receive
-        # print(name)
-
         # Get the Tags line and the tag value
         tags = self.get_substring(string=string, key='[Tags]')
         self.tags_template = tags[1:]

@@ -65,4 +65,4 @@ Setup Initial Entities
     Set Suite Variable    ${second_existing_entity_id}
 
 Delete Initial Entities
-    Batch Delete Entities    @{expected_successful_entities_ids}
+    Batch Delete Entities    entities_ids_to_be_deleted=@{expected_successful_entities_ids}

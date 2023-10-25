@@ -12,10 +12,12 @@ Test Template       Update Subscription With Non present Or Invalid Id
 ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscription-update-sample.json
 
 
-*** Test Cases ***    id
-029_01_01 NotPresentId    [Tags]    sub-update    5_8_2
+*** Test Cases ***    ID
+029_01_01 NotPresentId
+    [Tags]    sub-update    5_8_2
     ${EMPTY}
-029_01_02 InvalidId    [Tags]    sub-update    5_8_2
+029_01_02 InvalidId
+    [Tags]    sub-update    5_8_2
     InvalidUri
 
 

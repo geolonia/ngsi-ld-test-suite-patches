@@ -1,0 +1,67 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/041_03",
+  "test_objective": "Check that you can query context source registration subscriptions with providing page and limit parameters for pagination",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.5",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_11_5",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "041_03_01 Query Second Subscription",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/041_03_01",
+      "doc": "",
+      "tags": [
+        "5_11_5",
+        "csrsub-query"
+      ],
+      "setup": "Setup Initial Context Source Registration Subscriptions",
+      "teardown": "Delete Created Context Source Registration Subscriptions",
+      "template": "Query Context Source Registration Subscriptions With Limit And Page Parameters",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list of entities equal to '${1}' of type 'Subscription' with response set to '${response.json()}' and\n        Response header with 'Prev' header equal to '</ngsi-ld/v1/csourceSubscriptions?limit=1&page=3>;rel=\"next\";type=\"application/ld+json\"' and with 'Next' header equal to '${response.json()}' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'GET'\n        Query Context Source Registration Subscriptions and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: limit set to '${1}' and\n    Query Parameter: page set to '${2}'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceSubscriptions"
+    },
+    {
+      "name": "041_03_02 Query Last Subscription",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/041_03_02",
+      "doc": "",
+      "tags": [
+        "5_11_5",
+        "csrsub-query"
+      ],
+      "setup": "Setup Initial Context Source Registration Subscriptions",
+      "teardown": "Delete Created Context Source Registration Subscriptions",
+      "template": "Query Context Source Registration Subscriptions With Limit And Page Parameters",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list of entities equal to '${1}' of type 'Subscription' with response set to '${response.json()}' and\n        Response header with 'Prev' header equal to '${EMPTY}' and with 'Next' header equal to '${response.json()}' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'GET'\n        Query Context Source Registration Subscriptions and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: limit set to '${2}' and\n    Query Parameter: page set to '${2}'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceSubscriptions"
+    },
+    {
+      "name": "041_03_03 Query All Subscriptions",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/041_03_03",
+      "doc": "",
+      "tags": [
+        "5_11_5",
+        "csrsub-query"
+      ],
+      "setup": "Setup Initial Context Source Registration Subscriptions",
+      "teardown": "Delete Created Context Source Registration Subscriptions",
+      "template": "Query Context Source Registration Subscriptions With Limit And Page Parameters",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list of entities equal to '${3}' of type 'Subscription' with response set to '${response.json()}' and\n        Response header with 'Prev' header equal to '${EMPTY}' and with 'Next' header equal to '${response.json()}' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'GET'\n        Query Context Source Registration Subscriptions and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: limit set to '${15}' and\n    Query Parameter: page set to '${1}'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceSubscriptions"
+    }
+  ],
+  "permutations": [
+    "then",
+    "when"
+  ],
+  "robotpath": "ContextSource/RegistrationSubscription/QueryContextSourceRegistrationSubscriptions",
+  "robotfile": "041_03"
+}

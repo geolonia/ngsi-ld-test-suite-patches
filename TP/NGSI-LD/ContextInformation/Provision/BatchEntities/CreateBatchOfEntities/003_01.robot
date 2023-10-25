@@ -52,4 +52,4 @@ Batch Create Entity Scenarios
     Check Created Resources Set To    ${entities_to_be_created}    ${response.json()}
 
 Delete Initial Entities
-    Batch Delete Entities    @{expected_entities_ids}
+    Batch Delete Entities    entities_ids_to_be_deleted=@{expected_entities_ids}

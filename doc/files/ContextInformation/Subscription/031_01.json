@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Subscription/QuerySubscriptions/031_01",
+  "tp_id": "TP/NGSI-LD/CI/SUB/031_01",
   "test_objective": "Check that you can query a list of subscriptions",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.4",
   "config_id": "",
@@ -14,7 +14,7 @@
   "test_cases": [
     {
       "name": "031_01_01 Query Subscriptions",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Subscription/QuerySubscriptions/031_01_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/031_01_01",
       "doc": "Check that you can query a list of subscriptions",
       "tags": [
         "5_8_4",

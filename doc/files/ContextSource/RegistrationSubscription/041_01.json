@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/QueryContextSourceRegistrationSubscriptions/041_01",
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/041_01",
   "test_objective": "Check that you can query context source registration subscriptions",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.5",
   "config_id": "",
@@ -14,7 +14,7 @@
   "test_cases": [
     {
       "name": "041_01_01 Query Context Source Registration Subscriptions",
-      "permutation_tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/QueryContextSourceRegistrationSubscriptions/041_01_01",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/041_01_01",
       "doc": "Check that you can query context source registration subscriptions",
       "tags": [
         "5_11_5",

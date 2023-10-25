@@ -47,7 +47,6 @@ Batch Upsert Entity Scenarios
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resources Set To    ${entities_to_be_upserted}    ${response.json()}
-    Batch Delete Entities    @{expected_entities_ids}
 
 Delete Initial Entities
-    Batch Delete Entities    @{expected_entities_ids}
+    Batch Delete Entities    entities_ids_to_be_deleted=@{expected_entities_ids}

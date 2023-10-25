@@ -41,9 +41,9 @@ Append Attributes With Params
     # ignore the reason for the not updated attribute as this detail is up to each context broker implementation
     IF    "${expectation_response_body}"!="${EMPTY}"
         Check Response Body Content
-        ...    ${expectation_response_body}
-        ...    ${response.json()}
-        ...    root\\['notUpdated'\\]\\[0\\]\\['reason'\\]
+        ...    expectation_filename=${expectation_response_body}
+        ...    response_body=${response.json()}
+        ...    additional_ignored_path=root\\['notUpdated'\\]\\[0\\]\\['reason'\\]
     END
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response}=    Retrieve Entity by Id

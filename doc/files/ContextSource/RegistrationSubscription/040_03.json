@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/RetrieveContextSourceRegistrationSubscription/040_03",
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/040_03",
   "test_objective": "Check that you cannot retrieve an unknown context source registration subscription, an error of type ResourceNotFound shall be raised",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.4",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "040_03_01 Retrieve Unknown Context Source Registration Subscription",
-      "permutation_tp_id": "TP/NGSI-LD/ContextSource/RegistrationSubscription/RetrieveContextSourceRegistrationSubscription/040_03_01",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/040_03_01",
       "doc": "Check that you cannot retrieve an unknown context source registration subscription, an error of type ResourceNotFound shall be raised",
       "tags": [
         "5_11_4",

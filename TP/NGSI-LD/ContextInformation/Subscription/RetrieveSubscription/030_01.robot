@@ -7,8 +7,9 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Test Template       Retrieve Subscription With Non present Or Invalid Id
 
 
-*** Test Cases ***    id
-030_01_01 InvalidId    [Tags]    sub-retrieve    5_8_3
+*** Test Cases ***    ID
+030_01_01 InvalidId
+    [Tags]    sub-retrieve    5_8_3
     InvalidUri
 
 

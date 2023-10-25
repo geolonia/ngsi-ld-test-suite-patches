@@ -73,9 +73,9 @@ ${content_type}=                application/json
     [Tags]    te-query    6_3_4
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${tea_id_prefix}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    ${temporal_entity_representation_id}
-    ...    ${tea_filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    filename=${tea_filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${response}=    Query Temporal Representation Of Entities With Return
     ...    entity_types=${teatype}

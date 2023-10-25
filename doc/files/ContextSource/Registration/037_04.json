@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/ContextSource/Registration/QueryContextSourceRegistrations/037_04",
+  "tp_id": "TP/NGSI-LD/CS/REG/037_04",
   "test_objective": "Check that you can query context source registrations. If a JSON-LD context is not provided, then all the query terms shall be resolved against the default JSON-LD @context",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.10.2",
   "config_id": "",
@@ -14,7 +14,7 @@
   "test_cases": [
     {
       "name": "037_04_01 Query Context Source Registrations Without Context",
-      "permutation_tp_id": "TP/NGSI-LD/ContextSource/Registration/QueryContextSourceRegistrations/037_04_01",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REG/037_04_01",
       "doc": "Check that you can query context source registrations. If a JSON-LD context is not provided, then all the query terms shall be resolved against the default JSON-LD @context",
       "tags": [
         "5_10_2",

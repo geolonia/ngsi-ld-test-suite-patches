@@ -1,0 +1,67 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/SUB/031_02",
+  "test_objective": "Check that you can query a list of subscriptions: Pagination logic shall be in place",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.4",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_8_4",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "031_02_01 Query Second Subscription",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/031_02_01",
+      "doc": "",
+      "tags": [
+        "5_8_4",
+        "sub-query"
+      ],
+      "setup": "Setup Initial Subscriptions",
+      "teardown": "Delete Initial Subscriptions",
+      "template": "Query Subscriptions With Limit And Page Parameters",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list of entities '${expectation_subscription_number}' of type 'Subscription' with response set to '${response.json()}' and\n        Response header with 'Prev' header equal to '</ngsi-ld/v1/subscriptions?limit=1&offset=2>;rel=\"next\";type=\"application/ld+json\"' and with 'Next' header equal to '${response.headers}' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/'\n        method set to 'GET'\n        Query Subscription Request with data: and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: limit set to '${1}' and\n    Query Parameter: offset set to '${1}' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "subscriptions/"
+    },
+    {
+      "name": "031_02_02 Query Last Subscription",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/031_02_02",
+      "doc": "",
+      "tags": [
+        "5_8_4",
+        "sub-query"
+      ],
+      "setup": "Setup Initial Subscriptions",
+      "teardown": "Delete Initial Subscriptions",
+      "template": "Query Subscriptions With Limit And Page Parameters",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list of entities '${expectation_subscription_number}' of type 'Subscription' with response set to '${response.json()}' and\n        Response header with 'Prev' header equal to '${EMPTY}' and with 'Next' header equal to '${response.headers}' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/'\n        method set to 'GET'\n        Query Subscription Request with data: and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: limit set to '${1}' and\n    Query Parameter: offset set to '${2}' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "subscriptions/"
+    },
+    {
+      "name": "031_02_03 Query All Subscriptions",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/031_02_03",
+      "doc": "",
+      "tags": [
+        "5_8_4",
+        "sub-query"
+      ],
+      "setup": "Setup Initial Subscriptions",
+      "teardown": "Delete Initial Subscriptions",
+      "template": "Query Subscriptions With Limit And Page Parameters",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list of entities '${expectation_subscription_number}' of type 'Subscription' with response set to '${response.json()}' and\n        Response header with 'Prev' header equal to '${EMPTY}' and with 'Next' header equal to '${response.headers}' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/'\n        method set to 'GET'\n        Query Subscription Request with data: and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: limit set to '${15}' and\n    Query Parameter: offset set to '${0}' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "subscriptions/"
+    }
+  ],
+  "permutations": [
+    "then",
+    "when"
+  ],
+  "robotpath": "ContextInformation/Subscription/QuerySubscriptions",
+  "robotfile": "031_02"
+}

@@ -29,9 +29,9 @@ Create Temporal Entity
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${temporal_entity_representation_id}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    ${temporal_entity_representation_id}
-    ...    ${filename}
-    ...    ${content_type}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    filename=${filename}
+    ...    content_type=${content_type}
     Check Response Status Code    201    ${response.status_code}
     ${created_temporal_entity}=    Load Test Sample
     ...    temporalEntities/${filename}

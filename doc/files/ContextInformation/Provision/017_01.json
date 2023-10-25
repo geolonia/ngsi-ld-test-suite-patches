@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/TemporalEntityAttributes/DeleteAttributeInstance/017_01",
+  "tp_id": "TP/NGSI-LD/CI/Prov/TEA/017_01",
   "test_objective": "Check that you can delete an attribute instance in temporal representation of an entity",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.15",
   "config_id": "",
@@ -13,7 +13,7 @@
   "test_cases": [
     {
       "name": "017_01_01 Delete an attribute instance in temporal representation of an entity",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TemporalEntityAttributes/DeleteAttributeInstance/017_01_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TEA/017_01_01",
       "doc": "Check that you can delete an attribute instance in temporal representation of an entity",
       "tags": [
         "5_6_15",

@@ -26,7 +26,10 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
     Sleep    10s
     ${response}=    Retrieve Context Source Registration Subscription
     ...    subscription_id=${subscription_id}
-    Check Response Body Containing an Attribute set to    status    ${response.json()}    active
+    Check Response Body Containing an Attribute set to
+    ...    expected_attribute_name=status
+    ...    response_body=${response.json()}
+    ...    expected_attribute_value=active
 
 
 *** Keywords ***

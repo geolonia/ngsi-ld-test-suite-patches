@@ -8,7 +8,7 @@ from os import listdir, remove, makedirs
 
 
 class TestCIProvision(TestCase):
-    # 37 failed, 31 passed
+    # 17 failed, 52 passed
     @classmethod
     def setUpClass(cls):
         TestCIProvision.folder_test_suites = dirname(dirname(dirname(__file__)))
@@ -43,19 +43,23 @@ class TestCIProvision(TestCase):
             assert False, f'They are some difference between the expected and obtained dictionaries: \n {result}'
 
     def test_003_01(self):
-        self.fail("(003_01) Test Suite with Test Template, not yet implemented")
+        self.fail("(003_01) Test Suite with Test Template, not yet implemented, need to check which operations to document")
 
     def test_003_02(self):
-        self.fail("(003_02) Test Suite result is wrong, need to be checked")
+        self.fail("(003_02) Test Suite result is wrong, need to be checked, need to check which operations to document")
 
     def test_003_03(self):
-        self.fail("(003_03) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/BatchEntities/CreateBatchOfEntities/003_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/003_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_003_03.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_003_04(self):
-        self.fail("(003_04) Test Suite with 'Check Response Body Containing an Attribute set to' with different set of parameters")
+        self.fail("(003_04) Test Suite need to know which operation to document")
 
     def test_003_05(self):
-        self.fail("(003_05) Test Suite with 'Check Response Body Containing an Attribute set to' with different set of parameters")
+        self.fail("(003_05) Test Suite need to know which operation to document")
 
     def test_003_06(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/BatchEntities/CreateBatchOfEntities/003_06.robot'
@@ -65,7 +69,11 @@ class TestCIProvision(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_003_07(self):
-        self.fail("(003_07) Test Suite with 'Check Response Body Containing an Attribute set to' with different set of parameters")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/BatchEntities/CreateBatchOfEntities/003_07.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/003_07.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_003_07.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_003_08(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/BatchEntities/CreateBatchOfEntities/003_08.robot'
@@ -123,25 +131,29 @@ class TestCIProvision(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_004_01(self):
-        self.fail("(005_02) Test Suite with Test Template, not yet implemented")
+        self.fail("(005_02) Test Suite with Test Template, not yet implemented, need to check which operation analyse")
 
     def test_004_02(self):
-        self.fail("(004_02) Test Suite with Test Template, not yet implemented")
+        self.fail("(004_02) Test Suite with Test Template, not yet implemented, need to check which operation analyse")
 
     def test_004_03(self):
-        self.fail("(004_03) Test Suite with Test Template, not yet implemented")
+        self.fail("(004_03) Test Suite with Test Template, not yet implemented, need to check which operation analyse")
 
     def test_004_04(self):
-        self.fail("(004_04) Test Suite with Test Template, not yet implemented")
+        self.fail("(004_04) Test Suite with Test Template, not yet implemented, need to check which operation analyse")
 
     def test_004_05(self):
-        self.fail("(004_05) Test Suite error content empty when generate then sentence")
+        self.fail("(004_05) Test Suite error content empty when generate then sentence, need to check which operation analyse")
 
     def test_004_06(self):
-        self.fail("(004_06) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/BatchEntities/UpsertBatchOfEntities/004_06.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/004_06.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_004_06.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_001_01(self):
-        self.fail("(001_01) Test Suite with Test Template, not yet implemented")
+        self.fail("(001_01) Test Suite with Test Template, not yet implemented, need to check which operation to document")
 
     def test_001_02(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/Entities/CreateEntity/001_02.robot'
@@ -158,7 +170,11 @@ class TestCIProvision(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_001_04(self):
-        self.fail("(001_04) Test Suite with 'Check Response Body Containing an Attribute set to' with different set of parameters")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/Entities/CreateEntity/001_04.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/001_04.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_001_04.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_001_05(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/Entities/CreateEntity/001_05.robot'
@@ -175,7 +191,11 @@ class TestCIProvision(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_001_07(self):
-        self.fail("(001_07) Test Suite with 'Check Response Body Containing an Attribute set to' with different set of parameters")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/Entities/CreateEntity/001_07.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/001_07.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_001_07.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_001_08(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/Entities/CreateEntity/001_08.robot'
@@ -234,7 +254,7 @@ class TestCIProvision(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_010_04(self):
-        self.fail("(010_04) Test Suite with something similar to Test Template, not yet implemented")
+        self.fail("(010_04) Test Suite with something similar to Test Template, not yet implemented, need to check which operations to document")
 
     def test_010_05(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/EntityAttributes/AppendEntityAttributes/010_05.robot'
@@ -286,10 +306,18 @@ class TestCIProvision(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_011_01(self):
-        self.fail("(011_01) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/EntityAttributes/UpdateEntityAttributes/011_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/011_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_011_02.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_011_02(self):
-        self.fail("(011_02) Test Suite with something similar to Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/EntityAttributes/UpdateEntityAttributes/011_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/011_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_011_02.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_011_03(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/EntityAttributes/UpdateEntityAttributes/011_03.robot'
@@ -298,20 +326,39 @@ class TestCIProvision(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
+    def test_011_04(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/EntityAttributes/UpdateEntityAttributes/011_04.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/011_04.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_011_04.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
     def test_007_01(self):
-        self.fail("(007_01) Test Suite with Test Template, not yet implemented")
+        self.fail("(007_01) Test Suite with Test Template, not yet implemented, need to check which operation to analyse")
 
     def test_007_02(self):
-        self.fail("(007_02) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntity/CreateTemporalRepresentationOfEntity/007_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/007_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_007_02.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_007_03(self):
-        self.fail("(007_03) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntity/CreateTemporalRepresentationOfEntity/007_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/007_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_007_03.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_009_01(self):
         self.fail("(009_01) Test Suite testing Delete operation but we are returning Retrieve solution")
 
     def test_009_02(self):
-        self.fail("(009_02) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntity/DeleteTemporalRepresentationOfEntity/009_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/009_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_009_02.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_009_03(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntity/DeleteTemporalRepresentationOfEntity/009_03.robot'
@@ -335,7 +382,11 @@ class TestCIProvision(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_014_02(self):
-        self.fail("(014_02) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntityAttributes/AppendAttributes/014_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/014_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_014_02.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_014_03(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntityAttributes/AppendAttributes/014_03.robot'
@@ -345,16 +396,28 @@ class TestCIProvision(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_014_04(self):
-        self.fail("(014_04) Test Suite with Test Template, not yet implemented (new)")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntityAttributes/AppendAttributes/014_04.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/014_04.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_014_04.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_015_01(self):
-        self.fail("(015_01) Test Suite with Test Template, not yet implemented")
+        self.fail("(015_01) Test Suite with Test Template, not yet implemented, need to know what to check")
 
     def test_015_02(self):
-        self.fail("(015_02) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntityAttributes/DeleteAttribute/015_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/015_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_015_02.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_015_03(self):
-        self.fail("(015_03) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntityAttributes/DeleteAttribute/015_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/015_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_015_03.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_017_01(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntityAttributes/DeleteAttributeInstance/017_01.robot'
@@ -364,16 +427,32 @@ class TestCIProvision(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_017_02(self):
-        self.fail("(017_02) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntityAttributes/DeleteAttributeInstance/017_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/017_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_017_02.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_017_03(self):
-        self.fail("(017_03) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntityAttributes/DeleteAttributeInstance/017_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/017_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_017_03.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_016_01(self):
         self.fail("(016_01) Test Suite need to be checked to create the documentation")
 
     def test_016_02(self):
-        self.fail("(016_02) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntityAttributes/ModifyAttributeInstance/016_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/016_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_016_02.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_016_03(self):
-        self.fail("(016_03) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntityAttributes/ModifyAttributeInstance/016_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/016_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_016_03.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)

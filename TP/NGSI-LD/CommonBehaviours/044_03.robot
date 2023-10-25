@@ -79,15 +79,15 @@ ${content_type}=                application/xml
     ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${content_type}
     @{expected_entities_ids}=    Create List    ${first_entity_id}    ${second_entity_id}
     Check Response Status Code    415    ${response.status_code}
-    [Teardown]    Batch Delete Entities    @{expected_entities_ids}
+    [Teardown]    Batch Delete Entities    entities_ids_to_be_deleted=@{expected_entities_ids}
 
 044_03_06 endpoint post /temporal/entities/
     [Documentation]    Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json" (post /temporal/entities/)
     [Tags]    te-create    6_3_4
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${tea_id_prefix}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    ${temporal_entity_representation_id}
-    ...    ${tea_filename}
-    ...    ${content_type}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    filename=${tea_filename}
+    ...    content_type=${content_type}
     Check Response Status Code    415    ${response.status_code}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

@@ -13,11 +13,11 @@ Test Template       Create Temporal Entity
 ${status_code}=     400
 
 
-*** Test Cases ***
+*** Test Cases ***    ENTITY_ID    FILENAME
 007_03_01 Create a temporal entity with missing id
-    Create Temporal Entity    ${EMPTY}    vehicle-temporal-representation-without-id-sample.jsonld
+    ${EMPTY}    vehicle-temporal-representation-without-id-sample.jsonld
 007_03_02 Create a temporal invalid URI
-    Create Temporal Entity    invalidId    vehicle-temporal-representation-sample.jsonld
+    invalidId    vehicle-temporal-representation-sample.jsonld
 
 
 *** Keywords ***
@@ -26,8 +26,8 @@ Create Temporal Entity
     [Tags]    te-create    5_6_11
     [Arguments]    ${entity_id}    ${filename}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    ${entity_id}
-    ...    ${filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
+    ...    temporal_entity_representation_id=${entity_id}
+    ...    filename=${filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
     [Teardown]    Delete Temporal Representation Of Entity    ${entity_id}

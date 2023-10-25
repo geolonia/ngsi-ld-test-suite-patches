@@ -23,7 +23,7 @@ ${filename}=                vehicle-temporal-representation-sample.jsonld
 015_02_02 Delete an attribute to a temporal representation of an entity with an invalid entity id
     invalidId    speed
 015_02_03 Delete an attribute to a temporal representation of an entity with an invalid attribute id
-    ${valid_temporal_entity_id}    invalid(Name
+    ${valid_temporal_entity_id}    invalidName
 
 
 *** Keywords ***
@@ -32,11 +32,11 @@ Delete attribute from temporal entity with unknow entity/attribute id
     [Tags]    tea-delete    5_6_13
     [Arguments]    ${entity_id}    ${attribute_id}
     ${response}=    Delete Attribute From Temporal Entity
-    ...    ${entity_id}
-    ...    ${attribute_id}
-    ...    ${CONTENT_TYPE_JSON}
-    ...    ${EMPTY}
-    ...    false
+    ...    entityId=${entity_id}
+    ...    attributeId=${attribute_id}
+    ...    content_type=${CONTENT_TYPE_JSON}
+    ...    datasetId=${EMPTY}
+    ...    deleteAll=false
     Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}
@@ -46,9 +46,9 @@ Delete attribute from temporal entity with unknow entity/attribute id
 Create Temporal Entity
     ${valid_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    ${valid_temporal_entity_id}
-    ...    ${filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
+    ...    temporal_entity_representation_id=${valid_temporal_entity_id}
+    ...    filename=${filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     Set Test Variable    ${valid_temporal_entity_id}
 

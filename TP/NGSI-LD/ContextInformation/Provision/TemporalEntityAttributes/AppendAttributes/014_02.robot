@@ -16,11 +16,11 @@ ${fragment_filename}=       vehicle-temporal-representation-fragment.jsonld
 ${status_code}=             400
 
 
-*** Test Cases ***
+*** Test Cases ***    ID
 014_02_01 Add an attribute to a temporal representation of an entity with an empty entity id
-    Add Attribute To Temporal Entity    ${EMPTY}
+    ${EMPTY}
 014_02_02 Add an attribute to a temporal representation of an entity with an invalid entity id
-    Add Attribute To Temporal Entity    thisIsAninvalidId
+    thisIsAninvalidId
 
 
 *** Keywords ***
@@ -30,9 +30,9 @@ Add Attribute To Temporal Entity
     [Arguments]    ${id}
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    ${temporal_entity_representation_id}
-    ...    ${filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    filename=${filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${response}=    Append Attribute To Temporal Entity    ${id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}

@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/ContextSource/Registration/QueryContextSourceRegistrations/037_02",
+  "tp_id": "TP/NGSI-LD/CS/REG/037_02",
   "test_objective": "Check that you cannot query context source registrations, if neither Entity types nor Attribute names are provided, an error of type 400 shall be raised.",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.10.2",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "037_02_01 Query Context Source Registrations Without Entity Types and Attribute Names",
-      "permutation_tp_id": "TP/NGSI-LD/ContextSource/Registration/QueryContextSourceRegistrations/037_02_01",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REG/037_02_01",
       "doc": "Check that you cannot query context source registrations, if neither Entity types nor Attribute names are provided, an error of type 400 shall be raised.",
       "tags": [
         "5_10_2",

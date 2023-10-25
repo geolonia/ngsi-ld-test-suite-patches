@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/ContextSource/Registration/QueryContextSourceRegistrations/037_08",
+  "tp_id": "TP/NGSI-LD/CS/REG/037_08",
   "test_objective": "Check that you can query context source registrations. If no temporal query is present, only Context Source Registrations for Context Sources providing latest information are considered",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.10.2",
   "config_id": "",
@@ -14,7 +14,7 @@
   "test_cases": [
     {
       "name": "037_08_01 Query Context Source Registration Without Temporal Query",
-      "permutation_tp_id": "TP/NGSI-LD/ContextSource/Registration/QueryContextSourceRegistrations/037_08_01",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REG/037_08_01",
       "doc": "Check that you can query context source registrations. If no temporal query is present, only Context Source Registrations for Context Sources providing latest information are considered",
       "tags": [
         "5_10_2",

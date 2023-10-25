@@ -5,6 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Setup          Initialize the Test Case
 Test Teardown       Delete Updated Context Source Registration
 Test Template       Update Context Source
 
@@ -23,14 +24,9 @@ ${registration_id_prefix}=      urn:ngsi-ld:Registration:
 *** Keywords ***
 Update Context Source
     [Documentation]    Check that you can update a context source registration by id
-    [Tags]    csr-update
+    [Tags]    csr-update    5_9_3
     [Arguments]    ${filename}    ${update_filename}
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
-    Set Test Variable    ${registration_id}
-    ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
-    ${registration_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
-    ${response}=    Create Context Source Registration With Return    ${registration_payload}
-    Check Response Status Code    201    ${response.status_code}
+    Set Global Variable    ${filename}
     ${fragment}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${update_filename}
     ${registration_update_fragment}=    Update Value To JSON    ${fragment}    $..id    ${registration_id}
     ${response}=    Update Context Source Registration With Return
@@ -47,3 +43,12 @@ Update Context Source
 
 Delete Updated Context Source Registration
     Delete Context Source Registration    ${registration_id}
+
+Initialize the Test Case
+    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    Set Test Variable    ${registration_id}
+    ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
+    ${registration_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
+    Set Global Variable    ${registration_payload}
+    ${response}=    Create Context Source Registration With Return    ${registration_payload}
+    Check Response Status Code    201    ${response.status_code}

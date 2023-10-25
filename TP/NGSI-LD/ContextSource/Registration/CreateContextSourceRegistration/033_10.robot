@@ -15,17 +15,15 @@ ${registration_payload_file_path}=      context-source-registration-invalid-samp
 
 *** Test Cases ***
 033_10_01 Create a context source registration with a different data structure than CsourRegistration data type
-    Create Context Source With Invalid Content
-    ...    csourceRegistrations/context-source-registration-invalid-structure-sample.jsonld
+    csourceRegistrations/context-source-registration-invalid-structure-sample.jsonld
 033_10_02 Create a context source registration with a date in the past
-    Create Context Source With Invalid Content
-    ...    csourceRegistrations/context-source-registration-past-expiration-sample.jsonld
+    csourceRegistrations/context-source-registration-past-expiration-sample.jsonld
 
 
 *** Keywords ***
 Create Context Source With Invalid Content
     [Documentation]    Check that you cannot create a context source with invalid content
-    [Tags]    csr-create
+    [Tags]    csr-create    6_3_5
     [Arguments]    ${filename}
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${filename}

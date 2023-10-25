@@ -16,6 +16,7 @@ ${BATCH_UPSERT_ENDPOINT_PATH}           entityOperations/upsert
 ...                                     create=${BATCH_CREATE_ENDPOINT_PATH}
 ...                                     delete=${BATCH_DELETE_ENDPOINT_PATH}
 ...                                     update=${BATCH_UPDATE_ENDPOINT_PATH}
+...                                     upsert=${BATCH_UPSERT_ENDPOINT_PATH}
 
 ${ENTITIES_ENDPOINT_PATH}               entities/
 

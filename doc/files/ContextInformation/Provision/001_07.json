@@ -1,0 +1,51 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/E/001_07",
+  "test_objective": "Check that the @context is obtained from the request payload body itself if the Content-Type header is \"application/ld+json\"",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.5",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_6_3_5",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "001_07_01 Create one entity using a JSON-LD @context obtained from the request payload with context",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_07_01",
+      "doc": "Check that the @context is obtained from the request payload body itself if the Content-Type header is \"application/ld+json\"",
+      "tags": [
+        "6_3_5",
+        "e-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body containing an Attribute set to and\n    Query Parameter: expected_attribute_name set to 'almostFull' and\n    Query Parameter: response_body set to 'response.json()'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    },
+    {
+      "name": "001_07_02 Create one entity using a JSON-LD @context obtained from the request payload without context",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_07_02",
+      "doc": "Check that the @context is obtained from the request payload body itself if the Content-Type header is \"application/ld+json\"",
+      "tags": [
+        "6_3_5",
+        "e-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body containing an Attribute set to and\n    Query Parameter: expected_attribute_name set to 'https://ngsi-ld-test-suite/context#almostFull' and\n    Query Parameter: response_body set to 'response.json()'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    }
+  ],
+  "permutations": [
+    "when",
+    "then"
+  ],
+  "robotpath": "ContextInformation/Provision/Entities/CreateEntity",
+  "robotfile": "001_07"
+}

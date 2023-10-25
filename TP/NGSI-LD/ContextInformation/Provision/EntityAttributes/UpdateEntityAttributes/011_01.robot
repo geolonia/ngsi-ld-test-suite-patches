@@ -6,6 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision/Ap
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Setup          Initialize Test
 Test Teardown       Delete Initial Entities
 Test Template       Update Attributes
 
@@ -33,17 +34,12 @@ Update Attributes
     ...    ${fragment_filename}
     ...    ${expectation_response_filename}
     ...    ${expectation_filename}
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Test Variable    ${entity_id}
-    ${response}=    Create Entity Selecting Content Type
-    ...    ${filename}
-    ...    ${entity_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
     IF    "${expectation_response_filename}"!="${EMPTY}"
-        Check Response Body Content    ${expectation_response_filename}    ${response.json()}
+        Check Response Body Content
+        ...    expectation_filename=${expectation_response_filename}
+        ...    response_body=${response.json()}
     END
     ${entity_expectation_payload}=    Load Test Sample    entities/${expectation_filename}    ${entity_id}
     ${response}=    Retrieve Entity by Id
@@ -55,3 +51,12 @@ Update Attributes
 
 Delete Initial Entities
     Delete Entity by Id Returning Response    ${entity_id}
+
+Initialize Test
+    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    Set Test Variable    ${entity_id}
+    ${response}=    Create Entity Selecting Content Type
+    ...    ${filename}
+    ...    ${entity_id}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${response.status_code}

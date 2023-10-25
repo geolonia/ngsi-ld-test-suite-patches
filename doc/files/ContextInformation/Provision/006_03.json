@@ -21,7 +21,7 @@
       "teardown": null,
       "template": "Batch Delete Entity With Invalid Request Scenarios",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/delete'\n        method set to 'POST'\n        Batch Entity Delete Request with operation set to 'delete' and body set to 'batch/invalid-json-sample.jsonld\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/delete'\n        method set to 'POST'\n        Batch Entity Delete Request with operation set to 'delete', Content-Type set to 'application/ld+json', and body set to 'batch/invalid-json-sample.jsonld\n}",
       "http_verb": "POST",
       "endpoint": "entityOperations/delete"
     },
@@ -37,7 +37,7 @@
       "teardown": null,
       "template": "Batch Delete Entity With Invalid Request Scenarios",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/delete'\n        method set to 'POST'\n        Batch Entity Delete Request with operation set to 'delete' and body set to 'batch/empty-sample.jsonld\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/delete'\n        method set to 'POST'\n        Batch Entity Delete Request with operation set to 'delete', Content-Type set to 'application/ld+json', and body set to 'batch/empty-sample.jsonld\n}",
       "http_verb": "POST",
       "endpoint": "entityOperations/delete"
     }

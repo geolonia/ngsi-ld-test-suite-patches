@@ -39,4 +39,4 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     ...    accept=${CONTENT_TYPE_LD_JSON}
     @{upserted_entities}=    Create List    ${first_entity}    ${second_entity}
     Check Updated Resources Set To    ${upserted_entities}    ${response.json()}
-    ${response}=    Batch Delete Entities    @{expected_successful_entities_ids}
+    ${response}=    Batch Delete Entities    entities_ids_to_be_deleted=@{expected_successful_entities_ids}

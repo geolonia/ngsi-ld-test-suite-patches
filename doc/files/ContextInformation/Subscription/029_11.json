@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Subscription/UpdateSubscription/029_11",
+  "tp_id": "TP/NGSI-LD/CI/SUB/029_11",
   "test_objective": "Check that you cannot update a subscription: If expiresAt is included but referring to a DateTime in the past, then a BadRequestData error shall be raised",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.2",
   "config_id": "",
@@ -14,7 +14,7 @@
   "test_cases": [
     {
       "name": "029_11_01 Update Subscription With ExpiresAt In The Past",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Subscription/UpdateSubscription/029_11_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/029_11_01",
       "doc": "Check that you cannot update a subscription: If expiresAt is included but referring to a DateTime in the past, then a BadRequestData error shall be raised",
       "tags": [
         "5_8_2",

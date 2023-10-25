@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/ContextSource/Registration/CreateContextSourceRegistration/033_04",
+  "tp_id": "TP/NGSI-LD/CS/REG/033_04",
   "test_objective": "Check that the @context is obtained from a Link Header if the Content-Type header is \"application/json\"",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.5",
   "config_id": "",
@@ -13,7 +13,7 @@
   "test_cases": [
     {
       "name": "033_04_01 Create one context source registration using a provided Link header with JSON content type with Context",
-      "permutation_tp_id": "TP/NGSI-LD/ContextSource/Registration/CreateContextSourceRegistration/033_04_01",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REG/033_04_01",
       "doc": "Check that the @context is obtained from a Link Header if the Content-Type header is \"application/json\"",
       "tags": [
         "6_3_5",
@@ -29,7 +29,7 @@
     },
     {
       "name": "033_04_02 Create one context source registration using a provided Link header with JSON content type without Context",
-      "permutation_tp_id": "TP/NGSI-LD/ContextSource/Registration/CreateContextSourceRegistration/033_04_02",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REG/033_04_02",
       "doc": "Check that the @context is obtained from a Link Header if the Content-Type header is \"application/json\"",
       "tags": [
         "6_3_5",

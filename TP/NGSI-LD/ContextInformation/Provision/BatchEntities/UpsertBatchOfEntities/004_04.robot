@@ -61,6 +61,6 @@ Setup Initial Entities
 
 Delete Initial Entities
     @{entities_ids_to_be_deleted}=    Create List    ${existing_entity_id}
-    Batch Delete Entities    @{entities_ids_to_be_deleted}
+    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}
     @{entities_ids_to_be_deleted}=    Create List    ${new_entity_id}
-    Batch Delete Entities    @{entities_ids_to_be_deleted}
+    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}
