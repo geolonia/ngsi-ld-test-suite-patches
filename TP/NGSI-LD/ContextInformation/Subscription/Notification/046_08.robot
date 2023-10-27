@@ -28,7 +28,7 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
     Sleep    1s
     Setup Initial Subscriptions
 
-    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}=    Wait for notification    ${5}
 
@@ -60,14 +60,14 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
 
-    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}=    Wait for notification    ${5}
 
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
     Dictionary Should Contain Key    ${notification}    data
     Should Not Be Empty    ${notification}[data]    Notification data should not be empty
-    Should Be Equal    ${entity_id}    ${notification}[data][0][id]
+    Should be Equal    ${entity_id}    ${notification}[data][0][id]
     Should be Equal    Eiffel Tower    ${notification}[data][0][name]
     [Teardown]    Delete Fixture Data
 

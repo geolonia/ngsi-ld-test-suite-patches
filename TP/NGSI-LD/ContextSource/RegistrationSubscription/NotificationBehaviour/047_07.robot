@@ -31,10 +31,7 @@ ${subscription_payload_file_path}=                      csourceSubscriptions/sub
 Do Not Receive cSourceNotification If Subscription Status Is Not Active
     [Documentation]    Check that a cSourceNotification shall only be sent if and only if the status of the corresponding subscription is active, neither paused or expired
     [Arguments]    ${filepath}
-    ${subscription_update_fragment}=    Load Test Sample    ${filepath}
-    ${response}=    Update Context Source Registration Subscription
-    ...    ${subscription_id}
-    ...    ${subscription_update_fragment}
+    Set Global Variable    ${filepath}
     ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${context_source_registration_payload_file_path}
@@ -51,6 +48,10 @@ Setup Initial Context Source Registration Subscriptions
     ...    ${subscription_id}
     Create Context Source Registration Subscription    ${subscription_payload}
     Set Suite Variable    ${subscription_id}
+    ${subscription_update_fragment}=    Load Test Sample    ${filepath}
+    ${response}=    Update Context Source Registration Subscription
+    ...    ${subscription_id}
+    ...    ${subscription_update_fragment}
 
 Delete Created Context Source Registrations And Subscriptions
     Stop Local Server

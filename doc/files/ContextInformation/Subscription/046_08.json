@@ -1,0 +1,55 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/SUB/046_08",
+  "test_objective": "Check that a notification is only sent if and only if the status is active",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 046.08.01",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_046_08_01",
+  "keywords": [
+    "Before Test",
+    "After Test"
+  ],
+  "teardown": "After Test",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "046_08_01 Check that a notification is sent with all attributes",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_08_01",
+      "doc": "The structure of the notification message shall be as mandated by clause 5.3.1. The absence of the notification.attributes member of a Subscription means that all Entity Attributes shall be included. All attributes are included",
+      "tags": [
+        "046_08_01",
+        "5_8_6",
+        "sub-notification"
+      ],
+      "setup": null,
+      "teardown": "Delete Fixture Data",
+      "template": null,
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        After waiting '5' seconds and\n        Notification data: '${notification}[subscriptionId]' equal to '${subscription_id}' and\n        Notification data: '${notification}[data][0][id]' equal to '${entity_id}' and\n        Notification data: '${notification}[data][0][name][value]' equal to 'Eiffel Tower' and\n        The dictionary `${notification}' should contain the key 'data' and\n        The dictionary `${notification}[data][0]' should contain the key 'almostFull' and\n        The dictionary `${notification}[data][0]' should contain the key 'airQualityLevel' and\n        The dictionary `${notification}[data][0]' should contain the key 'subCategory' and\n        The variable `${notification}[data]' should not be '${EMPTY}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'airQualityLevel-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{id}/attrs"
+    },
+    {
+      "name": "046_08_02 Check that a notification is sent with all attributes in simplified format",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_08_02",
+      "doc": "The structure of the notification message shall be as mandated by clause 5.3.1. The absence of the notification.attributes member of a Subscription means that all Entity Attributes shall be included    If the notification.format member value is \"keyValues\" then a simplified representation of the entities (as mandated by clause 4.5.3) shall be provided",
+      "tags": [
+        "046_08_02",
+        "5_8_6",
+        "sub-notification"
+      ],
+      "setup": null,
+      "teardown": "Delete Fixture Data",
+      "template": null,
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        After waiting '5' seconds and\n        Notification data: '${notification}[subscriptionId]' equal to '${subscription_id}' and\n        Notification data: '${notification}[data][0][id]' equal to '${entity_id}' and\n        Notification data: '${notification}[data][0][name]' equal to 'Eiffel Tower' and\n        The dictionary `${notification}' should contain the key 'data' and\n        The variable `${notification}[data]' should not be '${EMPTY}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'airQualityLevel-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{id}/attrs"
+    }
+  ],
+  "permutations": [
+    "then"
+  ],
+  "robotpath": "ContextInformation/Subscription/Notification",
+  "robotfile": "046_08"
+}

@@ -14,6 +14,7 @@ class GenerateRobotData:
 
         self.config_variables = ParseVariablesFile()
         self.robot = ParseRobotFile(filename=robot_file, execdir=execdir, config_file=self.config_variables)
+        # TODO: the robot file can provide several ApiUtils not only one
         self.apiutil = ParseApiUtilsFile(filename=self.robot.resource_file)
         self.robot.set_apiutils(self.apiutil)
 
@@ -48,6 +49,7 @@ class GenerateRobotData:
             'Subscription/QuerySubscriptions': 'SUB',
             'Subscription/RetrieveSubscription': 'SUB',
             'Subscription/UpdateSubscription': 'SUB',
+            'Subscription/Notification': 'SUB',
             'Registration/CreateContextSourceRegistration': 'REG',
             'Registration/CreateCSRegistration': 'REG',
             'Registration/QueryCSRegistrations': 'REG',
@@ -58,7 +60,8 @@ class GenerateRobotData:
             'RegistrationSubscription/UpdateCSRegistrationSubscription': 'REGSUB',
             'RegistrationSubscription/RetrieveCSRegistrationSubscription': 'REGSUB',
             'RegistrationSubscription/QueryCSRegistrationSubscriptions': 'REGSUB',
-            'RegistrationSubscription/DeleteCSRegistrationSubscription': 'REGSUB'
+            'RegistrationSubscription/DeleteCSRegistrationSubscription': 'REGSUB',
+            'RegistrationSUBBehaviour': 'REGSUB'
         }
         self.references = {
             'v1.3.1': 'ETSI GS CIM 009 V1.3.1 [], clause '
@@ -117,7 +120,8 @@ class GenerateRobotData:
 
         # If there is more than one line, it means that the test case has several operations, all of them to
         # create the environment content to execute the last one, which is the correct one to test the Test Case
-        if len(lines_starting_response) > 1:
+        if (len(lines_starting_response) > 1 and
+                any(map(lambda item: 'notification' in item, lines_starting_response)) == False):
             # The last one corresponds to the execution of the test, the rest corresponds to the initial condition of
             # test case...
             response_to_check = lines_starting_response[-1]
@@ -128,7 +132,6 @@ class GenerateRobotData:
         aux = test_case[index:].split('\n')
         aux = [x for x in aux if x != '']
 
-        # Previuos content
         params = list()
         request = str()
 

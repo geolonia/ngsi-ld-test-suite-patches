@@ -30,10 +30,10 @@ ${subscription_payload_file_path}=                      csourceSubscriptions/sub
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
     @{expected_notification_data_entities}=    Create List    Building
     Wait for notification and validate it
-    ...    ${subscription_id}
-    ...    ${expected_context_source_registration_ids}
-    ...    newlyMatching
-    ...    ${expected_notification_data_entities}
+    ...    expected_subscription_id=${subscription_id}
+    ...    expected_context_source_registration_ids=${expected_context_source_registration_ids}
+    ...    expected_trigger_reason=newlyMatching
+    ...    expected_notification_data_entities=${expected_notification_data_entities}
 
 
 *** Keywords ***

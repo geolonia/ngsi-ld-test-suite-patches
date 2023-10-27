@@ -1,0 +1,36 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/SUB/046_06",
+  "test_objective": "If a Subscription does not define a timeInterval member, the notification shall be sent whenever there is a change in the watched Attributes. The notification message shall include all the subscribed Entities that changed and that match (as mandated by clauses 4.9 and 4.10) the query and geoquery conditions",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.7",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_11_7",
+  "keywords": [
+    "Setup Server And Subscriptions",
+    "Delete Server And Subscriptions"
+  ],
+  "teardown": "Delete Server And Subscriptions",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "046_06_01 Check that a notification is sent with all matching entities",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_06_01",
+      "doc": "only the subscribed Entities matching the query and watched attributes shall be included.",
+      "tags": [
+        "046_06",
+        "5_11_7",
+        "sub-notification"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        After waiting '10' seconds and\n        Notification data: '${notification}[subscriptionId]' equal to '${subscription_id}' and\n        Notification data: '${notification}[data][0][id]' equal to '${entity_id}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: 'building-location-attribute.jsonld'\n}",
+      "http_verb": "POST",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Subscription/Notification",
+  "robotfile": "046_06"
+}

@@ -27,7 +27,6 @@ ${subscription_payload_file_path}=                      csourceSubscriptions/sub
     ...    ${subscription_id}
     Set Suite Variable    ${subscription_id}
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
-    Wait for notification
     # Wait for 15 seconds to check if another notification was sent
     Wait for notification    timeout=${15}
 

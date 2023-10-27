@@ -22,10 +22,7 @@ ${entity_building_filepath}=            building-simple-attributes-sample.jsonld
 046_03_01 Check that a notification is sent with all entities
     [Documentation]    A notification with all subscribed Entities will be included if query or geoquery are not defined.
     [Tags]    sub-notification    5_11_7    046_03
-
-    Add Initial Entity
-    Sleep    1s
-    Setup Initial Subscriptions
+    ${response}=    Setup Initial Subscriptions
 
     ${notification}=    Wait for notification    ${5}
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
@@ -47,6 +44,8 @@ Setup Initial Subscriptions
     ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
+    Add Initial Entity
+    Sleep    1s
 
 Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}

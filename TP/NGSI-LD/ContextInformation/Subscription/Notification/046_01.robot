@@ -23,12 +23,6 @@ ${notification_server_send_url}=        http://${notification_server_host}:${not
 046_01_01 Check that a notification is only sent if status is active
     [Documentation]    Check that a notification is only sent if and only if the status is active
     [Tags]    sub-notification    5_8_6    046_01
-
-    Add Initial Entity
-    Sleep    1s
-
-    Setup Initial Subscriptions
-
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}    ${headers}=    Wait for notification    timeout=${10}
@@ -48,6 +42,11 @@ Setup Initial Subscriptions
     ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
+
+    Add Initial Entity
+    Sleep    1s
+
+    Setup Initial Subscriptions
 
 Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}

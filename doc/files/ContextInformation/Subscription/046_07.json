@@ -1,0 +1,72 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/SUB/046_07",
+  "test_objective": "Check that a notification is only sent if and only if the status is active",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 046.07.01",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_046_07_01",
+  "keywords": [
+    "Before Test",
+    "After Test"
+  ],
+  "teardown": "After Test",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "046_07_01 Check notification structure",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_07_01",
+      "doc": "The structure of the notification message shall be as mandated by clause 5.3. Valid notification with attributes as stated above",
+      "tags": [
+        "046_07_01",
+        "5_8_6",
+        "sub-notification"
+      ],
+      "setup": null,
+      "teardown": "Delete Fixture Data",
+      "template": null,
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        After waiting '5' seconds and\n        Notification data: 'Notification' equal to '${notification}[type]' and\n        Notification data: '${subscription_id}' equal to '${notification}[subscriptionId]' and\n        The expression `${is_date} or ${is_date_with_millis}' should be True\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to '${fragment_filename}' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{id}/attrs"
+    },
+    {
+      "name": "046_07_02 Check correct attributes are included",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_07_02",
+      "doc": "The structure of the notification message shall be as mandated by clause 5.3.    The Entity Attributes included (Properties or Relationships) shall be those specified by the notification.attributes member in the Subscription data type (clause 5.2.12).",
+      "tags": [
+        "046_07_02",
+        "5_8_6",
+        "sub-notification"
+      ],
+      "setup": null,
+      "teardown": "Delete Fixture Data",
+      "template": null,
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        After waiting '5' seconds and\n        Notification data: 'Notification' equal to '${notification}[type]' and\n        Notification data: '${subscription_id}' equal to '${notification}[subscriptionId]' and\n        The dictionary `${notification}[data][0]' should contain the key 'airQualityLevel'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to '${fragment_filename}' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{id}/attrs"
+    },
+    {
+      "name": "046_07_03 Check URI expansion is observed",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_07_03",
+      "doc": "The structure of the notification message shall be as mandated by clause 5.3.    URI expansion shall be observed (clause 5.5.7).",
+      "tags": [
+        "046_07_03",
+        "5_8_6",
+        "sub-notification"
+      ],
+      "setup": null,
+      "teardown": "Delete Fixture Data",
+      "template": null,
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        After waiting '5' seconds and\n        Notification data: 'Notification' equal to '${notification}[type]' and\n        Notification data: '${subscription_id}' equal to '${notification}[subscriptionId]' and\n        The dictionary `${notification}[data][0]' should contain the key 'https://ngsi-ld-test-suite/context#airQualityLevel'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to '${fragment_filename}' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{id}/attrs"
+    }
+  ],
+  "permutations": [
+    "then"
+  ],
+  "robotpath": "ContextInformation/Subscription/Notification",
+  "robotfile": "046_07"
+}

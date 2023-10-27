@@ -141,7 +141,7 @@ class ParseRobotFile:
             self.template_params_value[k] = result
 
     def get_test_cases_content(self, string):
-        pattern = f'{self.test_suite}_\d+\s.*'
+        pattern = f'{self.test_suite}_\d+[ ]+.*'
         matches = re.findall(pattern=pattern, string=string)
 
         indexes = list()
@@ -224,12 +224,33 @@ class ParseRobotFile:
         elif content.find('Wait for notification') != 0:
             # There is no Check, we need to check if there is a 'Wait for notification',
             # then we need to check the 'Should be Equal' sentences
-            param = re.findall(r'Wait for notification\s{4}(.*)', content, re.MULTILINE)
-            if len(param) == 1:
-                new_list.append(f'Wait for notification    {param[0]}')
-            elif len(param) == 0:
-                new_list.append(f'Wait for notification    5')
+            pattern = r'(Wait for no notification)|(Wait for notification and validate it)|(Wait for notification)([ ]{4}(.*))?'
+            param = re.findall(pattern=pattern, string=content, flags=re.MULTILINE)
+            for i in range(0, len(param)):
+                match param[i][0]:
+                    case 'Wait for notification and validate it':
+                        new_list.append(f'Wait for notification and validate it')
+                    case 'Wait for no notification':
+                        new_list.append(f'Wait for no notification')
+                    case '':
+                        # This is the case of 'Wait for notification'
+                        if param[i][3] != '':
+                            new_list.append(f'Wait for notification    {param[i][3]}')
+                        elif param[i][3] == '':
+                            new_list.append(f'Wait for notification    5')
+                    case _:
+                        raise Exception(f"Unexpected Wait for notification check: '{param[i][0]}'")
+
             lines_starting_with_should = re.findall(r'^\s*Should be Equal.*', content, re.MULTILINE)
+            _ = [new_list.append(x.strip()) for x in lines_starting_with_should]
+
+            lines_starting_with_should = re.findall(r'^\s*Dictionary Should Contain Key.*', content, re.MULTILINE)
+            _ = [new_list.append(x.strip()) for x in lines_starting_with_should]
+
+            lines_starting_with_should = re.findall(r'^\s*Should Not Be Empty.*', content, re.MULTILINE)
+            _ = [new_list.append(x.strip()) for x in lines_starting_with_should]
+
+            lines_starting_with_should = re.findall(r'^\s*Should be True.*', content, re.MULTILINE)
             _ = [new_list.append(x.strip()) for x in lines_starting_with_should]
 
         return new_list
@@ -269,28 +290,39 @@ class ParseRobotFile:
                 checks = (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification containing:\n"
                           f"        {checks}\n}}")
             elif len(content) == 1:
-                checks = (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification, {content[0]}\n}}")
+                if content[0].find('Waiting for no Notification') != -1:
+                    # Waiting for no notification data
+                    match = re.match(pattern=r"[\W\w]+'(\d+)'", string=content[0])
+                    try:
+                        checks = f"then {{\n    the SUT will not send a CsourceNotification after {match.group(1)} seconds}}"
+                    except Exception:
+                        raise Exception(f"ERROR: unexpected timeout parameter: '{content[0]}'")
+                else:
+                    checks = (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification, {content[0]}\n}}")
             else:
                 raise Exception("ERROR, It is expected at least 1 Notification Check operation in the Test Case")
 
         return checks
 
     def generate_when_content(self, http_verb, endpoint, when):
-        url = f"URL set to '/ngsi-ld/v1/{endpoint}'"
-        method = f"method set to '{http_verb}'"
-        when = (f"when {{\n    the SUT receives a Request from the client containing:\n"
-                f"        {url}\n"
-                f"        {method}\n"
-                f"        {when}\n"
-                f"}}")
-
+        if when.find("a subscription with id set to") == -1:
+            url = f"URL set to '/ngsi-ld/v1/{endpoint}'"
+            method = f"method set to '{http_verb}'"
+            when = (f"when {{\n    the SUT receives a Request from the client containing:\n"
+                    f"        {url}\n"
+                    f"        {method}\n"
+                    f"        {when}\n"
+                    f"}}")
+        else:
+            # This is a Notification operation
+            when = f"The client at ${{endpoint}} receives a valid Notification containing {when}"
         return when
 
     def get_data_check(self, test_case, checks, line):
         content = line.split("    ")
 
         # Discard lines that are comments
-        content = [x for x in content if x.strip()[0] != '#']
+        # content = [x for x in content if x.strip()[0] != '#']
         aux = len(content)
 
         try:
@@ -380,30 +412,6 @@ class ParseRobotFile:
 
         param = self.find_attributes_same_line(params=position_params, content=params)
         return param
-
-#         param = dict()
-#         for i in range(0, len(position_params['position'])):
-#             param_key = position_params['params'][i]
-#             param_position = position_params['position'][i]
-#             param_value = self.get_param_value(position=params[param_position-1])
-#             param[param_key] = param_value
-#
-#         return param
-#
-# #     def find_attributes_same_line(self, params, content):
-#         result = dict()
-#         if len(params['position']) > 0:
-#             for i in range(0, len(params['position'])):
-#                 param_key = params['params'][i]
-#                 param_position = params['position'][i]
-#                 param_value = self.get_param_value(position=content[param_position])
-#                 result[param_key] = param_value
-#         elif len(params['position']) == 0:
-#             param_key = params['params'][0]
-#             param_value = self.get_param_value_for_waiting(param_key=param_key, content=content)
-#             result[param_key] = param_value
-#
-#         return result
 
     def get_param_value(self, position):
         try:

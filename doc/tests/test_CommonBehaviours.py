@@ -43,7 +43,7 @@ class TestCommonBehaviours(TestCase):
             assert False, f'They are some difference between the expected and obtained dictionaries: \n {result}'
 
     def test_043_01(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/043.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/043_01.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/CommonBehaviours/043_01.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_043_01.json'
 

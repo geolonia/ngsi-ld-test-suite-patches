@@ -82,8 +82,18 @@ class Checks:
                 Checks.check_response_body_containing_batch_operation_result,
             'Wait for notification':
                 Checks.wait_for_notification,
+            'Wait for no notification':
+                Checks.wait_for_no_notification,
+            'Wait for notification and validate it':
+                Checks.wait_for_notification_and_validate_it,
             'Should be Equal':
                 Checks.should_be_equal,
+            'Dictionary Should Contain Key':
+                Checks.dictionary_should_contain_key,
+            'Should Not Be Empty':
+                Checks.should_not_be_empty,
+            'Should be True':
+                Checks.should_be_true,
             'Check Response Body Content':
                 Checks.check_response_body_content
         }
@@ -108,7 +118,7 @@ class Checks:
             'Check Response Body Containing List Containing EntityTemporal elements': {
                 'params': ['filename', 'entity_ids'],
                 'position': [0, 1]
-        },
+            },
             'Check Response Body Containing List Containing Subscription elements': {
                 'params': ['file', 'id', 'response'],
                 'position': [0, 1, 2]
@@ -155,7 +165,7 @@ class Checks:
             },
             'Check NotificationParams': {
                 'params': ['filename', 'expected_additional_members', 'response_body'],
-                'position': []
+                'position': [0, 1, 2]
             },
             'Check Response Body Containing Batch Operation Result': {
                 'params': ['operation'],
@@ -173,6 +183,16 @@ class Checks:
                 'params': ['timeout'],
                 'position': []
             },
+            'Wait for notification and validate it': {
+                'params': ['expected_subscription_id', 'expected_context_source_registration_ids',
+                           'expected_trigger_reason', 'expected_notification_data_entities',
+                           'timeout'],
+                'position': []
+            },
+            'Wait for no notification': {
+                'params': ['timeout'],
+                'position': []
+            },
             'Check Response Body Containing AttributeList element': {
                 'params': ['filename', 'response'],
                 'position': [0, 1]
@@ -184,6 +204,18 @@ class Checks:
             'Check Response Body Content': {
                 'params': ['expectation_filename', 'response_body', 'additional_ignored_path'],
                 'position': []
+            },
+            'Dictionary Should Contain Key': {
+                'params': ['dictionary', 'key'],
+                'position': [0, 1]
+            },
+            'Should Not Be Empty': {
+                'params': ['variable'],
+                'position': [0]
+            },
+            'Should be True': {
+                'params': ['expression'],
+                'position': [0]
             }
         }
 
@@ -198,6 +230,7 @@ class Checks:
         else:
             raise Exception(f'ERROR, Expected status_code parameter but received: {kwargs}')
 
+    @staticmethod
     def wait_for_notification(kwargs: list) -> str:
         if 'timeout' in kwargs and kwargs['timeout'] != '':
             result = f"After waiting '{kwargs['timeout']}' seconds"
@@ -207,12 +240,90 @@ class Checks:
         return result
 
     @staticmethod
+    def wait_for_notification_and_validate_it(kwargs: list) -> str:
+        expected_parameters = ['expected_subscription_id', 'expected_context_source_registration_ids',
+                               'expected_trigger_reason', 'expected_notification_data_entities',
+                               'timeout']
+
+        if 'expected_notification_data_entities' not in kwargs:
+            kwargs['expected_notification_data_entities'] = "${EMPTY}"
+
+        if 'timeout' not in kwargs:
+            kwargs['timeout'] = '5'
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Waiting for Notification and validate it"
+        for key, value in kwargs.items():
+            match key:
+                case 'expected_subscription_id':
+                    response = f"{response} and\n    Query Parameter: expected_subscription_id set to '{value}'"
+                case 'expected_context_source_registration_ids':
+                    response = f"{response} and\n    Query Parameter: expected_context_source_registration_ids set to '{value}'"
+                case 'expected_trigger_reason':
+                    response = f"{response} and\n    Query Parameter: expected_trigger_reason set to '{value}'"
+                case 'expected_notification_data_entities':
+                    response = f"{response} and\n    Query Parameter: expected_notification_data_entities set to '{value}'"
+                case 'timeout':
+                    response = f"{response} and\n    Query Parameter: timeout set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case 'checks':
+                    pass
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
+    def wait_for_no_notification(kwargs: list) -> str:
+        expected_parameters = ['timeout']
+
+        if 'timeout' not in kwargs:
+            kwargs['timeout'] = '5'
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Waiting for no Notification data"
+        for key, value in kwargs.items():
+            match key:
+                case 'timeout':
+                    response = f"{response} and\n    Query Parameter: timeout set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case 'checks':
+                    pass
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
     def check_response_body_containing_array_of_uris_set_to(kwargs: list) -> str:
         return 'Response Body set to an array of created entities ids'
 
     @staticmethod
     def check_created_resources_set_to(kwargs: list) -> str:
         return 'Created resources set to ${entities}'
+
+    @staticmethod
+    def dictionary_should_contain_key(kwargs: list) -> str:
+        if 'dictionary' in kwargs and 'key' in kwargs:
+            return f"The dictionary `{kwargs['dictionary']}' should contain the key '{kwargs['key']}'"
+        else:
+            raise Exception(f'ERROR, Expected dictionary and key parameters but received: {kwargs}')
+
+    @staticmethod
+    def should_not_be_empty(kwargs: list) -> str:
+        if 'variable' in kwargs:
+            return f"The variable `{kwargs['variable']}' should not be '${{EMPTY}}'"
+        else:
+            raise Exception(f'ERROR, Expected dictionary and key parameters but received: {kwargs}')
+
+    @staticmethod
+    def should_be_true(kwargs: list) -> str:
+        if 'expression' in kwargs:
+            return f"The expression `{kwargs['expression']}' should be True"
+        else:
+            raise Exception(f'ERROR, Expected dictionary and key parameters but received: {kwargs}')
 
     @staticmethod
     def check_response_headers_containing_content_type_set_to(kwargs: list) -> str:

@@ -30,15 +30,15 @@ ${update_fragment_file_path}=                           csourceRegistrations/fra
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
     Wait for notification and validate it
-    ...    ${subscription_id}
-    ...    ${expected_context_source_registration_ids}
-    ...    newlyMatching
+    ...    expected_subscription_id=${subscription_id}
+    ...    expected_context_source_registration_ids=${expected_context_source_registration_ids}
+    ...    expected_trigger_reason=newlyMatching
     ${update_fragment}=    Load Test Sample    ${update_fragment_file_path}
     ${response}=    Update Context Source Registration    ${context_source_registration_id}    ${update_fragment}
     Wait for notification and validate it
-    ...    ${subscription_id}
-    ...    ${expected_context_source_registration_ids}
-    ...    updated
+    ...    expected_subscription_id=${subscription_id}
+    ...    expected_context_source_registration_ids=${expected_context_source_registration_ids}
+    ...    expected_trigger_reason=updated
 
 
 *** Keywords ***

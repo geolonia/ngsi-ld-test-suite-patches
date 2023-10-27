@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CB/043",
+  "tp_id": "TP/NGSI-LD/CB/043_01",
   "test_objective": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.2.2",
   "config_id": "",
@@ -10,8 +10,8 @@
   "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
   "test_cases": [
     {
-      "name": "043_01 Create entity",
-      "permutation_tp_id": "TP/NGSI-LD/CB/043_01",
+      "name": "043_01_01 Create entity",
+      "permutation_tp_id": "TP/NGSI-LD/CB/043_01_01",
       "doc": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create entity)",
       "tags": [
         "5_2_2",
@@ -26,8 +26,8 @@
       "endpoint": "entities/"
     },
     {
-      "name": "043_02 Create subscription",
-      "permutation_tp_id": "TP/NGSI-LD/CB/043_02",
+      "name": "043_01_02 Create subscription",
+      "permutation_tp_id": "TP/NGSI-LD/CB/043_01_02",
       "doc": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create subscription)",
       "tags": [
         "5_2_2",
@@ -42,8 +42,8 @@
       "endpoint": "subscriptions/"
     },
     {
-      "name": "043_03 Create Temporal Representation of Entities",
-      "permutation_tp_id": "TP/NGSI-LD/CB/043_03",
+      "name": "043_01_03 Create Temporal Representation of Entities",
+      "permutation_tp_id": "TP/NGSI-LD/CB/043_01_03",
       "doc": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create Temporal Representation of Entities)",
       "tags": [
         "5_2_2",
@@ -58,8 +58,8 @@
       "endpoint": "temporal/entities"
     },
     {
-      "name": "043_04 Batch entity create",
-      "permutation_tp_id": "TP/NGSI-LD/CB/043_04",
+      "name": "043_01_04 Batch entity create",
+      "permutation_tp_id": "TP/NGSI-LD/CB/043_01_04",
       "doc": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Batch entity create)",
       "tags": [
         "5_2_2",
@@ -74,8 +74,8 @@
       "endpoint": "entityOperations/create"
     },
     {
-      "name": "043_05 Create context source registration",
-      "permutation_tp_id": "TP/NGSI-LD/CB/043_05",
+      "name": "043_01_05 Create context source registration",
+      "permutation_tp_id": "TP/NGSI-LD/CB/043_01_05",
       "doc": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create context source registration)",
       "tags": [
         "5_2_2",
@@ -96,5 +96,5 @@
     "then"
   ],
   "robotpath": "CommonBehaviours",
-  "robotfile": "043"
+  "robotfile": "043_01"
 }

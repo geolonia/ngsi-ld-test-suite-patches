@@ -22,10 +22,7 @@ ${entity_building_filepath}=            building-simple-attributes-sample.jsonld
 046_02_01 Check that a notification is sent on the timeInterval
     [Documentation]    If a Subscription defines a timeInterval member, a Notification shall be sent periodically, when the time interval (in seconds) specified in such value field is reached, regardless of Attribute changes.
     [Tags]    sub-notification    5_11_7    046_02
-
-    Add Initial Entity
-    Sleep    1s
-    Setup Initial Subscriptions
+    ${response}=    Setup Initial Subscriptions
 
     ${notification}=    Wait for notification    timeout=${15}
 
@@ -50,6 +47,8 @@ Setup Initial Subscriptions
     ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
+    Add Initial Entity
+    Sleep    1s
 
 Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}

@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Subscription/Notification/046_01",
+  "tp_id": "TP/NGSI-LD/CI/SUB/046_01",
   "test_objective": "Check that a notification is only sent if and only if the status is active",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.6",
   "config_id": "",
@@ -14,7 +14,7 @@
   "test_cases": [
     {
       "name": "046_01_01 Check that a notification is only sent if status is active",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Subscription/Notification/046_01_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_01_01",
       "doc": "Check that a notification is only sent if and only if the status is active",
       "tags": [
         "046_01",

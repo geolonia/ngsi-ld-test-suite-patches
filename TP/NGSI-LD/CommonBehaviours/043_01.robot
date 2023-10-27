@@ -19,7 +19,7 @@ ${registration_filename}=       csourceRegistrations/context-source-registration
 
 
 *** Test Cases ***
-043_01 Create entity
+043_01_01 Create entity
     [Documentation]    Verify receiving 503 – LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create entity)
     [Tags]    e-create    5_2_2
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
@@ -34,7 +34,7 @@ ${registration_filename}=       csourceRegistrations/context-source-registration
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
     [Teardown]    Delete Entity by Id    ${entity_id}
 
-043_02 Create subscription
+043_01_02 Create subscription
     [Documentation]    Verify receiving 503 – LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create subscription)
     [Tags]    sub-create    5_2_2
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
@@ -46,7 +46,7 @@ ${registration_filename}=       csourceRegistrations/context-source-registration
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
     [Teardown]    Delete Subscription    ${subscription_id}
 
-043_03 Create Temporal Representation of Entities
+043_01_03 Create Temporal Representation of Entities
     [Documentation]    Verify receiving 503 – LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create Temporal Representation of Entities)
     [Tags]    te-create    5_2_2
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${tea_id_prefix}
@@ -61,7 +61,7 @@ ${registration_filename}=       csourceRegistrations/context-source-registration
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
 
-043_04 Batch entity create
+043_01_04 Batch entity create
     [Documentation]    Verify receiving 503 – LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Batch entity create)
     [Tags]    be-create    5_2_2
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
@@ -78,7 +78,7 @@ ${registration_filename}=       csourceRegistrations/context-source-registration
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
     [Teardown]    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_created}
 
-043_05 Create context source registration
+043_01_05 Create context source registration
     [Documentation]    Verify receiving 503 – LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create context source registration)
     [Tags]    csr-create    5_2_2
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}

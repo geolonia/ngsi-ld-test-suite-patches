@@ -24,10 +24,7 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
     [Documentation]    The notification message shall include all the subscribed Entities that changed and that match (as mandated by clauses 4.9 and 4.10) the query and geoquery conditions
     [Tags]    sub-notification    5_11_7    046_04
 
-    Add Initial Entity
-    Sleep    1s
-    Setup Initial Subscriptions
-    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}=    Wait for notification    ${5}
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
@@ -48,6 +45,9 @@ Setup Initial Subscriptions
     ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
+    Add Initial Entity
+    Sleep    1s
+    Setup Initial Subscriptions
 
 Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}

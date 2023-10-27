@@ -41,9 +41,9 @@ Receive cSourceNotification For Matching Context Source Registrations On Managem
     ${response}=    Create Context Source Registration    ${context_source_registration_payload}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
     Wait for notification and validate it
-    ...    ${subscription_id}
-    ...    ${expected_context_source_registration_ids}
-    ...    newlyMatching
+    ...    expected_subscription_id=${subscription_id}
+    ...    expected_context_source_registration_ids=${expected_context_source_registration_ids}
+    ...    expected_trigger_reason=newlyMatching
 
 Delete Created Context Source Registrations
     Delete Context Source Registration Subscription    ${subscription_id}

@@ -216,6 +216,10 @@ class Requests:
             'Wait for notification': {
                 'positions': [0],
                 'params': ['timeout']
+            },
+            'Setup Initial Subscriptions': {
+                'positions': [],
+                'params': []
             }
         }
 
@@ -319,7 +323,9 @@ class Requests:
             'Query Entities Via POST':
                 Requests.query_entities_via_post,
             'Query Temporal Representation Of Entities Via Post':
-                Requests.query_temporal_representation_of_entities_via_post
+                Requests.query_temporal_representation_of_entities_via_post,
+            'Setup Initial Subscriptions':
+                Requests.setup_initial_subscriptions
         }
 
         self.variables = variables
@@ -334,7 +340,8 @@ class Requests:
         params = dict()
 
         # New version
-        lines_starting_response = re.findall(r'^\s*\$\{response\}.*|^\s*\$\{notification\}.*', string, re.MULTILINE)
+        #lines_starting_response = re.findall(r'^\s*\$\{response\}.*|^\s*\$\{notification\}.*', string, re.MULTILINE)
+        lines_starting_response = re.findall(r'^\s*\$\{response\}.*', string, re.MULTILINE)
 
         # If there is more than one line, it means that the test case has several operations, all of them to
         # create the environment content to execute the last one, which is the correct one to test the Test Case
@@ -500,6 +507,23 @@ class Requests:
             return result
         else:
             raise Exception(f"ERROR, expected filename and content_type attributes, but received {kwargs}")
+
+    @staticmethod
+    def setup_initial_subscriptions(kwargs) -> str:
+        result = """a subscription with id set to ${subscriptionId} 
+           and status equals 'active'
+           and timeInterval is set to '${timeInterval}'
+           and watchedAttributes is 'Empty'
+           and q is 'Empty'
+           and geoQ is 'Empty'
+           and with subscription.entity with type 'Building'
+           and notification.endpoint.accept is 'application/json'
+           
+           When the timeinterval is reached at ${timeInterval} seconds
+           the SUT needs to send out a notification to the client 
+           sends a notification to the client every ${timeInterval} seconds"""
+
+        return result
 
     @staticmethod
     def create_subscription_from_file(kwargs) -> str:

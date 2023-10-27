@@ -1,0 +1,36 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/SUB/046_04",
+  "test_objective": "If a Subscription does not define a timeInterval member, the notification shall be sent whenever there is a change in the watched Attributes. The notification message shall include all the subscribed Entities that changed and that match (as mandated by clauses 4.9 and 4.10) the query and geoquery conditions",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.7",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_11_7",
+  "keywords": [
+    "Before Test",
+    "After Test"
+  ],
+  "teardown": "After Test",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "046_04_01 Check that a notification is sent with all entities",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_04_01",
+      "doc": "The notification message shall include all the subscribed Entities that changed and that match (as mandated by clauses 4.9 and 4.10) the query and geoquery conditions",
+      "tags": [
+        "046_04",
+        "5_11_7",
+        "sub-notification"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        After waiting '5' seconds and\n        Notification data: '${notification}[subscriptionId]' equal to '${subscription_id}' and\n        Notification data: '${notification}[data][0][id]' equal to '${entity_id}' and\n        Notification data: '${notification}[data][0][airQualityLevel][value]' equal to '${5}' and\n        Notification data: '${notification}[data][0][name][value]' equal to 'Eiffel Tower' and\n        The dictionary `${notification}' should contain the key 'data' and\n        The variable `${notification}[data]' should not be '${EMPTY}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'airQualityLevel-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{id}/attrs"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Subscription/Notification",
+  "robotfile": "046_04"
+}

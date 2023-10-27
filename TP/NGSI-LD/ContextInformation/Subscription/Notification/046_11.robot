@@ -40,7 +40,7 @@ ${date_format_with_millis}=             %Y-%m-%dT%H:%M:%S.%fZ
     ...    context=${ngsild_test_suite_context}
 
     Dictionary Should Contain Key    ${response.json()}[notification]    timesSent
-    Should Be Equal    ${1}    ${response.json()}[notification][timesSent]
+    Should be Equal    ${1}    ${response.json()}[notification][timesSent]
 
 
 *** Keywords ***

@@ -11,7 +11,6 @@ class TestCIConsumptions(TestCase):
     # 58 passed
     @classmethod
     def setUpClass(cls):
-        # TODO: Test Suites checked until 019_01_01
         TestCIConsumptions.folder_test_suites = dirname(dirname(dirname(__file__)))
         folder_results = f'{TestCIConsumptions.folder_test_suites}/doc/results'
 

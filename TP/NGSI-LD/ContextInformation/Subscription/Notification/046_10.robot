@@ -25,11 +25,7 @@ ${expected_header_links}                <${ngsild_test_suite_context}>; rel="htt
     [Documentation]    The Notification content shall be JSON by default
     [Tags]    sub-notification    5_11_7    046_10
 
-    Add Initial Entity
-    Sleep    1s
-    Setup Initial Subscriptions
-
-    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     Wait For Request    timeout=${10}
     Reply By    200
@@ -54,6 +50,9 @@ Setup Initial Subscriptions
     ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
+    Add Initial Entity
+    Sleep    1s
+    Setup Initial Subscriptions
 
 Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}

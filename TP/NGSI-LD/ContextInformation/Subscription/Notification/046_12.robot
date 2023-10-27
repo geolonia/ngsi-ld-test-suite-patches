@@ -40,7 +40,7 @@ ${notification_server_send_url}=        http://${notification_server_host}:${not
     ${notification_info}=    Get Value From Json    ${response.json()}    $.notification
 
     Dictionary Should Contain Key    ${notification_info}[0]    status
-    Should Be Equal    ok    ${notification_info}[0][status]
+    Should be Equal    ok    ${notification_info}[0][status]
 
     Dictionary Should Contain Key    ${notification_info}[0]    lastNotification
     ${last_notification_date}=    Parse Ngsild Date    ${notification_info}[0][lastNotification]

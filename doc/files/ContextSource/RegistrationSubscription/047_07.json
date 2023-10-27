@@ -1,0 +1,51 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/047_07",
+  "test_objective": "Check that a cSourceNotification shall only be sent if and only if the status of the corresponding subscription is active, neither paused or expired",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.7",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_11_7",
+  "keywords": [
+    "Setup Initial Context Source Registration Subscriptions",
+    "Delete Created Context Source Registrations And Subscriptions"
+  ],
+  "teardown": "Delete Created Context Source Registrations And Subscriptions",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "047_07_01 PausedSubscription",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/047_07_01",
+      "doc": "",
+      "tags": [
+        "5_11_7",
+        "csrsub-notification"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Do Not Receive cSourceNotification If Subscription Status Is Not Active",
+      "then": "then {\n    the SUT will not send a CsourceNotification after 5 seconds}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'POST'\n        Create Context Source Registration Request with Content-Type set to 'application/ld+json' and payload set to '${context_source_registration_payload}'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceRegistrations"
+    },
+    {
+      "name": "047_07_02 ExpiredSubscription",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/047_07_02",
+      "doc": "",
+      "tags": [
+        "5_11_7",
+        "csrsub-notification"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Do Not Receive cSourceNotification If Subscription Status Is Not Active",
+      "then": "then {\n    the SUT will not send a CsourceNotification after 5 seconds}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'POST'\n        Create Context Source Registration Request with Content-Type set to 'application/ld+json' and payload set to '${context_source_registration_payload}'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceRegistrations"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/NotificationBehaviour",
+  "robotfile": "047_07"
+}

@@ -30,14 +30,14 @@ ${date_format_with_millis}                              %Y-%m-%dT%H:%M:%S.%fZ
     Add Initial Entity
     Sleep    1s
     Setup Initial Subscriptions
-    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}=    Wait for notification
-    Should Be Equal    ${notification}[type]    Notification
-    Should Be Equal    ${notification}[subscriptionId]    ${subscription_id}
+    Should be Equal    ${notification}[type]    Notification
+    Should be Equal    ${notification}[subscriptionId]    ${subscription_id}
     ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}
     ${is_date_with_millis}=    Is Date    ${notification}[notifiedAt]    ${date_format_with_millis}
-    Should Be True    ${is_date} or ${is_date_with_millis}
+    Should be True    ${is_date} or ${is_date_with_millis}
     [Teardown]    Delete Fixture Data
 
 046_07_02 Check correct attributes are included
@@ -46,11 +46,11 @@ ${date_format_with_millis}                              %Y-%m-%dT%H:%M:%S.%fZ
     Add Initial Entity
     Sleep    1s
     Setup Initial Subscriptions    ${subscription_payload_file_path_watchedAttributes}
-    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}=    Wait for notification
-    Should Be Equal    ${notification}[type]    Notification
-    Should Be Equal    ${notification}[subscriptionId]    ${subscription_id}
+    Should be Equal    ${notification}[type]    Notification
+    Should be Equal    ${notification}[subscriptionId]    ${subscription_id}
     ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}
     ${is_date_with_millis}=    Is Date    ${notification}[notifiedAt]    ${date_format_with_millis}
     Should Be True    ${is_date} or ${is_date_with_millis}
@@ -63,11 +63,11 @@ ${date_format_with_millis}                              %Y-%m-%dT%H:%M:%S.%fZ
     Add Initial Entity
     Sleep    1s
     Setup Initial Subscriptions    ${subscription_payload_file_path_default_context}
-    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}=    Wait for notification
-    Should Be Equal    ${notification}[type]    Notification
-    Should Be Equal    ${notification}[subscriptionId]    ${subscription_id}
+    Should be Equal    ${notification}[type]    Notification
+    Should be Equal    ${notification}[subscriptionId]    ${subscription_id}
     ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}
     ${is_date_with_millis}=    Is Date    ${notification}[notifiedAt]    ${date_format_with_millis}
     Should Be True    ${is_date} or ${is_date_with_millis}

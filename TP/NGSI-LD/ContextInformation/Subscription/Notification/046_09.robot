@@ -24,11 +24,7 @@ ${notification_server_send_url}=        http://${send_notification_server_host}:
     [Documentation]    A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.info defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.1
     [Tags]    sub-notification    5_11_7    046_09
 
-    Add Initial Entity
-    Sleep    1s
-    Setup Initial Subscriptions
-
-    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}    ${headers}=    Wait for notification    timeout=${10}
     Dictionary Should Contain Key    ${headers}    X-Additional-Key
@@ -44,6 +40,9 @@ Setup Initial Subscriptions
     ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
+    Add Initial Entity
+    Sleep    1s
+    Setup Initial Subscriptions
 
 Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}

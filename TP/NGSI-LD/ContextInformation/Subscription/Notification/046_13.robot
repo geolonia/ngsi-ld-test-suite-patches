@@ -37,7 +37,7 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
     ${notification_info}=    Get Value From Json    ${response.json()}    $.notification
 
     Dictionary Should Contain Key    ${notification_info}[0]    status
-    Should Be Equal    failed    ${notification_info}[0][status]
+    Should be Equal    failed    ${notification_info}[0][status]
 
     Dictionary Should Contain Key    ${notification_info}[0]    lastFailure
     ${is_date}=    Is Date    ${notification_info}[0][lastFailure]    ${date_format}

@@ -9,7 +9,7 @@ import warnings
 
 
 class TestCSRegistrationSubscription(TestCase):
-    # 18 failed, 22 passed -> 047_01 is broken now
+    # 14 failed, 26 passed
     @classmethod
     def setUpClass(cls):
         TestCSRegistrationSubscription.folder_test_suites = dirname(dirname(dirname(__file__)))
@@ -125,21 +125,28 @@ class TestCSRegistrationSubscription(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_01(self):
-        # robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/NotificationBehaviour/047_01.robot'
-        # expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_01.json'
-        # difference_file = f'{self.folder_test_suites}/doc/results/out_047_01.json'
-        #
-        # self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
-        self.fail("(047_01) Test Suite with no Check operations, Notifications")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/NotificationBehaviour/047_01.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_01.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_01.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_02(self):
         self.fail("(047_02) Test Suite with no Check operations, Notifications")
 
     def test_047_03(self):
-        self.fail("(047_03) Test Suite with no Check operations, Notifications")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/NotificationBehaviour/047_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_03.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_04(self):
-        self.fail("(047_04) Test Suite with no Check operations, Notifications")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/NotificationBehaviour/047_04.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_04.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_04.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_05(self):
         self.fail("(047_05) Test Suite, problem with 'Check NotificationParams' no parameters selected")
@@ -148,7 +155,11 @@ class TestCSRegistrationSubscription(TestCase):
         self.fail("(047_06) Test Suite, problem with 'Check NotificationParams' no parameters selected")
 
     def test_047_07(self):
-        self.fail("(047_07) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/NotificationBehaviour/047_07.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_07.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_07.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_08(self):
         self.fail("(047_08) Test Suite with no Check operations")

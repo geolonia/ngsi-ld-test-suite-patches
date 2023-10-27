@@ -22,6 +22,8 @@ ${notification_server_send_url}=        http://${send_notification_server_host}:
 046_06_01 Check that a notification is sent with all matching entities
     [Documentation]    only the subscribed Entities matching the query and watched attributes shall be included.
     [Tags]    sub-notification    5_11_7    046_06
+    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Suite Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${building_filename}
     ...    ${entity_id}
@@ -42,8 +44,6 @@ Setup Server And Subscriptions
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
     Start Local Server    ${notification_server_host}    ${notification_server_port}
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Set Suite Variable    ${entity_id}
 
 Delete Server And Subscriptions
     Delete Subscription    ${subscription_id}
