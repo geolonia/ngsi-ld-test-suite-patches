@@ -6,8 +6,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Entities
-Suite Teardown      Delete Initial Entities
+Test Setup          Setup Initial Entities
+Test Teardown       Delete Initial Entities
 
 
 *** Variables ***

@@ -28,11 +28,6 @@ ${content_type}=                application/xml
     [Documentation]    Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json" (patch /entities/{entityId}/attrs/{attrId})
     [Tags]    ea-partial-update    6_3_4
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${response}=    Create Entity Selecting Content Type
-    ...    ${vehicle_filename}
-    ...    ${entity_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
     ${response}=    Partial Update Entity Attributes
     ...    ${entity_id}
     ...    ${vehicle_attribute}
@@ -45,8 +40,6 @@ ${content_type}=                application/xml
     [Documentation]    Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json" (patch /subscriptions/{subscriptionId})
     [Tags]    sub-update    6_3_4
     ${id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${response}=    Create Subscription    ${id}    ${subscription_filename}    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
     ${response}=    Update Subscription    ${id}    ${subscription_fragment}    ${content_type}
     Check Response Status Code    415    ${response.status_code}
     [Teardown]    Delete Subscription    ${id}

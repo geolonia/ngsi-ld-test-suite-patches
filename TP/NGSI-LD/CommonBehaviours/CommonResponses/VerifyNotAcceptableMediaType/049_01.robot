@@ -15,9 +15,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 ${accept}=                      application/xml
 ${status_code}=                 406
 ${building_id_prefix}=          urn:ngsi-ld:Building:
-${building_filename}=           building-simple-attributes-sample.jsonld
 ${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
-${subscription_filename}=       csourceSubscriptions/subscription-sample.jsonld
 
 
 *** Test Cases ***
@@ -25,11 +23,6 @@ ${subscription_filename}=       csourceSubscriptions/subscription-sample.jsonld
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /entities/{entityId})
     [Tags]    e-query    6_3_4
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${response}=    Create Entity Selecting Content Type
-    ...    ${building_filename}
-    ...    ${entity_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
     ${response}=    Query Entity    ${entity_id}    accept=${accept}
     Check Response Status Code    ${status_code}    ${response.status_code}
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
@@ -38,8 +31,6 @@ ${subscription_filename}=       csourceSubscriptions/subscription-sample.jsonld
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /subscriptions/{subscriptionId})
     [Tags]    sub-retrieve    6_3_4
     ${id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${response}=    Create Subscription    ${id}    ${subscription_filename}    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
     ${response}=    Retrieve Subscription    ${id}    accept=${accept}
     Check Response Status Code    ${status_code}    ${response.status_code}
     [Teardown]    Delete Subscription    ${id}
