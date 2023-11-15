@@ -34,12 +34,11 @@ Update Context Source
     ...    ${registration_update_fragment}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    204    ${response.status_code}
-    ${response}=    Retrieve Context Source Registration
-    ...    context_source_registration_id=${registration_id}
+    Check Retrieving Context Source Registration
+    ...    registration_id=${registration_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    ${ignored_attributes}=    Create List    ${status_regex_expr}    @context
-    Check Updated Resource Set To    ${registration_payload}    ${response.json()}    ${ignored_attributes}
+    ...    registration_payload=${registration_payload}
 
 Delete Updated Context Source Registration
     Delete Context Source Registration    ${registration_id}
@@ -47,7 +46,9 @@ Delete Updated Context Source Registration
 Initialize the Test Case
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Test Variable    ${registration_id}
-    ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
+    # ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
+    ${payload}=    Load JSON From File
+    ...    ${EXECDIR}/data/csourceRegistrations/context-source-registration-sample.jsonld
     ${registration_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
     Set Global Variable    ${registration_payload}
     ${response}=    Create Context Source Registration With Return    ${registration_payload}

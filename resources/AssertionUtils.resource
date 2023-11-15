@@ -4,6 +4,7 @@ Library     RequestsLibrary
 Library     Collections
 Library     JSONLibrary
 Library     String
+Resource    ${EXECDIR}/resources/ApiUtils.resource
 
 
 *** Variables ***
@@ -399,3 +400,12 @@ Check SUT Not Containing Resource
 Check SUT Not Containing Resources
     [Arguments]    ${response_body}
     Should Be Empty    ${response_body}
+
+Check Retrieving Context Source Registration
+    [Arguments]    ${registration_id}    ${context}    ${accept}    ${registration_payload}
+    ${response}=    Retrieve Context Source Registration
+    ...    context_source_registration_id=${registration_id}
+    ...    context=${context}
+    ...    accept=${accept}
+    ${ignored_attributes}=    Create List    ${status_regex_expr}    @context
+    Check Updated Resource Set To    ${registration_payload}    ${response.json()}    ${ignored_attributes}
