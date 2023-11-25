@@ -15,27 +15,24 @@ ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${parking_id_prefix}=       urn:ngsi-ld:OffStreetParking:
 ${vehicle_filename}=        vehicle-simple-attributes-sample.jsonld
 ${parking_filename}=        parking-simple-attributes-sample.jsonld
-${expectation_filename}=    building-minimal-expectation.json
+${expectation_filename}=    vehicle-parking-simple-expectation.geojson
 ${vehicle_entity_type}=     https://ngsi-ld-test-suite/context#Vehicle
 ${parking_entity_type}=     https://ngsi-ld-test-suite/context#OffStreetParking
-${geometry_property}=       location
 
 
 *** Test Cases ***
 019_02_05 Query several entities via POST Interaction asking for a GeoJSON representation
     [Documentation]    Check that you can query entitites via POST Interaction asking for a GeoJSON representation
     [Tags]    e-query    5_7_2
-    @{entities_ids_to_be_compared}=    Create List    ${vehicle_entity_id}    ${parking_entity_id}
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${vehicle_entity_type}    ${parking_entity_type}
     ${response}=    Query Entities Via POST
-    ...    entity_types=${entity_types_to_be_retrieved}
+    ...    entity_type=${entity_types_to_be_retrieved}
     ...    accept=${CONTENT_TYPE_GEOJSON}
-    ...    geometry_property=${geometry_property}
+    ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing List Containing Entity elements
-    ...    ${expectation_filename}
-    ...    ${entities_ids_to_be_compared}
-    ...    ${response.json()}
+    Check Response Body Content
+    ...    expectation_filename=${expectation_filename}
+    ...    response_body=${response.json()}
 
 
 *** Keywords ***

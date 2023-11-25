@@ -92,12 +92,18 @@ Query Entities Via POST
     ...    ${entity_type}=${EMPTY}
     ...    ${content_type}=${CONTENT_TYPE_JSON}
     ...    ${accept}=${CONTENT_TYPE_JSON}
+    ...    ${context}=${EMPTY}
     ...    ${attrs}=${EMPTY}
     ...    ${entity_id_pattern}=${EMPTY}
     ...    ${geometry_property}=${EMPTY}
     &{headers}=    Create Dictionary
     Set To Dictionary    ${headers}    Content-Type    ${content_type}
     Set To Dictionary    ${headers}    Accept    ${accept}
+    IF    '${context}'!=''
+        Set To Dictionary
+        ...    ${headers}
+        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    END
     &{body}=    Create Dictionary
     Set To Dictionary    ${body}    type=Query
     &{entities}=    Create Dictionary
