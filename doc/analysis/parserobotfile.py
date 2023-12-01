@@ -123,7 +123,6 @@ class ParseRobotFile:
         subdata.append(string[index:])
 
         self.string_test_template = [x for x in subdata if self.test_template_name in x][0]
-        print('hola')
 
     def get_template_param_values(self, test_cases):
         # Extract the parameter of the Test Cases

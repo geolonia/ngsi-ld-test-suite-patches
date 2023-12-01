@@ -14,12 +14,12 @@
       "permutation_tp_id": "TP/NGSI-LD/CS/REG/035_02_01",
       "doc": "Check that you cannot delete a context source registration under some conditions",
       "tags": [
-        "csr-delete",
-        "5_9_4"
+        "5_9_4",
+        "csr-delete"
       ],
       "setup": "Create Initial Context Source Registration",
       "teardown": "Delete Created Context Source Registrations",
-      "template": "Delete Context Source",
+      "template": "Delete A Context Source",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'DELETE'\n        Delete Context Source Registration with id set to '${EMPTY}'\n}",
       "http_verb": "DELETE",
@@ -30,12 +30,12 @@
       "permutation_tp_id": "TP/NGSI-LD/CS/REG/035_02_02",
       "doc": "Check that you cannot delete a context source registration under some conditions",
       "tags": [
-        "csr-delete",
-        "5_9_4"
+        "5_9_4",
+        "csr-delete"
       ],
       "setup": "Create Initial Context Source Registration",
       "teardown": "Delete Created Context Source Registrations",
-      "template": "Delete Context Source",
+      "template": "Delete A Context Source",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'DELETE'\n        Delete Context Source Registration with id set to 'invalidURI'\n}",
       "http_verb": "DELETE",

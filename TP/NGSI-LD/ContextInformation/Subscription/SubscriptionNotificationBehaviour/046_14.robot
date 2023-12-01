@@ -30,9 +30,9 @@ ${notification_server_send_url}         http://${notification_server_host}:${not
     Setup Initial Subscriptions
     Sleep    1s
 
-    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
-    Wait For Notification    timeout=${10}
+    ${notification}    ${headers}=    Wait For Notification    timeout=${10}
     Reply By    200
 
     ${notification_headers}=    Get Request Headers

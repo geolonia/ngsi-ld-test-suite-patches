@@ -7,7 +7,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Create Initial Context Source Registration
 Test Teardown       Delete Created Context Source Registrations
-Test Template       Delete Context Source
+Test Template       Delete A Context Source
 
 
 *** Variables ***
@@ -25,7 +25,7 @@ ${filename}=                    context-source-registration-sample.jsonld
 
 
 *** Keywords ***
-Delete Context Source
+Delete A Context Source
     [Documentation]    Check that you cannot delete a context source registration under some conditions
     [Arguments]    ${invalid_registration_id}
     ${response}=    Delete Context Source Registration With Return    ${invalid_registration_id}

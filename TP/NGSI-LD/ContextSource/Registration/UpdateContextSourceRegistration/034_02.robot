@@ -7,7 +7,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Setup Initial Entities
 Test Teardown       Delete Initial Entities
-Test Template       Update Context Source
+Test Template       Update A Context Source
 
 
 *** Variables ***
@@ -28,7 +28,7 @@ ${registration_payload_file_path}=      context-source-registration-invalid-samp
 
 
 *** Keywords ***
-Update Context Source
+Update A Context Source
     [Documentation]    Check that you cannot update a context source registration under some conditions
     [Tags]    csr-update    5_9_3
     [Arguments]    ${registration_id}    ${fragment_filename}

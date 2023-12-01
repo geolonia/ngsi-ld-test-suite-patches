@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Initialize the Test Case
 Test Teardown       Delete Updated Context Source Registration
-Test Template       Update Context Source
+Test Template       Update A Context Source
 
 
 *** Variables ***
@@ -25,7 +25,7 @@ ${registration_id_prefix}=      urn:ngsi-ld:Registration:
 
 
 *** Keywords ***
-Update Context Source
+Update A Context Source
     [Documentation]    Check that you can update a context source registration by id
     [Arguments]    ${filename}    ${update_filename}
     Set Global Variable    ${filename}

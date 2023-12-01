@@ -7,7 +7,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Create Id
 Test Teardown       Delete Temporal Entity
-Test Template       Delete Attribute
+Test Template       Delete An Attribute
 
 
 *** Variables ***
@@ -24,7 +24,7 @@ ${status_code}=             404
 
 
 *** Keywords ***
-Delete Attribute
+Delete An Attribute
     [Documentation]    Check that an error is raised if you delete a temporal entity with an unknown EntityId/Attribute Id
     [Tags]    tea-delete    5_6_13
     [Arguments]    ${entity_id}    ${attribute_id}

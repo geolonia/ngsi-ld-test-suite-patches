@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Create Id
 Test Teardown       Delete Intitial Temporal Representation Of Entity
-Test Template       Delete Attribute Instance
+Test Template       Delete An Attribute Instance
 
 
 *** Variables ***
@@ -27,7 +27,7 @@ ${status_code}=             404
 
 
 *** Keywords ***
-Delete Attribute Instance
+Delete An Attribute Instance
     [Documentation]    Check that you cannot delete an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not found
     [Tags]    tea-instance-delete    5_6_15
     [Arguments]    ${temporal_entity_id}    ${attributeId}    ${instanceId}

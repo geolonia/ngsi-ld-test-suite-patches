@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Setup Initial Context Source Registrations
 Test Teardown       Delete Created Context Source Registrations
-Test Template       Query Context Source Registration
+Test Template       Query A Context Source Registration
 
 
 *** Variables ***
@@ -27,7 +27,7 @@ ${second_context_source_registration_payload_file_path}=    csourceRegistrations
 
 
 *** Keywords ***
-Query Context Source Registration
+Query A Context Source Registration
     [Documentation]    Check that you can query context source registrations if at least one of list of Entity Types or list of Attribute names is present
     [Arguments]
     ...    ${query_param_name}
