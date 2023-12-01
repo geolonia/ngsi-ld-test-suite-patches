@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CS/REG/033_04",
+  "tp_id": "TP/NGSI-LD/CS/CSR/033_04",
   "test_objective": "Check that the @context is obtained from a Link Header if the Content-Type header is \"application/json\"",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.5",
   "config_id": "",
@@ -13,7 +13,7 @@
   "test_cases": [
     {
       "name": "033_04_01 Create one context source registration using a provided Link header with JSON content type with Context",
-      "permutation_tp_id": "TP/NGSI-LD/CS/REG/033_04_01",
+      "permutation_tp_id": "TP/NGSI-LD/CS/CSR/033_04_01",
       "doc": "Check that the @context is obtained from a Link Header if the Content-Type header is \"application/json\"",
       "tags": [
         "6_3_5",
@@ -22,14 +22,14 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the key '['information']['entities'][0]['type']', with the value 'Building' and\n        Response Status Code set to 201\n}",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the key '['information'][0]['entities'][0]['type']', with the value 'Building' and\n        Response Status Code set to 201\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration with data: and\n    Query Parameter: context source registration id set to '${registration_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
       "http_verb": "GET",
       "endpoint": "csourceRegistrations/{context_source_registration_id}"
     },
     {
       "name": "033_04_02 Create one context source registration using a provided Link header with JSON content type without Context",
-      "permutation_tp_id": "TP/NGSI-LD/CS/REG/033_04_02",
+      "permutation_tp_id": "TP/NGSI-LD/CS/CSR/033_04_02",
       "doc": "Check that the @context is obtained from a Link Header if the Content-Type header is \"application/json\"",
       "tags": [
         "6_3_5",
@@ -38,7 +38,7 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the key '['information']['entities'][0]['type']', with the value 'https://ngsi-ld-test-suite/context#Building' and\n        Response Status Code set to 201\n}",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the key '['information'][0]['entities'][0]['type']', with the value 'https://ngsi-ld-test-suite/context#Building' and\n        Response Status Code set to 201\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration with data: and\n    Query Parameter: context source registration id set to '${registration_id}'\n}",
       "http_verb": "GET",
       "endpoint": "csourceRegistrations/{context_source_registration_id}"
@@ -48,6 +48,6 @@
     "when",
     "then"
   ],
-  "robotpath": "ContextSource/Registration/CreateContextSourceRegistration",
+  "robotpath": "ContextSource/Registration/RegisterContextSource",
   "robotfile": "033_04"
 }

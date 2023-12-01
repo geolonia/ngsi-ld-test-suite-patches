@@ -1,0 +1,35 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/SUB/030_03",
+  "test_objective": "Check that you can retrieve a subscription",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.3",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_8_3",
+  "keywords": [
+    "Setup Initial Subscriptions",
+    "Delete Initial Subscriptions"
+  ],
+  "teardown": "Delete Initial Subscriptions",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "030_03_01 Retrieve Subscription",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/030_03_01",
+      "doc": "Check that you can retrieve a subscription",
+      "tags": [
+        "5_8_3",
+        "sub-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the same content defined in file 'subscriptions/expectations/subscriptions-030-03-expectation.json' with subscription id '${subscription_id}' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Subscription Retrieve with the following data: and\n    Query Parameter: id set to '${subscription_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "GET",
+      "endpoint": "subscriptions/{id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Subscription/RetrieveSubscription",
+  "robotfile": "030_03"
+}

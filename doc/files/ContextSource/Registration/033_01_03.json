@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CS/REG/033_01_03",
+  "tp_id": "TP/NGSI-LD/CS/CSR/033_01_03",
   "test_objective": "Check that you can create a context source registration without specifying an ID",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.9.2",
   "config_id": "",
@@ -13,7 +13,7 @@
   "test_cases": [
     {
       "name": "033_01_03 Create Context Source Registration Without A Sprecified ID",
-      "permutation_tp_id": "TP/NGSI-LD/CS/REG/033_01_03",
+      "permutation_tp_id": "TP/NGSI-LD/CS/CSR/033_01_03",
       "doc": "Check that you can create a context source registration without specifying an ID",
       "tags": [
         "5_9_2",
@@ -29,6 +29,6 @@
     }
   ],
   "permutations": [],
-  "robotpath": "ContextSource/Registration/CreateContextSourceRegistration",
+  "robotpath": "ContextSource/Registration/RegisterContextSource",
   "robotfile": "033_01_03"
 }

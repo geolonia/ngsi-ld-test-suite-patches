@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot update a context source registration subscription with a fragment that does not meet the data types and restrictions expressed by clause 5.2.12
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

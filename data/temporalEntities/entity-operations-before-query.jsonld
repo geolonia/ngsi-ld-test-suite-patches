@@ -1,8 +1,10 @@
 {
-   "type":"Vehicle",
-   "timerel":"before",
-   "timeAt":"2020-08-02T12:05:00Z",
-   "@context":[
-      "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
-   ]
+    "type": "Query",
+    "entities": [{
+        "type": "Vehicle"
+    }],
+    "temporalQ": {
+       "timerel":"before",
+       "timeAt":"2020-08-02T12:05:00Z"
+    }
 }

@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CB/043_01",
+  "tp_id": "TP/NGSI-LD/CB/HTTP/043_01",
   "test_objective": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.2.2",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "043_01_01 Create entity",
-      "permutation_tp_id": "TP/NGSI-LD/CB/043_01_01",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/043_01_01",
       "doc": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create entity)",
       "tags": [
         "5_2_2",
@@ -27,7 +27,7 @@
     },
     {
       "name": "043_01_02 Create subscription",
-      "permutation_tp_id": "TP/NGSI-LD/CB/043_01_02",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/043_01_02",
       "doc": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create subscription)",
       "tags": [
         "5_2_2",
@@ -43,7 +43,7 @@
     },
     {
       "name": "043_01_03 Create Temporal Representation of Entities",
-      "permutation_tp_id": "TP/NGSI-LD/CB/043_01_03",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/043_01_03",
       "doc": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create Temporal Representation of Entities)",
       "tags": [
         "5_2_2",
@@ -59,7 +59,7 @@
     },
     {
       "name": "043_01_04 Batch entity create",
-      "permutation_tp_id": "TP/NGSI-LD/CB/043_01_04",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/043_01_04",
       "doc": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Batch entity create)",
       "tags": [
         "5_2_2",
@@ -75,7 +75,7 @@
     },
     {
       "name": "043_01_05 Create context source registration",
-      "permutation_tp_id": "TP/NGSI-LD/CB/043_01_05",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/043_01_05",
       "doc": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create context source registration)",
       "tags": [
         "5_2_2",
@@ -95,6 +95,6 @@
     "when",
     "then"
   ],
-  "robotpath": "CommonBehaviours",
+  "robotpath": "CommonBehaviours/CommonResponses/VerifyLdContextNotAvailable",
   "robotfile": "043_01"
 }

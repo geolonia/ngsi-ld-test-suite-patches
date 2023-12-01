@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot create a context source registration subscription with an expiration timestamp representing a moment before the current date and time
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

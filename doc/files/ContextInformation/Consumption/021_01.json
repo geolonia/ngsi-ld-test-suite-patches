@@ -12,7 +12,7 @@
     {
       "name": "021_01_01 After",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_01_01",
-      "doc": "",
+      "doc": "Check that you can query the temporal evolution of entities",
       "tags": [
         "5_7_4",
         "te-query"
@@ -28,7 +28,7 @@
     {
       "name": "021_01_02 Before",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_01_02",
-      "doc": "",
+      "doc": "Check that you can query the temporal evolution of entities",
       "tags": [
         "5_7_4",
         "te-query"

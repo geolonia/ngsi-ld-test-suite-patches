@@ -1,12 +1,11 @@
 *** Settings ***
 Documentation       Check that you cannot update entity attributes with invalid/missing id or invalid request body
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision/ApiUtils.resource
-# Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Initialize Environment
+Suite Teardown      Delete Entity
 Test Template       Update Attributes
 
 
@@ -26,16 +25,16 @@ Update Attributes
     [Documentation]    Check that you cannot update entity attributes with invalid/missing id or invalid request body
     [Tags]    ea-update    5_6_2
     [Arguments]    ${entity_invalid_id}    ${filename}    ${fragment_filename}
-    Set Global Variable    ${filename}
+    Initialize Environment    ${filename}
     ${response}=    Update Entity Attributes    ${entity_invalid_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
 
 Initialize Environment
+    [Arguments]    ${filename}
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Global Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
@@ -43,3 +42,6 @@ Initialize Environment
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
+
+Delete Entity
+    Delete Entity by Id Returning Response    ${entity_id}

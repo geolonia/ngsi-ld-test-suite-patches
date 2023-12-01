@@ -10,7 +10,7 @@
   "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
   "test_cases": [
     {
-      "name": "013_02_01 delete an attribute if the Entity Id is not present",
+      "name": "013_02_01 Delete an attribute if the Entity Id is not present",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/DeleteEntityAttribute/013_02_01",
       "doc": "Check that you cannot delete an attribute from an entity with invalid/missing ids",
       "tags": [
@@ -26,7 +26,7 @@
       "endpoint": "entities/{entityId}/attrs/{attributeId}?{params_as_string}"
     },
     {
-      "name": "013_02_02 delete an attribute if the Entity Id is not a valid URI",
+      "name": "013_02_02 Delete an attribute if the Entity Id is not a valid URI",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/DeleteEntityAttribute/013_02_02",
       "doc": "Check that you cannot delete an attribute from an entity with invalid/missing ids",
       "tags": [
@@ -42,7 +42,7 @@
       "endpoint": "entities/{entityId}/attrs/{attributeId}?{params_as_string}"
     },
     {
-      "name": "013_02_03 delete an attribute if the Attribute Name is not present",
+      "name": "013_02_03 Delete an attribute if the Attribute Name is not present",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/DeleteEntityAttribute/013_02_03",
       "doc": "Check that you cannot delete an attribute from an entity with invalid/missing ids",
       "tags": [

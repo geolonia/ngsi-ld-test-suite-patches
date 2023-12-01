@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can query context source registration subscriptions with providing page and limit parameters for pagination
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -60,9 +60,9 @@ Setup Initial Context Source Registration Subscriptions
     Create Context Source Registration Subscription    ${first_subscription_payload}
     Create Context Source Registration Subscription    ${second_subscription_payload}
     Create Context Source Registration Subscription    ${third_subscription_payload}
-    Test Suite Variable    ${first_subscription_id}
-    Test Suite Variable    ${second_subscription_id}
-    Test Suite Variable    ${third_subscription_id}
+    Set Suite Variable    ${first_subscription_id}
+    Set Suite Variable    ${second_subscription_id}
+    Set Suite Variable    ${third_subscription_id}
 
 Delete Created Context Source Registration Subscriptions
     Delete Context Source Registration Subscription    ${first_subscription_id}

@@ -25,12 +25,12 @@
       "teardown": null,
       "template": null,
       "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        After waiting '10' seconds and\n        Notification data: '${notification}[subscriptionId]' equal to '${subscription_id}' and\n        Notification data: '${notification}[data][0][id]' equal to '${entity_id}' and\n        Notification data: '${notification}[data][0][airQualityLevel][value]' equal to '${5}'\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'airQualityLevel-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'airQualityLevel-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
       "http_verb": "PATCH",
-      "endpoint": "entities/{id}/attrs"
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
     }
   ],
   "permutations": [],
-  "robotpath": "ContextInformation/Subscription/Notification",
+  "robotpath": "ContextInformation/Subscription/SubscriptionNotificationBehaviour",
   "robotfile": "046_01"
 }

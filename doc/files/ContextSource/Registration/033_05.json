@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CS/REG/033_05",
+  "tp_id": "TP/NGSI-LD/CS/CSR/033_05",
   "test_objective": "Check that the default @context is used if the Content-Type header is \"application/json\" and the Link header does not contain a JSON-LD @context",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.5",
   "config_id": "",
@@ -13,8 +13,8 @@
   "test_cases": [
     {
       "name": "033_05_01 Create one context source registration using the default context with JSON content type with Context",
-      "permutation_tp_id": "TP/NGSI-LD/CS/REG/033_05_01",
-      "doc": "Check that the default @context is used if the Content-Type header is \"application/json\" and the Link header does not contain a JSON-LD @context",
+      "permutation_tp_id": "TP/NGSI-LD/CS/CSR/033_05_01",
+      "doc": "Check that the default @context is used if the Content-Type header is \"application/json\" and the Link header does not contain a JSON-LD @context and retrieve the information with ngsild context",
       "tags": [
         "6_3_5",
         "csr-create"
@@ -22,15 +22,15 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the key '['information']['entities'][0]['type']', with the value 'ngsi-ld:default-context/Building' and\n        Response Status Code set to 201\n}",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the key '['information'][0]['entities'][0]['type']', with the value 'ngsi-ld:default-context/Building' and\n        Response Status Code set to 201\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration with data: and\n    Query Parameter: context source registration id set to '${registration_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
       "http_verb": "GET",
       "endpoint": "csourceRegistrations/{context_source_registration_id}"
     },
     {
       "name": "033_05_02 Create one context source registration using the default context with JSON content type without Context",
-      "permutation_tp_id": "TP/NGSI-LD/CS/REG/033_05_02",
-      "doc": "Check that the default @context is used if the Content-Type header is \"application/json\" and the Link header does not contain a JSON-LD @context",
+      "permutation_tp_id": "TP/NGSI-LD/CS/CSR/033_05_02",
+      "doc": "Check that the default @context is used if the Content-Type header is \"application/json\" and the Link header does not contain a JSON-LD @context and retrieve the information without ngsild context",
       "tags": [
         "6_3_5",
         "csr-create"
@@ -38,7 +38,7 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the key '['information']['entities'][0]['type']', with the value 'Building' and\n        Response Status Code set to 201\n}",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the key '['information'][0]['entities'][0]['type']', with the value 'Building' and\n        Response Status Code set to 201\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration with data: and\n    Query Parameter: context source registration id set to '${registration_id}'\n}",
       "http_verb": "GET",
       "endpoint": "csourceRegistrations/{context_source_registration_id}"
@@ -48,6 +48,6 @@
     "when",
     "then"
   ],
-  "robotpath": "ContextSource/Registration/CreateContextSourceRegistration",
+  "robotpath": "ContextSource/Registration/RegisterContextSource",
   "robotfile": "033_05"
 }

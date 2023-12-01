@@ -50,11 +50,19 @@ class ParseApiUtilsFile:
             aux = match.groups()[0]
             keys = re.split(r'\$|/', aux)
             keys = [k for k in keys if k != '']
+        else:
+            regex = r"\s*\.*\s*url=\$\{temporal_api_url\}\/(.*)"
+
+            match = re.match(pattern=regex, string=url)
+            if match:
+                aux = match.groups()[0]
+                keys = re.split(r'\$|/', aux)
+                keys = [k for k in keys if k != '']
 
         return keys
 
     def get_variables_data(self):
-        string = self.get_substring(initial_string='*** Variables ***\n', final_string='*** ', include=False)
+        string = self.get_substring(initial_string='*** Variables ***', final_string='*** ', include=False)
 
         self.get_variables_data_variables(string=string)
         self.get_variables_data_dictionaries(string=string)
@@ -109,7 +117,7 @@ class ParseApiUtilsFile:
                 raise Exception("Error, the variable is not following the format ${thing} = <value>")
 
     def get_substring(self, initial_string: str, final_string: str, include: bool) -> str:
-        index_start = self.file_contents.find(initial_string)
+        index_start = self.file_contents.find(initial_string + '\n')
 
         if include:
             string = self.file_contents[index_start:]

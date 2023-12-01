@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot update a context source registration under some conditions
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +12,7 @@ Test Template       Update Context Source
 
 *** Variables ***
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
-${filename}=                            context-source-registration-simple-sample.jsonld
+${filename}=                            context-source-registration-sample.jsonld
 ${registration_payload_file_path}=      context-source-registration-invalid-sample.jsonld
 
 

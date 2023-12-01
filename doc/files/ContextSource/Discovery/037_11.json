@@ -1,0 +1,67 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/DISC/037_11",
+  "test_objective": "Check that you can query context source registrations with providing page and limit parameters, pagination logic shall be in place as mandated by clause 5.5.9.",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.10.2",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_10_2",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "037_11_01 Query Second Subscription",
+      "permutation_tp_id": "TP/NGSI-LD/CS/DISC/037_11_01",
+      "doc": "Check that you can query context source registrations with providing page and limit parameters, pagination logic shall be in place as mandated by clause 5.5.9.",
+      "tags": [
+        "5_10_2",
+        "csr-query"
+      ],
+      "setup": "Setup Initial Context Source Registrations",
+      "teardown": "Delete Created Context Source Registrations",
+      "template": "Query Context Source Registration With Limit And Page Parameters",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list of entities equal to '${1}' of type 'ContextSourceRegistration' with response set to '${response.json()}' and\n        Response header with 'Prev' header equal to '</ngsi-ld/v1/csourceSubscriptions?type=Building&limit=1&page=3>;rel=\"next\";type=\"application/ld+json\"' and with 'Next' header equal to '${response.json()}' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: type set to 'Building' and\n    Query Parameter: limit set to '${1}' and\n    Query Parameter: page set to '${2}'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations"
+    },
+    {
+      "name": "037_11_02 Query Last Subscription",
+      "permutation_tp_id": "TP/NGSI-LD/CS/DISC/037_11_02",
+      "doc": "Check that you can query context source registrations with providing page and limit parameters, pagination logic shall be in place as mandated by clause 5.5.9.",
+      "tags": [
+        "5_10_2",
+        "csr-query"
+      ],
+      "setup": "Setup Initial Context Source Registrations",
+      "teardown": "Delete Created Context Source Registrations",
+      "template": "Query Context Source Registration With Limit And Page Parameters",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list of entities equal to '${1}' of type 'ContextSourceRegistration' with response set to '${response.json()}' and\n        Response header with 'Prev' header equal to '${EMPTY}' and with 'Next' header equal to '${response.json()}' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: type set to 'Building' and\n    Query Parameter: limit set to '${2}' and\n    Query Parameter: page set to '${2}'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations"
+    },
+    {
+      "name": "037_11_03 Query All Subscriptions",
+      "permutation_tp_id": "TP/NGSI-LD/CS/DISC/037_11_03",
+      "doc": "Check that you can query context source registrations with providing page and limit parameters, pagination logic shall be in place as mandated by clause 5.5.9.",
+      "tags": [
+        "5_10_2",
+        "csr-query"
+      ],
+      "setup": "Setup Initial Context Source Registrations",
+      "teardown": "Delete Created Context Source Registrations",
+      "template": "Query Context Source Registration With Limit And Page Parameters",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list of entities equal to '${3}' of type 'ContextSourceRegistration' with response set to '${response.json()}' and\n        Response header with 'Prev' header equal to '${EMPTY}' and with 'Next' header equal to '${response.json()}' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: type set to 'Building' and\n    Query Parameter: limit set to '${15}' and\n    Query Parameter: page set to '${1}'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations"
+    }
+  ],
+  "permutations": [
+    "when",
+    "then"
+  ],
+  "robotpath": "ContextSource/Discovery/QueryContextSourceRegistrations",
+  "robotfile": "037_11"
+}

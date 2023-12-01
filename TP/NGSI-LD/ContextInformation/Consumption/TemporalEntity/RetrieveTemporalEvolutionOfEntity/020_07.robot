@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot retrieve the temporal evolution of a non-existing entity
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

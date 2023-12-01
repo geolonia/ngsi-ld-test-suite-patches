@@ -1,10 +1,10 @@
 {
   "tp_id": "TP/NGSI-LD/CI/SUB/046_03",
   "test_objective": "A notification with all subscribed Entities will be included if query or geoquery are not defined.",
-  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.7",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.6",
   "config_id": "",
   "parent_release": "v1.3.1",
-  "pics_selection": "PICS_5_11_7",
+  "pics_selection": "PICS_5_8_6",
   "keywords": [
     "Before Test",
     "After Test"
@@ -18,19 +18,19 @@
       "doc": "A notification with all subscribed Entities will be included if query or geoquery are not defined.",
       "tags": [
         "046_03",
-        "5_11_7",
+        "5_8_6",
         "sub-notification"
       ],
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        After waiting '5' seconds and\n        Notification data: '${notification}[subscriptionId]' equal to '${subscription_id}' and\n        Notification data: '${notification}[data][0][id]' equal to '${entity_id}' and\n        Notification data: '${notification}[data][0][name][value]' equal to 'Eiffel Tower' and\n        The dictionary `${notification}' should contain the key 'data' and\n        The variable `${notification}[data]' should not be '${EMPTY}' and\n        The expression `'${notification}[data][0][airQualityLevel][value]'=='4.0' or '${notification}[data][0][airQualityLevel][value]'=='4'' should be True\n}",
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        After waiting '5' seconds and\n        Notification data: '${notification}[subscriptionId]' equal to '${subscription_id}' and\n        Notification data: '${notification}[data][0][id]' equal to '${entity_id}' and\n        Notification data: '${notification}[data][0][name][value]' equal to 'Eiffel Tower' and\n        The dictionary `${notification}' should contain the key 'data' and\n        The variable `${notification}[data]' should not be '${EMPTY}' and\n        The expression `'${notification}[data][0][airQualityLevel][value]'=='5.0' or '${notification}[data][0][airQualityLevel][value]'=='5'' should be True\n}",
       "when": "The client at ${endpoint} receives a valid Notification containing a subscription with id set to ${subscriptionId} \n           and status equals 'active'\n           and timeInterval is set to '${timeInterval}'\n           and watchedAttributes is 'Empty'\n           and q is 'Empty'\n           and geoQ is 'Empty'\n           and with subscription.entity with type 'Building'\n           and notification.endpoint.accept is 'application/json'\n           \n           When the timeinterval is reached at ${timeInterval} seconds\n           the SUT needs to send out a notification to the client \n           sends a notification to the client every ${timeInterval} seconds",
       "http_verb": "",
       "endpoint": ""
     }
   ],
   "permutations": [],
-  "robotpath": "ContextInformation/Subscription/Notification",
+  "robotpath": "ContextInformation/Subscription/SubscriptionNotificationBehaviour",
   "robotfile": "046_03"
 }

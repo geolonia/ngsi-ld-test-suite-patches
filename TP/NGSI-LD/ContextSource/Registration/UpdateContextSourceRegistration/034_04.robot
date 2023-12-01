@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot update a context source registration under some conditions
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +11,7 @@ Test Teardown       Delete Initial Entities
 
 *** Variables ***
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
-${filename}=                            context-source-registration-simple-sample.jsonld
+${filename}=                            context-source-registration-sample.jsonld
 ${registration_payload_file_path}=      context-source-registration-invalid-sample.jsonld
 
 
@@ -22,7 +22,8 @@ ${registration_payload_file_path}=      context-source-registration-invalid-samp
     ${response}=    Update Context Source Registration
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
-    Check Response Status Code    <Response [400]>    ${response.json()}
+    # Check Response Status Code    <Response [400]>    ${response.json()}
+    Check Response Status Code    400    ${response.status_code}
     Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Title When Using Session Request    ${response.json()}
 

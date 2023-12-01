@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot retrieve a context source registration subscription with an invalid URI, an error of type BadRequestData shall be raised
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

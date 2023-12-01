@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CI/Cons/E/019_01_05",
-  "test_objective": "Check that you can query entitites based on a list of properties",
+  "test_objective": "Check that you can query entities based on a geoquery",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.2",
   "config_id": "",
   "parent_release": "v1.3.1",
@@ -12,9 +12,9 @@
   "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
   "test_cases": [
     {
-      "name": "019_01_05 Query several entities based on a list of properties",
+      "name": "019_01_05 Query several entities based on a geoquery",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_01_05",
-      "doc": "Check that you can query entitites based on a list of properties",
+      "doc": "Check that you can query entities based on a geoquery",
       "tags": [
         "5_7_2",
         "e-query"
@@ -23,7 +23,7 @@
       "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list containing Entity Elements, containing ${value} provided and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: geoproperty set to 'location' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: accept set to 'application/ld+json' and\n    Query Parameter: georel set to 'equals' and\n    Query Parameter: geometry set to 'Point' and\n    Query Parameter: coordinates set to '[13.3986, 52.5547]'\n}",
       "http_verb": "GET",
       "endpoint": "entities/"
     }

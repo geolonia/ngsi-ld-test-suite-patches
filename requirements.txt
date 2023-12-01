@@ -1,8 +1,8 @@
-# python3.10 project
+# python3.11 project
 robotframework==6.1.1
 robotframework-jsonlibrary==0.5
-robotframework-requests==0.9.5
-deepdiff==6.5.0
+robotframework-requests==0.9.6
+deepdiff==6.7.1
 prettydiff==0.1.0
 robotframework-httpctrl==0.3.1
-robotframework-tidy==4.5.0
+robotframework-tidy==4.6.0

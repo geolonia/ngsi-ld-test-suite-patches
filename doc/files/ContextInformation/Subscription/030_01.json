@@ -12,14 +12,14 @@
     {
       "name": "030_01_01 InvalidId",
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/030_01_01",
-      "doc": "",
+      "doc": "Check that you cannot retrieve a subscription: If the subscription Id is not present or it is not a valid URI, then an error of type BadRequestData shall be raised",
       "tags": [
         "5_8_3",
         "sub-retrieve"
       ],
       "setup": null,
       "teardown": null,
-      "template": "Retrieve Subscription With Non present Or Invalid Id",
+      "template": "Retrieve Subscription With Invalid Id",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Subscription Retrieve with the following data: and\n    Query Parameter: id set to 'InvalidUri'\n}",
       "http_verb": "GET",

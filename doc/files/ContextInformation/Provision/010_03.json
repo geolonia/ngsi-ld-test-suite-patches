@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/AppendEntityAttributes/010_03",
+  "tp_id": "TP/NGSI-LD/CI/Prov/EA/010_03",
   "test_objective": "Check that you cannot append entity attributes if the entity id is not known to the system",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.3",
   "config_id": "",
@@ -13,7 +13,7 @@
   "test_cases": [
     {
       "name": "010_03_01 Append entity attributes when the entity id is not known to the system",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/AppendEntityAttributes/010_03_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/010_03_01",
       "doc": "Check that you cannot append entity attributes if the entity id is not known to the system",
       "tags": [
         "5_6_3",

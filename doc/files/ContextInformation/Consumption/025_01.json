@@ -12,7 +12,7 @@
     {
       "name": "025_01_01 WithoutJsonLdContext",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/Discovery/RetrieveAvailableAttributes/025_01_01",
-      "doc": "",
+      "doc": "Check that you can retrieve a list of NGSI-LD attributes",
       "tags": [
         "5_7_8",
         "ed-attrs"
@@ -28,7 +28,7 @@
     {
       "name": "025_01_02 WithJsonLdContext",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/Discovery/RetrieveAvailableAttributes/025_01_02",
-      "doc": "",
+      "doc": "Check that you can retrieve a list of NGSI-LD attributes",
       "tags": [
         "5_7_8",
         "ed-attrs"

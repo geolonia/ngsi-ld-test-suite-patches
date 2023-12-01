@@ -1,8 +1,8 @@
 *** Settings ***
 Documentation       Check that you can delete a batch of entities where some will succeed and others will fail
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision/ApiUtils.resource
-# Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -14,7 +14,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***
-006_01_01 Delete a batch of non-existing and existing entities
+006_02_01 Delete a batch of non-existing and existing entities
     [Documentation]    Check that you can delete a batch of non-existing and existing entities
     [Tags]    be-delete    5_6_10
     ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

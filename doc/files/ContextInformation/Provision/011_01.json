@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/UpdateEntityAttributes/011_01",
+  "tp_id": "TP/NGSI-LD/CI/Prov/EA/011_01",
   "test_objective": "Check that you can update entity attributes",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.2",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "011_01_01 Check that you can update existing attributes with no datasetId",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/UpdateEntityAttributes/011_01_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/011_01_01",
       "doc": "Check that you can update entity attributes",
       "tags": [
         "ea-update",
@@ -27,7 +27,7 @@
     },
     {
       "name": "011_01_02 Check that you can update existing attributes with the datasetId",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/UpdateEntityAttributes/011_01_02",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/011_01_02",
       "doc": "Check that you can update entity attributes",
       "tags": [
         "ea-update",
@@ -43,7 +43,7 @@
     },
     {
       "name": "011_01_03 Check that you can update only some attributes while others failed",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/UpdateEntityAttributes/011_01_03",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/011_01_03",
       "doc": "Check that you can update entity attributes",
       "tags": [
         "ea-update",

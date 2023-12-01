@@ -59,14 +59,18 @@ class TestCSRegistrationSubscription(TestCase):
         warnings.warn(UserWarning("WARNING, (038_02) The doc generate the info based on the retrieve operation and not to the create operation"))
 
     def test_038_03(self):
-        self.fail("(038_03) Test Suite failed with strange date generated.\n"
-                  "Additionally there are 'Retrieve Context Source Registration Subscription' and "
-                  "'Retrieve context source registration subscription' functions")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/038_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_038_03.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_038_04(self):
-        self.fail("(038_04) Test Suite failed with strange date generated.\n"
-                  "Additionally there are 'Retrieve Context Source Registration Subscription' and "
-                  "'Retrieve context source registration subscription' functions")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_04.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/038_04.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_038_04.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_038_05(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_05.robot'
@@ -125,68 +129,116 @@ class TestCSRegistrationSubscription(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_01(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/NotificationBehaviour/047_01.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_01.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_01.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_047_01.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_02(self):
-        self.fail("(047_02) Test Suite with no Check operations, Notifications")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_02.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_03(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/NotificationBehaviour/047_03.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_03.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_03.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_047_03.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_04(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/NotificationBehaviour/047_04.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_04.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_04.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_047_04.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_05(self):
-        self.fail("(047_05) Test Suite, problem with 'Check NotificationParams' no parameters selected")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_05.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_05.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_05.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_06(self):
-        self.fail("(047_06) Test Suite, problem with 'Check NotificationParams' no parameters selected")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_06.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_06.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_06.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_07(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/NotificationBehaviour/047_07.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_07.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_07.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_047_07.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_08(self):
-        self.fail("(047_08) Test Suite with no Check operations")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_08.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_08.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_08.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_09(self):
-        self.fail("(047_09) Test Suite with no Check operations")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_09.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_09.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_09.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_10(self):
-        self.fail("(047_04) Test Suite with no Check operations")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_10.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_10.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_10.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_11(self):
-        self.fail("(047_11) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_11.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_11.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_11.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_12(self):
-        self.fail("(047_12) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_12.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_12.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_12.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_13(self):
-        self.fail("(047_13) Test Suite with no Check operations")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_13.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_13.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_13.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_14(self):
-        self.fail("(047_14) Test Suite with no Check operations")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_14.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_14.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_14.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_15(self):
-        self.fail("(047_15) Test Suite with no Check operations")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_15.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_15.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_15.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_047_16(self):
-        self.fail("(047_16) Test Suite with Test Template, not yet implemented")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour/047_16.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/047_16.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_047_16.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_041_01(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/QueryContextSourceRegistrationSubscriptions/041_01.robot'

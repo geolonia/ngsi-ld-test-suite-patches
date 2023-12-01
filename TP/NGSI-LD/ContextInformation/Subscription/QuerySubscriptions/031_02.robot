@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can query a list of subscriptions: Pagination logic shall be in place
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

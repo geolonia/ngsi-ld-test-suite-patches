@@ -12,7 +12,7 @@
     {
       "name": "041_04_01 Invalid Limit",
       "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/041_04_01",
-      "doc": "",
+      "doc": "Check that you cannot query context source registration subscriptions with invalid page and limit parameters",
       "tags": [
         "5_11_5",
         "csrsub-query"
@@ -28,7 +28,7 @@
     {
       "name": "041_04_02 Invalid Page",
       "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/041_04_02",
-      "doc": "",
+      "doc": "Check that you cannot query context source registration subscriptions with invalid page and limit parameters",
       "tags": [
         "5_11_5",
         "csrsub-query"
@@ -44,7 +44,7 @@
     {
       "name": "041_04_03 Invalid Limit And Page",
       "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/041_04_03",
-      "doc": "",
+      "doc": "Check that you cannot query context source registration subscriptions with invalid page and limit parameters",
       "tags": [
         "5_11_5",
         "csrsub-query"

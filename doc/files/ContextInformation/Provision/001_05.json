@@ -14,7 +14,7 @@
     {
       "name": "001_05_01 Create one entity using the default context with JSON content type and request without context",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_05_01",
-      "doc": "Check that the default @context is used if the Content-Type header is \"application/json\" and the Link header does not contain a JSON-LD @context",
+      "doc": "Check that the default @context is used if the Content-Type header is \"application/json\" and the Link header does not contain a JSON-LD @context, requesting without context",
       "tags": [
         "6_3_5",
         "e-create"
@@ -30,7 +30,7 @@
     {
       "name": "001_05_02 Create one entity using the default context with JSON content type and request with context",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_05_02",
-      "doc": "Check that the default @context is used if the Content-Type header is \"application/json\" and the Link header does not contain a JSON-LD @context",
+      "doc": "Check that the default @context is used if the Content-Type header is \"application/json\" and the Link header does not contain a JSON-LD @context, requesting with context",
       "tags": [
         "6_3_5",
         "e-create"

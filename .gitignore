@@ -3,3 +3,4 @@ results
 *.pyc
 *.http
 .vscode/
+.venv

@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot update a subcription: If the data types and restriction are not met by the Subscription Fragment, then an error of type BadRequestData shall be raised
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

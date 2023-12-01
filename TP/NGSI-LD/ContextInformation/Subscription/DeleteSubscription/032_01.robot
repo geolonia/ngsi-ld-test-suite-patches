@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot delete a subscription: If the subscription Id is not present or it is not a valid URI, then an error of type BadRequestData shall be raised
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 
 Test Template       Delete Subscription With Non present Or Invalid Id

@@ -1,10 +1,10 @@
 {
   "tp_id": "TP/NGSI-LD/CI/SUB/046_06",
-  "test_objective": "If a Subscription does not define a timeInterval member, the notification shall be sent whenever there is a change in the watched Attributes. The notification message shall include all the subscribed Entities that changed and that match (as mandated by clauses 4.9 and 4.10) the query and geoquery conditions",
-  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.7",
+  "test_objective": "If a Subscription does not define a timeInterval member, the notification shall be sent whenever an entity matches the query defined in the subscription. The notification message shall include all the subscribed Entities that changed and that match (as mandated by clauses 4.9 and 4.10) the query and geoquery conditions",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.6",
   "config_id": "",
   "parent_release": "v1.3.1",
-  "pics_selection": "PICS_5_11_7",
+  "pics_selection": "PICS_5_8_6",
   "keywords": [
     "Setup Server And Subscriptions",
     "Delete Server And Subscriptions"
@@ -18,7 +18,7 @@
       "doc": "only the subscribed Entities matching the query and watched attributes shall be included.",
       "tags": [
         "046_06",
-        "5_11_7",
+        "5_8_6",
         "sub-notification"
       ],
       "setup": null,
@@ -31,6 +31,6 @@
     }
   ],
   "permutations": [],
-  "robotpath": "ContextInformation/Subscription/Notification",
+  "robotpath": "ContextInformation/Subscription/SubscriptionNotificationBehaviour",
   "robotfile": "046_06"
 }

@@ -12,7 +12,7 @@
     {
       "name": "026_01_01 WithoutJsonLdContext",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/Discovery/RetrieveDetailsOfAvailableAttributes/026_01_01",
-      "doc": "",
+      "doc": "Check that you can retrieve a list with a detailed representation of NGSI-LD attributes",
       "tags": [
         "5_7_9",
         "ed-attrs-details"
@@ -21,14 +21,14 @@
       "teardown": "Delete Initial Entities",
       "template": "Retrieve Details Of Available Attributes",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing an array of Attributes and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/attributes'\n        method set to 'GET'\n        Retrieve attributes: and\n    Query Parameter: context set to '${EMPTY}' and\n    Query Parameter: details set to '${TRUE}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/attributes'\n        method set to 'GET'\n        Retrieve attributes: and\n    Query Parameter: context set to '${EMPTY}' and\n    Query Parameter: details set to 'true'\n}",
       "http_verb": "GET",
       "endpoint": "attributes"
     },
     {
       "name": "026_01_02 WithJsonLdContext",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/Discovery/RetrieveDetailsOfAvailableAttributes/026_01_02",
-      "doc": "",
+      "doc": "Check that you can retrieve a list with a detailed representation of NGSI-LD attributes",
       "tags": [
         "5_7_9",
         "ed-attrs-details"
@@ -37,7 +37,7 @@
       "teardown": "Delete Initial Entities",
       "template": "Retrieve Details Of Available Attributes",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing an array of Attributes and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/attributes'\n        method set to 'GET'\n        Retrieve attributes: and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: details set to '${TRUE}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/attributes'\n        method set to 'GET'\n        Retrieve attributes: and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: details set to 'true'\n}",
       "http_verb": "GET",
       "endpoint": "attributes"
     }

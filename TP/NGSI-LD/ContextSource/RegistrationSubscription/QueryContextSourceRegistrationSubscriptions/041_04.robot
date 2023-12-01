@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot query context source registration subscriptions with invalid page and limit parameters
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

@@ -43,43 +43,50 @@ class TestCommonBehaviours(TestCase):
             assert False, f'They are some difference between the expected and obtained dictionaries: \n {result}'
 
     def test_043_01(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/043_01.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/CommonResponses/VerifyLdContextNotAvailable/043_01.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/CommonBehaviours/043_01.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_043_01.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_044_01(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/044_01.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/CommonResponses/VerifyMergePatchJson/044_01.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/CommonBehaviours/044_01.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_044_01.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_044_02(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/044_02.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/CommonResponses/VerifyMergePatchJson/044_02.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/CommonBehaviours/044_02.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_044_02.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
-    def test_044_03(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/044_03.robot'
-        expected_value = f'{self.folder_test_suites}/doc/files/CommonBehaviours/044_03.json'
-        difference_file = f'{self.folder_test_suites}/doc/results/out_044_03.json'
+    def test_045_01(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/CommonResponses/VerifyGETWithoutAccept/045_01.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/CommonBehaviours/045_01.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_045_01.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
-    def test_044_04(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/044_04.robot'
-        expected_value = f'{self.folder_test_suites}/doc/files/CommonBehaviours/044_04.json'
-        difference_file = f'{self.folder_test_suites}/doc/results/out_044_04.json'
+    def test_048_01(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/CommonResponses/VerifyUnsupportedMediaType/048_01.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/CommonBehaviours/048_01.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_048_01.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
-    def test_044_05(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/044_05.robot'
-        expected_value = f'{self.folder_test_suites}/doc/files/CommonBehaviours/044_05.json'
-        difference_file = f'{self.folder_test_suites}/doc/results/out_044_05.json'
+    def test_049_01(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/CommonResponses/VerifyNotAcceptableMediaType/049_01.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/CommonBehaviours/049_01.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_049_01.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_049_02(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/CommonBehaviours/CommonResponses/VerifyNotAcceptableMediaType/049_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/CommonBehaviours/049_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_049_02.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)

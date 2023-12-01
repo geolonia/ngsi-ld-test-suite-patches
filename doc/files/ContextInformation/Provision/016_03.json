@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CI/Prov/TEA/016_03",
-  "test_objective": "Check that you cannot modify an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right",
+  "test_objective": "Check that you cannot partially modify attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not found",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.14",
   "config_id": "",
   "parent_release": "v1.3.1",
@@ -61,6 +61,6 @@
   "permutations": [
     "when"
   ],
-  "robotpath": "ContextInformation/Provision/TemporalEntityAttributes/ModifyAttributeInstance",
+  "robotpath": "ContextInformation/Provision/TemporalEntityAttributes/PartialUpdateAttributeInstance",
   "robotfile": "016_03"
 }

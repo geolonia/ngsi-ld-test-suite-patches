@@ -109,6 +109,6 @@
   "permutations": [
     "when"
   ],
-  "robotpath": "ContextInformation/Provision/TemporalEntityAttributes/ModifyAttributeInstance",
+  "robotpath": "ContextInformation/Provision/TemporalEntityAttributes/PartialUpdateAttributeInstance",
   "robotfile": "016_02"
 }

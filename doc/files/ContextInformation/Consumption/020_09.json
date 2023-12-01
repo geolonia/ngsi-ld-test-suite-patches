@@ -12,7 +12,7 @@
     {
       "name": "020_09_01 After",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_09_01",
-      "doc": "",
+      "doc": "Check that you cannot retrieve the temporal evolution of an entity with an invalid request content",
       "tags": [
         "5_7_3",
         "te-retrieve"
@@ -28,7 +28,7 @@
     {
       "name": "020_09_02 Before",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_09_02",
-      "doc": "",
+      "doc": "Check that you cannot retrieve the temporal evolution of an entity with an invalid request content",
       "tags": [
         "5_7_3",
         "te-retrieve"
@@ -44,7 +44,7 @@
     {
       "name": "020_09_03 Between",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_09_03",
-      "doc": "",
+      "doc": "Check that you cannot retrieve the temporal evolution of an entity with an invalid request content",
       "tags": [
         "5_7_3",
         "te-retrieve"

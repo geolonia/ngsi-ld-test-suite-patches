@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can query context source registration subscriptions with a limit parameter and it will be the maximum number of subscriptions to be retrieved
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

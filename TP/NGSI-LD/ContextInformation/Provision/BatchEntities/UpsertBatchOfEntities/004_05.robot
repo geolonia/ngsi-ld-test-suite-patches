@@ -1,10 +1,12 @@
 *** Settings ***
 Documentation       Check that you can upsert a batch of entities where some will succeed and others will fail
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision/ApiUtils.resource
-# Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
+
+Suite Teardown      Delete Entities
 
 
 *** Variables ***
@@ -25,10 +27,11 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     @{entities_to_be_upserted}=    Create List    ${first_entity}    ${second_entity}    ${invalid_entity}
     ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}
     @{expected_successful_entities_ids}=    Create List    ${first_entity_id}    ${second_entity_id}
+    Set Global Variable    ${expected_successful_entities_ids}
     @{expected_failed_entities_ids}=    Create List    ${third_entity_id}
     &{expected_batch_operation_result}=    Create Batch Operation Result
-    ...    ${expected_successful_entities_ids}
-    ...    ${expected_failed_entities_ids}
+    ...    success=${expected_successful_entities_ids}
+    ...    errors=${expected_failed_entities_ids}
     Check Response Status Code    207    ${response.status_code}
     Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}    ${response.json()}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{expected_successful_entities_ids}
@@ -39,4 +42,9 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     ...    accept=${CONTENT_TYPE_LD_JSON}
     @{upserted_entities}=    Create List    ${first_entity}    ${second_entity}
     Check Updated Resources Set To    ${upserted_entities}    ${response.json()}
-    ${response}=    Batch Delete Entities    entities_ids_to_be_deleted=@{expected_successful_entities_ids}
+
+
+*** Keywords ***
+Delete Entities
+    ${response}=    Batch Delete Entities
+    ...    entities_ids_to_be_deleted=@{expected_successful_entities_ids}

@@ -13,8 +13,8 @@
   "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
   "test_cases": [
     {
-      "name": "021_04 Query the temporal evolution of entities using a context",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_04",
+      "name": "021_04_01 Query the temporal evolution of entities using a context",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_04_01",
       "doc": "Check that you can query the temporal evolution of entities using a context",
       "tags": [
         "5_7_4",

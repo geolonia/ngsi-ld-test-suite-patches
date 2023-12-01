@@ -4,7 +4,7 @@ Library     RequestsLibrary
 Library     Collections
 Library     JSONLibrary
 Library     String
-Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource    ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 
 
 *** Variables ***
@@ -97,24 +97,37 @@ Check Response Body Containing Batch Operation Result
     END
 
 Check Response Body Containing Entity element
-    [Arguments]    ${expectation_filename}    ${entity_id}    ${response_body}
+    [Arguments]    ${expectation_filename}    ${entity_id}    ${response_body}    ${ignore_core_context_version}=False
     ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/expectations/${expectation_filename}
     ${entity}=    Update Value To JSON    ${entity_payload}    $..id    ${entity_id}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${entity}
     ...    ${response_body}
     ...    ${instance_id_regex_expr}
+    ...    ${ignore_core_context_version}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing List Containing Entity Elements
-    [Arguments]    ${expectation_filename}    ${entities_ids}    ${response_body}
+    [Arguments]
+    ...    ${expectation_filename}
+    ...    ${entities_ids}
+    ...    ${response_body}
+    ...    ${ignore_core_context_version}=False
     FOR    ${entity_id}    IN    @{entities_ids}
         ${entity}=    Get Value From JSON    ${response_body}    $[?(@.id=='${entity_id}')]
-        Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${entity}[0]
+        Check Response Body Containing Entity element
+        ...    ${expectation_filename}
+        ...    ${entity_id}
+        ...    ${entity}[0]
+        ...    ${ignore_core_context_version}
     END
 
 Check Response Body Containing List Containing Entity Elements With Different Types
-    [Arguments]    ${filename}    ${entities_representation_ids}    ${response_body}
+    [Arguments]
+    ...    ${filename}
+    ...    ${entities_representation_ids}
+    ...    ${response_body}
+    ...    ${ignore_core_context_version}=False
     ${entities_representation_payload}=    Load JSON From File    ${EXECDIR}/data/entities/expectations/${filename}
     ${index}=    Set Variable    0
     FOR    ${entity_representation_id}    IN    @{entities_representation_ids}
@@ -128,6 +141,7 @@ Check Response Body Containing List Containing Entity Elements With Different Ty
     ...    ${entities_representation_payload}
     ...    ${response_body}
     ...    ${instance_id_regex_expr}
+    ...    ${ignore_core_context_version}
     ...    group_by=id
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
@@ -369,7 +383,7 @@ Check Resource Set To
     ...    ${expected_resource}
     ...    ${response_body}
     ...    ${ignored_keys}
-    ...    ${group_by}
+    ...    group_by=${group_by}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Created Resource Set To

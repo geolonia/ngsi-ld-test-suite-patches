@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot update a context source registration subscription with an invalid request body (invalid JSON document)
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

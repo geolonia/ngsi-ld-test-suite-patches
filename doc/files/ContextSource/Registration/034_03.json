@@ -5,10 +5,8 @@
   "config_id": "",
   "parent_release": "v1.3.1",
   "pics_selection": "PICS_5_9_3",
-  "keywords": [
-    "Delete Updated Context Source Registration"
-  ],
-  "teardown": "Delete Updated Context Source Registration",
+  "keywords": [],
+  "teardown": "None",
   "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
   "test_cases": [
     {

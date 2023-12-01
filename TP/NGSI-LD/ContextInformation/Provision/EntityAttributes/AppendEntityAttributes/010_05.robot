@@ -1,8 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot append entity attributes with invalid/missing id or invalid request body
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision/ApiUtils.resource
-# Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

@@ -1,0 +1,48 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REG/034_01",
+  "test_objective": "Check that you can update a context source registration by id",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.9.3",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_9_3",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "034_01_01 Update a context source registration by id",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REG/034_01_01",
+      "doc": "Check that you can update a context source registration by id",
+      "tags": [
+        "5_9_3",
+        "csr-update"
+      ],
+      "setup": "Initialize the Test Case",
+      "teardown": "Delete Updated Context Source Registration",
+      "template": "Update Context Source",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Retrieving Context Source Registration and\n    Query Parameter: registration_id set to 'registration_id=${registration_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'accept=${CONTENT_TYPE_LD_JSON}' and\n    Query Parameter: registration_payload set to 'registration_payload=${registration_payload}' and\n        Response Status Code set to 204\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with id set to '${registration_id}' and registration update fragment set to '${registration_update_fragment}' and content-type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "csourceRegistrations/{registration_id}"
+    },
+    {
+      "name": "034_01_02 Update a context source registration to never expire",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REG/034_01_02",
+      "doc": "Check that you can update a context source registration by id",
+      "tags": [
+        "5_9_3",
+        "csr-update"
+      ],
+      "setup": "Initialize the Test Case",
+      "teardown": "Delete Updated Context Source Registration",
+      "template": "Update Context Source",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Retrieving Context Source Registration and\n    Query Parameter: registration_id set to 'registration_id=${registration_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'accept=${CONTENT_TYPE_LD_JSON}' and\n    Query Parameter: registration_payload set to 'registration_payload=${registration_payload}' and\n        Response Status Code set to 204\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with id set to '${registration_id}' and registration update fragment set to '${registration_update_fragment}' and content-type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "csourceRegistrations/{registration_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/Registration/UpdateContextSourceRegistration",
+  "robotfile": "034_01"
+}

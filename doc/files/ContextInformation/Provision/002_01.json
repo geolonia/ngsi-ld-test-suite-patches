@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/Entities/DeleteEntity/002_01",
+  "tp_id": "TP/NGSI-LD/CI/Prov/E/002_01",
   "test_objective": "Check that you can delete an entity by id",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.6",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "002_01_01 Delete an entity",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/Entities/DeleteEntity/002_01_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/002_01_01",
       "doc": "Check that you can delete an entity by id",
       "tags": [
         "5_6_6",

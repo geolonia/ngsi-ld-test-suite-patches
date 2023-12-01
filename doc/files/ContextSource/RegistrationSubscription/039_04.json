@@ -12,7 +12,7 @@
     {
       "name": "039_04_01 InvalidType",
       "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/039_04_01",
-      "doc": "",
+      "doc": "Check that you cannot update a context source registration subscription with a fragment that does not meet the data types and restrictions expressed by clause 5.2.12",
       "tags": [
         "5_11_3",
         "csrsub-update"
@@ -28,7 +28,7 @@
     {
       "name": "039_04_02 InvalidNotification",
       "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/039_04_02",
-      "doc": "",
+      "doc": "Check that you cannot update a context source registration subscription with a fragment that does not meet the data types and restrictions expressed by clause 5.2.12",
       "tags": [
         "5_11_3",
         "csrsub-update"

@@ -1,0 +1,116 @@
+{
+  "tp_id": "TP/NGSI-LD/CB/HTTP/048_01",
+  "test_objective": "Verify throwing 415 HTTP status code (Unsupported Media Type) if \"Content-Type\" header is not \"application/json\" or \"application/ld+json\"",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.4",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_6_3_4",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "048_01_01 Endpoint patch /entities/{entityId}/attrs/{attrId}",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/048_01_01",
+      "doc": "Verify throwing 415 HTTP status code (Unsupported Media Type) if \"Content-Type\" header is not \"application/json\" or \"application/ld+json\" (patch /entities/{entityId}/attrs/{attrId})",
+      "tags": [
+        "6_3_4",
+        "ea-partial-update"
+      ],
+      "setup": null,
+      "teardown": "Delete Entity by Id Returning Response",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 415\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${entity_id}' and\n    Query Parameter: AttributeId set to 'speed' and\n    Query Parameter: fragment_filename set to 'vehicle-brandname-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/xml'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    },
+    {
+      "name": "048_01_02 Endpoint patch /subscriptions/{subscriptionId}",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/048_01_02",
+      "doc": "Verify throwing 415 HTTP status code (Unsupported Media Type) if \"Content-Type\" header is not \"application/json\" or \"application/ld+json\" (patch /subscriptions/{subscriptionId})",
+      "tags": [
+        "6_3_4",
+        "sub-update"
+      ],
+      "setup": null,
+      "teardown": "Delete Subscription",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 415\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Request Update Subscription and \nHeader['Content-Type'] set to 'application/xml' and\nPayload defined in file 'csourceSubscriptions/fragments/subscription-update-sample.jsonld'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "subscriptions/{subscription_id}"
+    },
+    {
+      "name": "048_01_03 Endpoint post /entities/",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/048_01_03",
+      "doc": "Verify throwing 415 HTTP status code (Unsupported Media Type) if \"Content-Type\" header is not \"application/json\" or \"application/ld+json\" (post /entities/)",
+      "tags": [
+        "6_3_4",
+        "e-create"
+      ],
+      "setup": null,
+      "teardown": "Delete Entity by Id",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 415\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/xml' and\n payload defined in file: 'building-simple-attributes-sample.jsonld'\n}",
+      "http_verb": "POST",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "048_01_04 Endpoint post /subscriptions/",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/048_01_04",
+      "doc": "Verify throwing 415 HTTP status code (Unsupported Media Type) if \"Content-Type\" header is not \"application/json\" or \"application/ld+json\" (post /subscriptions/)",
+      "tags": [
+        "6_3_4",
+        "sub-create"
+      ],
+      "setup": null,
+      "teardown": "Delete Subscription",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 415\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/xml' and\n payload defined in file: 'csourceSubscriptions/subscription-sample.jsonld'\n}",
+      "http_verb": "POST",
+      "endpoint": "subscriptions/"
+    },
+    {
+      "name": "048_01_05 Endpoint post /entityOperations/create",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/048_01_05",
+      "doc": "Verify throwing 415 HTTP status code (Unsupported Media Type) if \"Content-Type\" header is not \"application/json\" or \"application/ld+json\" (post /entityOperations/create)",
+      "tags": [
+        "6_3_4",
+        "be-create"
+      ],
+      "setup": null,
+      "teardown": "Batch Delete Entities",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 415\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/create'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/xml' and\n payload set to a list of entities to be created\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/create"
+    },
+    {
+      "name": "048_01_06 Endpoint post /temporal/entities/",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/048_01_06",
+      "doc": "Verify throwing 415 HTTP status code (Unsupported Media Type) if \"Content-Type\" header is not \"application/json\" or \"application/ld+json\" (post /temporal/entities/)",
+      "tags": [
+        "6_3_4",
+        "te-create"
+      ],
+      "setup": null,
+      "teardown": "Delete Temporal Representation Of Entity",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 415\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'POST'\n        Create or Update Temporal Representation of Entity Selecting Content Type: and\n    Query Parameter: temporal_entity_representation_id set to '${temporal_entity_representation_id}' and\n    Query Parameter: filename set to 'vehicle-temporal-representation-sample.jsonld' and\n    Query Parameter: content_type set to 'application/xml' and\n    Query Parameter: accept set to '${EMPTY}'\n}",
+      "http_verb": "POST",
+      "endpoint": "temporal/entities"
+    }
+  ],
+  "permutations": [
+    "endpoint",
+    "http_verb",
+    "when"
+  ],
+  "robotpath": "CommonBehaviours/CommonResponses/VerifyUnsupportedMediaType",
+  "robotfile": "048_01"
+}

@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/AppendEntityAttributes/010_05",
+  "tp_id": "TP/NGSI-LD/CI/Prov/EA/010_05",
   "test_objective": "Check that you cannot append entity attributes with invalid/missing id or invalid request body",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.3",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "010_05_01 Append entity attributes with invalid entity fragments",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/AppendEntityAttributes/010_05_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/010_05_01",
       "doc": "Check that you cannot append entity attributes with invalid entity fragments",
       "tags": [
         "5_6_3",

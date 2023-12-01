@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/UpdateEntityAttributes/011_04",
+  "tp_id": "TP/NGSI-LD/CI/Prov/EA/011_04",
   "test_objective": "Check that you cannot update entity attributes with invalid/missing id or invalid request body",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.2",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "011_04_01 Update entity attributes with invalid entity fragments",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/UpdateEntityAttributes/011_04_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/011_04_01",
       "doc": "Check that you cannot update an attribute if the entity fragment is invalid",
       "tags": [
         "ea-update",

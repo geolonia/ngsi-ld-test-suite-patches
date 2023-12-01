@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -15,7 +16,7 @@ ${filename}=                building-simple-attributes-sample.json
 
 *** Test Cases ***
 001_05_01 Create one entity using the default context with JSON content type and request without context
-    [Documentation]    Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context
+    [Documentation]    Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context, requesting without context
     [Tags]    e-create    6_3_5
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${entity_id}
@@ -27,7 +28,7 @@ ${filename}=                building-simple-attributes-sample.json
     ...    response_body=${response.json()}
 
 001_05_02 Create one entity using the default context with JSON content type and request with context
-    [Documentation]    Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context
+    [Documentation]    Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context, requesting with context
     [Tags]    e-create    6_3_5
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${entity_id}

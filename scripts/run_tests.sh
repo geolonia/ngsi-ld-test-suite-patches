@@ -17,8 +17,7 @@ robot --outputdir ./results ./TP/NGSI-LD/ContextInformation/Provision/Entities/C
 robot --outputdir ./results --suite 001_01 .
 
 # run specific test suite
-robot --outputdir ./results -t "SuccessCases_MinimalEntity"
-robot --outputdir ./results -t "SuccessCases_MinimalEntity" ./TP/NGSI-LD/ContextInformation/Provision/Entities/CreateEntity/SuccessCases.robot
+robot --outputdir ./results -t "InvalidId" TP/NGSI-LD/ContextInformation/Subscription/RetrieveSubscription/030_01.robot
 
 # rerun failed test cases
 robot --rerunfailedsuites ./results/output.xml  --outputdir ./results .

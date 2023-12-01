@@ -1,0 +1,80 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/BE/003_01",
+  "test_objective": "Check that you can create a batch of entities",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.7",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_6_7",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "003_01_01 MinimalEntity",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/003_01_01",
+      "doc": "Check that you can create a batch of entities",
+      "tags": [
+        "5_6_7",
+        "be-create"
+      ],
+      "setup": null,
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Create Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body set to an array of created entities ids and\n        Created resources set to ${entities} and\n        Response Status Code set to 201\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_ids set to '${entities_to_be_queried}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "003_01_02 EntityWithSimpleProperties",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/003_01_02",
+      "doc": "Check that you can create a batch of entities",
+      "tags": [
+        "5_6_7",
+        "be-create"
+      ],
+      "setup": null,
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Create Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body set to an array of created entities ids and\n        Created resources set to ${entities} and\n        Response Status Code set to 201\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_ids set to '${entities_to_be_queried}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "003_01_03 EntityWithSimpleRelationships",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/003_01_03",
+      "doc": "Check that you can create a batch of entities",
+      "tags": [
+        "5_6_7",
+        "be-create"
+      ],
+      "setup": null,
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Create Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body set to an array of created entities ids and\n        Created resources set to ${entities} and\n        Response Status Code set to 201\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_ids set to '${entities_to_be_queried}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "003_01_04 EntityWithRelationshipsProperties",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/003_01_04",
+      "doc": "Check that you can create a batch of entities",
+      "tags": [
+        "5_6_7",
+        "be-create"
+      ],
+      "setup": null,
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Create Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body set to an array of created entities ids and\n        Created resources set to ${entities} and\n        Response Status Code set to 201\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_ids set to '${entities_to_be_queried}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/BatchEntities/CreateBatchOfEntities",
+  "robotfile": "003_01"
+}

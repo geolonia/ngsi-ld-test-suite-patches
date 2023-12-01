@@ -16,6 +16,10 @@ class Requests:
                 'positions': [],
                 'params': ['temporal_entity_representation_id', 'filename', 'content_type', 'accept']
             },
+            'Create Entity From File': {
+                'positions': [0],
+                'params': ['filename']
+            },
             'Batch Create Entities': {
                 'positions': [1],
                 'params': ['content_type']
@@ -27,7 +31,7 @@ class Requests:
             'Query Entity': {
                 'positions': [],
                 'params': ['id', 'accept', 'attrs', 'context', 'geoproperty', 'options']
-        },
+            },
             'Retrieve Subscription': {
                 'positions': [],
                 'params': ['id', 'accept', 'context', 'content_type']
@@ -85,8 +89,8 @@ class Requests:
             },
             'Query Entities Via POST': {
                 'positions': [],
-                'params': ['entity_ids', 'entity_types', 'content_type',
-                           'attrs', 'entity_id_pattern', 'geoproperty']
+                'params': ['entity_ids', 'entity_type', 'content_type', 'accept',
+                           'attrs', 'entity_id_pattern', 'geometry_property']
             },
             'Retrieve Temporal Representation Of Entity': {
                 'positions': [],
@@ -165,6 +169,10 @@ class Requests:
                 'positions': [0, 1],
                 'params': ['subscription_id', 'subscription_update_fragment']
             },
+            'Update Context Source Registration': {
+                'positions': [0, 1],
+                'params': ['context_source_registration_id', 'update_fragment']
+            },
             'Update Context Source Registration Subscription From File': {
                 'positions': [0, 1],
                 'params': ['subscription_id', 'subscription_update_fragment']
@@ -228,6 +236,8 @@ class Requests:
                 Requests.create_entity_selecting_content_type,
             'Create Subscription':
                 Requests.create_entity_selecting_content_type,
+            'Create Entity From File':
+                Requests.create_entity_from_file,
             'Create Or Update Temporal Representation Of Entity Selecting Content Type':
                 Requests.create_or_update_temporal_representation_of_entity_selecting_content_type,
             'Batch Create Entities':
@@ -284,6 +294,8 @@ class Requests:
                 Requests.query_context_source_registrations,
             'Update Context Source Registration With Return':
                 Requests.update_context_source_registration_with_return,
+            'Update Context Source Registration':
+                Requests.update_context_source_registration,
             'Retrieve context source registration subscription':
                 Requests.retrieve_context_source_registration_subscription_2,
             'Create Context Source Registration Subscription':
@@ -467,7 +479,8 @@ class Requests:
                     result = self.config_file.get_variable(aux)
                 except KeyError:
                     try:
-                        aux = self.template_params_value[self.test_name]
+                        # aux = self.template_params_value[self.test_name]
+                        aux = self.template_params_value[self.name]
                         result = aux[value]
 
                         if result[:2] == "${":
@@ -491,6 +504,15 @@ class Requests:
             return result
         else:
             raise Exception(f"ERROR, expected filename and content_type attributes, but received {kwargs}")
+
+    @staticmethod
+    def create_entity_from_file(kwargs) -> str:
+        if 'filename' in kwargs:
+            result = (f"Request creation of an entity from filename '{kwargs['filename']}'"
+                      f" and Content-Type set to 'application/ld+json'")
+            return result
+        else:
+            raise Exception(f"ERROR, expected filename attribute, but received {kwargs}")
 
     def create_context_source_registration(kwargs) -> str:
         if 'context_source_registration_payload' in kwargs:
@@ -1064,25 +1086,30 @@ class Requests:
         return response
 
     def query_entities_via_post(kwargs) -> str:
-        expected_parameters = ['entity_ids', 'entity_types', 'content_type',
-                               'attrs', 'entity_id_pattern', 'geoproperty']
+        expected_parameters = ['entity_id', 'entity_type', 'content_type', 'accept',
+                               'attrs', 'entity_id_pattern', 'geometry_property']
 
         if 'content_type' not in kwargs:
-            kwargs['content_type'] = 'application/ld+json'
+            kwargs['content_type'] = 'application/json'
+
+        if 'accept' not in kwargs:
+            kwargs['accept'] = 'application/json'
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Get Entities Via POST Request:"
         for key, value in kwargs.items():
             match key:
-                case 'entity_ids':
+                case 'entity_id':
                     response = f"{response} and\n    Query Parameter: entity_ids set to '{value}'"
-                case 'entity_types':
+                case 'entity_type':
                     response = f"{response} and\n    Query Parameter: entity_types set to '{value}'"
                 case 'content_type':
                     response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
                 case 'attrs':
                     response = f"{response} and\n    Query Parameter: attrs set to '{value}'"
-                case 'geoproperty':
+                case 'geometry_property':
                     response = f"{response} and\n    Query Parameter: geoproperty set to '{value}'"
                 case 'entity_id_pattern':
                     response = f"{response} and\n    Query Parameter: entity_id_pattern set to '{value}'"
@@ -1195,6 +1222,16 @@ class Requests:
     def delete_context_source_registration_with_return(kwargs) -> str:
         if 'id' in kwargs:
             return f"Delete Context Source Registration with id set to '{kwargs['id']}'"
+
+    @staticmethod
+    def update_context_source_registration(kwargs) -> str:
+        if 'context_source_registration_id' in kwargs and 'update_fragment' in kwargs:
+            return (f"Update Context Source Registration "
+                    f"with CSR Id set to '{kwargs['context_source_registration_id']}' and "
+                    f"subscription update fragment set to '{kwargs['update_fragment']}'")
+        else:
+            raise Exception(f"ERROR, expected 'context_source_registration_id' and 'update_fragment'"
+                            f" but received: {kwargs}")
 
     @staticmethod
     def update_context_source_registration_subscription(kwargs) -> str:

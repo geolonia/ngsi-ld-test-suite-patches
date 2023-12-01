@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot delete a context source registration under some conditions
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,20 +12,21 @@ Test Template       Delete Context Source
 
 *** Variables ***
 ${registration_id_prefix}=      urn:ngsi-ld:Registration:
-${filename}=                    context-source-registration-simple-sample.jsonld
+${filename}=                    context-source-registration-sample.jsonld
 
 
 *** Test Cases ***    INVALID_REGISTRATION_ID
 035_02_01 Delete a Context Source Registration if the Id is not present
+    [Tags]    csr-delete    5_9_4
     ${EMPTY}
 035_02_02 Delete a Context Source Registration if the Id is not a valid URI
+    [Tags]    csr-delete    5_9_4
     invalidURI
 
 
 *** Keywords ***
 Delete Context Source
     [Documentation]    Check that you cannot delete a context source registration under some conditions
-    [Tags]    csr-delete    5_9_4
     [Arguments]    ${invalid_registration_id}
     ${response}=    Delete Context Source Registration With Return    ${invalid_registration_id}
     Check Response Status Code    400    ${response.status_code}

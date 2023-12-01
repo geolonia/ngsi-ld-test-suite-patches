@@ -22,12 +22,12 @@
         "sub-notification"
       ],
       "setup": null,
-      "teardown": "Delete Fixture Data",
+      "teardown": null,
       "template": null,
       "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        After waiting '5' seconds and\n        Notification data: '${notification}[subscriptionId]' equal to '${subscription_id}' and\n        Notification data: '${notification}[data][0][id]' equal to '${entity_id}' and\n        Notification data: '${notification}[data][0][name][value]' equal to 'Eiffel Tower' and\n        The dictionary `${notification}' should contain the key 'data' and\n        The dictionary `${notification}[data][0]' should contain the key 'almostFull' and\n        The dictionary `${notification}[data][0]' should contain the key 'airQualityLevel' and\n        The dictionary `${notification}[data][0]' should contain the key 'subCategory' and\n        The variable `${notification}[data]' should not be '${EMPTY}'\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'airQualityLevel-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'airQualityLevel-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
       "http_verb": "PATCH",
-      "endpoint": "entities/{id}/attrs"
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
     },
     {
       "name": "046_08_02 Check that a notification is sent with all attributes in simplified format",
@@ -39,17 +39,17 @@
         "sub-notification"
       ],
       "setup": null,
-      "teardown": "Delete Fixture Data",
+      "teardown": null,
       "template": null,
       "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        After waiting '5' seconds and\n        Notification data: '${notification}[subscriptionId]' equal to '${subscription_id}' and\n        Notification data: '${notification}[data][0][id]' equal to '${entity_id}' and\n        Notification data: '${notification}[data][0][name]' equal to 'Eiffel Tower' and\n        The dictionary `${notification}' should contain the key 'data' and\n        The variable `${notification}[data]' should not be '${EMPTY}'\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'airQualityLevel-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'airQualityLevel-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
       "http_verb": "PATCH",
-      "endpoint": "entities/{id}/attrs"
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
     }
   ],
   "permutations": [
     "then"
   ],
-  "robotpath": "ContextInformation/Subscription/Notification",
+  "robotpath": "ContextInformation/Subscription/SubscriptionNotificationBehaviour",
   "robotfile": "046_08"
 }

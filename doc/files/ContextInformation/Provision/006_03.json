@@ -12,7 +12,7 @@
     {
       "name": "006_03_01 InvalidJson",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/DeleteBatchOfEntities/006_03_01",
-      "doc": "",
+      "doc": "Check that you cannot delete a batch of entities with an invalid request",
       "tags": [
         "5_6_10",
         "be-delete"
@@ -28,7 +28,7 @@
     {
       "name": "006_03_02 EmptyJson",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/DeleteBatchOfEntities/006_03_02",
-      "doc": "",
+      "doc": "Check that you cannot delete a batch of entities with an invalid request",
       "tags": [
         "5_6_10",
         "be-delete"

@@ -1,0 +1,34 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/TEA/016_01",
+  "test_objective": "Check that you can modify an attribute instance in temporal representation of an entity",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.14",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_6_14",
+  "keywords": [
+    "Delete Intitial Temporal Representation Of Entity"
+  ],
+  "teardown": "Delete Intitial Temporal Representation Of Entity",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "016_01_01 Modify attribute instance in temporal representation of an entity",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TEA/016_01_01",
+      "doc": "Check that you can partially update an attribute instance of a temporal representation of an entity",
+      "tags": [
+        "5_6_14",
+        "tea-partial-update"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/TemporalEntityAttributes/PartialUpdateAttributeInstance",
+  "robotfile": "016_01"
+}

@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/AppendEntityAttributes/010_01",
+  "tp_id": "TP/NGSI-LD/CI/Prov/EA/010_01",
   "test_objective": "Check that you can append entity attributes",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.3",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "010_01_01 Append entity attributes",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/AppendEntityAttributes/010_01_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/010_01_01",
       "doc": "Check that you can append entity attributes",
       "tags": [
         "ea-append",
@@ -26,8 +26,8 @@
       "endpoint": "entities/{id}"
     },
     {
-      "name": "010_01_02 Append entity attributes",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/AppendEntityAttributes/010_01_02",
+      "name": "010_01_02 Append entity attributes with different datasetid",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/010_01_02",
       "doc": "Check that you can append entity attributes",
       "tags": [
         "ea-append",

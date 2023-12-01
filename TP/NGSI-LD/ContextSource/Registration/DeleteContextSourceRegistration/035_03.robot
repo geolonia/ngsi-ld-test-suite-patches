@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot delete a context source registration by id if the id is not known to the system
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

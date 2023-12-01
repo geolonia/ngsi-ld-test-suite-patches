@@ -1,8 +1,8 @@
 *** Settings ***
 Documentation       Check that you can append entity attributes
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision/ApiUtils.resource
-# Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -17,7 +17,7 @@ ${filename}=                vehicle-speed-two-datasetid-sample.jsonld
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_FILENAME
 010_01_01 Append entity attributes
     204    vehicle-new-attribute-fragment.jsonld    vehicle-speed-appended-expectation.jsonld
-010_01_02 Append entity attributes
+010_01_02 Append entity attributes with different datasetid
     204    vehicle-speed-different-datasetid-fragment.jsonld    vehicle-speed-different-datasetid-expectation.jsonld
 
 

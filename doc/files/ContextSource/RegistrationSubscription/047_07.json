@@ -15,7 +15,7 @@
     {
       "name": "047_07_01 PausedSubscription",
       "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/047_07_01",
-      "doc": "",
+      "doc": "Check that a cSourceNotification shall only be sent if and only if the status of the corresponding subscription is active, neither paused or expired",
       "tags": [
         "5_11_7",
         "csrsub-notification"
@@ -31,7 +31,7 @@
     {
       "name": "047_07_02 ExpiredSubscription",
       "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/047_07_02",
-      "doc": "",
+      "doc": "Check that a cSourceNotification shall only be sent if and only if the status of the corresponding subscription is active, neither paused or expired",
       "tags": [
         "5_11_7",
         "csrsub-notification"
@@ -46,6 +46,6 @@
     }
   ],
   "permutations": [],
-  "robotpath": "ContextSource/RegistrationSubscription/NotificationBehaviour",
+  "robotpath": "ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour",
   "robotfile": "047_07"
 }

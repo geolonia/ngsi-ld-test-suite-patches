@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can create a context source registration subscription without providing isActive member and will be active by default
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

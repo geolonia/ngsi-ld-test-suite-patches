@@ -1,11 +1,12 @@
 {
   "tp_id": "TP/NGSI-LD/CI/Cons/E/019_02_02",
-  "test_objective": "Check that you can query several entities via POST Interaction based on the entities types",
+  "test_objective": "Check that you can query several entities via POST Interaction based on the entity type",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.2",
   "config_id": "",
   "parent_release": "v1.3.1",
   "pics_selection": "PICS_5_7_2",
   "keywords": [
+    "Create Entities",
     "Delete Entities"
   ],
   "teardown": "Delete Entities",
@@ -14,7 +15,7 @@
     {
       "name": "019_02_02 Query several entities via POST Interaction based on the entities types",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_02_02",
-      "doc": "Check that you can query several entities via POST Interaction based on the entities types",
+      "doc": "Check that you can query several entities via POST Interaction based on the entity type",
       "tags": [
         "5_7_2",
         "e-query"
@@ -22,8 +23,8 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list containing Entity Elements, containing ${value} provided and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/query'\n        method set to 'POST'\n        Get Entities Via POST Request: and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list containing Entity elements, containing a list of entity types to be retrieved and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/query'\n        method set to 'POST'\n        Get Entities Via POST Request: and\n    Query Parameter: entity_types set to 'https://ngsi-ld-test-suite/context#Vehicle' and\n    Query Parameter: accept set to 'application/ld+json' and\n    Query Parameter: content_type set to 'application/json'\n}",
       "http_verb": "POST",
       "endpoint": "entityOperations/query"
     }

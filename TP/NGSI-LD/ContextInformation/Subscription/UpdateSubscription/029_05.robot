@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

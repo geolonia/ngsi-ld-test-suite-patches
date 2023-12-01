@@ -85,85 +85,109 @@ class TestCISubscription(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_032_03(self):
-        self.fail("(032_03) Test Suite need to know which is the document to be generated")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/DeleteSubscription/032_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/032_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_032_03.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_046_01(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/Notification/046_01.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_01.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_01.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_046_01.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_046_02(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/Notification/046_02.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_02.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_02.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_046_02.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_046_03(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/Notification/046_03.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_03.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_03.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_046_03.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_046_04(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/Notification/046_04.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_04.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_04.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_046_04.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_046_05(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/Notification/046_05.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_05.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_05.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_046_05.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_046_06(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/Notification/046_06.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_06.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_06.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_046_06.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_046_07(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/Notification/046_07.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_07.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_07.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_046_07.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_046_08(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/Notification/046_08.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_08.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_08.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_046_08.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_046_09(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/Notification/046_09.robot'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_09.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_09.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_046_09.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_046_10(self):
-        self.fail("(046_10) Test Suite need to change the Initial Conditions")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_10.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_10.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_046_10.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_046_11(self):
-        self.fail("(046_11) Test Suite ERROR")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_11.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_11.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_046_11.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_046_12(self):
-        self.fail("(046_12) Test Suite need to change the Initial Conditions")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_12.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_12.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_046_12.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_046_13(self):
-        self.fail("(046_13) Test Suite need to change the Initial Conditions")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_13.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_13.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_046_13.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_046_14(self):
-        self.fail("(046_14) Test Suite need to change the Initial Conditions")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_14.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_14.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_046_14.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_031_01(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/QuerySubscriptions/031_01.robot'
@@ -190,6 +214,13 @@ class TestCISubscription(TestCase):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/RetrieveSubscription/030_02.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/030_02.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_030_02.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_030_03(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/RetrieveSubscription/030_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/030_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_030_03.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
@@ -238,10 +269,18 @@ class TestCISubscription(TestCase):
         print("WARNING, (029_06) there is a important miss alignment with the documentation")
 
     def test_029_07(self):
-        self.fail("(029_07) Test Suite with Test Template, not yet implemented, need to select which operation to document")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/UpdateSubscription/029_07.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/029_07.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_029_07.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_029_08(self):
-        self.fail("(029_08) Test Suite with Test Template, not yet implemented, need to select which operation to document")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/UpdateSubscription/029_08.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/029_08.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_029_08.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_029_09(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/UpdateSubscription/029_09.robot'

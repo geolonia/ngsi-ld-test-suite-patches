@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot create a context source registration subscription where another context source registration subscription whose id is equivalent exists
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

@@ -1,8 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot update a batch of entities with an invalid request
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision/ApiUtils.resource
-# Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 
 Test Template       Batch Update Entity With Invalid Request Scenarios

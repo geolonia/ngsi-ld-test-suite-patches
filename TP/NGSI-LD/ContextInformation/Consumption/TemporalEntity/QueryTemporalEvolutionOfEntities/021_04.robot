@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can query the temporal evolution of entities using a context
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -17,7 +18,7 @@ ${expectation_file}=                vehicles-temporal-representation-021-04-expe
 
 
 *** Test Cases ***
-021_04 Query the temporal evolution of entities using a context
+021_04_01 Query the temporal evolution of entities using a context
     [Documentation]    Check that you can query the temporal evolution of entities using a context
     [Tags]    te-query    5_7_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle

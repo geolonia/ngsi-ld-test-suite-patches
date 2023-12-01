@@ -1,0 +1,35 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/DISC/036_03",
+  "test_objective": "Check that you can retrieve a Context Source Registration. Term to URI expansion of Attribute names shall be observed.",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.10.1",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_10_1",
+  "keywords": [
+    "Setup Initial Context Source Registration",
+    "Delete Created Context Source Registration"
+  ],
+  "teardown": "Delete Created Context Source Registration",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "036_03_01 Retrieve Context Source Registration With Default Core Context",
+      "permutation_tp_id": "TP/NGSI-LD/CS/DISC/036_03_01",
+      "doc": "Check that you can retrieve a Context Source Registration. Term to URI expansion of Attribute names shall be observed.",
+      "tags": [
+        "5_10_1",
+        "csr-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response containing:\n    * file set to 'csourceRegistrations/expectations/context-source-registration-expanded-format.json'\n    * id set to '${context_source_registration_id}'\n    * response set to '${response.json()}' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration with data: and\n    Query Parameter: context source registration id set to '${context_source_registration_id}'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations/{context_source_registration_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/Discovery/RetrieveContextSourceRegistration",
+  "robotfile": "036_03"
+}

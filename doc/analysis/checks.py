@@ -95,7 +95,9 @@ class Checks:
             'Should be True':
                 Checks.should_be_true,
             'Check Response Body Content':
-                Checks.check_response_body_content
+                Checks.check_response_body_content,
+            'Check Retrieving Context Source Registration':
+                Checks.check_retrieving_context_source_registration
         }
 
         self.args = {
@@ -216,6 +218,10 @@ class Checks:
             'Should be True': {
                 'params': ['expression'],
                 'position': [0]
+            },
+            'Check Retrieving Context Source Registration': {
+                'params': ['registration_id', 'context', 'accept', 'registration_payload'],
+                'position': [0, 1, 2, 3]
             }
         }
 
@@ -376,6 +382,30 @@ class Checks:
     @staticmethod
     def check_response_body_containing_list_containing_entity_elements(kwargs: list) -> str:
         return 'Response Body containing a list containing Entity Elements, containing ${value} provided'
+
+    @staticmethod
+    def check_retrieving_context_source_registration(kwargs: list) -> str:
+        expected_parameters = ['registration_id', 'context', 'accept', 'registration_payload']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Check Retrieving Context Source Registration"
+        for key, value in kwargs.items():
+            match key:
+                case 'registration_id':
+                    response = f"{response} and\n    Query Parameter: registration_id set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case 'accept':
+                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                case 'registration_payload':
+                    response = f"{response} and\n    Query Parameter: registration_payload set to '{value}'"
+                case 'checks':
+                    pass
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
 
     @staticmethod
     def check_response_body_containing_list_containing_entity_elements_with_different_types(kwargs: list) -> str:

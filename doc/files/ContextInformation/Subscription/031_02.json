@@ -12,7 +12,7 @@
     {
       "name": "031_02_01 Query Second Subscription",
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/031_02_01",
-      "doc": "",
+      "doc": "Check that you can query a list of subscriptions: Pagination logic shall be in place",
       "tags": [
         "5_8_4",
         "sub-query"
@@ -28,7 +28,7 @@
     {
       "name": "031_02_02 Query Last Subscription",
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/031_02_02",
-      "doc": "",
+      "doc": "Check that you can query a list of subscriptions: Pagination logic shall be in place",
       "tags": [
         "5_8_4",
         "sub-query"
@@ -44,7 +44,7 @@
     {
       "name": "031_02_03 Query All Subscriptions",
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/031_02_03",
-      "doc": "",
+      "doc": "Check that you can query a list of subscriptions: Pagination logic shall be in place",
       "tags": [
         "5_8_4",
         "sub-query"

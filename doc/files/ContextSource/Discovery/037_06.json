@@ -1,0 +1,50 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/DISC/037_06",
+  "test_objective": "Check that you can query context source registrations matching property and relationship names of RegistrationInfo",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.10.2",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_10_2",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "037_06_01 Query With Matching Properties And Relationships",
+      "permutation_tp_id": "TP/NGSI-LD/CS/DISC/037_06_01",
+      "doc": "Check that you can query context source registrations matching property and relationship names of RegistrationInfo",
+      "tags": [
+        "5_10_2",
+        "csr-query"
+      ],
+      "setup": "Setup Initial Context Source Registration",
+      "teardown": "Delete Created Context Source Registration",
+      "template": "Query Context Source Registration Matching Properties And Relationships Of RegistrationInfo",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response body set to list of all matching Context Source Registrations resolved against the default JSON-LD context and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: type set to 'Building' and\n    Query Parameter: attrs set to 'name,locatedAt'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations"
+    },
+    {
+      "name": "037_06_02 Query Without Properties And Relationships",
+      "permutation_tp_id": "TP/NGSI-LD/CS/DISC/037_06_02",
+      "doc": "Check that you can query context source registrations matching property and relationship names of RegistrationInfo",
+      "tags": [
+        "5_10_2",
+        "csr-query"
+      ],
+      "setup": "Setup Initial Context Source Registration",
+      "teardown": "Delete Created Context Source Registration",
+      "template": "Query Context Source Registration Matching Properties And Relationships Of RegistrationInfo",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response body set to list of all matching Context Source Registrations resolved against the default JSON-LD context and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: type set to 'Building' and\n    Query Parameter: attrs set to '${EMPTY}'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations"
+    }
+  ],
+  "permutations": [
+    "when"
+  ],
+  "robotpath": "ContextSource/Discovery/QueryContextSourceRegistrations",
+  "robotfile": "037_06"
+}

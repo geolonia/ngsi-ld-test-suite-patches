@@ -1,0 +1,32 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/DISC/036_02",
+  "test_objective": "Check that you cannot retrieve a Context Source Registration, if the NGSI-LD endpoint does not know about the target context source registration, because there is no existing context source registration whose id (URI) is equivalent",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.10.1",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_10_1",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "036_02_01 Retrieve Unknown Context Source Registration",
+      "permutation_tp_id": "TP/NGSI-LD/CS/DISC/036_02_01",
+      "doc": "Check that you cannot retrieve a Context Source Registration, if the NGSI-LD endpoint does not know about the target context source registration, because there is no existing context source registration whose id (URI) is equivalent",
+      "tags": [
+        "5_10_1",
+        "csr-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound' and\n        Response body containing 'title' element and\n        Response Status Code set to 404\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration with data: and\n    Query Parameter: context source registration id set to 'urn:ngsi-ld:ContextSourceRegistration:unknowRegistration'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations/{context_source_registration_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/Discovery/RetrieveContextSourceRegistration",
+  "robotfile": "036_02"
+}

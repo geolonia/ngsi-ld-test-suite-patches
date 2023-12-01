@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can update a context source registration by id
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -16,15 +17,16 @@ ${registration_id_prefix}=      urn:ngsi-ld:Registration:
 
 *** Test Cases ***    FILENAME    UPDATE_FILENAME
 034_01_01 Update a context source registration by id
+    [Tags]    csr-update    5_9_3
     context-source-registration-sample.jsonld    context-source-registration-with-expiration-sample.jsonld
 034_01_02 Update a context source registration to never expire
-    context-source-registration-with-expiration-sample.jsonld    context-source-registration-simple-sample.jsonld
+    [Tags]    csr-update    5_9_3
+    context-source-registration-with-expiration-sample.jsonld    context-source-registration-sample.jsonld
 
 
 *** Keywords ***
 Update Context Source
     [Documentation]    Check that you can update a context source registration by id
-    [Tags]    csr-update    5_9_3
     [Arguments]    ${filename}    ${update_filename}
     Set Global Variable    ${filename}
     ${fragment}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${update_filename}

@@ -14,8 +14,8 @@ class ParseRobotFile:
 
         self.variables = dict()
         self.execdir = execdir
-        self.resource_file = str()
-        self.apiutils = None
+        self.resource_files = list()
+        self.apiutils = list()
 
         self.string_test_template = str()
         self.test_template_name = str()
@@ -55,20 +55,25 @@ class ParseRobotFile:
 
     def get_apiutils_path(self):
         string = self.get_substring(initial_string='Resource', final_string='*** Variables ***', include=True)
-        result = [item for item in string.split('\n') if 'ApiUtils.resource' in item and item[0] != '#']
+        result = [item for item in string.split('\n') if 'ApiUtils' in item and item[0] != '#']
+        self.resource_files = [x.replace('${EXECDIR}', self.execdir) for x in result]
 
-        if len(result) == 1:
-            regex = r"\s*Resource\s*(.*)\s*"
+        regex = r"\s*Resource\s*(.*)\s*"
+        result = [re.match(pattern=regex, string=x).group(1) for x in result]
+        self.resource_files = [x.replace('${EXECDIR}', self.execdir) for x in result]
 
-            matches = re.finditer(regex, result[0], re.MULTILINE)
-            for match in matches:
-                # Check that we have 1 group matched
-                if len(match.groups()) == 1:
-                    self.resource_file = match.group(1)
-                else:
-                    raise Exception("Error, unexpected format")
-
-            self.resource_file = self.resource_file.replace('${EXECDIR}', self.execdir)
+        # if len(result) >= 1:
+        #     regex = r"\s*Resource\s*(.*)\s*"
+        #
+        #     matches = re.finditer(regex, result[0], re.MULTILINE)
+        #     for match in matches:
+        #         # Check that we have 1 group matched
+        #         if len(match.groups()) == 1:
+        #             self.resource_file.append(match.group(1))
+        #         else:
+        #             raise Exception("Error, unexpected format")
+        #
+        #    self.resource_file = self.resource_file.replace('${EXECDIR}', self.execdir)
 
     def get_substring(self, initial_string: str, final_string: str, include: bool) -> str:
         index_start = self.file_contents.find(initial_string)
@@ -108,7 +113,7 @@ class ParseRobotFile:
 
         indexes = list()
         for match in matches:
-            indexes.append(string.find(match[0]))
+            indexes.append(string.rfind(match[0]))
 
         subdata = list()
         for i in range(0, len(indexes) - 1):
@@ -118,6 +123,7 @@ class ParseRobotFile:
         subdata.append(string[index:])
 
         self.string_test_template = [x for x in subdata if self.test_template_name in x][0]
+        print('hola')
 
     def get_template_param_values(self, test_cases):
         # Extract the parameter of the Test Cases
@@ -172,10 +178,12 @@ class ParseRobotFile:
                             f"probably the name of the Test Case is not following the pattern '{pattern}'")
 
     def get_test_cases_without_template(self):
-        index_start = self.file_contents.find('*** Test Cases ***')
-        string = self.file_contents[index_start+len('*** Test Cases ***')+1:]
+        index_start_test_cases = self.file_contents.find('*** Test Cases ***')
+        index_start_keywords = self.file_contents.find('*** Keywords ***')
 
-        self.get_test_cases_content(string=string)
+        string_test_cases = self.file_contents[index_start_test_cases+len('*** Test Cases ***')+1:index_start_keywords]
+
+        self.get_test_cases_content(string=string_test_cases)
 
     def get_text_cases_content(self, name: str):
         if self.test_template_name == '':
@@ -227,16 +235,20 @@ class ParseRobotFile:
             pattern = r'(Wait for no notification)|(Wait for notification and validate it)|(Wait for notification)([ ]{4}(.*))?'
             param = re.findall(pattern=pattern, string=content, flags=re.MULTILINE)
             for i in range(0, len(param)):
-                match param[i][0]:
+                data = tuple(element for element in param[i] if element != '')
+
+                match data[0]:
                     case 'Wait for notification and validate it':
                         new_list.append(f'Wait for notification and validate it')
                     case 'Wait for no notification':
                         new_list.append(f'Wait for no notification')
-                    case '':
-                        # This is the case of 'Wait for notification'
-                        if param[i][3] != '':
-                            new_list.append(f'Wait for notification    {param[i][3]}')
-                        elif param[i][3] == '':
+                    case 'Wait for notification':
+                        last_index = len(data) - 1
+                        timeout = data[last_index]
+
+                        if timeout != '':
+                            new_list.append(f'Wait for notification    {timeout}')
+                        else:
                             new_list.append(f'Wait for notification    5')
                     case _:
                         raise Exception(f"Unexpected Wait for notification check: '{param[i][0]}'")
@@ -256,8 +268,9 @@ class ParseRobotFile:
         return new_list
 
     def get_request(self, test_name, name):
+        flattened_list_variables = {k: v for d in self.apiutils for k, v in d.variables.items()}
         data = Requests(variables=self.variables,
-                        apiutils_variables=self.apiutils.variables,
+                        apiutils_variables=flattened_list_variables,
                         config_file=self.config_file,
                         template_params_value=self.template_params_value,
                         test_name=test_name,
@@ -272,7 +285,7 @@ class ParseRobotFile:
 
     def generate_then_content(self, content):
         # Need to check if it is a Notification data or a normal Response
-        aux = [x for x in content if x.find('Notification data') != -1 or x.find('After waiting') != -1]
+        aux = [x for x in content if x.find('Notification data') != -1 or x.find('After waiting') != -1 or x.find('Notification and validate') != -1]
 
         if len(aux) == 0:
             # The SUT sends a valid Response
@@ -420,7 +433,9 @@ class ParseRobotFile:
         except KeyError:
             try:
                 # Check if we can get the data from the apiutils file
-                result = self.apiutils.variables[position]
+                # TODO: this operation is calculated every time that wanted to calculate this operation
+                flattened_list = {k: v for d in self.apiutils for k, v in d.variables.items()}
+                result = flattened_list[position]
             except KeyError:
                 try:
                     aux = re.findall(pattern=r'\$\{(.*)}', string=position)

@@ -1,12 +1,11 @@
 *** Settings ***
 Documentation       Check that you can upsert a batch of non-existing and existing entities where non-existing will be created and existing will be replaced
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision/ApiUtils.resource
-# Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
 Test Teardown       Delete Initial Entities
 Test Template       Batch Upsert Non-existing And Existing Entities Scenarios
 
@@ -31,7 +30,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 Batch Upsert Non-existing And Existing Entities Scenarios
     [Documentation]    Check that you can upsert a batch of non-existing and existing entities
     [Arguments]    ${filename}
-    Set Global Variable    ${filename}
+    Setup Initial Entities    ${filename}
     ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}
     @{expected_entities_ids}=    Create List    ${new_entity_id}
     Check Response Status Code    201    ${response.status_code}
@@ -49,6 +48,7 @@ Batch Upsert Non-existing And Existing Entities Scenarios
     Check Updated Resources Set To    ${entities_to_be_upserted}    ${response.json()}
 
 Setup Initial Entities
+    [Arguments]    ${filename}
     ${first_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${second_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity    building-minimal-sample.jsonld    ${first_existing_entity_id}

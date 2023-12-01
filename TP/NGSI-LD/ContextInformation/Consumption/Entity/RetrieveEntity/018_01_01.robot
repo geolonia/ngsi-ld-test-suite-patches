@@ -1,8 +1,8 @@
 *** Settings ***
 Documentation       Check that you can get an entity by id
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption/ApiUtils.resource
-# Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -30,7 +30,11 @@ ${expectation_filename}=    building-simple-attributes-expectation.jsonld
     ...    id=${entity_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response.json()}
+    Check Response Body Containing Entity element
+    ...    ${expectation_filename}
+    ...    ${entity_id}
+    ...    ${response.json()}
+    ...    ${True}
 
 
 *** Keywords ***

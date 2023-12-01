@@ -12,7 +12,7 @@
     {
       "name": "041_02_01 Query One Subscription",
       "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/041_02_01",
-      "doc": "",
+      "doc": "Check that you can query context source registration subscriptions with a limit parameter and it will be the maximum number of subscriptions to be retrieved",
       "tags": [
         "5_11_5",
         "csrsub-query"
@@ -28,7 +28,7 @@
     {
       "name": "041_02_02 Query Two Subscription",
       "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/041_02_02",
-      "doc": "",
+      "doc": "Check that you can query context source registration subscriptions with a limit parameter and it will be the maximum number of subscriptions to be retrieved",
       "tags": [
         "5_11_5",
         "csrsub-query"
@@ -44,7 +44,7 @@
     {
       "name": "041_02_03 Query All Subscriptions",
       "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/041_02_03",
-      "doc": "",
+      "doc": "Check that you can query context source registration subscriptions with a limit parameter and it will be the maximum number of subscriptions to be retrieved",
       "tags": [
         "5_11_5",
         "csrsub-query"

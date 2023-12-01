@@ -1,8 +1,8 @@
 *** Settings ***
 Documentation       Check that you can retrieve a list with a detailed representation of NGSI-LD entity types
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption/ApiUtils.resource
-# Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -33,7 +33,7 @@ Retrieve Details Of Available Entity Types
     [Arguments]    ${context}    ${expectation_file}
     ${response}=    Retrieve Entity Types
     ...    context=${context}
-    ...    details=${TRUE}
+    ...    details=true
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing EntityType element    ${expectation_file}    ${response.json()}
 

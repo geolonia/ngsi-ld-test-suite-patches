@@ -6,6 +6,7 @@
   "parent_release": "v1.3.1",
   "pics_selection": "PICS_5_7_2",
   "keywords": [
+    "Create Entities",
     "Delete Entities"
   ],
   "teardown": "Delete Entities",
@@ -23,7 +24,7 @@
       "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list containing Entity Elements, containing ${value} provided and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/query'\n        method set to 'POST'\n        Get Entities Via POST Request: and\n    Query Parameter: attrs set to '${attributes_to_be_retrieved}' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/query'\n        method set to 'POST'\n        Get Entities Via POST Request: and\n    Query Parameter: attrs set to '${attributes_to_be_retrieved}' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: accept set to 'application/json'\n}",
       "http_verb": "POST",
       "endpoint": "entityOperations/query"
     }

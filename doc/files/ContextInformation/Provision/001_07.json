@@ -10,9 +10,9 @@
   "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
   "test_cases": [
     {
-      "name": "001_07_01 Create one entity using a JSON-LD @context obtained from the request payload with context",
+      "name": "001_07_01 Create one entity using a JSON-LD @context obtained from the request payload with ld context",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_07_01",
-      "doc": "Check that the @context is obtained from the request payload body itself if the Content-Type header is \"application/ld+json\"",
+      "doc": "Check that the @context is obtained from the request payload body itself if the Content-Type header is \"application/ld+json\" and retrieve with ld context",
       "tags": [
         "6_3_5",
         "e-create"
@@ -28,7 +28,7 @@
     {
       "name": "001_07_02 Create one entity using a JSON-LD @context obtained from the request payload without context",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_07_02",
-      "doc": "Check that the @context is obtained from the request payload body itself if the Content-Type header is \"application/ld+json\"",
+      "doc": "Check that the @context is obtained from the request payload body itself if the Content-Type header is \"application/ld+json\" and retrieve without context",
       "tags": [
         "6_3_5",
         "e-create"

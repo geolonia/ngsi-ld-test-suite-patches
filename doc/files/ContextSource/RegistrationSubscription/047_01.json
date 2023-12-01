@@ -30,6 +30,6 @@
     }
   ],
   "permutations": [],
-  "robotpath": "ContextSource/RegistrationSubscription/NotificationBehaviour",
+  "robotpath": "ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour",
   "robotfile": "047_01"
 }

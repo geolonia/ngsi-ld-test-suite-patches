@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/TemporalEntityAttributes/AppendAttributes/014_04",
+  "tp_id": "TP/NGSI-LD/CI/Prov/TEA/014_04",
   "test_objective": "Check that an error is raised if you delete a temporal entity with empty/invalid content",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.12",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "014_04_01 Add an attribute to a temporal representation of an entity with invalid content",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TemporalEntityAttributes/AppendAttributes/014_04_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TEA/014_04_01",
       "doc": "Check that an error is raised if you add a temporal entity attribute with empty/invalid content",
       "tags": [
         "tea-append",
@@ -27,7 +27,7 @@
     },
     {
       "name": "014_04_02 Add an attribute to a temporal representation of an entity with empty content",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TemporalEntityAttributes/AppendAttributes/014_04_02",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TEA/014_04_02",
       "doc": "Check that an error is raised if you add a temporal entity attribute with empty/invalid content",
       "tags": [
         "tea-append",
@@ -45,6 +45,6 @@
   "permutations": [
     "when"
   ],
-  "robotpath": "ContextInformation/Provision/TemporalEntityAttributes/AppendAttributes",
+  "robotpath": "ContextInformation/Provision/TemporalEntityAttributes/AddAttributes",
   "robotfile": "014_04"
 }

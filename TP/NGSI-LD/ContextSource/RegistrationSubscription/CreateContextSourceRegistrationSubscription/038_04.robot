@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can create a context source registration subscription with isActive member set to false and it's initial status will be set to "paused"
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

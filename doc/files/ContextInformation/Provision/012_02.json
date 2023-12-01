@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/PartialAttributeUpdate/012_02",
+  "tp_id": "TP/NGSI-LD/CI/Prov/EA/012_02",
   "test_objective": "Check that you cannot perform a partial update on an entity attribute with invalid/missing ids",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.4",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "012_02_01 Make a partial attribute update if the Entity Id is not present",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/PartialAttributeUpdate/012_02_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_02_01",
       "doc": "Check that you cannot perform a partial update on an entity attribute with invalid/missing ids",
       "tags": [
         "ea-partial-update",
@@ -27,7 +27,7 @@
     },
     {
       "name": "012_02_02 Make a partial attribute update if the Entity Id is not a valid URI",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/PartialAttributeUpdate/012_02_02",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_02_02",
       "doc": "Check that you cannot perform a partial update on an entity attribute with invalid/missing ids",
       "tags": [
         "ea-partial-update",
@@ -43,7 +43,7 @@
     },
     {
       "name": "012_02_03 Make a partial attribute update if the Attribute Id is not present",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/PartialAttributeUpdate/012_02_03",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_02_03",
       "doc": "Check that you cannot perform a partial update on an entity attribute with invalid/missing ids",
       "tags": [
         "ea-partial-update",
@@ -59,7 +59,7 @@
     },
     {
       "name": "012_02_04 Make a partial attribute update if the Attribute type does not match",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/PartialAttributeUpdate/012_02_04",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_02_04",
       "doc": "Check that you cannot perform a partial update on an entity attribute with invalid/missing ids",
       "tags": [
         "ea-partial-update",
@@ -75,7 +75,7 @@
     },
     {
       "name": "012_02_05 Make a partial attribute update if the entity fragment is empty",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/PartialAttributeUpdate/012_02_05",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_02_05",
       "doc": "Check that you cannot perform a partial update on an entity attribute with invalid/missing ids",
       "tags": [
         "ea-partial-update",

@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot update a subscription: If expiresAt is included but referring to a DateTime in the past, then a BadRequestData error shall be raised
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

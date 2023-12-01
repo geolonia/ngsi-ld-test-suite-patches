@@ -1,8 +1,8 @@
 *** Settings ***
 Documentation       Check that you cannot delete an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right
 
-Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision/ApiUtils.resource
-# Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -51,11 +51,11 @@ Create Temporal Entity
     ...    filename=${filename}
     ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Get Temporal Representation Of Entity
+    ${response}=    Retrieve Temporal Representation Of Entity
     ...    ${temporal_entity_representation_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    ...    sysAttrs
-    ...    ${ngsild_test_suite_context}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
+    ...    options=sysAttrs
+    ...    context=${ngsild_test_suite_context}
     ${valid_instanceId}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
     Set Test Variable    ${valid_instanceId}
 

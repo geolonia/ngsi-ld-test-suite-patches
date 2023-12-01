@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/PartialAttributeUpdate/012_01",
+  "tp_id": "TP/NGSI-LD/CI/Prov/EA/012_01",
   "test_objective": "Check that you can perform a partial update on an entity attribute",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.4",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "012_01_01 Check that you can partially update an attribute",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/PartialAttributeUpdate/012_01_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_01_01",
       "doc": "Check that you can perform a partial update on an entity attribute",
       "tags": [
         "ea-partial-update",
@@ -27,7 +27,7 @@
     },
     {
       "name": "012_01_02 Check that you can partially update an attribute by specifying the datasetId",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/PartialAttributeUpdate/012_01_02",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_01_02",
       "doc": "Check that you can perform a partial update on an entity attribute",
       "tags": [
         "ea-partial-update",

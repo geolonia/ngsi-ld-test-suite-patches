@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can create a context source registration subscription with an expiresAt member and when it is due the status of the subscription changes to "expired"
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

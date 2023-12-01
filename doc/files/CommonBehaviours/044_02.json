@@ -1,6 +1,6 @@
 {
-  "tp_id": "TP/NGSI-LD/CB/044_02",
-  "test_objective": "Verify that on a GET HTTP request if nothing is specified on the Accept header, \"application/json\" is assumed",
+  "tp_id": "TP/NGSI-LD/CB/HTTP/044_02",
+  "test_objective": "Verify that PATCH HTTP requests can be done with \"application/merge-patch+json\" as Content-Type",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.4",
   "config_id": "",
   "parent_release": "v1.3.1",
@@ -10,74 +10,23 @@
   "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
   "test_cases": [
     {
-      "name": "044_02_01 endpoint /entities/{entityId}",
-      "permutation_tp_id": "TP/NGSI-LD/CB/044_02_01",
-      "doc": "Verify that on a GET HTTP request if nothing is specified on the Accept header, \"application/json\" is assumed (/entities/{entityId})",
+      "name": "044_02_01 Endpoint /subscriptions/{subscriptionId}",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/044_02_01",
+      "doc": "Verify that PATCH HTTP requests can be done with \"application/merge-patch+json\" as Content-Type",
       "tags": [
         "6_3_4",
-        "e-query"
+        "sub-update"
       ],
-      "setup": null,
-      "teardown": "Delete Entity by Id Returning Response",
+      "setup": "Create Initial Subscription",
+      "teardown": "Delete Initial Subscription",
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Content-Type set to application/json and\n        Response Header: Link is not Empty and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Get Entity Request: and\n    Query Parameter: id set to '${id}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to '*/*'\n}",
-      "http_verb": "GET",
-      "endpoint": "entities/{id}"
-    },
-    {
-      "name": "044_02_02 endpoint /subscriptions/{subscriptionId}",
-      "permutation_tp_id": "TP/NGSI-LD/CB/044_02_02",
-      "doc": "Verify that on a GET HTTP request if nothing is specified on the Accept header, \"application/json\" is assumed (/subscriptions/{subscriptionId})",
-      "tags": [
-        "6_3_4",
-        "sub-retrieve"
-      ],
-      "setup": null,
-      "teardown": "Delete Subscription",
-      "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Content-Type set to application/json and\n        Response Header: Link is not Empty and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Subscription Retrieve with the following data: and\n    Query Parameter: id set to '${id}' and\n    Query Parameter: accept set to '*/*'\n}",
-      "http_verb": "GET",
-      "endpoint": "subscriptions/{id}"
-    },
-    {
-      "name": "044_02_03 endpoint /csourceRegistrations/",
-      "permutation_tp_id": "TP/NGSI-LD/CB/044_02_03",
-      "doc": "Verify that on a GET HTTP request if nothing is specified on the Accept header, \"application/json\" is assumed (/csourceRegistrations/)",
-      "tags": [
-        "6_3_4",
-        "csr-query"
-      ],
-      "setup": null,
-      "teardown": "Delete Context Source Registration",
-      "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Content-Type set to application/json and\n        Response Header: Link is not Empty and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Request a Context Source Registration with Return\nEntity Type set to 'Vehicle'\nHeader['Accept'] set to '*/*'\n}",
-      "http_verb": "GET",
-      "endpoint": "csourceRegistrations"
-    },
-    {
-      "name": "044_02_04 endpoint /temporal/entities",
-      "permutation_tp_id": "TP/NGSI-LD/CB/044_02_04",
-      "doc": "Verify that on a GET HTTP request if nothing is specified on the Accept header, \"application/json\" is assumed (/temporal/entities)",
-      "tags": [
-        "6_3_4",
-        "te-query"
-      ],
-      "setup": null,
-      "teardown": "Delete Temporal Representation Of Entity",
-      "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Content-Type set to application/json and\n        Response Header: Link is not Empty and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n        Request a Temporal Representation of Entities with Return\n}",
-      "http_verb": "GET",
-      "endpoint": "temporal/entities"
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 204\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Request Update Subscription and \nHeader['Link'] contain the context 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\nHeader['Content-Type'] set to 'application/merge-patch+json' and\nPayload defined in file 'subscriptions/fragments/subscription-update-sample.json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "subscriptions/{subscription_id}"
     }
   ],
-  "permutations": [
-    "endpoint",
-    "when"
-  ],
-  "robotpath": "CommonBehaviours",
+  "permutations": [],
+  "robotpath": "CommonBehaviours/CommonResponses/VerifyMergePatchJson",
   "robotfile": "044_02"
 }

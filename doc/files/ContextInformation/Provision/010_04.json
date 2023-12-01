@@ -1,0 +1,50 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/EA/010_04",
+  "test_objective": "Check that you can append entity attributes",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.3",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_5_6_3",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "test_cases": [
+    {
+      "name": "010_04_01 Append entity attributes",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/010_04_01",
+      "doc": "Check that you can append entity attributes",
+      "tags": [
+        "ea-append",
+        "5_6_3"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Append Attributes With Params",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body Content and\n    Query Parameter: additional_ignored_path set to '${EMPTY}' and\n        Updated Entity set to ${entity} and\n        Response Status Code set to 207\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/'\n        method set to ''\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "",
+      "endpoint": ""
+    },
+    {
+      "name": "010_04_02 Append entity attributes",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/010_04_02",
+      "doc": "Check that you can append entity attributes",
+      "tags": [
+        "ea-append",
+        "5_6_3"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Append Attributes With Params",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body Content and\n    Query Parameter: additional_ignored_path set to '${EMPTY}' and\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/'\n        method set to ''\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "",
+      "endpoint": ""
+    }
+  ],
+  "permutations": [
+    "then"
+  ],
+  "robotpath": "ContextInformation/Provision/EntityAttributes/AppendEntityAttributes",
+  "robotfile": "010_04"
+}

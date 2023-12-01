@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/Entities/DeleteEntity/002_02",
+  "tp_id": "TP/NGSI-LD/CI/Prov/E/002_02",
   "test_objective": "Check that you cannot delete an entity with invalid/missing id",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.6",
   "config_id": "",
@@ -11,11 +11,11 @@
   "test_cases": [
     {
       "name": "002_02_01 Delete an entity if the Entity Id is not present",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/Entities/DeleteEntity/002_02_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/002_02_01",
       "doc": "Check that you cannot delete an entity with invalid/missing id",
       "tags": [
-        "e-delete",
-        "5_6_6"
+        "5_6_6",
+        "e-delete"
       ],
       "setup": null,
       "teardown": null,
@@ -27,11 +27,11 @@
     },
     {
       "name": "002_02_02 Delete an entity if the Entity Id is not a valid URI",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/Entities/DeleteEntity/002_02_02",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/002_02_02",
       "doc": "Check that you cannot delete an entity with invalid/missing id",
       "tags": [
-        "e-delete",
-        "5_6_6"
+        "5_6_6",
+        "e-delete"
       ],
       "setup": null,
       "teardown": null,

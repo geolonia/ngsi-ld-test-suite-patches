@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CS/REG/033_02",
+  "tp_id": "TP/NGSI-LD/CS/CSR/033_02",
   "test_objective": "Check that you cannot create a context source with invalid content",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.9.2",
   "config_id": "",
@@ -11,22 +11,22 @@
   "test_cases": [
     {
       "name": "033_02_01 Create a context source registration with invalid JSON file",
-      "permutation_tp_id": "TP/NGSI-LD/CS/REG/033_02_01",
+      "permutation_tp_id": "TP/NGSI-LD/CS/CSR/033_02_01",
       "doc": "Create a context source registration with invalid JSON file",
       "tags": [
         "5_9_2",
         "csr-create"
       ],
       "setup": null,
-      "teardown": "Delete Entity by Id Returning Response",
+      "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'POST'\n        Create Context Source Registration Request with Content-Type set to 'application/ld+json' and payload set to 'context-source-registration-invalid-sample.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'POST'\n        Create Context Source Registration Request with Content-Type set to 'application/ld+json' and payload set to '${subscription_payload}'\n}",
       "http_verb": "POST",
       "endpoint": "csourceRegistrations"
     }
   ],
   "permutations": [],
-  "robotpath": "ContextSource/Registration/CreateContextSourceRegistration",
+  "robotpath": "ContextSource/Registration/RegisterContextSource",
   "robotfile": "033_02"
 }

@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you can update a subcription: If isActive is equal to true and expiresAt corresponds to a DateTime in the future, then status shall be updated to "active"
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

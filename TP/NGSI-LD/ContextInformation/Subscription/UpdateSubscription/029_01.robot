@@ -1,7 +1,7 @@
 *** Settings ***
-Documentation       Check that you cannot update a subcription: If the Subscription id is not present or it is not a valid URI, then an error of type BadRequestData shall be raised
+Documentation       Check that you cannot update a subscription: If the Subscription id is not present or it is not a valid URI, then an error of type BadRequestData shall be raised
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -23,7 +23,7 @@ ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscrip
 
 *** Keywords ***
 Update Subscription With Non present Or Invalid Id
-    [Documentation]    Check that you cannot update a subcription: If the Subscription id is not present or it is not a valid URI, then an error of type BadRequestData shall be raised
+    [Documentation]    Check that you cannot update a subscription: If the Subscription id is not present or it is not a valid URI, then an error of type BadRequestData shall be raised
     [Arguments]    ${id}
     ${response}=    Update Subscription    ${id}    ${subscription_update_fragment_file_path}    ${CONTENT_TYPE_JSON}
     Check Response Status Code    400    ${response.status_code}

@@ -10,7 +10,7 @@
   "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
   "test_cases": [
     {
-      "name": "013_01_01 delete an attribute with the default instance",
+      "name": "013_01_01 Delete an attribute with the default instance",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/DeleteEntityAttribute/013_01_01",
       "doc": "Check that you can delete an attribute from an entity",
       "tags": [
@@ -26,7 +26,7 @@
       "endpoint": "entities/{id}"
     },
     {
-      "name": "013_01_02 delete an attribute with the datasetId",
+      "name": "013_01_02 Delete an attribute with the datasetId",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/DeleteEntityAttribute/013_01_02",
       "doc": "Check that you can delete an attribute from an entity",
       "tags": [
@@ -42,7 +42,7 @@
       "endpoint": "entities/{id}"
     },
     {
-      "name": "013_01_03 delete all target attribute instances",
+      "name": "013_01_03 Delete all target attribute instances",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/DeleteEntityAttribute/013_01_03",
       "doc": "Check that you can delete an attribute from an entity",
       "tags": [

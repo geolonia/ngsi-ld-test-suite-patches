@@ -15,8 +15,8 @@ class GenerateRobotData:
         self.config_variables = ParseVariablesFile()
         self.robot = ParseRobotFile(filename=robot_file, execdir=execdir, config_file=self.config_variables)
         # TODO: the robot file can provide several ApiUtils not only one
-        self.apiutil = ParseApiUtilsFile(filename=self.robot.resource_file)
-        self.robot.set_apiutils(self.apiutil)
+        self.apiutils = [ParseApiUtilsFile(filename=file) for file in self.robot.resource_files]
+        self.robot.set_apiutils(self.apiutils)
 
         self.test_cases = list()
         self.test_suite = dict()
@@ -35,6 +35,10 @@ class GenerateRobotData:
             'Entity/RetrieveEntity': 'E',
             'Entities/CreateEntity': 'E',
             'Entity/QueryEntities': 'E',
+            'Entities/DeleteEntity': 'E',
+            'EntityAttributes/AppendEntityAttributes': 'EA',
+            'EntityAttributes/UpdateEntityAttributes': 'EA',
+            'EntityAttributes/PartialAttributeUpdate': 'EA',
             'BatchEntities/CreateBatchOfEntities': 'BE',
             'BatchEntities/UpsertBatchOfEntities': 'BE',
             'BatchEntities/UpdateBatchOfEntities': 'BE',
@@ -43,25 +47,33 @@ class GenerateRobotData:
             'TemporalEntity/UpdateTemporalRepresentationOfEntity': 'TE',
             'TemporalEntityAttributes/DeleteAttributeInstance': 'TEA',
             'TemporalEntityAttributes/DeleteAttribute': 'TEA',
-            'TemporalEntityAttributes/ModifyAttributeInstance': 'TEA',
+            'TemporalEntityAttributes/PartialUpdateAttributeInstance': 'TEA',
+            'TemporalEntityAttributes/AddAttributes': 'TEA',
             'Subscription/CreateSubscription': 'SUB',
             'Subscription/DeleteSubscription': 'SUB',
             'Subscription/QuerySubscriptions': 'SUB',
             'Subscription/RetrieveSubscription': 'SUB',
             'Subscription/UpdateSubscription': 'SUB',
-            'Subscription/Notification': 'SUB',
+            'Subscription/SubscriptionNotificationBehaviour': 'SUB',
             'Registration/CreateContextSourceRegistration': 'REG',
             'Registration/CreateCSRegistration': 'REG',
-            'Registration/QueryCSRegistrations': 'REG',
-            'Registration/RetrieveCSRegistration': 'REG',
             'Registration/UpdateCSRegistration': 'REG',
             'Registration/DeleteCSRegistration': 'REG',
+            'Registration/RegisterCS': 'CSR',
             'RegistrationSubscription/CreateCSRegistrationSubscription': 'REGSUB',
             'RegistrationSubscription/UpdateCSRegistrationSubscription': 'REGSUB',
             'RegistrationSubscription/RetrieveCSRegistrationSubscription': 'REGSUB',
             'RegistrationSubscription/QueryCSRegistrationSubscriptions': 'REGSUB',
             'RegistrationSubscription/DeleteCSRegistrationSubscription': 'REGSUB',
-            'RegistrationSUBBehaviour': 'REGSUB'
+            'RegistrationSubscription/CSRegistrationSubscriptionNotificationBehaviour': 'REGSUB',
+            'RegistrationSUBBehaviour': 'REGSUB',
+            'Discovery/RetrieveCSRegistration': 'DISC',
+            'Discovery/QueryCSRegistrations': 'DISC',
+            'CommonResponses/VerifyLdContextNotAvailable': 'HTTP',
+            'CommonResponses/VerifyMergePatchJson': 'HTTP',
+            'CommonResponses/VerifyGETWithoutAccept': 'HTTP',
+            'CommonResponses/VerifyUnsupportedMediaType': 'HTTP',
+            'CommonResponses/VerifyNotAcceptableMediaType': 'HTTP'
         }
         self.references = {
             'v1.3.1': 'ETSI GS CIM 009 V1.3.1 [], clause '
@@ -174,7 +186,11 @@ class GenerateRobotData:
             string = self.robot.string_test_template
 
         request, params = self.get_params(test_case=string)
-        verb, url = self.apiutil.get_response(keyword=request)
+
+        for data in self.apiutils:
+            verb, url = data.get_response(keyword=request)
+            if verb != '':
+                break
 
         index = None
         for i, item in enumerate(self.test_cases):
@@ -227,7 +243,8 @@ class GenerateRobotData:
     def get_value_url(self, key: str, request: str, params: list) -> str:
         key_to_search = f'${key}'
         try:
-            value = self.apiutil.variables[key_to_search]
+            flattened_list_variables = {k: v for d in self.apiutils for k, v in d.variables.items()}
+            value = flattened_list_variables[key_to_search]
         except KeyError:
             # It is not defined in ApiUtils, maybe in Robot File?
             try:
@@ -243,11 +260,15 @@ class GenerateRobotData:
         return value
 
     def check_resource_for_url(self, string: str, request: str, params: list) -> str:
-        index1 = self.apiutil.file_contents.find(string)
+        data_file_contents = '\n'.join([x.file_contents for x in self.apiutils])
+        flattened_list_variables = {k: v for d in self.apiutils for k, v in d.variables.items()}
+        flattened_list_variables = {key.split(' ')[0]: value for key, value in flattened_list_variables.items()}
+
+        index1 = data_file_contents.find(string)
 
         if index1 != -1:
-            index2 = self.apiutil.file_contents[index1:].find("\n")
-            line = self.apiutil.file_contents[index1:index1+index2]
+            index2 = data_file_contents[index1:].find("\n")
+            line = data_file_contents[index1:index1 + index2]
 
             if string in line:
                 if 'Get From Dictionary' in line:
@@ -255,7 +276,7 @@ class GenerateRobotData:
                     aux = line.split("Get From Dictionary")[1].strip().split("    ")
                     key = aux[0]
                     value = aux[1]
-                    url_dict = self.apiutil.variables[key]
+                    url_dict = flattened_list_variables[key]
 
                     if request == 'Batch Request Entities From File':
                         url = url_dict[params[0]]
@@ -277,7 +298,7 @@ class GenerateRobotData:
         if count == 1:
             # Get the value of the Header key
             try:
-                value = self.apiutil.variables[key]
+                value = self.apiutils.variables[key]
             except KeyError:
                 # It is not defined in ApiUtils, maybe in Robot File
                 try:
@@ -296,7 +317,7 @@ class GenerateRobotData:
                 raise Exception(f"ERROR: Need to manage the '{second_key}' in GenerateRobotData::self.ids")
             # Get the value of the Header key
             try:
-                value = self.apiutil.variables[key]
+                value = self.apiutils.variables[key]
                 value = f'{value}{second_key}'
             except KeyError:
                 # It is not defined in ApiUtils, maybe in Robot File
@@ -336,7 +357,7 @@ class GenerateRobotData:
             tags = list(test.tags)
 
         # Get the Documentation associated to the test
-        if len(test.doc) == 0 and self.documentation_template is not None:
+        if len(test.doc) == 0 and len(self.documentation_template) != 0:
             documentation = self.documentation_template
         else:
             documentation = test.doc
@@ -347,14 +368,14 @@ class GenerateRobotData:
             # definition of the template
 
             # Generate Checks for Test Data
-            then = self.robot.get_checks(test_name=test.template, apiutils=self.apiutil, name=test.name)
+            then = self.robot.get_checks(test_name=test.template, apiutils=self.apiutils, name=test.name)
 
             # Generate Request for Test Data
             when = self.robot.get_request(test_name=test.template, name=test.name)
         else:
             # We are talking about a Test Cases without Test Template
             # Generate Checks for Test Data
-            then = self.robot.get_checks(test_name=test.name, apiutils=self.apiutil, name=test.name)
+            then = self.robot.get_checks(test_name=test.name, apiutils=self.apiutils, name=test.name)
 
             # Generate Request for Test Data
             when = self.robot.get_request(test_name=test.name, name=test.name)
@@ -414,12 +435,17 @@ class GenerateRobotData:
             # We have different tests cases that call a test template, maybe the Tags are defined in the template
             reference, pics = self.generate_reference_template(version=version)
         else:
-            # We have normal tests cases
-            reference, pics = self.generate_reference_testcases(tags=tags, version=version)
+            if len(self.robot.test_template_name) == 0:
+                # We have normal tests cases
+                reference, pics = self.generate_reference_testcases(tags=tags, version=version)
+            else:
+                # We have tests cases with information about tags but a template with information about documentation
+                reference, pics = self.generate_reference_testcases(tags=tags, version=version)
+                _, _ = self.generate_reference_template(version=version, need_tags=False)
 
         return reference, pics
 
-    def generate_reference_template(self, version):
+    def generate_reference_template(self, version, need_tags=True):
         # Get the list of arguments, we select the first one because the 2nd keyword corresponds
         # to the teardown operation
         args = [list(x.keywords)[0] for x in self.suite.tests]
@@ -433,23 +459,30 @@ class GenerateRobotData:
         # Due to the information of the tags are contained in the Keyword description of the template, we need to
         # analyse the Keyword.
         string = self.robot.get_substring(initial_string='** Keywords ***', final_string='', include=False)
-        reference, pics = self.get_info_from_template(name=template_name, string=string, version=version)
+        reference, pics = self.get_info_from_template(name=template_name,
+                                                      string=string,
+                                                      version=version,
+                                                      need_tags=need_tags)
 
         return reference, pics
 
-    def get_info_from_template(self, name: str, string: str, version: str):
+    def get_info_from_template(self, name: str, string: str, version: str, need_tags: bool):
         # TODO: Check that the name of the template is in the string receive
         # Get the Tags line and the tag value
+        reference = str()
+        pics = str()
+
         tags = self.get_substring(string=string, key='[Tags]')
         self.tags_template = tags[1:]
 
-        try:
-            tag = list(set([element for sublist in tags for element in tags if element[0].isdigit()]))[0]
-        except IndexError:
-            raise Exception("ERROR, Probably [Tags] does not include reference to the section in the spec.")
+        if need_tags:
+            try:
+                tag = list(set([element for sublist in tags for element in tags if element[0].isdigit()]))[0]
+            except IndexError:
+                raise Exception("ERROR, Probably [Tags] does not include reference to the section in the spec.")
 
-        reference = f'{self.references[version]}{tag.replace("_", ".")}'
-        pics = f'PICS_{tag}'
+            reference = f'{self.references[version]}{tag.replace("_", ".")}'
+            pics = f'PICS_{tag}'
 
         # Get the arguments
         self.arguments = self.get_substring(string=string, key='[Arguments]')

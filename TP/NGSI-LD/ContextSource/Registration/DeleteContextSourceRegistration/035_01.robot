@@ -1,14 +1,15 @@
 *** Settings ***
 Documentation       Check that you can delete a context source registration by id
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 
 *** Variables ***
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
-${registration_payload_file_path}=      context-source-registration-simple-sample.jsonld
+${registration_payload_file_path}=      context-source-registration-sample.jsonld
 
 
 *** Test Cases ***

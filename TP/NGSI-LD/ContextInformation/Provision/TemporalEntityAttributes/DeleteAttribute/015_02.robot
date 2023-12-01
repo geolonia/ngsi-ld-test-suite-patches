@@ -1,8 +1,7 @@
 *** Settings ***
 Documentation       Check that an error is raised if you delete an attribute to temporal entity with an unknown/invalid Entity/Attribute Id
 
-Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision/ApiUtils.resource
-# Resource    ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

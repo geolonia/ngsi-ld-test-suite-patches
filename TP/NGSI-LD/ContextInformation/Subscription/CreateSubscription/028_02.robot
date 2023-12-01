@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot create a subscription with an invalid request
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 
 Test Template       Create Subscription With Invalid Request

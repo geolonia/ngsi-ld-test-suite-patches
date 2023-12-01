@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation       Check that you cannot retrieve an unknown context source registration subscription, an error of type ResourceNotFound shall be raised
 
-Resource            ${EXECDIR}/resources/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 

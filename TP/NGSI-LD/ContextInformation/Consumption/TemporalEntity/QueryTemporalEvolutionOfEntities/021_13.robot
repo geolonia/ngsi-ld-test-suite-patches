@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation       Check that you can query the temporal evolution of entities using the entityOperations method
 
-Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision/ApiUtils.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -20,7 +21,7 @@ ${second_vehicle_payload_file}=     2020-09-vehicule-temporal-representation-sam
 021_13_01 After
     [Tags]    te-query    5_7_4
     entity-operations-after-query.jsonld    vehicles-temporal-representation-021-13-01-expectation.jsonld
-021_13_01 Before
+021_13_02 Before
     [Tags]    te-query    5_7_4
     entity-operations-before-query.jsonld    vehicles-temporal-representation-021-13-02-expectation.jsonld
 
