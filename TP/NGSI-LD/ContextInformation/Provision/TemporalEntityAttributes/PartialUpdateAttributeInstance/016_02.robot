@@ -28,7 +28,7 @@ ${status_code}=             400
 016_02_04 Modify attribute instance in temporal representation of an entity if the instance id is not present
     ${temporal_entity_representation_id}    speed    ${EMPTY}
 016_02_05 Modify attribute instance in temporal representation of an entity if the attribute name is not a valid name
-    ${temporal_entity_representation_id}    invalidId    ${valid_instanceId}
+    ${temporal_entity_representation_id}    invalid(Id    ${valid_instanceId}
 016_02_06 Modify attribute instance in temporal representation of an entity if the attribute name is not present
     ${temporal_entity_representation_id}    ${EMPTY}    ${valid_instanceId}
 

@@ -83,7 +83,7 @@ Batch Create Entities
     RETURN    ${response}
 
 Batch Delete Entities
-    [Arguments]    @{entities_ids_to_be_deleted}    ${teardown}=False
+    [Arguments]    ${entities_ids_to_be_deleted}    ${teardown}=False
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
     ...    url=${url}/${BATCH_DELETE_ENDPOINT_PATH}

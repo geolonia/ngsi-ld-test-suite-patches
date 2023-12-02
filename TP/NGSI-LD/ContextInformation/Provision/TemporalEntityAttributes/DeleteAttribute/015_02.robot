@@ -22,7 +22,7 @@ ${filename}=                vehicle-temporal-representation-sample.jsonld
 015_02_02 Delete an attribute to a temporal representation of an entity with an invalid entity id
     invalidId    speed
 015_02_03 Delete an attribute to a temporal representation of an entity with an invalid attribute id
-    ${valid_temporal_entity_id}    invalidName
+    ${valid_temporal_entity_id}    invalid(Name
 
 
 *** Keywords ***

@@ -5,12 +5,13 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Initialize Environment
+Test Setup          Initialize Environment    ${filename}
 Test Template       Update entity attributes with invalid entity fragments
 
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
+${filename}=                vehicle-speed-two-datasetid-sample.jsonld
 
 
 *** Test Cases ***
@@ -23,7 +24,6 @@ Update entity attributes with invalid entity fragments
     [Documentation]    Check that you cannot update an attribute if the entity fragment is invalid
     [Tags]    ea-update    5_6_2
     [Arguments]    ${filename}    ${fragment_filename}
-    Set Global Variable    ${filename}
     ${response}=    Update Entity Attributes
     ...    ${entity_id}
     ...    ${fragment_filename}
@@ -34,6 +34,7 @@ Update entity attributes with invalid entity fragments
     [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
 
 Initialize Environment
+    [Arguments]    ${filename}
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Global Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
