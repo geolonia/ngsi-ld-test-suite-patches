@@ -2,7 +2,6 @@
 Documentation       Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,13 +10,10 @@ Test Teardown       Delete Initial Entity
 
 
 *** Variables ***
-${vehicle_id_prefix}=           urn:ngsi-ld:Vehicle:
-${vehicle_filename}=            vehicle-simple-attributes-sample.jsonld
-${vehicle_fragment}=            vehicle-brandname-fragment.json
-${attribute_id}=                brandName
-${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
-${subscription_filename}=       subscriptions/subscription-sample.jsonld
-${subscription_fragment}=       subscriptions/fragments/subscription-update-sample.json
+${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
+${vehicle_filename}=        vehicle-simple-attributes-sample.jsonld
+${vehicle_fragment}=        vehicle-brandname-fragment.json
+${attribute_id}=            brandName
 
 
 *** Test Cases ***
