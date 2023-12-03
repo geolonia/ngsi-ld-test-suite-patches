@@ -6,7 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Teardown      Delete Initial Entities
+Test Teardown       Delete Initial Entities
 
 
 *** Variables ***
@@ -18,7 +18,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" and the response attribute should be compacted as we used the same context as provided when creating the entity
     [Tags]    be-create    6_3_5
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Set Suite Variable    ${entity_id}
+    Set Test Variable    ${entity_id}
     ${entity}=    Load Entity    building-simple-attributes-sample.jsonld    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
     ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_LD_JSON}
@@ -35,7 +35,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" and response attribute should not be compacted as we did not provide a context containing this term
     [Tags]    be-create    6_3_5
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Set Suite Variable    ${entity_id}
+    Set Test Variable    ${entity_id}
     ${entity}=    Load Entity    building-simple-attributes-sample.jsonld    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
     ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_LD_JSON}

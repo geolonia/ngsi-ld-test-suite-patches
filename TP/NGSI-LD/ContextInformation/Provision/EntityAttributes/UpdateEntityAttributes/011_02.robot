@@ -5,7 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Teardown      Delete Entity
+Test Teardown       Delete Entity
 Test Template       Update Attributes
 
 
@@ -13,19 +13,20 @@ Test Template       Update Attributes
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 
 
-*** Test Cases ***    ENTITY_INVALID_ID    FILENAME    FRAGMENT_FILENAME
+*** Test Cases ***    ENTITY_INVALID_ID    FRAGMENT_FILENAME
 011_02_01 Update an attribute if the Entity Id is not present
-    ${EMPTY}    vehicle-two-datasetid-attributes-sample.jsonld    vehicle-speed-two-datasetid-01-fragment.jsonld
+    [Setup]    Initialize Environment    vehicle-two-datasetid-attributes-sample.jsonld
+    ${EMPTY}    vehicle-speed-two-datasetid-01-fragment.jsonld
 011_02_02 Update an attribute if the Entity Id is not a valid URI
-    thisisaninvaliduri    vehicle-two-datasetid-attributes-sample.jsonld    vehicle-speed-two-datasetid-01-fragment.jsonld
+    [Setup]    Initialize Environment    vehicle-two-datasetid-attributes-sample.jsonld
+    thisisaninvaliduri    vehicle-speed-two-datasetid-01-fragment.jsonld
 
 
 *** Keywords ***
 Update Attributes
     [Documentation]    Check that you cannot update entity attributes with invalid/missing id or invalid request body
     [Tags]    ea-update    5_6_2
-    [Arguments]    ${entity_invalid_id}    ${filename}    ${fragment_filename}
-    Initialize Environment    ${filename}
+    [Arguments]    ${entity_invalid_id}    ${fragment_filename}
     ${response}=    Update Entity Attributes    ${entity_invalid_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
@@ -36,7 +37,7 @@ Update Attributes
 Initialize Environment
     [Arguments]    ${filename}
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Global Variable    ${entity_id}
+    Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}

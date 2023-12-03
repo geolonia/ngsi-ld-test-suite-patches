@@ -7,8 +7,9 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
 
-Suite Setup         Before Test
-Suite Teardown      After Test
+Suite Setup         Before Suite
+Suite Teardown      After Suite
+Test Teardown       After Test
 
 
 *** Variables ***
@@ -28,7 +29,7 @@ ${date_format_with_millis}                              %Y-%m-%dT%H:%M:%S.%fZ
 046_07_01 Check notification structure
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3. Valid notification with attributes as stated above
     [Tags]    sub-notification    5_8_6    046_07_01
-    Setup Initial Subscriptions
+    [Setup]    Setup Initial Subscriptions    ${subscription_payload_file_path}
 
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
@@ -41,7 +42,7 @@ ${date_format_with_millis}                              %Y-%m-%dT%H:%M:%S.%fZ
 046_07_02 Check correct attributes are included
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3.    The Entity Attributes included (Properties or Relationships) shall be those specified by the notification.attributes member in the Subscription data type (clause 5.2.12).
     [Tags]    sub-notification    5_8_6    046_07_02
-    Setup Initial Subscriptions    ${subscription_payload_file_path_watchedAttributes}
+    [Setup]    Setup Initial Subscriptions    ${subscription_payload_file_path_watchedAttributes}
 
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
@@ -55,7 +56,7 @@ ${date_format_with_millis}                              %Y-%m-%dT%H:%M:%S.%fZ
 046_07_03 Check URI expansion is observed
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3.    URI expansion shall be observed (clause 5.5.7).
     [Tags]    sub-notification    5_8_6    046_07_03
-    Setup Initial Subscriptions    ${subscription_payload_file_path_default_context}
+    [Setup]    Setup Initial Subscriptions    ${subscription_payload_file_path_default_context}
 
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
@@ -68,11 +69,11 @@ ${date_format_with_millis}                              %Y-%m-%dT%H:%M:%S.%fZ
 
 
 *** Keywords ***
-Before Test
+Before Suite
     Start Local Server    ${notification_server_host}    ${notification_server_port}
 
 Setup Initial Subscriptions
-    [Arguments]    ${subscription_payload_path}=${subscription_payload_file_path}
+    [Arguments]    ${subscription_payload_path}
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
@@ -80,8 +81,8 @@ Setup Initial Subscriptions
     ...    ${subscription_id}
     ...    ${notification_server_send_url}
     ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
-    Set Suite Variable    ${entity_id}
-    Set Suite Variable    ${subscription_id}
+    Set Test Variable    ${entity_id}
+    Set Test Variable    ${subscription_id}
 
     Create Entity    ${entity_building_filepath}    ${entity_id}
     Sleep    1s
@@ -89,12 +90,8 @@ Setup Initial Subscriptions
     Sleep    1s
 
 After Test
-    Delete Initial Subscriptions
-    Delete Initial Entity
-    Stop Local Server
-
-Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}
-
-Delete Initial Entity
     Delete Entity by Id    ${entity_id}
+
+After Suite
+    Stop Local Server

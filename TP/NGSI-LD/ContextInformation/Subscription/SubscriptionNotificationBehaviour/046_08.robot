@@ -8,8 +8,9 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
 Library             ${EXECDIR}/libraries/logUtils.py
 
-Suite Setup         Before Test
-Suite Teardown      After Test
+Suite Setup         Before Suite
+Suite Teardown      After Suite
+Test Teardown       After Test
 
 
 *** Variables ***
@@ -25,8 +26,7 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 046_08_01 Check that a notification is sent with all attributes
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3.1. The absence of the notification.attributes member of a Subscription means that all Entity Attributes shall be included. All attributes are included
     [Tags]    sub-notification    5_8_6    046_08_01
-
-    Setup Initial Subscriptions    ${False}
+    [Setup]    Setup Initial Subscriptions    ${False}
 
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
@@ -44,8 +44,7 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 046_08_02 Check that a notification is sent with all attributes in simplified format
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3.1. The absence of the notification.attributes member of a Subscription means that all Entity Attributes shall be included    If the notification.format member value is "keyValues" then a simplified representation of the entities (as mandated by clause 4.5.3) shall be provided
     [Tags]    sub-notification    5_8_6    046_08_02
-
-    Setup Initial Subscriptions    ${True}
+    [Setup]    Setup Initial Subscriptions    ${True}
 
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
@@ -59,7 +58,7 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 
 
 *** Keywords ***
-Before Test
+Before Suite
     Start Local Server    ${notification_server_host}    ${notification_server_port}
 
 Setup Initial Subscriptions
@@ -79,8 +78,8 @@ Setup Initial Subscriptions
     END
 
     ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
-    Set Suite Variable    ${entity_id}
-    Set Suite Variable    ${subscription_id}
+    Set Test Variable    ${entity_id}
+    Set Test Variable    ${subscription_id}
 
     Create Entity    ${entity_building_filepath}    ${entity_id}
     Sleep    1s
@@ -88,12 +87,8 @@ Setup Initial Subscriptions
     Sleep    1s
 
 After Test
-    Delete Initial Subscriptions
-    Delete Initial Entity
-    Stop Local Server
-
-Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}
-
-Delete Initial Entity
     Delete Entity by Id    ${entity_id}
+
+After Suite
+    Stop Local Server
