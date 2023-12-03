@@ -58,6 +58,6 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 
 *** Keywords ***
 Delete Entities
-    Delete Entity by Id Returning Response    ${first_entity_id}
-    Delete Entity by Id Returning Response    ${second_entity_id}
-    Delete Entity by Id Returning Response    ${third_entity_id}
+    Delete Entity by Id    ${first_entity_id}
+    Delete Entity by Id    ${second_entity_id}
+    Delete Entity by Id    ${third_entity_id}

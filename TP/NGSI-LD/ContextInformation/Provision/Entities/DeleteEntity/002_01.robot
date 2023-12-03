@@ -21,7 +21,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     ...    ${entity_id}
     ...    application/ld+json
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Delete Entity by Id Returning Response    ${entity_id}
+    ${response}=    Delete Entity by Id    ${entity_id}
     Check Response Status Code    204    ${response.status_code}
     ${response}=    Retrieve Entity by Id    id=${entity_id}    context=${ngsild_test_suite_context}
     Check SUT Not Containing Resource    ${response.status_code}

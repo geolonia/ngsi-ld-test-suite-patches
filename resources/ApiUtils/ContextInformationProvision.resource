@@ -208,12 +208,6 @@ Delete Entity by Id
     Output    ${response}    Delete Entity by Id
     RETURN    ${response}
 
-Delete Entity by Id Returning Response
-    [Arguments]    ${id}
-    ${response}=    DELETE    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}    expected_status=any
-    Output    ${response}    Delete Entity by Id Returning Response
-    RETURN    ${response}
-
 Partial Update Entity Attributes
     [Arguments]
     ...    ${entityId}

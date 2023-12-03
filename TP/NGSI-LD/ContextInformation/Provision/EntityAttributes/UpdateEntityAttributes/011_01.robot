@@ -50,7 +50,7 @@ Update Attributes
     Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}    ${ignored_attributes}
 
 Delete Initial Entities
-    Delete Entity by Id Returning Response    ${entity_id}
+    Delete Entity by Id    ${entity_id}
 
 Initialize Test
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}

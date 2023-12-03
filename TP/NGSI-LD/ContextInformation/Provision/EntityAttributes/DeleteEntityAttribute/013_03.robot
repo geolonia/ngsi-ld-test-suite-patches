@@ -49,4 +49,4 @@ Setup Initial Entities
     Set Suite Variable    ${not_found_entity_id}
 
 Delete Initial Entities
-    Delete Entity by Id Returning Response    ${valid_entity_id}
+    Delete Entity by Id    ${valid_entity_id}

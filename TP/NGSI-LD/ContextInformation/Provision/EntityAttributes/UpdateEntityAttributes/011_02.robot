@@ -44,4 +44,4 @@ Initialize Environment
     Check Response Status Code    201    ${response.status_code}
 
 Delete Entity
-    Delete Entity by Id Returning Response    ${entity_id}
+    Delete Entity by Id    ${entity_id}

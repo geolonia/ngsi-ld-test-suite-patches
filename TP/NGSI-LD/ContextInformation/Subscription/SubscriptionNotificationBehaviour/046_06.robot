@@ -51,5 +51,5 @@ Setup Server And Subscriptions
 
 Delete Server And Subscriptions
     Delete Subscription    ${subscription_id}
-    Delete Entity by Id Returning Response    ${entity_id}
+    Delete Entity by Id    ${entity_id}
     Stop Local Server

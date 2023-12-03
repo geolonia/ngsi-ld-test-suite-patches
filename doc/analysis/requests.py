@@ -98,7 +98,7 @@ class Requests:
                            'context', 'timerel', 'timeAt',
                            'endTimeAt', 'lastN', 'accept']
             },
-            'Delete Entity by Id Returning Response': {
+            'Delete Entity by Id': {
                 'positions': [0],
                 'params': ['id']
             },
@@ -268,8 +268,8 @@ class Requests:
                 Requests.retrieve_entity_by_id,
             'Query Entities':
                 Requests.query_entities,
-            'Delete Entity by Id Returning Response':
-                Requests.delete_entity_by_id_returning_response,
+            'Delete Entity by Id':
+                Requests.delete_entity_by_id,
             'Append Entity Attributes':
                 Requests.append_entity_attributes,
             'Update Entity Attributes':
@@ -1165,7 +1165,7 @@ class Requests:
         return response
 
     @staticmethod
-    def delete_entity_by_id_returning_response(kwargs) -> str:
+    def delete_entity_by_id(kwargs) -> str:
         if 'id' in kwargs:
             return f"Delete Entity Request with id set to '{kwargs['id']}'"
 

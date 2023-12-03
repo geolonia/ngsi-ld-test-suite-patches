@@ -45,4 +45,4 @@ Create Initial Entity
     ...    ${CONTENT_TYPE_LD_JSON}
 
 Delete Created Entity
-    Delete Entity by Id Returning Response    ${entity_id}
+    Delete Entity by Id    ${entity_id}

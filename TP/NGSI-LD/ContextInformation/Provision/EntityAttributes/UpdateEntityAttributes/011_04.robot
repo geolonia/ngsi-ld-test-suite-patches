@@ -31,7 +31,7 @@ Update entity attributes with invalid entity fragments
     Check Response Status Code    400    ${response.status_code}
     Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_INVALID_REQUEST}
     Check Response Body Title When Using Session Request    ${response.json()}
-    [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
+    [Teardown]    Delete Entity by Id    ${entity_id}
 
 Initialize Environment
     [Arguments]    ${filename}

@@ -46,4 +46,4 @@ ${attribute_subcategory}=           https://ngsi-ld-test-suite/context#subCatego
 
 *** Keywords ***
 Delete Created Entity
-    Delete Entity by Id Returning Response    ${entity_id}
+    Delete Entity by Id    ${entity_id}

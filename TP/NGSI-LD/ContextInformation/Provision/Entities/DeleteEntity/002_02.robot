@@ -21,7 +21,7 @@ Test Template       Delete Entity Scenarios
 Delete Entity Scenarios
     [Documentation]    Check that you cannot delete an entity with invalid/missing id
     [Arguments]    ${entity_id}    ${expected_status_code}    ${problem_type}
-    ${response}=    Delete Entity by Id Returning Response    ${entity_id}
+    ${response}=    Delete Entity by Id    ${entity_id}
     Check Response Status Code    ${expected_status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}

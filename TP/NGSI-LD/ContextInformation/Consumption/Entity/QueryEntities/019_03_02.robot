@@ -50,5 +50,5 @@ ${invalid_entity_type_two}=     invalid_entity_type_two
 
 *** Keywords ***
 Delete Entities
-    Delete Entity by Id Returning Response    ${building_entity_id}
-    Delete Entity by Id Returning Response    ${vehicle_entity_id}
+    Delete Entity by Id    ${building_entity_id}
+    Delete Entity by Id    ${vehicle_entity_id}

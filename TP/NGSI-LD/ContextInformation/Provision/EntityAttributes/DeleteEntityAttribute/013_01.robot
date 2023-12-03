@@ -54,4 +54,4 @@ Delete Attributes
     Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}    ${ignored_attributes}
 
 Delete Initial Entities
-    Delete Entity by Id Returning Response    ${entity_id}
+    Delete Entity by Id    ${entity_id}

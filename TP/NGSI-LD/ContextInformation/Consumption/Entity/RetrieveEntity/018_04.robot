@@ -37,9 +37,9 @@ ${options_parameter}=       keyValues
     ...    ${entity_id}
     ...    ${response.json()}
     ...    ${True}
-    [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
+    [Teardown]    Delete Entity by Id    ${entity_id}
 
 
 *** Keywords ***
 Delete Created Entity
-    Delete Entity by Id Returning Response    ${entity_id}
+    Delete Entity by Id    ${entity_id}

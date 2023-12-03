@@ -27,7 +27,7 @@ ${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
     ...    id=${entity_id}
     ...    accept=${accept}
     Check Response Status Code    ${status_code}    ${response.status_code}
-    [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
+    [Teardown]    Delete Entity by Id    ${entity_id}
 
 049_01_02 Endpoint get /subscriptions/{subscriptionId}
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /subscriptions/{subscriptionId})

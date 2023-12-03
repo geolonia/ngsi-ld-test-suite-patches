@@ -39,4 +39,4 @@ ${expectation_filename}=    building-simple-attributes-expectation.jsonld
 
 *** Keywords ***
 Delete Created Entity
-    Delete Entity by Id Returning Response    ${entity_id}
+    Delete Entity by Id    ${entity_id}

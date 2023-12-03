@@ -55,4 +55,4 @@ Setup Initial Entities
     Check Response Status Code    201    ${response.status_code}
 
 Delete Initial Entities
-    Delete Entity by Id Returning Response    ${valid_entity_id}
+    Delete Entity by Id    ${valid_entity_id}

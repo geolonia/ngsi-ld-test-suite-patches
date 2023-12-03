@@ -46,5 +46,5 @@ ${invalid_attribute_two}=       type
 
 *** Keywords ***
 Delete Entities
-    Delete Entity by Id Returning Response    ${first_entity_id}
-    Delete Entity by Id Returning Response    ${second_entity_id}
+    Delete Entity by Id    ${first_entity_id}
+    Delete Entity by Id    ${second_entity_id}

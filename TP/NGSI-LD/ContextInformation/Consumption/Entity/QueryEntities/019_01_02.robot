@@ -60,6 +60,6 @@ ${parking_entity_type}=     https://ngsi-ld-test-suite/context#OffStreetParking
 
 *** Keywords ***
 Delete Entities
-    Delete Entity by Id Returning Response    ${building_entity_id}
-    Delete Entity by Id Returning Response    ${vehicle_entity_id}
-    Delete Entity by Id Returning Response    ${parking_entity_id}
+    Delete Entity by Id    ${building_entity_id}
+    Delete Entity by Id    ${vehicle_entity_id}
+    Delete Entity by Id    ${parking_entity_id}

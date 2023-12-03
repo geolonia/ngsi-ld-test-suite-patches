@@ -40,4 +40,4 @@ ${attribute_not_known}=     property_not_found
 
 *** Keywords ***
 Delete Created Entity
-    Delete Entity by Id Returning Response    ${entity_id}
+    Delete Entity by Id    ${entity_id}
