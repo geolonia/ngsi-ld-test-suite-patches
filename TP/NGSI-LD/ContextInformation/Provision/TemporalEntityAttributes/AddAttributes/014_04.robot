@@ -1,11 +1,11 @@
 *** Settings ***
-Documentation       Check that an error is raised if you delete a temporal entity with empty/invalid content
+Documentation       Check that an error is raised if you add a temporal entity attribute with empty/invalid content
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Initialize Test Suite
+Test Setup          Initialize Test Case
 Test Template       Add an Attribute To a Temporal Entity From File
 
 
@@ -37,7 +37,7 @@ Add an Attribute To a Temporal Entity From File
     Check Response Body Title When Using Session Request    ${response.json()}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
 
-Initialize Test Suite
+Initialize Test Case
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Global Variable    ${temporal_entity_representation_id}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type

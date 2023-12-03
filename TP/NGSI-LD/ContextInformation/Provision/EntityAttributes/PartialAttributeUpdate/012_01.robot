@@ -6,7 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Initiate Test Suite
+Test Setup          Initiate Test Case
 Test Teardown       Delete Initial Entities
 Test Template       Update Attributes
 
@@ -43,7 +43,7 @@ Update Attributes
     ${ignored_attributes}=    Create List    @context
     Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}    ${ignored_attributes}
 
-Initiate Test Suite
+Initiate Test Case
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type

@@ -67,7 +67,8 @@ Setup Initial Entities
     Set Global Variable    ${entities_to_be_upserted}
 
 Delete Initial Entities
-    @{entities_ids_to_be_deleted}=    Create List    ${first_existing_entity_id}    ${second_existing_entity_id}
-    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}
-    @{entities_ids_to_be_deleted}=    Create List    ${new_entity_id}
+    @{entities_ids_to_be_deleted}=    Create List
+    ...    ${first_existing_entity_id}
+    ...    ${second_existing_entity_id}
+    ...    ${new_entity_id}
     Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}
