@@ -39,7 +39,7 @@ Add an Attribute To a Temporal Entity From File
 
 Initialize Test Case
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Global Variable    ${temporal_entity_representation_id}
+    Set Test Variable    ${temporal_entity_representation_id}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    filename=${filename}

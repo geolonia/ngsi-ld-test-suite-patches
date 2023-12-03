@@ -36,7 +36,7 @@ Update entity attributes with invalid entity fragments
 Initialize Environment
     [Arguments]    ${filename}
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Global Variable    ${entity_id}
+    Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}

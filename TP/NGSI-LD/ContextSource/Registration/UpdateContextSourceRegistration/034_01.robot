@@ -28,7 +28,7 @@ ${registration_id_prefix}=      urn:ngsi-ld:Registration:
 Update A Context Source
     [Documentation]    Check that you can update a context source registration by id
     [Arguments]    ${filename}    ${update_filename}
-    Set Global Variable    ${filename}
+    Set Test Variable    ${filename}
     ${fragment}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${update_filename}
     ${registration_update_fragment}=    Update Value To JSON    ${fragment}    $..id    ${registration_id}
     ${response}=    Update Context Source Registration With Return
@@ -52,6 +52,6 @@ Initialize the Test Case
     ${payload}=    Load JSON From File
     ...    ${EXECDIR}/data/csourceRegistrations/context-source-registration-sample.jsonld
     ${registration_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
-    Set Global Variable    ${registration_payload}
+    Set Test Variable    ${registration_payload}
     ${response}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response.status_code}

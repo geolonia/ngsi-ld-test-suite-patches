@@ -6,7 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Teardown      Delete Entities
+Test Teardown       Delete Entities
 
 
 *** Variables ***
@@ -27,7 +27,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     @{entities_to_be_upserted}=    Create List    ${first_entity}    ${second_entity}    ${invalid_entity}
     ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}
     @{expected_successful_entities_ids}=    Create List    ${first_entity_id}    ${second_entity_id}
-    Set Global Variable    ${expected_successful_entities_ids}
+    Set Test Variable    ${expected_successful_entities_ids}
     @{expected_failed_entities_ids}=    Create List    ${third_entity_id}
     &{expected_batch_operation_result}=    Create Batch Operation Result
     ...    success=${expected_successful_entities_ids}

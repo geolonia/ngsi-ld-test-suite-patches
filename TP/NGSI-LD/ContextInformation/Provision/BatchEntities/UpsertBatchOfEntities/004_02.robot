@@ -64,7 +64,7 @@ Setup Initial Entities
     ...    ${new_entity}
     ...    ${first_existing_entity}
     ...    ${second_existing_entity}
-    Set Global Variable    ${entities_to_be_upserted}
+    Set Test Variable    ${entities_to_be_upserted}
 
 Delete Initial Entities
     @{entities_ids_to_be_deleted}=    Create List

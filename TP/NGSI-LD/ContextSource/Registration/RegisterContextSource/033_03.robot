@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.reso
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Create New Context Source Registration
-Suite Teardown      Delete Created Context Source Registrations
+Test Setup          Create New Context Source Registration
+Test Teardown       Delete Created Context Source Registrations
 
 
 *** Variables ***
@@ -29,9 +29,9 @@ Delete Created Context Source Registrations
 
 Create New Context Source Registration
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
-    Set Suite Variable    ${registration_id}
+    Set Test Variable    ${registration_id}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${filename}
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
     ${response}=    Create Context Source Registration With Return    ${updated_payload}
     Check Response Status Code    201    ${response.status_code}
-    Set Global Variable    ${updated_payload}
+    Set Test Variable    ${updated_payload}

@@ -31,9 +31,9 @@ ${registration_payload_file_path}=      context-source-registration-invalid-samp
 *** Keywords ***
 Setup Initial Entities
     ${valid_registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
-    Set Suite Variable    ${valid_registration_id}
+    Set Test Variable    ${valid_registration_id}
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
-    Set Global Variable    ${registration_id}
+    Set Test Variable    ${registration_id}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
     ${response}=    Create Context Source Registration With Return    ${updated_payload}

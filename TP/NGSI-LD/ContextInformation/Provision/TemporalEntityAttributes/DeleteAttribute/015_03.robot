@@ -44,8 +44,8 @@ Delete An Attribute
 Create Id
     ${valid_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${unknown_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Global Variable    ${valid_temporal_entity_id}
-    Set Global Variable    ${unknown_temporal_entity_id}
+    Set Test Variable    ${valid_temporal_entity_id}
+    Set Test Variable    ${unknown_temporal_entity_id}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    temporal_entity_representation_id=${valid_temporal_entity_id}
     ...    filename=${filename}
