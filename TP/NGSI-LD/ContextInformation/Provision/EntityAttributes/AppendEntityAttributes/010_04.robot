@@ -6,6 +6,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Setup          Create Initial Entity
+Test Teardown       Delete Initial Entity
 Test Template       Append Attributes With Params
 
 
@@ -26,12 +28,6 @@ Append Attributes With Params
     [Documentation]    Check that you can append entity attributes
     [Tags]    ea-append    5_6_3
     [Arguments]    ${status_code}    ${fragment_filename}    ${expectation_response_body}    ${expectation_filename}
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${response}=    Create Entity Selecting Content Type
-    ...    ${filename}
-    ...    ${entity_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
     ${response}=    Append Entity Attributes With Parameters
     ...    ${entity_id}
     ...    ${fragment_filename}
@@ -52,4 +48,15 @@ Append Attributes With Params
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    @context
     Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}    ${ignored_attributes}
-    [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
+
+Create Initial Entity
+    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${response}=    Create Entity Selecting Content Type
+    ...    ${filename}
+    ...    ${entity_id}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${response.status_code}
+    Set Test Variable    ${entity_id}
+
+Delete Initial Entity
+    Delete Entity by Id    ${entity_id}

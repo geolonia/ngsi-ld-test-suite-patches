@@ -6,6 +6,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Setup          Create Initial Entity
+Test Teardown       Delete Initial Entity
 Test Template       Append Attributes Without Params
 
 
@@ -26,12 +28,6 @@ Append Attributes Without Params
     [Documentation]    Check that you can append entity attributes
     [Tags]    ea-append    5_6_3
     [Arguments]    ${status_code}    ${fragment_filename}    ${expectation_filename}
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${response}=    Create Entity Selecting Content Type
-    ...    ${filename}
-    ...    ${entity_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
     ${response}=    Append Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
@@ -40,4 +36,15 @@ Append Attributes Without Params
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}
-    [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
+
+Create Initial Entity
+    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${response}=    Create Entity Selecting Content Type
+    ...    ${filename}
+    ...    ${entity_id}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${response.status_code}
+    Set Test Variable    ${entity_id}
+
+Delete Initial Entity
+    Delete Entity by Id    ${entity_id}

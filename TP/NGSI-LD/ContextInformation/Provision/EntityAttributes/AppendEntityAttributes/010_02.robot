@@ -5,6 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Setup          Create Initial Entity
+Test Teardown       Delete Initial Entity
 Test Template       Append Attributes
 
 
@@ -28,16 +30,22 @@ Append Attributes
     [Documentation]    Check that you cannot append entity attributes with invalid/missing id or invalid request body
     [Tags]    ea-append    5_6_3
     [Arguments]    ${entity_invalid_id}
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${response}=    Create Entity Selecting Content Type
-    ...    ${filename}
-    ...    ${entity_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
     ${response}=    Append Entity Attributes    ${entity_invalid_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
+    [Teardown]    Delete Entity by Id    ${entity_id}
+
+Create Initial Entity
+    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${response}=    Create Entity Selecting Content Type
+    ...    ${filename}
+    ...    ${entity_id}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${response.status_code}
+    Set Test Variable    ${entity_id}
+
+Delete Initial Entity
+    Delete Entity by Id    ${entity_id}
