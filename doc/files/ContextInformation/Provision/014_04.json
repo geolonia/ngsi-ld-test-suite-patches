@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CI/Prov/TEA/014_04",
-  "test_objective": "Check that an error is raised if you delete a temporal entity with empty/invalid content",
+  "test_objective": "Check that an error is raised if you add a temporal entity attribute with empty/invalid content",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.12",
   "config_id": "",
   "parent_release": "v1.3.1",
@@ -17,7 +17,7 @@
         "tea-append",
         "5_6_12"
       ],
-      "setup": "Initialize Test Suite",
+      "setup": "Initialize Test Case",
       "teardown": null,
       "template": "Add an Attribute To a Temporal Entity From File",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
@@ -33,7 +33,7 @@
         "tea-append",
         "5_6_12"
       ],
-      "setup": "Initialize Test Suite",
+      "setup": "Initialize Test Case",
       "teardown": null,
       "template": "Add an Attribute To a Temporal Entity From File",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",

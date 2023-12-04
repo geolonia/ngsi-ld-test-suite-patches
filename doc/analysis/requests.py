@@ -90,7 +90,7 @@ class Requests:
             'Query Entities Via POST': {
                 'positions': [],
                 'params': ['entity_ids', 'entity_type', 'content_type', 'accept',
-                           'attrs', 'entity_id_pattern', 'geometry_property']
+                           'context', 'attrs', 'entity_id_pattern', 'geometry_property']
             },
             'Retrieve Temporal Representation Of Entity': {
                 'positions': [],
@@ -392,14 +392,15 @@ class Requests:
 
             params = self.find_attributes_in_the_same_line(request_name=request, params=params)
         elif '    ...    ' in aux[1]:
-            request = aux[0].split('    ')[2]
+            request = aux[0].split('    ')
+            request = [x for x in request if x != ''][1]
             # We are in the case that the attributes are in following lines
             for i in range(1, len(aux)):
                 if '    ...    ' in aux[i]:
-                    regex = '\s{4}\.{3}\s{4}(.*)'
+                    regex = '(\s{4})*\s{4}\.{3}\s{4}(.*)'
                     param = re.match(pattern=regex, string=aux[i])
                     if aux:
-                        params.append(param.groups()[0])
+                        params.append(param.groups()[1])
                 else:
                     break
 
@@ -1107,6 +1108,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
                 case 'accept':
                     response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
                 case 'attrs':
                     response = f"{response} and\n    Query Parameter: attrs set to '{value}'"
                 case 'geometry_property':

@@ -64,10 +64,18 @@ class TestCIProvision(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_003_04(self):
-        self.fail("(003_04) Test Suite need to know which operation to document")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/BatchEntities/CreateBatchOfEntities/003_04.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/003_04.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_003_04.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_003_05(self):
-        self.fail("(003_05) Test Suite need to know which operation to document")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/BatchEntities/CreateBatchOfEntities/003_05.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/003_05.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_003_05.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_003_06(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/BatchEntities/CreateBatchOfEntities/003_06.robot'
@@ -98,10 +106,18 @@ class TestCIProvision(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_006_01(self):
-        self.fail("(006_01) The first operation is not a setup operation of the environment but a Delete operation that have to be controlled")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/BatchEntities/DeleteBatchOfEntities/006_01.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/006_01.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_006_01.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_006_02(self):
-        self.fail("(006_02) The first operation is not a setup operation of the environment but a Delete operation that have to be controlled")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/BatchEntities/DeleteBatchOfEntities/006_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/006_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_006_02.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_006_03(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/BatchEntities/DeleteBatchOfEntities/006_03.robot'
@@ -370,7 +386,11 @@ class TestCIProvision(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_007_01(self):
-        self.fail("(007_01) Test Suite with Test Template, not yet implemented, need to check which operation to analyse")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntity/CreateTemporalRepresentationOfEntity/007_01.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/007_01.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_007_01.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_007_02(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntity/CreateTemporalRepresentationOfEntity/007_02.robot'
@@ -387,7 +407,11 @@ class TestCIProvision(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_009_01(self):
-        self.fail("(009_01) Test Suite testing Delete operation but we are returning Retrieve solution")
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntity/DeleteTemporalRepresentationOfEntity/009_01.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/009_01.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_009_01.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_009_02(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntity/DeleteTemporalRepresentationOfEntity/009_02.robot'

@@ -17,7 +17,7 @@
         "ea-partial-update",
         "5_6_4"
       ],
-      "setup": "Initiate Test Suite",
+      "setup": "Initiate Test Case",
       "teardown": "Delete Initial Entities",
       "template": "Update Attributes",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
@@ -33,7 +33,7 @@
         "ea-partial-update",
         "5_6_4"
       ],
-      "setup": "Initiate Test Suite",
+      "setup": "Initiate Test Case",
       "teardown": "Delete Initial Entities",
       "template": "Update Attributes",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",

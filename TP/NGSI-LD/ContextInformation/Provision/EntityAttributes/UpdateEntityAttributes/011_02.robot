@@ -5,6 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Setup          Initialize Environment
 Test Teardown       Delete Entity
 Test Template       Update Attributes
 
@@ -15,10 +16,8 @@ ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 
 *** Test Cases ***    ENTITY_INVALID_ID    FRAGMENT_FILENAME
 011_02_01 Update an attribute if the Entity Id is not present
-    [Setup]    Initialize Environment    vehicle-two-datasetid-attributes-sample.jsonld
     ${EMPTY}    vehicle-speed-two-datasetid-01-fragment.jsonld
 011_02_02 Update an attribute if the Entity Id is not a valid URI
-    [Setup]    Initialize Environment    vehicle-two-datasetid-attributes-sample.jsonld
     thisisaninvaliduri    vehicle-speed-two-datasetid-01-fragment.jsonld
 
 
@@ -35,11 +34,10 @@ Update Attributes
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 Initialize Environment
-    [Arguments]    ${filename}
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
-    ...    ${filename}
+    ...    vehicle-two-datasetid-attributes-sample.jsonld
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}

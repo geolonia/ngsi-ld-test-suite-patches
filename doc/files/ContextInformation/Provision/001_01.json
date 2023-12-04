@@ -1,6 +1,6 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/E/001_02",
-  "test_objective": "Check that you cannot create an entity with an invalid request",
+  "tp_id": "TP/NGSI-LD/CI/Prov/E/001_01",
+  "test_objective": "Check that you can create an entity",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.1",
   "config_id": "",
   "parent_release": "v1.3.1",
@@ -10,58 +10,73 @@
   "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
   "test_cases": [
     {
-      "name": "001_02_01 InvalidJson",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_02_01",
-      "doc": "Check that you cannot create an entity with an invalid request",
+      "name": "001_01_01 MinimalEntity",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_01_01",
+      "doc": "Check that you can create an entity",
       "tags": [
         "5_6_1",
         "e-create"
       ],
       "setup": null,
-      "teardown": null,
-      "template": "Create Entity With Invalid Request Scenarios",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request creation of an entity from filename 'invalid-json-sample.jsonld' and Content-Type set to 'application/ld+json'\n}",
+      "teardown": "Delete Initial Entity",
+      "template": "Create Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Location containing ${registration_id} and\n        Created Entity set to ${entity} and\n        Response Status Code set to 201\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/json' and\n payload defined in file: 'building-minimal-without-context-sample.jsonld'\n}",
       "http_verb": "POST",
       "endpoint": "entities/"
     },
     {
-      "name": "001_02_02 EmptyJson",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_02_02",
-      "doc": "Check that you cannot create an entity with an invalid request",
+      "name": "001_01_02 EntityWithSimpleProperties",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_01_02",
+      "doc": "Check that you can create an entity",
       "tags": [
         "5_6_1",
         "e-create"
       ],
       "setup": null,
-      "teardown": null,
-      "template": "Create Entity With Invalid Request Scenarios",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request creation of an entity from filename 'empty-sample.jsonld' and Content-Type set to 'application/ld+json'\n}",
+      "teardown": "Delete Initial Entity",
+      "template": "Create Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Location containing ${registration_id} and\n        Created Entity set to ${entity} and\n        Response Status Code set to 201\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: 'building-simple-attributes-sample.jsonld'\n}",
       "http_verb": "POST",
       "endpoint": "entities/"
     },
     {
-      "name": "001_02_03 EntityWithNoContext",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_02_03",
-      "doc": "Check that you cannot create an entity with an invalid request",
+      "name": "001_01_03 EntityWithRelationshipsProperties",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_01_03",
+      "doc": "Check that you can create an entity",
       "tags": [
         "5_6_1",
         "e-create"
       ],
       "setup": null,
-      "teardown": null,
-      "template": "Create Entity With Invalid Request Scenarios",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request creation of an entity from filename 'building-minimal-without-context-sample.jsonld' and Content-Type set to 'application/ld+json'\n}",
+      "teardown": "Delete Initial Entity",
+      "template": "Create Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Location containing ${registration_id} and\n        Created Entity set to ${entity} and\n        Response Status Code set to 201\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: 'building-relationship-of-property-sample.jsonld'\n}",
+      "http_verb": "POST",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "001_01_04 EntityWithLocationAttribute",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_01_04",
+      "doc": "Check that you can create an entity",
+      "tags": [
+        "5_6_1",
+        "e-create"
+      ],
+      "setup": null,
+      "teardown": "Delete Initial Entity",
+      "template": "Create Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Location containing ${registration_id} and\n        Created Entity set to ${entity} and\n        Response Status Code set to 201\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: 'building-location-attribute-sample.jsonld'\n}",
       "http_verb": "POST",
       "endpoint": "entities/"
     }
   ],
   "permutations": [
-    "when",
-    "then"
+    "when"
   ],
   "robotpath": "ContextInformation/Provision/Entities/CreateEntity",
-  "robotfile": "001_02"
+  "robotfile": "001_01"
 }

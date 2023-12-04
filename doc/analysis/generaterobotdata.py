@@ -149,14 +149,16 @@ class GenerateRobotData:
 
         # Get the list of params of the function, they are the keys
         if '    ...    ' in aux[1]:
-            request = aux[0].split('    ')[2]
+            request = aux[0].split('    ')
+            request = [x for x in request if x != ''][1]
+
             # We are in the case that the attributes are in following lines
             for i in range(1, len(aux)):
                 if '    ...    ' in aux[i]:
-                    regex = '\s{4}\.{3}\s{4}(.*)'
+                    regex = '(\s{4})*\s{4}\.{3}\s{4}(.*)'
                     param = re.match(pattern=regex, string=aux[i])
                     if aux:
-                        params.append(param.groups()[0])
+                        params.append(param.groups()[1])
                 else:
                     break
         else:

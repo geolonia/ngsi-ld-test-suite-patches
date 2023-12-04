@@ -53,7 +53,7 @@
       "teardown": "Delete Temporal Entity",
       "template": "Delete attribute from temporal entity with unknow entity/attribute id",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{entityId}/attrs/{attributeId}?{params_as_string}'\n        method set to 'DELETE'\n        Delete Attribute From Temporal Entity: and\n    Query Parameter: entityId set to '${valid_temporal_entity_id}' and\n    Query Parameter: attributeId set to 'invalidName' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: datasetId set to '${EMPTY}' and\n    Query Parameter: deleteAll set to 'false' and\n    Query Parameter: context set to '${EMPTY}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{entityId}/attrs/{attributeId}?{params_as_string}'\n        method set to 'DELETE'\n        Delete Attribute From Temporal Entity: and\n    Query Parameter: entityId set to '${valid_temporal_entity_id}' and\n    Query Parameter: attributeId set to 'invalid(Name' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: datasetId set to '${EMPTY}' and\n    Query Parameter: deleteAll set to 'false' and\n    Query Parameter: context set to '${EMPTY}'\n}",
       "http_verb": "DELETE",
       "endpoint": "temporal/entities/{entityId}/attrs/{attributeId}?{params_as_string}"
     }

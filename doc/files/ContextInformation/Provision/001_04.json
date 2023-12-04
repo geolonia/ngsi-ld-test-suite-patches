@@ -17,7 +17,7 @@
         "6_3_5",
         "e-create"
       ],
-      "setup": "Create Initial Entity",
+      "setup": null,
       "teardown": "Delete Initial Entity",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body containing an Attribute set to and\n    Query Parameter: expected_attribute_name set to 'almostFull' and\n    Query Parameter: response_body set to 'response.json()'\n}",
@@ -33,7 +33,7 @@
         "6_3_5",
         "e-create"
       ],
-      "setup": "Create Initial Entity",
+      "setup": null,
       "teardown": "Delete Initial Entity",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body containing an Attribute set to and\n    Query Parameter: expected_attribute_name set to 'https://ngsi-ld-test-suite/context#almostFull' and\n    Query Parameter: response_body set to 'response.json()'\n}",

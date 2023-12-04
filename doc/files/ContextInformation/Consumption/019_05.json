@@ -1,20 +1,21 @@
 {
   "tp_id": "TP/NGSI-LD/CI/Cons/E/019_05",
-  "test_objective": "Check that the queried entities by id can be returned in a geoJSON format",
+  "test_objective": "Check that the queried entities by id can be returned in GeoJSON format",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.7",
   "config_id": "",
   "parent_release": "v1.3.1",
   "pics_selection": "PICS_6_3_7",
   "keywords": [
+    "Create Initial Entities",
     "Delete Entities"
   ],
   "teardown": "Delete Entities",
   "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
   "test_cases": [
     {
-      "name": "019_05_01 Get an entity by id that can be returned in a geoJSON format",
+      "name": "019_05_01 Get an entity by id that can be returned in GeoJSON format",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_05_01",
-      "doc": "Check that the queried entities by id can be returned in a geoJSON format",
+      "doc": "Check that the queried entities by id can be returned in GeoJSON format",
       "tags": [
         "6_3_7",
         "e-query"
@@ -22,8 +23,8 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list containing Entity Elements, containing ${value} provided and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_ids set to '${entities_ids_to_be_retrieved}' and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: accept set to 'application/geo+json'\n}",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body Content and\n    Query Parameter: expectation_filename set to 'expectation_filename' and\n    Query Parameter: response_body set to 'response.json()' and\n    Query Parameter: additional_ignored_path set to '${EMPTY}' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_ids set to '${entities_ids_to_be_retrieved}' and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: accept set to 'application/geo+json' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
       "http_verb": "GET",
       "endpoint": "entities/"
     }

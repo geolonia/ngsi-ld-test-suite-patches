@@ -17,20 +17,21 @@ ${filename}=                building-location-attribute-sample.jsonld
 
 
 *** Test Cases ***    OPTIONS    EXPECTATION_FILENAME
-018_05_01_Simplified    [Tags]    e-retrieve    6_3_7
+018_05_01 Simplified
+    [Tags]    e-retrieve    6_3_7
     keyValues    building-location-attribute-simplified.geojson
-018_05_02_Normalized    [Tags]    e-retrieve    6_3_7
+018_05_02 Normalized
+    [Tags]    e-retrieve    6_3_7
     ${EMPTY}    building-location-attribute-normalized.geojson
 
 
 *** Keywords ***
 Retrieve Entity In GeoJSON Representation
     [Documentation]    Check that the queried entity by id can be returned in a GeoJSON format
-    [Tags]    e-retrieve    6_3_7
     [Arguments]    ${options}    ${expectation_filename}
     ${response}=    Query Entity
-    ...    ${entity_id}
-    ...    ${CONTENT_TYPE_GEOJSON}
+    ...    id=${entity_id}
+    ...    accept=${CONTENT_TYPE_GEOJSON}
     ...    options=${options}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}

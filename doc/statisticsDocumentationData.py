@@ -22,7 +22,7 @@ if __name__ == "__main__":
                 statistics[name_of_test_case] = dict()
                 strippedpath = root[len(fullpath)+1:]
                 statistics[name_of_test_case]["path"] = strippedpath
-                if "error_while_parsing" in json_of_test_case and json_of_test_case["error_while_parsing"] == True:
+                if "error_while_parsing" in json_of_test_case and json_of_test_case["error_while_parsing"]:
                     statistics[name_of_test_case]["failed"] = True
                     number_of_failures += 1
                 else:
@@ -35,10 +35,10 @@ if __name__ == "__main__":
     print()
     print("THE FOLLOWING TESTCASES FAILED PARSING:")
     for testcasename, testcaseresult in statistics.items():
-        if testcaseresult["failed"] == True:
+        if testcaseresult["failed"]:
             print(testcasename+" "+testcaseresult["path"])
     
-    print("Out of "+str(number_of_all_testcases)+" testcases, "+str(number_of_failures)+" of them failed to be correctly parsed")
+    print(f"Out of {number_of_all_testcases} testcases, {number_of_failures} of them failed to be correctly parsed.")
 
-    with open("testcases.json", 'w') as fp:
+    with open("./results/testcases.json", 'w') as fp:
         dump(obj=testcases, indent=2, fp=fp)

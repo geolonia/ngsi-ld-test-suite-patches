@@ -17,8 +17,8 @@
         "ea-append",
         "5_6_3"
       ],
-      "setup": null,
-      "teardown": null,
+      "setup": "Create Initial Entity",
+      "teardown": "Delete Initial Entity",
       "template": "Append Attributes",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs'\n        method set to 'POST'\n        Append Entity Attributes and\n    Query Parameter: id set to '${EMPTY}' and\n    Query Parameter: fragment_filename set to 'vehicle-attribute-to-add-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
@@ -33,8 +33,8 @@
         "ea-append",
         "5_6_3"
       ],
-      "setup": null,
-      "teardown": null,
+      "setup": "Create Initial Entity",
+      "teardown": "Delete Initial Entity",
       "template": "Append Attributes",
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs'\n        method set to 'POST'\n        Append Entity Attributes and\n    Query Parameter: id set to 'thisisaninvaliduri' and\n    Query Parameter: fragment_filename set to 'vehicle-attribute-to-add-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",

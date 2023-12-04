@@ -1,6 +1,6 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/SUB/046_09",
-  "test_objective": "A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.info defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.14",
+  "tp_id": "TP/NGSI-LD/CI/SUB/046_14",
+  "test_objective": "The Notification content shall be JSON-LD when endpoint.accept is set to JSON-LD",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.6",
   "config_id": "",
   "parent_release": "v1.3.1",
@@ -13,18 +13,18 @@
   "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
   "test_cases": [
     {
-      "name": "046_09_01 Check that a notification is sent to the endpoint",
-      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_09_01",
-      "doc": "A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.info defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.1",
+      "name": "046_14_01 Check that a notification is sent as JSON-LD",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_14_01",
+      "doc": "The Notification content shall be JSON-LD when endpoint.accept is set to 'application/ld+json'",
       "tags": [
-        "046_09",
+        "046_14",
         "5_8_6",
         "sub-notification"
       ],
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        After waiting '10' seconds and\n        The dictionary `${headers}' should contain the key 'X-Additional-Key'\n}",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        The dictionary `${notification}[data][0]' should contain the key '@context'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to '${fragment_filename}' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
       "http_verb": "PATCH",
       "endpoint": "entities/{entityId}/attrs/{attributeId}"
@@ -32,5 +32,5 @@
   ],
   "permutations": [],
   "robotpath": "ContextInformation/Subscription/SubscriptionNotificationBehaviour",
-  "robotfile": "046_09"
+  "robotfile": "046_14"
 }

@@ -18,7 +18,7 @@
         "ea-partial-update"
       ],
       "setup": null,
-      "teardown": "Delete Entity by Id Returning Response",
+      "teardown": "Delete Entity by Id",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 415\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${entity_id}' and\n    Query Parameter: AttributeId set to 'speed' and\n    Query Parameter: fragment_filename set to 'vehicle-brandname-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/xml'\n}",

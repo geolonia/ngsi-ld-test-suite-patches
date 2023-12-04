@@ -37,11 +37,11 @@ Create Temporal Entity
     ...    temporalEntities/${filename}
     ...    ${temporal_entity_representation_id}
     IF    '${content_type}'=='application/json'
-        ${response}=    Retrieve Temporal Representation Of Entity
+        ${check_created_entity}=    Retrieve Temporal Representation Of Entity
         ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     END
     IF    '${content_type}'=='application/ld+json'
-        ${response}=    Retrieve Temporal Representation Of Entity
+        ${check_created_entity}=    Retrieve Temporal Representation Of Entity
         ...    temporal_entity_representation_id=${temporal_entity_representation_id}
         ...    context=${ngsild_test_suite_context}
     END
@@ -51,7 +51,7 @@ Create Temporal Entity
     ...    ${temporal_entity_representation_id}
     Check Created Resource Set To
     ...    ${temporal_entity_expectation_payload}
-    ...    ${response.json()}
+    ...    ${check_created_entity.json()}
     ...    ${ignored_attributes}
 
 Delete Temporal Entity

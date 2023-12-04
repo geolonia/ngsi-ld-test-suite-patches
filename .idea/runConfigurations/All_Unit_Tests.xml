@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="All Unittests" type="tests" factoryName="Unittests">
+  <configuration default="false" name="All Unit Tests" type="tests" factoryName="Unittests">
     <module name="ngsi-ld-test-suite" />
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="PARENT_ENVS" value="true" />

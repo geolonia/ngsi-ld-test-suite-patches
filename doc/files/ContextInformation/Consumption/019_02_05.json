@@ -23,8 +23,8 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list containing Entity Elements, containing ${value} provided and\n        Response Status Code set to 200\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/query'\n        method set to 'POST'\n        Get Entities Via POST Request: and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: accept set to 'application/geo+json' and\n    Query Parameter: geoproperty set to 'location' and\n    Query Parameter: content_type set to 'application/json'\n}",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body Content and\n    Query Parameter: expectation_filename set to 'expectation_filename' and\n    Query Parameter: response_body set to 'response.json()' and\n    Query Parameter: additional_ignored_path set to '${EMPTY}' and\n        Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/query'\n        method set to 'POST'\n        Get Entities Via POST Request: and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: accept set to 'application/geo+json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: content_type set to 'application/json'\n}",
       "http_verb": "POST",
       "endpoint": "entityOperations/query"
     }
