@@ -43,17 +43,17 @@ Create Entity Scenarios
     Check Response Headers Containing URI set to    ${entity_id}    ${response.headers}
     ${created_entity}=    Load Test Sample    entities/${filename}    ${entity_id}
     IF    '${content_type}' == 'application/json'
-        ${created_entity}=    Retrieve Entity by Id
+        ${check_entity}=    Retrieve Entity by Id
         ...    id=${entity_id}
         ...    accept=${content_type}
     END
     IF    '${content_type}' == 'application/ld+json'
-        ${created_entity}=    Retrieve Entity by Id
+        ${check_entity}=    Retrieve Entity by Id
         ...    id=${entity_id}
         ...    accept=${content_type}
         ...    context=${ngsild_test_suite_context}
     END
-    Check Created Resource Set To    ${created_entity}    ${response.json()}
+    Check Created Resource Set To    ${created_entity}    ${check_entity.json()}
 
 Delete Initial Entity
     Delete Entity by Id    ${entity_id}
