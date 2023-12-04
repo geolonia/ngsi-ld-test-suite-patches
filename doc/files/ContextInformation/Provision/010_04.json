@@ -10,7 +10,7 @@
   "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
   "test_cases": [
     {
-      "name": "010_04_01 Append entity attributes",
+      "name": "010_04_01 Append entity attributes and ignore existing multi-attribute instance",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/010_04_01",
       "doc": "Check that you can append entity attributes",
       "tags": [
@@ -20,13 +20,13 @@
       "setup": "Create Initial Entity",
       "teardown": "Delete Initial Entity",
       "template": "Append Attributes With Params",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body Content and\n    Query Parameter: additional_ignored_path set to '${EMPTY}' and\n        Updated Entity set to ${entity} and\n        Response Status Code set to 207\n}",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body Content and\n    Query Parameter: additional_ignored_path set to '${EMPTY}' and\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
       "http_verb": "GET",
       "endpoint": "entities/{id}"
     },
     {
-      "name": "010_04_02 Append entity attributes",
+      "name": "010_04_02 Append entity attributes with a new multi-attribute instance",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/010_04_02",
       "doc": "Check that you can append entity attributes",
       "tags": [
@@ -42,9 +42,7 @@
       "endpoint": "entities/{id}"
     }
   ],
-  "permutations": [
-    "then"
-  ],
+  "permutations": [],
   "robotpath": "ContextInformation/Provision/EntityAttributes/AppendEntityAttributes",
   "robotfile": "010_04"
 }

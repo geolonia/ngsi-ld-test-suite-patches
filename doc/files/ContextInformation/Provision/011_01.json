@@ -42,7 +42,7 @@
       "endpoint": "entities/{id}"
     },
     {
-      "name": "011_01_03 Check that you can update only some attributes while others failed",
+      "name": "011_01_03 Check that you can update only some attributes while unknown are ignored",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/011_01_03",
       "doc": "Check that you can update entity attributes",
       "tags": [
@@ -52,15 +52,13 @@
       "setup": "Initialize Test",
       "teardown": "Delete Initial Entities",
       "template": "Update Attributes",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body Content and\n    Query Parameter: additional_ignored_path set to '${EMPTY}' and\n        Updated Entity set to ${entity} and\n        Response Status Code set to 207\n}",
+      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body Content and\n    Query Parameter: additional_ignored_path set to '${EMPTY}' and\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
       "http_verb": "GET",
       "endpoint": "entities/{id}"
     }
   ],
-  "permutations": [
-    "then"
-  ],
+  "permutations": [],
   "robotpath": "ContextInformation/Provision/EntityAttributes/UpdateEntityAttributes",
   "robotfile": "011_01"
 }
