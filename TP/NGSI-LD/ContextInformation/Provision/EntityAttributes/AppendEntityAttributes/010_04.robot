@@ -17,9 +17,9 @@ ${filename}=                vehicle-speed-two-datasetid-sample.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_RESPONSE_BODY    EXPECTATION_FILENAME
-010_04_01 Append entity attributes
-    207    vehicle-attribute-to-add-fragment.jsonld    add-attribute-expectation.jsonld    vehicle-speed-appended-expectation.jsonld
-010_04_02 Append entity attributes
+010_04_01 Append entity attributes and ignore existing multi-attribute instance
+    204    vehicle-attribute-to-add-fragment.jsonld    ${EMPTY}    vehicle-speed-appended-expectation.jsonld
+010_04_02 Append entity attributes with a new multi-attribute instance
     204    vehicle-speed-different-datasetid-fragment.jsonld    ${EMPTY}    vehicle-speed-different-datasetid-expectation.jsonld
 
 
