@@ -32,6 +32,10 @@ class GenerateRobotData:
             'ContextSource': 'CS',
             'Discovery/RetrieveAvailableAttributeInformation': 'DISC',
             'Discovery/RetrieveAvailableEntityTypeInformation': 'DISC',
+            'Discovery/RetrieveAvailableEntityTypes': 'DISC',
+            'Discovery/RetrieveDetailsOfAvailableEntityTypes': 'DISC',
+            'Discovery/RetrieveAvailableAttributes': 'DISC',
+            'Discovery/RetrieveDetailsOfAvailableAttributes': 'DISC',
             'Entity/RetrieveEntity': 'E',
             'Entities/CreateEntity': 'E',
             'Entity/QueryEntities': 'E',
@@ -39,12 +43,16 @@ class GenerateRobotData:
             'EntityAttributes/AppendEntityAttributes': 'EA',
             'EntityAttributes/UpdateEntityAttributes': 'EA',
             'EntityAttributes/PartialAttributeUpdate': 'EA',
+            'EntityAttributes/DeleteEntityAttribute': 'EA',
             'BatchEntities/CreateBatchOfEntities': 'BE',
             'BatchEntities/UpsertBatchOfEntities': 'BE',
             'BatchEntities/UpdateBatchOfEntities': 'BE',
+            'BatchEntities/DeleteBatchOfEntities': 'BE',
             'TemporalEntity/QueryTemporalEvolutionOfEntities': 'TE',
             'TemporalEntity/DeleteTemporalRepresentationOfEntity': 'TE',
             'TemporalEntity/UpdateTemporalRepresentationOfEntity': 'TE',
+            'TemporalEntity/RetrieveTemporalEvolutionOfEntity': 'TE',
+            'TemporalEntity/CreateTemporalRepresentationOfEntity': 'TE',
             'TemporalEntityAttributes/DeleteAttributeInstance': 'TEA',
             'TemporalEntityAttributes/DeleteAttribute': 'TEA',
             'TemporalEntityAttributes/PartialUpdateAttributeInstance': 'TEA',
@@ -190,7 +198,7 @@ class GenerateRobotData:
         request, params = self.get_params(test_case=string)
 
         for data in self.apiutils:
-            verb, url = data.get_response(keyword=request)
+            verb, url, query_param = data.get_response(keyword=request)
             if verb != '':
                 break
 
@@ -201,7 +209,11 @@ class GenerateRobotData:
                 break
 
         self.test_cases[index]['http_verb'] = verb
-        self.test_cases[index]['endpoint'] = self.get_values_url(keys=url, request=request, params=params)
+        self.test_cases[index]['endpoint'] = self.get_values_url(keys=url,
+                                                                 query_param=query_param,
+                                                                 request=request,
+                                                                 params=params)
+
         self.test_cases[index]['when'] = self.robot.generate_when_content(http_verb=self.test_cases[index]['http_verb'],
                                                                           endpoint=self.test_cases[index]['endpoint'],
                                                                           when=self.test_cases[index]['when'])
@@ -237,9 +249,15 @@ class GenerateRobotData:
             # self.test_cases[index]['params'] = params
             self.test_cases[index][self.headers[key]] = value
 
-    def get_values_url(self, keys: list, request: str, params: list) -> str:
+    def get_values_url(self, keys: list, query_param: bool, request: str, params: list) -> str:
         data = [self.get_value_url(key=x, request=request, params=params) for x in keys]
-        data = '/'.join(data).replace('//', '/').replace('?/','?')
+
+        if query_param == False:
+            data = '/'.join(data).replace('//', '/').replace('?/','?')
+        else:
+            aux = '/'.join(data[:-1]).replace('//', '/').replace('?/','?')
+            data = f"{aux}?{data[-1]}"
+
         return data
 
     def get_value_url(self, key: str, request: str, params: list) -> str:
@@ -396,8 +414,10 @@ class GenerateRobotData:
 
         try:
             self.test_suite['initial_condition'] = self.initial_conditions[test.setup.name]
+            string = self.robot.get_substring(initial_string='** Keywords ***', final_string='', include=False)
         except KeyError:
             self.test_suite['initial_condition'] = self.initial_conditions['Initial State']
+            string = self.robot.get_substring(initial_string='** Keywords ***', final_string='', include=False)
 
         self.test_cases.append(test_case)
 

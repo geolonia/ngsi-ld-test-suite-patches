@@ -23,10 +23,10 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the same content defined in file 'subscriptions/expectations/subscription-vehicle-sample.jsonld' with subscription id '${subscription_id}' and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Subscription Retrieve with the following data: and\n    Query Parameter: id set to '${subscription_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
-      "http_verb": "GET",
-      "endpoint": "subscriptions/{id}"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Subscription with Response Status Code set to 204     and\n        Retrieve Subscription with Response Body containing the same content defined in file 'subscriptions/expectations/subscription-vehicle-sample.jsonld' with subscription id '${subscription_id}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Request Update Subscription and \nHeader['Link'] contain the context 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\nHeader['Content-Type'] set to 'application/json' and\nPayload defined in file 'subscriptions/fragments/subscription-vehicle-entities-sample.json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "subscriptions/{subscription_id}"
     },
     {
       "name": "029_05_02 Update Subscription With Term to Uri Expansion without Context",
@@ -39,14 +39,13 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the same content defined in file 'subscriptions/expectations/subscription-vehicle-expanded-types-sample.jsonld' with subscription id '${subscription_id}' and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Subscription Retrieve with the following data: and\n    Query Parameter: id set to '${subscription_id}'\n}",
-      "http_verb": "GET",
-      "endpoint": "subscriptions/{id}"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Subscription with Response Status Code set to 204     and\n        Retrieve Subscription with Response Body containing the same content defined in file 'subscriptions/expectations/subscription-vehicle-expanded-types-sample.jsonld' with subscription id '${subscription_id}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Request Update Subscription and \nHeader['Link'] contain the context 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\nHeader['Content-Type'] set to 'application/json' and\nPayload defined in file 'subscriptions/fragments/subscription-vehicle-entities-sample.json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "subscriptions/{subscription_id}"
     }
   ],
   "permutations": [
-    "when",
     "then"
   ],
   "robotpath": "ContextInformation/Subscription/UpdateSubscription",

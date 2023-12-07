@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/TemporalEntity/CreateTemporalRepresentationOfEntity/007_02",
+  "tp_id": "TP/NGSI-LD/CI/Prov/TE/007_02",
   "test_objective": "Check that you cannot create a temporal entity with an empty/invalid json/id",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.11",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "007_02_01 Create a temporal entity with an invalid json",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TemporalEntity/CreateTemporalRepresentationOfEntity/007_02_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TE/007_02_01",
       "doc": "Check that you cannot create a temporal entity with an empty/invalid json/id",
       "tags": [
         "te-create",
@@ -20,14 +20,14 @@
       "setup": null,
       "teardown": null,
       "template": "Create Temporal Entity From File",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Temporal Representation Of Entity Selecting Content Type with Response Status Code set to 400     and\n        Create Temporal Representation Of Entity Selecting Content Type with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'     and\n        Create Temporal Representation Of Entity Selecting Content Type with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'POST'\n        Create Temporal Representation of Entity Selecting Content Type: and\n    Query Parameter: filename set to 'vehicle-temporal-representation-invalid-json-sample.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
       "http_verb": "POST",
       "endpoint": "temporal/entities"
     },
     {
       "name": "007_02_02 Create a temporal entity with an empty json",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TemporalEntity/CreateTemporalRepresentationOfEntity/007_02_02",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TE/007_02_02",
       "doc": "Check that you cannot create a temporal entity with an empty/invalid json/id",
       "tags": [
         "te-create",
@@ -36,7 +36,7 @@
       "setup": null,
       "teardown": null,
       "template": "Create Temporal Entity From File",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Temporal Representation Of Entity Selecting Content Type with Response Status Code set to 400     and\n        Create Temporal Representation Of Entity Selecting Content Type with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'     and\n        Create Temporal Representation Of Entity Selecting Content Type with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'POST'\n        Create Temporal Representation of Entity Selecting Content Type: and\n    Query Parameter: filename set to 'vehicle-temporal-representation-empty-json-sample.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
       "http_verb": "POST",
       "endpoint": "temporal/entities"

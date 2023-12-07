@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/DeleteEntityAttribute/013_03",
+  "tp_id": "TP/NGSI-LD/CI/Prov/EA/013_03",
   "test_objective": "Check that you cannot delete an attribute from an entity with invalid/missing ids",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.5",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "013_03_01 Delete an attribute when the Entity Id is not known to the system",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/DeleteEntityAttribute/013_03_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/013_03_01",
       "doc": "Check that you cannot delete an attribute from an entity with invalid/missing ids",
       "tags": [
         "ea-delete",
@@ -20,14 +20,14 @@
       "setup": "Setup Initial Entities",
       "teardown": "Delete Initial Entities",
       "template": "Delete Attributes",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 404\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?{params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${not_found_entity_id}' and\n    Query Parameter: attributeId set to 'speed' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: deleteAll set to 'false'\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Delete Entity Attributes with Response Status Code set to 404\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${not_found_entity_id}' and\n    Query Parameter: attributeId set to 'speed' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: deleteAll set to 'false'\n}",
       "http_verb": "DELETE",
-      "endpoint": "entities/{entityId}/attrs/{attributeId}?{params_as_string}"
+      "endpoint": "entities/{entityId}/attrs/{attributeId}?${params_as_string}"
     },
     {
       "name": "013_03_02 Delete an attribute when the Entity does not contain the target attribute id",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/DeleteEntityAttribute/013_03_02",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/013_03_02",
       "doc": "Check that you cannot delete an attribute from an entity with invalid/missing ids",
       "tags": [
         "ea-delete",
@@ -36,14 +36,14 @@
       "setup": "Setup Initial Entities",
       "teardown": "Delete Initial Entities",
       "template": "Delete Attributes",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 404\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?{params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: attributeId set to 'notFound' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: deleteAll set to 'false'\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Delete Entity Attributes with Response Status Code set to 404\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: attributeId set to 'notFound' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: deleteAll set to 'false'\n}",
       "http_verb": "DELETE",
-      "endpoint": "entities/{entityId}/attrs/{attributeId}?{params_as_string}"
+      "endpoint": "entities/{entityId}/attrs/{attributeId}?${params_as_string}"
     },
     {
       "name": "013_03_03 Delete an attribute when the Entity does not contain the target attribute with same datasetId",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EntityAttributes/DeleteEntityAttribute/013_03_03",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/013_03_03",
       "doc": "Check that you cannot delete an attribute from an entity with invalid/missing ids",
       "tags": [
         "ea-delete",
@@ -52,10 +52,10 @@
       "setup": "Setup Initial Entities",
       "teardown": "Delete Initial Entities",
       "template": "Delete Attributes",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 404\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?{params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: attributeId set to 'speed' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: deleteAll set to 'false'\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Delete Entity Attributes with Response Status Code set to 404\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: attributeId set to 'speed' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: deleteAll set to 'false'\n}",
       "http_verb": "DELETE",
-      "endpoint": "entities/{entityId}/attrs/{attributeId}?{params_as_string}"
+      "endpoint": "entities/{entityId}/attrs/{attributeId}?${params_as_string}"
     }
   ],
   "permutations": [

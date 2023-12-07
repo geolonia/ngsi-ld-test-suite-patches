@@ -26,13 +26,13 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ...    ${updated_payload}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Retrieve Context Source Registration
+    ${response1}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${registration_id}
     ...    context=${ngsild_test_suite_context}
     Check JSON Value In Response Body
     ...    ['information'][0]['entities'][0]['type']
     ...    ngsi-ld:default-context/Building
-    ...    ${response.json()}
+    ...    ${response1.json()}
 
 033_05_02 Create one context source registration using the default context with JSON content type without Context
     [Documentation]    Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context and retrieve the information without ngsild context
@@ -45,12 +45,12 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ...    ${updated_payload}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Retrieve Context Source Registration
+    ${response1}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${registration_id}
     Check JSON Value In Response Body
     ...    ['information'][0]['entities'][0]['type']
     ...    Building
-    ...    ${response.json()}
+    ...    ${response1.json()}
 
 
 *** Keywords ***

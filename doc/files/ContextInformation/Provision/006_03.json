@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/DeleteBatchOfEntities/006_03",
+  "tp_id": "TP/NGSI-LD/CI/Prov/BE/006_03",
   "test_objective": "Check that you cannot delete a batch of entities with an invalid request",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.10",
   "config_id": "",
@@ -11,7 +11,7 @@
   "test_cases": [
     {
       "name": "006_03_01 InvalidJson",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/DeleteBatchOfEntities/006_03_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/006_03_01",
       "doc": "Check that you cannot delete a batch of entities with an invalid request",
       "tags": [
         "5_6_10",
@@ -20,14 +20,14 @@
       "setup": null,
       "teardown": null,
       "template": "Batch Delete Entity With Invalid Request Scenarios",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Request Entities From File with Response Status Code set to 400     and\n        Batch Request Entities From File with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'     and\n        Batch Request Entities From File with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/delete'\n        method set to 'POST'\n        Batch Entity Delete Request with operation set to 'delete', Content-Type set to 'application/ld+json', and body set to 'batch/invalid-json-sample.jsonld\n}",
       "http_verb": "POST",
       "endpoint": "entityOperations/delete"
     },
     {
       "name": "006_03_02 EmptyJson",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/DeleteBatchOfEntities/006_03_02",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/006_03_02",
       "doc": "Check that you cannot delete a batch of entities with an invalid request",
       "tags": [
         "5_6_10",
@@ -36,15 +36,15 @@
       "setup": null,
       "teardown": null,
       "template": "Batch Delete Entity With Invalid Request Scenarios",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Request Entities From File with Response Status Code set to 400     and\n        Batch Request Entities From File with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Batch Request Entities From File with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/delete'\n        method set to 'POST'\n        Batch Entity Delete Request with operation set to 'delete', Content-Type set to 'application/ld+json', and body set to 'batch/empty-sample.jsonld\n}",
       "http_verb": "POST",
       "endpoint": "entityOperations/delete"
     }
   ],
   "permutations": [
-    "then",
-    "when"
+    "when",
+    "then"
   ],
   "robotpath": "ContextInformation/Provision/BatchEntities/DeleteBatchOfEntities",
   "robotfile": "006_03"

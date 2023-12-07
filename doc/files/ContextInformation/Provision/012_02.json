@@ -20,7 +20,7 @@
       "setup": "Setup Initial Entities",
       "teardown": "Delete Initial Entities",
       "template": "Update Attributes",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 400     and\n        Partial Update Entity Attributes with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Partial Update Entity Attributes with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${EMPTY}' and\n    Query Parameter: AttributeId set to 'speed' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-equal-datasetid-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
       "http_verb": "PATCH",
       "endpoint": "entities/{entityId}/attrs/{attributeId}"
@@ -36,7 +36,7 @@
       "setup": "Setup Initial Entities",
       "teardown": "Delete Initial Entities",
       "template": "Update Attributes",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 400     and\n        Partial Update Entity Attributes with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Partial Update Entity Attributes with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to 'thisisaninvaliduri' and\n    Query Parameter: AttributeId set to 'speed' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-equal-datasetid-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
       "http_verb": "PATCH",
       "endpoint": "entities/{entityId}/attrs/{attributeId}"
@@ -52,7 +52,7 @@
       "setup": "Setup Initial Entities",
       "teardown": "Delete Initial Entities",
       "template": "Update Attributes",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 400     and\n        Partial Update Entity Attributes with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Partial Update Entity Attributes with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: AttributeId set to '${EMPTY}' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-equal-datasetid-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
       "http_verb": "PATCH",
       "endpoint": "entities/{entityId}/attrs/{attributeId}"
@@ -68,7 +68,7 @@
       "setup": "Setup Initial Entities",
       "teardown": "Delete Initial Entities",
       "template": "Update Attributes",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 400     and\n        Partial Update Entity Attributes with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Partial Update Entity Attributes with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: AttributeId set to 'speed' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-equal-datasetid-different-type-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
       "http_verb": "PATCH",
       "endpoint": "entities/{entityId}/attrs/{attributeId}"
@@ -84,7 +84,7 @@
       "setup": "Setup Initial Entities",
       "teardown": "Delete Initial Entities",
       "template": "Update Attributes",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 400     and\n        Partial Update Entity Attributes with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Partial Update Entity Attributes with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: AttributeId set to 'speed' and\n    Query Parameter: fragment_filename set to 'empty-fragment.json' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
       "http_verb": "PATCH",
       "endpoint": "entities/{entityId}/attrs/{attributeId}"

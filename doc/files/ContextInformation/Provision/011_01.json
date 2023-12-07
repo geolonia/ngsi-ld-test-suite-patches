@@ -20,10 +20,10 @@
       "setup": "Initialize Test",
       "teardown": "Delete Initial Entities",
       "template": "Update Attributes",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body Content and\n    Query Parameter: additional_ignored_path set to '${EMPTY}' and\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
-      "http_verb": "GET",
-      "endpoint": "entities/{id}"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Entity Attributes with Response Status Code set to 204     and\n        Update Entity Attributes with Check Response Body Content and\n            Query Parameter: expectation_filename set to 'expectation_resp_filename' and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: additional_ignored_path set to '${EMPTY}'     and\n        Retrieve Entity by Id with Updated Entity set to ${entity}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-two-datasetid-01-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
     },
     {
       "name": "011_01_02 Check that you can update existing attributes with the datasetId",
@@ -36,10 +36,10 @@
       "setup": "Initialize Test",
       "teardown": "Delete Initial Entities",
       "template": "Update Attributes",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body Content and\n    Query Parameter: additional_ignored_path set to '${EMPTY}' and\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
-      "http_verb": "GET",
-      "endpoint": "entities/{id}"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Entity Attributes with Response Status Code set to 204     and\n        Update Entity Attributes with Check Response Body Content and\n            Query Parameter: expectation_filename set to 'expectation_resp_filename' and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: additional_ignored_path set to '${EMPTY}'     and\n        Retrieve Entity by Id with Updated Entity set to ${entity}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-two-datasetid-02-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
     },
     {
       "name": "011_01_03 Check that you can update only some attributes while unknown are ignored",
@@ -52,13 +52,15 @@
       "setup": "Initialize Test",
       "teardown": "Delete Initial Entities",
       "template": "Update Attributes",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body Content and\n    Query Parameter: additional_ignored_path set to '${EMPTY}' and\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
-      "http_verb": "GET",
-      "endpoint": "entities/{id}"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Entity Attributes with Response Status Code set to 204     and\n        Update Entity Attributes with Check Response Body Content and\n            Query Parameter: expectation_filename set to 'expectation_resp_filename' and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: additional_ignored_path set to '${EMPTY}'     and\n        Retrieve Entity by Id with Updated Entity set to ${entity}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-two-datasetid-03-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
     }
   ],
-  "permutations": [],
+  "permutations": [
+    "when"
+  ],
   "robotpath": "ContextInformation/Provision/EntityAttributes/UpdateEntityAttributes",
   "robotfile": "011_01"
 }

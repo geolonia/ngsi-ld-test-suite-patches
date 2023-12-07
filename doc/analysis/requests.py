@@ -193,6 +193,14 @@ class Requests:
                 'positions': [],
                 'params': ['entities_ids_to_be_deleted', 'teardown']
             },
+            'Batch Update Entities': {
+                'positions': [0],
+                'params': ['entities', 'overwrite_option']
+            },
+            'Batch Upsert Entities': {
+                'positions': [],
+                'params': ['entities_to_be_upserted', 'update_option']
+            },
             'Request Entity From File': {
                 'positions': [0],
                 'params': ['filename']
@@ -224,6 +232,10 @@ class Requests:
             'Wait for notification': {
                 'positions': [0],
                 'params': ['timeout']
+            },
+            'Append Entity Attributes With Parameters': {
+                'positions': [0, 1, 2, 3],
+                'params': ['id', 'fragment_filename', 'content_type', 'options']
             },
             'Setup Initial Subscriptions': {
                 'positions': [],
@@ -260,6 +272,8 @@ class Requests:
                 Requests.query_context_source_registration_subscriptions,
             'Query Temporal Representation Of Entities':
                 Requests.query_temporal_representation_of_entities,
+            'Append Entity Attributes With Parameters':
+                Requests.append_entity_attributes_with_parameters,
             'Retrieve Attribute':
                 Requests.retrieve_attribute,
             'Retrieve Entity Type':
@@ -314,6 +328,10 @@ class Requests:
                 Requests.batch_request_entities_from_file,
             'Batch Delete Entities':
                 Requests.batch_delete_entities,
+            'Batch Update Entities':
+                Requests.batch_update_entities,
+            'Batch Upsert Entities':
+                Requests.batch_upsert_entities,
             'Request Entity From File':
                 Requests.request_entity_from_file,
             'Delete Entity Attributes':
@@ -431,8 +449,18 @@ class Requests:
         if len(self.op[request_name]['positions']) == 0:
             # We do not know the position of the different parameters and the order in which they are received,
             # therefore in these cases all the parameters have identified the corresponding name
-            param = {x.split('=')[0]: self.get_value_simple(x.split('=')[1]) for x in params}
+            # param = {x.split('=')[0]: self.get_value_simple(x.split('=')[1]) for x in params}
+            for i in range(0, len(params)):
+                x = params[i]
+                if x.find('=') != -1:
+                    aux = x.split('=')
+                    key = aux[0]
+                    value = self.get_value_simple(aux[1])
 
+                    param[key] = value
+                else:
+                    key = self.op[request_name]['params'][i]
+                    param[key] = x
         else:
             for i in range(0, len(self.op[request_name]['positions'])):
                 param_position = self.op[request_name]['positions'][i]
@@ -507,10 +535,58 @@ class Requests:
             raise Exception(f"ERROR, expected filename and content_type attributes, but received {kwargs}")
 
     @staticmethod
+    def append_entity_attributes_with_parameters(kwargs) -> str:
+        expected_parameters = ['id', 'fragment_filename', 'content_type', 'options']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Append entity attributes with parameters:"
+        for key, value in kwargs.items():
+            match key:
+                case 'id':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case 'fragment_filename':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case 'content_type':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case 'options':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
     def create_entity_from_file(kwargs) -> str:
         if 'filename' in kwargs:
             result = (f"Request creation of an entity from filename '{kwargs['filename']}'"
                       f" and Content-Type set to 'application/ld+json'")
+            return result
+        else:
+            raise Exception(f"ERROR, expected filename attribute, but received {kwargs}")
+
+    @staticmethod
+    def batch_update_entities(kwargs) -> str:
+        if 'overwrite_option' not in kwargs:
+            kwargs['overwrite_option'] = '${EMPTY}'
+
+        if 'entities' in kwargs:
+            result = (f"Request batch update operation over entity from filename '{kwargs['entities']}' "
+                      f"with overwrite_option set to '{kwargs['overwrite_option']}' "
+                      f"and Content-Type set to 'application/ld+json'")
+            return result
+        else:
+            raise Exception(f"ERROR, expected filename attribute, but received {kwargs}")
+
+    @staticmethod
+    def batch_upsert_entities(kwargs) -> str:
+        if 'update_option' not in kwargs:
+            kwargs['update_option'] = 'replace'
+
+        if 'entities_to_be_upserted' in kwargs:
+            result = (f"Request batch upsert operation over entity from filename '{kwargs['entities_to_be_upserted']}' "
+                      f"with update_option set to '{kwargs['update_option']}' "
+                      f"and Content-Type set to 'application/ld+json'")
             return result
         else:
             raise Exception(f"ERROR, expected filename attribute, but received {kwargs}")

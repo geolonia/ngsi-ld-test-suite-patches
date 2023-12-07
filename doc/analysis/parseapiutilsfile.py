@@ -14,6 +14,7 @@ class ParseApiUtilsFile:
     def get_response(self, keyword):
         verb = str()
         url = list()
+        query_param = False
 
         string = self.get_substring(initial_string=keyword, final_string='RETURN', include=True)
         index = string.find('    ${response}')
@@ -28,17 +29,18 @@ class ParseApiUtilsFile:
 
                 if match:
                     verb = match.groups()[0]
+            elif 'url' in item:
+                url, query_param = self.get_url_request(url=item)
 
-            if 'url' in item:
-                url = self.get_url_request(url=item)
-
-        return verb, url
+        return verb, url, query_param
 
     @staticmethod
     def get_url_request(url: str) -> list:
         # We have two options, the url is defined in the same line of the response or it is defined in the following
         # lines with '...'
         keys = list()
+        parameters = list()
+        query_param = False
 
         if 'response' in url:
             url = [x for x in url.split('    ') if 'url' in x][0]
@@ -48,8 +50,18 @@ class ParseApiUtilsFile:
         match = re.match(pattern=regex, string=url)
         if match:
             aux = match.groups()[0]
+
+            # We need to extract the url parameters first
+            if aux.find('?') != -1:
+                parameters = aux.split('?')
+                aux = parameters[0]
+                query_param = True
+
             keys = re.split(r'\$|/', aux)
             keys = [k for k in keys if k != '']
+
+            if len(parameters) != 0:
+                keys.append("".join(parameters[1:]))
         else:
             regex = r"\s*\.*\s*url=\$\{temporal_api_url\}\/(.*)"
 
@@ -59,7 +71,7 @@ class ParseApiUtilsFile:
                 keys = re.split(r'\$|/', aux)
                 keys = [k for k in keys if k != '']
 
-        return keys
+        return keys, query_param
 
     def get_variables_data(self):
         string = self.get_substring(initial_string='*** Variables ***', final_string='*** ', include=False)

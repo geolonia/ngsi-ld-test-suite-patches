@@ -20,7 +20,7 @@
       "setup": "Create Id",
       "teardown": "Delete Temporal Entity",
       "template": "Modify Attribute Instance Temporal Entity",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Modify Attribute Instance From Temporal Entity with Response Status Code set to 400\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}'\n        method set to 'PATCH'\n        Modify Attribute Instance from Temporal Entity: and\n    Query Parameter: temporal_entity_id set to 'invalidId' and\n    Query Parameter: attributeId set to '${attributeId}' and\n    Query Parameter: instanceId set to '${instanceId}' and\n    Query Parameter: fragment_filename set to 'vehicle-temporal-modify-attribute-instance-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to '${EMPTY}'\n}",
       "http_verb": "PATCH",
       "endpoint": "temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}"
@@ -36,7 +36,7 @@
       "setup": "Create Id",
       "teardown": "Delete Temporal Entity",
       "template": "Modify Attribute Instance Temporal Entity",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Modify Attribute Instance From Temporal Entity with Response Status Code set to 400\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}'\n        method set to 'PATCH'\n        Modify Attribute Instance from Temporal Entity: and\n    Query Parameter: temporal_entity_id set to '${EMPTY}' and\n    Query Parameter: attributeId set to '${attributeId}' and\n    Query Parameter: instanceId set to '${instanceId}' and\n    Query Parameter: fragment_filename set to 'vehicle-temporal-modify-attribute-instance-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to '${EMPTY}'\n}",
       "http_verb": "PATCH",
       "endpoint": "temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}"
@@ -52,7 +52,7 @@
       "setup": "Create Id",
       "teardown": "Delete Temporal Entity",
       "template": "Modify Attribute Instance Temporal Entity",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Modify Attribute Instance From Temporal Entity with Response Status Code set to 400\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}'\n        method set to 'PATCH'\n        Modify Attribute Instance from Temporal Entity: and\n    Query Parameter: temporal_entity_id set to '${temporal_entity_representation_id}' and\n    Query Parameter: attributeId set to '${attributeId}' and\n    Query Parameter: instanceId set to '${instanceId}' and\n    Query Parameter: fragment_filename set to 'vehicle-temporal-modify-attribute-instance-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to '${EMPTY}'\n}",
       "http_verb": "PATCH",
       "endpoint": "temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}"
@@ -68,7 +68,7 @@
       "setup": "Create Id",
       "teardown": "Delete Temporal Entity",
       "template": "Modify Attribute Instance Temporal Entity",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Modify Attribute Instance From Temporal Entity with Response Status Code set to 400\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}'\n        method set to 'PATCH'\n        Modify Attribute Instance from Temporal Entity: and\n    Query Parameter: temporal_entity_id set to '${temporal_entity_representation_id}' and\n    Query Parameter: attributeId set to '${attributeId}' and\n    Query Parameter: instanceId set to '${instanceId}' and\n    Query Parameter: fragment_filename set to 'vehicle-temporal-modify-attribute-instance-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to '${EMPTY}'\n}",
       "http_verb": "PATCH",
       "endpoint": "temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}"
@@ -84,7 +84,7 @@
       "setup": "Create Id",
       "teardown": "Delete Temporal Entity",
       "template": "Modify Attribute Instance Temporal Entity",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Modify Attribute Instance From Temporal Entity with Response Status Code set to 400\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}'\n        method set to 'PATCH'\n        Modify Attribute Instance from Temporal Entity: and\n    Query Parameter: temporal_entity_id set to '${temporal_entity_representation_id}' and\n    Query Parameter: attributeId set to '${attributeId}' and\n    Query Parameter: instanceId set to '${instanceId}' and\n    Query Parameter: fragment_filename set to 'vehicle-temporal-modify-attribute-instance-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to '${EMPTY}'\n}",
       "http_verb": "PATCH",
       "endpoint": "temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}"
@@ -100,7 +100,7 @@
       "setup": "Create Id",
       "teardown": "Delete Temporal Entity",
       "template": "Modify Attribute Instance Temporal Entity",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Modify Attribute Instance From Temporal Entity with Response Status Code set to 400\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}'\n        method set to 'PATCH'\n        Modify Attribute Instance from Temporal Entity: and\n    Query Parameter: temporal_entity_id set to '${temporal_entity_representation_id}' and\n    Query Parameter: attributeId set to '${attributeId}' and\n    Query Parameter: instanceId set to '${instanceId}' and\n    Query Parameter: fragment_filename set to 'vehicle-temporal-modify-attribute-instance-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to '${EMPTY}'\n}",
       "http_verb": "PATCH",
       "endpoint": "temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}"

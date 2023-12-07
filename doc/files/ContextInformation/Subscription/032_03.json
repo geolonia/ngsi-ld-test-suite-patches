@@ -22,10 +22,10 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to ${response.status_code} and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Subscription Retrieve with the following data: and\n    Query Parameter: id set to '${subscription_id}'\n}",
-      "http_verb": "GET",
-      "endpoint": "subscriptions/{id}"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Subscription with Response Status Code set to 204     and\n        Retrieve Subscription with Response Status Code set to ${response1.status_code}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'DELETE'\n        Delete Subscription with id set to '${subscription_id}'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "subscriptions/{subscription_id}"
     }
   ],
   "permutations": [],

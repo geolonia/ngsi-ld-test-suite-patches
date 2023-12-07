@@ -22,7 +22,7 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing en entity element with id set to '${entity_id}' and body content set to 'building-simple-attributes-query-expectation.jsonld' and\n        Response Status Code set to 200\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Query Entity with Response Status Code set to 200     and\n        Query Entity with Response Body containing en entity element with id set to '${entity_id}' and body content set to 'building-simple-attributes-query-expectation.jsonld'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Get Entity Request: and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: accept set to 'application/ld+json' and\n    Query Parameter: attrs set to '${attributes_to_be_retrieved}'\n}",
       "http_verb": "GET",
       "endpoint": "entities/{id}"

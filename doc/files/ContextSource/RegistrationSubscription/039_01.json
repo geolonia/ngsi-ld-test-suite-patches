@@ -23,9 +23,9 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration Subscription with data: and\n    Query Parameter: subscription id set to '${subscription_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
-      "http_verb": "GET",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration Subscription with Response Status Code set to 204     and\n        Retrieve Context Source Registration Subscription with Updated Entity set to ${entity}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Update Context Source Registration Subscription with subscription id set to '${subscription_id}' and subscription update fragment set to '${subscription_update_fragment}'\n}",
+      "http_verb": "PATCH",
       "endpoint": "csourceSubscriptions/{subscription_id}"
     }
   ],

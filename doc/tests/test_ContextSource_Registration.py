@@ -50,16 +50,12 @@ class TestCSRegistration(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
-        warnings.warn(UserWarning("WARNING, (033_01_01) The doc generate the info based on the retrieve operation and not to the create operation"))
-
     def test_033_01_02(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/Registration/RegisterContextSource/033_01_02.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/Registration/033_01_02.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_033_01_02.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
-
-        warnings.warn(UserWarning("WARNING, (033_01_02) The doc generate the info based on the retrieve operation and not to the create operation"))
 
     def test_033_01_03(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/Registration/RegisterContextSource/033_01_03.robot'
@@ -68,14 +64,10 @@ class TestCSRegistration(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
-        warnings.warn(UserWarning("WARNING, (033_01_03) The doc generate the info based on the retrieve operation and not to the create operation"))
-
     def test_033_02(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/Registration/RegisterContextSource/033_02.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/Registration/033_02.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_033_02.json'
-
-        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_033_03(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/Registration/RegisterContextSource/033_03.robot'
@@ -84,8 +76,6 @@ class TestCSRegistration(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
-        warnings.warn(UserWarning("WARNING, (033_03) The doc generate the info based on the retrieve operation and not to the create operation"))
-
     def test_033_04(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/Registration/RegisterContextSource/033_04.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/Registration/033_04.json'
@@ -93,16 +83,12 @@ class TestCSRegistration(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
-        warnings.warn(UserWarning("WARNING, (033_04) The doc generate the info based on the retrieve operation and not to the create operation"))
-
     def test_033_05(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/Registration/RegisterContextSource/033_05.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/Registration/033_05.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_033_05.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
-
-        warnings.warn(UserWarning("WARNING, (033_05) The doc generate the info based on the retrieve operation and not to the create operation"))
 
     def test_033_06(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/Registration/RegisterContextSource/033_06.robot'
@@ -117,8 +103,6 @@ class TestCSRegistration(TestCase):
         difference_file = f'{self.folder_test_suites}/doc/results/out_033_07.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
-
-        warnings.warn(UserWarning("WARNING, (033_07) The doc generate the info based on the retrieve operation and not to the create operation"))
 
     def test_033_08(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/Registration/RegisterContextSource/033_08.robot'

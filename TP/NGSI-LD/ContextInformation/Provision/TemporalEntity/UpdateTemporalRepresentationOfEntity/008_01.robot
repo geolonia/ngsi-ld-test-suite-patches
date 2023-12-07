@@ -27,22 +27,22 @@ ${expectation_filename}=    vehicle-temporal-representation-update-expectation.j
     ...    filename=${filename}
     ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
+    ${response1}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    filename=${update_filename}
     ...    content_type=${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    204    ${response.status_code}
+    Check Response Status Code    204    ${response1.status_code}
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}
-    ${response}=    Retrieve Temporal Representation Of Entity
+    ${response2}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    instanceId    @context
     Check Updated Resource Set To
     ...    ${temporal_entity_expectation_payload}
-    ...    ${response.json()}
+    ...    ${response2.json()}
     ...    ${ignored_attributes}
 
 

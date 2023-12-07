@@ -23,11 +23,11 @@ ${attribute_subcategory}=           https://ngsi-ld-test-suite/context#subCatego
     [Tags]    e-retrieve    5_7_1
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${entity_id}
-    ${response}=    Create Entity Selecting Content Type
+    ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
+    Check Response Status Code    201    ${create_response.status_code}
     ${attributes_to_be_retrieved}=    Catenate
     ...    SEPARATOR=,
     ...    ${attribute_airqualitylevel}

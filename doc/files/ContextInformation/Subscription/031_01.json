@@ -23,7 +23,7 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response containing:\n    * file set to 'subscriptions/expectations/subscriptions-031-01-expectation.json'\n    * id set to '${subscription_ids}'\n    * response set to '${response.json()}' and\n        Response Status Code set to 200\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Subscriptions with Response Status Code set to 200     and\n        Query Subscriptions with Response containing:\n            * file set to 'subscriptions/expectations/subscriptions-031-01-expectation.json'\n            * id set to '${subscription_ids}'\n            * response set to '${response.json()}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/'\n        method set to 'GET'\n        Query Subscription Request with data: and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
       "http_verb": "GET",
       "endpoint": "subscriptions/"

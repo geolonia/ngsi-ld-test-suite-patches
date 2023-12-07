@@ -105,6 +105,10 @@ class Checks:
                 'params': ['status_code'],
                 'position': [0]
             },
+            'Check Response Body Containing Array Of URIs set to': {
+                'params': ['expected_entities_ids', 'response_body'],
+                'position': [0, 1]
+            },
             'Check Response Body Containing ProblemDetails Element Containing Type Element set to': {
                 'params': ['type'],
                 'position': [1]
@@ -113,13 +117,57 @@ class Checks:
                 'params': ['content_type'],
                 'position': [0]
             },
+            'Check Updated Resource Set To': {
+                'params': ['updated_resource', 'response_body', 'ignored_keys'],
+                'position': [0]
+            },
+            'Check Response Body Containing ProblemDetails Element Containing Title Element': {
+                'params': ['response_body'],
+                'position': [0]
+            },
+            'Check Response Headers Containing URI set to': {
+                'params': ['expected_entity_id', 'response_headers'],
+                'position': [0, 1]
+            },
+            'Check Response Body Title When Using Session Request': {
+                'params': ['response_body'],
+                'position': [0]
+            },
+            'Check Response Body Containing EntityTypeInfo element': {
+                'params': ['expectation_filename', 'response_body'],
+                'position': [0, 1]
+            },
+            'Check Response Body Containing List Containing Entity Elements': {
+                'params': ['expectation_filename', 'entities_ids', 'response_body', 'ignore_core_context_version'],
+                'position': []
+            },
+            'Check Response Body Containing List Containing Entity Elements With Different Types': {
+                'params': ['filename', 'entities_representation_ids', 'response_body', 'ignore_core_context_version'],
+                'position': []
+            },
             'Check Response Body Containing an Attribute set to': {
                 'params': ['expected_attribute_name', 'response_body', 'expected_attribute_value'],
                 'position': []
             },
+            'Check Response Body Containing Attribute element': {
+                'params': ['expectation_filename', 'response_body'],
+                'position': [0, 1]
+            },
+            'Check Response Body Containing EntityTemporal element': {
+                'params': ['filename', 'temporal_entity_representation_id', 'response_body'],
+                'position': [0, 1, 2]
+            },
+            'Check SUT Not Containing Resources': {
+                'params': ['response_body'],
+                'position': [0]
+            },
             'Check Response Body Containing List Containing EntityTemporal elements': {
                 'params': ['filename', 'entity_ids'],
                 'position': [0, 1]
+            },
+            'Check RL Response Body Containing ProblemDetails Element Containing Title Element': {
+                'params': ['response_body'],
+                'position': [0]
             },
             'Check Response Body Containing List Containing Subscription elements': {
                 'params': ['file', 'id', 'response'],
@@ -144,6 +192,14 @@ class Checks:
             'Check Response Body Type When Using Session Request': {
                 'params': ['type'],
                 'position': [1]
+            },
+            'Check Created Resource Set To': {
+                'params': ['created_resource', 'response_body', 'ignored_keys'],
+                'position': []
+            },
+            'Check Created Resources Set To': {
+                'params': ['expected_resources', 'response_body', 'ignored_keys'],
+                'position': []
             },
             'Check RL Response Body Containing ProblemDetails Element Containing Type Element set to': {
                 'params': ['type'],
@@ -345,7 +401,11 @@ class Checks:
 
     @staticmethod
     def check_response_headers_containing_uri_set_to(kwargs: list) -> str:
-        return 'Response Header: Location containing ${registration_id}'
+        if 'expected_entity_id' in kwargs and 'response_headers' in kwargs:
+            return f"Response Header: Location containing ${kwargs['expected_entity_id']}"
+        else:
+            raise Exception(f'ERROR, Expected expected_entity_id and response_headers parameters '
+                            f'but received: {kwargs}')
 
     @staticmethod
     def check_response_headers_id_not_empty(kwargs: list) -> str:
@@ -381,7 +441,57 @@ class Checks:
 
     @staticmethod
     def check_response_body_containing_list_containing_entity_elements(kwargs: list) -> str:
-        return 'Response Body containing a list containing Entity Elements, containing ${value} provided'
+        expected_parameters = ['expectation_filename', 'entities_ids', 'response_body', 'ignore_core_context_version']
+
+        if 'ignore_core_context_version' not in kwargs:
+            kwargs['ignore_core_context_version'] = False
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Response Body containing a list containing Entity Elements"
+        for key, value in kwargs.items():
+            match key:
+                case 'expectation_filename':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case 'entities_ids':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case 'response_body':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case 'ignore_core_context_version':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case 'checks':
+                    pass
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
+    def check_response_body_containing_list_containing_entity_elements_with_different_types(kwargs: list) -> str:
+        expected_parameters = ['filename', 'entities_representation_ids', 'response_body', 'ignore_core_context_version']
+
+        if 'ignore_core_context_version' not in kwargs:
+            kwargs['ignore_core_context_version'] = False
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Response body containing a list containing entity elements with different types"
+        for key, value in kwargs.items():
+            match key:
+                case 'filename':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case 'entities_representation_ids':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case 'response_body':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case 'ignore_core_context_version':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case 'checks':
+                    pass
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
 
     @staticmethod
     def check_retrieving_context_source_registration(kwargs: list) -> str:
@@ -408,14 +518,16 @@ class Checks:
         return response
 
     @staticmethod
-    def check_response_body_containing_list_containing_entity_elements_with_different_types(kwargs: list) -> str:
-        return ('Response Body containing a list containing Entity elements, '
-                'containing a list of entity types to be retrieved')
-
-    @staticmethod
     def check_response_body_containing_entitytemporal_element(kwargs: list) -> str:
-        return ('Response Body containing EntityTemporal element containing attribute instances '
-                'in the time range specified by the NGSI-LD temporal query')
+        if 'filename' in kwargs and 'temporal_entity_representation_id' in kwargs and 'response_body' in kwargs:
+            return (f"Response Body containing EntityTemporal element containing attribute instances in the time range"
+                    f" specified by the NGSI-LD temporal query:\n"
+                    f"    * the payload is defined in the file set to '{kwargs['filename']}'\n"
+                    f"    * the id was changed to '{kwargs['temporal_entity_representation_id']}'\n"
+                    f"    * response body to be checked set to '{kwargs['response_body']}'")
+        else:
+            raise Exception(f"ERROR, expected 'filename', 'temporal_entity_representation_id', and 'response_body' "
+                            f"attributes, received: '{kwargs}'")
 
     @staticmethod
     def check_response_body_containing_list_containing_entitytemporal_elements(kwargs: list) -> str:
@@ -480,14 +592,18 @@ class Checks:
     @staticmethod
     def check_response_body_containing_entitytype_element(kwargs: list) -> str:
         if 'filename' in kwargs and 'response' in kwargs:
-            description = kwargs['filename']
             return f"Response Body containing an Entity Type Element with expectation body equal to file: '{kwargs['filename']}'"
         else:
             raise Exception(f"ERROR, expected filename and response attributes, but received: {kwargs}")
 
     @staticmethod
     def check_response_body_containing_entitytypeinfo_element(kwargs: list) -> str:
-        return 'Response Body containing an Entity Type Info'
+        if 'expectation_filename' in kwargs and 'response_body' in kwargs:
+            return (f"Response body containing an Entity Type Info "
+                    f"with expectation body set to file '{kwargs['expectation_filename']}' "
+                    f"and response body to be checked set to '{kwargs['response_body']}'")
+        else:
+            raise Exception(f"ERROR, expected filename and response attributes, but received: {kwargs}")
 
     @staticmethod
     def check_response_body_containing_attributelist_element(kwargs: list) -> str:
@@ -498,7 +614,10 @@ class Checks:
 
     @staticmethod
     def check_response_body_containing_attribute_element(kwargs: list) -> str:
-        return 'Response Body containing an array of Attributes'
+        if 'expectation_filename' in kwargs and 'response_body' in kwargs:
+            return (f"Response body containing an array of attributes"
+                    f"\n    * with the expected payload defined in the file '{kwargs['expectation_filename']}'"
+                    f"\n    * and response body set to '{kwargs['response_body']}'")
 
     @staticmethod
     def check_response_body_containing_list_containing_context_source_registrations_elements(kwargs: list) -> str:
@@ -574,7 +693,55 @@ class Checks:
 
     @staticmethod
     def check_created_resource_set_to(kwargs: list) -> str:
-            return "Created Entity set to ${entity}"
+        expected_parameters = ['created_resource', 'response_body', 'ignored_keys']
+
+        if 'ignored_keys' not in kwargs:
+            kwargs['ignored_keys'] = '${None}'
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Check Created Resource Set To"
+        for key, value in kwargs.items():
+            match key:
+                case 'created_resource':
+                    response = f"{response} and\n    Query Parameter: '{key}' set to '{value}'"
+                case 'response_body':
+                    response = f"{response} and\n    Query Parameter: '{key}' set to '{value}'"
+                case 'ignored_keys':
+                    response = f"{response} and\n    Query Parameter: '{key}' set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case 'checks':
+                    pass
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
+    def check_created_resources_set_to(kwargs: list) -> str:
+        expected_parameters = ['expected_resources', 'response_body', 'ignored_keys']
+
+        if 'ignored_keys' not in kwargs:
+            kwargs['ignored_keys'] = '${None}'
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Check Created Resource Set To"
+        for key, value in kwargs.items():
+            match key:
+                case 'expected_resources':
+                    response = f"{response} and\n    Query Parameter: '{key}' set to '{value}'"
+                case 'response_body':
+                    response = f"{response} and\n    Query Parameter: '{key}' set to '{value}'"
+                case 'ignored_keys':
+                    response = f"{response} and\n    Query Parameter: '{key}' set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case 'checks':
+                    pass
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
 
     @staticmethod
     def check_updated_resource_set_to(kwargs: list) -> str:
@@ -615,7 +782,7 @@ class Checks:
     @staticmethod
     def check_response_body_containing_batch_operation_result(kwargs: list) -> str:
         if "operation" in kwargs:
-            return f"Response Status Code set to '{kwargs['operation']}'"
+            return f"Response body containing batch operation result set to '{kwargs['operation']}'"
         else:
             raise Exception(f'ERROR, Expected operation parameter but received: {kwargs}')
 

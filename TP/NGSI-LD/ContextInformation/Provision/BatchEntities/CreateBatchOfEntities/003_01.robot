@@ -38,18 +38,23 @@ Batch Create Entity Scenarios
     ${first_entity}=    Load Entity    ${filename}    ${first_entity_id}
     ${second_entity}=    Load Entity    ${filename}    ${second_entity_id}
     @{entities_to_be_created}=    Create List    ${first_entity}    ${second_entity}
-    ${response}=    Batch Create Entities    @{entities_to_be_created}
+    ${response}=    Batch Create Entities
+    ...    @{entities_to_be_created}
+
     @{expected_entities_ids}=    Create List    ${first_entity_id}    ${second_entity_id}
     Set Test Variable    @{expected_entities_ids}
     ${entities_to_be_queried}=    Catenate    SEPARATOR=,    ${first_entity_id}    ${second_entity_id}
     Check Response Status Code    201    ${response.status_code}
     Check Response Body Containing Array Of URIs set to    ${expected_entities_ids}    ${response.json()}
-    ${response}=    Query Entities
+
+    ${response1}=    Query Entities
     ...    entity_ids=${entities_to_be_queried}
     ...    entity_types=Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    Check Created Resources Set To    ${entities_to_be_created}    ${response.json()}
+    Check Created Resources Set To
+    ...    expected_resources=${entities_to_be_created}
+    ...    response_body=${response1.json()}
 
 Delete Initial Entities
     Batch Delete Entities    entities_ids_to_be_deleted=@{expected_entities_ids}

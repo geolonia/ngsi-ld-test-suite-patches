@@ -23,7 +23,7 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list containing Entity elements, containing a list of entity types to be retrieved and\n        Response Status Code set to 200\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities Via POST with Response Status Code set to 200     and\n        Query Entities Via POST with Response body containing a list containing entity elements with different types and\n            Query Parameter: filename set to 'expectation_filename' and\n            Query Parameter: entities_representation_ids set to 'entities_ids_to_be_compared' and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: ignore_core_context_version set to 'True'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/query'\n        method set to 'POST'\n        Get Entities Via POST Request: and\n    Query Parameter: entity_types set to 'https://ngsi-ld-test-suite/context#Vehicle' and\n    Query Parameter: accept set to 'application/ld+json' and\n    Query Parameter: content_type set to 'application/json'\n}",
       "http_verb": "POST",
       "endpoint": "entityOperations/query"

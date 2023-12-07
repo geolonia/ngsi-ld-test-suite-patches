@@ -30,29 +30,29 @@ ${attributeId}=             speed
     ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
 
-    ${response}=    Retrieve Temporal Representation Of Entity
+    ${response1}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    ${instanceId_before_update}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
+    ${instanceId_before_update}=    Set Variable    ${response1.json()['speed'][0]['instanceId']}
 
-    ${response}=    Modify Attribute Instance From Temporal Entity
+    ${response2}=    Modify Attribute Instance From Temporal Entity
     ...    ${temporal_entity_representation_id}
     ...    ${attributeId}
     ...    ${instanceId_before_update}
     ...    ${fragment_filename}
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
-    Check Response Status Code    204    ${response.status_code}
+    Check Response Status Code    204    ${response2.status_code}
 
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}
-    ${response}=    Retrieve Temporal Representation Of Entity
+    ${response3}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    ${instanceId_after_update}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
+    ${instanceId_after_update}=    Set Variable    ${response3.json()['speed'][0]['instanceId']}
 
     Should Be Equal As Strings    ${instanceId_before_update}    ${instanceId_after_update}
 
@@ -62,7 +62,7 @@ ${attributeId}=             speed
     ${ignored_attributes}=    Create List    instanceId    @context    modifiedAt
     Check Updated Resource Set To
     ...    ${temporal_entity_expectation_payload}
-    ...    ${response.json()}
+    ...    ${response3.json()}
     ...    ${ignored_attributes}
 
 

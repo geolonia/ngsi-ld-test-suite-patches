@@ -20,7 +20,7 @@
       "setup": null,
       "teardown": null,
       "template": "Create Context Source With Invalid Content",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Location containing ${registration_id} and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Context Source Registration With Return with Response Status Code set to 400     and\n        Create Context Source Registration With Return with Response Header: Location containing $${registration_id}\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: '${updated_payload}'\n}",
       "http_verb": "POST",
       "endpoint": "csourceRegistrations"
@@ -36,7 +36,7 @@
       "setup": null,
       "teardown": null,
       "template": "Create Context Source With Invalid Content",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Location containing ${registration_id} and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Context Source Registration With Return with Response Status Code set to 400     and\n        Create Context Source Registration With Return with Response Header: Location containing $${registration_id}\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: '${updated_payload}'\n}",
       "http_verb": "POST",
       "endpoint": "csourceRegistrations"

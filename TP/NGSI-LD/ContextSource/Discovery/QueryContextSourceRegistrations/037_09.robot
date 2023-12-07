@@ -41,7 +41,7 @@ Query Context Source Registration Matching Temporal Query
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${payload_file_path}
     ...    ${context_source_registration_id}
-    ${response}=    Create Context Source Registration    ${context_source_registration_payload}
+    ${create_response}=    Create Context Source Registration    ${context_source_registration_payload}
     Set Suite Variable    ${context_source_registration_id}
     ${response}=    Query Context Source Registrations
     ...    context=${ngsild_test_suite_context}

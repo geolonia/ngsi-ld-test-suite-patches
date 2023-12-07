@@ -24,7 +24,7 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        After waiting '10' seconds and\n        Notification data: '${notification_info}[0][status]' equal to 'ok' and\n        The dictionary `${notification_info}[0]' should contain the key 'status' and\n        The dictionary `${notification_info}[0]' should contain the key 'lastNotification' and\n        The dictionary `${notification_info}[0]' should contain the key 'lastSuccess'\n}",
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        Notification received After waiting '10' seconds     and\n        Notification received Notification data: '${notification_info}[0][status]' equal to 'ok'     and\n        Notification received The dictionary `${notification_info}[0]' should contain the key 'status'     and\n        Notification received The dictionary `${notification_info}[0]' should contain the key 'lastNotification'     and\n        Notification received The dictionary `${notification_info}[0]' should contain the key 'lastSuccess'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Subscription Retrieve with the following data: and\n    Query Parameter: id set to '${subscription_id}' and\n    Query Parameter: accept set to 'application/ld+json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
       "http_verb": "GET",
       "endpoint": "subscriptions/{id}"

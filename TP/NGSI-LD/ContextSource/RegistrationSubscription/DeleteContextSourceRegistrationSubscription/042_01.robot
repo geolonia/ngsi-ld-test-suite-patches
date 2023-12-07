@@ -19,10 +19,10 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
     [Tags]    csrsub-delete    5_11_6
     ${response}=    Delete Context Source Registration Subscription    ${subscription_id}
     Check Response Status Code    204    ${response.status_code}
-    ${response}=    Retrieve Context Source Registration Subscription
+    ${response1}=    Retrieve Context Source Registration Subscription
     ...    subscription_id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
-    Check SUT Not Containing Resource    ${response.status_code}
+    Check SUT Not Containing Resource    ${response1.status_code}
 
 
 *** Keywords ***

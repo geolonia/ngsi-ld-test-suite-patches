@@ -20,10 +20,10 @@
       "setup": "Initialize Setup",
       "teardown": "Delete Temporal Entity",
       "template": "Delete Attribute From A Temporal Entity",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
-      "http_verb": "GET",
-      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Attribute From Temporal Entity with Response Status Code set to 204     and\n        Retrieve Temporal Representation Of Entity with Updated Entity set to ${entity}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Attribute From Temporal Entity: and\n    Query Parameter: entityId set to '${temporal_entity_representation_id}' and\n    Query Parameter: attributeId set to 'fuelLevel' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: datasetId set to '${datasetid}' and\n    Query Parameter: deleteAll set to '${deleteall}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "temporal/entities/{entityId}/attrs/{attributeId}?${params_as_string}"
     },
     {
       "name": "015_01_02 Delete an attribute from a temporal representation of an entity with datasetId",
@@ -36,10 +36,10 @@
       "setup": "Initialize Setup",
       "teardown": "Delete Temporal Entity",
       "template": "Delete Attribute From A Temporal Entity",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
-      "http_verb": "GET",
-      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Attribute From Temporal Entity with Response Status Code set to 204     and\n        Retrieve Temporal Representation Of Entity with Updated Entity set to ${entity}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Attribute From Temporal Entity: and\n    Query Parameter: entityId set to '${temporal_entity_representation_id}' and\n    Query Parameter: attributeId set to 'fuelLevel' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: datasetId set to '${datasetid}' and\n    Query Parameter: deleteAll set to '${deleteall}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "temporal/entities/{entityId}/attrs/{attributeId}?${params_as_string}"
     },
     {
       "name": "015_01_03 Delete an attribute from a temporal representation of an entity with deleteAll",
@@ -52,10 +52,10 @@
       "setup": "Initialize Setup",
       "teardown": "Delete Temporal Entity",
       "template": "Delete Attribute From A Temporal Entity",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
-      "http_verb": "GET",
-      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Attribute From Temporal Entity with Response Status Code set to 204     and\n        Retrieve Temporal Representation Of Entity with Updated Entity set to ${entity}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Attribute From Temporal Entity: and\n    Query Parameter: entityId set to '${temporal_entity_representation_id}' and\n    Query Parameter: attributeId set to 'fuelLevel' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: datasetId set to '${datasetid}' and\n    Query Parameter: deleteAll set to '${deleteall}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "temporal/entities/{entityId}/attrs/{attributeId}?${params_as_string}"
     }
   ],
   "permutations": [],

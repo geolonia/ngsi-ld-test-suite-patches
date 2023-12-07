@@ -24,11 +24,11 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
     Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
     # Let's say if the subscription stills active after 10s it will be considered as perpetual, but this is not enough
     Sleep    10s
-    ${response}=    Retrieve Context Source Registration Subscription
+    ${response1}=    Retrieve Context Source Registration Subscription
     ...    subscription_id=${subscription_id}
     Check Response Body Containing an Attribute set to
     ...    expected_attribute_name=status
-    ...    response_body=${response.json()}
+    ...    response_body=${response1.json()}
     ...    expected_attribute_value=active
 
 

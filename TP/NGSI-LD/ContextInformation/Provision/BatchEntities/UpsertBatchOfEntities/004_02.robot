@@ -40,12 +40,12 @@ Batch Upsert Non-existing And Existing Entities Scenarios
     ...    ${first_existing_entity_id}
     ...    ${second_existing_entity_id}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{upserted_entities_ids}
-    ${response}=    Query Entities
+    ${response1}=    Query Entities
     ...    entity_ids=${expected_updated_entities_ids}
     ...    entity_types=Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    Check Updated Resources Set To    ${entities_to_be_upserted}    ${response.json()}
+    Check Updated Resources Set To    ${entities_to_be_upserted}    ${response1.json()}
 
 Setup Initial Entities
     [Arguments]    ${filename}

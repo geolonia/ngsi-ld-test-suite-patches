@@ -23,10 +23,10 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to '${expected_batch_operation_result}' and\n        Created resources set to ${entities} and\n        Response Status Code set to 207\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_ids set to '${expected_entities_ids}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
-      "http_verb": "GET",
-      "endpoint": "entities/"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Create Entities with Response Status Code set to 207     and\n        Batch Create Entities with Response body containing batch operation result set to '${expected_batch_operation_result}'     and\n        Query Entities with Check Created Resource Set To and\n            Query Parameter: 'ignored_keys' set to '${None}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/create'\n        method set to 'POST'\n        Request Header['Content-Type'] set to '' and\n payload set to a list of entities to be created\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/create"
     }
   ],
   "permutations": [],

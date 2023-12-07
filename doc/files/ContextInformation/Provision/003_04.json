@@ -17,13 +17,13 @@
         "6_3_5",
         "be-create"
       ],
-      "setup": "Create Initial Entities",
+      "setup": null,
       "teardown": "Delete Initial Entities",
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body containing an Attribute set to and\n    Query Parameter: expected_attribute_name set to 'almostFull' and\n    Query Parameter: response_body set to 'response.json()'\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
-      "http_verb": "GET",
-      "endpoint": "entities/{id}"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Create Entities with Response Status Code set to 201     and\n        Retrieve Entity by Id with Check Response Body containing an Attribute set to and\n            Query Parameter: expected_attribute_name set to 'almostFull' and\n            Query Parameter: response_body set to 'response1.json()'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/create'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/json' and\n payload set to a list of entities to be created\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/create"
     },
     {
       "name": "003_04_02 Create a batch of one entity using a provided Link header with JSON content type and retrieve the entity without context detail",
@@ -33,18 +33,17 @@
         "6_3_5",
         "be-create"
       ],
-      "setup": "Create Initial Entities",
+      "setup": null,
       "teardown": "Delete Initial Entities",
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body containing an Attribute set to and\n    Query Parameter: expected_attribute_name set to 'https://ngsi-ld-test-suite/context#almostFull' and\n    Query Parameter: response_body set to 'response.json()'\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}'\n}",
-      "http_verb": "GET",
-      "endpoint": "entities/{id}"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Create Entities with Response Status Code set to 201     and\n        Retrieve Entity by Id with Check Response Body containing an Attribute set to and\n            Query Parameter: expected_attribute_name set to 'https://ngsi-ld-test-suite/context#almostFull' and\n            Query Parameter: response_body set to 'response1.json()'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/create'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/json' and\n payload set to a list of entities to be created\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/create"
     }
   ],
   "permutations": [
-    "then",
-    "when"
+    "then"
   ],
   "robotpath": "ContextInformation/Provision/BatchEntities/CreateBatchOfEntities",
   "robotfile": "003_04"

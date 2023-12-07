@@ -21,11 +21,11 @@ ${status_code}=             404
     [Tags]    tea-append    5_6_12
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Suite Variable    ${temporal_entity_representation_id}
-    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
+    ${create_response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    filename=${filename}
     ...    content_type=${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
+    Check Response Status Code    201    ${create_response.status_code}
     ${not_found_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=    Append Attribute To Temporal Entity
     ...    ${not_found_temporal_entity_representation_id}

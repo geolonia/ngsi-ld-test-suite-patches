@@ -30,11 +30,11 @@ In order to install the ETSI NGSI-LD Test Suite, download the configuration scri
 
 - For MacOS and Ubuntu, download the following file:
 
-```$ curl https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/windows11/scripts/configure.sh > configure.sh```
+```$ curl https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/scripts/configure.sh > configure.sh```
 
 - For Windows, using Powershell download the following file (curl is an alias for Invoke-WebRequest in Powershell):
 
-```> curl https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/windows11/scripts/configure.ps1 > configure.ps1```
+```> curl https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/scripts/configure.ps1 > configure.ps1```
 
 - For MacOS and Ubuntu, be sure that you have the proper execution permissions of the file and the user is included 
 in the sudoers group, then execute the following script:
@@ -63,7 +63,7 @@ In the `resources/variables.py` file, configure the following parameters:
 
 - `url` : It is the url of the context broker which is to be tested (including the `/ngsi-ld/v1` path, 
 e.g., http://localhost:8080/ngsi-ld/v1).
--`temporal_api_url` : This is the url of the GET temporal operation API, in case that a Context Broker splits 
+- `temporal_api_url` : This is the url of the GET temporal operation API, in case that a Context Broker splits 
 this portion of the API (e.g., http://localhost:8080/ngsi-ld/v1).
 - `ngsild_test_suite_context` : This is the url of the default context used in the ETSI NGSI-LD requests 
 (e.g., 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld').
@@ -100,7 +100,7 @@ Now, you can launch the tests with the following command in MacOS or Linux:
 
 ```$ robot --outputdir ./results .```  
 
-For Windows system, you can lauch the tests with the following command:
+For Windows system, you can launch the tests with the following command:
 
 ```> robot --outputdir .\results .\TP\NGSI-LD```
 
@@ -146,8 +146,8 @@ Robot Framework. Our recommendations are:
 
 - Install [Robot Framework Language Server](https://plugins.jetbrains.com/plugin/16086-robot-framework-language-server)
 
-- Define as variable the path of the working directory. In Settings > Languages & Frameworks > Robot Framework (Project), 
-insert the following: `{"EXECDIR": "{path}/auth-test-suite"}`
+- Define as variable the path of the working directory. In Settings > Languages & Frameworks > Robot Framework 
+(Project), insert the following: `{"EXECDIR": "{path}/auth-test-suite"}`.
 
 
 ### Run configurations (PyCharm)

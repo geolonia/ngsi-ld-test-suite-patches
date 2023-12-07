@@ -20,7 +20,7 @@
       "setup": "Create Id",
       "teardown": "Delete Intitial Temporal Representation Of Entity",
       "template": "Delete An Attribute Instance",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 404\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Delete Attribute Instance From Temporal Entity with Response Status Code set to 404\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}'\n        method set to 'DELETE'\n        Delete Attribute Instance from Temporal Entity: and\n    Query Parameter: temporal_entity_id set to '${unknown_temporal_entity_id}' and\n    Query Parameter: attributeId set to '${attributeId}' and\n    Query Parameter: instanceId set to '${instanceId}' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
       "http_verb": "DELETE",
       "endpoint": "temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}"
@@ -36,7 +36,7 @@
       "setup": "Create Id",
       "teardown": "Delete Intitial Temporal Representation Of Entity",
       "template": "Delete An Attribute Instance",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 404\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Delete Attribute Instance From Temporal Entity with Response Status Code set to 404\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}'\n        method set to 'DELETE'\n        Delete Attribute Instance from Temporal Entity: and\n    Query Parameter: temporal_entity_id set to '${temporal_entity_representation_id}' and\n    Query Parameter: attributeId set to '${attributeId}' and\n    Query Parameter: instanceId set to '${instanceId}' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
       "http_verb": "DELETE",
       "endpoint": "temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}"
@@ -52,7 +52,7 @@
       "setup": "Create Id",
       "teardown": "Delete Intitial Temporal Representation Of Entity",
       "template": "Delete An Attribute Instance",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to 404\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Delete Attribute Instance From Temporal Entity with Response Status Code set to 404\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}'\n        method set to 'DELETE'\n        Delete Attribute Instance from Temporal Entity: and\n    Query Parameter: temporal_entity_id set to '${temporal_entity_representation_id}' and\n    Query Parameter: attributeId set to '${attributeId}' and\n    Query Parameter: instanceId set to '${instanceId}' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
       "http_verb": "DELETE",
       "endpoint": "temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}"

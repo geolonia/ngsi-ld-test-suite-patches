@@ -28,7 +28,7 @@ ${notification_expectation_file_path}=                  notifications/expectatio
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}
     Set Suite Variable    ${context_source_registration_id}
-    ${response}=    Create Context Source Registration    ${context_source_registration_payload}
+    ${create_response}=    Create Context Source Registration    ${context_source_registration_payload}
     Wait for no notification
     ${response}=    Retrieve Context Source Registration Subscription
     ...    subscription_id=${subscription_id}

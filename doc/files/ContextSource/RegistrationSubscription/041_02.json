@@ -20,7 +20,7 @@
       "setup": "Setup Initial Context Source Registration Subscriptions",
       "teardown": "Delete Created Context Source Registration Subscriptions",
       "template": "Query Context Source Registration Subscriptions With Limit Parameter",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list of entities equal to '${1}' of type 'Subscription' with response set to '${response.json()}' and\n        Response Status Code set to 200\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Context Source Registration Subscriptions with Response Status Code set to 200     and\n        Query Context Source Registration Subscriptions with Response Body containing a list of entities equal to '${1}' of type 'Subscription' with response set to '${response.json()}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'GET'\n        Query Context Source Registration Subscriptions and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: limit set to '${1}'\n}",
       "http_verb": "GET",
       "endpoint": "csourceSubscriptions"
@@ -36,7 +36,7 @@
       "setup": "Setup Initial Context Source Registration Subscriptions",
       "teardown": "Delete Created Context Source Registration Subscriptions",
       "template": "Query Context Source Registration Subscriptions With Limit Parameter",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list of entities equal to '${2}' of type 'Subscription' with response set to '${response.json()}' and\n        Response Status Code set to 200\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Context Source Registration Subscriptions with Response Status Code set to 200     and\n        Query Context Source Registration Subscriptions with Response Body containing a list of entities equal to '${2}' of type 'Subscription' with response set to '${response.json()}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'GET'\n        Query Context Source Registration Subscriptions and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: limit set to '${2}'\n}",
       "http_verb": "GET",
       "endpoint": "csourceSubscriptions"
@@ -52,15 +52,15 @@
       "setup": "Setup Initial Context Source Registration Subscriptions",
       "teardown": "Delete Created Context Source Registration Subscriptions",
       "template": "Query Context Source Registration Subscriptions With Limit Parameter",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing a list of entities equal to '${3}' of type 'Subscription' with response set to '${response.json()}' and\n        Response Status Code set to 200\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Context Source Registration Subscriptions with Response Status Code set to 200     and\n        Query Context Source Registration Subscriptions with Response Body containing a list of entities equal to '${3}' of type 'Subscription' with response set to '${response.json()}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'GET'\n        Query Context Source Registration Subscriptions and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: limit set to '${15}'\n}",
       "http_verb": "GET",
       "endpoint": "csourceSubscriptions"
     }
   ],
   "permutations": [
-    "then",
-    "when"
+    "when",
+    "then"
   ],
   "robotpath": "ContextSource/RegistrationSubscription/QueryContextSourceRegistrationSubscriptions",
   "robotfile": "041_02"

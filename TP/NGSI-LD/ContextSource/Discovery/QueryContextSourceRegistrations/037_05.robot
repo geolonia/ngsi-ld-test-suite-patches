@@ -31,7 +31,7 @@ Query Context Source Registration Matching EntityInfo of RegistrationInfo
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${registration_file_path}
     ...    ${context_source_registration_id}
-    ${response}=    Create Context Source Registration    ${context_source_registration_payload}
+    ${create_response}=    Create Context Source Registration    ${context_source_registration_payload}
     Set Suite Variable    ${context_source_registration_id}
     ${response}=    Query Context Source Registrations
     ...    context=${ngsild_test_suite_context}

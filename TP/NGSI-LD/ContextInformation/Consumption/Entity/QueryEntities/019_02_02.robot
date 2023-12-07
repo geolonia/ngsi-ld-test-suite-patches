@@ -30,9 +30,9 @@ ${vehicle_entity_type}=     https://ngsi-ld-test-suite/context#Vehicle
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Entity Elements With Different Types
-    ...    ${expectation_filename}
-    ...    ${entities_ids_to_be_compared}
-    ...    ${response.json()}
+    ...    filename=${expectation_filename}
+    ...    entities_representation_ids=${entities_ids_to_be_compared}
+    ...    response_body=${response.json()}
     ...    ignore_core_context_version=True
 
 

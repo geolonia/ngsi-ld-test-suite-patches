@@ -32,22 +32,25 @@ Update Attributes
     [Arguments]
     ...    ${status_code}
     ...    ${fragment_filename}
-    ...    ${expectation_response_filename}
+    ...    ${expectation_resp_filename}
     ...    ${expectation_filename}
-    ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Update Entity Attributes
+    ...    ${entity_id}
+    ...    ${fragment_filename}
+    ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
-    IF    "${expectation_response_filename}"!="${EMPTY}"
+    IF    "${expectation_resp_filename}"!="${EMPTY}"
         Check Response Body Content
-        ...    expectation_filename=${expectation_response_filename}
+        ...    expectation_filename=${expectation_resp_filename}
         ...    response_body=${response.json()}
     END
     ${entity_expectation_payload}=    Load Test Sample    entities/${expectation_filename}    ${entity_id}
-    ${response}=    Retrieve Entity by Id
+    ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    @context
-    Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}    ${ignored_attributes}
+    Check Updated Resource Set To    ${entity_expectation_payload}    ${response1.json()}    ${ignored_attributes}
 
 Delete Initial Entities
     Delete Entity by Id    ${entity_id}

@@ -27,13 +27,13 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Retrieve Context Source Registration
+    ${response1}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${registration_id}
     ...    context=${ngsild_test_suite_context}
     Check JSON Value In Response Body
     ...    ['information'][0]['entities'][0]['type']
     ...    Building
-    ...    ${response.json()}
+    ...    ${response1.json()}
 
 033_04_02 Create one context source registration using a provided Link header with JSON content type without Context
     [Documentation]    Check that the @context is obtained from a Link Header if the Content-Type header is "application/json"
@@ -47,12 +47,12 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Retrieve Context Source Registration
+    ${response1}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${registration_id}
     Check JSON Value In Response Body
     ...    ['information'][0]['entities'][0]['type']
     ...    https://ngsi-ld-test-suite/context#Building
-    ...    ${response.json()}
+    ...    ${response1.json()}
 
 
 *** Keywords ***

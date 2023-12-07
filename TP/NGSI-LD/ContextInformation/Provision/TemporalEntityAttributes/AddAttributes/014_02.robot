@@ -28,11 +28,11 @@ Add Attribute To Temporal Entity
     [Tags]    tea-append    5_6_12
     [Arguments]    ${id}
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
+    ${create_response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    filename=${filename}
     ...    content_type=${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
+    Check Response Status Code    201    ${create_response.status_code}
     ${response}=    Append Attribute To Temporal Entity    ${id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
     [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

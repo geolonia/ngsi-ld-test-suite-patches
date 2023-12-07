@@ -20,7 +20,7 @@
       "setup": null,
       "teardown": null,
       "template": "Batch Upsert Entity With Invalid Request Scenarios",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Request Entities From File with Response Status Code set to 400     and\n        Batch Request Entities From File with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'     and\n        Batch Request Entities From File with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/upsert'\n        method set to 'POST'\n        Batch Entity Delete Request with operation set to 'upsert', Content-Type set to 'application/ld+json', and body set to 'batch/invalid-json-sample.jsonld\n}",
       "http_verb": "POST",
       "endpoint": "entityOperations/upsert"
@@ -36,7 +36,7 @@
       "setup": null,
       "teardown": null,
       "template": "Batch Upsert Entity With Invalid Request Scenarios",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Request Entities From File with Response Status Code set to 400     and\n        Batch Request Entities From File with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Batch Request Entities From File with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/upsert'\n        method set to 'POST'\n        Batch Entity Delete Request with operation set to 'upsert', Content-Type set to 'application/ld+json', and body set to 'batch/invalid-json-ld-sample.jsonld\n}",
       "http_verb": "POST",
       "endpoint": "entityOperations/upsert"

@@ -26,7 +26,7 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
     [Tags]    sub-notification    5_8_6    046_04
     ${response}=    Setup Initial Subscriptions
 
-    ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response1}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}    ${headers}=    Wait for notification    ${5}
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]

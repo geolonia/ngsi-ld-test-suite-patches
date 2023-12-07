@@ -47,12 +47,12 @@ Batch Upsert Entities With Update Option Scenarios
     ${old_updated_entity}=    Upsert Element In Entity    ${old_entity}    ${update_fragment}
     @{updated_entities}=    Create List    ${new_entity}    ${old_updated_entity}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{entities_ids_to_be_upserted}
-    ${response}=    Query Entities
+    ${response1}=    Query Entities
     ...    entity_ids=${expected_updated_entities_ids}
     ...    entity_types=Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    Check Updated Resources Set To    ${updated_entities}    ${response.json()}
+    Check Updated Resources Set To    ${updated_entities}    ${response1.json()}
 
 Setup Initial Entities
     ${existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

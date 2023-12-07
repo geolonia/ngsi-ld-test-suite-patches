@@ -20,10 +20,10 @@
       "setup": "Setup Initial Entities",
       "teardown": "Delete Initial Entities",
       "template": "Batch Update Entity Scenarios",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entities set to '${updated_entities}' valid entities and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_ids set to '${expected_entities_ids}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
-      "http_verb": "GET",
-      "endpoint": "entities/"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Update Entities with Response Status Code set to 204     and\n        Query Entities with Updated Entities set to '${updated_entities}' valid entities\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/update?${params_as_string}'\n        method set to 'POST'\n        Request batch update operation over entity from filename '@{entities_to_be_updated}' with overwrite_option set to '${EMPTY}' and Content-Type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/update?${params_as_string}"
     },
     {
       "name": "005_01_02 EntityWithSimpleRelationships",
@@ -36,10 +36,10 @@
       "setup": "Setup Initial Entities",
       "teardown": "Delete Initial Entities",
       "template": "Batch Update Entity Scenarios",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entities set to '${updated_entities}' valid entities and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_ids set to '${expected_entities_ids}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
-      "http_verb": "GET",
-      "endpoint": "entities/"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Update Entities with Response Status Code set to 204     and\n        Query Entities with Updated Entities set to '${updated_entities}' valid entities\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/update?${params_as_string}'\n        method set to 'POST'\n        Request batch update operation over entity from filename '@{entities_to_be_updated}' with overwrite_option set to '${EMPTY}' and Content-Type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/update?${params_as_string}"
     },
     {
       "name": "005_01_03 EntityWithRelationshipsProperties",
@@ -52,10 +52,10 @@
       "setup": "Setup Initial Entities",
       "teardown": "Delete Initial Entities",
       "template": "Batch Update Entity Scenarios",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entities set to '${updated_entities}' valid entities and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_ids set to '${expected_entities_ids}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
-      "http_verb": "GET",
-      "endpoint": "entities/"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Update Entities with Response Status Code set to 204     and\n        Query Entities with Updated Entities set to '${updated_entities}' valid entities\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/update?${params_as_string}'\n        method set to 'POST'\n        Request batch update operation over entity from filename '@{entities_to_be_updated}' with overwrite_option set to '${EMPTY}' and Content-Type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/update?${params_as_string}"
     }
   ],
   "permutations": [],

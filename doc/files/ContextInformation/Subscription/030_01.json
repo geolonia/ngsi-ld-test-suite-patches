@@ -20,7 +20,7 @@
       "setup": null,
       "teardown": null,
       "template": "Retrieve Subscription With Invalid Id",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Subscription with Response Status Code set to 400     and\n        Retrieve Subscription with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Retrieve Subscription with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Subscription Retrieve with the following data: and\n    Query Parameter: id set to 'InvalidUri'\n}",
       "http_verb": "GET",
       "endpoint": "subscriptions/{id}"

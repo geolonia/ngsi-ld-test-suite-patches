@@ -23,7 +23,7 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the client at '${endpoint}' receives a valid Notification, Waiting for Notification and validate it and\n    Query Parameter: expected_subscription_id set to 'subscription_id' and\n    Query Parameter: expected_context_source_registration_ids set to 'expected_context_source_registration_ids' and\n    Query Parameter: expected_trigger_reason set to 'noLongerMatching' and\n    Query Parameter: expected_notification_data_entities set to '${EMPTY}' and\n    Query Parameter: timeout set to '5'\n}",
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        Notification received Waiting for Notification and validate it and\n    Query Parameter: expected_subscription_id set to 'subscription_id' and\n    Query Parameter: expected_context_source_registration_ids set to 'expected_context_source_registration_ids' and\n    Query Parameter: expected_trigger_reason set to 'noLongerMatching' and\n    Query Parameter: expected_notification_data_entities set to '${EMPTY}' and\n    Query Parameter: timeout set to '5'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with CSR Id set to '${context_source_registration_id}' and subscription update fragment set to '${update_fragment}'\n}",
       "http_verb": "PATCH",
       "endpoint": "csourceRegistrations/{context_source_registration_id}"

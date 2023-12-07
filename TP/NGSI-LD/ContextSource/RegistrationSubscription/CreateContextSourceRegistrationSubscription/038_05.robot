@@ -26,11 +26,11 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-expire
     Check Response Status Code    201    ${response.status_code}
     Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
     Sleep    15s
-    ${response}=    Retrieve Context Source Registration Subscription
+    ${response1}=    Retrieve Context Source Registration Subscription
     ...    subscription_id=${subscription_id}
     Check Response Body Containing an Attribute set to
     ...    expected_attribute_name=status
-    ...    response_body=${response.json()}
+    ...    response_body=${response1.json()}
     ...    expected_attribute_value=expired
 
 

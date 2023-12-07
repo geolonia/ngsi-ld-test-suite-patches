@@ -85,7 +85,9 @@ Create Subscription From Subscription Payload
 
 Delete Subscription
     [Arguments]    ${subscription_id}
-    ${response}=    DELETE    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}    expected_status=any
+    ${response}=    DELETE
+    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
+    ...    expected_status=any
     Output    ${response}    Delete Subscription
     RETURN    ${response}
 
@@ -126,7 +128,10 @@ Retrieve Subscription
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
 
-    ${response}=    GET    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${id}    headers=${headers}    expected_status=any
+    ${response}=    GET
+    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${id}
+    ...    headers=${headers}
+    ...    expected_status=any
     Output    ${response}    Retrieve Subscription
     RETURN    ${response}
 

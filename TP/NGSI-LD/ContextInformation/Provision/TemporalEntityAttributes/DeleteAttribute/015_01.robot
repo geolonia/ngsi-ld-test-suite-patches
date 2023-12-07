@@ -43,14 +43,14 @@ Delete Attribute From A Temporal Entity
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}
-    ${response}=    Retrieve Temporal Representation Of Entity
+    ${response1}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    instanceId    @context
     Check Updated Resource Set To
     ...    ${temporal_entity_expectation_payload}
-    ...    ${response.json()}
+    ...    ${response1.json()}
     ...    ${ignored_attributes}
 
 Initialize Setup

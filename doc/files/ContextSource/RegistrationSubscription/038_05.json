@@ -23,10 +23,10 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Header: Location containing ${registration_id} and\n        Check Response Body containing an Attribute set to and\n    Query Parameter: expected_attribute_name set to 'status' and\n    Query Parameter: response_body set to 'response.json()' and\n    Query Parameter: expected_attribute_value set to 'expired' and\n        Response Status Code set to 201\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration Subscription with data: and\n    Query Parameter: subscription id set to '${subscription_id}'\n}",
-      "http_verb": "GET",
-      "endpoint": "csourceSubscriptions/{subscription_id}"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Context Source Registration Subscription with Response Status Code set to 201     and\n        Create Context Source Registration Subscription with Response Header: Location containing $${subscription_id}     and\n        Retrieve Context Source Registration Subscription with Check Response Body containing an Attribute set to and\n            Query Parameter: expected_attribute_name set to 'status' and\n            Query Parameter: response_body set to 'response1.json()' and\n            Query Parameter: expected_attribute_value set to 'expired'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'POST'\n        Create Context Source Registration Subscription with filename set to '${subscription_payload}', accept set to '${EMPTY}', and content-type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceSubscriptions"
     }
   ],
   "permutations": [],

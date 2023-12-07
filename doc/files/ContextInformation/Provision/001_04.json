@@ -20,10 +20,10 @@
       "setup": null,
       "teardown": "Delete Initial Entity",
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body containing an Attribute set to and\n    Query Parameter: expected_attribute_name set to 'almostFull' and\n    Query Parameter: response_body set to 'response.json()'\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
-      "http_verb": "GET",
-      "endpoint": "entities/{id}"
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Retrieve Entity by Id with Check Response Body containing an Attribute set to and\n            Query Parameter: expected_attribute_name set to 'almostFull' and\n            Query Parameter: response_body set to 'response1.json()'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/json' and\n payload defined in file: 'building-simple-attributes-sample.json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entities/"
     },
     {
       "name": "001_04_02 Create one entity using a provided Link header with JSON content type and no context",
@@ -36,14 +36,13 @@
       "setup": null,
       "teardown": "Delete Initial Entity",
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Check Response Body containing an Attribute set to and\n    Query Parameter: expected_attribute_name set to 'https://ngsi-ld-test-suite/context#almostFull' and\n    Query Parameter: response_body set to 'response.json()'\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}'\n}",
-      "http_verb": "GET",
-      "endpoint": "entities/{id}"
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Retrieve Entity by Id with Check Response Body containing an Attribute set to and\n            Query Parameter: expected_attribute_name set to 'https://ngsi-ld-test-suite/context#almostFull' and\n            Query Parameter: response_body set to 'response1.json()'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/json' and\n payload defined in file: 'building-simple-attributes-sample.json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entities/"
     }
   ],
   "permutations": [
-    "when",
     "then"
   ],
   "robotpath": "ContextInformation/Provision/Entities/CreateEntity",

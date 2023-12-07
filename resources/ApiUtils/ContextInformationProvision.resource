@@ -204,7 +204,9 @@ Delete Entity Attributes
 
 Delete Entity by Id
     [Arguments]    ${id}
-    ${response}=    DELETE    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}    expected_status=any
+    ${response}=    DELETE
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}
+    ...    expected_status=any
     Output    ${response}    Delete Entity by Id
     RETURN    ${response}
 

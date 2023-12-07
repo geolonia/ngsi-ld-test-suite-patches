@@ -23,10 +23,10 @@
       "setup": null,
       "teardown": null,
       "template": "Do Not Receive cSourceNotification If Subscription Status Is Not Active",
-      "then": "then {\n    the SUT will not send a CsourceNotification after 5 seconds}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'POST'\n        Create Context Source Registration Request with Content-Type set to 'application/ld+json' and payload set to '${context_source_registration_payload}'\n}",
-      "http_verb": "POST",
-      "endpoint": "csourceRegistrations"
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        Notification received Waiting for no Notification data and\n    Query Parameter: timeout set to '5'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Update Context Source Registration Subscription with subscription id set to '${subscription_id}' and subscription update fragment set to '${subscription_update_fragment}'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "csourceSubscriptions/{subscription_id}"
     },
     {
       "name": "047_07_02 ExpiredSubscription",
@@ -39,10 +39,10 @@
       "setup": null,
       "teardown": null,
       "template": "Do Not Receive cSourceNotification If Subscription Status Is Not Active",
-      "then": "then {\n    the SUT will not send a CsourceNotification after 5 seconds}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'POST'\n        Create Context Source Registration Request with Content-Type set to 'application/ld+json' and payload set to '${context_source_registration_payload}'\n}",
-      "http_verb": "POST",
-      "endpoint": "csourceRegistrations"
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        Notification received Waiting for no Notification data and\n    Query Parameter: timeout set to '5'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Update Context Source Registration Subscription with subscription id set to '${subscription_id}' and subscription update fragment set to '${subscription_update_fragment}'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "csourceSubscriptions/{subscription_id}"
     }
   ],
   "permutations": [],

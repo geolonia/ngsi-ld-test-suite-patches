@@ -205,13 +205,45 @@ class ParseRobotFile:
         param = dict()
         lines_starting_with_check = self.get_lines_with_checks(content=test_content)
         for line in lines_starting_with_check:
-            check, param = self.get_data_check(test_case=test_content, checks=data, line=line)
+            check, param, attributes = self.get_data_check(test_case=test_content, checks=data, line=line)
+            operation = self.get_operation_of_the_check(test_content=test_content, param=attributes)
             result = data.get_checks(checks=check, **param)
-            checks.append(result)
+
+            content = {
+                'operation': operation,
+                'checks': result
+            }
+
+            checks.append(content)
 
         result = self.generate_then_content(content=checks)
 
         return result
+
+    def get_operation_of_the_check(self, test_content: str, param: dict) -> str:
+        if param == 'Notification':
+            operation = param
+        else:
+            values = [x for x in param if x.find('${') != -1]
+            values = [f"{x.split('.')[0]}}}" if x.find(".") != -1 else x for x in values]
+
+            values = [x for x in values if x.find('response') != -1]
+
+            if len(values) != 0:
+                # We need to find the operation of the response
+                index = [test_content.find(x) for x in values]
+                index = [x for x in index if x != -1][0]
+
+                substring = test_content[index:]
+                end_line = substring.find('\n')
+                substring = substring[0:end_line]
+
+                operation = substring.split('    ')[1]
+            else:
+                # We have a notification operation
+                operation = 'Notification'
+
+        return operation
 
     def get_lines_with_checks(self, content):
         new_list = list()
@@ -220,14 +252,15 @@ class ParseRobotFile:
         lines_starting_with_check = re.findall(r'^\s*Check.*', content, re.MULTILINE)
 
         if len(lines_starting_with_check) != 0:
-            # TODO: From the list of Checks, we need to discard all 'Check Response Status Code' except the last one. Should be respolve when clearly defined the Setup process of the Test Suite
-            check_string = 'Check Response Status Code'
-            lines_starting_with_check = [x.strip() for x in lines_starting_with_check]
-            new_list = [value for value in lines_starting_with_check if not value.startswith(check_string)]
-            abb_values = [value for value in lines_starting_with_check if value.startswith(check_string)]
+            # TODO: From the list of Checks, we need to discard all 'Check Response Status Code' except the last one. Should be resolve when clearly defined the Setup process of the Test Suite
+            # check_string = 'Check Response Status Code'
+            # lines_starting_with_check = [x.strip() for x in lines_starting_with_check]
+            # new_list = [value for value in lines_starting_with_check if not value.startswith(check_string)]
+            # abb_values = [value for value in lines_starting_with_check if value.startswith(check_string)]
 
-            if abb_values:
-                new_list.append(abb_values[-1])
+            # if abb_values:
+            #    new_list.append(abb_values[-1])
+            new_list = [x.strip() for x in lines_starting_with_check]
         elif content.find('Wait for notification') != 0:
             # There is no Check, we need to check if there is a 'Wait for notification',
             # then we need to check the 'Should be Equal' sentences
@@ -284,33 +317,43 @@ class ParseRobotFile:
 
     def generate_then_content(self, content):
         # Need to check if it is a Notification data or a normal Response
-        aux = [x for x in content if x.find('Notification data') != -1 or x.find('After waiting') != -1 or x.find('Notification and validate') != -1]
+        aux = [x for x in content if x['checks'].find('Notification data') != -1 or x['checks'].find('After waiting') != -1 or x['checks'].find('Notification and validate') != -1]
 
         if len(aux) == 0:
             # The SUT sends a valid Response
+            checks = [f"{x['operation']} with {x['checks']}" for x in content]
+            checks = [x.replace("    ", "            ") for x in checks]
             if len(content) > 1:
-                checks = " and\n        ".join(content)
-                checks = f"then {{\n    the SUT sends a valid Response containing:\n        {checks}\n}}"
+                checks = "     and\n        ".join(checks)
+                checks = f"then {{\n    the SUT sends a valid Response for the operations:\n        {checks}\n}}"
             elif len(content) == 1:
-                checks = f"then {{\n    the SUT sends a valid Response containing:\n        {content[0]}\n}}"
+                checks = f"then {{\n    the SUT sends a valid Response for the operation:\n        {checks[0]}\n}}"
             else:
                 raise Exception("ERROR, It is expected at least 1 Check operation in the Test Case")
         else:
             # The Client receives a valid Notification
-            if len(content) > 1:
-                checks = " and\n        ".join(content)
+            checks = [f"{x['operation']} received {x['checks']}" for x in content]
+            if len(checks) > 1:
+                checks = "     and\n        ".join(checks)
                 checks = (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification containing:\n"
                           f"        {checks}\n}}")
             elif len(content) == 1:
-                if content[0].find('Waiting for no Notification') != -1:
-                    # Waiting for no notification data
-                    match = re.match(pattern=r"[\W\w]+'(\d+)'", string=content[0])
-                    try:
-                        checks = f"then {{\n    the SUT will not send a CsourceNotification after {match.group(1)} seconds}}"
-                    except Exception:
-                        raise Exception(f"ERROR: unexpected timeout parameter: '{content[0]}'")
-                else:
-                    checks = (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification, {content[0]}\n}}")
+                checks = checks[0]
+                checks = (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification containing:\n"
+                          f"        {checks}\n}}")
+                # if content[0]['checks'].find('Waiting for no Notification') != -1:
+                #     # Waiting for no notification data
+                #     print("Error, need to control the generation of then message")
+                #     exit(-1)
+                #     match = re.match(pattern=r"[\W\w]+'(\d+)'", string=content[0])
+                #     try:
+                #         checks = f"then {{\n    the SUT will not send a CsourceNotification after {match.group(1)} seconds}}"
+                #     except Exception:
+                #         raise Exception(f"ERROR: unexpected timeout parameter: '{content[0]}'")
+                # else:
+                #     print("Error, need to control the generation of then message")
+                #     exit(-1)
+                #     checks = (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification, {content[0]}\n}}")
             else:
                 raise Exception("ERROR, It is expected at least 1 Notification Check operation in the Test Case")
 
@@ -341,18 +384,24 @@ class ParseRobotFile:
             position_params = checks.args[content[0]]
             if aux == 1:
                 # We are in multiline classification of the Check, need to extract the parameter for the next lines
-                params = self.find_attributes_next_line(test_case=test_case, name=content[0],
+                params, attributes = self.find_attributes_next_line(test_case=test_case, name=content[0],
                                                         position_params=position_params)
-                return content[0], params
+                return content[0], params, attributes
             elif aux > 1:
                 # We are in one line definition
                 params = self.find_attributes_same_line(params=position_params, content=content[1:])
-                return content[0], params
+
+                if content[0] == 'Wait for notification' or content[0] == 'Should be Equal':
+                    attributes = 'Notification'
+                else:
+                    attributes = content[1:]
+
+                return content[0], params, attributes
             else:
                 raise Exception("ERROR, line should contain data")
         except KeyError:
             # The Check operation does not require parameters
-            return content[0], dict()
+            return content[0], dict(), list()
 
     def find_attributes_same_line(self, params, content):
         result = dict()
@@ -415,15 +464,34 @@ class ParseRobotFile:
         aux = test_case[index_start+len(name)+1:].split('\n')
 
         params = list()
+        attributes = list()
         for a in range(0, len(aux)):
             param = aux[a]
-            if param.startswith("    ..."):
-                params.append(param.split('    ')[-1])
+            # if param.startswith("    ..."):
+            #     data = param.split('    ')[-1]
+            #     params.append(data)
+            #     if data.find('=') != -1:
+            #         data = data.split('=')[-1]
+            #
+            #     attributes.append(data)
+            # else:
+            #     break
+
+            regex = '(\s{4})*\s{4}\.{3}\s{4}(.*)'
+            data = re.match(pattern=regex, string=param)
+            if data:
+                data = data.groups()[-1]
+                params.append(data)
+
+                if data.find('=') != -1:
+                    data = data.split('=')[-1]
+
+                attributes.append(data)
             else:
                 break
 
         param = self.find_attributes_same_line(params=position_params, content=params)
-        return param
+        return param, attributes
 
     def get_param_value(self, position):
         try:

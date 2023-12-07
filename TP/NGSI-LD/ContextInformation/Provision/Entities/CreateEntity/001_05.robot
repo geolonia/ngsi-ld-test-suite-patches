@@ -21,11 +21,11 @@ ${filename}=                building-simple-attributes-sample.json
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type    ${filename}    ${entity_id}    ${CONTENT_TYPE_JSON}
-    ${response}=    Retrieve Entity by Id    id=${entity_id}
+    ${response1}=    Retrieve Entity by Id    id=${entity_id}
     # Attribute should be compacted as we used the same default context as provided when creating the entity
     Check Response Body Containing an Attribute set to
     ...    expected_attribute_name=almostFull
-    ...    response_body=${response.json()}
+    ...    response_body=${response1.json()}
 
 001_05_02 Create one entity using the default context with JSON content type and request with context
     [Documentation]    Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context, requesting with context
@@ -33,14 +33,14 @@ ${filename}=                building-simple-attributes-sample.json
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type    ${filename}    ${entity_id}    ${CONTENT_TYPE_JSON}
-    ${response}=    Retrieve Entity by Id
+    ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}
     ...    accept=${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
     # Attribute should not be compacted as we did not provide a context containing this term
     Check Response Body Containing an Attribute set to
     ...    expected_attribute_name=ngsi-ld:default-context/almostFull
-    ...    response_body=${response.json()}
+    ...    response_body=${response1.json()}
 
 
 *** Keywords ***

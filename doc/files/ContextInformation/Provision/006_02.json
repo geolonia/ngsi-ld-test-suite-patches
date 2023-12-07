@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/DeleteBatchOfEntities/006_02",
+  "tp_id": "TP/NGSI-LD/CI/Prov/BE/006_02",
   "test_objective": "Check that you can delete a batch of entities where some will succeed and others will fail",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.10",
   "config_id": "",
@@ -11,16 +11,16 @@
   "test_cases": [
     {
       "name": "006_02_01 Delete a batch of non-existing and existing entities",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BatchEntities/DeleteBatchOfEntities/006_02_01",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/006_02_01",
       "doc": "Check that you can delete a batch of non-existing and existing entities",
       "tags": [
         "5_6_10",
         "be-delete"
       ],
       "setup": "Setup Initial Entities",
-      "teardown": "Check Deleted Entities",
+      "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Status Code set to '${expected_batch_operation_result}' and\n        Response Status Code set to 207\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Delete Entities with Response Status Code set to 207     and\n        ${response.json()} with Response body containing batch operation result set to '${response1}'     and\n        Query Entities with Response body is empty\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/delete'\n        method set to 'POST'\n        Batch Delete Entities: and\n    Query Parameter: entities_ids_to_be_deleted set to '@{entities_ids_to_be_deleted}'\n}",
       "http_verb": "POST",
       "endpoint": "entityOperations/delete"

@@ -51,12 +51,11 @@ class TestCSRegistrationSubscription(TestCase):
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
     def test_038_02(self):
-        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_01.robot'
-        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/038_01.json'
-        difference_file = f'{self.folder_test_suites}/doc/results/out_038_01.json'
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/RegistrationSubscription/038_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_038_02.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
-        warnings.warn(UserWarning("WARNING, (038_02) The doc generate the info based on the retrieve operation and not to the create operation"))
 
     def test_038_03(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription/038_03.robot'

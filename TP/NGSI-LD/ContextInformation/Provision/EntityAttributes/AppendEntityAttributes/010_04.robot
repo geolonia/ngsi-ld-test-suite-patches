@@ -42,12 +42,12 @@ Append Attributes With Params
         ...    additional_ignored_path=root\\['notUpdated'\\]\\[0\\]\\['reason'\\]
     END
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
-    ${response}=    Retrieve Entity by Id
+    ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    @context
-    Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}    ${ignored_attributes}
+    Check Updated Resource Set To    ${entity_expectation_payload}    ${response1.json()}    ${ignored_attributes}
 
 Create Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
@@ -56,7 +56,7 @@ Create Initial Entity
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    Set Test Variable    ${entity_id}
+    Set Global Variable    ${entity_id}
 
 Delete Initial Entity
     Delete Entity by Id    ${entity_id}

@@ -20,10 +20,10 @@
       "setup": "Initiate Test Case",
       "teardown": "Delete Initial Entities",
       "template": "Update Attributes",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
-      "http_verb": "GET",
-      "endpoint": "entities/{id}"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Updated Entity set to ${entity}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${entity_id}' and\n    Query Parameter: AttributeId set to 'isParked' and\n    Query Parameter: fragment_filename set to 'vehicle-isparked-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
     },
     {
       "name": "012_01_02 Check that you can partially update an attribute by specifying the datasetId",
@@ -36,13 +36,15 @@
       "setup": "Initiate Test Case",
       "teardown": "Delete Initial Entities",
       "template": "Update Attributes",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
-      "http_verb": "GET",
-      "endpoint": "entities/{id}"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Updated Entity set to ${entity}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${entity_id}' and\n    Query Parameter: AttributeId set to 'speed' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-equal-datasetid-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
     }
   ],
-  "permutations": [],
+  "permutations": [
+    "when"
+  ],
   "robotpath": "ContextInformation/Provision/EntityAttributes/PartialAttributeUpdate",
   "robotfile": "012_01"
 }

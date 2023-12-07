@@ -19,7 +19,7 @@ ${subscription_payload_file_path}=      subscriptions/subscription-sample.jsonld
     [Tags]    sub-create    5_8_1
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     Set Suite Variable    ${subscription_id}
-    ${response}=    Create Subscription
+    ${initial_response}=    Create Subscription
     ...    ${subscription_id}
     ...    ${subscription_payload_file_path}
     ...    ${CONTENT_TYPE_LD_JSON}

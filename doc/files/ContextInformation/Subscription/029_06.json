@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CI/SUB/029_06",
-  "test_objective": "Check that you can update a subcription: The implementation shall modify the target Subscription",
+  "test_objective": "Check that you can update a subscription: The implementation shall modify the target Subscription",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.2",
   "config_id": "",
   "parent_release": "v1.3.1",
@@ -15,7 +15,7 @@
     {
       "name": "029_06_01 Update Subscription",
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/029_06_01",
-      "doc": "Check that you can update a subcription: The implementation shall modify the target Subscription",
+      "doc": "Check that you can update a subscription: The implementation shall modify the target Subscription",
       "tags": [
         "5_8_2",
         "sub-update"
@@ -23,10 +23,10 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Updated Entity set to ${entity} and\n        Response Status Code set to 204\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{id}'\n        method set to 'GET'\n        Subscription Retrieve with the following data: and\n    Query Parameter: id set to '${subscription_id}' and\n    Query Parameter: accept set to 'application/ld+json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
-      "http_verb": "GET",
-      "endpoint": "subscriptions/{id}"
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Subscription with Response Status Code set to 204     and\n        Retrieve Subscription with Updated Entity set to ${entity}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Request Update Subscription and \nHeader['Link'] contain the context 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\nHeader['Content-Type'] set to 'application/json' and\nPayload defined in file 'subscriptions/fragments/subscription-update-sample.json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "subscriptions/{subscription_id}"
     }
   ],
   "permutations": [],

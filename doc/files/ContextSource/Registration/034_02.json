@@ -20,7 +20,7 @@
       "setup": "Setup Initial Entities",
       "teardown": "Delete Initial Entities",
       "template": "Update A Context Source",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration With Return with Response Status Code set to 400     and\n        Update Context Source Registration With Return with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with id set to '${registration_id}' and registration update fragment set to '${fragment_with_id}' and content-type set to 'application/ld+json'\n}",
       "http_verb": "PATCH",
       "endpoint": "csourceRegistrations/{registration_id}"
@@ -36,7 +36,7 @@
       "setup": "Setup Initial Entities",
       "teardown": "Delete Initial Entities",
       "template": "Update A Context Source",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration With Return with Response Status Code set to 400     and\n        Update Context Source Registration With Return with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with id set to '${registration_id}' and registration update fragment set to '${fragment_with_id}' and content-type set to 'application/ld+json'\n}",
       "http_verb": "PATCH",
       "endpoint": "csourceRegistrations/{registration_id}"
@@ -52,7 +52,7 @@
       "setup": "Setup Initial Entities",
       "teardown": "Delete Initial Entities",
       "template": "Update A Context Source",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration With Return with Response Status Code set to 400     and\n        Update Context Source Registration With Return with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with id set to '${registration_id}' and registration update fragment set to '${fragment_with_id}' and content-type set to 'application/ld+json'\n}",
       "http_verb": "PATCH",
       "endpoint": "csourceRegistrations/{registration_id}"
@@ -68,7 +68,7 @@
       "setup": "Setup Initial Entities",
       "teardown": "Delete Initial Entities",
       "template": "Update A Context Source",
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response body containing 'title' element and\n        Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration With Return with Response Status Code set to 400     and\n        Update Context Source Registration With Return with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with id set to '${registration_id}' and registration update fragment set to '${fragment_with_id}' and content-type set to 'application/ld+json'\n}",
       "http_verb": "PATCH",
       "endpoint": "csourceRegistrations/{registration_id}"

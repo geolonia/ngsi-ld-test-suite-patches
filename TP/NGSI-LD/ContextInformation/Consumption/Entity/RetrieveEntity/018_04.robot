@@ -6,7 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Teardown      Delete Created Entity
+Test Teardown       Delete Created Entity
 
 
 *** Variables ***
@@ -21,12 +21,12 @@ ${options_parameter}=       keyValues
     [Documentation]    Check that the queried entity by Id can be returned in a simplified representation
     [Tags]    e-retrieve    6_3_7
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Set Suite Variable    ${entity_id}
-    ${response}=    Create Entity Selecting Content Type
+    Set Test Variable    ${entity_id}
+    ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
+    Check Response Status Code    201    ${create_response.status_code}
     ${response}=    Query Entity
     ...    id=${entity_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
@@ -37,7 +37,6 @@ ${options_parameter}=       keyValues
     ...    ${entity_id}
     ...    ${response.json()}
     ...    ${True}
-    [Teardown]    Delete Entity by Id    ${entity_id}
 
 
 *** Keywords ***

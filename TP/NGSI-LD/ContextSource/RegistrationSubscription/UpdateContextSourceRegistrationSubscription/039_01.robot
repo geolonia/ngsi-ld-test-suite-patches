@@ -25,11 +25,11 @@ ${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/s
     ...    ${subscription_update_fragment}
     Check Response Status Code    204    ${response.status_code}
     ${subscription}=    Upsert Element In Entity    ${subscription_payload}    ${subscription_update_fragment}
-    ${response}=    Retrieve Context Source Registration Subscription
+    ${response1}=    Retrieve Context Source Registration Subscription
     ...    subscription_id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    Check Updated Resource Set To    ${subscription}    ${response.json()}
+    Check Updated Resource Set To    ${subscription}    ${response1.json()}
 
 
 *** Keywords ***

@@ -24,12 +24,12 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ${registration_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
     ${response}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Retrieve Context Source Registration
+    ${response1}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${registration_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    ${status_regex_expr}
-    Check Created Resource Set To    ${registration_payload}    ${response.json()}    ${ignored_attributes}
+    Check Created Resource Set To    ${registration_payload}    ${response1.json()}    ${ignored_attributes}
 
 
 *** Keywords ***

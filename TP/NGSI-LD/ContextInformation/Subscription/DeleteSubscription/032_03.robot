@@ -19,9 +19,9 @@ ${subscription_payload_file_path}=      subscriptions/subscription-sample.jsonld
     [Tags]    sub-delete    5_8_5
     ${response}=    Delete Subscription    ${subscription_id}
     Check Response Status Code    204    ${response.status_code}
-    ${response}=    Retrieve Subscription
+    ${response1}=    Retrieve Subscription
     ...    id=${subscription_id}
-    Check SUT Not Containing Resource    ${response.status_code}
+    Check SUT Not Containing Resource    ${response1.status_code}
 
 
 *** Keywords ***

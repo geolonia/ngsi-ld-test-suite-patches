@@ -25,15 +25,15 @@ ${content_type}=            application/ld+json
     ...    ${entity_id}
     ...    ${content_type}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Create Entity Selecting Content Type
+    ${response1}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${content_type}
-    Check Response Status Code    409    ${response.status_code}
+    Check Response Status Code    409    ${response1.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response.json()}
+    ...    ${response1.json()}
     ...    ${ERROR_TYPE_ALREADY_EXISTS}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response1.json()}
 
 
 *** Keywords ***

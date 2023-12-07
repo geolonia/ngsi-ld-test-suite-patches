@@ -20,7 +20,7 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response containing:\n        Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound' and\n        Response body containing 'title' element and\n        Response Status Code set to 404\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Context Source Registration with Response Status Code set to 404     and\n        Retrieve Context Source Registration with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound'     and\n        Retrieve Context Source Registration with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration with data: and\n    Query Parameter: context source registration id set to 'urn:ngsi-ld:ContextSourceRegistration:unknowRegistration'\n}",
       "http_verb": "GET",
       "endpoint": "csourceRegistrations/{context_source_registration_id}"

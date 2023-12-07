@@ -30,11 +30,11 @@ Delete Attributes
     [Documentation]    Check that you cannot delete an attribute from an entity with invalid/missing ids
     [Tags]    ea-delete    5_6_5
     [Arguments]    ${entity_id}    ${attribute_id}
-    ${response}=    Create Entity Selecting Content Type
+    ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${valid_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
+    Check Response Status Code    201    ${create_response.status_code}
     ${response}=    Delete Entity Attributes
     ...    entityId=${entity_id}
     ...    attributeId=${attribute_id}

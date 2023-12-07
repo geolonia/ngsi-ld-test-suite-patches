@@ -42,7 +42,7 @@ Do Not Receive cSourceNotification If Subscription Status Is Not Active
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}
     Set Suite Variable    ${context_source_registration_id}
-    ${response}=    Create Context Source Registration    ${context_source_registration_payload}
+    ${response1}=    Create Context Source Registration    ${context_source_registration_payload}
     Wait for no notification
 
 Setup Initial Context Source Registration Subscriptions

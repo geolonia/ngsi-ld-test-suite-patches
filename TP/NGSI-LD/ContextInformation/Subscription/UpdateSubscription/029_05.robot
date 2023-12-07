@@ -27,13 +27,13 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
     ...    ${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
-    ${response}=    Retrieve Subscription
+    ${response1}=    Retrieve Subscription
     ...    id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
     Check Response Body Containing Subscription element
     ...    ${expected_subscription_payload_file_path}
     ...    ${subscription_id}
-    ...    ${response.json()}
+    ...    ${response1.json()}
 
 029_05_02 Update Subscription With Term to Uri Expansion without Context
     [Documentation]    Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed
@@ -44,12 +44,12 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
     ...    ${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
-    ${response}=    Retrieve Subscription
+    ${response1}=    Retrieve Subscription
     ...    id=${subscription_id}
     Check Response Body Containing Subscription element
     ...    ${expected_expanded_subscription_payload_file_path}
     ...    ${subscription_id}
-    ...    ${response.json()}
+    ...    ${response1.json()}
 
 
 *** Keywords ***

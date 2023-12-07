@@ -21,11 +21,11 @@ ${attribute_not_known}=     property_not_found
     [Tags]    e-retrieve    5_7_1
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${entity_id}
-    ${response}=    Create Entity Selecting Content Type
+    ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
+    Check Response Status Code    201    ${create_response.status_code}
     ${attributes_to_be_retrieved}=    Catenate    SEPARATOR=,    ${attribute_not_known}
     ${response}=    Query Entity
     ...    id=${entity_id}

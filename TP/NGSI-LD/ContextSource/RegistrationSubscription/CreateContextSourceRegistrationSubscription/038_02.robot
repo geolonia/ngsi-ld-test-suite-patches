@@ -23,12 +23,12 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
     Check Response Status Code    201    ${response.status_code}
     Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
     Set Suite Variable    ${subscription_id}
-    ${response}=    Retrieve Context Source Registration Subscription
+    ${response1}=    Retrieve Context Source Registration Subscription
     ...    subscription_id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    ${id_regex_expr}    ${status_regex_expr}
-    Check Created Resource Set To    ${subscription_payload}    ${response.json()}    ${ignored_attributes}
+    Check Created Resource Set To    ${subscription_payload}    ${response1.json()}    ${ignored_attributes}
 
 
 *** Keywords ***
