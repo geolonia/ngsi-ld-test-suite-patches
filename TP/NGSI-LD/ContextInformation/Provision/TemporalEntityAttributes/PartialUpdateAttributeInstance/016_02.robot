@@ -15,29 +15,28 @@ Test Template       Modify Attribute Instance Temporal Entity
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${filename}=                vehicle-temporal-representation-sample.jsonld
 ${fragment_filename}=       vehicle-temporal-modify-attribute-instance-fragment.jsonld
-${status_code}=             400
 
 
-*** Test Cases ***    TEMPORAL_ENTITY_ID    ATTRIBUTE_ID    INSTANCE_ID
+*** Test Cases ***    TEMPORAL_ENTITY_ID    ATTRIBUTE_ID    INSTANCE_ID    EXPECTED_STATUS_CODE
 016_02_01 Modify attribute instance in temporal representation of an entity if the entity id is not valid
-    invalidId    speed    ${valid_instanceId}
+    invalidId    speed    ${valid_instanceId}    400
 016_02_02 Modify attribute instance in temporal representation of an entity if the entity id is not present
-    ${EMPTY}    speed    ${valid_instanceId}
+    ${EMPTY}    speed    ${valid_instanceId}    400
 016_02_03 Modify attribute instance in temporal representation of an entity if the instance id is not valid
-    ${temporal_entity_representation_id}    speed    invalidId
+    ${temporal_entity_representation_id}    speed    invalidId    400
 016_02_04 Modify attribute instance in temporal representation of an entity if the instance id is not present
-    ${temporal_entity_representation_id}    speed    ${EMPTY}
+    ${temporal_entity_representation_id}    speed    ${EMPTY}    405
 016_02_05 Modify attribute instance in temporal representation of an entity if the attribute name is not a valid name
-    ${temporal_entity_representation_id}    invalid(Id    ${valid_instanceId}
+    ${temporal_entity_representation_id}    invalid(Id    ${valid_instanceId}    400
 016_02_06 Modify attribute instance in temporal representation of an entity if the attribute name is not present
-    ${temporal_entity_representation_id}    ${EMPTY}    ${valid_instanceId}
+    ${temporal_entity_representation_id}    ${EMPTY}    ${valid_instanceId}    405
 
 
 *** Keywords ***
 Modify Attribute Instance Temporal Entity
     [Documentation]    Check that you cannot partially modify attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right
     [Tags]    tea-partial-update    5_6_14
-    [Arguments]    ${temporal_entity_id}    ${attributeId}    ${instanceId}
+    [Arguments]    ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${expected_status_code}
     ${response}=    Modify Attribute Instance From Temporal Entity
     ...    ${temporal_entity_id}
     ...    ${attributeId}
@@ -45,7 +44,7 @@ Modify Attribute Instance Temporal Entity
     ...    ${fragment_filename}
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
-    Check Response Status Code    ${status_code}    ${response.status_code}
+    Check Response Status Code    ${expected_status_code}    ${response.status_code}
 
 Create Id
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}

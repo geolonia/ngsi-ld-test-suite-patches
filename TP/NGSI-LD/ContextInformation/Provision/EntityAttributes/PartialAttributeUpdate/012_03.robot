@@ -25,7 +25,7 @@ ${default_attr_id}=         speed
 012_03_03 Partial update when no instance with the datasetId specified
     ${valid_entity_id}    ${default_attr_id}    vehicle-speed-unknown-datasetid-fragment.jsonld
 012_03_04 Partial update when the Attribute Name does not exist in the entity
-    ${valid_entity_id}    speed2    vehicle-speed-no-datasetid-fragment.jsonld
+    ${valid_entity_id}    isParked2    vehicle-isparked-fragment.jsonld
 
 
 *** Keywords ***

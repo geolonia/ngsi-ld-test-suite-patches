@@ -1,21 +1,19 @@
 *** Settings ***
-Documentation       Check that you cannot get an entity with invalid/missing id
+Documentation       Check that you cannot get an entity with invalid id
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 
-Test Template       Get Entity With Invalid/Missing Id
+Test Template       Get Entity With Invalid Id
 
 
 *** Test Cases ***    ENTITY_ID    EXPECTED_STATUS_CODE    PROBLEM_TYPE
-018_02_01 Get an entity if the Entity Id is not present
-    ${EMPTY}    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
-018_02_02 Get an entity if the Entity Id is not a valid URI
+018_02_01 Get an entity if the Entity Id is not a valid URI
     thisisaninvaliduri    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 
 *** Keywords ***
-Get Entity With Invalid/Missing Id
+Get Entity With Invalid Id
     [Documentation]    Check that you cannot get an entity with invalid/missing id
     [Tags]    e-retrieve    5_7_1
     [Arguments]    ${entity_id}    ${expected_status_code}    ${problem_type}

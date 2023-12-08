@@ -12,24 +12,23 @@ Test Template       Delete Attributes
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${status_code}=             400
 ${filename}=                vehicle-two-datasetid-attributes-sample.jsonld
 
 
-*** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID
+*** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID    EXPECTED_STATUS_CODE
 013_02_01 Delete an attribute if the Entity Id is not present
-    ${EMPTY}    speed
+    ${EMPTY}    speed    400
 013_02_02 Delete an attribute if the Entity Id is not a valid URI
-    thisIsAnInvalidURI    speed
+    thisIsAnInvalidURI    speed    400
 013_02_03 Delete an attribute if the Attribute Name is not present
-    ${valid_entity_id}    ${EMPTY}
+    ${valid_entity_id}    ${EMPTY}    405
 
 
 *** Keywords ***
 Delete Attributes
     [Documentation]    Check that you cannot delete an attribute from an entity with invalid/missing ids
     [Tags]    ea-delete    5_6_5
-    [Arguments]    ${entity_id}    ${attribute_id}
+    [Arguments]    ${entity_id}    ${attribute_id}    ${expected_status_code}
     ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${valid_entity_id}
@@ -40,7 +39,7 @@ Delete Attributes
     ...    attributeId=${attribute_id}
     ...    datasetId=${EMPTY}
     ...    deleteAll=false
-    Check Response Status Code    ${status_code}    ${response.status_code}
+    Check Response Status Code    ${expected_status_code}    ${response.status_code}
 
 Setup Initial Entities
     ${valid_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
