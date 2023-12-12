@@ -7,8 +7,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
 
-Suite Setup         Setup Initial Context Source Registration Subscriptions
-Suite Teardown      Delete Created Context Source Registrations And Subscriptions
+Test Setup          Setup Initial Context Source Registration Subscription
+Test Teardown       Delete Created Context Source Registration And Subscription
 Test Template       Do Not Receive cSourceNotification If Subscription Status Is Not Active
 
 
@@ -45,7 +45,7 @@ Do Not Receive cSourceNotification If Subscription Status Is Not Active
     ${response1}=    Create Context Source Registration    ${context_source_registration_payload}
     Wait for no notification
 
-Setup Initial Context Source Registration Subscriptions
+Setup Initial Context Source Registration Subscription
     Start Local Server
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
@@ -54,7 +54,7 @@ Setup Initial Context Source Registration Subscriptions
     Create Context Source Registration Subscription    ${subscription_payload}
     Set Suite Variable    ${subscription_id}
 
-Delete Created Context Source Registrations And Subscriptions
+Delete Created Context Source Registration And Subscription
     Delete Context Source Registration    ${context_source_registration_id}
     Delete Context Source Registration Subscription    ${subscription_id}
     Stop Local Server

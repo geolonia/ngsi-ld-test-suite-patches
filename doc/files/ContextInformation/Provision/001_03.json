@@ -9,7 +9,7 @@
     "Delete Initial Entity"
   ],
   "teardown": "Delete Initial Entity",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "001_03_01 Create one valid entity and one invalid entity",

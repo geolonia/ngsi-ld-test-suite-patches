@@ -7,7 +7,7 @@
   "pics_selection": "PICS_5_6_12",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Temporal Entity ${entity} \n        with an id set to ${temporal_entity_representation_id} \n}",
   "test_cases": [
     {
       "name": "014_04_01 Add an attribute to a temporal representation of an entity with invalid content",

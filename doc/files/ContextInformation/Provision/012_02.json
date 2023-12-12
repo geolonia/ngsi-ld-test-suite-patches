@@ -7,7 +7,7 @@
   "pics_selection": "PICS_5_6_4",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} \n        with an id set to ${entityId} \n}",
   "test_cases": [
     {
       "name": "012_02_01 Make a partial attribute update if the Entity Id is not present",
@@ -17,8 +17,8 @@
         "ea-partial-update",
         "5_6_4"
       ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
+      "setup": "Setup Initial Entity",
+      "teardown": "Delete Initial Entity",
       "template": "Update Attributes",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 400     and\n        Partial Update Entity Attributes with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Partial Update Entity Attributes with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${EMPTY}' and\n    Query Parameter: AttributeId set to 'speed' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-equal-datasetid-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
@@ -33,8 +33,8 @@
         "ea-partial-update",
         "5_6_4"
       ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
+      "setup": "Setup Initial Entity",
+      "teardown": "Delete Initial Entity",
       "template": "Update Attributes",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 400     and\n        Partial Update Entity Attributes with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Partial Update Entity Attributes with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to 'thisisaninvaliduri' and\n    Query Parameter: AttributeId set to 'speed' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-equal-datasetid-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
@@ -42,31 +42,15 @@
       "endpoint": "entities/{entityId}/attrs/{attributeId}"
     },
     {
-      "name": "012_02_03 Make a partial attribute update if the Attribute Id is not present",
+      "name": "012_02_03 Make a partial attribute update if the Attribute type does not match",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_02_03",
       "doc": "Check that you cannot perform a partial update on an entity attribute with invalid/missing ids",
       "tags": [
         "ea-partial-update",
         "5_6_4"
       ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
-      "template": "Update Attributes",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 400     and\n        Partial Update Entity Attributes with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Partial Update Entity Attributes with Response body containing 'title' element\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: AttributeId set to '${EMPTY}' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-equal-datasetid-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
-      "http_verb": "PATCH",
-      "endpoint": "entities/{entityId}/attrs/{attributeId}"
-    },
-    {
-      "name": "012_02_04 Make a partial attribute update if the Attribute type does not match",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_02_04",
-      "doc": "Check that you cannot perform a partial update on an entity attribute with invalid/missing ids",
-      "tags": [
-        "ea-partial-update",
-        "5_6_4"
-      ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
+      "setup": "Setup Initial Entity",
+      "teardown": "Delete Initial Entity",
       "template": "Update Attributes",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 400     and\n        Partial Update Entity Attributes with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Partial Update Entity Attributes with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: AttributeId set to 'speed' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-equal-datasetid-different-type-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
@@ -74,15 +58,15 @@
       "endpoint": "entities/{entityId}/attrs/{attributeId}"
     },
     {
-      "name": "012_02_05 Make a partial attribute update if the entity fragment is empty",
-      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_02_05",
+      "name": "012_02_04 Make a partial attribute update if the entity fragment is empty",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_02_04",
       "doc": "Check that you cannot perform a partial update on an entity attribute with invalid/missing ids",
       "tags": [
         "ea-partial-update",
         "5_6_4"
       ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
+      "setup": "Setup Initial Entity",
+      "teardown": "Delete Initial Entity",
       "template": "Update Attributes",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 400     and\n        Partial Update Entity Attributes with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Partial Update Entity Attributes with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: AttributeId set to 'speed' and\n    Query Parameter: fragment_filename set to 'empty-fragment.json' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",

@@ -10,7 +10,7 @@
     "After Test"
   ],
   "teardown": "After Test",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "046_12_01 Check that lastNotification is updated",

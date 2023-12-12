@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubsc
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Context Source Registration Subscription
-Suite Teardown      Delete Created Context Source Registration Subscription
+Test Setup          Setup Initial Context Source Registration Subscription
+Test Teardown       Delete Created Context Source Registration Subscription
 
 
 *** Variables ***

@@ -7,7 +7,7 @@
   "pics_selection": "PICS_5_10_2",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a list of Context Source Registrations (CSRs) providing latest information about some entities\n}",
   "test_cases": [
     {
       "name": "037_11_01 Query Second Subscription",
@@ -59,8 +59,8 @@
     }
   ],
   "permutations": [
-    "when",
-    "then"
+    "then",
+    "when"
   ],
   "robotpath": "ContextSource/Discovery/QueryContextSourceRegistrations",
   "robotfile": "037_11"

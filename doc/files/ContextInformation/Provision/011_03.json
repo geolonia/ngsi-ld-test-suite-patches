@@ -9,7 +9,7 @@
     "Delete Initial Entities"
   ],
   "teardown": "Delete Initial Entities",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "011_03_01 Update entity attributes when the entity id is not known to the system",

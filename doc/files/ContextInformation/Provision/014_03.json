@@ -9,7 +9,7 @@
     "Delete Temporal Entity"
   ],
   "teardown": "Delete Temporal Entity",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "014_03_01 Add Attribute To Temporal Entity",

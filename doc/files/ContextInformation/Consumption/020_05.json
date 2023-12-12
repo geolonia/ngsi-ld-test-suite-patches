@@ -7,7 +7,7 @@
   "pics_selection": "PICS_5_7_3",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Temporal Entity ${entity} \n        with an id set to ${temporal_entity_representation_id} \n        and an attribute with an id set to ${atrId}\n}",
   "test_cases": [
     {
       "name": "020_05_01 Retrieve Some Instances",
@@ -17,8 +17,8 @@
         "5_7_3",
         "te-retrieve"
       ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
+      "setup": "Create Temporal Entity",
+      "teardown": "Delete Initial Temporal Entity",
       "template": "Retrieve the temporal evolution of the last N instances of entity attributes",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 200     and\n        Retrieve Temporal Representation Of Entity with Response Body containing EntityTemporal element containing attribute instances in the time range specified by the NGSI-LD temporal query:\n            * the payload is defined in the file set to 'vehicle-temporal-representation-020-05-01-expectation.jsonld'\n            * the id was changed to '${temporal_entity_representation_id}'\n            * response body to be checked set to '${response.json()}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: lastN set to '10' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
@@ -33,8 +33,8 @@
         "5_7_3",
         "te-retrieve"
       ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
+      "setup": "Create Temporal Entity",
+      "teardown": "Delete Initial Temporal Entity",
       "template": "Retrieve the temporal evolution of the last N instances of entity attributes",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 200     and\n        Retrieve Temporal Representation Of Entity with Response Body containing EntityTemporal element containing attribute instances in the time range specified by the NGSI-LD temporal query:\n            * the payload is defined in the file set to 'vehicle-temporal-representation-020-05-02-expectation.jsonld'\n            * the id was changed to '${temporal_entity_representation_id}'\n            * response body to be checked set to '${response.json()}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: lastN set to '20' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
@@ -43,8 +43,8 @@
     }
   ],
   "permutations": [
-    "when",
-    "then"
+    "then",
+    "when"
   ],
   "robotpath": "ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity",
   "robotfile": "020_05"

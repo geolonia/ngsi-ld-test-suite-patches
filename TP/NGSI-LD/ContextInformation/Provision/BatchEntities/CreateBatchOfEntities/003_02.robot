@@ -6,7 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Entities
+Suite Setup         Setup Initial Entity
 Suite Teardown      Delete Initial Entities
 
 
@@ -46,7 +46,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Keywords ***
-Setup Initial Entities
+Setup Initial Entity
     ${existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity    building-minimal-sample.jsonld    ${existing_entity_id}
     Set Suite Variable    ${existing_entity_id}

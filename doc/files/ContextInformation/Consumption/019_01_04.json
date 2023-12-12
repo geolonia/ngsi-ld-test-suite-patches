@@ -9,7 +9,7 @@
     "Delete Entities"
   ],
   "teardown": "Delete Entities",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "019_01_04 Query several entities based on attribute names",

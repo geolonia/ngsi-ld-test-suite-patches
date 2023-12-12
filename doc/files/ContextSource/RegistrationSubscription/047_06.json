@@ -5,12 +5,9 @@
   "config_id": "",
   "parent_release": "v1.3.1",
   "pics_selection": "PICS_5_11_7",
-  "keywords": [
-    "Setup Initial Context Source Registration Subscriptions",
-    "Delete Created Context Source Registrations And Subscriptions"
-  ],
-  "teardown": "Delete Created Context Source Registrations And Subscriptions",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a Context Source Registration Subscription (CSRS1)\n}",
   "test_cases": [
     {
       "name": "047_06_01 If A cSourceNotification Is Not Successfully Sent The Notification Member Shall Be Updated",
@@ -20,8 +17,8 @@
         "5_11_7",
         "csrsub-notification"
       ],
-      "setup": null,
-      "teardown": null,
+      "setup": "Setup Initial Context Source Registration Subscription",
+      "teardown": "Delete Created Context Source Registration And Subscription",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response for the operation:\n        Retrieve Context Source Registration Subscription with Response containing:\n            * Notification expectation file path set to 'notifications/expectations/1-timesSent-failed.json'\n            * Expected Additional Members set to '${expected_notification_additional_members}'\n            * Response Body set to '${response.json()}'\n\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration Subscription with data: and\n    Query Parameter: subscription id set to '${subscription_id}'\n}",

@@ -6,7 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
+Test Setup          Setup Initial Entity
 
 
 *** Variables ***
@@ -40,7 +40,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Keywords ***
-Setup Initial Entities
+Setup Initial Entity
     ${existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity    building-simple-attributes-sample.jsonld    ${existing_entity_id}
     Set Test Variable    ${existing_entity_id}

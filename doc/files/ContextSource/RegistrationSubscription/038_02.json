@@ -9,7 +9,7 @@
     "Delete Created Context Source Registration Subscriptions"
   ],
   "teardown": "Delete Created Context Source Registration Subscriptions",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "038_02_01 Create Context Source Registration Subscription Without An Id",

@@ -7,7 +7,7 @@
   "pics_selection": "PICS_5_6_9",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "005_04_01 InvalidJson",
@@ -43,8 +43,8 @@
     }
   ],
   "permutations": [
-    "then",
-    "when"
+    "when",
+    "then"
   ],
   "robotpath": "ContextInformation/Provision/BatchEntities/UpdateBatchOfEntities",
   "robotfile": "005_04"

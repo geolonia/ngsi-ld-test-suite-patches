@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.reso
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Test Setup          Create Initial Context Source Registration
+Test Teardown       Delete Initial Context Source Registration
 Test Template       Update A Context Source
 
 
@@ -41,7 +41,7 @@ Update A Context Source
     Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
-Setup Initial Entities
+Create Initial Context Source Registration
     ${valid_registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${valid_registration_id}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
@@ -49,5 +49,5 @@ Setup Initial Entities
     ${response}=    Create Context Source Registration With Return    ${updated_payload}
     Check Response Status Code    201    ${response.status_code}
 
-Delete Initial Entities
+Delete Initial Context Source Registration
     Delete Context Source Registration    ${valid_registration_id}

@@ -6,8 +6,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Test Setup          Setup Initial Entity
+Test Teardown       Delete Initial Entity
 Test Template       Retrieve Available Attributes
 
 
@@ -34,7 +34,7 @@ Retrieve Available Attributes
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing AttributeList element    ${expectation_file}    ${response.json()}
 
-Setup Initial Entities
+Setup Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity Selecting Content Type
     ...    ${filename}
@@ -43,5 +43,5 @@ Setup Initial Entities
     ...    ${ngsild_test_suite_context}
     Set Test Variable    ${entity_id}
 
-Delete Initial Entities
+Delete Initial Entity
     Delete Entity by Id    ${entity_id}

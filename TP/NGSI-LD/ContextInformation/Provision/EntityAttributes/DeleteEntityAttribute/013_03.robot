@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Test Setup          Setup Initial Entity
+Test Teardown       Delete Initial Entity
 Test Template       Delete Attributes
 
 
@@ -37,7 +37,7 @@ Delete Attributes
     ...    deleteAll=false
     Check Response Status Code    ${status_code}    ${response.status_code}
 
-Setup Initial Entities
+Setup Initial Entity
     ${valid_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${valid_entity_id}
     ${response}=    Create Entity Selecting Content Type
@@ -48,5 +48,5 @@ Setup Initial Entities
     ${not_found_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Suite Variable    ${not_found_entity_id}
 
-Delete Initial Entities
+Delete Initial Entity
     Delete Entity by Id    ${valid_entity_id}

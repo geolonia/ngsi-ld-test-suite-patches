@@ -6,8 +6,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProv
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Test Setup          Create Temporal Entity
+Test Teardown       Delete Initial Temporal Entity
 Test Template       Retrieve the temporal evolution of an entity with an invalid request content
 
 
@@ -43,10 +43,10 @@ Retrieve the temporal evolution of an entity with an invalid request content
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
-Setup Initial Entities
+Create Temporal Entity
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     Create Temporal Representation Of Entity    ${vehicle_payload_file}    ${temporal_entity_representation_id}
     Set Test Variable    ${temporal_entity_representation_id}
 
-Delete Initial Entities
+Delete Initial Temporal Entity
     Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

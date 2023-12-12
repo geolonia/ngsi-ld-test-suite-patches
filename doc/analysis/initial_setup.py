@@ -1,0 +1,283 @@
+import os
+import json
+
+
+class InitialSetup:
+    def __init__(self):
+        self.init = {
+            'Setup Initial Context Source Registration': InitialSetup.init_csr(),
+            'Initialize the Test Case': InitialSetup.init_csr(),
+            'Create New Context Source Registration': InitialSetup.init_csr(),
+            'Create Initial Context Source Registration': InitialSetup.init_csr(),
+            'Initiate Test Case': InitialSetup.init_entity(),
+            'Create Initial Entity': InitialSetup.init_entity2(),
+            'Setup Initial Entity': InitialSetup.init_entity2(),
+            'Initialize Environment': InitialSetup.init_entity2(),
+            'Initialize Test': InitialSetup.init_entity2(),
+            'Create Temporal Entity': InitialSetup.init_temporal_entity(),
+            'Create Initial Temporal Entity': InitialSetup.init_temporal_entity2(),
+            'Initialize Test Case': InitialSetup.init_temporal_entity2(),
+            'Initialize Setup': InitialSetup.init_temporal_entity2(),
+            'Create Id': InitialSetup.init_temporal_entity2(),
+            'Create Initial Subscription': InitialSetup.init_subscription(),
+            'Setup Initial Subscriptions': InitialSetup.init_subscription(),
+            'Setup Initial Entities': InitialSetup.init_entities(),
+            'Setup Initial Temporal Entities': InitialSetup.init_temporal_entities(),
+            'Create Initial Context Source Registration and Context Source Registration Subscription':
+                InitialSetup.init_csr_and_sub(),
+            'Create Initial Context Source Registrations And Context Source Registration Subscription':
+                InitialSetup.init_csrs_and_sub(),
+            'Setup Initial Context Source Registrations': InitialSetup.init_csrs(),
+            'Setup Initial Context Source Registration Subscription': InitialSetup.init_csr_sub(),
+            'Setup Initial Context Source Registration Subscriptions': InitialSetup.init_csr_subs(),
+            'Create Initial Context Source Registration and Mock Server': InitialSetup.init_csr_and_server(),
+        }
+
+        self.total_files = -1
+        self.files_with_setup = -1
+        self.files_without_setup = -1
+
+        self.code = list()
+        self.files_with_setup = list()
+        self.files_without_setup = list()
+
+        self.check_keys()
+
+    @staticmethod
+    def init_csr() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT contains a Context Source Registration 
+        with id equal to ${context_source_registration_id}
+        and payload set to ${context_source_registration_payload_file_path}
+}'''
+
+        return data
+
+    @staticmethod
+    def init_entity() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing an initial Entity ${entity} 
+        with an id set to ${entityId} 
+        and an attribute with an id set to ${atrId}
+}'''
+        return data
+
+    @staticmethod
+    def init_entity2() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing an initial Entity ${entity} 
+        with an id set to ${entityId} 
+}'''
+        return data
+
+    @staticmethod
+    def init_temporal_entity() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing an initial Temporal Entity ${entity} 
+        with an id set to ${temporal_entity_representation_id} 
+        and an attribute with an id set to ${atrId}
+}'''
+        return data
+
+    @staticmethod
+    def init_temporal_entity2() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing an initial Temporal Entity ${entity} 
+        with an id set to ${temporal_entity_representation_id} 
+}'''
+        return data
+
+    @staticmethod
+    def init_subscription() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing an initial Subscription ${subscription} 
+        with an id set to ${subscription_id} 
+}'''
+        return data
+
+    @staticmethod
+    def init_entities() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    and containing a list of entities
+}'''
+        return data
+
+    @staticmethod
+    def init_temporal_entities() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing an a list of Temporal Entities 
+}'''
+        return data
+
+    @staticmethod
+    def init_csr_and_sub() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing a Context Source Registration (CSR1) providing latest information about some entities
+    and the SUT containing a Context Source Registration Subscription (CSRS1)
+}'''
+        return data
+
+    @staticmethod
+    def init_csrs() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing a list of Context Source Registrations (CSRs) providing latest information about some entities
+}'''
+        return data
+
+    @staticmethod
+    def init_csrs_and_sub() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing a list of Context Source Registrations (CSRs) providing latest information about some entities
+    and the SUT containing a Context Source Registration Subscription (CSRS1)
+}'''
+        return data
+
+    @staticmethod
+    def init_csr_sub() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing a Context Source Registration Subscription (CSRS1)
+}'''
+        return data
+
+    @staticmethod
+    def init_csr_subs() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing a set of Context Source Registration Subscriptions (CSRSs)
+}'''
+        return data
+
+    @staticmethod
+    def init_csr_and_server() -> str:
+        data = '''with {
+    the SUT containing a Context Source Registration of a context source (CS1) 
+        providing temporal information of two entities of type Building between 2020-08-01T22:07:00Z and 2021-08-01T21:07:00Z
+    and CS1 containing two temporal entities of type Building and temporal evolution of those entities in the mentioned interval.
+}'''
+        return data
+
+    @staticmethod
+    def init_csrs_subs() -> str:
+        data = '''with {
+    the SUT containing a Context Source Registration of a context source (CS1) 
+        providing temporal information of two entities of type Building between 2020-08-01T22:07:00Z and 2021-08-01T21:07:00Z
+    and CS1 containing two temporal entities of type Building and temporal evolution of those entities in the mentioned interval.
+}'''
+        return data
+
+    def get_property_values(self, root_folder: str, property_name: str) -> [str, str]:
+        robot_files_without_setup = list()
+        robot_files_with_setup = list()
+        self.total_files = 0
+
+        for root, dirs, files in os.walk(root_folder):
+            for file in files:
+                if file.endswith(".json"):
+                    file_path = os.path.join(root, file)
+                    self.total_files = self.total_files + 1
+
+                    with open(file_path, "r") as f:
+                        try:
+                            data = json.load(f)
+                            value = [x[property_name] for x in data['test_cases']]
+
+                            status = all(item == value[0] for item in value)
+
+                            if not status:
+                                print(f"{file_path} has different values of setup processes")
+                            else:
+                                value = value[0]
+
+                            info = {
+                                'file': file_path,
+                                'data': value
+                            }
+
+                            if value is None:
+                                robot_files_without_setup.append(file_path)
+                            else:
+                                robot_files_with_setup.append(info)
+                        except (KeyError, json.JSONDecodeError):
+                            # Handle cases where the property is not found or file is not valid JSON
+                            pass
+
+        return robot_files_with_setup, robot_files_without_setup
+
+    def check_keys(self):
+        self.generate_dictionaries()
+
+        keys = self.init.keys()
+
+        deleted_setup = [item for item in keys if item not in self.code]
+        not_included_keys = [item for item in self.code if item not in keys]
+
+        print('Checking the Setup functions...')
+        if len(deleted_setup) != 0:
+            print(f"    WARNING: Some of the Setup functions were deleted:\n{deleted_setup}")
+        else:
+            print("    INFO: All current Setup functions are used in the Robot files")
+
+        if len(not_included_keys) != 0:
+            print(f"    ERROR: Some Setup functions are not include in the Class:\n{not_included_keys}")
+        else:
+            print("    INFO: All the current Setup functions used in Robot files are included in the Class")
+
+        print()
+
+    def generate_dictionaries(self):
+        folder = "/home/fla/Documents/workspace/bdd/ngsi-ld-test-suite/doc/files"
+        attribute = "setup"
+
+        self.files_with_setup, self.files_without_setup = self.get_property_values(folder, attribute)
+
+        aux = [x['data'] for x in self.files_with_setup]
+        self.code = list(set(aux))
+
+        self.files_with_setup = len(self.code)
+        self.files_without_setup = len(self.files_without_setup)
+
+    def print_numbers(self):
+        print("Show details of the Setup functions:")
+        print(f"    Total number of Robot files: {self.total_files}\n"
+              f"    Total number of Robot Files with Setup information: {self.files_with_setup}\n"
+              f"    Total number of Robot Files without Setup information: {self.files_without_setup}")
+
+        print()
+
+    def get_setups(self) -> list:
+        return self.code
+
+    def get_robot_files_without_setup(self) -> list:
+        return self.files_without_setup
+
+    def get_initial_condition(self, initial_condition: str) -> str:
+        try:
+            return self.init[initial_condition]
+        except KeyError:
+            print(f"ERROR: the initial condition '{initial_condition}' is not defined in the dictionary. "
+                  f"Please check it and add the new initial condition.")
+            data = '''with {
+   the SUT containing an initial state
+}'''
+            return data
+
+
+if __name__ == "__main__":
+    instance = InitialSetup()
+
+    instance.print_numbers()
+
+    print(instance.get_initial_condition(initial_condition="Setup Initial Context Source Registration"))
+    print(instance.get_initial_condition(initial_condition="Lorem Ipsum dolor sit"))

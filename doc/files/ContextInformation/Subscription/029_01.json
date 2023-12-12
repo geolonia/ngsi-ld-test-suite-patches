@@ -7,7 +7,7 @@
   "pics_selection": "PICS_5_8_2",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "029_01_01 NotPresentId",
@@ -20,7 +20,7 @@
       "setup": null,
       "teardown": null,
       "template": "Update Subscription With Non present Or Invalid Id",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Subscription with Response Status Code set to 400     and\n        Update Subscription with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Update Subscription with Response body containing 'title' element\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Subscription with Response Status Code set to 405     and\n        Update Subscription with Response Body containing the type '${EMPTY}'     and\n        Update Subscription with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Request Update Subscription and \nHeader['Content-Type'] set to 'application/json' and\nPayload defined in file 'subscriptions/fragments/subscription-update-sample.json'\n}",
       "http_verb": "PATCH",
       "endpoint": "subscriptions/{subscription_id}"
@@ -42,7 +42,9 @@
       "endpoint": "subscriptions/{subscription_id}"
     }
   ],
-  "permutations": [],
+  "permutations": [
+    "then"
+  ],
   "robotpath": "ContextInformation/Subscription/UpdateSubscription",
   "robotfile": "029_01"
 }

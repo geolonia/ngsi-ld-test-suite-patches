@@ -5,12 +5,9 @@
   "config_id": "",
   "parent_release": "v1.3.1",
   "pics_selection": "PICS_5_11_2",
-  "keywords": [
-    "Setup Initial Context Source Registration Subscriptions",
-    "Delete Initial Context Source Registration Subscriptions"
-  ],
-  "teardown": "Delete Initial Context Source Registration Subscriptions",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a Context Source Registration Subscription (CSRS1)\n}",
   "test_cases": [
     {
       "name": "038_07_01 Create Existing Context Source Registration Subscription",
@@ -20,8 +17,8 @@
         "5_11_2",
         "csrsub-create"
       ],
-      "setup": null,
-      "teardown": null,
+      "setup": "Setup Initial Context Source Registration Subscription",
+      "teardown": "Delete Initial Context Source Registration Subscription",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Context Source Registration Subscription with Response Status Code set to 409     and\n        Create Context Source Registration Subscription with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/AlreadyExists'     and\n        Create Context Source Registration Subscription with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'POST'\n        Create Context Source Registration Subscription with filename set to '${subscription_payload}', accept set to '${EMPTY}', and content-type set to 'application/ld+json'\n}",

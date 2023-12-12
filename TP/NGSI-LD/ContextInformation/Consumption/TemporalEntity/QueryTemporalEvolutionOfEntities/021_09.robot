@@ -6,8 +6,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProv
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Test Setup          Setup Initial Temporal Entities
+Test Teardown       Delete Initial Temporal Entities
 Test Template       Query the temporal evolution of entities matching the given NGSI-LD geo-query
 
 
@@ -48,7 +48,7 @@ Query the temporal evolution of entities matching the given NGSI-LD geo-query
     ...    ${temporal_entities_representation_ids}
     ...    ${response.json()}
 
-Setup Initial Entities
+Setup Initial Temporal Entities
     ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     Create Temporal Representation Of Entity
@@ -60,6 +60,6 @@ Setup Initial Entities
     Set Test Variable    ${first_temporal_entity_representation_id}
     Set Test Variable    ${second_temporal_entity_representation_id}
 
-Delete Initial Entities
+Delete Initial Temporal Entities
     Delete Temporal Representation Of Entity    ${first_temporal_entity_representation_id}
     Delete Temporal Representation Of Entity    ${second_temporal_entity_representation_id}

@@ -6,7 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
+Test Setup          Setup Initial Entity
 Test Teardown       Delete Initial Entities
 Test Template       Batch Upsert Entities With Update Option Scenarios
 
@@ -54,7 +54,7 @@ Batch Upsert Entities With Update Option Scenarios
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resources Set To    ${updated_entities}    ${response1.json()}
 
-Setup Initial Entities
+Setup Initial Entity
     ${existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity    ${existing_entity_payload_filename}    ${existing_entity_id}
     Set Test Variable    ${existing_entity_id}

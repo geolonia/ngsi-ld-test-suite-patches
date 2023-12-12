@@ -7,7 +7,7 @@
   "pics_selection": "PICS_5_6_15",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Temporal Entity ${entity} \n        with an id set to ${temporal_entity_representation_id} \n}",
   "test_cases": [
     {
       "name": "017_03_01 Delete an attribute instance in temporal representation of an entity if the entity with given id is not found",

@@ -10,7 +10,7 @@
     "Delete Entities"
   ],
   "teardown": "Delete Entities",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "019_05_01 Get an entity by id that can be returned in GeoJSON format",

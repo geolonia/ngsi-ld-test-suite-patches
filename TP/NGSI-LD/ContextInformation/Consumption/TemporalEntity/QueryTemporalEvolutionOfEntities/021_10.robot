@@ -7,8 +7,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Suite Setup         Create Initial Context Source Registration
-Suite Teardown      Delete Initial Context Source Registration
+Test Setup          Create Initial Context Source Registration and Mock Server
+Test Teardown       Delete Initial Context Source Registration and Mock Server
 
 
 *** Variables ***
@@ -33,7 +33,7 @@ ${context_source_url}=                                  http://${context_source_
 
 
 *** Keywords ***
-Create Initial Context Source Registration
+Create Initial Context Source Registration and Mock Server
     Start Context Source Mock Server
     ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
     ${context_source_registration_payload}=    Load Context Source Registration Sample With Reachable Context Source
@@ -42,6 +42,6 @@ Create Initial Context Source Registration
     Create Context Source Registration    ${context_source_registration_payload}
     Set Suite Variable    ${context_source_registration_id}
 
-Delete Initial Context Source Registration
+Delete Initial Context Source Registration and Mock Server
     Stop Context Source Mock Server
     Delete Context Source Registration    ${context_source_registration_id}

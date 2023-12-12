@@ -7,8 +7,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
 
-Suite Setup         Setup Initial Context Source Registrations
-Suite Teardown      Delete Created Context Source Registrations And Subscriptions
+Suite Setup         Setup Initial Context Source Registration
+Suite Teardown      Delete Created Context Source Registration And Subscription
 
 
 *** Variables ***
@@ -33,7 +33,7 @@ ${subscription_payload_file_path}=                      csourceSubscriptions/sub
 
 
 *** Keywords ***
-Setup Initial Context Source Registrations
+Setup Initial Context Source Registration
     Start Local Server
     ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
     ${context_source_registration_payload}=    Load Test Sample
@@ -42,7 +42,7 @@ Setup Initial Context Source Registrations
     Create Context Source Registration    ${context_source_registration_payload}
     Set Suite Variable    ${context_source_registration_id}
 
-Delete Created Context Source Registrations And Subscriptions
+Delete Created Context Source Registration And Subscription
     Stop Local Server
     Delete Context Source Registration    ${context_source_registration_id}
     Delete Context Source Registration Subscription    ${subscription_id}

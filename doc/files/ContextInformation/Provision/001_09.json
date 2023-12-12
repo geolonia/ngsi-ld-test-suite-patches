@@ -7,7 +7,7 @@
   "pics_selection": "PICS_6_3_5",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "001_09_01 Create one entity with a Link header and a JSON-LD content type",

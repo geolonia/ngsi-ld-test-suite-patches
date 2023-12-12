@@ -7,7 +7,7 @@
   "pics_selection": "PICS_6_3_4",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "048_01_01 Endpoint patch /entities/{entityId}/attrs/{attrId}",
@@ -107,10 +107,10 @@
     }
   ],
   "permutations": [
-    "then",
     "when",
+    "endpoint",
     "http_verb",
-    "endpoint"
+    "then"
   ],
   "robotpath": "CommonBehaviours/CommonResponses/VerifyUnsupportedMediaType",
   "robotfile": "048_01"

@@ -7,7 +7,7 @@
   "pics_selection": "PICS_5_6_5",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "013_02_01 Delete an attribute if the Entity Id is not present",
@@ -17,8 +17,8 @@
         "ea-delete",
         "5_6_5"
       ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
+      "setup": null,
+      "teardown": "Delete Initial Entity",
       "template": "Delete Attributes",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Delete Entity Attributes with Response Status Code set to 400\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${EMPTY}' and\n    Query Parameter: attributeId set to 'speed' and\n    Query Parameter: datasetId set to '${EMPTY}' and\n    Query Parameter: deleteAll set to 'false'\n}",
@@ -33,8 +33,8 @@
         "ea-delete",
         "5_6_5"
       ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
+      "setup": null,
+      "teardown": "Delete Initial Entity",
       "template": "Delete Attributes",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Delete Entity Attributes with Response Status Code set to 400\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to 'thisIsAnInvalidURI' and\n    Query Parameter: attributeId set to 'speed' and\n    Query Parameter: datasetId set to '${EMPTY}' and\n    Query Parameter: deleteAll set to 'false'\n}",
@@ -49,16 +49,17 @@
         "ea-delete",
         "5_6_5"
       ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
+      "setup": null,
+      "teardown": "Delete Initial Entity",
       "template": "Delete Attributes",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Delete Entity Attributes with Response Status Code set to 400\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Delete Entity Attributes with Response Status Code set to 405\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: attributeId set to '${EMPTY}' and\n    Query Parameter: datasetId set to '${EMPTY}' and\n    Query Parameter: deleteAll set to 'false'\n}",
       "http_verb": "DELETE",
       "endpoint": "entities/{entityId}/attrs/{attributeId}?${params_as_string}"
     }
   ],
   "permutations": [
+    "then",
     "when"
   ],
   "robotpath": "ContextInformation/Provision/EntityAttributes/DeleteEntityAttribute",

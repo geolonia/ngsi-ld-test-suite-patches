@@ -5,11 +5,9 @@
   "config_id": "",
   "parent_release": "v1.3.1",
   "pics_selection": "PICS_5_11_6",
-  "keywords": [
-    "Setup Initial Context Source Registration Subscriptions"
-  ],
+  "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a Context Source Registration Subscription (CSRS1)\n}",
   "test_cases": [
     {
       "name": "042_01_01 Delete Context Source Registration Subscription",
@@ -19,7 +17,7 @@
         "5_11_6",
         "csrsub-delete"
       ],
-      "setup": null,
+      "setup": "Setup Initial Context Source Registration Subscription",
       "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Context Source Registration Subscription with Response Status Code set to 204     and\n        Retrieve Context Source Registration Subscription with Response Status Code set to ${response1.status_code}\n}",

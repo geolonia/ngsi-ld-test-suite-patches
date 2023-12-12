@@ -9,7 +9,7 @@
     "Delete Intitial Temporal Representation Of Entity"
   ],
   "teardown": "Delete Intitial Temporal Representation Of Entity",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "016_01_01 Modify attribute instance in temporal representation of an entity",

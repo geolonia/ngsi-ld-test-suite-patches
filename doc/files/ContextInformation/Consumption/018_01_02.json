@@ -9,7 +9,7 @@
     "Delete Created Entity"
   ],
   "teardown": "Delete Created Entity",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "018_01_02 Query some attributes from an entity",

@@ -3,7 +3,8 @@ from robot.api import TestSuiteBuilder
 from analysis.parserobotfile import ParseRobotFile
 from analysis.parseapiutilsfile import ParseApiUtilsFile
 from analysis.parsevariablesfile import ParseVariablesFile
-import re
+from analysis.initial_setup import InitialSetup
+from re import match, findall, finditer, sub, MULTILINE
 
 
 class GenerateRobotData:
@@ -100,6 +101,9 @@ class GenerateRobotData:
         }
         self.base_TP_id = str()
 
+        self.initial_setup = InitialSetup()
+
+
     def get_info(self):
         self.test_suite['robotpath'] = (self.robot_file.replace(f'{self.execdir}/TP/NGSI-LD/', '')
                                         .replace(f'/{self.robot.test_suite}.robot', ''))
@@ -116,13 +120,28 @@ class GenerateRobotData:
         # Generate the permutation keys to provide the keys in test_cases list that are different
         self.test_suite['permutations'] = self.get_permutation_keys(data=self.test_suite['test_cases'])
 
+        # Generate the initial_condition of the test suite
+        self.test_suite['initial_condition'] = self.generate_initial_condition()
+
+    def generate_initial_condition(self) -> str :
+        aux = [x['setup'] for x in self.test_cases]
+        if all(element == aux[0] for element in aux[1:]):
+            aux = self.initial_setup.get_initial_condition(initial_condition=aux[0])
+            return aux
+        else:
+            print(f'Something went wrong, the test suite {self.suite.resource.source} '
+                  f'has different "setup" values for its test cases.')
+
     def get_permutation_keys(self, data):
         all_keys = set().union(*data)
         excluded_keys = ['doc', 'permutation_tp_id', 'setup', 'teardown', 'name', 'tags']
         all_keys = [x for x in all_keys if x not in excluded_keys]
+
         keys_with_different_values = [
             key for key in all_keys if any(d.get(key) != data[0].get(key) for d in data[1:])
         ]
+
+        keys_with_different_values.sort()
 
         return keys_with_different_values
 
@@ -136,12 +155,12 @@ class GenerateRobotData:
 
     def get_params(self, test_case: str):
         test_case = self.get_data_template(string=test_case)
-        lines_starting_response = re.findall(r'^\s*\$\{response\}.*|^\s*\$\{notification\}.*', test_case, re.MULTILINE)
+        lines_starting_response = findall(r'^\s*\$\{response\}.*|^\s*\$\{notification\}.*', test_case, MULTILINE)
 
         # If there is more than one line, it means that the test case has several operations, all of them to
         # create the environment content to execute the last one, which is the correct one to test the Test Case
         if (len(lines_starting_response) > 1 and
-                any(map(lambda item: 'notification' in item, lines_starting_response)) == False):
+                any(map(lambda item: 'notification' in item, lines_starting_response)) is False):
             # The last one corresponds to the execution of the test, the rest corresponds to the initial condition of
             # test case...
             response_to_check = lines_starting_response[-1]
@@ -164,7 +183,7 @@ class GenerateRobotData:
             for i in range(1, len(aux)):
                 if '    ...    ' in aux[i]:
                     regex = '(\s{4})*\s{4}\.{3}\s{4}(.*)'
-                    param = re.match(pattern=regex, string=aux[i])
+                    param = match(pattern=regex, string=aux[i])
                     if aux:
                         params.append(param.groups()[1])
                 else:
@@ -172,15 +191,15 @@ class GenerateRobotData:
         else:
             # the attributes are in the same line
             regex = r"\s*\$\{response\}=\s{4}(.*)"
-            matches = re.finditer(regex, response_to_check, re.MULTILINE)
+            matches = finditer(regex, response_to_check, MULTILINE)
             request = aux[0].split('    ')[2]
 
             # We have two options from here, or the parameters are defined in the same line or the parameters are defined in
             # following lines, next lines
-            for match in matches:
+            for a_match in matches:
                 # Check that we have 1 group matched
-                if len(match.groups()) == 1:
-                    aux = match.group(1)
+                if len(a_match.groups()) == 1:
+                    aux = a_match.group(1)
 
                     # Get the list of keys
                     params = aux.split('    ')[1:]
@@ -360,12 +379,12 @@ class GenerateRobotData:
             'tp_id': tp_id,
             'test_objective': self.suite.doc,
             'reference': reference,
-            'config_id': '',
+            'config_id': str(),
             'parent_release': version,
             'pics_selection': pics,
             'keywords': [str(x) for x in self.suite.keywords],
             'teardown': str(self.suite.teardown),
-            'initial_condition': self.suite.setup,
+            'initial_condition': str(),
             'test_cases': list()
         }
 
@@ -428,9 +447,9 @@ class GenerateRobotData:
             aux = [self.get_body(x) for x in aux]
             aux = ' '.join(aux)
         elif len(aux) == 1:
-            aux = re.sub(r'([a-z])([A-Z])', r'\1 \2', aux[0])
+            aux = sub(r'([a-z])([A-Z])', r'\1 \2', aux[0])
         else:
-            aux = re.sub(r'([a-z])([A-Z])', r'\1 \2', string)
+            aux = sub(r'([a-z])([A-Z])', r'\1 \2', string)
 
         return aux
 
@@ -535,7 +554,7 @@ class GenerateRobotData:
         #     pics = f'PICS_{tags[0]}'
         #
         # return reference, pics
-        aux = [x for x in tags if re.match(pattern='^(\d+_\d+_\d+)', string=x)]
+        aux = [x for x in tags if match(pattern='^(\d+_\d+_\d+)', string=x)]
 
         if len(aux) == 0:
             raise Exception(

@@ -7,7 +7,7 @@
   "pics_selection": "PICS_5_7_4",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an a list of Temporal Entities \n}",
   "test_cases": [
     {
       "name": "021_11_01 Query Some entities",
@@ -17,8 +17,8 @@
         "5_7_4",
         "te-query"
       ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
+      "setup": "Setup Initial Temporal Entities",
+      "teardown": "Delete Initial Temporal Entities",
       "template": "Query the temporal evolution of entities with a limit to the number of entities to be retrieved",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Temporal Representation Of Entities with Response Status Code set to 200     and\n        Query Temporal Representation Of Entities with Response Body containing a list of entities equal to '${2}' of type 'Vehicle' with response set to '${response.json()}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n        Query Temporal Representation of Entities and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: limit set to '${2}' and\n    Query Parameter: timerel set to 'after' and\n    Query Parameter: timeAt set to '2020-07-01T12:05:00Z' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
@@ -33,8 +33,8 @@
         "5_7_4",
         "te-query"
       ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
+      "setup": "Setup Initial Temporal Entities",
+      "teardown": "Delete Initial Temporal Entities",
       "template": "Query the temporal evolution of entities with a limit to the number of entities to be retrieved",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Temporal Representation Of Entities with Response Status Code set to 200     and\n        Query Temporal Representation Of Entities with Response Body containing a list of entities equal to '${3}' of type 'Vehicle' with response set to '${response.json()}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n        Query Temporal Representation of Entities and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: limit set to '${3}' and\n    Query Parameter: timerel set to 'after' and\n    Query Parameter: timeAt set to '2020-07-01T12:05:00Z' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
@@ -43,8 +43,8 @@
     }
   ],
   "permutations": [
-    "when",
-    "then"
+    "then",
+    "when"
   ],
   "robotpath": "ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities",
   "robotfile": "021_11"

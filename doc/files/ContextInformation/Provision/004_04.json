@@ -7,7 +7,7 @@
   "pics_selection": "PICS_5_6_8",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} \n        with an id set to ${entityId} \n}",
   "test_cases": [
     {
       "name": "004_04_01 EntityWithSimpleProperties",
@@ -17,7 +17,7 @@
         "5_6_8",
         "be-upsert"
       ],
-      "setup": "Setup Initial Entities",
+      "setup": "Setup Initial Entity",
       "teardown": "Delete Initial Entities",
       "template": "Batch Upsert Entities With Update Option Scenarios",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Upsert Entities with Response Status Code set to 201     and\n        Batch Upsert Entities with Response Body set to an array of created entities ids     and\n        Query Entities with Updated Entities set to '${updated_entities}' valid entities\n}",
@@ -33,7 +33,7 @@
         "5_6_8",
         "be-upsert"
       ],
-      "setup": "Setup Initial Entities",
+      "setup": "Setup Initial Entity",
       "teardown": "Delete Initial Entities",
       "template": "Batch Upsert Entities With Update Option Scenarios",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Upsert Entities with Response Status Code set to 201     and\n        Batch Upsert Entities with Response Body set to an array of created entities ids     and\n        Query Entities with Updated Entities set to '${updated_entities}' valid entities\n}",
@@ -49,7 +49,7 @@
         "5_6_8",
         "be-upsert"
       ],
-      "setup": "Setup Initial Entities",
+      "setup": "Setup Initial Entity",
       "teardown": "Delete Initial Entities",
       "template": "Batch Upsert Entities With Update Option Scenarios",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Upsert Entities with Response Status Code set to 201     and\n        Batch Upsert Entities with Response Body set to an array of created entities ids     and\n        Query Entities with Updated Entities set to '${updated_entities}' valid entities\n}",

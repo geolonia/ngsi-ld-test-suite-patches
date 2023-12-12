@@ -9,7 +9,7 @@
     "Delete Created Context Source Registrations"
   ],
   "teardown": "Delete Created Context Source Registrations",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "033_07_01 Create one context source registration using a JSON-LD @context obtained from the request payload with Context",

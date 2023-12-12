@@ -6,11 +6,11 @@
   "parent_release": "v1.3.1",
   "pics_selection": "PICS_5_7_10",
   "keywords": [
-    "Setup Initial Entities",
-    "Delete Initial Entities"
+    "Setup Initial Entity",
+    "Delete Initial Entity"
   ],
-  "teardown": "Delete Initial Entities",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "teardown": "Delete Initial Entity",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "027_02_01 Retrieve Detailed Representation Of Available Attribute",

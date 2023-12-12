@@ -7,7 +7,7 @@
   "pics_selection": "PICS_6_3_5",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "003_05_01 Create a batch of one entity using the default context with JSON content type",

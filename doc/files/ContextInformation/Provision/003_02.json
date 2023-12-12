@@ -6,11 +6,11 @@
   "parent_release": "v1.3.1",
   "pics_selection": "PICS_5_6_7",
   "keywords": [
-    "Setup Initial Entities",
+    "Setup Initial Entity",
     "Delete Initial Entities"
   ],
   "teardown": "Delete Initial Entities",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "003_02_01 Create a batch of two valid entities and one invalid entity",

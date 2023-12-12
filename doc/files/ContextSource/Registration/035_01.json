@@ -7,7 +7,7 @@
   "pics_selection": "PICS_5_9_4",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "035_01_01 Delete a context source registration by id",

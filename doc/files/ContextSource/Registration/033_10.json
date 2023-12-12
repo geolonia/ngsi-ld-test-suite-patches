@@ -7,7 +7,7 @@
   "pics_selection": "PICS_6_3_5",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "033_10_01 Create a context source registration with a different data structure than CsourRegistration data type",

@@ -7,7 +7,7 @@
   "pics_selection": "PICS_5_6_11",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "007_03_01 Create a temporal entity with missing id",

@@ -10,7 +10,7 @@
     "Stop Local Server"
   ],
   "teardown": "Stop Local Server",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "047_11_01 CreatedAt",

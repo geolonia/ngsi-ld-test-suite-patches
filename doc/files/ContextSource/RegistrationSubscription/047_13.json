@@ -5,12 +5,9 @@
   "config_id": "",
   "parent_release": "v1.3.1",
   "pics_selection": "PICS_5_11_7",
-  "keywords": [
-    "Setup Initial Context Source Registration Subscriptions",
-    "Delete Created Context Source Registrations And Subscriptions"
-  ],
-  "teardown": "Delete Created Context Source Registrations And Subscriptions",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a Context Source Registration Subscription (CSRS1)\n}",
   "test_cases": [
     {
       "name": "047_13_01 Receive cSourceNotification For Matching Context Source Registrations On Any watchedAttribute",
@@ -20,8 +17,8 @@
         "5_11_7",
         "csrsub-notification"
       ],
-      "setup": null,
-      "teardown": null,
+      "setup": "Setup Initial Context Source Registration Subscription",
+      "teardown": "Delete Created Context Source Registration And Subscription",
       "template": null,
       "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        Notification received Waiting for Notification and validate it and\n    Query Parameter: expected_subscription_id set to 'subscription_id' and\n    Query Parameter: expected_context_source_registration_ids set to 'expected_context_source_registration_ids' and\n    Query Parameter: expected_trigger_reason set to 'newlyMatching' and\n    Query Parameter: expected_notification_data_entities set to '${EMPTY}' and\n    Query Parameter: timeout set to '5'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'POST'\n        Create Context Source Registration Request with Content-Type set to 'application/ld+json' and payload set to '${context_source_registration_payload}'\n}",

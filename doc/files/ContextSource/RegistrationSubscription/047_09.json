@@ -6,11 +6,11 @@
   "parent_release": "v1.3.1",
   "pics_selection": "PICS_5_11_7",
   "keywords": [
-    "Setup Initial Context Source Registrations And Subscriptions",
-    "Delete Created Context Source Registrations And Subscriptions"
+    "Create Initial Context Source Registration And Context Source Registration Subscription",
+    "Delete Created Context Source Registration And Context Source Registration Subscription"
   ],
-  "teardown": "Delete Created Context Source Registrations And Subscriptions",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "teardown": "Delete Created Context Source Registration And Context Source Registration Subscription",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "047_09_01 Receive cSourceNotification For No Longer Matching Context Source Registrations Providing Latest Information",

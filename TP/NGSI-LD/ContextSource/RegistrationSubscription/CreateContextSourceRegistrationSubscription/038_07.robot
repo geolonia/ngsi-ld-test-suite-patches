@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubsc
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Context Source Registration Subscriptions
-Suite Teardown      Delete Initial Context Source Registration Subscriptions
+Test Setup          Setup Initial Context Source Registration Subscription
+Test Teardown       Delete Initial Context Source Registration Subscription
 
 
 *** Variables ***
@@ -28,11 +28,11 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
 
 
 *** Keywords ***
-Setup Initial Context Source Registration Subscriptions
+Setup Initial Context Source Registration Subscription
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
     Create Context Source Registration Subscription    ${subscription_payload}
     Set Suite Variable    ${subscription_id}
 
-Delete Initial Context Source Registration Subscriptions
+Delete Initial Context Source Registration Subscription
     Delete Context Source Registration Subscription    ${subscription_id}

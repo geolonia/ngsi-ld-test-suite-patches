@@ -9,7 +9,7 @@
     "Delete Initial Subscriptions"
   ],
   "teardown": "Delete Initial Subscriptions",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "028_04_01 Create a subscription with an id known to the system",

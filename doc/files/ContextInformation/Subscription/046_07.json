@@ -10,7 +10,7 @@
     "After Suite"
   ],
   "teardown": "After Suite",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Subscription ${subscription} \n        with an id set to ${subscription_id} \n}",
   "test_cases": [
     {
       "name": "046_07_01 Check notification structure",

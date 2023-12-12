@@ -36,7 +36,6 @@ def create_json_of_robotfile(robot_file_to_be_processed: str, computestatistics:
         data.parse_robot()
         info = data.get_info()
 
-
     with open(result_file, 'w') as fp:
         dump(obj=info, indent=2, fp=fp)
 

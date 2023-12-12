@@ -7,7 +7,7 @@
   "pics_selection": "PICS_5_6_13",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Temporal Entity ${entity} \n        with an id set to ${temporal_entity_representation_id} \n}",
   "test_cases": [
     {
       "name": "015_01_01 Delete an attribute from a temporal representation of an entity without deleteAll/datasetId",

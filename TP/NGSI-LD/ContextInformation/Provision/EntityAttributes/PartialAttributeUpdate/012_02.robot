@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Test Setup          Setup Initial Entity
+Test Teardown       Delete Initial Entity
 Test Template       Update Attributes
 
 
@@ -43,7 +43,7 @@ Update Attributes
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
-Setup Initial Entities
+Setup Initial Entity
     ${valid_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${valid_entity_id}
     ${response}=    Create Entity Selecting Content Type
@@ -52,5 +52,5 @@ Setup Initial Entities
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
 
-Delete Initial Entities
+Delete Initial Entity
     Delete Entity by Id    ${valid_entity_id}

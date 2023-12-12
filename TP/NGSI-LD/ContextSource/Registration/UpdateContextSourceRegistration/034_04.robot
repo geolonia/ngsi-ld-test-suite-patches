@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.reso
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Test Setup          Create Initial Context Source Registration
+Test Teardown       Delete Initial Context Source Registration
 
 
 *** Variables ***
@@ -29,7 +29,7 @@ ${registration_payload_file_path}=      context-source-registration-invalid-samp
 
 
 *** Keywords ***
-Setup Initial Entities
+Create Initial Context Source Registration
     ${valid_registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Test Variable    ${valid_registration_id}
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
@@ -39,5 +39,5 @@ Setup Initial Entities
     ${response}=    Create Context Source Registration With Return    ${updated_payload}
     Check Response Status Code    201    ${response.status_code}
 
-Delete Initial Entities
+Delete Initial Context Source Registration
     Delete Context Source Registration    ${registration_id}

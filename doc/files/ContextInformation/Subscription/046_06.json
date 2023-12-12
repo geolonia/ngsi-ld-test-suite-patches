@@ -10,7 +10,7 @@
     "Delete Server And Subscriptions"
   ],
   "teardown": "Delete Server And Subscriptions",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "046_06_01 Check that a notification is sent with all matching entities",

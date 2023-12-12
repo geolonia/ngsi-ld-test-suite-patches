@@ -6,8 +6,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProv
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Entities
-Suite Teardown      Delete Initial Entities
+Suite Setup         Setup Initial Temporal Entities
+Suite Teardown      Delete Initial Temporal Entities
 
 
 *** Variables ***
@@ -39,7 +39,7 @@ ${expectation_file}=                vehicles-temporal-representation-021-08-expe
 
 
 *** Keywords ***
-Setup Initial Entities
+Setup Initial Temporal Entities
     ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     Create Temporal Representation Of Entity
@@ -51,6 +51,6 @@ Setup Initial Entities
     Set Suite Variable    ${first_temporal_entity_representation_id}
     Set Suite Variable    ${second_temporal_entity_representation_id}
 
-Delete Initial Entities
+Delete Initial Temporal Entities
     Delete Temporal Representation Of Entity    ${first_temporal_entity_representation_id}
     Delete Temporal Representation Of Entity    ${second_temporal_entity_representation_id}

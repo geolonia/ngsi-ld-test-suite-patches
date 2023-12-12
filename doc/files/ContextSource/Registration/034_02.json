@@ -7,7 +7,7 @@
   "pics_selection": "PICS_5_9_3",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT contains a Context Source Registration \n        with id equal to ${context_source_registration_id}\n        and payload set to ${context_source_registration_payload_file_path}\n}",
   "test_cases": [
     {
       "name": "034_02_01 Update a context source registration by id if the Id is not present",
@@ -17,8 +17,8 @@
         "csr-update",
         "5_9_3"
       ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
+      "setup": "Create Initial Context Source Registration",
+      "teardown": "Delete Initial Context Source Registration",
       "template": "Update A Context Source",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration With Return with Response Status Code set to 400     and\n        Update Context Source Registration With Return with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with id set to '${registration_id}' and registration update fragment set to '${fragment_with_id}' and content-type set to 'application/ld+json'\n}",
@@ -33,8 +33,8 @@
         "csr-update",
         "5_9_3"
       ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
+      "setup": "Create Initial Context Source Registration",
+      "teardown": "Delete Initial Context Source Registration",
       "template": "Update A Context Source",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration With Return with Response Status Code set to 400     and\n        Update Context Source Registration With Return with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with id set to '${registration_id}' and registration update fragment set to '${fragment_with_id}' and content-type set to 'application/ld+json'\n}",
@@ -49,8 +49,8 @@
         "csr-update",
         "5_9_3"
       ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
+      "setup": "Create Initial Context Source Registration",
+      "teardown": "Delete Initial Context Source Registration",
       "template": "Update A Context Source",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration With Return with Response Status Code set to 400     and\n        Update Context Source Registration With Return with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with id set to '${registration_id}' and registration update fragment set to '${fragment_with_id}' and content-type set to 'application/ld+json'\n}",
@@ -65,8 +65,8 @@
         "csr-update",
         "5_9_3"
       ],
-      "setup": "Setup Initial Entities",
-      "teardown": "Delete Initial Entities",
+      "setup": "Create Initial Context Source Registration",
+      "teardown": "Delete Initial Context Source Registration",
       "template": "Update A Context Source",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration With Return with Response Status Code set to 400     and\n        Update Context Source Registration With Return with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with id set to '${registration_id}' and registration update fragment set to '${fragment_with_id}' and content-type set to 'application/ld+json'\n}",

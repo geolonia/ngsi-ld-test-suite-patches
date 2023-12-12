@@ -6,11 +6,11 @@
   "parent_release": "v1.3.1",
   "pics_selection": "PICS_5_7_3",
   "keywords": [
-    "Setup Initial Entities",
-    "Delete Initial Entities"
+    "Create Temporal Entity",
+    "Delete Initial Temporal Entity"
   ],
-  "teardown": "Delete Initial Entities",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "teardown": "Delete Initial Temporal Entity",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "020_01_01 Retrieve the temporal evolution of an entity",

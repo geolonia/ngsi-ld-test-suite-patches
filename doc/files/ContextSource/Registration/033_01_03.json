@@ -9,7 +9,7 @@
     "Delete Created Context Source Registrations"
   ],
   "teardown": "Delete Created Context Source Registrations",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "033_01_03 Create Context Source Registration Without A Sprecified ID",

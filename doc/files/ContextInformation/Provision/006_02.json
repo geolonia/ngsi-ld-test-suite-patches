@@ -7,7 +7,7 @@
   "pics_selection": "PICS_5_6_10",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} \n        with an id set to ${entityId} \n}",
   "test_cases": [
     {
       "name": "006_02_01 Delete a batch of non-existing and existing entities",
@@ -17,7 +17,7 @@
         "5_6_10",
         "be-delete"
       ],
-      "setup": "Setup Initial Entities",
+      "setup": "Setup Initial Entity",
       "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Delete Entities with Response Status Code set to 207     and\n        ${response.json()} with Response body containing batch operation result set to '${response1}'     and\n        Query Entities with Response body is empty\n}",

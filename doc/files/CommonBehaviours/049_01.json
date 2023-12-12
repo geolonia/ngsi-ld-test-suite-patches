@@ -7,7 +7,7 @@
   "pics_selection": "PICS_6_3_4",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "049_01_01 Endpoint get /entities/{entityId}",
@@ -91,9 +91,9 @@
     }
   ],
   "permutations": [
-    "then",
     "when",
-    "endpoint"
+    "endpoint",
+    "then"
   ],
   "robotpath": "CommonBehaviours/CommonResponses/VerifyNotAcceptableMediaType",
   "robotfile": "049_01"

@@ -7,8 +7,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
 
-Test Setup          Setup Initial Context Source Registrations And Subscriptions
-Test Teardown       Delete Created Context Source Registrations And Subscriptions
+Test Setup          Create Initial Context Source Registrations And Context Source Registration Subscription
+Test Teardown       Delete Created Context Source Registrations And Context Source Registration Subscription
 Test Template       Receive cSourceNotification For Newly Matching Context Source Registrations
 
 
@@ -45,7 +45,7 @@ Receive cSourceNotification For Newly Matching Context Source Registrations
     ...    expected_context_source_registration_ids=${notification_csr_ids}
     ...    expected_trigger_reason=newlyMatching
 
-Setup Initial Context Source Registrations And Subscriptions
+Create Initial Context Source Registrations And Context Source Registration Subscription
     Start Local Server
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${first_context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
@@ -66,7 +66,7 @@ Setup Initial Context Source Registrations And Subscriptions
     Set Test Variable    ${first_context_source_registration_id}
     Set Test Variable    ${second_context_source_registration_id}
 
-Delete Created Context Source Registrations And Subscriptions
+Delete Created Context Source Registrations And Context Source Registration Subscription
     Stop Local Server
     Delete Context Source Registration Subscription    ${subscription_id}
     Delete Context Source Registration    ${first_context_source_registration_id}

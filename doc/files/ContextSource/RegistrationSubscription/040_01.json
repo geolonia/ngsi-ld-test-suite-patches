@@ -5,12 +5,9 @@
   "config_id": "",
   "parent_release": "v1.3.1",
   "pics_selection": "PICS_5_11_4",
-  "keywords": [
-    "Setup Initial Context Source Registration Subscription",
-    "Delete Created Context Source Registration Subscription"
-  ],
-  "teardown": "Delete Created Context Source Registration Subscription",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a Context Source Registration Subscription (CSRS1)\n}",
   "test_cases": [
     {
       "name": "040_01_01 Retrieve Context Source Registration Subscription",
@@ -20,8 +17,8 @@
         "5_11_4",
         "csrsub-retrieve"
       ],
-      "setup": null,
-      "teardown": null,
+      "setup": "Setup Initial Context Source Registration Subscription",
+      "teardown": "Delete Created Context Source Registration Subscription",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Context Source Registration Subscription with Response Status Code set to 200     and\n        Retrieve Context Source Registration Subscription with Response Body containing the same content defined in file 'csourceSubscriptions/expectations/subscriptions-040-01-expectation.json' with subscription id '${subscription_id}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration Subscription with data: and\n    Query Parameter: subscription id set to '${subscription_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
