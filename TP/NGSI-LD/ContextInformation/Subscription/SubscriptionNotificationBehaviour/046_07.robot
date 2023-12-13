@@ -13,16 +13,16 @@ Test Teardown       After Test
 
 
 *** Variables ***
-${subscription_id_prefix}                               urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}                       subscriptions/subscription-building-entities-active.jsonld
-${subscription_payload_file_path_watchedAttributes}     subscriptions/subscription-building-entities-active-watchedAttributes.jsonld
-${subscription_payload_file_path_default_context}       subscriptions/subscription-building-entities-active-default-context.jsonld
-${building_id_prefix}                                   urn:ngsi-ld:Building:
-${notification_server_send_url}                         http://${notification_server_host}:${notification_server_port}/notify
-${entity_building_filepath}                             building-simple-attributes-sample.jsonld
-${fragment_filename}                                    airQualityLevel-fragment.jsonld
-${date_format}                                          %Y-%m-%dT%H:%M:%SZ
-${date_format_with_millis}                              %Y-%m-%dT%H:%M:%S.%fZ
+${subscription_id_prefix}                                   urn:ngsi-ld:Subscription:
+${subscription_payload_file_path}                           subscriptions/subscription-building-entities-active.jsonld
+${subscription_payload_file_path_notificationAttributes}    subscriptions/subscription-building-entities-active-notificationAttributes.jsonld
+${subscription_payload_file_path_default_context}           subscriptions/subscription-building-entities-active-default-context.jsonld
+${building_id_prefix}                                       urn:ngsi-ld:Building:
+${notification_server_send_url}                             http://${notification_server_host}:${notification_server_port}/notify
+${entity_building_filepath}                                 building-simple-attributes-sample.jsonld
+${fragment_filename}                                        airQualityLevel-fragment.jsonld
+${date_format}                                              %Y-%m-%dT%H:%M:%SZ
+${date_format_with_millis}                                  %Y-%m-%dT%H:%M:%S.%fZ
 
 
 *** Test Cases ***
@@ -42,7 +42,7 @@ ${date_format_with_millis}                              %Y-%m-%dT%H:%M:%S.%fZ
 046_07_02 Check correct attributes are included
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3.    The Entity Attributes included (Properties or Relationships) shall be those specified by the notification.attributes member in the Subscription data type (clause 5.2.12).
     [Tags]    sub-notification    5_8_6    046_07_02
-    [Setup]    Setup Initial Subscriptions    ${subscription_payload_file_path_watchedAttributes}
+    [Setup]    Setup Initial Subscriptions    ${subscription_payload_file_path_notificationAttributes}
 
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
@@ -51,6 +51,7 @@ ${date_format_with_millis}                              %Y-%m-%dT%H:%M:%S.%fZ
     Should Be Equal    ${notification}[subscriptionId]    ${subscription_id}
     ${notified_at_date}=    Parse Ngsild Date    ${notification}[notifiedAt]
     Should Not Be Equal    ${notified_at_date}    ${None}
+    Dictionary Should Not Contain Key    ${notification}[data][0]    name
     Dictionary Should Contain Key    ${notification}[data][0]    airQualityLevel
 
 046_07_03 Check URI expansion is observed
