@@ -48,7 +48,6 @@ Setup Initial Subscriptions
     ...    ${subscription_payload_file_path}
     ...    ${subscription_id}
     ...    ${notification_server_send_url}
-    ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
     Set Suite Variable    ${entity_id}
     Set Suite Variable    ${subscription_id}
 
