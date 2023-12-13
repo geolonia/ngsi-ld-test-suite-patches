@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot update entity attributes with invalid/missing id or invalid request body
+Documentation       Check that you cannot update entity attributes with invalid request body
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
