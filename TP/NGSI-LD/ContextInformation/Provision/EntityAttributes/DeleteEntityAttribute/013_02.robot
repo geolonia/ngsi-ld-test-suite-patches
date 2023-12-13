@@ -5,6 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Setup          Create Initial Entity
 Test Teardown       Delete Initial Entity
 Test Template       Delete Attributes
 
@@ -28,6 +29,14 @@ Delete Attributes
     [Documentation]    Check that you cannot delete an attribute from an entity with invalid/missing ids
     [Tags]    ea-delete    5_6_5
     [Arguments]    ${entity_id}    ${attribute_id}    ${expected_status_code}
+    ${response}=    Delete Entity Attributes
+    ...    entityId=${entity_id}
+    ...    attributeId=${attribute_id}
+    ...    datasetId=${EMPTY}
+    ...    deleteAll=false
+    Check Response Status Code    ${expected_status_code}    ${response.status_code}
+
+Create Initial Entity
     ${valid_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${valid_entity_id}
     ${create_response}=    Create Entity Selecting Content Type
@@ -35,12 +44,6 @@ Delete Attributes
     ...    ${valid_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${create_response.status_code}
-    ${response}=    Delete Entity Attributes
-    ...    entityId=${entity_id}
-    ...    attributeId=${attribute_id}
-    ...    datasetId=${EMPTY}
-    ...    deleteAll=false
-    Check Response Status Code    ${expected_status_code}    ${response.status_code}
 
 Delete Initial Entity
     Delete Entity by Id    ${valid_entity_id}
