@@ -20,6 +20,7 @@ Query Context Source Registrations
     ...    ${context}=${EMPTY}
     ...    ${id}=${EMPTY}
     ...    ${type}=${EMPTY}
+    ...    ${idPattern}=${EMPTY}
     ...    ${attrs}=${EMPTY}
     ...    ${q}=${EMPTY}
     ...    ${csf}=${EMPTY}
@@ -44,6 +45,9 @@ Query Context Source Registrations
     IF    '${accept}'!=''    Set To Dictionary    ${headers}    Accept=${accept}
     IF    '${id}'!=''    Set To Dictionary    ${params}    id=${id}
     IF    '${type}'!=''    Set To Dictionary    ${params}    type=${type}
+    IF    '${idPattern}'!=''
+        Set To Dictionary    ${params}    idPattern=${idPattern}
+    END
     IF    '${attrs}'!=''    Set To Dictionary    ${params}    attrs=${attrs}
     IF    '${q}'!=''    Set To Dictionary    ${params}    q=${q}
     IF    '${csf}'!=''    Set To Dictionary    ${params}    csf=${csf}

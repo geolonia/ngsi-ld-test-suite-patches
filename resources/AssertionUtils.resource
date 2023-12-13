@@ -303,7 +303,7 @@ Check Response Body Containing List Containing Context Source Registrations elem
     FOR    ${expected_context_source_registration_id}    IN    @{expected_context_source_registrations_ids}
         ${expected_context_source_registrations_payload}=    Update Value To JSON
         ...    ${expected_context_source_registrations_payload}
-        ...    $.[${index}]..id
+        ...    $.[${index}].id
         ...    ${expected_context_source_registration_id}
         ${index}=    Evaluate    ${index} + 1
     END

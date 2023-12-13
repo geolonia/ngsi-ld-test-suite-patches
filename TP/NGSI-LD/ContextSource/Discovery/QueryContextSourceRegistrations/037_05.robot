@@ -35,8 +35,8 @@ Query Context Source Registration Matching EntityInfo of RegistrationInfo
     Set Suite Variable    ${context_source_registration_id}
     ${response}=    Query Context Source Registrations
     ...    context=${ngsild_test_suite_context}
-    ...    type=Vehicle
-    ...    attrs=name
+    ...    type=OffStreetParking
+    ...    idPattern=.*downtown$
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Context Source Registrations elements
