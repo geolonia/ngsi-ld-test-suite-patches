@@ -14,7 +14,7 @@ Test Template       Query Context Source Registration With Invalid Query Param
     id    invalidUri
 037_03_02 Invalid Query
     [Tags]    csr-query    5_10_2
-    q    invalidQuery
+    q    (invalidQuery
 037_03_03 Invalid GeoQuery
     [Tags]    csr-query    5_10_2
     georel    within
