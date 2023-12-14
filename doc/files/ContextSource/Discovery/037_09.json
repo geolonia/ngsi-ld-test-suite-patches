@@ -5,10 +5,8 @@
   "config_id": "",
   "parent_release": "v1.3.1",
   "pics_selection": "PICS_5_10_2",
-  "keywords": [
-    "Delete Created Context Source Registrations"
-  ],
-  "teardown": "Delete Created Context Source Registrations",
+  "keywords": [],
+  "teardown": "None",
   "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
@@ -20,7 +18,7 @@
         "csr-query"
       ],
       "setup": null,
-      "teardown": null,
+      "teardown": "Delete Created Context Source Registrations",
       "template": "Query Context Source Registration Matching Temporal Query",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Context Source Registrations with Response Status Code set to 200     and\n        Notification with Response body set to list of all matching Context Source Registrations resolved against the default JSON-LD context\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: type set to 'Building' and\n    Query Parameter: timeproperty set to 'observedAt' and\n    Query Parameter: timerel set to 'before' and\n    Query Parameter: timeAt set to '2021-08-01T22:00:00Z'\n}",
@@ -36,7 +34,7 @@
         "csr-query"
       ],
       "setup": null,
-      "teardown": null,
+      "teardown": "Delete Created Context Source Registrations",
       "template": "Query Context Source Registration Matching Temporal Query",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Context Source Registrations with Response Status Code set to 200     and\n        Notification with Response body set to list of all matching Context Source Registrations resolved against the default JSON-LD context\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: type set to 'Building' and\n    Query Parameter: timeproperty set to '${EMPTY}' and\n    Query Parameter: timerel set to 'before' and\n    Query Parameter: timeAt set to '2021-08-01T22:00:00Z'\n}",
@@ -52,7 +50,7 @@
         "csr-query"
       ],
       "setup": null,
-      "teardown": null,
+      "teardown": "Delete Created Context Source Registrations",
       "template": "Query Context Source Registration Matching Temporal Query",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Context Source Registrations with Response Status Code set to 200     and\n        Notification with Response body set to list of all matching Context Source Registrations resolved against the default JSON-LD context\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: type set to 'Building' and\n    Query Parameter: timeproperty set to 'createdAt' and\n    Query Parameter: timerel set to 'before' and\n    Query Parameter: timeAt set to '2021-08-01T22:00:00Z'\n}",
@@ -68,7 +66,7 @@
         "csr-query"
       ],
       "setup": null,
-      "teardown": null,
+      "teardown": "Delete Created Context Source Registrations",
       "template": "Query Context Source Registration Matching Temporal Query",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Context Source Registrations with Response Status Code set to 200     and\n        Notification with Response body set to list of all matching Context Source Registrations resolved against the default JSON-LD context\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: type set to 'Building' and\n    Query Parameter: timeproperty set to 'modifiedAt' and\n    Query Parameter: timerel set to 'before' and\n    Query Parameter: timeAt set to '2021-08-01T22:00:00Z'\n}",
