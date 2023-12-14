@@ -140,7 +140,7 @@ class Requests:
             },
             'Query Context Source Registrations': {
                 'positions': [],
-                'params': ['context', 'id', 'type', 'attrs',
+                'params': ['context', 'id', 'type', 'idPattern', 'attrs',
                            'q', 'csf', 'georel', 'geometry',
                            'coordinates', 'geoproperty', 'timeproperty', 'timerel',
                            'timeAt', 'limit', 'page', 'accept']
@@ -1353,10 +1353,12 @@ class Requests:
 
     @staticmethod
     def query_context_source_registrations(kwargs) -> str:
-        expected_parameters = ['context', 'id', 'type', 'attrs',
+        expected_parameters = ['context', 'id', 'type', 'idPattern', 'attrs',
                                'q', 'csf', 'georel', 'geometry',
                                'coordinates', 'geoproperty', 'timeproperty', 'timerel',
                                'timeAt', 'limit', 'page', 'accept']
+
+        # kwargs = {key: kwargs.get(key, '${EMPTY}') for key in expected_parameters}
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Retrieve Temporal Representation of Entity"
@@ -1370,6 +1372,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: type set to '{value}'"
                 case 'attrs':
                     response = f"{response} and\n    Query Parameter: attrs set to '{value}'"
+                case 'idPattern':
+                    response = f"{response} and\n    Query Parameter: idPattern set to '{value}'"
                 case 'q':
                     response = f"{response} and\n    Query Parameter: q set to '{value}'"
                 case 'csf':

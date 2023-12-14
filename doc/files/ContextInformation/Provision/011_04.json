@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CI/Prov/EA/011_04",
-  "test_objective": "Check that you cannot update entity attributes with invalid/missing id or invalid request body",
+  "test_objective": "Check that you cannot update entity attributes with invalid request body",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.2",
   "config_id": "",
   "parent_release": "v1.3.1",
