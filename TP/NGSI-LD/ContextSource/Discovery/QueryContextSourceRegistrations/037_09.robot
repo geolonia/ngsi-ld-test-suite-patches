@@ -6,7 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.reso
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Teardown      Delete Created Context Source Registrations
+Test Teardown       Delete Created Context Source Registrations
 Test Template       Query Context Source Registration Matching Temporal Query
 
 
