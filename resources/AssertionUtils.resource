@@ -236,7 +236,7 @@ Check Response Body Containing Context Source Registration element
     ${context_source_registration_payload}=    Load JSON From File    ${EXECDIR}/data/${expectation_filename}
     ${context_source_registration}=    Update Value To JSON
     ...    ${context_source_registration_payload}
-    ...    $..id
+    ...    $.id
     ...    ${context_source_registration_id}
     ${ignored_keys}=    Create List    ${context_regex_expr}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
