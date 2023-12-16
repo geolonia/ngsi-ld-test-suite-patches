@@ -2,6 +2,7 @@
 Variables       ${EXECDIR}/resources/variables.py
 Library         ${EXECDIR}/libraries/logUtils.py
 Library         Collections
+Library         OperatingSystem
 Library         RequestsLibrary
 
 
@@ -71,6 +72,17 @@ Update Context Source Registration
     ...    json=${update_fragment}
     ...    expected_status=any
     Output    ${response}    Update Context Source Registration
+    RETURN    ${response}
+
+Update Context Source Registration From File
+    [Arguments]    ${context_source_registration_id}    ${filename}
+
+    ${file_content}=    Get File    ${EXECDIR}/data/csourceRegistrations/${filename}
+    ${response}=    PATCH
+    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
+    ...    data=${file_content}
+    ...    expected_status=any
+    Output    ${response}    Update Context Source Registration From File
     RETURN    ${response}
 
 Update Context Source Registration With Return
