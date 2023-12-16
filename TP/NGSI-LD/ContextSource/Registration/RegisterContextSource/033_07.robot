@@ -21,7 +21,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
-    ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
+    ${updated_payload}=    Update Value To JSON    ${payload}    $.id    ${registration_id}
     ${response}=    Create Context Source Registration With Return
     ...    ${updated_payload}
     ...    ${CONTENT_TYPE_LD_JSON}
@@ -31,7 +31,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ...    context=${ngsild_test_suite_context}
     Check JSON Value In Response Body
     ...    ['information'][0]['entities'][0]['type']
-    ...    Building
+    ...    Vehicle
     ...    ${response1.json()}
 
 033_07_02 Create one context source registration using a JSON-LD @context obtained from the request payload without Context
@@ -40,7 +40,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
-    ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
+    ${updated_payload}=    Update Value To JSON    ${payload}    $.id    ${registration_id}
     ${response}=    Create Context Source Registration With Return
     ...    ${updated_payload}
     ...    ${CONTENT_TYPE_LD_JSON}
@@ -49,7 +49,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ...    context_source_registration_id=${registration_id}
     Check JSON Value In Response Body
     ...    ['information'][0]['entities'][0]['type']
-    ...    https://ngsi-ld-test-suite/context#Building
+    ...    https://ngsi-ld-test-suite/context#Vehicle
     ...    ${response1.json()}
 
 
