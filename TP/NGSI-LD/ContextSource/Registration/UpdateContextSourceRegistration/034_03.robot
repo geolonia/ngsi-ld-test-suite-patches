@@ -18,7 +18,7 @@ ${filename}=                    context-source-registration-sample.jsonld
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}
     ${fragment}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
-    ${fragment_with_id}=    Update Value To JSON    ${fragment}    $..id    ${registration_id}
+    ${fragment_with_id}=    Update Value To JSON    ${fragment}    $.id    ${registration_id}
     ${response}=    Update Context Source Registration With Return
     ...    ${registration_id}
     ...    ${fragment_with_id}
