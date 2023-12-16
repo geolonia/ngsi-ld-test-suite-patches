@@ -345,6 +345,10 @@ Check JSON Value In Response Body
     [Arguments]    ${json_path_expr}    ${value_to_check}    ${response_body}
     Should Be Equal As Strings    ${response_body${json_path_expr}}    ${value_to_check}
 
+Check JSON Value Not In Response Body
+    [Arguments]    ${json_path_expr}    ${response_body}
+    Should Not Have Value In Json    ${response_body}    ${json_path_expr}
+
 Check NotificationParams
     [Arguments]    ${filename}    ${expected_additional_members}    ${response_body}
 
