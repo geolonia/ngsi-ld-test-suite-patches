@@ -32,7 +32,7 @@ Query Context Source Registrations
     ...    ${timerel}=${EMPTY}
     ...    ${timeAt}=${EMPTY}
     ...    ${limit}=${EMPTY}
-    ...    ${page}=${EMPTY}
+    ...    ${offset}=${EMPTY}
     ...    ${accept}=${EMPTY}
 
     &{headers}=    Create Dictionary
@@ -69,7 +69,7 @@ Query Context Source Registrations
     END
     IF    '${timeAt}'!=''    Set To Dictionary    ${params}    timeAt=${timeAt}
     IF    '${limit}'!=''    Set To Dictionary    ${params}    limit=${limit}
-    IF    '${page}'!=''    Set To Dictionary    ${params}    page=${page}
+    IF    '${offset}'!=''    Set To Dictionary    ${params}    offset=${offset}
 
     ${response}=    GET
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
@@ -94,7 +94,7 @@ Query Context Source Registrations With Return
     ...    ${timerel}=${EMPTY}
     ...    ${timeAt}=${EMPTY}
     ...    ${limit}=${EMPTY}
-    ...    ${page}=${EMPTY}
+    ...    ${offset}=${EMPTY}
     ...    ${accept}=${EMPTY}
 
     &{headers}=    Create Dictionary
@@ -129,7 +129,7 @@ Query Context Source Registrations With Return
     END
     IF    '${timeAt}'!=''    Set To Dictionary    ${params}    timeAt=${timeAt}
     IF    '${limit}'!=''    Set To Dictionary    ${params}    limit=${limit}
-    IF    '${page}'!=''    Set To Dictionary    ${params}    page=${page}
+    IF    '${offset}'!=''    Set To Dictionary    ${params}    offset=${offset}
 
     ${response}=    GET
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}

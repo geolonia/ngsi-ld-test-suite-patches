@@ -13,7 +13,7 @@ ${registration_id_prefix}=      urn:ngsi-ld:Registration:
 
 
 *** Test Cases ***
-033_10_01 Create a context source registration with a different data structure than CsourRegistration data type
+033_10_01 Create a context source registration with a different data structure than CSourceRegistration data type
     csourceRegistrations/context-source-registration-invalid-structure-sample.jsonld
 033_10_02 Create a context source registration with a date in the past
     csourceRegistrations/context-source-registration-past-expiration-sample.jsonld

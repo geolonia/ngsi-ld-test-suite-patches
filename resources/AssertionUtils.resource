@@ -236,7 +236,7 @@ Check Response Body Containing Context Source Registration element
     ${context_source_registration_payload}=    Load JSON From File    ${EXECDIR}/data/${expectation_filename}
     ${context_source_registration}=    Update Value To JSON
     ...    ${context_source_registration_payload}
-    ...    $..id
+    ...    $.id
     ...    ${context_source_registration_id}
     ${ignored_keys}=    Create List    ${context_regex_expr}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
@@ -344,6 +344,10 @@ Check RL Response Body Containing ProblemDetails Element Containing Title Elemen
 Check JSON Value In Response Body
     [Arguments]    ${json_path_expr}    ${value_to_check}    ${response_body}
     Should Be Equal As Strings    ${response_body${json_path_expr}}    ${value_to_check}
+
+Check JSON Value Not In Response Body
+    [Arguments]    ${json_path_expr}    ${response_body}
+    Should Not Have Value In Json    ${response_body}    ${json_path_expr}
 
 Check NotificationParams
     [Arguments]    ${filename}    ${expected_additional_members}    ${response_body}

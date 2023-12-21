@@ -16,9 +16,9 @@ ${registration_id_prefix}=      urn:ngsi-ld:Registration:
 
 
 *** Test Cases ***    FILENAME    UPDATE_FILENAME
-034_01_01 Update a context source registration by id
+034_05_01 Update a context source registration to never expire
     [Tags]    csr-update    5_9_3
-    context-source-registration-sample.jsonld    context-source-registration-update-sample.json
+    context-source-registration-with-expiration-sample.jsonld    context-source-registration-null-expiresAt.json
 
 
 *** Keywords ***
@@ -35,9 +35,8 @@ Update A Context Source
     Check Response Status Code    204    ${response.status_code}
     ${response1}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${registration_id}
-    Check JSON Value In Response Body
-    ...    ['endpoint']
-    ...    http://my.new.csource.org:1026
+    Check JSON Value Not In Response Body
+    ...    $.expiresAt
     ...    ${response1.json()}
 
 Delete Updated Context Source Registration
