@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/CS/REG/034_01",
+  "tp_id": "TP/NGSI-LD/CS/REG/034_05",
   "test_objective": "Check that you can update a context source registration by id",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.9.3",
   "config_id": "",
@@ -10,8 +10,8 @@
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT contains a Context Source Registration \n        with id equal to ${context_source_registration_id}\n        and payload set to ${context_source_registration_payload_file_path}\n}",
   "test_cases": [
     {
-      "name": "034_01_01 Update a context source registration by id",
-      "permutation_tp_id": "TP/NGSI-LD/CS/REG/034_01_01",
+      "name": "034_05_01 Update a context source registration to never expire",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REG/034_05_01",
       "doc": "Check that you can update a context source registration by id",
       "tags": [
         "5_9_3",
@@ -20,7 +20,7 @@
       "setup": "Initialize the Test Case",
       "teardown": "Delete Updated Context Source Registration",
       "template": "Update A Context Source",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration With Return with Response Status Code set to 204     and\n        Retrieve Context Source Registration with Response Body containing the key '['endpoint']', with the value 'http://my.new.csource.org:1026'\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration With Return with Response Status Code set to 204     and\n        Retrieve Context Source Registration with Check that response body does not contain the key '$.expiresAt'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with id set to '${registration_id}' and registration update fragment set to '${registration_update_fragment}' and content-type set to 'application/json'\n}",
       "http_verb": "PATCH",
       "endpoint": "csourceRegistrations/{registration_id}"
@@ -28,5 +28,5 @@
   ],
   "permutations": [],
   "robotpath": "ContextSource/Registration/UpdateContextSourceRegistration",
-  "robotfile": "034_01"
+  "robotfile": "034_05"
 }

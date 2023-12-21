@@ -143,7 +143,7 @@ class Requests:
                 'params': ['context', 'id', 'type', 'idPattern', 'attrs',
                            'q', 'csf', 'georel', 'geometry',
                            'coordinates', 'geoproperty', 'timeproperty', 'timerel',
-                           'timeAt', 'limit', 'page', 'accept']
+                           'timeAt', 'limit', 'offset', 'accept']
             },
             'Update Context Source Registration With Return': {
                 'positions': [0, 1, 2],
@@ -172,6 +172,10 @@ class Requests:
             'Update Context Source Registration': {
                 'positions': [0, 1],
                 'params': ['context_source_registration_id', 'update_fragment']
+            },
+            'Update Context Source Registration From File': {
+                'positions': [0, 1],
+                'params': ['context_source_registration_id', 'filename']
             },
             'Update Context Source Registration Subscription From File': {
                 'positions': [0, 1],
@@ -310,6 +314,8 @@ class Requests:
                 Requests.update_context_source_registration_with_return,
             'Update Context Source Registration':
                 Requests.update_context_source_registration,
+            'Update Context Source Registration From File':
+                Requests.update_context_source_registration_from_file,
             'Retrieve context source registration subscription':
                 Requests.retrieve_context_source_registration_subscription_2,
             'Create Context Source Registration Subscription':
@@ -1313,6 +1319,16 @@ class Requests:
                             f" but received: {kwargs}")
 
     @staticmethod
+    def update_context_source_registration_from_file(kwargs) -> str:
+        if 'context_source_registration_id' in kwargs and 'filename' in kwargs:
+            return (f"Update Context Source Registration "
+                    f"with CSR Id set to '{kwargs['context_source_registration_id']}' and "
+                    f"subscription update from file '{kwargs['filename']}'")
+        else:
+            raise Exception(f"ERROR, expected 'context_source_registration_id' and 'update_fragment'"
+                            f" but received: {kwargs}")
+
+    @staticmethod
     def update_context_source_registration_subscription(kwargs) -> str:
         if 'subscription_id' in kwargs and 'subscription_update_fragment' in kwargs:
             return (f"Update Context Source Registration Subscription "
@@ -1356,7 +1372,7 @@ class Requests:
         expected_parameters = ['context', 'id', 'type', 'idPattern', 'attrs',
                                'q', 'csf', 'georel', 'geometry',
                                'coordinates', 'geoproperty', 'timeproperty', 'timerel',
-                               'timeAt', 'limit', 'page', 'accept']
+                               'timeAt', 'limit', 'offset', 'accept']
 
         # kwargs = {key: kwargs.get(key, '${EMPTY}') for key in expected_parameters}
 
@@ -1394,8 +1410,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: timeAt set to '{value}'"
                 case 'limit':
                     response = f"{response} and\n    Query Parameter: limit set to '{value}'"
-                case 'page':
-                    response = f"{response} and\n    Query Parameter: page set to '{value}'"
+                case 'offset':
+                    response = f"{response} and\n    Query Parameter: offset set to '{value}'"
                 case 'accept':
                     response = f"{response} and\n    Query Parameter: accept set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided

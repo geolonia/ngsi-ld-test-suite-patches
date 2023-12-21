@@ -12,7 +12,7 @@
   "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
-      "name": "033_01_03 Create Context Source Registration Without A Sprecified ID",
+      "name": "033_01_03 Create Context Source Registration Without Specifying an ID",
       "permutation_tp_id": "TP/NGSI-LD/CS/CSR/033_01_03",
       "doc": "Check that you can create a context source registration without specifying an ID",
       "tags": [

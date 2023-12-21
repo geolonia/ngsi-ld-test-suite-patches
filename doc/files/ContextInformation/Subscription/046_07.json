@@ -1,10 +1,10 @@
 {
   "tp_id": "TP/NGSI-LD/CI/SUB/046_07",
   "test_objective": "Check that a notification is only sent if and only if the status is active",
-  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 046.07.01",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.6",
   "config_id": "",
   "parent_release": "v1.3.1",
-  "pics_selection": "PICS_046_07_01",
+  "pics_selection": "PICS_5_8_6",
   "keywords": [
     "Before Suite",
     "After Suite"
@@ -17,7 +17,7 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_07_01",
       "doc": "The structure of the notification message shall be as mandated by clause 5.3. Valid notification with attributes as stated above",
       "tags": [
-        "046_07_01",
+        "046_07",
         "5_8_6",
         "sub-notification"
       ],
@@ -34,7 +34,7 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_07_02",
       "doc": "The structure of the notification message shall be as mandated by clause 5.3.    The Entity Attributes included (Properties or Relationships) shall be those specified by the notification.attributes member in the Subscription data type (clause 5.2.12).",
       "tags": [
-        "046_07_02",
+        "046_07",
         "5_8_6",
         "sub-notification"
       ],
@@ -51,7 +51,7 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_07_03",
       "doc": "The structure of the notification message shall be as mandated by clause 5.3.    URI expansion shall be observed (clause 5.5.7).",
       "tags": [
-        "046_07_03",
+        "046_07",
         "5_8_6",
         "sub-notification"
       ],

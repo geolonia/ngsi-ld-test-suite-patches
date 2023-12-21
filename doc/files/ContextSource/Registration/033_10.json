@@ -10,7 +10,7 @@
   "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
-      "name": "033_10_01 Create a context source registration with a different data structure than CsourRegistration data type",
+      "name": "033_10_01 Create a context source registration with a different data structure than CSourceRegistration data type",
       "permutation_tp_id": "TP/NGSI-LD/CS/CSR/033_10_01",
       "doc": "Check that you cannot create a context source with invalid content",
       "tags": [

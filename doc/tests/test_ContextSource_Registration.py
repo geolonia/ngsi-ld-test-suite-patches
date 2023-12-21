@@ -5,7 +5,6 @@ from json import load, dump
 from deepdiff import DeepDiff
 from os.path import dirname, exists
 from os import listdir, remove, makedirs
-import warnings
 
 
 class TestCSRegistration(TestCase):
@@ -171,5 +170,12 @@ class TestCSRegistration(TestCase):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/Registration/UpdateContextSourceRegistration/034_04.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/Registration/034_04.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_034_04.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_034_05(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/Registration/UpdateContextSourceRegistration/034_05.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/Registration/034_05.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_034_05.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)

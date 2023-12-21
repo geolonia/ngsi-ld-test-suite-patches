@@ -97,7 +97,9 @@ class Checks:
             'Check Response Body Content':
                 Checks.check_response_body_content,
             'Check Retrieving Context Source Registration':
-                Checks.check_retrieving_context_source_registration
+                Checks.check_retrieving_context_source_registration,
+            'Check JSON Value Not In Response Body':
+                Checks.check_json_value_not_in_response_body
         }
 
         self.args = {
@@ -278,6 +280,10 @@ class Checks:
             'Check Retrieving Context Source Registration': {
                 'params': ['registration_id', 'context', 'accept', 'registration_payload'],
                 'position': [0, 1, 2, 3]
+            },
+            'Check JSON Value Not In Response Body': {
+                'params': ['json_path_expr'],
+                'position': [0]
             }
         }
 
@@ -665,6 +671,14 @@ class Checks:
             key = kwargs['key']
             value = kwargs['value']
             return f"Response Body containing the key '{key}', with the value '{value}'"
+        else:
+            raise Exception(f"ERROR, expected key and value attributes, but received: {kwargs}")
+
+    @staticmethod
+    def check_json_value_not_in_response_body(kwargs: list) -> str:
+        if 'json_path_expr' in kwargs:
+            key = kwargs['json_path_expr']
+            return f"Check that response body does not contain the key '{key}'"
         else:
             raise Exception(f"ERROR, expected key and value attributes, but received: {kwargs}")
 

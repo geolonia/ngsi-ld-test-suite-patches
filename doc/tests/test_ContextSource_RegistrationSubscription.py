@@ -5,7 +5,6 @@ from json import load, dump
 from deepdiff import DeepDiff
 from os.path import dirname, exists
 from os import listdir, remove, makedirs
-import warnings
 
 
 class TestCSRegistrationSubscription(TestCase):

@@ -20,7 +20,7 @@
       "setup": "Create Initial Context Source Registration",
       "teardown": "Delete Created Context Source Registrations",
       "template": "Delete A Context Source",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Context Source Registration With Return with Response Status Code set to 400     and\n        Delete Context Source Registration With Return with Response body containing 'title' element\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Context Source Registration With Return with Response Status Code set to 405     and\n        Delete Context Source Registration With Return with Response Body containing the type '${EMPTY}'     and\n        Delete Context Source Registration With Return with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'DELETE'\n        Delete Context Source Registration with id set to '${EMPTY}'\n}",
       "http_verb": "DELETE",
       "endpoint": "csourceRegistrations/{registration_id}"
@@ -36,13 +36,14 @@
       "setup": "Create Initial Context Source Registration",
       "teardown": "Delete Created Context Source Registrations",
       "template": "Delete A Context Source",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Context Source Registration With Return with Response Status Code set to 400     and\n        Delete Context Source Registration With Return with Response body containing 'title' element\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Context Source Registration With Return with Response Status Code set to 400     and\n        Delete Context Source Registration With Return with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Delete Context Source Registration With Return with Response body containing 'title' element\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'DELETE'\n        Delete Context Source Registration with id set to 'invalidURI'\n}",
       "http_verb": "DELETE",
       "endpoint": "csourceRegistrations/{registration_id}"
     }
   ],
   "permutations": [
+    "then",
     "when"
   ],
   "robotpath": "ContextSource/Registration/DeleteContextSourceRegistration",

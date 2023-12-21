@@ -1,11 +1,8 @@
 #!/usr/bin/env python
-import re
+from re import findall
 from unittest import TestCase
-from doc.analysis.generaterobotdata import GenerateRobotData
-from json import load, dump
-from deepdiff import DeepDiff
-from os.path import dirname, exists, join, basename, splitext
-from os import walk, listdir, remove, makedirs
+from os.path import dirname, join, basename, splitext
+from os import walk
 
 
 class TestCheckTests(TestCase):
@@ -15,37 +12,38 @@ class TestCheckTests(TestCase):
         self.robot_files = list()
         self.test_lines = list()
 
-        self.search_files_by_extension(directory='/home/fla/Documents/workspace/bdd/ngsi-ld-test-suite/TP/NGSI-LD',
-                                       extension='robot')
+        self.search_files_by_extension(
+            directory=f'{folder_test_suites}/TP/NGSI-LD',
+            extension='robot')
 
-        self.search_lines_by_string_and_extension(directory='/home/fla/Documents/workspace/bdd/ngsi-ld-test-suite/doc/tests',
-                                                  extension='py',
-                                                  string='def test')
+        self.search_lines_by_string_and_extension(
+            directory=f'{folder_test_suites}/doc/tests',
+            extension='py',
+            string='def test')
 
         self.robots = [splitext(basename(x))[0] for x in self.robot_files]
         tests = [TestCheckTests.extract_number_test(string=x[1]) for x in self.test_lines]
         self.tests = [x for x in tests if x != '']
 
-
     def search_files_by_extension(self, directory, extension):
-        for root, dirnames, filenames in walk(directory):
+        for root, _, filenames in walk(directory):
             for filename in filenames:
                 if filename.endswith(extension):
                     self.robot_files.append(join(root, filename))
 
     def search_lines_by_string_and_extension(self, directory, extension, string):
-        for root, dirnames, filenames in walk(directory):
+        for root, _, filenames in walk(directory):
             for filename in filenames:
                 if filename.endswith(extension):
                     file_path = join(root, filename)
                     with open(file_path, 'r') as file:
                         for line in file:
                             if string in line:
-                                self.test_lines.append((file_path,line.strip()))
+                                self.test_lines.append((file_path, line.strip()))
 
     @staticmethod
     def extract_number_test(string: str) -> str:
-        match = re.findall(pattern=r"[a-zA-Z ]+_([0-9_]+)", string=string)
+        match = findall(pattern=r"[a-zA-Z ]+_([0-9_]+)", string=string)
         if len(match) == 1:
             return match[0]
         else:
@@ -55,7 +53,9 @@ class TestCheckTests(TestCase):
         print("checking")
         number_robot_files = len(self.robot_files)
         number_test_lines = len(self.test_lines) - 4
-        assert number_robot_files == number_test_lines, f"The number of robot files '{number_robot_files}' is not the same as number of test cases '{number_test_lines}'"
+        assert number_robot_files == number_test_lines, \
+            (f"The number of robot files '{number_robot_files}' "
+             f"is not the same as number of test cases '{number_test_lines}'")
 
     def test_specific_robot_file_has_a_test(self):
         check = [item for item in self.robots if item not in self.tests]

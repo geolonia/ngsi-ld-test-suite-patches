@@ -1,6 +1,6 @@
-import re
+from re import compile
 from dataclasses import dataclass
-import dateTimeUtils
+from dateTimeUtils import parse_ngsild_date
 from deepdiff import DeepDiff
 from deepdiff.helper import CannotCompare
 from prettydiff import get_annotated_lines_from_diff, diff_json, Flag
@@ -21,7 +21,7 @@ def wrap_context_to_list(context):
         return context
 
 
-core_context_pattern = re.compile('https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v\d\.\d.jsonld')
+core_context_pattern = compile(r'https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v\d\.\d.jsonld')
 
 
 class AnyCoreContextVersionOperator:
@@ -34,7 +34,6 @@ class AnyCoreContextVersionOperator:
 
 
 class StringOrSingleListContextOperator:
-
     def match(self, level) -> bool:
         # The context can be at the root of the element to check... or deeper when we have list of elements
         # So match on the end of the path
@@ -54,8 +53,8 @@ class TemporalPropertyOperator:
                 or level.path().endswith("['deletedAt']"))
 
     def give_up_diffing(self, level, diff_instance) -> bool:
-        expected_datetime = dateTimeUtils.parse_ngsild_date(level.t1)
-        actual_datetime = dateTimeUtils.parse_ngsild_date(level.t2)
+        expected_datetime = parse_ngsild_date(level.t1)
+        actual_datetime = parse_ngsild_date(level.t2)
         return actual_datetime is not None and expected_datetime == actual_datetime
 
 
@@ -97,6 +96,7 @@ def compare_dictionaries_ignoring_keys(expected, actual, exclude_regex_paths, ig
 
     if len(res) > 0:
         output_pretty_diff(expected, actual, Theme(added="", removed="", reset=""))
+
     return res
 
 
