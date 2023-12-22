@@ -9,6 +9,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 *** Variables ***
 ${registration_id_prefix}=      urn:ngsi-ld:Registration:
 ${filename}=                    context-source-registration-sample.jsonld
+${reason_404}=                  Not Found
 
 
 *** Test Cases ***
@@ -24,4 +25,5 @@ ${filename}=                    context-source-registration-sample.jsonld
     ...    ${fragment_with_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    404    ${response.status_code}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+    Check Response Reason set to    ${response.reason}    ${reason_404}
+    Check Response Body Containing ProblemDetails Element    ${response.json()}    ${ERROR_TYPE_RESOURCE_NOT_FOUND}

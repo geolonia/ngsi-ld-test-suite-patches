@@ -13,6 +13,7 @@ ${CONTENT_TYPE_JSON}                            application/json
 ${CONTENT_TYPE_LD_JSON}                         application/ld+json
 
 ${ERROR_TYPE_BAD_REQUEST_DATA}                  https://uri.etsi.org/ngsi-ld/errors/BadRequestData
+${ERROR_TYPE_RESOURCE_NOT_FOUND}                https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
 
 ${response}                                     ${EMPTY}
 

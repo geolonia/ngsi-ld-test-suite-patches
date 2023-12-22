@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot update a context source registration under some conditions
+Documentation       Check that you cannot update a context source registration if the Id is not present
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -14,32 +14,28 @@ Test Template       Update A Context Source
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
 ${filename}=                            context-source-registration-sample.jsonld
 ${registration_payload_file_path}=      context-source-registration-invalid-sample.jsonld
-${reason_400}=                          Bad Request
+${reason_405}=                          Method Not Allowed
 
 
-*** Test Cases ***    REGISTRATION_ID    FRAGMENT_FILENAME    EXPECTED_STATUS_CODE    PROBLEM_TYPE
-034_02_01 Update a context source registration by id if the Id is not a valid URI
-    invalidURI    fragments/context-source-registration-different-type-sample.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
-034_02_02 Update a context source registration if the request body is not of the same data type
-    ${valid_registration_id}    fragments/context-source-registration-different-type-sample.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
-034_02_03 Update a context source registration if you attempt to remove a mandatory property
-    ${valid_registration_id}    context-source-registration-invalid-sample.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
+*** Test Cases ***    FRAGMENT_FILENAME    EXPECTED_STATUS_CODE    REASON
+034_06_01 Update a context source registration by id if the Id is not present
+    fragments/context-source-registration-different-type-sample.jsonld    405    ${reason_405}
 
 
 *** Keywords ***
 Update A Context Source
     [Documentation]    Check that you cannot update a context source registration under some conditions
     [Tags]    csr-update    5_9_3
-    [Arguments]    ${registration_id}    ${fragment_filename}    ${expected_status_code}    ${problem_type}
+    [Arguments]    ${fragment_filename}    ${expected_status_code}    ${reason}
     ${fragment}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${fragment_filename}
-    ${fragment_with_id}=    Update Value To JSON    ${fragment}    $.id    ${registration_id}
+    ${fragment_with_id}=    Update Value To JSON    ${fragment}    $.id    ${EMPTY}
     ${response}=    Update Context Source Registration With Return
-    ...    ${registration_id}
+    ...    ${EMPTY}
     ...    ${fragment_with_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${expected_status_code}    ${response.status_code}
-    Check Response Reason set to    ${response.reason}    ${reason_400}
-    Check Response Body Containing ProblemDetails Element    ${response.json()}    ${problem_type}
+    Check Response Reason set to    ${response.reason}    ${reason}
+    Check Response Does Not Contain Body    ${response}
 
 Create Initial Context Source Registration
     ${valid_registration_id}=    Generate Random Entity Id    ${registration_id_prefix}

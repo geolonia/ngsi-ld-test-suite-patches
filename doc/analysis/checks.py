@@ -58,6 +58,8 @@ class Checks:
                 Checks.check_response_body_title_when_using_session_request,
             'Check Response Body Containing ProblemDetails Element Containing Title Element':
                 Checks.check_response_body_containing_problemdetails_element_containing_title_element,
+            'Check Response Body Containing ProblemDetails Element':
+                Checks.check_response_body_containing_problemdetails_element,
             'Check RL Response Body Containing ProblemDetails Element Containing Type Element set to':
                 Checks.check_rl_response_body_containing_problemdetails_element_containing_type_element_set_to,
             'Check RL Response Body Containing ProblemDetails Element Containing Title Element':
@@ -99,7 +101,11 @@ class Checks:
             'Check Retrieving Context Source Registration':
                 Checks.check_retrieving_context_source_registration,
             'Check JSON Value Not In Response Body':
-                Checks.check_json_value_not_in_response_body
+                Checks.check_json_value_not_in_response_body,
+            'Check Response Reason set to':
+                Checks.check_response_reason_set_to,
+            'Check Response Does Not Contain Body':
+                Checks.check_response_does_not_contain_body
         }
 
         self.args = {
@@ -113,6 +119,10 @@ class Checks:
             },
             'Check Response Body Containing ProblemDetails Element Containing Type Element set to': {
                 'params': ['type'],
+                'position': [1]
+            },
+            'Check Response Body Containing ProblemDetails Element': {
+                'params': ['problem_type'],
                 'position': [1]
             },
             'Check Response Headers Containing Content-Type set to': {
@@ -284,6 +294,14 @@ class Checks:
             'Check JSON Value Not In Response Body': {
                 'params': ['json_path_expr'],
                 'position': [0]
+            },
+            'Check Response Reason set to': {
+                'params': ['reason'],
+                'position': [1]
+            },
+            'Check Response Does Not Contain Body': {
+                'params': ['response'],
+                'position': [0]
             }
         }
 
@@ -363,6 +381,14 @@ class Checks:
                                     f"'{expected_parameters}', but received: {kwargs}")
 
         return response
+
+    @staticmethod
+    def check_response_reason_set_to(kwargs: list) -> str:
+        return f"Response reason set to '{kwargs['reason']}'"
+
+    @staticmethod
+    def check_response_does_not_contain_body(kwargs: list) -> str:
+        return f"Response does not contain a body"
 
     @staticmethod
     def check_response_body_containing_array_of_uris_set_to(kwargs: list) -> str:
@@ -642,6 +668,17 @@ class Checks:
         if 'type' in kwargs:
             type = kwargs['type']
             return f"Response Body containing the type '{type}'"
+        else:
+            raise Exception(f"ERROR, expected type attribute, but received: {kwargs}")
+
+    @staticmethod
+    def check_response_body_containing_problemdetails_element(kwargs: list) -> str:
+        if 'problem_type' in kwargs:
+            problem_type = kwargs['problem_type']
+            return (f"Response Body containing the type '{problem_type}' and "
+                    f"Response Body Title is a string and is not ${{EMPTY}} and "
+                    f"Response Body Detail is a string and is not ${{EMPTY}} and "
+                    f"Response Boty Title is not equal to Response Body Detail")
         else:
             raise Exception(f"ERROR, expected type attribute, but received: {kwargs}")
 

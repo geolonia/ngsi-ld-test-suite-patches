@@ -20,7 +20,7 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration With Return with Response Status Code set to 404     and\n        Update Context Source Registration With Return with Response body containing 'title' element\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration With Return with Response Status Code set to 404     and\n        Update Context Source Registration With Return with Response reason set to 'Not Found'     and\n        Update Context Source Registration With Return with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound' and Response Body Title is a string and is not ${EMPTY} and Response Body Detail is a string and is not ${EMPTY} and Response Boty Title is not equal to Response Body Detail\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with id set to '${registration_id}' and registration update fragment set to '${fragment_with_id}' and content-type set to 'application/ld+json'\n}",
       "http_verb": "PATCH",
       "endpoint": "csourceRegistrations/{registration_id}"

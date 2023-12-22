@@ -330,6 +330,23 @@ Check Response Body Containing ProblemDetails Element Containing Title Element
     [Arguments]    ${response_body}
     Should Not Be Empty    ${response_body['title']}
 
+Check Response Body Containing ProblemDetails Element
+    [Arguments]    ${response_body}    ${problem_type}
+    Should Not Be Empty    ${response_body['title']}
+    Should Not Be Empty    ${response_body['detail']}
+    Should Be String    ${response_body['title']}
+    Should Be String    ${response_body['detail']}
+    Should Not Be Equal    ${response_body['title']}    ${response_body['detail']}
+    Should Be Equal    ${response_body['type']}    ${problem_type}
+
+Check Response Does Not Contain Body
+    [Arguments]    ${response}
+    Should Not Contain    ${response}    body
+
+Check Response Reason set to
+    [Arguments]    ${response_reason}    ${reason}
+    Should Be Equal    ${response_reason}    ${reason}
+
 Check RL Response Body Containing ProblemDetails Element Containing Type Element set to
     [Arguments]    ${response_body}    ${type}
     ${json_response_body}=    Set Variable    ${response_body}
