@@ -1,6 +1,6 @@
 from re import compile
 from dataclasses import dataclass
-from dateTimeUtils import parse_ngsild_date
+import dateTimeUtils
 from deepdiff import DeepDiff
 from deepdiff.helper import CannotCompare
 from prettydiff import get_annotated_lines_from_diff, diff_json, Flag
@@ -53,8 +53,8 @@ class TemporalPropertyOperator:
                 or level.path().endswith("['deletedAt']"))
 
     def give_up_diffing(self, level, diff_instance) -> bool:
-        expected_datetime = parse_ngsild_date(level.t1)
-        actual_datetime = parse_ngsild_date(level.t2)
+        expected_datetime = dateTimeUtils.parse_ngsild_date(level.t1)
+        actual_datetime = dateTimeUtils.parse_ngsild_date(level.t2)
         return actual_datetime is not None and expected_datetime == actual_datetime
 
 
