@@ -155,7 +155,7 @@ Create Entity
     &{params}=    Create Dictionary
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
     ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/${filename}
-    ${entity}=    Update Value To JSON    ${entity_payload}    $..id    ${entity_id}
+    ${entity}=    Update Value To JSON    ${entity_payload}    $.id    ${entity_id}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
@@ -187,7 +187,7 @@ Create Entity selecting @context
 Create Entity Selecting Content Type
     [Arguments]    ${filename}    ${entity_id}    ${content_type}    ${context}=${EMPTY}    ${accept}=${EMPTY}
     ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/${filename}
-    ${entity}=    Update Value To JSON    ${entity_payload}    $..id    ${entity_id}
+    ${entity}=    Update Value To JSON    ${entity_payload}    $.id    ${entity_id}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     IF    '${accept}'!='${EMPTY}'
         Set To Dictionary    ${headers}    Accept=${accept}
