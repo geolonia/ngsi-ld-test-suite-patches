@@ -134,7 +134,7 @@ test launch command followed by the file name.
 
 ## Contribute to the Test Suite
 
-In order to contribute to the ETSI NGSI-LD Test Suite, you recommend the installation of an IDE with the corresponding
+In order to contribute to the ETSI NGSI-LD Test Suite, it is recommended to install an IDE with the corresponding
 Robot Framework. Our recommendations are:
 
 - PyCharm
@@ -147,8 +147,98 @@ Robot Framework. Our recommendations are:
 - Install [Robot Framework Language Server](https://plugins.jetbrains.com/plugin/16086-robot-framework-language-server)
 
 - Define as variable the path of the working directory. In Settings > Languages & Frameworks > Robot Framework 
-(Project), insert the following: `{"EXECDIR": "{path}/auth-test-suite"}`.
+(Project), insert the following: `{"EXECDIR": "{path}/ngsi-ld-test-suite"}`.
 
+### Develop a new Test Case
+
+In order to develop a new Test Case, some rules and conventions have to be followed.
+
+#### Test Case Template
+
+The following template shows the typical structure of a Test Case. It can be used as a template when creating a new
+Test Case.
+
+```
+*** Settings ***
+Documentation       {Describe the behavior that is being checked by this Test Case}
+
+Resource            ${EXECDIR}/resources/any/necessary/resource/file
+
+# For both setup and teardown steps, try as possible to use Keyword names already declared in doc/analysis/initial_setup.py
+Suite Setup         {An optional setup step to create data necessary for the Test Case}
+Suite Teardown      {An optional teardown step to delete data created in the setup step}
+Test Template       {If the Test Case uses permutations, the name of the Keyword that is called for each permutation}
+
+
+*** Variables ***
+${my_variable}=             my_variable
+
+
+*** Test Cases ***    PARAM_1    PARAM_2
+XXX_YY_01 Purpose of the first permutation
+    [Tags]    {resource_request_reference}    {section_reference_1}    {section_reference_2}
+    param_1_value    param_2_value
+XXX_YY_02 Purpose of the second permutation
+    [Tags]    {resource_request_reference}    {section_reference_1}    {section_reference_2}
+    param_1_value    param_2_value
+
+
+*** Keywords ***
+{Keyword name describing what the Test Case is doing} 
+    [Documentation]    {Not sure this documentation brings something?}
+    [Arguments]    ${param_1}    ${param_2}
+    
+    # Call operation that is being tested, passing any needed argument
+
+    # Perform checks on the response that has been received from the operation
+    
+    # Optionally call another endpoint to do extra checks (e.g. check an entity has really been created)
+
+# Add there keywords for setup and teardown steps
+# Setup step typically creates data necessary for the Test Case and set some variables that will be used by the Test Case
+# using Set Suite Variable or Set Test Variable keywords
+# Teardown step must delete any data that has been created in setup step
+```
+
+Where :
+
+- The possible values for `{resource_request_reference}` are defined in DGR/CIM-0015v211, section 6.1
+- The meaning of the `{section_reference_x}` tags is defined in DGR/CIM-0015v211, section 6.2. A Test Case can reference
+  more than one section in the specification (for instance, a Test Case whose goal is to check that scopes are correctly
+  created when an entity is created should reference sections 4.18 NGSI-LD Scopes and 5.6.1 Create Entity of the 
+  RGS/CIM-009v131 document)
+
+#### Generate the documentation
+
+The Conformance Tests include an option to automatically generate the documentation of them. If new tests are developed 
+but include the Check and Request operations already defined, it is not needed to modify the automatic generation system. 
+Nevertheless, if there are new operations to check and/or new request operations to develop in the Conformance Tests, 
+it is needed to describe them so that the automatic documentation generated covers these new operations.
+
+Additionally, there is defined a Unit Test mechanism to identify if new Test Suites are included in the system 
+(See `doc/tests/test_CheckTests.py`) and if there were some changes in any Test Suite (See the `doc/tests/other test_*.py`). 
+In these cases, it is needed to provide the corresponding information in the Python code:
+
+- When a new Test Case is created, it has to be declared in the corresponding `doc/tests/test_{group}.py` Python file
+  (where `{group}` represents the group of operations and how they are defined in the ETSI RGS/CIM-0012v211 document). 
+  It includes the creation of the corresponding expected result inside the `doc/files` folders to compare the generation 
+  of the documentation. Complementary to this, updates have to be done:
+  - In `doc/analysis/initial_setup.py` if it uses a new keyword to set up the initial state of the Test Case
+  - In `doc/analysis/requests.py` if it updates an endpoint operation, for instance by adding support for a new request
+    parameter (in `self.op` with the list and position of parameters, in the method that pretty prints the operation in 
+    the automated generation of the documentation associated with the Test Cases. If the positions array is empty, it 
+    means that all the parameters will be taken into consideration)
+- When a new global Keyword is created, it has to be declared in the corresponding Python files:
+  - In `doc/analysis/checks.py` if it is an assertion type keyword (in `self.checks` to reference the method that pretty
+    prints the operation and `self.args` to identify the position of the arguments) and the corresponding method to 
+    provide the description of this new operation
+  - In `doc/analysis/requests.py` if it is an endpoint operation (in `self.op` with the list and position of parameters,
+    in `self.description` to reference the method that pretty print the operation, and add the method that pretty prints
+    the operation)
+- When a new directory containing Test Cases is created, it has to be declared in `doc/generaterobotdata.py` along with
+  its acronym
+
+Then a new version of the documentation can be generated by running the `doc/generateDocumentationData.py` Python script.
 
 ### Run configurations (PyCharm)
 
