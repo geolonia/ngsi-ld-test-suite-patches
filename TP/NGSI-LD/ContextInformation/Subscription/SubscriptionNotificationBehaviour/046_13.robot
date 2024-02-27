@@ -23,7 +23,7 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 *** Test Cases ***
 046_13_01 Check that lastFailure and status are updated if a notification could not be sent
     [Documentation]    If the response to the notification request is different than 200 OK then implementations shall: Update notification.lastFailure with a timestamp representing the current date and time, update notification.status to "failed"
-    [Tags]    sub-notification    5_8_6    046_13
+    [Tags]    sub-notification    5_8_6
 
     @{expected_notification_data_entities}=    Create List    Building
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}

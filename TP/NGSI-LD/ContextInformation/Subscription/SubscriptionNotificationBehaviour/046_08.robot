@@ -25,7 +25,7 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 *** Test Cases ***
 046_08_01 Check that a notification is sent with all attributes
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3.1. The absence of the notification.attributes member of a Subscription means that all Entity Attributes shall be included. All attributes are included
-    [Tags]    sub-notification    5_8_6    046_08
+    [Tags]    sub-notification    5_8_6
     [Setup]    Setup Initial Subscriptions    ${False}
 
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
@@ -43,7 +43,7 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 
 046_08_02 Check that a notification is sent with all attributes in simplified format
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3.1. The absence of the notification.attributes member of a Subscription means that all Entity Attributes shall be included    If the notification.format member value is "keyValues" then a simplified representation of the entities (as mandated by clause 4.5.3) shall be provided
-    [Tags]    sub-notification    5_8_6    046_08
+    [Tags]    sub-notification    5_8_6
     [Setup]    Setup Initial Subscriptions    ${True}
 
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}

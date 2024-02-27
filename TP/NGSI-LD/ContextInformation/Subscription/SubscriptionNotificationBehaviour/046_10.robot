@@ -24,7 +24,7 @@ ${expected_header_links}                <${ngsild_test_suite_context}>; rel="htt
 *** Test Cases ***
 046_10_01 Check that the notification is sent as JSON
     [Documentation]    The Notification shall be sent as JSON
-    [Tags]    sub-notification    5_8_6    046_10
+    [Tags]    sub-notification    5_8_6
 
     Setup Initial Subscriptions
 

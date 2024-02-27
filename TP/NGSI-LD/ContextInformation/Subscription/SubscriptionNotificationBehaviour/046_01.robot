@@ -23,7 +23,7 @@ ${notification_server_send_url}=        http://${notification_server_host}:${not
 *** Test Cases ***
 046_01_01 Check that a notification is only sent if status is active
     [Documentation]    Check that a notification is only sent if and only if the status is active
-    [Tags]    sub-notification    5_8_6    046_01
+    [Tags]    sub-notification    5_8_6
 
     Add Initial Entity
     Sleep    1s
