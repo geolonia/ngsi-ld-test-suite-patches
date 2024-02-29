@@ -23,7 +23,7 @@ ${notification_server_send_url}         http://${notification_server_host}:${not
 *** Test Cases ***
 046_14_01 Check that a notification is sent as JSON-LD
     [Documentation]    The Notification content shall be JSON-LD when endpoint.accept is set to 'application/ld+json'
-    [Tags]    sub-notification    5_8_6    046_14
+    [Tags]    sub-notification    5_8_6
 
     Add Initial Entity
     Sleep    1s

@@ -22,7 +22,7 @@ ${notification_server_send_url}=        http://${notification_server_host}:${not
 *** Test Cases ***
 046_06_01 Check that a notification is sent with all matching entities
     [Documentation]    only the subscribed Entities matching the query and watched attributes shall be included.
-    [Tags]    sub-notification    5_8_6    046_06
+    [Tags]    sub-notification    5_8_6
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${entity_id}
 

@@ -23,7 +23,7 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 *** Test Cases ***
 046_05_01 Check that a notification is sent with all entities
     [Documentation]    The notification message shall include all the subscribed Entities that changed and that match (as mandated by clauses 4.9 and 4.10) the query and geoquery conditions
-    [Tags]    sub-notification    5_8_6    046_05
+    [Tags]    sub-notification    5_8_6
     Setup Initial Subscriptions
 
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}

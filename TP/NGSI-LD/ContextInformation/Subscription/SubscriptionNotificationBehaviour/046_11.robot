@@ -25,7 +25,7 @@ ${date_format_with_millis}=             %Y-%m-%dT%H:%M:%S.%fZ
 *** Test Cases ***
 046_11_01 Check that timesSent is increased by one
     [Documentation]    The notification.timesSent member shall be incremented by one.
-    [Tags]    sub-notification    5_8_6    046_11
+    [Tags]    sub-notification    5_8_6
 
     Add Initial Entity
     Sleep    1s

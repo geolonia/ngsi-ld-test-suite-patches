@@ -28,7 +28,7 @@ ${date_format_with_millis}                                  %Y-%m-%dT%H:%M:%S.%f
 *** Test Cases ***
 046_07_01 Check notification structure
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3. Valid notification with attributes as stated above
-    [Tags]    sub-notification    5_8_6    046_07
+    [Tags]    sub-notification    5_8_6
     [Setup]    Setup Initial Subscriptions    ${subscription_payload_file_path}
 
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
@@ -41,7 +41,7 @@ ${date_format_with_millis}                                  %Y-%m-%dT%H:%M:%S.%f
 
 046_07_02 Check correct attributes are included
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3.    The Entity Attributes included (Properties or Relationships) shall be those specified by the notification.attributes member in the Subscription data type (clause 5.2.12).
-    [Tags]    sub-notification    5_8_6    046_07
+    [Tags]    sub-notification    5_8_6
     [Setup]    Setup Initial Subscriptions    ${subscription_payload_file_path_notificationAttributes}
 
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
@@ -56,7 +56,7 @@ ${date_format_with_millis}                                  %Y-%m-%dT%H:%M:%S.%f
 
 046_07_03 Check URI expansion is observed
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3.    URI expansion shall be observed (clause 5.5.7).
-    [Tags]    sub-notification    5_8_6    046_07
+    [Tags]    sub-notification    5_8_6
     [Setup]    Setup Initial Subscriptions    ${subscription_payload_file_path_default_context}
 
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
