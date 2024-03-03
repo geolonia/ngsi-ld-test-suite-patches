@@ -554,7 +554,7 @@ class GenerateRobotData:
         #     pics = f'PICS_{tags[0]}'
         #
         # return reference, pics
-        aux = [x for x in tags if match(pattern='^(\d+_\d+_\d+)', string=x)]
+        aux = [x for x in tags if match(pattern='^(\d+_\d+_\d+)|^(\d+_\d+)', string=x)]
 
         if len(aux) == 0:
             raise Exception(
