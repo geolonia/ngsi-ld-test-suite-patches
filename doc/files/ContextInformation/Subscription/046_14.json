@@ -17,7 +17,6 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_14_01",
       "doc": "The Notification content shall be JSON-LD when endpoint.accept is set to 'application/ld+json'",
       "tags": [
-        "046_14",
         "5_8_6",
         "sub-notification"
       ],

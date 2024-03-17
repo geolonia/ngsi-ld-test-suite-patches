@@ -17,7 +17,6 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_01_01",
       "doc": "Check that a notification is only sent if and only if the status is active",
       "tags": [
-        "046_01",
         "5_8_6",
         "sub-notification"
       ],

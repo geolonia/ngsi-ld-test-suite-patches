@@ -17,7 +17,6 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_06_01",
       "doc": "only the subscribed Entities matching the query and watched attributes shall be included.",
       "tags": [
-        "046_06",
         "5_8_6",
         "sub-notification"
       ],

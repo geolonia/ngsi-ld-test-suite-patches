@@ -17,7 +17,6 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_09_01",
       "doc": "A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.receiverInfo defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.1",
       "tags": [
-        "046_09",
         "5_8_6",
         "sub-notification"
       ],

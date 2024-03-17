@@ -17,7 +17,6 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_12_01",
       "doc": "The status, lastNotification and lastSuccess members shall be updated with expected value and dates. This test will check these formats.",
       "tags": [
-        "046_12",
         "5_8_6",
         "sub-notification"
       ],

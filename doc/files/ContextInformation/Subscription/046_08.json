@@ -17,7 +17,6 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_08_01",
       "doc": "The structure of the notification message shall be as mandated by clause 5.3.1. The absence of the notification.attributes member of a Subscription means that all Entity Attributes shall be included. All attributes are included",
       "tags": [
-        "046_08",
         "5_8_6",
         "sub-notification"
       ],
@@ -34,7 +33,6 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_08_02",
       "doc": "The structure of the notification message shall be as mandated by clause 5.3.1. The absence of the notification.attributes member of a Subscription means that all Entity Attributes shall be included    If the notification.format member value is \"keyValues\" then a simplified representation of the entities (as mandated by clause 4.5.3) shall be provided",
       "tags": [
-        "046_08",
         "5_8_6",
         "sub-notification"
       ],

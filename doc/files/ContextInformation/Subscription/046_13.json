@@ -17,7 +17,6 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_13_01",
       "doc": "If the response to the notification request is different than 200 OK then implementations shall: Update notification.lastFailure with a timestamp representing the current date and time, update notification.status to \"failed\"",
       "tags": [
-        "046_13",
         "5_8_6",
         "sub-notification"
       ],

@@ -17,7 +17,6 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_11_01",
       "doc": "The notification.timesSent member shall be incremented by one.",
       "tags": [
-        "046_11",
         "5_8_6",
         "sub-notification"
       ],

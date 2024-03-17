@@ -17,7 +17,6 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_10_01",
       "doc": "The Notification shall be sent as JSON",
       "tags": [
-        "046_10",
         "5_8_6",
         "sub-notification"
       ],

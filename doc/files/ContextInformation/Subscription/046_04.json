@@ -17,7 +17,6 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_04_01",
       "doc": "The notification message shall include all the subscribed Entities that changed and that match (as mandated by clauses 4.9 and 4.10) the query and geoquery conditions",
       "tags": [
-        "046_04",
         "5_8_6",
         "sub-notification"
       ],
