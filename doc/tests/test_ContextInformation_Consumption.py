@@ -378,6 +378,13 @@ class TestCIConsumptions(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
+    def test_021_14(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities/021_14.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/021_14.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_021_14.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
     def test_020_01(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_01.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/020_01.json'

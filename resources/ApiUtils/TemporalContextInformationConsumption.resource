@@ -37,6 +37,7 @@ Query Temporal Representation Of Entities
     ...    ${limit}=${EMPTY}
     ...    ${lastN}=${EMPTY}
     ...    ${accept}=${EMPTY}
+    ...    ${options}=${EMPTY}
     ${entity_types_length}=    Get Length    ${entity_types}
     ${entity_ids_length}=    Get Length    ${entity_ids}
     ${attrs_length}=    Get Length    ${attrs}
@@ -78,6 +79,9 @@ Query Temporal Representation Of Entities
         Set To Dictionary    ${params}    geoproperty=${geoproperty}
     END
     IF    '${limit}'!=''    Set To Dictionary    ${params}    limit=${limit}
+    IF    '${options}'!=''
+        Set To Dictionary    ${params}    options=${options}
+    END
 
     ${response}=    GET
     ...    url=${temporal_api_url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}

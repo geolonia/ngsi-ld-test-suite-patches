@@ -62,7 +62,7 @@ class Requests:
                 'params': ['context', 'entity_types', 'entity_ids', 'entity_id_pattern',
                            'ngsild_query', 'csf', 'georel', 'geometry',
                            'coordinates', 'geoproperty', 'timerel', 'timeAt',
-                           'attrs', 'limit', 'lastN', 'accept']
+                           'attrs', 'limit', 'lastN', 'accept', 'options']
             },
             'Query Temporal Representation Of Entities Via Post': {
                 'positions': [],
@@ -1025,7 +1025,7 @@ class Requests:
         expected_parameters = ['context', 'entity_types', 'entity_ids', 'entity_id_pattern',
                                'ngsild_query', 'csf', 'georel', 'geometry',
                                'coordinates', 'geoproperty', 'timerel', 'timeAt',
-                               'attrs', 'limit', 'lastN', 'accept']
+                               'attrs', 'limit', 'lastN', 'accept', 'options']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Query Temporal Representation of Entities"
@@ -1064,6 +1064,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: lastN set to '{value}'"
                 case 'accept':
                     response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                case 'options':
+                    response = f"{response} and\n    Query Parameter: options set to '{value}'"
 
             # If an exact match is not confirmed, this last case will be used if provided
                 case _:
