@@ -1,0 +1,55 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/019_07",
+  "test_objective": "If the count parameter is set to true the special HTTP header NGSILD-Results-Count is set in the response and it must contain the total number of matching results.",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.13",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "pics_selection": "PICS_6_3_13",
+  "keywords": [
+    "Setup Initial Entities",
+    "Delete Initial Entities"
+  ],
+  "teardown": "Delete Initial Entities",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "019_07_01 Check that the total number of matching results is returned if the count parameter is set to true and only the entity type is provided",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_07_01",
+      "doc": "If the count parameter is set to true the special HTTP header NGSILD-Results-Count is set in the response and it must contain the total number of matching results.",
+      "tags": [
+        "e-query",
+        "5_7_2",
+        "6_3_13"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query Entities With Count",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to ${expected_status_code}     and\n        Query Entities with Response Header: NGSILD-Results-Count equals to 2\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: q set to '${q}' and\n    Query Parameter: count set to '${True}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_07_02 Check that the total number of matching results is returned if the count parameter is set to true and a q parameter is provided",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_07_02",
+      "doc": "If the count parameter is set to true the special HTTP header NGSILD-Results-Count is set in the response and it must contain the total number of matching results.",
+      "tags": [
+        "e-query",
+        "5_7_2",
+        "6_3_13"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query Entities With Count",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to ${expected_status_code}     and\n        Query Entities with Response Header: NGSILD-Results-Count equals to 1\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: q set to '${q}' and\n    Query Parameter: count set to '${True}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [
+    "then"
+  ],
+  "robotpath": "ContextInformation/Consumption/Entity/QueryEntities",
+  "robotfile": "019_07"
+}
