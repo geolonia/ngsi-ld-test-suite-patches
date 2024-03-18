@@ -4,7 +4,10 @@
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.7",
   "config_id": "",
   "parent_release": "v1.3.1",
-  "pics_selection": "PICS_5_7_7",
+  "clauses": [
+    "5.7.7"
+  ],
+  "pics_selection": "",
   "keywords": [
     "Setup Initial Entities",
     "Delete Initial Entities"

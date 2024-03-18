@@ -4,10 +4,13 @@
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.9.2",
   "config_id": "",
   "parent_release": "v1.3.1",
-  "pics_selection": "PICS_5_9_2",
+  "clauses": [
+    "5.9.2"
+  ],
+  "pics_selection": "",
   "keywords": [],
   "teardown": "None",
-  "initial_condition": "with {\n    the SUT in the \"initial state\"\n}",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
       "name": "033_02_01 Create a context source registration with invalid JSON file",

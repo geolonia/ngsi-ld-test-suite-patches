@@ -4,7 +4,10 @@
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.9",
   "config_id": "",
   "parent_release": "v1.3.1",
-  "pics_selection": "PICS_5_6_9",
+  "clauses": [
+    "5.6.9"
+  ],
+  "pics_selection": "",
   "keywords": [],
   "teardown": "None",
   "initial_condition": "with {\n   the SUT containing an initial state\n}",
@@ -43,8 +46,8 @@
     }
   ],
   "permutations": [
-    "when",
-    "then"
+    "then",
+    "when"
   ],
   "robotpath": "ContextInformation/Provision/BatchEntities/UpdateBatchOfEntities",
   "robotfile": "005_04"

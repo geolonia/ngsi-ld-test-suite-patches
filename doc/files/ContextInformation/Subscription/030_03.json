@@ -4,7 +4,10 @@
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.3",
   "config_id": "",
   "parent_release": "v1.3.1",
-  "pics_selection": "PICS_5_8_3",
+  "clauses": [
+    "5.8.3"
+  ],
+  "pics_selection": "",
   "keywords": [
     "Setup Initial Subscriptions",
     "Delete Initial Subscriptions"

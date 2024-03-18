@@ -4,7 +4,10 @@
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.10.2",
   "config_id": "",
   "parent_release": "v1.3.1",
-  "pics_selection": "PICS_5_10_2",
+  "clauses": [
+    "5.10.2"
+  ],
+  "pics_selection": "",
   "keywords": [],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT contains a Context Source Registration \n        with id equal to ${context_source_registration_id}\n        and payload set to ${context_source_registration_payload_file_path}\n}",

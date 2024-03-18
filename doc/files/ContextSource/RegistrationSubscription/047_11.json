@@ -4,7 +4,10 @@
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.7",
   "config_id": "",
   "parent_release": "v1.3.1",
-  "pics_selection": "PICS_5_11_7",
+  "clauses": [
+    "5.11.7"
+  ],
+  "pics_selection": "",
   "keywords": [
     "Start Local Server",
     "Stop Local Server"
