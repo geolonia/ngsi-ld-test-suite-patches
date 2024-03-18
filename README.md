@@ -229,7 +229,7 @@ In these cases, it is needed to provide the corresponding information in the Pyt
     means that all the parameters will be taken into consideration)
   - Run the documentation generation script (`python doc/generateDocumentationData.py {new_tc_id}`) for the new Test 
     Case and copy the generated JSON file in the folder containing all files for the given group and subgroup 
-    (`cp doc/results/{new_tc_id}.json doc/files/{group}/{sub-group}`)
+    (`cp doc/results/{new_tc_id}.json doc/files/{group}/{subgroup}`)
 - When a new global Keyword is created, it has to be declared in the corresponding Python files:
   - In `doc/analysis/checks.py` if it is an assertion type keyword (in `self.checks` to reference the method that pretty
     prints the operation and `self.args` to identify the position of the arguments) and the corresponding method to 
@@ -237,6 +237,9 @@ In these cases, it is needed to provide the corresponding information in the Pyt
   - In `doc/analysis/requests.py` if it is an endpoint operation (in `self.op` with the list and position of parameters,
     in `self.description` to reference the method that pretty print the operation, and add the method that pretty prints
     the operation)
+- When a new permutation is added in an existing Test Case, run the documentation generation script 
+  (`python doc/generateDocumentationData.py {tc_id}`) for the Test Case and copy the generated JSON file in the 
+  folder containing all files for the given group and subgroup (`cp doc/results/{tc_id}.json doc/files/{group}/{subgroup}`)
 - When a new directory containing Test Cases is created, it has to be declared in `doc/generaterobotdata.py` along with
   its acronym
 
