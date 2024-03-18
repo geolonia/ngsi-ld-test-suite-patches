@@ -7,7 +7,7 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Create Id
-Test Teardown       Delete Intitial Temporal Representation Of Entity
+Test Teardown       Delete Initial Temporal Representation Of Entity
 Test Template       Delete An Attribute Instance
 
 
@@ -57,5 +57,5 @@ Create Id
     ${valid_instanceId}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
     Set Test Variable    ${valid_instanceId}
 
-Delete Intitial Temporal Representation Of Entity
+Delete Initial Temporal Representation Of Entity
     Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

@@ -4,7 +4,10 @@
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.16",
   "config_id": "",
   "parent_release": "v1.3.1",
-  "pics_selection": "PICS_5_6_16",
+  "clauses": [
+    "5.6.16"
+  ],
+  "pics_selection": "",
   "keywords": [],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Temporal Entity ${entity} \n        with an id set to ${temporal_entity_representation_id} \n}",

@@ -4,7 +4,10 @@
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.4",
   "config_id": "",
   "parent_release": "v1.3.1",
-  "pics_selection": "PICS_6_3_4",
+  "clauses": [
+    "6.3.4"
+  ],
+  "pics_selection": "",
   "keywords": [],
   "teardown": "None",
   "initial_condition": "with {\n   the SUT containing an initial state\n}",

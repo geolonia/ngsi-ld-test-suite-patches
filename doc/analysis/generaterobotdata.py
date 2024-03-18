@@ -85,7 +85,7 @@ class GenerateRobotData:
             'CommonResponses/VerifyNotAcceptableMediaType': 'HTTP'
         }
         self.references = {
-            'v1.3.1': 'ETSI GS CIM 009 V1.3.1 [], clause '
+            'v1.3.1': 'ETSI GS CIM 009 V1.3.1 []'
         }
         self.initial_conditions = {
             'Setup Initial Entity':
@@ -102,7 +102,6 @@ class GenerateRobotData:
         self.base_TP_id = str()
 
         self.initial_setup = InitialSetup()
-
 
     def get_info(self):
         self.test_suite['robotpath'] = (self.robot_file.replace(f'{self.execdir}/TP/NGSI-LD/', '')
@@ -194,8 +193,8 @@ class GenerateRobotData:
             matches = finditer(regex, response_to_check, MULTILINE)
             request = aux[0].split('    ')[2]
 
-            # We have two options from here, or the parameters are defined in the same line or the parameters are defined in
-            # following lines, next lines
+            # We have two options from here, or the parameters are defined in the same line or the parameters are
+            # defined in following lines, next lines
             for a_match in matches:
                 # Check that we have 1 group matched
                 if len(a_match.groups()) == 1:
@@ -271,7 +270,7 @@ class GenerateRobotData:
     def get_values_url(self, keys: list, query_param: bool, request: str, params: list) -> str:
         data = [self.get_value_url(key=x, request=request, params=params) for x in keys]
 
-        if query_param == False:
+        if not query_param:
             data = '/'.join(data).replace('//', '/').replace('?/','?')
         else:
             aux = '/'.join(data[:-1]).replace('//', '/').replace('?/','?')
@@ -373,7 +372,7 @@ class GenerateRobotData:
         """Modify suite's tests to contain only every Xth."""
         version = 'v1.3.1'
         tp_id = self.generate_name()
-        reference, pics = self.generate_reference(version=version)
+        reference, clauses = self.generate_reference(version=version)
 
         self.test_suite = {
             'tp_id': tp_id,
@@ -381,7 +380,8 @@ class GenerateRobotData:
             'reference': reference,
             'config_id': str(),
             'parent_release': version,
-            'pics_selection': pics,
+            'clauses': clauses,
+            'pics_selection': str(),
             'keywords': [str(x) for x in self.suite.keywords],
             'teardown': str(self.suite.teardown),
             'initial_condition': str(),
@@ -474,17 +474,17 @@ class GenerateRobotData:
 
         if len(tags) == 0:
             # We have different tests cases that call a test template, maybe the Tags are defined in the template
-            reference, pics = self.generate_reference_template(version=version)
+            reference, clauses = self.generate_reference_template(version=version)
         else:
             if len(self.robot.test_template_name) == 0:
                 # We have normal tests cases
-                reference, pics = self.generate_reference_testcases(tags=tags, version=version)
+                reference, clauses = self.generate_reference_testcases(tags=tags, version=version)
             else:
                 # We have tests cases with information about tags but a template with information about documentation
-                reference, pics = self.generate_reference_testcases(tags=tags, version=version)
+                reference, clauses = self.generate_reference_testcases(tags=tags, version=version)
                 _, _ = self.generate_reference_template(version=version, need_tags=False)
 
-        return reference, pics
+        return reference, clauses
 
     def generate_reference_template(self, version, need_tags=True):
         # Get the list of arguments, we select the first one because the 2nd keyword corresponds
@@ -494,36 +494,41 @@ class GenerateRobotData:
         self.args = dict()
         _ = [self.args.update(x) for x in args]
 
-
         template_name = list(set([list(x.keywords)[0].name for x in self.suite.tests]))[0]
 
         # Due to the information of the tags are contained in the Keyword description of the template, we need to
         # analyse the Keyword.
         string = self.robot.get_substring(initial_string='** Keywords ***', final_string='', include=False)
-        reference, pics = self.get_info_from_template(name=template_name,
-                                                      string=string,
-                                                      version=version,
-                                                      need_tags=need_tags)
+        reference, clauses = self.get_info_from_template(name=template_name,
+                                                         string=string,
+                                                         version=version,
+                                                         need_tags=need_tags)
 
-        return reference, pics
+        return reference, clauses
 
     def get_info_from_template(self, name: str, string: str, version: str, need_tags: bool):
         # TODO: Check that the name of the template is in the string receive
         # Get the Tags line and the tag value
         reference = str()
-        pics = str()
+        clauses = list()
 
         tags = self.get_substring(string=string, key='[Tags]')
         self.tags_template = tags[1:]
 
         if need_tags:
             try:
-                tag = list(set([element for sublist in tags for element in tags if element[0].isdigit()]))[0]
+                clauses = list(set([element.replace("_", ".")
+                                    for sublist in tags for element in tags if element[0].isdigit()]))
+                clauses.sort()
             except IndexError:
                 raise Exception("ERROR, Probably [Tags] does not include reference to the section in the spec.")
 
-            reference = f'{self.references[version]}{tag.replace("_", ".")}'
-            pics = f'PICS_{tag}'
+            if len(clauses) == 1:
+                reference = f'{self.references[version]}, clause {clauses[0]}'
+            elif len(clauses) > 1:
+                reference = f'{self.references[version]}, clauses {", ".join(clauses)}'
+
+            # clauses = f'PICS_{tag}'
 
         # Get the arguments
         self.arguments = self.get_substring(string=string, key='[Arguments]')
@@ -533,7 +538,7 @@ class GenerateRobotData:
         self.documentation_template = self.get_substring(string=string, key='[Documentation]')
         self.documentation_template = self.documentation_template[1:][0]
 
-        return reference, pics
+        return reference, clauses
 
     def get_substring(self, string: str, key: str):
         pos1 = string.find(key) - 1
@@ -543,26 +548,17 @@ class GenerateRobotData:
         return result
 
     def generate_reference_testcases(self, tags: list, version: str):
-        # check_tags = all(item == tags[0] for item in tags)
-        #
-        # if check_tags is False or len(tags) == 0:
-        #     raise Exception(f'ERROR: the Test Suite {{self.suite.name}} has different clauses or no clauses (Tags): {tags}\n'
-        #                     f'Unable to select the corresponding Reference of this Test Suite')
-        # else:
-        #     # All the clauses are the same, so we select the first one
-        #     reference = f'{{self.references[version]}}{tags[0].replace("_", ".")}'
-        #     pics = f'PICS_{tags[0]}'
-        #
-        # return reference, pics
-        aux = [x for x in tags if match(pattern='^(\d+_\d+_\d+)|^(\d+_\d+)', string=x)]
+        clauses = [x.replace("_", ".") for x in tags if match(pattern=r'^(\d+_\d+_\d+)|^(\d+_\d+)', string=x)]
+        clauses = list(set(clauses))
+        clauses.sort()
 
-        if len(aux) == 0:
+        if len(clauses) == 0:
             raise Exception(
                 f'ERROR: the Test Suite {self.suite.name} has different clauses or no clauses (Tags): {tags}\n'
                 f'Unable to select the corresponding Reference of this Test Suite')
+        elif len(clauses) == 1:
+            reference = f'{self.references[version]}, clause {clauses[0]}'
         else:
-            # All the clauses are the same, so we select the first one
-            reference = f'{self.references[version]}{aux[0].replace("_", ".")}'
-            pics = f'PICS_{aux[0]}'
+            reference = f'{self.references[version]}, clauses {", ".join(clauses)}'
 
-        return reference, pics
+        return reference, clauses

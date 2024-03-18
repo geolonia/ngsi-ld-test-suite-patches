@@ -68,6 +68,8 @@ class TestCSRegistration(TestCase):
         expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/Registration/033_02.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_033_02.json'
 
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
     def test_033_03(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextSource/Registration/RegisterContextSource/033_03.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextSource/Registration/033_03.json'

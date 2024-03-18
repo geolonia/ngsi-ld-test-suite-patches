@@ -4,7 +4,10 @@
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.4",
   "config_id": "",
   "parent_release": "v1.3.1",
-  "pics_selection": "PICS_5_7_4",
+  "clauses": [
+    "5.7.4"
+  ],
+  "pics_selection": "",
   "keywords": [
     "Create Temporal Entity",
     "Delete Initial Temporal Entity"
