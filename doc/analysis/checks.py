@@ -105,7 +105,9 @@ class Checks:
             'Check Response Reason set to':
                 Checks.check_response_reason_set_to,
             'Check Response Does Not Contain Body':
-                Checks.check_response_does_not_contain_body
+                Checks.check_response_does_not_contain_body,
+            'Check Response Headers Containing NGSILD-Results-Count Equals To' :
+                Checks.check_response_header_contains_ngsild_results_count_equals_to,
         }
 
         self.args = {
@@ -302,6 +304,11 @@ class Checks:
             'Check Response Does Not Contain Body': {
                 'params': ['response'],
                 'position': [0]
+            }
+            ,
+            'Check Response Headers Containing NGSILD-Results-Count Equals To': {
+                'params': ['expected_result_count' , 'response_headers'],
+                'position': [0, 1]
             }
         }
 
@@ -871,6 +878,14 @@ class Checks:
         else:
             raise Exception(f"ERROR, Expected 'expected_value' and 'obtained_value' parameters but received: '{kwargs}'")
 
+    @staticmethod
+    def check_response_header_contains_ngsild_results_count_equals_to(kwargs: list) -> str:
+        if 'expected_result_count' in kwargs:
+            expected_result_count = kwargs['expected_result_count']
+            return f'Response Header: NGSILD-Results-Count equals to {expected_result_count}'
+        else:
+            raise Exception(f"ERROR, Expected 'expected_result_count' but received: '{kwargs}'")
+
     def get_checks(self, **kwargs) -> str:
         checking = None
 
@@ -977,6 +992,7 @@ if __name__ == "__main__":
                            'Check Created Resources Set To']
                           , status_code=201))
     print()
+    print(data.get_checks(checks='Check Response Headers Containing NGSILD-Results-Count Equals To'))
 
     # Check exceptions
     try:

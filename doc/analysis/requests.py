@@ -85,7 +85,7 @@ class Requests:
                 'params': ['entity_ids', 'entity_types', 'accept',
                            'attrs', 'context', 'geoproperty',
                            'options', 'limit', 'entity_id_pattern',
-                           'georel', 'coordinates', 'geometry']
+                           'georel', 'coordinates', 'geometry', 'count', 'q']
             },
             'Query Entities Via POST': {
                 'positions': [],
@@ -1133,7 +1133,7 @@ class Requests:
         expected_parameters = ['entity_ids', 'entity_types', 'accept',
                                'attrs', 'context', 'geoproperty',
                                'options', 'limit', 'entity_id_pattern',
-                               'georel', 'coordinates', 'geometry']
+                               'georel', 'coordinates', 'geometry', 'count' , 'q']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Get Entities Request:"
@@ -1164,6 +1164,10 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: coordinates set to '{value}'"
                 case 'geometry':
                     response = f"{response} and\n    Query Parameter: geometry set to '{value}'"
+                case 'count':
+                    response = f"{response} and\n    Query Parameter: count set to '{value}'"
+                case 'q':
+                    response = f"{response} and\n    Query Parameter: q set to '{value}'"
                 case _:
                     raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
                                     f"'{expected_parameters}', but received: {kwargs}")

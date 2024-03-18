@@ -60,6 +60,10 @@ Check Response Headers Containing URI set to
         ...    ignore_order=True
     END
 
+Check Response Headers Containing NGSILD-Results-Count Equals To
+    [Arguments]    ${expected_result_count}    ${response_headers}
+    Should Be Equal    ${response_headers['NGSILD-Results-Count']}    ${expected_result_count}
+
 # Since Http headers names are case-insensitive (from Http specification)
 # We check both Location and location headers
 
