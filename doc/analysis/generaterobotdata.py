@@ -1,9 +1,9 @@
 from os.path import dirname
 from robot.api import TestSuiteBuilder
-from analysis.parserobotfile import ParseRobotFile
-from analysis.parseapiutilsfile import ParseApiUtilsFile
-from analysis.parsevariablesfile import ParseVariablesFile
-from analysis.initial_setup import InitialSetup
+from doc.analysis.parserobotfile import ParseRobotFile
+from doc.analysis.parseapiutilsfile import ParseApiUtilsFile
+from doc.analysis.parsevariablesfile import ParseVariablesFile
+from doc.analysis.initial_setup import InitialSetup
 from re import match, findall, finditer, sub, MULTILINE
 
 
@@ -15,7 +15,6 @@ class GenerateRobotData:
 
         self.config_variables = ParseVariablesFile()
         self.robot = ParseRobotFile(filename=robot_file, execdir=execdir, config_file=self.config_variables)
-        # TODO: the robot file can provide several ApiUtils not only one
         self.apiutils = [ParseApiUtilsFile(filename=file) for file in self.robot.resource_files]
         self.robot.set_apiutils(self.apiutils)
 
@@ -122,7 +121,7 @@ class GenerateRobotData:
         # Generate the initial_condition of the test suite
         self.test_suite['initial_condition'] = self.generate_initial_condition()
 
-    def generate_initial_condition(self) -> str :
+    def generate_initial_condition(self) -> str:
         aux = [x['setup'] for x in self.test_cases]
         if all(element == aux[0] for element in aux[1:]):
             aux = self.initial_setup.get_initial_condition(initial_condition=aux[0])
@@ -131,7 +130,8 @@ class GenerateRobotData:
             print(f'Something went wrong, the test suite {self.suite.resource.source} '
                   f'has different "setup" values for its test cases.')
 
-    def get_permutation_keys(self, data):
+    @staticmethod
+    def get_permutation_keys(data):
         all_keys = set().union(*data)
         excluded_keys = ['doc', 'permutation_tp_id', 'setup', 'teardown', 'name', 'tags']
         all_keys = [x for x in all_keys if x not in excluded_keys]
@@ -154,7 +154,7 @@ class GenerateRobotData:
 
     def get_params(self, test_case: str):
         test_case = self.get_data_template(string=test_case)
-        lines_starting_response = findall(r'^\s*\$\{response\}.*|^\s*\$\{notification\}.*', test_case, MULTILINE)
+        lines_starting_response = findall(r'^\s*\$\{response}.*|^\s*\$\{notification}.*', test_case, MULTILINE)
 
         # If there is more than one line, it means that the test case has several operations, all of them to
         # create the environment content to execute the last one, which is the correct one to test the Test Case
@@ -171,7 +171,7 @@ class GenerateRobotData:
         aux = [x for x in aux if x != '']
 
         params = list()
-        request = str()
+        request = list()
 
         # Get the list of params of the function, they are the keys
         if '    ...    ' in aux[1]:
@@ -181,7 +181,7 @@ class GenerateRobotData:
             # We are in the case that the attributes are in following lines
             for i in range(1, len(aux)):
                 if '    ...    ' in aux[i]:
-                    regex = '(\s{4})*\s{4}\.{3}\s{4}(.*)'
+                    regex = r'(\s{4})*\s{4}\.{3}\s{4}(.*)'
                     param = match(pattern=regex, string=aux[i])
                     if aux:
                         params.append(param.groups()[1])
@@ -215,6 +215,9 @@ class GenerateRobotData:
 
         request, params = self.get_params(test_case=string)
 
+        verb = str()
+        query_param = str()
+        url = str()
         for data in self.apiutils:
             verb, url, query_param = data.get_response(keyword=request)
             if verb != '':
@@ -245,6 +248,7 @@ class GenerateRobotData:
             key = header_key[0]
             value = self.get_header_value(key=key)
         else:
+            aux = list()
             # 2nd case, maybe the params are defined in the way <param>=<value>
             for k in self.headers:
                 aux = [x for x in params if k in x]
@@ -271,9 +275,9 @@ class GenerateRobotData:
         data = [self.get_value_url(key=x, request=request, params=params) for x in keys]
 
         if not query_param:
-            data = '/'.join(data).replace('//', '/').replace('?/','?')
+            data = '/'.join(data).replace('//', '/').replace('?/', '?')
         else:
-            aux = '/'.join(data[:-1]).replace('//', '/').replace('?/','?')
+            aux = '/'.join(data[:-1]).replace('//', '/').replace('?/', '?')
             data = f"{aux}?{data[-1]}"
 
         return data
@@ -374,6 +378,8 @@ class GenerateRobotData:
         tp_id = self.generate_name()
         reference, clauses = self.generate_reference(version=version)
 
+        # TODO: robotframework==7.0 has not property keywords in the class TestSuite(), we can get the data from
+        #  [x.to_dict()['name'] for x in list(self.suite.resource.keywords)] but with some differences in execution code
         self.test_suite = {
             'tp_id': tp_id,
             'test_objective': self.suite.doc,
@@ -382,7 +388,8 @@ class GenerateRobotData:
             'parent_release': version,
             'clauses': clauses,
             'pics_selection': str(),
-            'keywords': [str(x) for x in self.suite.keywords],
+            # 'keywords': [str(x) for x in self.suite.keywords],
+            'keywords': [x.to_dict()['name'] for x in list(self.suite.resource.keywords)],
             'teardown': str(self.suite.teardown),
             'initial_condition': str(),
             'test_cases': list()
@@ -540,7 +547,8 @@ class GenerateRobotData:
 
         return reference, clauses
 
-    def get_substring(self, string: str, key: str):
+    @staticmethod
+    def get_substring(string: str, key: str):
         pos1 = string.find(key) - 1
         pos2 = string[pos1:].find('\n')
         result = string[pos1:pos1+pos2].split('    ')

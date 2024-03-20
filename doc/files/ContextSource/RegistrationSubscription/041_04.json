@@ -8,7 +8,9 @@
     "5.11.5"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Query Context Source Registration Subscriptions With Invalid Limit And Page Parameters"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [

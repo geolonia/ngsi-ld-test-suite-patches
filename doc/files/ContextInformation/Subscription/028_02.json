@@ -8,7 +8,9 @@
     "5.8.1"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Create Subscription With Invalid Request"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [

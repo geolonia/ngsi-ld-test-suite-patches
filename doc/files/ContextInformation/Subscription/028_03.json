@@ -9,6 +9,7 @@
   ],
   "pics_selection": "",
   "keywords": [
+    "Create Subscription With Invalid/Empty Id",
     "Delete Initial Subscriptions"
   ],
   "teardown": "Delete Initial Subscriptions",

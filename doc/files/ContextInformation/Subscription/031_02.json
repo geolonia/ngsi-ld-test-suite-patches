@@ -8,7 +8,11 @@
     "5.8.4"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Query Subscriptions With Limit And Page Parameters",
+    "Setup Initial Subscriptions",
+    "Delete Initial Subscriptions"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Subscription ${subscription} \n        with an id set to ${subscription_id} \n}",
   "test_cases": [

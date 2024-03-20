@@ -1,7 +1,7 @@
 import re
 import os
-from analysis.checks import Checks
-from analysis.requests import Requests
+from doc.analysis.checks import Checks
+from doc.analysis.requests import Requests
 
 
 class ParseRobotFile:

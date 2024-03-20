@@ -8,7 +8,9 @@
     "6.3.7"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Delete Created Entity"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [

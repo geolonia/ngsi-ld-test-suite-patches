@@ -8,7 +8,11 @@
     "5.6.14"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Modify Attribute Instance Temporal Entity",
+    "Create Id",
+    "Delete Temporal Entity"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Temporal Entity ${entity} \n        with an id set to ${temporal_entity_representation_id} \n}",
   "test_cases": [

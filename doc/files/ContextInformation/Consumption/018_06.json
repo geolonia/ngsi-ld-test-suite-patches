@@ -8,7 +8,11 @@
     "6.3.5"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Review JSON-LD Resolution When retrieving an entity",
+    "Setup Initial Entity",
+    "Delete Created Entity"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} \n        with an id set to ${entityId} \n}",
   "test_cases": [

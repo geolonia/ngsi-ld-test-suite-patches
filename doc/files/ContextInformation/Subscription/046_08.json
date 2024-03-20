@@ -10,6 +10,8 @@
   "pics_selection": "",
   "keywords": [
     "Before Suite",
+    "Setup Initial Subscriptions",
+    "After Test",
     "After Suite"
   ],
   "teardown": "After Suite",

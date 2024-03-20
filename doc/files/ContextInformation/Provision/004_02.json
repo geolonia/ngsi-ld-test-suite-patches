@@ -8,7 +8,11 @@
     "5.6.8"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Batch Upsert Non-existing And Existing Entities Scenarios",
+    "Setup Initial Entities",
+    "Delete Initial Entities"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
