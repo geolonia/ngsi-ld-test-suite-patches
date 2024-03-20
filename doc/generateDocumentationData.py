@@ -23,10 +23,12 @@ def create_json_of_robotfile(robot_file_to_be_processed: str, computestatistics:
             data = GenerateRobotData(robot_file=robot_file, execdir=folder_test_suites)
             data.parse_robot()
             info = data.get_info()
+            info["error_while_autogenerating"] = "no error"
         except Exception as e:
             print("WHILE GENERATING ROBOT DATA:", e)
             info = dict()
             info["error_while_parsing"] = True
+            info["error_while_autogenerating"] = str(e)
             info["robotfile"] = robot_file_to_be_processed
             if(robot_path_to_be_processed.startswith("/")):
                 robot_path_to_be_processed = robot_path_to_be_processed[1:]
