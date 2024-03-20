@@ -5,10 +5,12 @@
   "config_id": "",
   "parent_release": "v1.3.1",
   "clauses": [
-    "5.7.2", "6.3.13"
+    "5.7.2",
+    "6.3.13"
   ],
   "pics_selection": "",
   "keywords": [
+    "Query Entities With Count",
     "Setup Initial Entities",
     "Delete Initial Entities"
   ],

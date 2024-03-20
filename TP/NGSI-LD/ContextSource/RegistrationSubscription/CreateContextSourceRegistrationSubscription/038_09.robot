@@ -19,7 +19,6 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-expire
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
     Check Response Status Code    400    ${response.status_code}
-    Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response.json()}
-    ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+    Check Response Body Containing ProblemDetails Element
+    ...    response_body=${response.json()}
+    ...    problem_type=${ERROR_TYPE_BAD_REQUEST_DATA}

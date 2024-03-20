@@ -227,12 +227,12 @@ class InitialSetup:
         if len(deleted_setup) != 0:
             print(f"    WARNING: Some of the Setup functions were deleted:\n{deleted_setup}")
         else:
-            print("    INFO: All current Setup functions are used in the Robot files")
+            print(f"    INFO: All current Setup functions are used in the Robot files")
 
         if len(not_included_keys) != 0:
             print(f"    ERROR: Some Setup functions are not include in the Class:\n{not_included_keys}")
         else:
-            print("    INFO: All the current Setup functions used in Robot files are included in the Class")
+            print(f"    INFO: All the current Setup functions used in Robot files are included in the Class")
 
         print()
 
@@ -264,14 +264,20 @@ class InitialSetup:
 
     def get_initial_condition(self, initial_condition: str) -> str:
         try:
-            return self.init[initial_condition]
+            if initial_condition is not None:
+                data = self.init[initial_condition]
+            else:
+                data = '''with {
+   the SUT containing an initial state
+}'''
         except KeyError:
             print(f"ERROR: the initial condition '{initial_condition}' is not defined in the dictionary. "
                   f"Please check it and add the new initial condition.")
             data = '''with {
    the SUT containing an initial state
 }'''
-            return data
+
+        return data
 
 
 if __name__ == "__main__":

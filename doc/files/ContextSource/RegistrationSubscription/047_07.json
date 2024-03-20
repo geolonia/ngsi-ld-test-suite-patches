@@ -8,7 +8,11 @@
     "5.11.7"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Do Not Receive cSourceNotification If Subscription Status Is Not Active",
+    "Setup Initial Context Source Registration Subscription",
+    "Delete Created Context Source Registration And Subscription"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a Context Source Registration Subscription (CSRS1)\n}",
   "test_cases": [

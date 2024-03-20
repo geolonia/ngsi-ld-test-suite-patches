@@ -8,7 +8,10 @@
     "6.3.4"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Create Initial Subscription",
+    "Delete Initial Subscription"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Subscription ${subscription} \n        with an id set to ${subscription_id} \n}",
   "test_cases": [
@@ -18,6 +21,7 @@
       "doc": "Verify that PATCH HTTP requests can be done with \"application/merge-patch+json\" as Content-Type",
       "tags": [
         "6_3_4",
+        "cb-mergepatch",
         "sub-update"
       ],
       "setup": "Create Initial Subscription",

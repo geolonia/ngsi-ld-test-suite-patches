@@ -18,6 +18,7 @@
       "doc": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create entity)",
       "tags": [
         "5_2_2",
+        "cb-ldcontext",
         "e-create"
       ],
       "setup": null,
@@ -34,6 +35,7 @@
       "doc": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create subscription)",
       "tags": [
         "5_2_2",
+        "cb-ldcontext",
         "sub-create"
       ],
       "setup": null,
@@ -50,6 +52,7 @@
       "doc": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create Temporal Representation of Entities)",
       "tags": [
         "5_2_2",
+        "cb-ldcontext",
         "te-create"
       ],
       "setup": null,
@@ -66,7 +69,8 @@
       "doc": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Batch entity create)",
       "tags": [
         "5_2_2",
-        "be-create"
+        "be-create",
+        "cb-ldcontext"
       ],
       "setup": null,
       "teardown": "Batch Delete Entities",
@@ -82,6 +86,7 @@
       "doc": "Verify receiving 503 \u2013 LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create context source registration)",
       "tags": [
         "5_2_2",
+        "cb-ldcontext",
         "csr-create"
       ],
       "setup": null,
@@ -94,9 +99,9 @@
     }
   ],
   "permutations": [
-    "when",
     "endpoint",
-    "then"
+    "then",
+    "when"
   ],
   "robotpath": "CommonBehaviours/CommonResponses/VerifyLdContextNotAvailable",
   "robotfile": "043_01"

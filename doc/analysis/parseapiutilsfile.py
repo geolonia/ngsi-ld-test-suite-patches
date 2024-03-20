@@ -21,10 +21,9 @@ class ParseApiUtilsFile:
         string = string[index:]
         string = string.split('\n')
 
-        index = None
         for i, item in enumerate(string):
             if 'response' in item:
-                regex = "\s{4}\$\{response\}=\s{4}(POST|GET|PUT|PATCH|DELETE).*"
+                regex = r"\s{4}\$\{response\}=\s{4}(POST|GET|PUT|PATCH|DELETE).*"
                 match = re.match(pattern=regex, string=item)
 
                 if match:
@@ -35,8 +34,8 @@ class ParseApiUtilsFile:
         return verb, url, query_param
 
     @staticmethod
-    def get_url_request(url: str) -> list:
-        # We have two options, the url is defined in the same line of the response or it is defined in the following
+    def get_url_request(url: str) -> [list, bool]:
+        # We have two options, the url is defined in the same line of the response, or it is defined in the following
         # lines with '...'
         keys = list()
         parameters = list()
@@ -57,7 +56,7 @@ class ParseApiUtilsFile:
                 aux = parameters[0]
                 query_param = True
 
-            keys = re.split(r'\$|/', aux)
+            keys = re.split(r'[$/]', aux)
             keys = [k for k in keys if k != '']
 
             if len(parameters) != 0:
@@ -68,7 +67,7 @@ class ParseApiUtilsFile:
             match = re.match(pattern=regex, string=url)
             if match:
                 aux = match.groups()[0]
-                keys = re.split(r'\$|/', aux)
+                keys = re.split(r'[$/]', aux)
                 keys = [k for k in keys if k != '']
 
         return keys, query_param
@@ -81,7 +80,7 @@ class ParseApiUtilsFile:
 
     def get_variables_data_variables(self, string):
         # Get the simple variables from the file
-        regex = "^(\$\{.*\})\s*(.*)\n"
+        regex = r"^(\$\{.*\})\s*(.*)\n"
 
         matches = re.finditer(regex, string, re.MULTILINE)
         for match in matches:
@@ -94,7 +93,7 @@ class ParseApiUtilsFile:
 
     def get_variables_data_dictionaries(self, string):
         # Get the dictionary variables from the file
-        regex = '(\&\{.*\})'
+        regex = r'(\&\{.*\})'
         matches = re.finditer(regex, string, re.MULTILINE)
         for match in matches:
             # Check that we have two groups matched
@@ -109,7 +108,7 @@ class ParseApiUtilsFile:
                 index = aux.find('\n${')
                 aux = aux[:index + 1]
 
-                regex = '\.{3}[ ]*([a-zA-Z]+)=(.*)\n'
+                regex = r'\.{3}[ ]*([a-zA-Z]+)=(.*)\n'
                 matches2 = re.finditer(regex, aux, re.MULTILINE)
                 dict_values = dict()
                 for match2 in matches2:

@@ -26,8 +26,21 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
     ...    subscription_id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    ${ignored_attributes}=    Create List    ${status_regex_expr}
+
+    # We need to ignore the Additional Members ('lastFailure', 'lastNotification', 'timesFailed', 'timesSent')
+    ${ignored_attributes}=    Create List
+    ...    ${status_regex_expr}
+    ...    ${lastfailure_regex_expr}
+    ...    ${lastNotification_regex_expr}
+    ...    ${timesFailed_regex_expr}
+    ...    ${timesSent_regex_expr}
+
     Check Created Resource Set To    ${subscription_payload}    ${response1.json()}    ${ignored_attributes}
+
+    Check Dictionary Might Contain Additional Members    ${response1.json()}    lastNotification
+    Check Dictionary Might Contain Additional Members    ${response1.json()}    lastFailure
+    Check Dictionary Might Contain Additional Members    ${response1.json()}    lastSuccess
+    Check Dictionary Might Contain Additional Members    ${response1.json()}    timesSent
 
 
 *** Keywords ***

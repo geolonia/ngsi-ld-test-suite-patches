@@ -8,7 +8,9 @@
     "5.6.10"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Setup Initial Entities"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    and containing a list of entities\n}",
   "test_cases": [

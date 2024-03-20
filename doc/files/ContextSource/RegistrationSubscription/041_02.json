@@ -8,7 +8,11 @@
     "5.11.5"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Query Context Source Registration Subscriptions With Limit Parameter",
+    "Setup Initial Context Source Registration Subscriptions",
+    "Delete Created Context Source Registration Subscriptions"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a set of Context Source Registration Subscriptions (CSRSs)\n}",
   "test_cases": [

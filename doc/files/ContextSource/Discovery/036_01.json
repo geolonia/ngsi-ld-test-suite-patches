@@ -8,7 +8,9 @@
     "5.10.1"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Retrieve Context Source Registration With An Invalid Id"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [

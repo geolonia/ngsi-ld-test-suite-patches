@@ -19,7 +19,6 @@ ${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/s
     ...    urn:ngsi-ld:Subscription:unknowSubscription
     ...    ${subscription_update_fragment}
     Check Response Status Code    404    ${response.status_code}
-    Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response.json()}
-    ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+    Check Response Body Containing ProblemDetails Element
+    ...    response_body=${response.json()}
+    ...    problem_type=${ERROR_TYPE_RESOURCE_NOT_FOUND}

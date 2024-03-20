@@ -8,7 +8,9 @@
     "5.8.2"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Update Subscription With Non present Or Invalid Id"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [

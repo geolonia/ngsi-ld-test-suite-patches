@@ -8,7 +8,10 @@
     "5.7.4"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Create Initial Context Source Registration and Mock Server",
+    "Delete Initial Context Source Registration and Mock Server"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT containing a Context Source Registration of a context source (CS1) \n        providing temporal information of two entities of type Building between 2020-08-01T22:07:00Z and 2021-08-01T21:07:00Z\n    and CS1 containing two temporal entities of type Building and temporal evolution of those entities in the mentioned interval.\n}",
   "test_cases": [

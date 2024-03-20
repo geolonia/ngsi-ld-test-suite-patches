@@ -8,7 +8,11 @@
     "5.6.4"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Update Attributes",
+    "Initiate Test Case",
+    "Delete Initial Entities"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} \n        with an id set to ${entityId} \n        and an attribute with an id set to ${atrId}\n}",
   "test_cases": [

@@ -17,7 +17,7 @@ ${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
 *** Test Cases ***
 049_02_01 Retrieve subscription by id
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (get /subscriptions/{subscriptionId})
-    [Tags]    sub-retrieve    6_3_4
+    [Tags]    sub-retrieve    cb-noacceptable-medtype    6_3_4
     ${id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${response}=    Retrieve Subscription
     ...    id=${id}
@@ -26,7 +26,7 @@ ${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
 
 049_02_02 Query temporal entities
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (get /temporal/entities)
-    [Tags]    te-query    6_3_4
+    [Tags]    te-query    cb-noacceptable-medtype    6_3_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
     ${response}=    Query Temporal Representation Of Entities
     ...    entity_types=${entity_types_to_be_retrieved}
@@ -37,6 +37,6 @@ ${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
 
 049_02_03 Query context source registration
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (get /csourceRegistrations)
-    [Tags]    csr-query    6_3_4
+    [Tags]    csr-query    cb-noacceptable-medtype    6_3_4
     ${response}=    Query Context Source Registrations With Return    type=Building    accept=${accept}
     Check Response Status Code    ${status_code}    ${response.status_code}

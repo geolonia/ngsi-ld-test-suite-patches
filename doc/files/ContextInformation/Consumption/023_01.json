@@ -8,7 +8,11 @@
     "5.7.6"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Retrieve Details Of Available Entity Types",
+    "Setup Initial Entities",
+    "Delete Initial Entities"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    and containing a list of entities\n}",
   "test_cases": [

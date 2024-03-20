@@ -8,7 +8,11 @@
     "5.6.13"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Delete attribute from temporal entity with unknow entity/attribute id",
+    "Create Temporal Entity",
+    "Delete Temporal Entity"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Temporal Entity ${entity} \n        with an id set to ${temporal_entity_representation_id} \n        and an attribute with an id set to ${atrId}\n}",
   "test_cases": [

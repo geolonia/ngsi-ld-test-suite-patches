@@ -9,8 +9,8 @@
   ],
   "pics_selection": "",
   "keywords": [
-    "Start Local Server",
-    "Stop Local Server"
+    "Receive cSourceNotification For Matching Context Source Registrations On Management Interval",
+    "Delete Created Context Source Registrations"
   ],
   "teardown": "Stop Local Server",
   "initial_condition": "with {\n   the SUT containing an initial state\n}",

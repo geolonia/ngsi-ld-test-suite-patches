@@ -18,6 +18,7 @@
       "doc": "Verify throwing 415 HTTP status code (Unsupported Media Type) if \"Content-Type\" header is not \"application/json\" or \"application/ld+json\" (patch /entities/{entityId}/attrs/{attrId})",
       "tags": [
         "6_3_4",
+        "cb-unsupport-medtype",
         "ea-partial-update"
       ],
       "setup": null,
@@ -34,6 +35,7 @@
       "doc": "Verify throwing 415 HTTP status code (Unsupported Media Type) if \"Content-Type\" header is not \"application/json\" or \"application/ld+json\" (patch /subscriptions/{subscriptionId})",
       "tags": [
         "6_3_4",
+        "cb-unsupport-medtype",
         "sub-update"
       ],
       "setup": null,
@@ -50,6 +52,7 @@
       "doc": "Verify throwing 415 HTTP status code (Unsupported Media Type) if \"Content-Type\" header is not \"application/json\" or \"application/ld+json\" (post /entities/)",
       "tags": [
         "6_3_4",
+        "cb-unsupport-medtype",
         "e-create"
       ],
       "setup": null,
@@ -66,6 +69,7 @@
       "doc": "Verify throwing 415 HTTP status code (Unsupported Media Type) if \"Content-Type\" header is not \"application/json\" or \"application/ld+json\" (post /subscriptions/)",
       "tags": [
         "6_3_4",
+        "cb-unsupport-medtype",
         "sub-create"
       ],
       "setup": null,
@@ -82,7 +86,8 @@
       "doc": "Verify throwing 415 HTTP status code (Unsupported Media Type) if \"Content-Type\" header is not \"application/json\" or \"application/ld+json\" (post /entityOperations/create)",
       "tags": [
         "6_3_4",
-        "be-create"
+        "be-create",
+        "cb-unsupport-medtype"
       ],
       "setup": null,
       "teardown": "Batch Delete Entities",
@@ -98,6 +103,7 @@
       "doc": "Verify throwing 415 HTTP status code (Unsupported Media Type) if \"Content-Type\" header is not \"application/json\" or \"application/ld+json\" (post /temporal/entities/)",
       "tags": [
         "6_3_4",
+        "cb-unsupport-medtype",
         "te-create"
       ],
       "setup": null,
@@ -110,10 +116,10 @@
     }
   ],
   "permutations": [
-    "when",
     "endpoint",
     "http_verb",
-    "then"
+    "then",
+    "when"
   ],
   "robotpath": "CommonBehaviours/CommonResponses/VerifyUnsupportedMediaType",
   "robotfile": "048_01"

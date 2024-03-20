@@ -8,7 +8,11 @@
     "5.10.2"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Query A Context Source Registration",
+    "Setup Initial Context Source Registrations",
+    "Delete Created Context Source Registrations"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a list of Context Source Registrations (CSRs) providing latest information about some entities\n}",
   "test_cases": [

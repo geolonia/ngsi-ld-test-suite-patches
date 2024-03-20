@@ -56,8 +56,14 @@ class Checks:
                 Checks.check_response_body_containing_problemdetails_element_containing_type_element_set_to,
             'Check Response Body Title When Using Session Request':
                 Checks.check_response_body_title_when_using_session_request,
+            'Check Response Body Containing a Boolean Attribute set to':
+                Checks.check_response_body_containing_a_boolean_attribute_set_to,
+            'Check Response Body Contains DateTime Value':
+                Checks.check_response_body_contains_datetime_value,
             'Check Response Body Containing ProblemDetails Element Containing Title Element':
                 Checks.check_response_body_containing_problemdetails_element_containing_title_element,
+            'Check Dictionary Might Contain Additional Members':
+                Checks.check_dictionary_might_contain_additional_members,
             'Check Response Body Containing ProblemDetails Element':
                 Checks.check_response_body_containing_problemdetails_element,
             'Check RL Response Body Containing ProblemDetails Element Containing Type Element set to':
@@ -106,6 +112,10 @@ class Checks:
                 Checks.check_response_reason_set_to,
             'Check Response Does Not Contain Body':
                 Checks.check_response_does_not_contain_body,
+            'Check Response Header is Empty':
+                Checks.check_response_header_is_empty,
+            'Check Response Headers Link set to':
+                Checks.check_response_headers_link_set_to,
             'Check Response Headers Containing NGSILD-Results-Count Equals To' :
                 Checks.check_response_header_contains_ngsild_results_count_equals_to,
         }
@@ -138,6 +148,10 @@ class Checks:
             'Check Response Body Containing ProblemDetails Element Containing Title Element': {
                 'params': ['response_body'],
                 'position': [0]
+            },
+            'Check Dictionary Might Contain Additional Members': {
+                'params': ['dictionary', 'key'],
+                'position': [0, 1]
             },
             'Check Response Headers Containing URI set to': {
                 'params': ['expected_entity_id', 'response_headers'],
@@ -182,6 +196,14 @@ class Checks:
             'Check RL Response Body Containing ProblemDetails Element Containing Title Element': {
                 'params': ['response_body'],
                 'position': [0]
+            },
+            'Check Response Body Containing a Boolean Attribute set to': {
+                'params': ['expected_attribute_name', 'response_body', 'expected_attribute_value'],
+                'position': [0, 1, 2]
+            },
+            'Check Response Body Contains DateTime Value': {
+                'params': ['dictionary', 'key', 'expected value'],
+                'position': [0, 1, 2]
             },
             'Check Response Body Containing List Containing Subscription elements': {
                 'params': ['file', 'id', 'response'],
@@ -304,6 +326,14 @@ class Checks:
             'Check Response Does Not Contain Body': {
                 'params': ['response'],
                 'position': [0]
+            },
+            'Check Response Header is Empty': {
+                'params': ['response_headers'],
+                'position': [0]
+            },
+            'Check Response Headers Link set to': {
+                'params': ['response_headers', 'expected_link_header'],
+                'position': [0, 1]
             }
             ,
             'Check Response Headers Containing NGSILD-Results-Count Equals To': {
@@ -366,6 +396,14 @@ class Checks:
                                     f"'{expected_parameters}', but received: {kwargs}")
 
         return response
+
+    @staticmethod
+    def check_response_header_is_empty(kwargs: list) -> str:
+        return "The response header contains an empty dictionary"
+
+    @staticmethod
+    def check_response_headers_link_set_to(kwargs: list) -> str:
+        return f"The response headers Link is set to '{kwargs['expected_link_header']}'"
 
     @staticmethod
     def wait_for_no_notification(kwargs: list) -> str:
@@ -435,6 +473,11 @@ class Checks:
             raise Exception(f'ERROR, Expected status_code parameter but received: {kwargs}')
 
     @staticmethod
+    def check_response_body_containing_a_boolean_attribute_set_to(kwargs: list) -> str:
+        return (f"Check that the payload body contains a boolean attribute with name "
+                f"'{kwargs['expected_attribute_name']}' and value '{kwargs['expected_attribute_value']}")
+
+    @staticmethod
     def check_response_headers_link_not_empty(kwargs: list) -> str:
         return f'Response Header: Link is not Empty'
 
@@ -449,6 +492,13 @@ class Checks:
     @staticmethod
     def check_response_headers_id_not_empty(kwargs: list) -> str:
         return 'Response Header: Location is not Empty'
+
+    @staticmethod
+    def check_dictionary_might_contain_additional_members(kwargs: list) -> str:
+        if 'dictionary' in kwargs and 'key' in kwargs:
+            return f"The dictionary `{kwargs['dictionary']}' might contain the key '{kwargs['key']}'"
+        else:
+            raise Exception(f"ERROR, Expected 'dictionary' and 'key' parameters but received: {kwargs}")
 
     @staticmethod
     def check_response_body_containing_an_attribute_set_to(kwargs: list) -> str:
@@ -576,6 +626,12 @@ class Checks:
                     f"    and using the list of entity ids define in '{kwargs['entity_ids']}'")
         else:
             raise Exception(f"ERROR, expected parameters 'filename' and 'entity_ids', but received '{kwargs}'")
+
+    @staticmethod
+    def check_response_body_contains_datetime_value(kwargs: list) -> str:
+        # ${dictionary}    ${key}    ${expected value}
+        return (f"Check that the dictionary contains the key '{kwargs['key']}' with type DateTime and value set "
+                f"to '{kwargs['expected value']}'")
 
     @staticmethod
     def check_response_body_containing_subscription_element(kwargs: list) -> str:
@@ -765,7 +821,7 @@ class Checks:
                 case 'response_body':
                     response = f"{response} and\n    Query Parameter: '{key}' set to '{value}'"
                 case 'ignored_keys':
-                    response = f"{response} and\n    Query Parameter: '{key}' set to '{value}'"
+                    response = f"{response} and\n    Query Parameter: '{key}' set to '{value}' list of keys"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case 'checks':
                     pass

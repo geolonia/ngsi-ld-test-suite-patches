@@ -8,7 +8,10 @@
     "5.11.7"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Create Initial Context Source Registration and Context Source Registration Subscription",
+    "Delete Created Context Source Registration And Context Source Registration Subscription"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a Context Source Registration (CSR1) providing latest information about some entities\n    and the SUT containing a Context Source Registration Subscription (CSRS1)\n}",
   "test_cases": [

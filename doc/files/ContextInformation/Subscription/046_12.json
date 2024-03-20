@@ -9,8 +9,12 @@
   ],
   "pics_selection": "",
   "keywords": [
+    "Setup Initial Subscriptions",
+    "Delete Initial Subscriptions",
     "Before Test",
-    "After Test"
+    "After Test",
+    "Add Initial Entity",
+    "Delete Initial Entity"
   ],
   "teardown": "After Test",
   "initial_condition": "with {\n   the SUT containing an initial state\n}",

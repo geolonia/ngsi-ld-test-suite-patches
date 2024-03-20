@@ -8,7 +8,11 @@
     "5.7.4"
   ],
   "pics_selection": "",
-  "keywords": [],
+  "keywords": [
+    "Query the temporal evolution of entities using the entityOperations method",
+    "Setup Initial Temporal Entities",
+    "Delete Initial Temporal Entities"
+  ],
   "teardown": "None",
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an a list of Temporal Entities \n}",
   "test_cases": [

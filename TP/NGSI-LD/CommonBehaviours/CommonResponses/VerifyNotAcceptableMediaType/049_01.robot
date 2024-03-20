@@ -21,7 +21,7 @@ ${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
 *** Test Cases ***
 049_01_01 Endpoint get /entities/{entityId}
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /entities/{entityId})
-    [Tags]    e-query    6_3_4
+    [Tags]    e-query    cb-noacceptable-medtype    6_3_4
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${response}=    Query Entity
     ...    id=${entity_id}
@@ -31,7 +31,7 @@ ${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
 
 049_01_02 Endpoint get /subscriptions/{subscriptionId}
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /subscriptions/{subscriptionId})
-    [Tags]    sub-retrieve    6_3_4
+    [Tags]    sub-retrieve    cb-noacceptable-medtype    6_3_4
     ${id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${response}=    Retrieve Subscription
     ...    id=${id}
@@ -41,19 +41,19 @@ ${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
 
 049_01_03 Endpoint get /csourceRegistrations/
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /csourceRegistrations/)
-    [Tags]    csr-query    6_3_4
+    [Tags]    csr-query    cb-noacceptable-medtype    6_3_4
     ${response}=    Query Context Source Registrations With Return    type=Building    accept=${accept}
     Check Response Status Code    ${status_code}    ${response.status_code}
 
 049_01_04 Endpoint get /csourceSubscriptions/
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /csourceSubscriptions/)
-    [Tags]    csrsub-query    6_3_4
+    [Tags]    csrsub-query    cb-noacceptable-medtype    6_3_4
     ${response}=    Query Context Source Registration Subscriptions    accept=${accept}
     Check Response Status Code    ${status_code}    ${response.status_code}
 
 049_01_05 Endpoint get /temporal/entities
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /temporal/entities)
-    [Tags]    te-query    6_3_4
+    [Tags]    te-query    cb-noacceptable-medtype    6_3_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
     ${response}=    Query Temporal Representation Of Entities
     ...    entity_types=${entity_types_to_be_retrieved}

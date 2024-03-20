@@ -42,7 +42,7 @@ Query Context Source Registration Subscriptions With Limit And Page Parameters
     ...    Subscription
     ...    ${expected_subscription_number}
     ...    ${response.json()}
-    Check Pagination Prev And Next Headers    ${prev_link}    ${next_link}    ${response.json()}
+    Check Pagination Prev And Next Headers    ${prev_link}    ${next_link}    ${response.headers}
 
 Setup Initial Context Source Registration Subscriptions
     ${first_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
