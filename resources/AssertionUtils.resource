@@ -475,7 +475,7 @@ Check Retrieving Context Source Registration
     ${ignored_attributes}=    Create List    ${status_regex_expr}    @context
     Check Updated Resource Set To    ${registration_payload}    ${response.json()}    ${ignored_attributes}
 
-Check Dictionary Might Contain Additional Members
+Check Dictionary Might Contain Additional Members of the NotificationParams
     # Check the Additional Members 5.2.14.2 in the NotificationParams data structure
     [Arguments]    ${dictionary}    ${key}
     Log    Dictionary Might Contain Key with a specific type

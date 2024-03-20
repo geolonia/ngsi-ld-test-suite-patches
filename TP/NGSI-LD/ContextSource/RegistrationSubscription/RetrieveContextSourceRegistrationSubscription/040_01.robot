@@ -51,10 +51,10 @@ ${expectation_file_path}=               csourceSubscriptions/expectations/subscr
     ...    response_body=${response.json()}
     ...    ignored_keys=${ignored_attributes}
 
-    Check Dictionary Might Contain Additional Members    ${response.json()}    lastNotification
-    Check Dictionary Might Contain Additional Members    ${response.json()}    lastFailure
-    Check Dictionary Might Contain Additional Members    ${response.json()}    lastSuccess
-    Check Dictionary Might Contain Additional Members    ${response.json()}    timesSent
+    Check Dictionary Might Contain Additional Members of the NotificationParams    ${response.json()}    lastNotification
+    Check Dictionary Might Contain Additional Members of the NotificationParams    ${response.json()}    lastFailure
+    Check Dictionary Might Contain Additional Members of the NotificationParams    ${response.json()}    lastSuccess
+    Check Dictionary Might Contain Additional Members of the NotificationParams    ${response.json()}    timesSent
 
 
 *** Keywords ***

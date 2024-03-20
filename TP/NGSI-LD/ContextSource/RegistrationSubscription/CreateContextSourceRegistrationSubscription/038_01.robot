@@ -37,10 +37,10 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
 
     Check Created Resource Set To    ${subscription_payload}    ${response1.json()}    ${ignored_attributes}
 
-    Check Dictionary Might Contain Additional Members    ${response1.json()}    lastNotification
-    Check Dictionary Might Contain Additional Members    ${response1.json()}    lastFailure
-    Check Dictionary Might Contain Additional Members    ${response1.json()}    lastSuccess
-    Check Dictionary Might Contain Additional Members    ${response1.json()}    timesSent
+    Check Dictionary Might Contain Additional Members of the NotificationParams    ${response1.json()}    lastNotification
+    Check Dictionary Might Contain Additional Members of the NotificationParams    ${response1.json()}    lastFailure
+    Check Dictionary Might Contain Additional Members of the NotificationParams    ${response1.json()}    lastSuccess
+    Check Dictionary Might Contain Additional Members of the NotificationParams    ${response1.json()}    timesSent
 
 
 *** Keywords ***

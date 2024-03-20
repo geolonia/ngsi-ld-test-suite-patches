@@ -62,7 +62,7 @@ class Checks:
                 Checks.check_response_body_contains_datetime_value,
             'Check Response Body Containing ProblemDetails Element Containing Title Element':
                 Checks.check_response_body_containing_problemdetails_element_containing_title_element,
-            'Check Dictionary Might Contain Additional Members':
+            'Check Dictionary Might Contain Additional Members of the NotificationParams':
                 Checks.check_dictionary_might_contain_additional_members,
             'Check Response Body Containing ProblemDetails Element':
                 Checks.check_response_body_containing_problemdetails_element,
@@ -149,7 +149,7 @@ class Checks:
                 'params': ['response_body'],
                 'position': [0]
             },
-            'Check Dictionary Might Contain Additional Members': {
+            'Check Dictionary Might Contain Additional Members of the NotificationParams': {
                 'params': ['dictionary', 'key'],
                 'position': [0, 1]
             },
