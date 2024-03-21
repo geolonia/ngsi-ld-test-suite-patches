@@ -84,6 +84,20 @@ Docker host.
 ``` ifconfig docker0 | grep inet | awk '{print $2}' ``` and that IP is the one that you need to use for 
 notification purposes.
 
+Optionally, there are some extra variables that can be used during the generation of execution results of the Test 
+Case with a specific Robot Listener class to automatically generate a GitHub Issue in the GitHub repository of the 
+Context Broker of a failed Test Case. In case that you cannot or do not want to use this functionality, delete those 
+variables from the file.
+
+As an explanation of the process, the GitHub Issue will be created if there is no other issue in the repository with
+the same name or there is an issue with the same name, but it is not closed.
+
+In order to create these issues, the [GitHub REST API](https://docs.github.com/en/rest) is used. For this purpose, 
+the authentication process is using a personal access token. The needed variables are the following:
+* `github_owner`: Your GitHub user account. 
+* `github_broker_repo` : The corresponding URL of the Context Broker repository.
+* `github_token` : Your personal access token. Please take a look to the GitHub documentation if you want to generate 
+your own [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
 
 ## Execute the NGSI-LD Test Suite
 
@@ -131,6 +145,103 @@ test launch command followed by the file name.
 > > .venv\scripts\deactivate.bat
 > ```
 
+## Test Suite Management (tsm)
+
+The `tsm` script is designed to facilitate the selection and execution of the Test Suite, especially if not all the 
+endpoints of the API have been implemented for a specific Context Broker. This script provides a set of commands 
+to enable or disable Test Cases, Robot Test Suites or Collections (Robot Test Suite Groups), visualize the current 
+status of the different Test Cases, execute the selected Test Cases and perform other related operations as described 
+below.
+
+The `tsm` script generates a pickle file named `tsm.pkl`, which stores the tuples list corresponding to each Test Case 
+with the following information:
+
+    (switch, running status, Test Case long name)
+
+where the values and their meaning are the following:
+* **switch**:
+  * `ON`: the Test Case is on, which means that it will be executed by the script.
+  * `OFF`: the Test Case is off, and therefore is not selected to be executed by the script.
+  * `MISSING`: the Test Case is not anymore in the Test Suite Structure. An update operation should be run to update 
+  the `tsm.pkl` with the current set of available Test Cases in the filesystem.
+  * `NEW`:  new Test Case discovered by the tsm after an update operation.
+* **status**:
+  * `PASSED`: the robot framework executes the Test Case with result PASS.
+  * `FAILED`: the robot framework executes the Test Case with result FAIL.
+  * `PENDING`: the Test Case is pending to be executed by the robot framework.
+* **test case long name**: the Test Case long name set by robot framework based on the Robot Test Suite number and 
+the Test Case name (e.g., NGSILD.032 02.032_02_01 Delete Unknown Subscription)
+
+### Installation
+The `tsm` script is integrated with arguments auto-completion for bash, therefore it is needed the installation of 
+the argcomplete python package on your system:
+
+    pip install argcomplete
+
+and to enable the completion after the installation executing the following command:
+
+    activate-global-python-argcomplete 
+
+and then 
+
+    eval "$(register-python-argcomplete tsm)"
+
+Now, it is possible to autocomplete the commands and show possible options executing the script. Also –help argument 
+is available to obtain more information about the options.
+
+### Execution
+
+The tsm cases update command updates the `tsm.pkl` file with all the Robot Test Suite under the local path. If the 
+pickle file does not exist, it is created. After the creation of this file, it is possible to execute the script 
+to maintain and run the selected Test Cases from the pickle file. The list of commands is the following:
+
+* **Test Cases (cases)**
+  * Switch ON Test Cases
+  
+        tsm cases on [test_cases]
+  
+  * Switch OFF Test Cases
+
+        tsm cases off [test_cases]
+        tsm cases off "NGSILD.032 01.032_01_02 InvalidId"
+  
+  * List Test Cases based on the specific flag.
+        
+        tsm cases list [on, off, missing, new, passed, failed, pending, all]
+        tsm cases list ./TP/NGSI-LD/CommonBehaviours
+  
+  * Run Test Cases that are enabled
+
+        tsm cases run [on, off, missing, new, passed, failed, pending, [test_cases]]
+        tsm cases run NGSILD.048\ 01.048_01_06\ Endpoint\ post\ /temporal/entities/
+        tsm cases run pending
+      
+  * Update the pickle file with the current Test Cases
+
+        tsm cases update
+       
+  * Clean Test Cases, remove the Test Cases that were marked as MISSING
+
+        tsm cases clean
+
+* **Robot Test Suites (suites)**
+  * Switch ON Robot Test Suites
+
+        tsm suites on [suites]
+       
+  * Switch OFF Robot Test Suites
+
+        tsm suites off [suites]
+
+* **Test Collections (collections)**
+  * Switch ON Test Collections
+
+        tsm collections on [collections]
+        tsm collections on ./TP/NGSI-LD/CommonBehaviours
+
+  * Switch OFF Test Collections
+
+        tsm collections off [collections]
 
 ## Contribute to the Test Suite
 
@@ -324,7 +435,18 @@ And, if you want to generate a documentation for the Test Cases:
 
 ```$ python3  -m robot.testdoc  TP/NGSI-LD  api_docs/TestCases.html```
 
-### Coding Style of Test Suites
+## Generate output file details only for failed tests
+
+It is possible to generate a report only for the failed tests through the use of a specific listener in the execution
+of the robot framework. For example, if you want to execute the test suite number 043 and generate the report, you can
+execute the following command:
+
+```robot  --listener libraries/ErrorListener.py --outputdir ./results ./TP/NGSI-LD/CommonBehaviours/043.robot```
+
+It will generate a specific `errors.log` file into the `results` folder with the description of the different steps 
+developed and the mismatched observed on them.
+
+## Coding Style of Test Suites
 
 And if you want to tidy (code style) the Test Suites:
 

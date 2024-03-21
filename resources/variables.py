@@ -5,3 +5,8 @@ notification_server_host = '0.0.0.0'
 notification_server_port = 8085
 context_source_host = '0.0.0.0'
 context_source_port = 8086
+
+# GitHub repository details
+# github_owner = 'your_github_username'
+# github_broker_repo = 'context_broker_repository'
+# github_token = 'your_github_token'
