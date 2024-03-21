@@ -11,9 +11,16 @@ class ParseVariablesFile:
             # Read the contents of the file
             file_content = file.read()
 
+        # Generate a list of lines from the file content
         file_content = file_content.split('\n')
+
+        # Dismiss the blank lines and the lines starting with # -> comments
+        file_content = [x for x in file_content if x != '' and x[0] != '#']
+
+        # Extract the key = value format of the variables
         file_content = [x.split('=') for x in file_content if x != '']
 
+        # Delete the ' characters from the keys and delete blank spaces
         self.variables = {x[0].strip(): x[1].replace("'", "").strip() for x in file_content}
 
     def get_variable(self, variable: str) -> str:
