@@ -1,0 +1,37 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/018_02",
+  "test_objective": "Check that you cannot get an entity with invalid id",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.1",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.7.1"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Get Entity With Invalid Id"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "018_02_01 Get an entity if the Entity Id is not a valid URI",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/018_02_01",
+      "doc": "Check that you cannot get an entity with invalid/missing id",
+      "tags": [
+        "e-retrieve",
+        "5_7_1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Get Entity With Invalid Id",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entity with Response Status Code set to 400     and\n        Query Entity with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Query Entity with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Get Entity Request: and\n    Query Parameter: id set to 'thisisaninvaliduri' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Consumption/Entity/RetrieveEntity",
+  "robotfile": "018_02"
+}

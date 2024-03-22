@@ -1,0 +1,35 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REG/034_03",
+  "test_objective": "Check that you cannot update a context source registration by id if the id is not known to the system",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.9.3",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.9.3"
+  ],
+  "pics_selection": "",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "034_03_01 Update a context source registration by id if the id is not known to the system",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REG/034_03_01",
+      "doc": "Check that you cannot update a context source registration by id if the id is not known to the system",
+      "tags": [
+        "5_9_3",
+        "csr-update"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration With Return with Response Status Code set to 404     and\n        Update Context Source Registration With Return with Response reason set to 'Not Found'     and\n        Update Context Source Registration With Return with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound' and Response Body Title is a string and is not ${EMPTY} and Response Body Detail is a string and is not ${EMPTY} and Response Boty Title is not equal to Response Body Detail\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with id set to '${registration_id}' and registration update fragment set to '${fragment_with_id}' and content-type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "csourceRegistrations/{registration_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/Registration/UpdateContextSourceRegistration",
+  "robotfile": "034_03"
+}

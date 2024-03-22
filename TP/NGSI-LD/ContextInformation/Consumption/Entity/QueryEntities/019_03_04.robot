@@ -1,0 +1,50 @@
+*** Settings ***
+Documentation       Check that you cannot query entities if the requested attribute names are incorrect
+
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+
+Suite Teardown      Delete Entities
+
+
+*** Variables ***
+${building_id_prefix}=          urn:ngsi-ld:Building:
+${filename}=                    building-minimal-sample.jsonld
+${entity_type}=                 https://ngsi-ld-test-suite/context#Building
+${invalid_attribute_one}=       id
+${invalid_attribute_two}=       type
+
+
+*** Test Cases ***
+019_03_04 Query several entities based on incorrect attribute names
+    [Documentation]    Check that you cannot query entities if the requested attribute names are incorrect
+    [Tags]    e-query    5_7_2
+    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Suite Variable    ${first_entity_id}
+    ${create_response1}=    Create Entity Selecting Content Type
+    ...    ${filename}
+    ...    ${first_entity_id}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${create_response1.status_code}
+    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Suite Variable    ${second_entity_id}
+    ${create_response2}=    Create Entity Selecting Content Type
+    ...    ${filename}
+    ...    ${second_entity_id}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${create_response2.status_code}
+    ${attributes_to_be_retrieved}=    Catenate    SEPARATOR=,    ${invalid_attribute_one}    ${invalid_attribute_two}
+    ${response}=    Query Entities    attrs=${attributes_to_be_retrieved}
+    Check Response Status Code    400    ${response.status_code}
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to
+    ...    ${response.json()}
+    ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+
+
+*** Keywords ***
+Delete Entities
+    Delete Entity by Id    ${first_entity_id}
+    Delete Entity by Id    ${second_entity_id}

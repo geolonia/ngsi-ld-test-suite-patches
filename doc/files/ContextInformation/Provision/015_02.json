@@ -1,0 +1,73 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/TEA/015_02",
+  "test_objective": "Check that an error is raised if you delete an attribute to temporal entity with an unknown/invalid Entity/Attribute Id",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.13",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.6.13"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Delete attribute from temporal entity with unknow entity/attribute id",
+    "Create Temporal Entity",
+    "Delete Temporal Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Temporal Entity ${entity} \n        with an id set to ${temporal_entity_representation_id} \n        and an attribute with an id set to ${atrId}\n}",
+  "test_cases": [
+    {
+      "name": "015_02_01 Delete an attribute to a temporal representation of an entity with a missing entity id",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TEA/015_02_01",
+      "doc": "Check that an error is raised if you delete an attribute to temporal entity with an unknown/invalid Entity/Attribute Id",
+      "tags": [
+        "tea-delete",
+        "5_6_13"
+      ],
+      "setup": "Create Temporal Entity",
+      "teardown": "Delete Temporal Entity",
+      "template": "Delete attribute from temporal entity with unknow entity/attribute id",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Attribute From Temporal Entity with Response Status Code set to 400     and\n        Delete Attribute From Temporal Entity with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Delete Attribute From Temporal Entity with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Attribute From Temporal Entity: and\n    Query Parameter: entityId set to '${EMPTY}' and\n    Query Parameter: attributeId set to 'speed' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: datasetId set to '${EMPTY}' and\n    Query Parameter: deleteAll set to 'false' and\n    Query Parameter: context set to '${EMPTY}'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "temporal/entities/{entityId}/attrs/{attributeId}?${params_as_string}"
+    },
+    {
+      "name": "015_02_02 Delete an attribute to a temporal representation of an entity with an invalid entity id",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TEA/015_02_02",
+      "doc": "Check that an error is raised if you delete an attribute to temporal entity with an unknown/invalid Entity/Attribute Id",
+      "tags": [
+        "tea-delete",
+        "5_6_13"
+      ],
+      "setup": "Create Temporal Entity",
+      "teardown": "Delete Temporal Entity",
+      "template": "Delete attribute from temporal entity with unknow entity/attribute id",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Attribute From Temporal Entity with Response Status Code set to 400     and\n        Delete Attribute From Temporal Entity with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Delete Attribute From Temporal Entity with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Attribute From Temporal Entity: and\n    Query Parameter: entityId set to 'invalidId' and\n    Query Parameter: attributeId set to 'speed' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: datasetId set to '${EMPTY}' and\n    Query Parameter: deleteAll set to 'false' and\n    Query Parameter: context set to '${EMPTY}'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "temporal/entities/{entityId}/attrs/{attributeId}?${params_as_string}"
+    },
+    {
+      "name": "015_02_03 Delete an attribute to a temporal representation of an entity with an invalid attribute id",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TEA/015_02_03",
+      "doc": "Check that an error is raised if you delete an attribute to temporal entity with an unknown/invalid Entity/Attribute Id",
+      "tags": [
+        "tea-delete",
+        "5_6_13"
+      ],
+      "setup": "Create Temporal Entity",
+      "teardown": "Delete Temporal Entity",
+      "template": "Delete attribute from temporal entity with unknow entity/attribute id",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Attribute From Temporal Entity with Response Status Code set to 400     and\n        Delete Attribute From Temporal Entity with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Delete Attribute From Temporal Entity with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Attribute From Temporal Entity: and\n    Query Parameter: entityId set to '${valid_temporal_entity_id}' and\n    Query Parameter: attributeId set to 'invalid(Name' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: datasetId set to '${EMPTY}' and\n    Query Parameter: deleteAll set to 'false' and\n    Query Parameter: context set to '${EMPTY}'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "temporal/entities/{entityId}/attrs/{attributeId}?${params_as_string}"
+    }
+  ],
+  "permutations": [
+    "when"
+  ],
+  "robotpath": "ContextInformation/Provision/TemporalEntityAttributes/DeleteAttribute",
+  "robotfile": "015_02"
+}

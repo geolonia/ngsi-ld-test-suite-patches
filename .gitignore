@@ -1,0 +1,6 @@
+resources/__pycache__
+results
+*.pyc
+*.http
+.vscode/
+.venv

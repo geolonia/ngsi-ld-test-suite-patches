@@ -1,0 +1,38 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/047_05",
+  "test_objective": "Check that if a cSourceNotification is sent successfully to the \"endpoint\" member, the \"notification.timesSent\" member shall be incremented by one and the \"notification.lastSuccess\" and \"notification.lastNotification\" members shall be updated with the current timestamp and the status of the context source registration subscription shall be updated to \"ok\"",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.7",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.11.7"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Initial Context Source Registration Subscription",
+    "Delete Created Context Source Registration And Subscription"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a Context Source Registration Subscription (CSRS1)\n}",
+  "test_cases": [
+    {
+      "name": "047_05_01 If A cSourceNotification Is Successfully Sent The Notification Member Shall Be Updated",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/047_05_01",
+      "doc": "Check that if a cSourceNotification is sent successfully to the \"endpoint\" member, the \"notification.timesSent\" member shall be incremented by one and the \"notification.lastSuccess\" and \"notification.lastNotification\" members shall be updated with the current timestamp and the status of the context source registration subscription shall be updated to \"ok\"",
+      "tags": [
+        "5_11_7",
+        "csrsub-notification"
+      ],
+      "setup": "Setup Initial Context Source Registration Subscription",
+      "teardown": "Delete Created Context Source Registration And Subscription",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Retrieve Context Source Registration Subscription with Response containing:\n            * Notification expectation file path set to 'notifications/expectations/1-timesSent-ok.json'\n            * Expected Additional Members set to '${expected_notification_additional_members}'\n            * Response Body set to '${response.json()}'\n\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration Subscription with data: and\n    Query Parameter: subscription id set to '${subscription_id}'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceSubscriptions/{subscription_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour",
+  "robotfile": "047_05"
+}

@@ -1,0 +1,39 @@
+{
+  "tp_id": "TP/NGSI-LD/CB/HTTP/044_01",
+  "test_objective": "Verify that PATCH HTTP requests can be done with \"application/merge-patch+json\" as Content-Type",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.4",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "6.3.4"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Initial Entity",
+    "Delete Initial Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} \n        with an id set to ${entityId} \n}",
+  "test_cases": [
+    {
+      "name": "044_01_01 endpoint /entities/{entityId}/attrs/{attrId}",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/044_01_01",
+      "doc": "Verify that PATCH HTTP requests can be done with \"application/merge-patch+json\" as Content-Type",
+      "tags": [
+        "6_3_4",
+        "cb-mergepatch",
+        "ea-partial-update"
+      ],
+      "setup": "Create Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Partial Update Entity Attributes with Response Status Code set to 204\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${entity_id}' and\n    Query Parameter: AttributeId set to 'brandName' and\n    Query Parameter: fragment_filename set to 'vehicle-brandname-fragment.json' and\n    Query Parameter: content_type set to 'application/merge-patch+json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "CommonBehaviours/CommonResponses/VerifyMergePatchJson",
+  "robotfile": "044_01"
+}

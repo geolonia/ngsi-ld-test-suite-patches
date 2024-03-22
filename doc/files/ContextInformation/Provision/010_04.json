@@ -1,0 +1,57 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/EA/010_04",
+  "test_objective": "Check that you can append entity attributes",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.3",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.6.3"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Append Attributes With Params",
+    "Create Initial Entity",
+    "Delete Initial Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} \n        with an id set to ${entityId} \n}",
+  "test_cases": [
+    {
+      "name": "010_04_01 Append entity attributes and ignore existing multi-attribute instance",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/010_04_01",
+      "doc": "Check that you can append entity attributes",
+      "tags": [
+        "ea-append",
+        "5_6_3"
+      ],
+      "setup": "Create Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": "Append Attributes With Params",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Append Entity Attributes With Parameters with Response Status Code set to 204     and\n        ${expectation_filename} with Check Response Body Content and\n            Query Parameter: expectation_filename set to 'expectation_response_body' and\n            Query Parameter: response_body set to '' and\n            Query Parameter: additional_ignored_path set to 'root\\\\['notUpdated'\\\\]\\\\[0\\\\]\\\\['reason'\\\\]'     and\n        Retrieve Entity by Id with Updated Entity set to ${entity}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs?options=${options}'\n        method set to 'POST'\n        Append entity attributes with parameters: and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'vehicle-attribute-to-add-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json' and\n    Query Parameter: options set to 'noOverwrite'\n}",
+      "http_verb": "POST",
+      "endpoint": "entities/{id}/attrs?options=${options}"
+    },
+    {
+      "name": "010_04_02 Append entity attributes with a new multi-attribute instance",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/010_04_02",
+      "doc": "Check that you can append entity attributes",
+      "tags": [
+        "ea-append",
+        "5_6_3"
+      ],
+      "setup": "Create Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": "Append Attributes With Params",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Append Entity Attributes With Parameters with Response Status Code set to 204     and\n        ${expectation_filename} with Check Response Body Content and\n            Query Parameter: expectation_filename set to 'expectation_response_body' and\n            Query Parameter: response_body set to '' and\n            Query Parameter: additional_ignored_path set to 'root\\\\['notUpdated'\\\\]\\\\[0\\\\]\\\\['reason'\\\\]'     and\n        Retrieve Entity by Id with Updated Entity set to ${entity}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs?options=${options}'\n        method set to 'POST'\n        Append entity attributes with parameters: and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-different-datasetid-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json' and\n    Query Parameter: options set to 'noOverwrite'\n}",
+      "http_verb": "POST",
+      "endpoint": "entities/{id}/attrs?options=${options}"
+    }
+  ],
+  "permutations": [
+    "when"
+  ],
+  "robotpath": "ContextInformation/Provision/EntityAttributes/AppendEntityAttributes",
+  "robotfile": "010_04"
+}

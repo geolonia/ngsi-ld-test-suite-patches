@@ -1,0 +1,221 @@
+*** Settings ***
+Variables       ${EXECDIR}/resources/variables.py
+Library         ${EXECDIR}/libraries/logUtils.py
+Library         Collections
+Library         JSONLibrary
+Library         RequestsLibrary
+
+
+*** Variables ***
+${TEMPORAL_ENTITIES_ENDPOINT_PATH}              temporal/entities
+${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}     temporal/entityOperations
+
+${CONTENT_TYPE_JSON}                            application/json
+
+${ERROR_TYPE_BAD_REQUEST_DATA}                  https://uri.etsi.org/ngsi-ld/errors/BadRequestData
+${ERROR_TYPE_RESOURCE_NOT_FOUND}                https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
+
+${response}                                     ${EMPTY}
+
+
+*** Keywords ***
+Query Temporal Representation Of Entities
+    [Arguments]
+    ...    ${context}=${EMPTY}
+    ...    ${entity_types}=${EMPTY}
+    ...    ${entity_ids}=${EMPTY}
+    ...    ${entity_id_pattern}=${EMPTY}
+    ...    ${ngsild_query}=${EMPTY}
+    ...    ${csf}=${EMPTY}
+    ...    ${georel}=${EMPTY}
+    ...    ${geometry}=${EMPTY}
+    ...    ${coordinates}=${EMPTY}
+    ...    ${geoproperty}=${EMPTY}
+    ...    ${timerel}=${EMPTY}
+    ...    ${timeAt}=${EMPTY}
+    ...    ${attrs}=${EMPTY}
+    ...    ${limit}=${EMPTY}
+    ...    ${lastN}=${EMPTY}
+    ...    ${accept}=${EMPTY}
+    ...    ${options}=${EMPTY}
+    ${entity_types_length}=    Get Length    ${entity_types}
+    ${entity_ids_length}=    Get Length    ${entity_ids}
+    ${attrs_length}=    Get Length    ${attrs}
+    &{headers}=    Create Dictionary
+    &{params}=    Create Dictionary
+    IF    '${accept}'!=''    Set To Dictionary    ${headers}    Accept=${accept}
+    IF    '${context}'!=''
+        Set To Dictionary
+        ...    ${headers}
+        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    END
+    IF    ${entity_types_length}>0
+        Set To Dictionary    ${params}    type=${entity_types}
+    END
+    IF    ${entity_ids_length}>0
+        Set To Dictionary    ${params}    id=${entity_ids}
+    END
+    IF    '${timerel}'!=''
+        Set To Dictionary    ${params}    timerel=${timerel}
+    END
+    IF    '${timeAt}'!=''    Set To Dictionary    ${params}    timeAt=${timeAt}
+    IF    ${attrs_length}>0    Set To Dictionary    ${params}    attrs=${attrs}
+    IF    '${lastN}'!=''    Set To Dictionary    ${params}    lastN=${lastN}
+    IF    '${entity_id_pattern}'!=''
+        Set To Dictionary    ${params}    idPattern=${entity_id_pattern}
+    END
+    IF    '${ngsild_query}'!=''
+        Set To Dictionary    ${params}    q=${ngsild_query}
+    END
+    IF    '${csf}'!=''    Set To Dictionary    ${params}    csf=${csf}
+    IF    '${georel}'!=''    Set To Dictionary    ${params}    georel=${georel}
+    IF    '${geometry}'!=''
+        Set To Dictionary    ${params}    geometry=${geometry}
+    END
+    IF    '${coordinates}'!=''
+        Set To Dictionary    ${params}    coordinates=${coordinates}
+    END
+    IF    '${geoproperty}'!=''
+        Set To Dictionary    ${params}    geoproperty=${geoproperty}
+    END
+    IF    '${limit}'!=''    Set To Dictionary    ${params}    limit=${limit}
+    IF    '${options}'!=''
+        Set To Dictionary    ${params}    options=${options}
+    END
+
+    ${response}=    GET
+    ...    url=${temporal_api_url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
+    Output    ${response}    Query Temporal Representation Of Entities
+    RETURN    ${response}
+
+Query Temporal Representation Of Entities Via Post
+    [Arguments]    ${query_file_name}    ${content_type}=${CONTENT_TYPE_JSON}    ${context}=${EMPTY}
+    ${headers}=    Create Dictionary
+    Set To Dictionary    ${headers}    Content-Type    ${content_type}
+    IF    '${context}'!=''
+        Set To Dictionary
+        ...    ${headers}
+        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    END
+    ${query_payload}=    Load JSON From File    ${EXECDIR}/data/temporalEntities/${query_file_name}
+    ${response}=    POST
+    ...    url=${temporal_api_url}/${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}/query
+    ...    json=${query_payload}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}    Query Temporal Representation Of Entities Via Post
+    RETURN    ${response}
+
+Query Temporal Representation Of Entities With Return
+    [Arguments]
+    ...    ${context}=${EMPTY}
+    ...    ${entity_types}=${EMPTY}
+    ...    ${entity_ids}=${EMPTY}
+    ...    ${entity_id_pattern}=${EMPTY}
+    ...    ${ngsild_query}=${EMPTY}
+    ...    ${csf}=${EMPTY}
+    ...    ${georel}=${EMPTY}
+    ...    ${geometry}=${EMPTY}
+    ...    ${coordinates}=${EMPTY}
+    ...    ${geoproperty}=${EMPTY}
+    ...    ${timerel}=${EMPTY}
+    ...    ${timeAt}=${EMPTY}
+    ...    ${attrs}=${EMPTY}
+    ...    ${limit}=${EMPTY}
+    ...    ${lastN}=${EMPTY}
+    ...    ${accept}=${EMPTY}
+    ${entity_types_length}=    Get Length    ${entity_types}
+    ${entity_ids_length}=    Get Length    ${entity_ids}
+    ${attrs_length}=    Get Length    ${attrs}
+    &{headers}=    Create Dictionary
+    &{params}=    Create Dictionary
+    IF    '${accept}'!=''    Set To Dictionary    ${headers}    Accept=${accept}
+    IF    '${context}'!=''
+        Set To Dictionary
+        ...    ${headers}
+        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    END
+    IF    ${entity_types_length}>0
+        Set To Dictionary    ${params}    type=${entity_types}
+    END
+    IF    ${entity_ids_length}>0
+        Set To Dictionary    ${params}    id=${entity_ids}
+    END
+    IF    '${timerel}'!=''
+        Set To Dictionary    ${params}    timerel=${timerel}
+    END
+    IF    '${timeAt}'!=''    Set To Dictionary    ${params}    timeAt=${timeAt}
+    IF    ${attrs_length}>0    Set To Dictionary    ${params}    attrs=${attrs}
+    IF    '${lastN}'!=''    Set To Dictionary    ${params}    lastN=${lastN}
+    IF    '${entity_id_pattern}'!=''
+        Set To Dictionary    ${params}    idPattern=${entity_id_pattern}
+    END
+    IF    '${ngsild_query}'!=''
+        Set To Dictionary    ${params}    q=${ngsild_query}
+    END
+    IF    '${csf}'!=''    Set To Dictionary    ${params}    csf=${csf}
+    IF    '${georel}'!=''    Set To Dictionary    ${params}    georel=${georel}
+    IF    '${geometry}'!=''
+        Set To Dictionary    ${params}    geometry=${geometry}
+    END
+    IF    '${coordinates}'!=''
+        Set To Dictionary    ${params}    coordinates=${coordinates}
+    END
+    IF    '${geoproperty}'!=''
+        Set To Dictionary    ${params}    geoproperty=${geoproperty}
+    END
+    IF    '${limit}'!=''    Set To Dictionary    ${params}    limit=${limit}
+
+    ${response}=    GET
+    ...    url=${temporal_api_url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
+    Output    ${response}    Query Temporal Representation Of Entities
+    RETURN    ${response}
+
+Retrieve Temporal Representation Of Entity
+    [Arguments]
+    ...    ${temporal_entity_representation_id}
+    ...    ${attrs}=${EMPTY}
+    ...    ${options}=${EMPTY}
+    ...    ${context}=${EMPTY}
+    ...    ${timerel}=${EMPTY}
+    ...    ${timeAt}=${EMPTY}
+    ...    ${endTimeAt}=${EMPTY}
+    ...    ${lastN}=${EMPTY}
+    ...    ${accept}=${EMPTY}
+    ${attrs_length}=    Get Length    ${attrs}
+    ${options_length}=    Get Length    ${options}
+    &{headers}=    Create Dictionary
+    &{params}=    Create Dictionary
+
+    IF    '${accept}'!=''    Set To Dictionary    ${headers}    Accept=${accept}
+    IF    '${context}'!=''
+        Set To Dictionary
+        ...    ${headers}
+        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    END
+    IF    ${attrs_length}>0    Set To Dictionary    ${params}    attrs=${attrs}
+    IF    ${options_length}>0
+        Set To Dictionary    ${params}    options=${options}
+    END
+    IF    '${timerel}'!=''
+        Set To Dictionary    ${params}    timerel=${timerel}
+    END
+    IF    '${timeAt}'!=''    Set To Dictionary    ${params}    timeAt=${timeAt}
+    IF    '${endTimeAt}'!=''
+        Set To Dictionary    ${params}    endTimeAt=${endTimeAt}
+    END
+    IF    '${lastN}'!=''    Set To Dictionary    ${params}    lastN=${lastN}
+
+    ${response}=    GET
+    ...    url=${temporal_api_url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
+    Output    ${response}    Retrieve Temporal Representation Of Entity
+    RETURN    ${response}

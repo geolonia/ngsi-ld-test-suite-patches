@@ -1,0 +1,38 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/038_04",
+  "test_objective": "Check that you can create a context source registration subscription with isActive member set to false and it's initial status will be set to \"paused\"",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.2",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.11.2"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Generate Random Ids For Context Source Registration Subscriptions",
+    "Delete Created Context Source Registration Subscriptions"
+  ],
+  "teardown": "Delete Created Context Source Registration Subscriptions",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "038_04_01 Create Inactive Context Source Registration Subscription",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/038_04_01",
+      "doc": "Check that you can create a context source registration subscription with isActive member set to false and it's initial status will be set to \"paused\"",
+      "tags": [
+        "5_11_2",
+        "csrsub-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Context Source Registration Subscription with Response Status Code set to 201     and\n        Create Context Source Registration Subscription with Response Header: Location containing $${subscription_id}     and\n        Retrieve Context Source Registration Subscription with Check that the payload body contains a boolean attribute with name 'expected_attribute_name=isActive' and value 'expected_attribute_value=False     and\n        Retrieve Context Source Registration Subscription with Check Response Body containing an Attribute set to and\n            Query Parameter: expected_attribute_name set to 'status' and\n            Query Parameter: response_body set to 'response1.json()' and\n            Query Parameter: expected_attribute_value set to 'paused'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'POST'\n        Create Context Source Registration Subscription with filename set to '${subscription_payload}', accept set to '${EMPTY}', and content-type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceSubscriptions"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/CreateContextSourceRegistrationSubscription",
+  "robotfile": "038_04"
+}

@@ -1,0 +1,35 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/E/001_09",
+  "test_objective": "Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is \"application/ld+json\" and a JSON-LD Link header is present in the incoming HTTP request",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.5",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "6.3.5"
+  ],
+  "pics_selection": "",
+  "keywords": [],
+  "teardown": "None",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "001_09_01 Create one entity with a Link header and a JSON-LD content type",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_09_01",
+      "doc": "Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is \"application/ld+json\" and a JSON-LD Link header is present in the incoming HTTP request",
+      "tags": [
+        "6_3_5",
+        "e-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 400     and\n        Create Entity Selecting Content Type with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Create Entity Selecting Content Type with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: 'building-simple-attributes-sample.jsonld'\n}",
+      "http_verb": "POST",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/Entities/CreateEntity",
+  "robotfile": "001_09"
+}

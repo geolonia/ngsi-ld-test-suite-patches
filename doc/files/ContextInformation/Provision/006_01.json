@@ -1,0 +1,37 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/BE/006_01",
+  "test_objective": "Check that you can delete a batch of entities",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.10",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.6.10"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Initial Entities"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    and containing a list of entities\n}",
+  "test_cases": [
+    {
+      "name": "006_01_01 Delete a batch of entities",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/006_01_01",
+      "doc": "Check that you can delete a batch of entities",
+      "tags": [
+        "5_6_10",
+        "be-delete"
+      ],
+      "setup": "Setup Initial Entities",
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Delete Entities with Response Status Code set to 204     and\n        Query Entities with Response body is empty\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/delete'\n        method set to 'POST'\n        Batch Delete Entities: and\n    Query Parameter: entities_ids_to_be_deleted set to '@{entities_ids_to_be_deleted}'\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/delete"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/BatchEntities/DeleteBatchOfEntities",
+  "robotfile": "006_01"
+}

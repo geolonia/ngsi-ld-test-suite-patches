@@ -1,0 +1,55 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/CSR/033_07",
+  "test_objective": "Check that the @context is obtained from the request payload body itself if the Content-Type header is \"application/ld+json\"",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 6.3.5",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "6.3.5"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Delete Created Context Source Registrations"
+  ],
+  "teardown": "Delete Created Context Source Registrations",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "033_07_01 Create one context source registration using a JSON-LD @context obtained from the request payload with Context",
+      "permutation_tp_id": "TP/NGSI-LD/CS/CSR/033_07_01",
+      "doc": "Check that the @context is obtained from the request payload body itself if the Content-Type header is \"application/ld+json\" and retrieve the information with ngsild context",
+      "tags": [
+        "6_3_5",
+        "csr-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Context Source Registration With Return with Response Status Code set to 201     and\n        Retrieve Context Source Registration with Response Body containing the key '['information'][0]['entities'][0]['type']', with the value 'Vehicle'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: '${updated_payload}'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceRegistrations"
+    },
+    {
+      "name": "033_07_02 Create one context source registration using a JSON-LD @context obtained from the request payload without Context",
+      "permutation_tp_id": "TP/NGSI-LD/CS/CSR/033_07_02",
+      "doc": "Check that the @context is obtained from the request payload body itself if the Content-Type header is \"application/ld+json\" and retrieve the information without ngsild context",
+      "tags": [
+        "6_3_5",
+        "csr-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Context Source Registration With Return with Response Status Code set to 201     and\n        Retrieve Context Source Registration with Response Body containing the key '['information'][0]['entities'][0]['type']', with the value 'https://ngsi-ld-test-suite/context#Vehicle'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: '${updated_payload}'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceRegistrations"
+    }
+  ],
+  "permutations": [
+    "then"
+  ],
+  "robotpath": "ContextSource/Registration/RegisterContextSource",
+  "robotfile": "033_07"
+}

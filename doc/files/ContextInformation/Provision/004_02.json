@@ -1,0 +1,71 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/BE/004_02",
+  "test_objective": "Check that you can upsert a batch of non-existing and existing entities where non-existing will be created and existing will be replaced",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.8",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.6.8"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Batch Upsert Non-existing And Existing Entities Scenarios",
+    "Setup Initial Entities",
+    "Delete Initial Entities"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "004_02_01 EntityWithSimpleProperties",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/004_02_01",
+      "doc": "Check that you can upsert a batch of non-existing and existing entities",
+      "tags": [
+        "5_6_8",
+        "be-upsert"
+      ],
+      "setup": null,
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Upsert Non-existing And Existing Entities Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Upsert Entities with Response Status Code set to 201     and\n        Batch Upsert Entities with Response Body set to an array of created entities ids     and\n        Query Entities with Updated Entities set to '${entities_to_be_upserted}' valid entities\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/upsert?options=${update_option}'\n        method set to 'POST'\n        Request batch upsert operation over entity from filename '@{entities_to_be_upserted}' with update_option set to 'replace' and Content-Type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/upsert?options=${update_option}"
+    },
+    {
+      "name": "004_02_02 EntityWithSimpleRelationships",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/004_02_02",
+      "doc": "Check that you can upsert a batch of non-existing and existing entities",
+      "tags": [
+        "5_6_8",
+        "be-upsert"
+      ],
+      "setup": null,
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Upsert Non-existing And Existing Entities Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Upsert Entities with Response Status Code set to 201     and\n        Batch Upsert Entities with Response Body set to an array of created entities ids     and\n        Query Entities with Updated Entities set to '${entities_to_be_upserted}' valid entities\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/upsert?options=${update_option}'\n        method set to 'POST'\n        Request batch upsert operation over entity from filename '@{entities_to_be_upserted}' with update_option set to 'replace' and Content-Type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/upsert?options=${update_option}"
+    },
+    {
+      "name": "004_02_03 EntityWithRelationshipsProperties",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/004_02_03",
+      "doc": "Check that you can upsert a batch of non-existing and existing entities",
+      "tags": [
+        "5_6_8",
+        "be-upsert"
+      ],
+      "setup": null,
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Upsert Non-existing And Existing Entities Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Upsert Entities with Response Status Code set to 201     and\n        Batch Upsert Entities with Response Body set to an array of created entities ids     and\n        Query Entities with Updated Entities set to '${entities_to_be_upserted}' valid entities\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/upsert?options=${update_option}'\n        method set to 'POST'\n        Request batch upsert operation over entity from filename '@{entities_to_be_upserted}' with update_option set to 'replace' and Content-Type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/upsert?options=${update_option}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/BatchEntities/UpsertBatchOfEntities",
+  "robotfile": "004_02"
+}

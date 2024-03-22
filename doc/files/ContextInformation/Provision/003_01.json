@@ -1,0 +1,86 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/BE/003_01",
+  "test_objective": "Check that you can create a batch of entities",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.7",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.6.7"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Batch Create Entity Scenarios",
+    "Delete Initial Entities"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "003_01_01 MinimalEntity",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/003_01_01",
+      "doc": "Check that you can create a batch of entities",
+      "tags": [
+        "5_6_7",
+        "be-create"
+      ],
+      "setup": null,
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Create Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Create Entities with Response Status Code set to 201     and\n        Batch Create Entities with Response Body set to an array of created entities ids     and\n        Query Entities with Check Created Resource Set To and\n            Query Parameter: 'expected_resources' set to 'entities_to_be_created' and\n            Query Parameter: 'response_body' set to 'response1.json()' and\n            Query Parameter: 'ignored_keys' set to '${None}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/create'\n        method set to 'POST'\n        Request Header['Content-Type'] set to '' and\n payload set to a list of entities to be created\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/create"
+    },
+    {
+      "name": "003_01_02 EntityWithSimpleProperties",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/003_01_02",
+      "doc": "Check that you can create a batch of entities",
+      "tags": [
+        "5_6_7",
+        "be-create"
+      ],
+      "setup": null,
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Create Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Create Entities with Response Status Code set to 201     and\n        Batch Create Entities with Response Body set to an array of created entities ids     and\n        Query Entities with Check Created Resource Set To and\n            Query Parameter: 'expected_resources' set to 'entities_to_be_created' and\n            Query Parameter: 'response_body' set to 'response1.json()' and\n            Query Parameter: 'ignored_keys' set to '${None}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/create'\n        method set to 'POST'\n        Request Header['Content-Type'] set to '' and\n payload set to a list of entities to be created\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/create"
+    },
+    {
+      "name": "003_01_03 EntityWithSimpleRelationships",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/003_01_03",
+      "doc": "Check that you can create a batch of entities",
+      "tags": [
+        "5_6_7",
+        "be-create"
+      ],
+      "setup": null,
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Create Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Create Entities with Response Status Code set to 201     and\n        Batch Create Entities with Response Body set to an array of created entities ids     and\n        Query Entities with Check Created Resource Set To and\n            Query Parameter: 'expected_resources' set to 'entities_to_be_created' and\n            Query Parameter: 'response_body' set to 'response1.json()' and\n            Query Parameter: 'ignored_keys' set to '${None}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/create'\n        method set to 'POST'\n        Request Header['Content-Type'] set to '' and\n payload set to a list of entities to be created\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/create"
+    },
+    {
+      "name": "003_01_04 EntityWithRelationshipsProperties",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/003_01_04",
+      "doc": "Check that you can create a batch of entities",
+      "tags": [
+        "5_6_7",
+        "be-create"
+      ],
+      "setup": null,
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Create Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Create Entities with Response Status Code set to 201     and\n        Batch Create Entities with Response Body set to an array of created entities ids     and\n        Query Entities with Check Created Resource Set To and\n            Query Parameter: 'expected_resources' set to 'entities_to_be_created' and\n            Query Parameter: 'response_body' set to 'response1.json()' and\n            Query Parameter: 'ignored_keys' set to '${None}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/create'\n        method set to 'POST'\n        Request Header['Content-Type'] set to '' and\n payload set to a list of entities to be created\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/create"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/BatchEntities/CreateBatchOfEntities",
+  "robotfile": "003_01"
+}

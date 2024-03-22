@@ -1,0 +1,38 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/DISC/036_04",
+  "test_objective": "Check that you can retrieve a Context Source Registration",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.10.1",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.10.1"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Initial Context Source Registration",
+    "Delete Created Context Source Registration"
+  ],
+  "teardown": "Delete Created Context Source Registration",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "036_04_01 Retrieve Context Source Registration",
+      "permutation_tp_id": "TP/NGSI-LD/CS/DISC/036_04_01",
+      "doc": "Check that you can retrieve a Context Source Registration",
+      "tags": [
+        "5_10_1",
+        "csr-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Context Source Registration with Response Status Code set to 200     and\n        Retrieve Context Source Registration with Response containing:\n            * file set to 'csourceRegistrations/expectations/context-source-registration.json'\n            * id set to '${context_source_registration_id}'\n            * response set to '${response.json()}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration with data: and\n    Query Parameter: context source registration id set to '${context_source_registration_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations/{context_source_registration_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/Discovery/RetrieveContextSourceRegistration",
+  "robotfile": "036_04"
+}

@@ -1,0 +1,38 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/047_03",
+  "test_objective": "Check that instead of providing the original context source registration, implementations should return context source registration information relevant for the subscription, in particular only matching RegistrationInfo elements",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.7",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.11.7"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Initial Context Source Registration Subscription",
+    "Delete Created Context Source Registration And Subscription"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a Context Source Registration Subscription (CSRS1)\n}",
+  "test_cases": [
+    {
+      "name": "047_03_01 Receive cSourceNotification With Relevant Information",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/047_03_01",
+      "doc": "Check that instead of providing the original context source registration, implementations should return context source registration information relevant for the subscription, in particular only matching RegistrationInfo elements",
+      "tags": [
+        "5_11_7",
+        "csrsub-notification"
+      ],
+      "setup": "Setup Initial Context Source Registration Subscription",
+      "teardown": "Delete Created Context Source Registration And Subscription",
+      "template": null,
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        Notification received Waiting for Notification and validate it and\n    Query Parameter: expected_subscription_id set to 'subscription_id' and\n    Query Parameter: expected_context_source_registration_ids set to 'expected_context_source_registration_ids' and\n    Query Parameter: expected_trigger_reason set to 'newlyMatching' and\n    Query Parameter: expected_notification_data_entities set to 'expected_notification_data_entities' and\n    Query Parameter: timeout set to '5'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'POST'\n        Create Context Source Registration Request with Content-Type set to 'application/ld+json' and payload set to '${context_source_registration_payload}'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceRegistrations"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour",
+  "robotfile": "047_03"
+}

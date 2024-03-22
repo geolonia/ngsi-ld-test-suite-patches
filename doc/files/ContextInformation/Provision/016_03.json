@@ -1,0 +1,73 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/TEA/016_03",
+  "test_objective": "Check that you cannot partially modify attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not found",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.14",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.6.14"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Modify Attribute Instance Temporal Entity",
+    "Create Id",
+    "Delete Temporal Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Temporal Entity ${entity} \n        with an id set to ${temporal_entity_representation_id} \n}",
+  "test_cases": [
+    {
+      "name": "016_03_01 Modify attribute instance in temporal representation of an entity if the entity with given id is not found",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TEA/016_03_01",
+      "doc": "Check that you cannot partially modify attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not found",
+      "tags": [
+        "tea-partial-update",
+        "5_6_14"
+      ],
+      "setup": "Create Id",
+      "teardown": "Delete Temporal Entity",
+      "template": "Modify Attribute Instance Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Modify Attribute Instance From Temporal Entity with Response Status Code set to 404\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}'\n        method set to 'PATCH'\n        Modify Attribute Instance from Temporal Entity: and\n    Query Parameter: temporal_entity_id set to '${unknown_temporal_entity_id}' and\n    Query Parameter: attributeId set to '${attributeId}' and\n    Query Parameter: instanceId set to '${instanceId}' and\n    Query Parameter: fragment_filename set to 'vehicle-temporal-modify-attribute-instance-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to '${EMPTY}'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}"
+    },
+    {
+      "name": "016_03_02 Modify attribute instance in temporal representation of an entity if the target attribute is not found",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TEA/016_03_02",
+      "doc": "Check that you cannot partially modify attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not found",
+      "tags": [
+        "tea-partial-update",
+        "5_6_14"
+      ],
+      "setup": "Create Id",
+      "teardown": "Delete Temporal Entity",
+      "template": "Modify Attribute Instance Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Modify Attribute Instance From Temporal Entity with Response Status Code set to 404\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}'\n        method set to 'PATCH'\n        Modify Attribute Instance from Temporal Entity: and\n    Query Parameter: temporal_entity_id set to '${temporal_entity_representation_id}' and\n    Query Parameter: attributeId set to '${attributeId}' and\n    Query Parameter: instanceId set to '${instanceId}' and\n    Query Parameter: fragment_filename set to 'vehicle-temporal-modify-attribute-instance-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to '${EMPTY}'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}"
+    },
+    {
+      "name": "016_03_03 Modify attribute instance in temporal representation of an entity if the target attribute instance is not found",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TEA/016_03_03",
+      "doc": "Check that you cannot partially modify attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not found",
+      "tags": [
+        "tea-partial-update",
+        "5_6_14"
+      ],
+      "setup": "Create Id",
+      "teardown": "Delete Temporal Entity",
+      "template": "Modify Attribute Instance Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Modify Attribute Instance From Temporal Entity with Response Status Code set to 404\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}'\n        method set to 'PATCH'\n        Modify Attribute Instance from Temporal Entity: and\n    Query Parameter: temporal_entity_id set to '${temporal_entity_representation_id}' and\n    Query Parameter: attributeId set to '${attributeId}' and\n    Query Parameter: instanceId set to '${instanceId}' and\n    Query Parameter: fragment_filename set to 'vehicle-temporal-modify-attribute-instance-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to '${EMPTY}'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}"
+    }
+  ],
+  "permutations": [
+    "when"
+  ],
+  "robotpath": "ContextInformation/Provision/TemporalEntityAttributes/PartialUpdateAttributeInstance",
+  "robotfile": "016_03"
+}

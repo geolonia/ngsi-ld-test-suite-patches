@@ -1,0 +1,73 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/TE/020_09",
+  "test_objective": "Check that you cannot retrieve the temporal evolution of an entity with an invalid request content",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.3",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.7.3"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Retrieve the temporal evolution of an entity with an invalid request content",
+    "Create Temporal Entity",
+    "Delete Initial Temporal Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Temporal Entity ${entity} \n        with an id set to ${temporal_entity_representation_id} \n        and an attribute with an id set to ${atrId}\n}",
+  "test_cases": [
+    {
+      "name": "020_09_01 After",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/020_09_01",
+      "doc": "Check that you cannot retrieve the temporal evolution of an entity with an invalid request content",
+      "tags": [
+        "5_7_3",
+        "te-retrieve"
+      ],
+      "setup": "Create Temporal Entity",
+      "teardown": "Delete Initial Temporal Entity",
+      "template": "Retrieve the temporal evolution of an entity with an invalid request content",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 400     and\n        Retrieve Temporal Representation Of Entity with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Retrieve Temporal Representation Of Entity with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: timerel set to 'after' and\n    Query Parameter: timeAt set to '${EMPTY}' and\n    Query Parameter: endTimeAt set to '${EMPTY}'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    },
+    {
+      "name": "020_09_02 Before",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/020_09_02",
+      "doc": "Check that you cannot retrieve the temporal evolution of an entity with an invalid request content",
+      "tags": [
+        "5_7_3",
+        "te-retrieve"
+      ],
+      "setup": "Create Temporal Entity",
+      "teardown": "Delete Initial Temporal Entity",
+      "template": "Retrieve the temporal evolution of an entity with an invalid request content",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 400     and\n        Retrieve Temporal Representation Of Entity with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Retrieve Temporal Representation Of Entity with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: timerel set to 'before' and\n    Query Parameter: timeAt set to '${EMPTY}' and\n    Query Parameter: endTimeAt set to '${EMPTY}'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    },
+    {
+      "name": "020_09_03 Between",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/020_09_03",
+      "doc": "Check that you cannot retrieve the temporal evolution of an entity with an invalid request content",
+      "tags": [
+        "5_7_3",
+        "te-retrieve"
+      ],
+      "setup": "Create Temporal Entity",
+      "teardown": "Delete Initial Temporal Entity",
+      "template": "Retrieve the temporal evolution of an entity with an invalid request content",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 400     and\n        Retrieve Temporal Representation Of Entity with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Retrieve Temporal Representation Of Entity with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: timerel set to 'between' and\n    Query Parameter: timeAt set to '2020-08-01T12:00:00Z' and\n    Query Parameter: endTimeAt set to '${EMPTY}'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    }
+  ],
+  "permutations": [
+    "when"
+  ],
+  "robotpath": "ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity",
+  "robotfile": "020_09"
+}

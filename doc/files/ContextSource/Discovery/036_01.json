@@ -1,0 +1,37 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/DISC/036_01",
+  "test_objective": "Check that you cannot retrieve a Context Source Registration, if the context source registration id is not a valid URI",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.10.1",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.10.1"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Retrieve Context Source Registration With An Invalid Id"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "036_01_01 Invalid Id",
+      "permutation_tp_id": "TP/NGSI-LD/CS/DISC/036_01_01",
+      "doc": "Check that you cannot retrieve a Context Source Registration, if the context source registration id is not a valid URI",
+      "tags": [
+        "5_10_1",
+        "csr-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Context Source Registration With An Invalid Id",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Context Source Registration with Response Status Code set to 400     and\n        Retrieve Context Source Registration with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Retrieve Context Source Registration with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration with data: and\n    Query Parameter: context source registration id set to 'invalidUri'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations/{context_source_registration_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/Discovery/RetrieveContextSourceRegistration",
+  "robotfile": "036_01"
+}

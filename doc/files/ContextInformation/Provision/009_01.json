@@ -1,0 +1,37 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/TE/009_01",
+  "test_objective": "Check that you can delete a temporal representation of an entity with simple temporal properties",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.16",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.6.16"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Initial Temporal Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Temporal Entity ${entity} \n        with an id set to ${temporal_entity_representation_id} \n}",
+  "test_cases": [
+    {
+      "name": "009_01_01 Delete a temporal representation of an entity with simple temporal properties",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TE/009_01_01",
+      "doc": "Check that you can delete a temporal representation of an entity with simple temporal properties",
+      "tags": [
+        "5_6_16",
+        "te-delete"
+      ],
+      "setup": "Create Initial Temporal Entity",
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Temporal Representation Of Entity With Returning Response with Response Status Code set to 204     and\n        Retrieve Temporal Representation Of Entity with Response Status Code set to ${response1.status_code}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'DELETE'\n        Delete Temporal Representation Of Entity With Returning Response with id set to '${temporal_entity_representation_id}'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/TemporalEntity/DeleteTemporalRepresentationOfEntity",
+  "robotfile": "009_01"
+}

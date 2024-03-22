@@ -1,0 +1,72 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/E/001_02",
+  "test_objective": "Check that you cannot create an entity with an invalid request",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.1",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.6.1"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Entity With Invalid Request Scenarios"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "001_02_01 InvalidJson",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_02_01",
+      "doc": "Check that you cannot create an entity with an invalid request",
+      "tags": [
+        "5_6_1",
+        "e-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Create Entity With Invalid Request Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity From File with Response Status Code set to 400     and\n        Create Entity From File with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'     and\n        Create Entity From File with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request creation of an entity from filename 'invalid-json-sample.jsonld' and Content-Type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "001_02_02 EmptyJson",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_02_02",
+      "doc": "Check that you cannot create an entity with an invalid request",
+      "tags": [
+        "5_6_1",
+        "e-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Create Entity With Invalid Request Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity From File with Response Status Code set to 400     and\n        Create Entity From File with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'     and\n        Create Entity From File with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request creation of an entity from filename 'empty-sample.jsonld' and Content-Type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "001_02_03 EntityWithNoContext",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_02_03",
+      "doc": "Check that you cannot create an entity with an invalid request",
+      "tags": [
+        "5_6_1",
+        "e-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Create Entity With Invalid Request Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity From File with Response Status Code set to 400     and\n        Create Entity From File with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Create Entity From File with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request creation of an entity from filename 'building-minimal-without-context-sample.jsonld' and Content-Type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [
+    "then",
+    "when"
+  ],
+  "robotpath": "ContextInformation/Provision/Entities/CreateEntity",
+  "robotfile": "001_02"
+}
