@@ -1,9 +1,9 @@
 from os.path import dirname
 from robot.api import TestSuiteBuilder
-from doc.analysis.parserobotfile import ParseRobotFile
-from doc.analysis.parseapiutilsfile import ParseApiUtilsFile
-from doc.analysis.parsevariablesfile import ParseVariablesFile
-from doc.analysis.initial_setup import InitialSetup
+from analysis.parserobotfile import ParseRobotFile
+from analysis.parseapiutilsfile import ParseApiUtilsFile
+from analysis.parsevariablesfile import ParseVariablesFile
+from analysis.initial_setup import InitialSetup
 from re import match, findall, finditer, sub, MULTILINE
 
 

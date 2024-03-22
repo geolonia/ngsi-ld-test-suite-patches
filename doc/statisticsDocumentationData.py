@@ -1,7 +1,7 @@
 from generateDocumentationData import create_json_of_robotfile
-from os.path import dirname
+from os.path import dirname, join
 from os import walk
-import requests
+from requests import delete, post
 import json
 import re
 
@@ -13,9 +13,9 @@ if __name__ == "__main__":
     number_of_all_testcases = 0
     number_of_successes = 0
     ROBOT_FILE_EXTENSION = ".robot"
-    BASE_URL_OF_FORGE="https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/blob/tests-up-to-1_5/TP/NGSI-LD/"
+    BASE_URL_OF_FORGE = "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/blob/tests-up-to-1_5/TP/NGSI-LD/"
 
-    fullpath = basedir+"/TP/NGSI-LD"
+    fullpath = basedir + "/TP/NGSI-LD"
     for root, dirs, files in walk(fullpath):
         for filename in files:
             if filename.endswith(ROBOT_FILE_EXTENSION):
@@ -28,10 +28,10 @@ if __name__ == "__main__":
                 if "error_while_parsing" in json_of_test_case and json_of_test_case["error_while_parsing"]:
                     statistics[name_of_test_case]["failed"] = True
                     number_of_failures += 1
-                    # we create a dummy entry in the "sub" test_cases, which has a "permutation_tp_id" equal to the robotfile
-                    # We do not forget to add a trailing slash that will be removed later, and a tail _XX which will
-                    # allow matching from the googlesheet?
-                    json_of_test_case["test_cases"] = [{"permutation_tp_id":"/"+json_of_test_case["robotfile"]+"_XX"}]
+                    # we create a dummy entry in the "sub" test_cases, which has a "permutation_tp_id" equal to the
+                    # robotfile. We do not forget to add a trailing slash that will be removed later, and a tail _XX
+                    # which will allow matching from the googlesheet?
+                    json_of_test_case["test_cases"] = [{"permutation_tp_id": "/"+json_of_test_case["robotfile"]+"_XX"}]
                 else:
                     statistics[name_of_test_case]["failed"] = False
                     number_of_successes += 1
@@ -42,8 +42,11 @@ if __name__ == "__main__":
                         json_of_test_case["config_id"] = "CF_05"
                     else:
                         json_of_test_case["config_id"] = "CF_01"
+
                     # upgrade the version and add the reference in square brackets
-                    json_of_test_case["reference"] = re.sub(r"V1.3.1 \[\]", "version 1.5.1 [1]", json_of_test_case["reference"])
+                    json_of_test_case["reference"] = (
+                        re.sub(r"V1.3.1 \[\]", "version 1.5.1 [1]", json_of_test_case["reference"]))
+
                     # now for each permutation inside this test case, create the permutation's correct parent_release
                     if "test_cases" in json_of_test_case:
                         # grab everything that is a permutation_body inside the "sub" test_cases,
@@ -71,13 +74,14 @@ if __name__ == "__main__":
     
     print(f"Out of {number_of_all_testcases} testcases, {number_of_failures} of them failed to be correctly parsed.")
 
-    with open("testcases.json", 'w') as fp:
+    testcases_file = join(basedir, "doc", "results", "testcases.json")
+    with open(testcases_file, 'w') as fp:
         json.dump(obj=testcases, indent=2, fp=fp)
     
     # determine the structure/schema of a successfully parsed testcase
     permutation_template = {}
     for testcase in testcases:
-        if testcase["error_while_parsing"] == False:
+        if not testcase["error_while_parsing"]:
             permutation_metadata_template = {}
             # everything that is at the top level shall be extracted
             for key, value in testcase.items():
@@ -99,7 +103,7 @@ if __name__ == "__main__":
                 # everything that is a permutation_body inside the "sub" test_cases,
                 # shall rise on its own existenz and be joined with its permutation_metadata
                 for permutation_body in testcase["test_cases"]:
-                    permutation_body_template = {} # new object, not changing permutation_body
+                    permutation_body_template = {}  # new object, not changing permutation_body
                     if "permutation_tp_id" in permutation_body:
                         permutation_body_template["stripped_permutation_tp_id"] = "UNKNOWN"
                         permutation_body_template["robotlink"] = "UNKNOWN"
@@ -135,33 +139,42 @@ if __name__ == "__main__":
     # unpack all permutations of testcases that are under the same .robot file
     permutations = []
     for testcase in testcases:
-        #print("--parsing "+testcase["robotfile"])
+        # print("--parsing "+testcase["robotfile"])
         permutation_metadata = {}
+
         # everything that is at the top level shall be extracted
         for key, value in testcase.items():
             if key != "test_cases":
                 permutation_metadata[key] = value
+
         # start creating HTML link to robot file in repo
-        fullurl = BASE_URL_OF_FORGE + permutation_metadata["robotpath"] + "/" + permutation_metadata["robotfile"] + ROBOT_FILE_EXTENSION
+        fullurl = (BASE_URL_OF_FORGE + permutation_metadata["robotpath"] +
+                   "/" + permutation_metadata["robotfile"] + ROBOT_FILE_EXTENSION)
+
         if "test_cases" in testcase:
             # everything that is a permutation_body inside the "sub" test_cases,
             # shall rise on its own existenz and be joined with its permutation_metadata
             for permutation_body in testcase["test_cases"]:
                 if "permutation_tp_id" in permutation_body:
-                    ptpid =  permutation_body["permutation_tp_id"]
+                    ptpid = permutation_body["permutation_tp_id"]
                     if "then" not in permutation_body:
                         print(" no then in " + ptpid)
                     if "when" not in permutation_body:
                         print(" no when in " + ptpid)
-                    #print("::: "+ptpid)
+
+                    # print("::: "+ptpid)
                     # strip from beginning up to including the last "/"
                     permutation_body["stripped_permutation_tp_id"] = ptpid[ptpid.rindex("/")+1:]
+
                     # use the stripped_permutation_tp_id as text of the link
-                    permutation_body["robotlink"] = "<a href=\""+fullurl+"\">" + permutation_body["stripped_permutation_tp_id"] + "</a>"
+                    permutation_body["robotlink"] = (
+                            "<a href=\""+fullurl+"\">" + permutation_body["stripped_permutation_tp_id"] + "</a>")
+
                     # So basically we append to the permutations a new dict that is the | union merge of the
-                    # items of the template merged with the items of the concatenation of {**permutation_metadata, **permutation_body}
-                    # For this last concatenation we use the unpacking python operator ** that strips the container dict from both
-                    #permutations.append(dict(permutation_template.items() | {**permutation_metadata, **permutation_body}.items()))
+                    # items of the template merged with the items of the concatenation of {**permutation_metadata,
+                    # **permutation_body}. For this last concatenation we use the unpacking python operator ** that
+                    # strips the container dict from both permutations.append(dict(permutation_template.items() |
+                    # {**permutation_metadata, **permutation_body}.items()))
                     a = {**permutation_metadata, **permutation_body}
                     unpacked_testcase = {**permutation_template, **a}
                     # Perform a check on the clauses that must be equal to the
@@ -177,25 +190,24 @@ if __name__ == "__main__":
                     exit(1)
         else:
             # there is no "sub" test_cases, it likely is a failed parsing
-            if testcase["error_while_parsing"] == False:
+            if not testcase["error_while_parsing"]:
                 print("PARSING NOT FAILED, BUT no permutations??")
                 exit(1)
 
-
-
-
-
-    with open("permutations.json", 'w') as fp:
+    permutations_file = join(basedir, "doc", "results", "permutations.json")
+    with open(permutations_file, 'w') as fp:
         json.dump(obj=permutations, indent=2, fp=fp)
 
     # The URL of the REST endpoint of the NoSQL database
     dburl = 'http://ec2-18-153-159-20.eu-central-1.compute.amazonaws.com:5555/fromrobot'
-    requests.delete(dburl)
+    delete(dburl)
+
     # Set the appropriate headers for JSON, if required by the endpoint
     headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         # Include any other headers the API requires
     }
+
     # Make the POST request
-    response = requests.post(dburl, data=json.dumps(permutations), headers=headers)
+    response = post(dburl, data=json.dumps(permutations), headers=headers)
