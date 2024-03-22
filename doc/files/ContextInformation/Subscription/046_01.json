@@ -1,0 +1,42 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/SUB/046_01",
+  "test_objective": "Check that a notification is only sent if and only if the status is active",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.6",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.8.6"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Before Test",
+    "Add Initial Entity",
+    "Setup Initial Subscriptions",
+    "After Test",
+    "Delete Initial Subscriptions",
+    "Delete Initial Entity"
+  ],
+  "teardown": "After Test",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "046_01_01 Check that a notification is only sent if status is active",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_01_01",
+      "doc": "Check that a notification is only sent if and only if the status is active",
+      "tags": [
+        "5_8_6",
+        "sub-notification"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        Notification received After waiting '10' seconds     and\n        Notification received Notification data: '${notification}[subscriptionId]' equal to '${subscription_id}'     and\n        Notification received Notification data: '${notification}[data][0][id]' equal to '${entity_id}'     and\n        Notification received Notification data: '${notification}[data][0][airQualityLevel][value]' equal to '${5}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'airQualityLevel-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Subscription/SubscriptionNotificationBehaviour",
+  "robotfile": "046_01"
+}

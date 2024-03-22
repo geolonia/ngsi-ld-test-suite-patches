@@ -6,6 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Setup          Initiate Test Case
 Test Teardown       Delete Initial Entities
 Test Template       Update Attributes
 
@@ -28,6 +29,21 @@ Update Attributes
     [Documentation]    Check that you can perform a partial update on an entity attribute
     [Tags]    ea-partial-update    5_6_4
     [Arguments]    ${fragment_filename}    ${attribute_id}    ${expectation_filename}
+    ${response}=    Partial Update Entity Attributes
+    ...    entityId=${entity_id}
+    ...    attributeId=${attribute_id}
+    ...    fragment_filename=${fragment_filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    ${status_code}    ${response.status_code}
+    ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
+    ${response1}=    Retrieve Entity by Id
+    ...    id=${entity_id}
+    ...    context=${ngsild_test_suite_context}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
+    ${ignored_attributes}=    Create List    @context
+    Check Updated Resource Set To    ${entity_expectation_payload}    ${response1.json()}    ${ignored_attributes}
+
+Initiate Test Case
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
@@ -35,19 +51,6 @@ Update Attributes
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Partial Update Entity Attributes
-    ...    ${entity_id}
-    ...    ${attribute_id}
-    ...    ${fragment_filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    ${status_code}    ${response.status_code}
-    ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
-    ${response}=    Retrieve Entity by Id
-    ...    ${entity_id}
-    ...    context=${ngsild_test_suite_context}
-    ...    accept=${CONTENT_TYPE_LD_JSON}
-    ${ignored_attributes}=    Create List    @context
-    Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}    ${ignored_attributes}
 
 Delete Initial Entities
-    Delete Entity by Id Returning Response    ${entity_id}
+    Delete Entity by Id    ${entity_id}

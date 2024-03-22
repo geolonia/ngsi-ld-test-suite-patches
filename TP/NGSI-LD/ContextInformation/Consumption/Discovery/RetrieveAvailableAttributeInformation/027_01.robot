@@ -6,8 +6,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Suite Setup         Setup Initial Entity
+Suite Teardown      Delete Initial Entity
 
 
 *** Variables ***
@@ -28,7 +28,7 @@ ${filename}=                building-simple-attributes-sample.json
 
 
 *** Keywords ***
-Setup Initial Entities
+Setup Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity Selecting Content Type
     ...    ${filename}
@@ -37,5 +37,5 @@ Setup Initial Entities
     ...    ${ngsild_test_suite_context}
     Set Suite Variable    ${entity_id}
 
-Delete Initial Entities
-    Delete Entity by Id Returning Response    ${entity_id}
+Delete Initial Entity
+    Delete Entity by Id    ${entity_id}

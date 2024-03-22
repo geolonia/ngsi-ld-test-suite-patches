@@ -1,0 +1,54 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/047_11",
+  "test_objective": "Check if a context source registration subscription defines temporalQ member with timeproperty createdAt or modifiedAt, the temporal query is matched against the managementInterval of matching context source registrations",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.7",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.11.7"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Receive cSourceNotification For Matching Context Source Registrations On Management Interval",
+    "Delete Created Context Source Registrations"
+  ],
+  "teardown": "Stop Local Server",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "047_11_01 CreatedAt",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/047_11_01",
+      "doc": "Check if a context source registration subscription defines temporalQ member with timeproperty createdAt or modifiedAt, the temporal query is matched against the managementInterval of matching context source registrations",
+      "tags": [
+        "5_11_7",
+        "csrsub-notification"
+      ],
+      "setup": null,
+      "teardown": "Delete Created Context Source Registrations",
+      "template": "Receive cSourceNotification For Matching Context Source Registrations On Management Interval",
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        Notification received Waiting for Notification and validate it and\n    Query Parameter: expected_subscription_id set to 'subscription_id' and\n    Query Parameter: expected_context_source_registration_ids set to 'expected_context_source_registration_ids' and\n    Query Parameter: expected_trigger_reason set to 'newlyMatching' and\n    Query Parameter: expected_notification_data_entities set to '${EMPTY}' and\n    Query Parameter: timeout set to '5'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'POST'\n        Create Context Source Registration Subscription with filename set to '${subscription_payload}', accept set to '${EMPTY}', and content-type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceSubscriptions"
+    },
+    {
+      "name": "047_11_02 ModifiedAt",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/047_11_02",
+      "doc": "Check if a context source registration subscription defines temporalQ member with timeproperty createdAt or modifiedAt, the temporal query is matched against the managementInterval of matching context source registrations",
+      "tags": [
+        "5_11_7",
+        "csrsub-notification"
+      ],
+      "setup": null,
+      "teardown": "Delete Created Context Source Registrations",
+      "template": "Receive cSourceNotification For Matching Context Source Registrations On Management Interval",
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        Notification received Waiting for Notification and validate it and\n    Query Parameter: expected_subscription_id set to 'subscription_id' and\n    Query Parameter: expected_context_source_registration_ids set to 'expected_context_source_registration_ids' and\n    Query Parameter: expected_trigger_reason set to 'newlyMatching' and\n    Query Parameter: expected_notification_data_entities set to '${EMPTY}' and\n    Query Parameter: timeout set to '5'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'POST'\n        Create Context Source Registration Subscription with filename set to '${subscription_payload}', accept set to '${EMPTY}', and content-type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceSubscriptions"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour",
+  "robotfile": "047_11"
+}

@@ -7,7 +7,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Create Id
 Test Teardown       Delete Temporal Entity
-Test Template       Delete Attribute
+Test Template       Delete An Attribute
 
 
 *** Variables ***
@@ -24,22 +24,17 @@ ${status_code}=             404
 
 
 *** Keywords ***
-Delete Attribute
+Delete An Attribute
     [Documentation]    Check that an error is raised if you delete a temporal entity with an unknown EntityId/Attribute Id
     [Tags]    tea-delete    5_6_13
     [Arguments]    ${entity_id}    ${attribute_id}
-    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    ${valid_temporal_entity_id}
-    ...    ${filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
     ${response}=    Delete Attribute From Temporal Entity
-    ...    ${entity_id}
-    ...    ${attribute_id}
-    ...    ${CONTENT_TYPE_JSON}
-    ...    ${EMPTY}
-    ...    false
-    ...    ${ngsild_test_suite_context}
+    ...    entityId=${entity_id}
+    ...    attributeId=${attribute_id}
+    ...    content_type=${CONTENT_TYPE_JSON}
+    ...    datasetId=${EMPTY}
+    ...    deleteAll=false
+    ...    context=${ngsild_test_suite_context}
     Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}
@@ -51,6 +46,11 @@ Create Id
     ${unknown_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${valid_temporal_entity_id}
     Set Test Variable    ${unknown_temporal_entity_id}
+    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
+    ...    temporal_entity_representation_id=${valid_temporal_entity_id}
+    ...    filename=${filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${response.status_code}
 
 Delete Temporal Entity
     Delete Temporal Representation Of Entity    ${valid_temporal_entity_id}

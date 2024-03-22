@@ -2,7 +2,6 @@
 Documentation       Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -18,14 +17,14 @@ ${attribute_id}=            brandName
 
 
 *** Test Cases ***
-044_01_01 Endpoint /entities/{entityId}/attrs/{attrId}
+044_01_01 endpoint /entities/{entityId}/attrs/{attrId}
     [Documentation]    Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type
-    [Tags]    ea-partial-update    6_3_4
+    [Tags]    ea-partial-update    cb-mergepatch    6_3_4
     ${response}=    Partial Update Entity Attributes
-    ...    ${entity_id}
-    ...    ${attribute_id}
-    ...    ${vehicle_fragment}
-    ...    ${CONTENT_TYPE_MERGE_PATCH_JSON}
+    ...    entityId=${entity_id}
+    ...    attributeId=${attribute_id}
+    ...    fragment_filename=${vehicle_fragment}
+    ...    content_type=${CONTENT_TYPE_MERGE_PATCH_JSON}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
 

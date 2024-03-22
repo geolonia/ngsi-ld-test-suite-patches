@@ -22,8 +22,19 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-inacti
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
     Check Response Status Code    201    ${response.status_code}
     Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
-    ${response}=    Retrieve context source registration subscription    ${subscription_id}
-    Check Response Body Containing an Attribute set to    status    ${response.json()}    paused
+    ${response1}=    Retrieve Context Source Registration Subscription
+    ...    subscription_id=${subscription_id}
+
+    # The conversion of a boolean data to json for a python object transform false -> False and true -> True
+    Check Response Body Containing a Boolean Attribute set to
+    ...    expected_attribute_name=isActive
+    ...    response_body=${response1.json()}
+    ...    expected_attribute_value=False
+
+    Check Response Body Containing an Attribute set to
+    ...    expected_attribute_name=status
+    ...    response_body=${response1.json()}
+    ...    expected_attribute_value=paused
 
 
 *** Keywords ***

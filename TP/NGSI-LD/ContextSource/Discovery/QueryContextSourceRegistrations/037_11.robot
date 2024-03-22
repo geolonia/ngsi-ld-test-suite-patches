@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Setup Initial Context Source Registrations
 Test Teardown       Delete Created Context Source Registrations
-Test Template       Query Context Source Registration With Limit And Page Parameters
+Test Template       Query Context Source Registration With Limit And Offset Parameters
 
 
 *** Variables ***
@@ -18,27 +18,27 @@ ${second_context_source_registration_payload_file_path}=    csourceRegistrations
 ${third_context_source_registration_payload_file_path}=     csourceRegistrations/context-source-registration-detailed-information-sample.jsonld
 
 
-*** Test Cases ***    LIMIT    PAGE    EXPECTED_NUMBER    PREV_LINK    NEXT_LINK
+*** Test Cases ***    LIMIT    OFFSET    EXPECTED_NUMBER    PREV_LINK    NEXT_LINK
 037_11_01 Query Second Subscription
     [Tags]    csr-query    5_10_2
-    ${1}    ${2}    ${1}    </ngsi-ld/v1/csourceRegistrations?type=Building&limit=1&page=1>;rel="prev";type="application/ld+json"    </ngsi-ld/v1/csourceSubscriptions?type=Building&limit=1&page=3>;rel="next";type="application/ld+json"
+    ${1}    ${2}    ${1}    </ngsi-ld/v1/csourceRegistrations?type=Building&limit=1&offset=1>;rel="prev";type="application/ld+json"    </ngsi-ld/v1/csourceSubscriptions?type=Building&limit=1&offset=3>;rel="next";type="application/ld+json"
 037_11_02 Query Last Subscription
     [Tags]    csr-query    5_10_2
-    ${2}    ${2}    ${1}    </ngsi-ld/v1/csourceRegistrations?type=Building&limit=2&page=1>;rel="prev";type="application/ld+json"    ${EMPTY}
+    ${2}    ${2}    ${1}    </ngsi-ld/v1/csourceRegistrations?type=Building&limit=2&offset=0>;rel="prev";type="application/ld+json"    ${EMPTY}
 037_11_03 Query All Subscriptions
     [Tags]    csr-query    5_10_2
-    ${15}    ${1}    ${3}    ${EMPTY}    ${EMPTY}
+    ${15}    ${0}    ${2}    ${EMPTY}    ${EMPTY}
 
 
 *** Keywords ***
-Query Context Source Registration With Limit And Page Parameters
+Query Context Source Registration With Limit And Offset Parameters
     [Documentation]    Check that you can query context source registrations with providing page and limit parameters, pagination logic shall be in place as mandated by clause 5.5.9.
-    [Arguments]    ${limit}    ${page}    ${expected_number}    ${prev_link}    ${next_link}
+    [Arguments]    ${limit}    ${offset}    ${expected_number}    ${prev_link}    ${next_link}
     ${response}=    Query Context Source Registrations
     ...    context=${ngsild_test_suite_context}
     ...    type=Building
     ...    limit=${limit}
-    ...    page=${page}
+    ...    offset=${offset}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Number Of Entities
     ...    ContextSourceRegistration

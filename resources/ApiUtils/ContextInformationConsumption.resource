@@ -38,6 +38,8 @@ Query Entities
     ...    ${georel}=${EMPTY}
     ...    ${coordinates}=${EMPTY}
     ...    ${geometry}=${EMPTY}
+    ...    ${count}=${EMPTY}
+    ...    ${q}=${EMPTY}
     ${attrs_length}=    Get Length    ${attrs}
     ${accept_length}=    Get Length    ${accept}
     ${options_length}=    Get Length    ${options}
@@ -77,6 +79,8 @@ Query Entities
     IF    '${geometry}'!=''
         Set To Dictionary    ${params}    geometry=${geometry}
     END
+    IF    '${count}'!=''    Set To Dictionary    ${params}    count=${count}
+    IF    '${q}'!=''    Set To Dictionary    ${params}    q=${q}
 
     ${response}=    GET
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}

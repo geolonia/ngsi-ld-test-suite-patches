@@ -1,0 +1,38 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/TE/021_12",
+  "test_objective": "Check that you cannot query the temporal evolution of entities with an invalid request or invalid request content",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.4",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.7.4"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Temporal Entity",
+    "Delete Initial Temporal Entity"
+  ],
+  "teardown": "Delete Initial Temporal Entity",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "021_12_01 Query the temporal evolution of entities with an invalid request",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_12_01",
+      "doc": "Check that you cannot query the temporal evolution of entities with an invalid request",
+      "tags": [
+        "5_7_4",
+        "te-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Temporal Representation Of Entities with Response Status Code set to 400     and\n        Query Temporal Representation Of Entities with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Query Temporal Representation Of Entities with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n        Query Temporal Representation of Entities and\n    Query Parameter: timerel set to 'after' and\n    Query Parameter: timeAt set to '2020-07-01T12:05:00Z' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities",
+  "robotfile": "021_12"
+}

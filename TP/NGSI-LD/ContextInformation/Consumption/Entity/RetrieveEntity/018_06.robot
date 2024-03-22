@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Setup Initial Entity
 Test Teardown       Delete Created Entity
-Test Template       Check JSON-LD Resolution When retrieving an entity
+Test Template       Review JSON-LD Resolution When retrieving an entity
 
 
 *** Variables ***
@@ -28,10 +28,13 @@ ${creation_jsonld_expectation_filename}=    building-simple-attributes-sample-co
 
 
 *** Keywords ***
-Check JSON-LD Resolution When retrieving an entity
+Review JSON-LD Resolution When retrieving an entity
     [Documentation]    Check that the JSON-LD @context is obtained from a Link header if present and that the default JSON-LD @context is used if not present
     [Arguments]    ${context}    ${expected_payload}
-    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_JSON}    context=${context}
+    ${response}=    Query Entity
+    ...    id=${entity_id}
+    ...    accept=${CONTENT_TYPE_JSON}
+    ...    context=${context}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Entity element    ${expected_payload}    ${entity_id}    ${response.json()}
 
@@ -45,4 +48,4 @@ Setup Initial Entity
     Set Test Variable    ${entity_id}
 
 Delete Created Entity
-    Delete Entity by Id Returning Response    ${entity_id}
+    Delete Entity by Id    ${entity_id}

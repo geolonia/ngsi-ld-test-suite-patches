@@ -8,9 +8,11 @@ Test Template       Batch Delete Entity With Invalid Request Scenarios
 
 
 *** Test Cases ***    FILENAME    PROBLEM_TYPE
-006_03_01 InvalidJson    [Tags]    be-delete    5_6_10
+006_03_01 InvalidJson
+    [Tags]    be-delete    5_6_10
     batch/invalid-json-sample.jsonld    ${ERROR_TYPE_INVALID_REQUEST}
-006_03_02 EmptyJson    [Tags]    be-delete    5_6_10
+006_03_02 EmptyJson
+    [Tags]    be-delete    5_6_10
     batch/empty-sample.jsonld    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 

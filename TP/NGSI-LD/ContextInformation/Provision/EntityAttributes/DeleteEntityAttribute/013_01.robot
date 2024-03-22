@@ -33,25 +33,25 @@ Delete Attributes
     [Arguments]    ${datasetId}    ${deleteAll}    ${expectation_filename}
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${entity_id}
-    ${response}=    Create Entity Selecting Content Type
+    ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
+    Check Response Status Code    201    ${create_response.status_code}
     ${response}=    Delete Entity Attributes
-    ...    ${entity_id}
-    ...    ${attribute_id}
-    ...    ${datasetId}
-    ...    ${deleteAll}
-    ...    ${ngsild_test_suite_context}
+    ...    entityId=${entity_id}
+    ...    attributeId=${attribute_id}
+    ...    datasetId=${datasetId}
+    ...    deleteAll=${deleteAll}
+    ...    context=${ngsild_test_suite_context}
     Check Response Status Code    ${status_code}    ${response.status_code}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
-    ${response}=    Retrieve Entity by Id
-    ...    ${entity_id}
+    ${response2}=    Retrieve Entity by Id
+    ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    @context
-    Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}    ${ignored_attributes}
+    Check Updated Resource Set To    ${entity_expectation_payload}    ${response2.json()}    ${ignored_attributes}
 
 Delete Initial Entities
-    Delete Entity by Id Returning Response    ${entity_id}
+    Delete Entity by Id    ${entity_id}

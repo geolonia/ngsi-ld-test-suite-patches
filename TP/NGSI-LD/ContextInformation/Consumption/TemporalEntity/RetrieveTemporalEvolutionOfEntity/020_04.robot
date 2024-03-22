@@ -6,8 +6,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProv
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Test Setup          Create Temporal Entity
+Test Teardown       Delete Initial Temporal Entity
 Test Template       Retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
 
 
@@ -17,23 +17,26 @@ ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-sample.json
 
 
 *** Test Cases ***    TIMEREL    TIMEAT    ENDTIMEAT    VEHICLE_EXPECTATION_FILE
-020_04_01 After    [Tags]    te-retrieve    5_7_3
+020_04_01 After
+    [Tags]    te-retrieve    5_7_3
     after    2020-08-01T13:03:00Z    ${EMPTY}    vehicle-temporal-representation-020-04-01-expectation.jsonld
-020_04_02 Before    [Tags]    te-retrieve    5_7_3
+020_04_02 Before
+    [Tags]    te-retrieve    5_7_3
     before    2020-08-01T12:05:00Z    ${EMPTY}    vehicle-temporal-representation-020-04-02-expectation.jsonld
-020_04_03 Between    [Tags]    te-retrieve    5_7_3
+020_04_03 Between
+    [Tags]    te-retrieve    5_7_3
     between    2020-08-01T12:00:00Z    2020-08-01T13:00:00Z    vehicle-temporal-representation-020-04-03-expectation.jsonld
 
 
 *** Keywords ***
 Retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
     [Documentation]    Check that you can retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
-    [Arguments]    ${timerel}    ${timeAt}    ${endTimeAt}    ${vehicle_expectation_file}
+    [Arguments]    ${timerel}    ${timeat}    ${endtimeat}    ${vehicle_expectation_file}
     ${response}=    Retrieve Temporal Representation Of Entity
-    ...    ${temporal_entity_representation_id}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    timerel=${timerel}
-    ...    timeAt=${timeAt}
-    ...    endTimeAt=${endTimeAt}
+    ...    timeAt=${timeat}
+    ...    endTimeAt=${endtimeat}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing EntityTemporal element
@@ -41,10 +44,10 @@ Retrieve the temporal evolution of an entity matching the given NGSI-LD temporal
     ...    ${temporal_entity_representation_id}
     ...    ${response.json()}
 
-Setup Initial Entities
+Create Temporal Entity
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     Create Temporal Representation Of Entity    ${vehicle_payload_file}    ${temporal_entity_representation_id}
     Set Test Variable    ${temporal_entity_representation_id}
 
-Delete Initial Entities
+Delete Initial Temporal Entity
     Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

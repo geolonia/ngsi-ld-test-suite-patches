@@ -18,7 +18,7 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
 
 
 *** Test Cases ***
-029_05_01 Update Subscription With Term to Uri Expansion
+029_05_01 Update Subscription With Term to Uri Expansion with Context
     [Documentation]    Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed
     [Tags]    sub-update    5_8_2
     ${response}=    Update Subscription
@@ -27,16 +27,29 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
     ...    ${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
-    ${response}=    Retrieve Subscription    ${subscription_id}    context=${ngsild_test_suite_context}
+    ${response1}=    Retrieve Subscription
+    ...    id=${subscription_id}
+    ...    context=${ngsild_test_suite_context}
     Check Response Body Containing Subscription element
     ...    ${expected_subscription_payload_file_path}
     ...    ${subscription_id}
-    ...    ${response.json()}
-    ${response}=    Retrieve Subscription    ${subscription_id}
+    ...    ${response1.json()}
+
+029_05_02 Update Subscription With Term to Uri Expansion without Context
+    [Documentation]    Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed
+    [Tags]    sub-update    5_8_2
+    ${response}=    Update Subscription
+    ...    ${subscription_id}
+    ...    ${subscription_update_fragment_file_path}
+    ...    ${CONTENT_TYPE_JSON}
+    ...    context=${ngsild_test_suite_context}
+    Check Response Status Code    204    ${response.status_code}
+    ${response1}=    Retrieve Subscription
+    ...    id=${subscription_id}
     Check Response Body Containing Subscription element
     ...    ${expected_expanded_subscription_payload_file_path}
     ...    ${subscription_id}
-    ...    ${response.json()}
+    ...    ${response1.json()}
 
 
 *** Keywords ***

@@ -1,0 +1,57 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/DISC/037_10",
+  "test_objective": "Check that you can query context source registrations. If present, the conditions specified by the context source query match the respective Context Source Properties",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.10.2",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.10.2"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Query Context Source Registration With Query Params",
+    "Setup Initial Context Source Registrations",
+    "Delete Created Context Source Registrations"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a list of Context Source Registrations (CSRs) providing latest information about some entities\n}",
+  "test_cases": [
+    {
+      "name": "037_10_01 With list of Entity Ids",
+      "permutation_tp_id": "TP/NGSI-LD/CS/DISC/037_10_01",
+      "doc": "Check that you can query context source registrations. If present, the conditions specified by the context source query match the respective Context Source Properties",
+      "tags": [
+        "5_10_2",
+        "csr-query"
+      ],
+      "setup": "Setup Initial Context Source Registrations",
+      "teardown": "Delete Created Context Source Registrations",
+      "template": "Query Context Source Registration With Query Params",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Context Source Registrations with Response Status Code set to 200     and\n        Notification with Response body set to list of all matching Context Source Registrations resolved against the default JSON-LD context\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: id set to '${first_context_source_registration_id},${third_context_source_registration_id}'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations"
+    },
+    {
+      "name": "037_10_02 With NGSI-LD Query",
+      "permutation_tp_id": "TP/NGSI-LD/CS/DISC/037_10_02",
+      "doc": "Check that you can query context source registrations. If present, the conditions specified by the context source query match the respective Context Source Properties",
+      "tags": [
+        "5_10_2",
+        "csr-query"
+      ],
+      "setup": "Setup Initial Context Source Registrations",
+      "teardown": "Delete Created Context Source Registrations",
+      "template": "Query Context Source Registration With Query Params",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Context Source Registrations with Response Status Code set to 200     and\n        Notification with Response body set to list of all matching Context Source Registrations resolved against the default JSON-LD context\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: q set to 'csourceProperty1==\"aValue\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceRegistrations"
+    }
+  ],
+  "permutations": [
+    "when"
+  ],
+  "robotpath": "ContextSource/Discovery/QueryContextSourceRegistrations",
+  "robotfile": "037_10"
+}

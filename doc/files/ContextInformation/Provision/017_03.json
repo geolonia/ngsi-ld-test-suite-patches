@@ -1,0 +1,73 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/TEA/017_03",
+  "test_objective": "Check that you cannot delete an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.15",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.6.15"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Delete An Attribute Instance",
+    "Create Id",
+    "Delete Initial Temporal Representation Of Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Temporal Entity ${entity} \n        with an id set to ${temporal_entity_representation_id} \n}",
+  "test_cases": [
+    {
+      "name": "017_03_01 Delete an attribute instance in temporal representation of an entity if the entity with given id is not found",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TEA/017_03_01",
+      "doc": "Check that you cannot delete an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not found",
+      "tags": [
+        "tea-instance-delete",
+        "5_6_15"
+      ],
+      "setup": "Create Id",
+      "teardown": "Delete Initial Temporal Representation Of Entity",
+      "template": "Delete An Attribute Instance",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Delete Attribute Instance From Temporal Entity with Response Status Code set to 404\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}'\n        method set to 'DELETE'\n        Delete Attribute Instance from Temporal Entity: and\n    Query Parameter: temporal_entity_id set to '${unknown_temporal_entity_id}' and\n    Query Parameter: attributeId set to '${attributeId}' and\n    Query Parameter: instanceId set to '${instanceId}' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}"
+    },
+    {
+      "name": "017_03_02 Delete an attribute instance in temporal representation of an entity if the target attribute is not found",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TEA/017_03_02",
+      "doc": "Check that you cannot delete an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not found",
+      "tags": [
+        "tea-instance-delete",
+        "5_6_15"
+      ],
+      "setup": "Create Id",
+      "teardown": "Delete Initial Temporal Representation Of Entity",
+      "template": "Delete An Attribute Instance",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Delete Attribute Instance From Temporal Entity with Response Status Code set to 404\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}'\n        method set to 'DELETE'\n        Delete Attribute Instance from Temporal Entity: and\n    Query Parameter: temporal_entity_id set to '${temporal_entity_representation_id}' and\n    Query Parameter: attributeId set to '${attributeId}' and\n    Query Parameter: instanceId set to '${instanceId}' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}"
+    },
+    {
+      "name": "017_03_03 Delete an attribute instance in temporal representation of an entity if the target attribute instance is not found",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TEA/017_03_03",
+      "doc": "Check that you cannot delete an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not found",
+      "tags": [
+        "tea-instance-delete",
+        "5_6_15"
+      ],
+      "setup": "Create Id",
+      "teardown": "Delete Initial Temporal Representation Of Entity",
+      "template": "Delete An Attribute Instance",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Delete Attribute Instance From Temporal Entity with Response Status Code set to 404\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}'\n        method set to 'DELETE'\n        Delete Attribute Instance from Temporal Entity: and\n    Query Parameter: temporal_entity_id set to '${temporal_entity_representation_id}' and\n    Query Parameter: attributeId set to '${attributeId}' and\n    Query Parameter: instanceId set to '${instanceId}' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "temporal/entities/{temporal_entity_id}/attrs/{attributeId}/{instanceId}"
+    }
+  ],
+  "permutations": [
+    "when"
+  ],
+  "robotpath": "ContextInformation/Provision/TemporalEntityAttributes/DeleteAttributeInstance",
+  "robotfile": "017_03"
+}

@@ -29,6 +29,7 @@ ${update_fragment_filename}=    fragmentEntities/simple-attributes-relationship-
     ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${new_entity}=    Load Entity    building-relationship-of-property-sample.jsonld    ${new_entity_id}
     @{entities_to_be_updated}=    Create List    ${first_existing_entity}    ${second_existing_entity}    ${new_entity}
+
     ${response}=    Batch Update Entities    @{entities_to_be_updated}
     @{expected_successful_entities_ids}=    Create List    ${first_existing_entity_id}    ${second_existing_entity_id}
     Set Suite Variable    @{expected_successful_entities_ids}
@@ -38,6 +39,7 @@ ${update_fragment_filename}=    fragmentEntities/simple-attributes-relationship-
     ...    ${expected_failed_entities_ids}
     Check Response Status Code    207    ${response.status_code}
     Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}    ${response.json()}
+
     ${first_created_entity}=    Load Test Sample    entities/${entity_payload_filename}    ${first_existing_entity_id}
     ${second_created_entity}=    Load Test Sample
     ...    entities/${entity_payload_filename}
@@ -47,12 +49,13 @@ ${update_fragment_filename}=    fragmentEntities/simple-attributes-relationship-
     ${second_updated_entity}=    Upsert Element In Entity    ${second_created_entity}    ${update_fragment}
     @{updated_entities}=    Create List    ${first_updated_entity}    ${second_updated_entity}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{expected_successful_entities_ids}
-    ${response}=    Query Entities
-    ...    ${expected_entities_ids}
-    ...    Building
+
+    ${response1}=    Query Entities
+    ...    entity_ids=${expected_entities_ids}
+    ...    entity_types=Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    Check Updated Resources Set To    ${updated_entities}    ${response.json()}
+    Check Updated Resources Set To    ${updated_entities}    ${response1.json()}
 
 
 *** Keywords ***
@@ -65,4 +68,4 @@ Setup Initial Entities
     Set Suite Variable    ${second_existing_entity_id}
 
 Delete Initial Entities
-    Batch Delete Entities    @{expected_successful_entities_ids}
+    Batch Delete Entities    entities_ids_to_be_deleted=@{expected_successful_entities_ids}

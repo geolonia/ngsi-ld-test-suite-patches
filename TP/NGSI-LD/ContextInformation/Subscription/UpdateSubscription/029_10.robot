@@ -25,7 +25,7 @@ ${subscription_update_fragment_file_path}       subscriptions/fragments/subscrip
     ${update_template_fragment}=    Load JSON From File
     ...    ${EXECDIR}/data/subscriptions/fragments/subscription-expiresAt-update-sample.json
     ${update_fragment}=    Update Value To JSON    ${update_template_fragment}    $..expiresAt    ${in_5_seconds}
-    ${response}=    Update Subscription With Payload
+    ${update_response}=    Update Subscription With Payload
     ...    ${subscription_id}
     ...    ${update_fragment}
     ...    ${CONTENT_TYPE_JSON}
@@ -35,8 +35,12 @@ ${subscription_update_fragment_file_path}       subscriptions/fragments/subscrip
     ...    ${subscription_update_fragment_file_path}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
-    ${response}=    Retrieve Subscription    ${subscription_id}
-    Check Response Body Containing an Attribute set to    status    ${response.json()}    active
+    ${response1}=    Retrieve Subscription
+    ...    id=${subscription_id}
+    Check Response Body Containing an Attribute set to
+    ...    expected_attribute_name=status
+    ...    response_body=${response1.json()}
+    ...    expected_attribute_value=active
 
 
 *** Keywords ***

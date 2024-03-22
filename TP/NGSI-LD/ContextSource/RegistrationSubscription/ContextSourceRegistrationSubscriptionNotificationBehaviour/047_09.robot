@@ -7,8 +7,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
 
-Suite Setup         Setup Initial Context Source Registrations And Subscriptions
-Suite Teardown      Delete Created Context Source Registrations And Subscriptions
+Suite Setup         Create Initial Context Source Registration And Context Source Registration Subscription
+Suite Teardown      Delete Created Context Source Registration And Context Source Registration Subscription
 
 
 *** Variables ***
@@ -27,13 +27,13 @@ ${update_fragment_file_path}=                           csourceRegistrations/fra
     ${response}=    Update Context Source Registration    ${context_source_registration_id}    ${update_fragment}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
     Wait for notification and validate it
-    ...    ${subscription_id}
-    ...    ${expected_context_source_registration_ids}
-    ...    noLongerMatching
+    ...    expected_subscription_id=${subscription_id}
+    ...    expected_context_source_registration_ids=${expected_context_source_registration_ids}
+    ...    expected_trigger_reason=noLongerMatching
 
 
 *** Keywords ***
-Setup Initial Context Source Registrations And Subscriptions
+Create Initial Context Source Registration And Context Source Registration Subscription
     Start Local Server
     ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
@@ -48,7 +48,7 @@ Setup Initial Context Source Registrations And Subscriptions
     Set Suite Variable    ${context_source_registration_id}
     Set Suite Variable    ${subscription_id}
 
-Delete Created Context Source Registrations And Subscriptions
+Delete Created Context Source Registration And Context Source Registration Subscription
     Stop Local Server
     Delete Context Source Registration    ${context_source_registration_id}
     Delete Context Source Registration Subscription    ${subscription_id}

@@ -6,8 +6,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProv
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Test Setup          Create Temporal Entity
+Test Teardown       Delete Initial Temporal Entity
 Test Template       Retrieve the temporal evolution of the last N instances of entity attributes
 
 
@@ -28,10 +28,10 @@ ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-multiple-in
 *** Keywords ***
 Retrieve the temporal evolution of the last N instances of entity attributes
     [Documentation]    Check that you can retrieve the temporal evolution of the last N instances of entity attributes
-    [Arguments]    ${lastN}    ${vehicle_expectation_file}
+    [Arguments]    ${lastn}    ${vehicle_expectation_file}
     ${response}=    Retrieve Temporal Representation Of Entity
-    ...    ${temporal_entity_representation_id}
-    ...    lastN=${lastN}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    lastN=${lastn}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing EntityTemporal element
@@ -39,10 +39,10 @@ Retrieve the temporal evolution of the last N instances of entity attributes
     ...    ${temporal_entity_representation_id}
     ...    ${response.json()}
 
-Setup Initial Entities
+Create Temporal Entity
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     Create Temporal Representation Of Entity    ${vehicle_payload_file}    ${temporal_entity_representation_id}
     Set Test Variable    ${temporal_entity_representation_id}
 
-Delete Initial Entities
+Delete Initial Temporal Entity
     Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

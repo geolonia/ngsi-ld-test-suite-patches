@@ -1,0 +1,38 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/047_09",
+  "test_objective": "Check if a context source registration subscription defines an \"entities\" member, a CsourceNotification will be triggered from context source registrations with information member matching the described \"entities\"",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.7",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.11.7"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Initial Context Source Registration And Context Source Registration Subscription",
+    "Delete Created Context Source Registration And Context Source Registration Subscription"
+  ],
+  "teardown": "Delete Created Context Source Registration And Context Source Registration Subscription",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "047_09_01 Receive cSourceNotification For No Longer Matching Context Source Registrations Providing Latest Information",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/047_09_01",
+      "doc": "Check if a context source registration subscription defines an \"entities\" member, a CsourceNotification will be triggered from context source registrations with information member matching the described \"entities\"",
+      "tags": [
+        "5_11_7",
+        "csrsub-notification"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        Notification received Waiting for Notification and validate it and\n    Query Parameter: expected_subscription_id set to 'subscription_id' and\n    Query Parameter: expected_context_source_registration_ids set to 'expected_context_source_registration_ids' and\n    Query Parameter: expected_trigger_reason set to 'noLongerMatching' and\n    Query Parameter: expected_notification_data_entities set to '${EMPTY}' and\n    Query Parameter: timeout set to '5'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with CSR Id set to '${context_source_registration_id}' and subscription update fragment set to '${update_fragment}'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "csourceRegistrations/{context_source_registration_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour",
+  "robotfile": "047_09"
+}

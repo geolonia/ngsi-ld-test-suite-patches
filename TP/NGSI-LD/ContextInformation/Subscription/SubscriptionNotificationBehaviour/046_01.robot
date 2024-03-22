@@ -23,14 +23,13 @@ ${notification_server_send_url}=        http://${notification_server_host}:${not
 *** Test Cases ***
 046_01_01 Check that a notification is only sent if status is active
     [Documentation]    Check that a notification is only sent if and only if the status is active
-    [Tags]    sub-notification    5_8_6    046_01
+    [Tags]    sub-notification    5_8_6
 
     Add Initial Entity
     Sleep    1s
-
     Setup Initial Subscriptions
 
-    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}    ${headers}=    Wait for notification    timeout=${10}
 
@@ -40,6 +39,14 @@ ${notification_server_send_url}=        http://${notification_server_host}:${not
 
 
 *** Keywords ***
+Before Test
+    Start Local Server    ${notification_server_host}    ${notification_server_port}
+
+Add Initial Entity
+    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Create Entity    ${entity_building_filepath}    ${entity_id}
+    Set Suite Variable    ${entity_id}
+
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
@@ -50,21 +57,13 @@ Setup Initial Subscriptions
     Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
     Set Suite Variable    ${subscription_id}
 
-Delete Initial Subscriptions
-    Delete Subscription    ${subscription_id}
-
-Before Test
-    Start Local Server    ${notification_server_host}    ${notification_server_port}
-
 After Test
     Delete Initial Subscriptions
     Delete Initial Entity
     Stop Local Server
 
-Add Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Create Entity    ${entity_building_filepath}    ${entity_id}
-    Set Suite Variable    ${entity_id}
+Delete Initial Subscriptions
+    Delete Subscription    ${subscription_id}
 
 Delete Initial Entity
     Delete Entity by Id    ${entity_id}

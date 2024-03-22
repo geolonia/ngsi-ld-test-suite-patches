@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.info defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.14
+Documentation       A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.receiverInfo defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.14
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
@@ -22,45 +22,44 @@ ${notification_server_send_url}         http://${notification_server_host}:${not
 
 *** Test Cases ***
 046_09_01 Check that a notification is sent to the endpoint
-    [Documentation]    A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.info defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.1
-    [Tags]    sub-notification    5_8_6    046_09
+    [Documentation]    A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.receiverInfo defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.1
+    [Tags]    sub-notification    5_8_6
 
-    Add Initial Entity
-    Sleep    1s
     Setup Initial Subscriptions
 
-    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}    ${headers}=    Wait for notification    timeout=${10}
     Dictionary Should Contain Key    ${headers}    X-Additional-Key
 
 
 *** Keywords ***
+Before Test
+    Start Local Server    ${notification_server_host}    ${notification_server_port}
+
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
     ...    ${subscription_payload_file_path}
     ...    ${subscription_id}
     ...    ${notification_server_send_url}
     ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
-    Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
+    Set Suite Variable    ${entity_id}
     Set Suite Variable    ${subscription_id}
 
-Delete Initial Subscriptions
-    Delete Subscription    ${subscription_id}
-
-Before Test
-    Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Create Entity    ${entity_building_filepath}    ${entity_id}
+    Sleep    1s
+    Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
+    Sleep    1s
 
 After Test
     Delete Initial Subscriptions
     Delete Initial Entity
     Stop Local Server
 
-Add Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Create Entity    ${entity_building_filepath}    ${entity_id}
-    Set Suite Variable    ${entity_id}
+Delete Initial Subscriptions
+    Delete Subscription    ${subscription_id}
 
 Delete Initial Entity
     Delete Entity by Id    ${entity_id}

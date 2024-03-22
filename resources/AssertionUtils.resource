@@ -4,6 +4,7 @@ Library     RequestsLibrary
 Library     Collections
 Library     JSONLibrary
 Library     String
+Resource    ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 
 
 *** Variables ***
@@ -13,6 +14,11 @@ ${notification_timestamps_regex_expr}=      root\\['last.*'\\]
 ${notification_endpoint_uri_regex_expr}=    root\\['endpoint'\\]\\['uri'\\]
 ${context_regex_expr}=                      root\\['@context'\\]
 ${status_regex_expr}=                       root\\['status'\\]
+${lastfailure_regex_expr}=                  root\\['lastFailure'\\]
+${lastNotification_regex_expr}=             root\\['lastNotification'\\]
+${timesFailed_regex_expr}=                  root\\['timesFailed'\\]
+${timesSent_regex_expr}=                    root\\['timesSent'\\]
+${is_active_expr}=                          root\\['isActive'\\]
 
 
 *** Keywords ***
@@ -42,9 +48,17 @@ Check Response Headers Containing Content-Type set to
     [Arguments]    ${expected_content_type_content}    ${response_headers}
     Should Be Equal    ${response_headers['Content-Type']}    ${expected_content_type_content}
 
+Check Response Header is Empty
+    [Arguments]    ${response_headers}
+    Dictionaries Should Be Equal    ${response_headers}    {}
+
 Check Response Headers Link Not Empty
     [Arguments]    ${response_headers}
     Should Not Be Empty    ${response_headers['Link']}
+
+Check Response Headers Link set to
+    [Arguments]    ${response_headers}    ${expected_link_header}
+    Should Be Equal    ${response_headers['Link']}    ${expected_link_header}
 
 # Since Http headers names are case-insensitive (from Http specification)
 # We check both Location and location headers
@@ -58,6 +72,10 @@ Check Response Headers Containing URI set to
         ...    ${expected_entity_id}
         ...    ignore_order=True
     END
+
+Check Response Headers Containing NGSILD-Results-Count Equals To
+    [Arguments]    ${expected_result_count}    ${response_headers}
+    Should Be Equal    ${response_headers['NGSILD-Results-Count']}    ${expected_result_count}
 
 # Since Http headers names are case-insensitive (from Http specification)
 # We check both Location and location headers
@@ -77,6 +95,19 @@ Check Response Body Containing an Attribute set to
     Should Not Be Empty    ${response_body['${expected_attribute_name}']}
     IF    '${expected_attribute_value}'!=''
         Should Be Equal    ${response_body['${expected_attribute_name}']}    ${expected_attribute_value}
+    END
+
+Check Response Body Containing a Boolean Attribute set to
+    [Arguments]    ${expected_attribute_name}    ${response_body}    ${expected_attribute_value}
+    Dictionary Should Contain Key    ${response_body}    ${expected_attribute_name}
+    IF    '${expected_attribute_value}'=='True'
+        Should Be True    ${response_body['${expected_attribute_name}']}
+    ELSE
+        IF    '${expected_attribute_value}'=='False'
+            Should Not Be True    ${response_body['${expected_attribute_name}']}
+        ELSE
+            Fail    Unexpected boolean value, only True/False are allowed, received ${expected_attribute_value}
+        END
     END
 
 Check Response Body Containing Batch Operation Result
@@ -235,7 +266,7 @@ Check Response Body Containing Context Source Registration element
     ${context_source_registration_payload}=    Load JSON From File    ${EXECDIR}/data/${expectation_filename}
     ${context_source_registration}=    Update Value To JSON
     ...    ${context_source_registration_payload}
-    ...    $..id
+    ...    $.id
     ...    ${context_source_registration_id}
     ${ignored_keys}=    Create List    ${context_regex_expr}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
@@ -302,7 +333,7 @@ Check Response Body Containing List Containing Context Source Registrations elem
     FOR    ${expected_context_source_registration_id}    IN    @{expected_context_source_registrations_ids}
         ${expected_context_source_registrations_payload}=    Update Value To JSON
         ...    ${expected_context_source_registrations_payload}
-        ...    $.[${index}]..id
+        ...    $.[${index}].id
         ...    ${expected_context_source_registration_id}
         ${index}=    Evaluate    ${index} + 1
     END
@@ -329,6 +360,23 @@ Check Response Body Containing ProblemDetails Element Containing Title Element
     [Arguments]    ${response_body}
     Should Not Be Empty    ${response_body['title']}
 
+Check Response Body Containing ProblemDetails Element
+    [Arguments]    ${response_body}    ${problem_type}
+    Should Not Be Empty    ${response_body['title']}
+    Should Not Be Empty    ${response_body['detail']}
+    Should Be String    ${response_body['title']}
+    Should Be String    ${response_body['detail']}
+    Should Not Be Equal    ${response_body['title']}    ${response_body['detail']}
+    Should Be Equal    ${response_body['type']}    ${problem_type}
+
+Check Response Does Not Contain Body
+    [Arguments]    ${response}
+    Should Not Contain    ${response}    body
+
+Check Response Reason set to
+    [Arguments]    ${response_reason}    ${reason}
+    Should Be Equal    ${response_reason}    ${reason}
+
 Check RL Response Body Containing ProblemDetails Element Containing Type Element set to
     [Arguments]    ${response_body}    ${type}
     ${json_response_body}=    Set Variable    ${response_body}
@@ -343,6 +391,10 @@ Check RL Response Body Containing ProblemDetails Element Containing Title Elemen
 Check JSON Value In Response Body
     [Arguments]    ${json_path_expr}    ${value_to_check}    ${response_body}
     Should Be Equal As Strings    ${response_body${json_path_expr}}    ${value_to_check}
+
+Check JSON Value Not In Response Body
+    [Arguments]    ${json_path_expr}    ${response_body}
+    Should Not Have Value In Json    ${response_body}    ${json_path_expr}
 
 Check NotificationParams
     [Arguments]    ${filename}    ${expected_additional_members}    ${response_body}
@@ -413,3 +465,75 @@ Check SUT Not Containing Resource
 Check SUT Not Containing Resources
     [Arguments]    ${response_body}
     Should Be Empty    ${response_body}
+
+Check Retrieving Context Source Registration
+    [Arguments]    ${registration_id}    ${context}    ${accept}    ${registration_payload}
+    ${response}=    Retrieve Context Source Registration
+    ...    context_source_registration_id=${registration_id}
+    ...    context=${context}
+    ...    accept=${accept}
+    ${ignored_attributes}=    Create List    ${status_regex_expr}    @context
+    Check Updated Resource Set To    ${registration_payload}    ${response.json()}    ${ignored_attributes}
+
+Check Dictionary Might Contain Additional Members of the NotificationParams
+    # Check the Additional Members 5.2.14.2 in the NotificationParams data structure
+    [Arguments]    ${dictionary}    ${key}
+    Log    Dictionary Might Contain Key with a specific type
+    Log    Dictionary: ${dictionary}
+    Log    Key: ${key}
+
+    ${value}=    Evaluate    $dictionary.get($key)
+
+    IF    '${value}' != '' and '${value}' != 'None'
+        IF    "${key}" == "lastNotification" or "${key}" == "lastFailure" or "${key}" == "lastSuccess" or "${key}" == "expiresAt"
+            # Need to check that there is a DateTime value
+            ${type date}=    Parse Ngsild Date    ${dictionary}[${key}]
+            Should Not Be Equal
+            ...    ${type date}
+            ...    ${None}
+            ...    The Additional Member ${key} contains a value (${value}) that it is not in DateTime format
+        END
+        IF    "${key}" == "timesSent" or "${key}" == "throttling" or "${key}" == "timeInterval"
+            # Need to check that there is a Integer value
+            ${type int}=    Evaluate    type(${dictionary}[${key}]).__name__
+            Should Be Equal
+            ...    ${type int}
+            ...    int
+            ...    The Additonal Member ${key} contains a value (${value}) that it is not in Number format
+        END
+        IF    "${key}" == "isActive"
+            # Need to check that there is a Boolean balue
+            ${type bool}=    Evaluate    type(${dictionary}[${key}]).__name__
+            Should Be Equal
+            ...    ${type bool}
+            ...    bool
+            ...    The Additonal Member ${key} contains a value (${value}) that it is not in Boolean format
+        END
+        IF    "${key}" == "subscriptionName" or "${key}" == "description" or "${key}" == "q" or "${key}" == "csf" or "${key}" == "status"
+            # Need to check that there is a Boolean balue
+            ${type string}=    Evaluate    type(${dictionary}[${key}]).__name__
+            Should Be Equal
+            ...    ${type string}
+            ...    str
+            ...    The Additonal Member ${key} contains a value (${value}) that it is not in String format
+        END
+    ELSE
+        Log    The key '${key}' is not present in the dictionary
+    END
+
+Check Response Body Contains DateTime Value
+    [Arguments]    ${dictionary}    ${key}    ${expected value}
+    Dictionary Should Contain Key    ${dictionary}    ${key}
+
+    ${obtained value}=    Evaluate    $dictionary.get($key)
+    ${date}=    Parse Ngsild Date    ${dictionary}[${key}]
+
+    Should Not Be Equal
+    ...    ${date}
+    ...    ${None}
+    ...    The key (${key}) contains a value (${obtained value}) that it is not in DateTime format
+
+    Should Be Equal
+    ...    ${expected value}
+    ...    ${obtained value}
+    ...    The expected value (${expected value}) is not the same as the obtained value (${obtained value})

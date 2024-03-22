@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Test Setup          Create Initial Entity
+Test Teardown       Delete Initial Entity
 Test Template       Partial Update Attributes
 
 
@@ -25,7 +25,7 @@ ${default_attr_id}=         speed
 012_03_03 Partial update when no instance with the datasetId specified
     ${valid_entity_id}    ${default_attr_id}    vehicle-speed-unknown-datasetid-fragment.jsonld
 012_03_04 Partial update when the Attribute Name does not exist in the entity
-    ${valid_entity_id}    speed2    vehicle-speed-no-datasetid-fragment.jsonld
+    ${valid_entity_id}    isParked2    vehicle-isparked-fragment.jsonld
 
 
 *** Keywords ***
@@ -33,27 +33,27 @@ Partial Update Attributes
     [Documentation]    Check that you cannot perform a partial update on an entity attribute if the entity id or attribute is not known to the system
     [Tags]    ea-partial-update    5_6_4
     [Arguments]    ${entity_id}    ${attr_id}    ${fragment_filename}
-    ${response}=    Create Entity Selecting Content Type
-    ...    ${filename}
-    ...    ${valid_entity_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
     ${response}=    Partial Update Entity Attributes
-    ...    ${entity_id}
-    ...    ${attr_id}
-    ...    ${fragment_filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
+    ...    entityId=${entity_id}
+    ...    attributeId=${attr_id}
+    ...    fragment_filename=${fragment_filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}
     ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
-Setup Initial Entities
+Create Initial Entity
     ${valid_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${valid_entity_id}
     ${not_found_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${not_found_entity_id}
+    ${response}=    Create Entity Selecting Content Type
+    ...    ${filename}
+    ...    ${valid_entity_id}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${response.status_code}
 
-Delete Initial Entities
-    Delete Entity by Id Returning Response    ${valid_entity_id}
+Delete Initial Entity
+    Delete Entity by Id    ${valid_entity_id}

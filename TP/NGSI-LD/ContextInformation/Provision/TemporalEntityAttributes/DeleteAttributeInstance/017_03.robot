@@ -7,8 +7,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Create Id
-Test Teardown       Delete Intitial Temporal Representation Of Entity
-Test Template       Delete Attribute Instance
+Test Teardown       Delete Initial Temporal Representation Of Entity
+Test Template       Delete An Attribute Instance
 
 
 *** Variables ***
@@ -27,7 +27,7 @@ ${status_code}=             404
 
 
 *** Keywords ***
-Delete Attribute Instance
+Delete An Attribute Instance
     [Documentation]    Check that you cannot delete an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not found
     [Tags]    tea-instance-delete    5_6_15
     [Arguments]    ${temporal_entity_id}    ${attributeId}    ${instanceId}
@@ -43,9 +43,9 @@ Create Id
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${temporal_entity_representation_id}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    ${temporal_entity_representation_id}
-    ...    ${filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    filename=${filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${unknown_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${unknown_temporal_entity_id}
@@ -57,5 +57,5 @@ Create Id
     ${valid_instanceId}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
     Set Test Variable    ${valid_instanceId}
 
-Delete Intitial Temporal Representation Of Entity
+Delete Initial Temporal Representation Of Entity
     Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

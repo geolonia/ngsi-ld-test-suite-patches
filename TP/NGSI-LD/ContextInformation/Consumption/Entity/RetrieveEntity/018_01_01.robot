@@ -21,12 +21,14 @@ ${expectation_filename}=    building-simple-attributes-expectation.jsonld
     [Tags]    e-retrieve    5_7_1
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${entity_id}
-    ${response}=    Create Entity Selecting Content Type
+    ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
-    ${response}=    Query Entity    ${entity_id}    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${create_response.status_code}
+    ${response}=    Query Entity
+    ...    id=${entity_id}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Entity element
     ...    ${expectation_filename}
@@ -37,4 +39,4 @@ ${expectation_filename}=    building-simple-attributes-expectation.jsonld
 
 *** Keywords ***
 Delete Created Entity
-    Delete Entity by Id Returning Response    ${entity_id}
+    Delete Entity by Id    ${entity_id}

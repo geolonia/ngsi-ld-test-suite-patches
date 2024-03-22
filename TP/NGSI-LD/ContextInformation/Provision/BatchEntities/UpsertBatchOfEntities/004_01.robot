@@ -41,13 +41,12 @@ Batch Upsert Entity Scenarios
     Check Response Status Code    201    ${response.status_code}
     Check Response Body Containing Array Of URIs set to    ${expected_entities_ids}    ${response.json()}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{expected_entities_ids}
-    ${response}=    Query Entities
-    ...    ${expected_updated_entities_ids}
-    ...    Building
+    ${response1}=    Query Entities
+    ...    entity_ids=${expected_updated_entities_ids}
+    ...    entity_types=Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    Check Updated Resources Set To    ${entities_to_be_upserted}    ${response.json()}
-    ${response}=    Batch Delete Entities    @{expected_entities_ids}
+    Check Updated Resources Set To    ${entities_to_be_upserted}    ${response1.json()}
 
 Delete Initial Entities
-    Batch Delete Entities    @{expected_entities_ids}
+    Batch Delete Entities    entities_ids_to_be_deleted=@{expected_entities_ids}

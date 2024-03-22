@@ -1,13 +1,11 @@
 {
    "id":"urn:ngsi-ld:Vehicle:randomUUID",
    "type":"Vehicle",
-   "speed":[
-      {
-         "type":"Property",
-         "value":80,
-         "observedAt":"2020-09-01T12:05:00Z"
-      }
-   ],
+   "speed":{
+     "type":"Property",
+     "value":80,
+     "observedAt":"2020-09-01T12:05:00Z"
+   },
    "fuelLevel":[
       {
          "type":"Property",

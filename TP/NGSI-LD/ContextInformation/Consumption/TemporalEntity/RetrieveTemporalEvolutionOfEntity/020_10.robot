@@ -6,8 +6,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProv
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Entities
-Suite Teardown      Delete Initial Entities
+Suite Setup         Create Temporal Entity
+Suite Teardown      Delete Initial Temporal Entity
 
 
 *** Variables ***
@@ -22,7 +22,7 @@ ${vehicle_expectation_file}=    vehicle-temporal-representation-020-10-expectati
     [Tags]    te-retrieve    5_7_3
     @{options}=    Create List    temporalValues
     ${response}=    Retrieve Temporal Representation Of Entity
-    ...    ${temporal_entity_representation_id}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    options=${options}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
@@ -33,10 +33,10 @@ ${vehicle_expectation_file}=    vehicle-temporal-representation-020-10-expectati
 
 
 *** Keywords ***
-Setup Initial Entities
+Create Temporal Entity
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     Create Temporal Representation Of Entity    ${vehicle_payload_file}    ${temporal_entity_representation_id}
     Set Suite Variable    ${temporal_entity_representation_id}
 
-Delete Initial Entities
+Delete Initial Temporal Entity
     Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

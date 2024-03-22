@@ -1,0 +1,56 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/TE/007_01",
+  "test_objective": "Check that you can create a temporal representation of an entity",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.11",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.6.11"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Temporal Entity",
+    "Delete Temporal Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "007_01_01 Create a temporal representation of an entity",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TE/007_01_01",
+      "doc": "Check that you can create a temporal representation of an entity",
+      "tags": [
+        "te-create",
+        "5_6_11"
+      ],
+      "setup": null,
+      "teardown": "Delete Temporal Entity",
+      "template": "Create Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Or Update Temporal Representation Of Entity Selecting Content Type with Response Status Code set to 201     and\n        Retrieve Temporal Representation Of Entity with Check Created Resource Set To and\n            Query Parameter: 'ignored_keys' set to '${None}' list of keys\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'POST'\n        Create or Update Temporal Representation of Entity Selecting Content Type: and\n    Query Parameter: temporal_entity_representation_id set to '${temporal_entity_representation_id}' and\n    Query Parameter: filename set to 'vehicle-create-temporal-representation-sample.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json' and\n    Query Parameter: accept set to '${EMPTY}'\n}",
+      "http_verb": "POST",
+      "endpoint": "temporal/entities"
+    },
+    {
+      "name": "007_01_02 Create a temporal entity with no context",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TE/007_01_02",
+      "doc": "Check that you can create a temporal representation of an entity",
+      "tags": [
+        "te-create",
+        "5_6_11"
+      ],
+      "setup": null,
+      "teardown": "Delete Temporal Entity",
+      "template": "Create Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Or Update Temporal Representation Of Entity Selecting Content Type with Response Status Code set to 201     and\n        Retrieve Temporal Representation Of Entity with Check Created Resource Set To and\n            Query Parameter: 'ignored_keys' set to '${None}' list of keys\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'POST'\n        Create or Update Temporal Representation of Entity Selecting Content Type: and\n    Query Parameter: temporal_entity_representation_id set to '${temporal_entity_representation_id}' and\n    Query Parameter: filename set to 'vehicle-create-temporal-representation-without-context-sample.jsonld' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: accept set to '${EMPTY}'\n}",
+      "http_verb": "POST",
+      "endpoint": "temporal/entities"
+    }
+  ],
+  "permutations": [
+    "when"
+  ],
+  "robotpath": "ContextInformation/Provision/TemporalEntity/CreateTemporalRepresentationOfEntity",
+  "robotfile": "007_01"
+}

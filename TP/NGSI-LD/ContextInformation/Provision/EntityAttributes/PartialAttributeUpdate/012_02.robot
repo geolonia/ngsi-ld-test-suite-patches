@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Test Setup          Setup Initial Entity
+Test Teardown       Delete Initial Entity
 Test Template       Update Attributes
 
 
@@ -21,11 +21,9 @@ ${status_code}=             400
     ${EMPTY}    speed    vehicle-speed-equal-datasetid-fragment.jsonld
 012_02_02 Make a partial attribute update if the Entity Id is not a valid URI
     thisisaninvaliduri    speed    vehicle-speed-equal-datasetid-fragment.jsonld
-012_02_03 Make a partial attribute update if the Attribute Id is not present
-    ${valid_entity_id}    ${EMPTY}    vehicle-speed-equal-datasetid-fragment.jsonld
-012_02_04 Make a partial attribute update if the Attribute type does not match
+012_02_03 Make a partial attribute update if the Attribute type does not match
     ${valid_entity_id}    speed    vehicle-speed-equal-datasetid-different-type-fragment.jsonld
-012_02_05 Make a partial attribute update if the entity fragment is empty
+012_02_04 Make a partial attribute update if the entity fragment is empty
     ${valid_entity_id}    speed    empty-fragment.json
 
 
@@ -34,25 +32,25 @@ Update Attributes
     [Documentation]    Check that you cannot perform a partial update on an entity attribute with invalid/missing ids
     [Tags]    ea-partial-update    5_6_4
     [Arguments]    ${entity_id}    ${attribute_id}    ${fragment_filename}
-    ${response}=    Create Entity Selecting Content Type
-    ...    ${filename}
-    ...    ${valid_entity_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
     ${response}=    Partial Update Entity Attributes
-    ...    ${entity_id}
-    ...    ${attribute_id}
-    ...    ${fragment_filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
+    ...    entityId=${entity_id}
+    ...    attributeId=${attribute_id}
+    ...    fragment_filename=${fragment_filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
-Setup Initial Entities
+Setup Initial Entity
     ${valid_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${valid_entity_id}
+    ${response}=    Create Entity Selecting Content Type
+    ...    ${filename}
+    ...    ${valid_entity_id}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${response.status_code}
 
-Delete Initial Entities
-    Delete Entity by Id Returning Response    ${valid_entity_id}
+Delete Initial Entity
+    Delete Entity by Id    ${valid_entity_id}

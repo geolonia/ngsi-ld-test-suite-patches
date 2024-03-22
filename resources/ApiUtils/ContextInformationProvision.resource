@@ -83,7 +83,7 @@ Batch Create Entities
     RETURN    ${response}
 
 Batch Delete Entities
-    [Arguments]    @{entities_ids_to_be_deleted}    ${teardown}=False
+    [Arguments]    ${entities_ids_to_be_deleted}    ${teardown}=False
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
     ...    url=${url}/${BATCH_DELETE_ENDPOINT_PATH}
@@ -204,14 +204,10 @@ Delete Entity Attributes
 
 Delete Entity by Id
     [Arguments]    ${id}
-    ${response}=    DELETE    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}    expected_status=any
+    ${response}=    DELETE
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}
+    ...    expected_status=any
     Output    ${response}    Delete Entity by Id
-    RETURN    ${response}
-
-Delete Entity by Id Returning Response
-    [Arguments]    ${id}
-    ${response}=    DELETE    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}    expected_status=any
-    Output    ${response}    Delete Entity by Id Returning Response
     RETURN    ${response}
 
 Partial Update Entity Attributes

@@ -29,26 +29,31 @@ ${content_type}=                application/json
 *** Test Cases ***
 045_01_01 Endpoint /entities/{entityId}
     [Documentation]    Verify that on a GET HTTP request if nothing is specified on the Accept header, "application/json" is assumed (/entities/{entityId})
-    [Tags]    e-query    6_3_4
+    [Tags]    e-query    cb-get    6_3_4
     ${id}=    Generate Random Entity Id    ${building_id_prefix}
     ${response}=    Create Entity Selecting Content Type
     ...    ${building_filename}
     ...    ${id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Query Entity    ${id}    context=${ngsild_test_suite_context}    accept=*/*
+    ${response}=    Query Entity
+    ...    id=${id}
+    ...    context=${ngsild_test_suite_context}
+    ...    accept=*/*
     Check Response Status Code    200    ${response.status_code}
     Check Response Headers Containing Content-Type set to    ${content_type}    ${response.headers}
     Check Response Headers Link Not Empty    ${response.headers}
-    [Teardown]    Delete Entity by Id Returning Response    ${id}
+    [Teardown]    Delete Entity by Id    ${id}
 
 045_01_02 Endpoint /subscriptions/{subscriptionId}
     [Documentation]    Verify that on a GET HTTP request if nothing is specified on the Accept header, "application/json" is assumed (/subscriptions/{subscriptionId})
-    [Tags]    sub-retrieve    6_3_4
+    [Tags]    sub-retrieve    cb-get    6_3_4
     ${id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${response}=    Create Subscription    ${id}    ${subscription_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Retrieve Subscription    ${id}    accept=*/*
+    ${response}=    Retrieve Subscription
+    ...    id=${id}
+    ...    accept=*/*
     Check Response Status Code    200    ${response.status_code}
     Check Response Headers Containing Content-Type set to    ${content_type}    ${response.headers}
     Check Response Headers Link Not Empty    ${response.headers}
@@ -56,7 +61,7 @@ ${content_type}=                application/json
 
 045_01_03 Endpoint /csourceRegistrations/
     [Documentation]    Verify that on a GET HTTP request if nothing is specified on the Accept header, "application/json" is assumed (/csourceRegistrations/)
-    [Tags]    csr-query    6_3_4
+    [Tags]    csr-query    cb-get    6_3_4
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_filename}
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
@@ -74,12 +79,12 @@ ${content_type}=                application/json
 
 045_01_04 Endpoint /temporal/entities
     [Documentation]    Verify that on a GET HTTP request if nothing is specified on the Accept header, "application/json" is assumed (/temporal/entities)
-    [Tags]    te-query    6_3_4
+    [Tags]    te-query    cb-get    6_3_4
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${tea_id_prefix}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    ${temporal_entity_representation_id}
-    ...    ${tea_filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    filename=${tea_filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     ${response}=    Query Temporal Representation Of Entities With Return
     ...    entity_types=${teatype}

@@ -13,14 +13,12 @@
          "observedAt":"2020-09-01T12:05:00Z"
       }
    ],
-   "fuelLevel":[
-      {
-         "type":"Property",
-         "value":40,
-         "observedAt":"2020-09-01T14:07:00Z",
-         "datasetId":"urn:ngsi-ld:Vehicle:12345-fuel"
-      }
-   ],
+   "fuelLevel":{
+     "type":"Property",
+     "value":40,
+     "observedAt":"2020-09-01T14:07:00Z",
+     "datasetId":"urn:ngsi-ld:Vehicle:12345-fuel"
+  },
    "@context":[
       "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
    ]

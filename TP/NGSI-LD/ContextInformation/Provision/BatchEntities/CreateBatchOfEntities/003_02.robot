@@ -6,7 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Entities
+Suite Setup         Setup Initial Entity
 Suite Teardown      Delete Initial Entities
 
 
@@ -36,21 +36,21 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     Check Response Status Code    207    ${response.status_code}
     Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}    ${response.json()}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{expected_successful_entities_ids}
-    ${response}=    Query Entities
-    ...    ${expected_entities_ids}
-    ...    Building
+    ${response1}=    Query Entities
+    ...    entity_ids=${expected_entities_ids}
+    ...    entity_types=Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     @{created_entities}=    Create List    ${first_entity}    ${second_entity}
-    Check Created Resources Set To    ${created_entities}    ${response.json()}
+    Check Created Resources Set To    ${created_entities}    ${response1.json()}
 
 
 *** Keywords ***
-Setup Initial Entities
+Setup Initial Entity
     ${existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity    building-minimal-sample.jsonld    ${existing_entity_id}
     Set Suite Variable    ${existing_entity_id}
 
 Delete Initial Entities
     @{entities_ids_to_be_deleted}=    Create List    ${first_entity_id}    ${second_entity_id}    ${existing_entity_id}
-    Batch Delete Entities    @{entities_ids_to_be_deleted}
+    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}

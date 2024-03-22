@@ -1,0 +1,89 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/EA/012_03",
+  "test_objective": "Check that you cannot perform a partial update on an entity attribute if the entity id or attribute is not known to the system",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.4",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.6.4"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Partial Update Attributes",
+    "Create Initial Entity",
+    "Delete Initial Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} \n        with an id set to ${entityId} \n}",
+  "test_cases": [
+    {
+      "name": "012_03_01 Partial update when the Entity Id is not known to the system",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_03_01",
+      "doc": "Check that you cannot perform a partial update on an entity attribute if the entity id or attribute is not known to the system",
+      "tags": [
+        "ea-partial-update",
+        "5_6_4"
+      ],
+      "setup": "Create Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": "Partial Update Attributes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 404     and\n        Partial Update Entity Attributes with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound'     and\n        Partial Update Entity Attributes with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${not_found_entity_id}' and\n    Query Parameter: AttributeId set to 'speed' and\n    Query Parameter: fragment_filename set to 'vehicle-isparked-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    },
+    {
+      "name": "012_03_02 Partial update when no default instance and no datasetId specified",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_03_02",
+      "doc": "Check that you cannot perform a partial update on an entity attribute if the entity id or attribute is not known to the system",
+      "tags": [
+        "ea-partial-update",
+        "5_6_4"
+      ],
+      "setup": "Create Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": "Partial Update Attributes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 404     and\n        Partial Update Entity Attributes with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound'     and\n        Partial Update Entity Attributes with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: AttributeId set to 'speed' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-no-datasetid-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    },
+    {
+      "name": "012_03_03 Partial update when no instance with the datasetId specified",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_03_03",
+      "doc": "Check that you cannot perform a partial update on an entity attribute if the entity id or attribute is not known to the system",
+      "tags": [
+        "ea-partial-update",
+        "5_6_4"
+      ],
+      "setup": "Create Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": "Partial Update Attributes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 404     and\n        Partial Update Entity Attributes with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound'     and\n        Partial Update Entity Attributes with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: AttributeId set to 'speed' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-unknown-datasetid-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    },
+    {
+      "name": "012_03_04 Partial update when the Attribute Name does not exist in the entity",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_03_04",
+      "doc": "Check that you cannot perform a partial update on an entity attribute if the entity id or attribute is not known to the system",
+      "tags": [
+        "ea-partial-update",
+        "5_6_4"
+      ],
+      "setup": "Create Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": "Partial Update Attributes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 404     and\n        Partial Update Entity Attributes with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound'     and\n        Partial Update Entity Attributes with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${valid_entity_id}' and\n    Query Parameter: AttributeId set to 'isParked2' and\n    Query Parameter: fragment_filename set to 'vehicle-isparked-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    }
+  ],
+  "permutations": [
+    "when"
+  ],
+  "robotpath": "ContextInformation/Provision/EntityAttributes/PartialAttributeUpdate",
+  "robotfile": "012_03"
+}

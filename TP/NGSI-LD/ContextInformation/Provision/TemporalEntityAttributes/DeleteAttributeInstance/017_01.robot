@@ -22,16 +22,16 @@ ${expectation_filename}=    vehicle-temporal-representation-delete-speed-instanc
     [Tags]    tea-instance-delete    5_6_15
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Suite Variable    ${temporal_entity_representation_id}
-    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    ${temporal_entity_representation_id}
-    ...    ${filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
-    ${response}=    Retrieve Temporal Representation Of Entity
-    ...    ${temporal_entity_representation_id}
+    ${create_response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    filename=${filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${create_response.status_code}
+    ${retrieve_response}=    Retrieve Temporal Representation Of Entity
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    ${instanceId}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
+    ${instanceId}=    Set Variable    ${retrieve_response.json()['speed'][0]['instanceId']}
     ${response}=    Delete Attribute Instance From Temporal Entity
     ...    ${temporal_entity_representation_id}
     ...    ${attributeId}
@@ -42,14 +42,14 @@ ${expectation_filename}=    vehicle-temporal-representation-delete-speed-instanc
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}
-    ${response}=    Retrieve Temporal Representation Of Entity
-    ...    ${temporal_entity_representation_id}
+    ${response1}=    Retrieve Temporal Representation Of Entity
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    instanceId    @context
     Check Updated Resource Set To
     ...    ${temporal_entity_expectation_payload}
-    ...    ${response.json()}
+    ...    ${response1.json()}
     ...    ${ignored_attributes}
 
 

@@ -24,18 +24,18 @@ ${invalid_entity_type_two}=     invalid_entity_type_two
     [Tags]    e-query    5_7_2
     ${building_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${building_entity_id}
-    ${response}=    Create Entity Selecting Content Type
+    ${create_response1}=    Create Entity Selecting Content Type
     ...    ${building_filename}
     ...    ${building_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
+    Check Response Status Code    201    ${create_response1.status_code}
     ${vehicle_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Suite Variable    ${vehicle_entity_id}
-    ${response}=    Create Entity Selecting Content Type
+    ${create_response2}=    Create Entity Selecting Content Type
     ...    ${vehicle_filename}
     ...    ${vehicle_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
+    Check Response Status Code    201    ${create_response2.status_code}
     ${entity_types_to_be_retrieved}=    Catenate
     ...    SEPARATOR=,
     ...    ${invalid_entity_type_one}
@@ -50,5 +50,5 @@ ${invalid_entity_type_two}=     invalid_entity_type_two
 
 *** Keywords ***
 Delete Entities
-    Delete Entity by Id Returning Response    ${building_entity_id}
-    Delete Entity by Id Returning Response    ${vehicle_entity_id}
+    Delete Entity by Id    ${building_entity_id}
+    Delete Entity by Id    ${vehicle_entity_id}

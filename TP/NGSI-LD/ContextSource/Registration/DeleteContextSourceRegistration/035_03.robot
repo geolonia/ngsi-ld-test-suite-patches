@@ -14,7 +14,7 @@ ${registration_payload_file_path}=      context-source-registration-simple-sampl
 *** Test Cases ***
 035_03_01 Delete a context source registration by id
     [Documentation]    Check that you cannot delete a context source registration by id if the id is not known to the system
-    [Tags]    csr-delete
+    [Tags]    csr-delete    5_9_4
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     ${response}=    Delete Context Source Registration With Return    ${registration_id}
     Check Response Status Code    404    ${response.status_code}

@@ -30,9 +30,9 @@ ${vehicle_entity_type}=     https://ngsi-ld-test-suite/context#Vehicle
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Entity Elements With Different Types
-    ...    ${expectation_filename}
-    ...    ${entities_ids_to_be_compared}
-    ...    ${response.json()}
+    ...    filename=${expectation_filename}
+    ...    entities_representation_ids=${entities_ids_to_be_compared}
+    ...    response_body=${response.json()}
     ...    ignore_core_context_version=True
 
 
@@ -61,6 +61,6 @@ Create Entities
     Check Response Status Code    201    ${response.status_code}
 
 Delete Entities
-    Delete Entity by Id Returning Response    ${building_entity_id}
-    Delete Entity by Id Returning Response    ${first_vehicle_entity_id}
-    Delete Entity by Id Returning Response    ${second_vehicle_entity_id}
+    Delete Entity by Id    ${building_entity_id}
+    Delete Entity by Id    ${first_vehicle_entity_id}
+    Delete Entity by Id    ${second_vehicle_entity_id}

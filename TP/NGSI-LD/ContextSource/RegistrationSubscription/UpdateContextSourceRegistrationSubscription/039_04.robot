@@ -16,7 +16,8 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
 
 
 *** Test Cases ***    FILEPATH
-039_04_01 InvalidType    [Tags]    csrsub-update    5_11_3
+039_04_01 InvalidType
+    [Tags]    csrsub-update    5_11_3
     csourceSubscriptions/fragments/subscription-update-invalid-type-sample.json
 039_04_02 InvalidNotification
     [Tags]    csrsub-update    5_11_3
@@ -32,10 +33,9 @@ Update Context Source Registration Subscription With Invalid Fragment
     ...    ${subscription_id}
     ...    ${subscription_update_fragment}
     Check Response Status Code    400    ${response.status_code}
-    Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response.json()}
-    ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+    Check Response Body Containing ProblemDetails Element
+    ...    response_body=${response.json()}
+    ...    problem_type=${ERROR_TYPE_BAD_REQUEST_DATA}
 
 Setup Initial Context Source Registration Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}

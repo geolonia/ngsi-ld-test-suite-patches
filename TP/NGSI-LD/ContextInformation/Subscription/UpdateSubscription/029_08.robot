@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can update a subcription: If isActive is equal to true and expiresAt corresponds to a DateTime in the future, then status shall be updated to "active"
+Documentation       Check that you can update a subscription: If isActive is equal to true and expiresAt corresponds to a DateTime in the future, then status shall be updated to "active"
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -23,15 +23,19 @@ ${subscription_payload_file_path}=      subscriptions/subscription-inactive-samp
 
 *** Keywords ***
 Activate Paused Subscription With isActive And ExpiresAt Members
-    [Documentation]    Check that you can update a subcription: If isActive is equal to true and expiresAt corresponds to a DateTime in the future, then status shall be updated to "active"
+    [Documentation]    Check that you can update a subscription: If isActive is equal to true and expiresAt corresponds to a DateTime in the future, then status shall be updated to "active"
     [Arguments]    ${subscription_update_fragment_file_path}
     ${response}=    Update Subscription
     ...    ${subscription_id}
     ...    ${subscription_update_fragment_file_path}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
-    ${response}=    Retrieve Subscription    ${subscription_id}
-    Check Response Body Containing an Attribute set to    status    ${response.json()}    active
+    ${response1}=    Retrieve Subscription
+    ...    id=${subscription_id}
+    Check Response Body Containing an Attribute set to
+    ...    expected_attribute_name=status
+    ...    response_body=${response1.json()}
+    ...    expected_attribute_value=active
 
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}

@@ -1,0 +1,37 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/042_01",
+  "test_objective": "Check that you can delete a context source registration subscription",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.6",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.11.6"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Initial Context Source Registration Subscription"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a Context Source Registration Subscription (CSRS1)\n}",
+  "test_cases": [
+    {
+      "name": "042_01_01 Delete Context Source Registration Subscription",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/042_01_01",
+      "doc": "Check that you can delete a context source registration subscription",
+      "tags": [
+        "5_11_6",
+        "csrsub-delete"
+      ],
+      "setup": "Setup Initial Context Source Registration Subscription",
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Context Source Registration Subscription with Response Status Code set to 204     and\n        Retrieve Context Source Registration Subscription with Response Status Code set to ${response1.status_code}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'DELETE'\n        Delete Context Source Registration Subscription with id set to '${subscription_id}'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "csourceSubscriptions/{subscription_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/DeleteContextSourceRegistrationSubscription",
+  "robotfile": "042_01"
+}

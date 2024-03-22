@@ -6,8 +6,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Test Setup          Setup Initial Entity
+Test Teardown       Delete Initial Entity
 Test Template       Retrieve Available Attributes
 
 
@@ -20,7 +20,8 @@ ${filename}=                building-simple-attributes-sample.json
 025_01_01 WithoutJsonLdContext
     [Tags]    ed-attrs    5_7_8
     ${EMPTY}    types/expectations/attribute-list-025-01-01-expectation.json
-025_01_02 WithJsonLdContext    [Tags]    ed-attrs    5_7_8
+025_01_02 WithJsonLdContext
+    [Tags]    ed-attrs    5_7_8
     ${ngsild_test_suite_context}    types/expectations/attribute-list-025-01-02-expectation.json
 
 
@@ -28,11 +29,12 @@ ${filename}=                building-simple-attributes-sample.json
 Retrieve Available Attributes
     [Documentation]    Check that you can retrieve a list of NGSI-LD attributes
     [Arguments]    ${context}    ${expectation_file}
-    ${response}=    Retrieve Attributes    ${context}
+    ${response}=    Retrieve Attributes
+    ...    context=${context}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing AttributeList element    ${expectation_file}    ${response.json()}
 
-Setup Initial Entities
+Setup Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity Selecting Content Type
     ...    ${filename}
@@ -41,5 +43,5 @@ Setup Initial Entities
     ...    ${ngsild_test_suite_context}
     Set Test Variable    ${entity_id}
 
-Delete Initial Entities
-    Delete Entity by Id Returning Response    ${entity_id}
+Delete Initial Entity
+    Delete Entity by Id    ${entity_id}

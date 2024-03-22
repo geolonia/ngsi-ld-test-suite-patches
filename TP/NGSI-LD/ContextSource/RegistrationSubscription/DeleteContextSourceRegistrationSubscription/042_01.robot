@@ -5,7 +5,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubsc
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Context Source Registration Subscriptions
+Test Setup          Setup Initial Context Source Registration Subscription
 
 
 *** Variables ***
@@ -19,14 +19,14 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
     [Tags]    csrsub-delete    5_11_6
     ${response}=    Delete Context Source Registration Subscription    ${subscription_id}
     Check Response Status Code    204    ${response.status_code}
-    ${response}=    Retrieve Context Source Registration Subscription
-    ...    ${subscription_id}
+    ${response1}=    Retrieve Context Source Registration Subscription
+    ...    subscription_id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
-    Check SUT Not Containing Resource    ${response.status_code}
+    Check SUT Not Containing Resource    ${response1.status_code}
 
 
 *** Keywords ***
-Setup Initial Context Source Registration Subscriptions
+Setup Initial Context Source Registration Subscription
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
     Create Context Source Registration Subscription    ${subscription_payload}

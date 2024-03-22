@@ -19,7 +19,7 @@ ${subscription_fragment}=       subscriptions/fragments/subscription-update-samp
 *** Test Cases ***
 044_02_01 Endpoint /subscriptions/{subscriptionId}
     [Documentation]    Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type
-    [Tags]    sub-update    6_3_4
+    [Tags]    sub-update    cb-mergepatch    6_3_4
     ${response}=    Update Subscription
     ...    ${subscription_id}
     ...    ${subscription_fragment}

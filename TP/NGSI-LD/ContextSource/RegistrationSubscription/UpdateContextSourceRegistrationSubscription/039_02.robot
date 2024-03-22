@@ -17,7 +17,6 @@ ${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/s
     ${subscription_update_fragment}=    Load Test Sample    ${subscription_update_fragment_file_path}
     ${response}=    Update Context Source Registration Subscription    invalidUri    ${subscription_update_fragment}
     Check Response Status Code    400    ${response.status_code}
-    Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response.json()}
-    ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+    Check Response Body Containing ProblemDetails Element
+    ...    response_body=${response.json()}
+    ...    problem_type=${ERROR_TYPE_BAD_REQUEST_DATA}

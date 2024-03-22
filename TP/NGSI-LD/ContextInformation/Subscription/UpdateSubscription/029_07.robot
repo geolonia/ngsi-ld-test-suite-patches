@@ -16,7 +16,8 @@ ${subscription_payload_file_path}=      subscriptions/subscription-inactive-samp
 
 
 *** Test Cases ***    SUBSCRIPTION_UPDATE_FRAGMENT_FILE_PATH
-029_07_01 ActiveTrue    [Tags]    sub-update    5_8_2
+029_07_01 ActiveTrue
+    [Tags]    sub-update    5_8_2
     subscriptions/fragments/subscription-isActive-true-update-sample.json
 
 
@@ -29,8 +30,12 @@ Activate Paused Subscription With isActive Member
     ...    ${subscription_update_fragment_file_path}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
-    ${response}=    Retrieve Subscription    ${subscription_id}
-    Check Response Body Containing an Attribute set to    status    ${response.json()}    active
+    ${response1}=    Retrieve Subscription
+    ...    id=${subscription_id}
+    Check Response Body Containing an Attribute set to
+    ...    expected_attribute_name=status
+    ...    response_body=${response1.json()}
+    ...    expected_attribute_value=active
 
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}

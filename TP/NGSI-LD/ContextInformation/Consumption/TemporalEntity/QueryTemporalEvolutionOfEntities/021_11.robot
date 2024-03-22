@@ -6,8 +6,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProv
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Test Setup          Setup Initial Temporal Entities
+Test Teardown       Delete Initial Temporal Entities
 Test Template       Query the temporal evolution of entities with a limit to the number of entities to be retrieved
 
 
@@ -40,7 +40,7 @@ Query the temporal evolution of entities with a limit to the number of entities 
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Number Of Entities    Vehicle    ${limit}    ${response.json()}
 
-Setup Initial Entities
+Setup Initial Temporal Entities
     ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     ${third_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
@@ -57,7 +57,7 @@ Setup Initial Entities
     Set Test Variable    ${second_temporal_entity_representation_id}
     Set Test Variable    ${third_temporal_entity_representation_id}
 
-Delete Initial Entities
+Delete Initial Temporal Entities
     Delete Temporal Representation Of Entity    ${first_temporal_entity_representation_id}
     Delete Temporal Representation Of Entity    ${second_temporal_entity_representation_id}
     Delete Temporal Representation Of Entity    ${third_temporal_entity_representation_id}

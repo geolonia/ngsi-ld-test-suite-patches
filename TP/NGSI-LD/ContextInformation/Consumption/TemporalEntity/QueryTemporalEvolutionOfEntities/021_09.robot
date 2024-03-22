@@ -6,8 +6,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProv
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Test Setup          Setup Initial Temporal Entities
+Test Teardown       Delete Initial Temporal Entities
 Test Template       Query the temporal evolution of entities matching the given NGSI-LD geo-query
 
 
@@ -19,9 +19,11 @@ ${expectation_file}=                vehicles-temporal-representation-021-09-expe
 
 
 *** Test Cases ***    GEOREL    GEOMETRY    COORDINATES    GEOPROPERTY    EXPECTATION_FILE
-021_09_01 Near Point    [Tags]    te-query    5_7_4
+021_09_01 Near Point
+    [Tags]    te-query    5_7_4
     near;maxDistance==2000    Point    [-8.503,41.202]    ${EMPTY}    vehicles-temporal-representation-021-09-01-expectation.jsonld
-021_09_02 Within Polygon    [Tags]    te-query    5_7_4
+021_09_02 Within Polygon
+    [Tags]    te-query    5_7_4
     contains    Polygon    [[[-13.503,47.202],[6.541, 52.961],[20.37,44.653],[9.46,32.57],[-13.503,32.57],[-13.503,47.202]]]    location    vehicles-temporal-representation-021-09-02-expectation.jsonld
 
 
@@ -46,7 +48,7 @@ Query the temporal evolution of entities matching the given NGSI-LD geo-query
     ...    ${temporal_entities_representation_ids}
     ...    ${response.json()}
 
-Setup Initial Entities
+Setup Initial Temporal Entities
     ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     Create Temporal Representation Of Entity
@@ -58,6 +60,6 @@ Setup Initial Entities
     Set Test Variable    ${first_temporal_entity_representation_id}
     Set Test Variable    ${second_temporal_entity_representation_id}
 
-Delete Initial Entities
+Delete Initial Temporal Entities
     Delete Temporal Representation Of Entity    ${first_temporal_entity_representation_id}
     Delete Temporal Representation Of Entity    ${second_temporal_entity_representation_id}

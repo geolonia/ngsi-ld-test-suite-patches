@@ -10,9 +10,12 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 040_02_01 Retrieve Context Source Registration Subscription With An Invalid Id
     [Documentation]    Check that you cannot retrieve a context source registration subscription with an invalid URI, an error of type BadRequestData shall be raised
     [Tags]    csrsub-retrieve    5_11_4
-    ${response}=    Retrieve Context Source Registration Subscription    invalidUri
+    ${response}=    Retrieve Context Source Registration Subscription
+    ...    subscription_id=invalidUri
+
     Check Response Status Code    400    ${response.status_code}
-    Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response.json()}
-    ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+    Check Response Reason set to    ${response.reason}    Bad Request
+    Check Response Headers Containing Content-Type set to    ${CONTENT_TYPE_JSON}    ${response.headers}
+    Check Response Body Containing ProblemDetails Element
+    ...    response_body=${response.json()}
+    ...    problem_type=${ERROR_TYPE_BAD_REQUEST_DATA}

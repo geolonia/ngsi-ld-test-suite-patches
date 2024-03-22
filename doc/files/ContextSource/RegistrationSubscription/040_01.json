@@ -1,0 +1,38 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/040_01",
+  "test_objective": "Check that you can retrieve a context source registration subscription",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.4",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.11.4"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Initial Context Source Registration Subscription",
+    "Delete Created Context Source Registration Subscription"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a Context Source Registration Subscription (CSRS1)\n}",
+  "test_cases": [
+    {
+      "name": "040_01_01 Retrieve Context Source Registration Subscription",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/040_01_01",
+      "doc": "Check that you can retrieve a context source registration subscription",
+      "tags": [
+        "5_11_4",
+        "csrsub-retrieve"
+      ],
+      "setup": "Setup Initial Context Source Registration Subscription",
+      "teardown": "Delete Created Context Source Registration Subscription",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Context Source Registration Subscription with Response Status Code set to 200     and\n        Retrieve Context Source Registration Subscription with Response reason set to 'OK'     and\n        Retrieve Context Source Registration Subscription with The response headers Link is set to 'expected_link_header=${expected link header}'     and\n        Retrieve Context Source Registration Subscription with Check Created Resource Set To and\n            Query Parameter: 'created_resource' set to 'expectation_payload' and\n            Query Parameter: 'response_body' set to 'response.json()' and\n            Query Parameter: 'ignored_keys' set to 'ignored_attributes' list of keys     and\n        Retrieve Context Source Registration Subscription with The dictionary `${response.json()}' might contain the key 'lastNotification'     and\n        Retrieve Context Source Registration Subscription with The dictionary `${response.json()}' might contain the key 'lastFailure'     and\n        Retrieve Context Source Registration Subscription with The dictionary `${response.json()}' might contain the key 'lastSuccess'     and\n        Retrieve Context Source Registration Subscription with The dictionary `${response.json()}' might contain the key 'timesSent'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'GET'\n        Retrieve Context Source Registration Subscription with data: and\n    Query Parameter: subscription id set to '${subscription_id}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "GET",
+      "endpoint": "csourceSubscriptions/{subscription_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/RetrieveContextSourceRegistrationSubscription",
+  "robotfile": "040_01"
+}

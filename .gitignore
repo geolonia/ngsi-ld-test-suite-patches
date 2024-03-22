@@ -3,4 +3,4 @@ results
 *.pyc
 *.http
 .vscode/
-.idea
+.venv

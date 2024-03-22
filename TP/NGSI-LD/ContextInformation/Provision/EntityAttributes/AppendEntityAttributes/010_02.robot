@@ -5,6 +5,10 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Setup          Create Initial Entity
+Test Teardown       Delete Initial Entity
+Test Template       Append Attributes
+
 
 *** Variables ***
 ${vehicle_id_prefix}=               urn:ngsi-ld:Vehicle:
@@ -14,15 +18,11 @@ ${status_code}=                     400
 ${invalid_fragment_filename}=       invalid-fragment.jsonld
 
 
-*** Test Cases ***
+*** Test Cases ***    ENTITY_INVALID_ID
 010_02_01 Append entity attributes if the entity Id is not present
-    Append Attributes    ${EMPTY}
-
+    ${EMPTY}
 010_02_02 Append entity attributes if the Entity Id is not a valid URI
-    Append Attributes    thisisaninvaliduri
-
-010_02_03 Append entity attributes with invalid entity fragments
-    Append entity attributes with invalid entity fragments
+    thisisaninvaliduri
 
 
 *** Keywords ***
@@ -30,34 +30,22 @@ Append Attributes
     [Documentation]    Check that you cannot append entity attributes with invalid/missing id or invalid request body
     [Tags]    ea-append    5_6_3
     [Arguments]    ${entity_invalid_id}
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${response}=    Create Entity Selecting Content Type
-    ...    ${filename}
-    ...    ${entity_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
     ${response}=    Append Entity Attributes    ${entity_invalid_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
+    [Teardown]    Delete Entity by Id    ${entity_id}
 
-Append entity attributes with invalid entity fragments
-    [Documentation]    Check that you cannot append entity attributes with invalid entity fragments
-    [Tags]    ea-append    5_6_3
+Create Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Append Entity Attributes
-    ...    ${entity_id}
-    ...    ${invalid_fragment_filename}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    ${status_code}    ${response.status_code}
-    Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_INVALID_REQUEST}
-    Check Response Body Title When Using Session Request    ${response.json()}
-    [Teardown]    Delete Entity by Id Returning Response    ${entity_id}
+    Set Test Variable    ${entity_id}
+
+Delete Initial Entity
+    Delete Entity by Id    ${entity_id}

@@ -22,12 +22,25 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
     Check Response Status Code    201    ${response.status_code}
     Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
-    ${response}=    Retrieve Context Source Registration Subscription
-    ...    ${subscription_id}
+    ${response1}=    Retrieve Context Source Registration Subscription
+    ...    subscription_id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    ${ignored_attributes}=    Create List    ${status_regex_expr}
-    Check Created Resource Set To    ${subscription_payload}    ${response.json()}    ${ignored_attributes}
+
+    # We need to ignore the Additional Members ('lastFailure', 'lastNotification', 'timesFailed', 'timesSent')
+    ${ignored_attributes}=    Create List
+    ...    ${status_regex_expr}
+    ...    ${lastfailure_regex_expr}
+    ...    ${lastNotification_regex_expr}
+    ...    ${timesFailed_regex_expr}
+    ...    ${timesSent_regex_expr}
+
+    Check Created Resource Set To    ${subscription_payload}    ${response1.json()}    ${ignored_attributes}
+
+    Check Dictionary Might Contain Additional Members of the NotificationParams    ${response1.json()}    lastNotification
+    Check Dictionary Might Contain Additional Members of the NotificationParams    ${response1.json()}    lastFailure
+    Check Dictionary Might Contain Additional Members of the NotificationParams    ${response1.json()}    lastSuccess
+    Check Dictionary Might Contain Additional Members of the NotificationParams    ${response1.json()}    timesSent
 
 
 *** Keywords ***

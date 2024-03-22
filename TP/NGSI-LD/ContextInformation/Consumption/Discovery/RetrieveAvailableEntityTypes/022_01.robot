@@ -22,7 +22,8 @@ ${second_filename}=         vehicle-simple-attributes-sample.json
 022_01_01 WithoutJsonLdContext
     [Tags]    ed-types    5_7_5
     ${EMPTY}    types/expectations/entity-type-list-022-01-01-expectation.json
-022_01_02 WithJsonLdContext    [Tags]    ed-types    5_7_5
+022_01_02 WithJsonLdContext
+    [Tags]    ed-types    5_7_5
     ${ngsild_test_suite_context}    types/expectations/entity-type-list-022-01-02-expectation.json
 
 
@@ -30,7 +31,8 @@ ${second_filename}=         vehicle-simple-attributes-sample.json
 Retrieve Available Entity Types
     [Documentation]    Check that you can retrieve a list of NGSI-LD entity types
     [Arguments]    ${context}    ${expectation_file}
-    ${response}=    Retrieve Entity Types    ${context}
+    ${response}=    Retrieve Entity Types
+    ...    context=${context}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing EntityTypeList element    ${expectation_file}    ${response.json()}
 
@@ -51,5 +53,5 @@ Setup Initial Entities
     Set Test Variable    ${second_entity_id}
 
 Delete Initial Entities
-    Delete Entity by Id Returning Response    ${first_entity_id}
-    Delete Entity by Id Returning Response    ${second_entity_id}
+    Delete Entity by Id    ${first_entity_id}
+    Delete Entity by Id    ${second_entity_id}

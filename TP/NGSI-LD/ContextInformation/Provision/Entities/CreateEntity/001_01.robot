@@ -42,16 +42,20 @@ Create Entity Scenarios
     Check Response Status Code    201    ${response.status_code}
     Check Response Headers Containing URI set to    ${entity_id}    ${response.headers}
     ${created_entity}=    Load Test Sample    entities/${filename}    ${entity_id}
-    IF    '${content_type}'=='application/json'
-        ${response}=    Retrieve Entity by Id    ${entity_id}    ${content_type}
+    IF    '${content_type}' == 'application/json'
+        ${response1}=    Retrieve Entity by Id
+        ...    id=${entity_id}
+        ...    accept=${content_type}
     END
-    IF    '${content_type}'=='application/ld+json'
-        ${response}=    Retrieve Entity by Id
-        ...    ${entity_id}
-        ...    ${content_type}
+    IF    '${content_type}' == 'application/ld+json'
+        ${response1}=    Retrieve Entity by Id
+        ...    id=${entity_id}
+        ...    accept=${content_type}
         ...    context=${ngsild_test_suite_context}
     END
-    Check Created Resource Set To    ${created_entity}    ${response.json()}
+    Check Created Resource Set To
+    ...    created_resource=${created_entity}
+    ...    response_body=${response1.json()}
 
 Delete Initial Entity
     Delete Entity by Id    ${entity_id}

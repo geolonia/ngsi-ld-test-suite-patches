@@ -6,7 +6,6 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
 Test Teardown       Delete Initial Entities
 Test Template       Batch Upsert Non-existing And Existing Entities Scenarios
 
@@ -31,15 +30,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 Batch Upsert Non-existing And Existing Entities Scenarios
     [Documentation]    Check that you can upsert a batch of non-existing and existing entities
     [Arguments]    ${filename}
-    ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Set Test Variable    ${new_entity_id}
-    ${new_entity}=    Load Entity    ${filename}    ${new_entity_id}
-    ${first_existing_entity}=    Load Entity    ${filename}    ${first_existing_entity_id}
-    ${second_existing_entity}=    Load Entity    ${filename}    ${second_existing_entity_id}
-    @{entities_to_be_upserted}=    Create List
-    ...    ${new_entity}
-    ...    ${first_existing_entity}
-    ...    ${second_existing_entity}
+    Setup Initial Entities    ${filename}
     ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}
     @{expected_entities_ids}=    Create List    ${new_entity_id}
     Check Response Status Code    201    ${response.status_code}
@@ -49,23 +40,35 @@ Batch Upsert Non-existing And Existing Entities Scenarios
     ...    ${first_existing_entity_id}
     ...    ${second_existing_entity_id}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{upserted_entities_ids}
-    ${response}=    Query Entities
-    ...    ${expected_updated_entities_ids}
-    ...    Building
+    ${response1}=    Query Entities
+    ...    entity_ids=${expected_updated_entities_ids}
+    ...    entity_types=Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    Check Updated Resources Set To    ${entities_to_be_upserted}    ${response.json()}
+    Check Updated Resources Set To    ${entities_to_be_upserted}    ${response1.json()}
 
 Setup Initial Entities
+    [Arguments]    ${filename}
     ${first_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${second_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity    building-minimal-sample.jsonld    ${first_existing_entity_id}
     Create Entity    building-minimal-sample.jsonld    ${second_existing_entity_id}
     Set Test Variable    ${first_existing_entity_id}
     Set Test Variable    ${second_existing_entity_id}
+    ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    Set Test Variable    ${new_entity_id}
+    ${new_entity}=    Load Entity    ${filename}    ${new_entity_id}
+    ${first_existing_entity}=    Load Entity    ${filename}    ${first_existing_entity_id}
+    ${second_existing_entity}=    Load Entity    ${filename}    ${second_existing_entity_id}
+    @{entities_to_be_upserted}=    Create List
+    ...    ${new_entity}
+    ...    ${first_existing_entity}
+    ...    ${second_existing_entity}
+    Set Test Variable    ${entities_to_be_upserted}
 
 Delete Initial Entities
-    @{entities_ids_to_be_deleted}=    Create List    ${first_existing_entity_id}    ${second_existing_entity_id}
-    Batch Delete Entities    @{entities_ids_to_be_deleted}
-    @{entities_ids_to_be_deleted}=    Create List    ${new_entity_id}
-    Batch Delete Entities    @{entities_ids_to_be_deleted}
+    @{entities_ids_to_be_deleted}=    Create List
+    ...    ${first_existing_entity_id}
+    ...    ${second_existing_entity_id}
+    ...    ${new_entity_id}
+    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}

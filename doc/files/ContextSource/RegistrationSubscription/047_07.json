@@ -1,0 +1,55 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/047_07",
+  "test_objective": "Check that a cSourceNotification shall only be sent if and only if the status of the corresponding subscription is active, neither paused or expired",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.7",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.11.7"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Do Not Receive cSourceNotification If Subscription Status Is Not Active",
+    "Setup Initial Context Source Registration Subscription",
+    "Delete Created Context Source Registration And Subscription"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a Context Source Registration Subscription (CSRS1)\n}",
+  "test_cases": [
+    {
+      "name": "047_07_01 PausedSubscription",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/047_07_01",
+      "doc": "Check that a cSourceNotification shall only be sent if and only if the status of the corresponding subscription is active, neither paused or expired",
+      "tags": [
+        "5_11_7",
+        "csrsub-notification"
+      ],
+      "setup": "Setup Initial Context Source Registration Subscription",
+      "teardown": "Delete Created Context Source Registration And Subscription",
+      "template": "Do Not Receive cSourceNotification If Subscription Status Is Not Active",
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        Notification received Waiting for no Notification data and\n    Query Parameter: timeout set to '5'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Update Context Source Registration Subscription with subscription id set to '${subscription_id}' and subscription update fragment set to '${subscription_update_fragment}'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "csourceSubscriptions/{subscription_id}"
+    },
+    {
+      "name": "047_07_02 ExpiredSubscription",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/047_07_02",
+      "doc": "Check that a cSourceNotification shall only be sent if and only if the status of the corresponding subscription is active, neither paused or expired",
+      "tags": [
+        "5_11_7",
+        "csrsub-notification"
+      ],
+      "setup": "Setup Initial Context Source Registration Subscription",
+      "teardown": "Delete Created Context Source Registration And Subscription",
+      "template": "Do Not Receive cSourceNotification If Subscription Status Is Not Active",
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        Notification received Waiting for no Notification data and\n    Query Parameter: timeout set to '5'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Update Context Source Registration Subscription with subscription id set to '${subscription_id}' and subscription update fragment set to '${subscription_update_fragment}'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "csourceSubscriptions/{subscription_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour",
+  "robotfile": "047_07"
+}

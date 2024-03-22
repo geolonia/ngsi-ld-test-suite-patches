@@ -17,15 +17,15 @@ ${entity_payload_filename}=     building-simple-attributes-sample.jsonld
 
 
 *** Test Cases ***    FILENAME    UPDATE_FRAGMENT_FILENAME    EXPECTED_STATUS
-005_02_01 EntityWithSimpleProperties
+005_02_01 EntityWithExistingAttributes
     [Tags]    be-update    5_6_9
-    building-simple-attributes-sample.jsonld    fragmentEntities/empty-fragment.json    207
-005_02_02 EntityWithSimpleRelationships
+    building-simple-attributes-sample.jsonld    fragmentEntities/empty-fragment.json    204
+005_02_02 EntityWithNewAttribute
     [Tags]    be-update    5_6_9
     building-relationship-sample.jsonld    fragmentEntities/locatedAt-fragment.json    204
-005_02_03 EntityWithRelationshipsProperties
+005_02_03 EntityWithNewAndExistingAttribute
     [Tags]    be-update    5_6_9
-    building-relationship-of-property-sample.jsonld    fragmentEntities/empty-fragment.json    207
+    building-location-attribute-sample.jsonld    fragmentEntities/location-fragment.json    204
 
 
 *** Keywords ***
@@ -45,12 +45,12 @@ Batch Update Entity With NoOverwrite Option Scenarios
     ${second_updated_entity}=    Upsert Element In Entity    ${second_created_entity}    ${update_fragment}
     @{updated_entities}=    Create List    ${first_updated_entity}    ${second_updated_entity}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{entities_ids_to_be_updated}
-    ${response}=    Query Entities
-    ...    ${expected_entities_ids}
-    ...    Building
+    ${response1}=    Query Entities
+    ...    entity_ids=${expected_entities_ids}
+    ...    entity_types=Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    Check Updated Resources Set To    ${updated_entities}    ${response.json()}
+    Check Updated Resources Set To    ${updated_entities}    ${response1.json()}
 
 Setup Initial Entities
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
@@ -62,4 +62,4 @@ Setup Initial Entities
 
 Delete Initial Entities
     @{entities_ids_to_be_deleted}=    Create List    ${first_entity_id}    ${second_entity_id}
-    Batch Delete Entities    @{entities_ids_to_be_deleted}
+    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}

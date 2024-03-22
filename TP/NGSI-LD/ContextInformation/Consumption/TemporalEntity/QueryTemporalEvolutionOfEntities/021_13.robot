@@ -6,8 +6,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProv
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
-Test Teardown       Delete Initial Entities
+Test Setup          Setup Initial Temporal Entities
+Test Teardown       Delete Initial Temporal Entities
 Test Template       Query the temporal evolution of entities using the entityOperations method
 
 
@@ -18,9 +18,11 @@ ${second_vehicle_payload_file}=     2020-09-vehicule-temporal-representation-sam
 
 
 *** Test Cases ***    PAYLOAD_FILE    EXPECTATION_FILE
-021_13_01 After    [Tags]    te-query    5_7_4
+021_13_01 After
+    [Tags]    te-query    5_7_4
     entity-operations-after-query.jsonld    vehicles-temporal-representation-021-13-01-expectation.jsonld
-021_13_02 Before    [Tags]    te-query    5_7_4
+021_13_02 Before
+    [Tags]    te-query    5_7_4
     entity-operations-before-query.jsonld    vehicles-temporal-representation-021-13-02-expectation.jsonld
 
 
@@ -29,7 +31,7 @@ Query the temporal evolution of entities using the entityOperations method
     [Documentation]    Check that you can query the temporal evolution of entities using the entityOperations method
     [Arguments]    ${payload_file}    ${expectation_file}
     ${response}=    Query Temporal Representation Of Entities Via Post
-    ...    ${payload_file}
+    ...    query_file_name=${payload_file}
     ...    context=${ngsild_test_suite_context}
     @{temporal_entities_representation_ids}=    Create List
     ...    ${first_temporal_entity_representation_id}
@@ -40,7 +42,7 @@ Query the temporal evolution of entities using the entityOperations method
     ...    ${temporal_entities_representation_ids}
     ...    ${response.json()}
 
-Setup Initial Entities
+Setup Initial Temporal Entities
     ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     Create Temporal Representation Of Entity
@@ -52,6 +54,6 @@ Setup Initial Entities
     Set Test Variable    ${first_temporal_entity_representation_id}
     Set Test Variable    ${second_temporal_entity_representation_id}
 
-Delete Initial Entities
+Delete Initial Temporal Entities
     Delete Temporal Representation Of Entity    ${first_temporal_entity_representation_id}
     Delete Temporal Representation Of Entity    ${second_temporal_entity_representation_id}

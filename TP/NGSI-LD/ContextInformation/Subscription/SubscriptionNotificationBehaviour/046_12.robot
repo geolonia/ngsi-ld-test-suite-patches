@@ -23,7 +23,7 @@ ${notification_server_send_url}=        http://${notification_server_host}:${not
 *** Test Cases ***
 046_12_01 Check that lastNotification is updated
     [Documentation]    The status, lastNotification and lastSuccess members shall be updated with expected value and dates. This test will check these formats.
-    [Tags]    sub-notification    5_8_6    046_12
+    [Tags]    sub-notification    5_8_6
 
     Add Initial Entity
     Sleep    1s
@@ -34,14 +34,14 @@ ${notification_server_send_url}=        http://${notification_server_host}:${not
     Wait for notification    timeout=${10}
 
     ${response}=    Retrieve Subscription
-    ...    ${subscription_id}
+    ...    id=${subscription_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    context=${ngsild_test_suite_context}
 
     ${notification_info}=    Get Value From Json    ${response.json()}    $.notification
 
     Dictionary Should Contain Key    ${notification_info}[0]    status
-    Should Be Equal    ok    ${notification_info}[0][status]
+    Should be Equal    ok    ${notification_info}[0][status]
 
     Dictionary Should Contain Key    ${notification_info}[0]    lastNotification
     ${last_notification_date}=    Parse Ngsild Date    ${notification_info}[0][lastNotification]

@@ -33,14 +33,14 @@ ${expectation_file_path}=                       csourceSubscriptions/expectation
 *** Keywords ***
 Query Context Source Registration Subscriptions With Limit Parameter
     [Documentation]    Check that you can query context source registration subscriptions with a limit parameter and it will be the maximum number of subscriptions to be retrieved
-    [Arguments]    ${limit}    ${expectation_subscription_number}
+    [Arguments]    ${limit}    ${expected_subscription_number}
     ${response}=    Query Context Source Registration Subscriptions
     ...    context=${ngsild_test_suite_context}
     ...    limit=${limit}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Number Of Entities
     ...    Subscription
-    ...    ${expectation_subscription_number}
+    ...    ${expected_subscription_number}
     ...    ${response.json()}
 
 Setup Initial Context Source Registration Subscriptions

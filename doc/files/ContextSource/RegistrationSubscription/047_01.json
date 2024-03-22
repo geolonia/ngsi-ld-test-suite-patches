@@ -1,0 +1,38 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REGSUB/047_01",
+  "test_objective": "Check that if the created context source registration subscription defines a timeInterval member, a cSourceNotification will be sent periodically, initially on subscription and when the time interval is reached",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.11.7",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.11.7"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Initial Context Source Registration",
+    "Delete Created Context Source Registration And Subscription"
+  ],
+  "teardown": "Delete Created Context Source Registration And Subscription",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "047_01_01 Receive cSourceNotification Periodically And Initially On Subscription",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REGSUB/047_01_01",
+      "doc": "Check that if the created context source registration subscription defines a timeInterval member, a cSourceNotification will be sent periodically, initially on subscription and when the time interval is reached",
+      "tags": [
+        "5_11_7",
+        "csrsub-notification"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the client at '${endpoint}' receives a valid Notification containing:\n        Notification received After waiting '15' seconds\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceSubscriptions'\n        method set to 'POST'\n        Create Context Source Registration Subscription with filename set to '${subscription_payload}', accept set to '${EMPTY}', and content-type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "csourceSubscriptions"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/RegistrationSubscription/ContextSourceRegistrationSubscriptionNotificationBehaviour",
+  "robotfile": "047_01"
+}

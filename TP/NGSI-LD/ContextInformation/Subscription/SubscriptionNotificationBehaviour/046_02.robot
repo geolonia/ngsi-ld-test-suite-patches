@@ -22,11 +22,8 @@ ${entity_building_filepath}=            building-simple-attributes-sample.jsonld
 *** Test Cases ***
 046_02_01 Check that a notification is sent on the timeInterval
     [Documentation]    If a Subscription defines a timeInterval member, a Notification shall be sent periodically, when the time interval (in seconds) specified in such value field is reached, regardless of Attribute changes.
-    [Tags]    sub-notification    5_8_6    046_02
-
-    Add Initial Entity
-    Sleep    1s
-    Setup Initial Subscriptions
+    [Tags]    sub-notification    5_8_6
+    ${response}=    Setup Initial Subscriptions
 
     ${notification}    ${headers}=    Wait for notification    timeout=${15}
 
@@ -42,31 +39,32 @@ ${entity_building_filepath}=            building-simple-attributes-sample.jsonld
 
 
 *** Keywords ***
+Before Test
+    Start Local Server    ${notification_server_host}    ${notification_server_port}
+
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
     ...    ${subscription_payload_file_path}
     ...    ${subscription_id}
     ...    ${notification_server_send_url}
     ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
-    Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
+    Set Suite Variable    ${entity_id}
     Set Suite Variable    ${subscription_id}
 
-Delete Initial Subscriptions
-    Delete Subscription    ${subscription_id}
-
-Add Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity    ${entity_building_filepath}    ${entity_id}
-    Set Suite Variable    ${entity_id}
-
-Delete Initial Entity
-    Delete Entity by Id    ${entity_id}
-
-Before Test
-    Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Sleep    1s
+    Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
+    Sleep    1s
 
 After Test
     Delete Initial Subscriptions
     Delete Initial Entity
     Stop Local Server
+
+Delete Initial Subscriptions
+    Delete Subscription    ${subscription_id}
+
+Delete Initial Entity
+    Delete Entity by Id    ${entity_id}

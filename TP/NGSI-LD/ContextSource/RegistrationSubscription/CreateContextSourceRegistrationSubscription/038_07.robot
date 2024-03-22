@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubsc
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Context Source Registration Subscriptions
-Suite Teardown      Delete Initial Context Source Registration Subscriptions
+Test Setup          Setup Initial Context Source Registration Subscription
+Test Teardown       Delete Initial Context Source Registration Subscription
 
 
 *** Variables ***
@@ -21,18 +21,17 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
     Check Response Status Code    409    ${response.status_code}
-    Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response.json()}
-    ...    ${ERROR_TYPE_ALREADY_EXISTS}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+    Check Response Body Containing ProblemDetails Element
+    ...    response_body=${response.json()}
+    ...    problem_type=${ERROR_TYPE_ALREADY_EXISTS}
 
 
 *** Keywords ***
-Setup Initial Context Source Registration Subscriptions
+Setup Initial Context Source Registration Subscription
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
     Create Context Source Registration Subscription    ${subscription_payload}
     Set Suite Variable    ${subscription_id}
 
-Delete Initial Context Source Registration Subscriptions
+Delete Initial Context Source Registration Subscription
     Delete Context Source Registration Subscription    ${subscription_id}

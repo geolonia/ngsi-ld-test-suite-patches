@@ -23,11 +23,8 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 *** Test Cases ***
 046_03_01 Check that a notification is sent with all entities
     [Documentation]    A notification with all subscribed Entities will be included if query or geoquery are not defined.
-    [Tags]    sub-notification    5_8_6    046_03
-
-    Add Initial Entity
-    Sleep    1s
-    Setup Initial Subscriptions
+    [Tags]    sub-notification    5_8_6
+    ${response}=    Setup Initial Subscriptions
 
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
@@ -42,15 +39,29 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 
 
 *** Keywords ***
+Before Test
+    Start Local Server    ${notification_server_host}    ${notification_server_port}
+
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
     ...    ${subscription_payload_file_path}
     ...    ${subscription_id}
     ...    ${notification_server_send_url}
     ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
-    Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
+    Set Suite Variable    ${entity_id}
     Set Suite Variable    ${subscription_id}
+
+    Create Entity    ${entity_building_filepath}    ${entity_id}
+    Sleep    1s
+    Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
+    Sleep    1s
+
+After Test
+    Delete Initial Subscriptions
+    Delete Initial Entity
+    Stop Local Server
 
 Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}
@@ -62,11 +73,3 @@ Add Initial Entity
 
 Delete Initial Entity
     Delete Entity by Id    ${entity_id}
-
-Before Test
-    Start Local Server    ${notification_server_host}    ${notification_server_port}
-
-After Test
-    Delete Initial Subscriptions
-    Delete Initial Entity
-    Stop Local Server

@@ -6,7 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Setup Initial Entities
+Test Setup          Setup Initial Entity
 Test Teardown       Delete Initial Entities
 Test Template       Batch Upsert Entities With Update Option Scenarios
 
@@ -47,20 +47,20 @@ Batch Upsert Entities With Update Option Scenarios
     ${old_updated_entity}=    Upsert Element In Entity    ${old_entity}    ${update_fragment}
     @{updated_entities}=    Create List    ${new_entity}    ${old_updated_entity}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{entities_ids_to_be_upserted}
-    ${response}=    Query Entities
-    ...    ${expected_updated_entities_ids}
-    ...    Building
+    ${response1}=    Query Entities
+    ...    entity_ids=${expected_updated_entities_ids}
+    ...    entity_types=Building
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    Check Updated Resources Set To    ${updated_entities}    ${response.json()}
+    Check Updated Resources Set To    ${updated_entities}    ${response1.json()}
 
-Setup Initial Entities
+Setup Initial Entity
     ${existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Create Entity    ${existing_entity_payload_filename}    ${existing_entity_id}
     Set Test Variable    ${existing_entity_id}
 
 Delete Initial Entities
     @{entities_ids_to_be_deleted}=    Create List    ${existing_entity_id}
-    Batch Delete Entities    @{entities_ids_to_be_deleted}
+    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}
     @{entities_ids_to_be_deleted}=    Create List    ${new_entity_id}
-    Batch Delete Entities    @{entities_ids_to_be_deleted}
+    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}

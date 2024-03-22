@@ -39,7 +39,8 @@ Create Context Source Registration Subscription
 Delete Context Source Registration Subscription
     [Arguments]    ${subscription_id}
 
-    ${response}=    DELETE    ${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
+    ${response}=    DELETE
+    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     Output    ${response}    Delete Context Source Registration Subscription
     RETURN    ${response}
 

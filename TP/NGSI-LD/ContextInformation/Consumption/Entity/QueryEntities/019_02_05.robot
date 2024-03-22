@@ -22,7 +22,7 @@ ${parking_entity_type}=     https://ngsi-ld-test-suite/context#OffStreetParking
 
 *** Test Cases ***
 019_02_05 Query several entities via POST Interaction asking for a GeoJSON representation
-    [Documentation]    Check that you can query entitites via POST Interaction asking for a GeoJSON representation
+    [Documentation]    Check that you can query entities via POST Interaction asking for a GeoJSON representation
     [Tags]    e-query    5_7_2
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${vehicle_entity_type}    ${parking_entity_type}
     ${response}=    Query Entities Via POST
@@ -53,5 +53,5 @@ Create Entities
     Check Response Status Code    201    ${response.status_code}
 
 Delete Entities
-    Delete Entity by Id Returning Response    ${vehicle_entity_id}
-    Delete Entity by Id Returning Response    ${parking_entity_id}
+    Delete Entity by Id    ${vehicle_entity_id}
+    Delete Entity by Id    ${parking_entity_id}

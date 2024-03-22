@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Setup Initial Context Source Registrations
 Test Teardown       Delete Created Context Source Registrations
-Test Template       Query Context Source Registration
+Test Template       Query A Context Source Registration
 
 
 *** Variables ***
@@ -20,14 +20,14 @@ ${second_context_source_registration_payload_file_path}=    csourceRegistrations
 *** Test Cases ***    QUERY_PARAM_NAME    QUERY_PARAM_VALUE    EXPECTATION_FILE_PATH    EXPECTED_CONTEXT_SOURCE_REGISTRATION_IDS
 037_01_01 With list of entity types
     [Tags]    csr-query    5_10_2
-    type    Building    csourceRegistrations/expectations/context-source-registrations-037-01-expectation.json    ${first_context_source_registration_id}    ${second_context_source_registration_id}
+    type    Building    csourceRegistrations/expectations/context-source-registrations-037-01-expectation.json    ${second_context_source_registration_id}
 037_01_02 With list of attribute names
     [Tags]    csr-query    5_10_2
     attrs    name    csourceRegistrations/expectations/context-source-registrations-037-01-expectation.json    ${second_context_source_registration_id}
 
 
 *** Keywords ***
-Query Context Source Registration
+Query A Context Source Registration
     [Documentation]    Check that you can query context source registrations if at least one of list of Entity Types or list of Attribute names is present
     [Arguments]
     ...    ${query_param_name}

@@ -1,0 +1,56 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/TE/009_02",
+  "test_objective": "Check that an error is raised if you delete a temporal entity with an empty/invalid EntityId",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.16",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.6.16"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Delete Temporal Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "009_02_01 Delete a temporal representation of an entity with an empty entity id",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TE/009_02_01",
+      "doc": "Check that an error is raised if you delete a temporal entity with an empty/invalid EntityId",
+      "tags": [
+        "te-delete",
+        "5_6_16"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Delete Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Temporal Representation Of Entity With Returning Response with Response Status Code set to 405     and\n        Delete Temporal Representation Of Entity With Returning Response with Response Body containing the type '${EMPTY}'     and\n        Delete Temporal Representation Of Entity With Returning Response with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'DELETE'\n        Delete Temporal Representation Of Entity With Returning Response with id set to '${EMPTY}'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    },
+    {
+      "name": "009_02_02 Delete a temporal representation of an entity with an invalid entity id",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/TE/009_02_02",
+      "doc": "Check that an error is raised if you delete a temporal entity with an empty/invalid EntityId",
+      "tags": [
+        "te-delete",
+        "5_6_16"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Delete Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Temporal Representation Of Entity With Returning Response with Response Status Code set to 400     and\n        Delete Temporal Representation Of Entity With Returning Response with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Delete Temporal Representation Of Entity With Returning Response with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'DELETE'\n        Delete Temporal Representation Of Entity With Returning Response with id set to 'invalidId'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    }
+  ],
+  "permutations": [
+    "then",
+    "when"
+  ],
+  "robotpath": "ContextInformation/Provision/TemporalEntity/DeleteTemporalRepresentationOfEntity",
+  "robotfile": "009_02"
+}

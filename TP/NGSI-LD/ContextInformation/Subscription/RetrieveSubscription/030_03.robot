@@ -19,7 +19,9 @@ ${expectation_file_path}=               subscriptions/expectations/subscriptions
 030_03_01 Retrieve Subscription
     [Documentation]    Check that you can retrieve a subscription
     [Tags]    sub-retrieve    5_8_3
-    ${response}=    Retrieve Subscription    ${subscription_id}    context=${ngsild_test_suite_context}
+    ${response}=    Retrieve Subscription
+    ...    id=${subscription_id}
+    ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Subscription element
     ...    ${expectation_file_path}

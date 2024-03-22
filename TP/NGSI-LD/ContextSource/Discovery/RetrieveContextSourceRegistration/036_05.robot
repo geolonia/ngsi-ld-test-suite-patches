@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Setup Initial Context Source Registration
 Test Teardown       Delete Created Context Source Registration
-Test Template       Check JSON-LD resolution when retrieving a context source registration
+Test Template       Review JSON-LD resolution when retrieving a context source registration
 
 
 *** Variables ***
@@ -28,10 +28,12 @@ ${expectation_file_path_expanded}=                      csourceRegistrations/exp
 
 
 *** Keywords ***
-Check JSON-LD resolution when retrieving a context source registration
+Review JSON-LD resolution when retrieving a context source registration
     [Documentation]    Check that the JSON-LD @context is obtained from a Link header if present and that the default JSON-LD @context is used if not present
     [Arguments]    ${context}    ${expected_payload}
-    ${response}=    Retrieve Context Source Registration    ${context_source_registration_id}    context=${context}
+    ${response}=    Retrieve Context Source Registration
+    ...    context_source_registration_id=${context_source_registration_id}
+    ...    context=${context}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Context Source Registration element
     ...    ${expected_payload}

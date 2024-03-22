@@ -1,4 +1,4 @@
-import re
+from re import compile
 from dataclasses import dataclass
 import dateTimeUtils
 from deepdiff import DeepDiff
@@ -21,7 +21,7 @@ def wrap_context_to_list(context):
         return context
 
 
-core_context_pattern = re.compile('https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v\d\.\d.jsonld')
+core_context_pattern = compile(r'https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v\d\.\d.jsonld')
 
 
 class AnyCoreContextVersionOperator:
@@ -34,7 +34,6 @@ class AnyCoreContextVersionOperator:
 
 
 class StringOrSingleListContextOperator:
-
     def match(self, level) -> bool:
         # The context can be at the root of the element to check... or deeper when we have list of elements
         # So match on the end of the path
@@ -97,6 +96,7 @@ def compare_dictionaries_ignoring_keys(expected, actual, exclude_regex_paths, ig
 
     if len(res) > 0:
         output_pretty_diff(expected, actual, Theme(added="", removed="", reset=""))
+
     return res
 
 

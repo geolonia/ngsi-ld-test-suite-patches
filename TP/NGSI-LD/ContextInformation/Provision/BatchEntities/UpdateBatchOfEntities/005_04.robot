@@ -8,9 +8,11 @@ Test Template       Batch Update Entity With Invalid Request Scenarios
 
 
 *** Test Cases ***    FILENAME    PROBLEM_TYPE
-005_04_01 InvalidJson    [Tags]    be-update    5_6_9
+005_04_01 InvalidJson
+    [Tags]    be-update    5_6_9
     batch/invalid-json-sample.jsonld    ${ERROR_TYPE_INVALID_REQUEST}
-005_04_02 InvalidJsonLd    [Tags]    be-update    5_6_9
+005_04_02 InvalidJsonLd
+    [Tags]    be-update    5_6_9
     batch/invalid-json-ld-sample.jsonld    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 

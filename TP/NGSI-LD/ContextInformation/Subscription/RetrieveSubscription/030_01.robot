@@ -7,8 +7,9 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Test Template       Retrieve Subscription With Invalid Id
 
 
-*** Test Cases ***    id
-030_01_01 InvalidId    [Tags]    sub-retrieve    5_8_3
+*** Test Cases ***    ID
+030_01_01 InvalidId
+    [Tags]    sub-retrieve    5_8_3
     InvalidUri
 
 
@@ -16,7 +17,8 @@ Test Template       Retrieve Subscription With Invalid Id
 Retrieve Subscription With Invalid Id
     [Documentation]    Check that you cannot retrieve a subscription: If the subscription Id is not present or it is not a valid URI, then an error of type BadRequestData shall be raised
     [Arguments]    ${id}
-    ${response}=    Retrieve Subscription    ${id}
+    ${response}=    Retrieve Subscription
+    ...    id=${id}
     Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}

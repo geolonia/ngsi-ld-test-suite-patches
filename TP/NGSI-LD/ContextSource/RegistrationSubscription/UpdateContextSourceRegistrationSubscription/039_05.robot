@@ -5,8 +5,8 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubsc
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Context Source Registration Subscriptions
-Suite Teardown      Delete Initial Context Source Registration Subscriptions
+Test Setup          Setup Initial Context Source Registration Subscriptions
+Test Teardown       Delete Initial Context Source Registration Subscriptions
 
 
 *** Variables ***
@@ -23,10 +23,9 @@ ${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/s
     ...    ${subscription_id}
     ...    ${subscription_update_fragment_file_path}
     Check Response Status Code    400    ${response.status_code}
-    Check RL Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response.json()}
-    ...    ${ERROR_TYPE_INVALID_REQUEST}
-    Check RL Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+    Check Response Body Containing ProblemDetails Element
+    ...    response_body=${response.json()}
+    ...    problem_type=${ERROR_TYPE_BAD_REQUEST_DATA}
 
 
 *** Keywords ***

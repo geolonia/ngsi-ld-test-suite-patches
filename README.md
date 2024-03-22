@@ -30,11 +30,11 @@ In order to install the ETSI NGSI-LD Test Suite, download the configuration scri
 
 - For MacOS and Ubuntu, download the following file:
 
-```$ curl https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/windows11/scripts/configure.sh > configure.sh```
+```$ curl https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/scripts/configure.sh > configure.sh```
 
 - For Windows, using Powershell download the following file (curl is an alias for Invoke-WebRequest in Powershell):
 
-```> curl https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/windows11/scripts/configure.ps1 > configure.ps1```
+```> curl https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/scripts/configure.ps1 > configure.ps1```
 
 - For MacOS and Ubuntu, be sure that you have the proper execution permissions of the file and the user is included 
 in the sudoers group, then execute the following script:
@@ -63,7 +63,7 @@ In the `resources/variables.py` file, configure the following parameters:
 
 - `url` : It is the url of the context broker which is to be tested (including the `/ngsi-ld/v1` path, 
 e.g., http://localhost:8080/ngsi-ld/v1).
--`temporal_api_url` : This is the url of the GET temporal operation API, in case that a Context Broker splits 
+- `temporal_api_url` : This is the url of the GET temporal operation API, in case that a Context Broker splits 
 this portion of the API (e.g., http://localhost:8080/ngsi-ld/v1).
 - `ngsild_test_suite_context` : This is the url of the default context used in the ETSI NGSI-LD requests 
 (e.g., 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld').
@@ -84,6 +84,20 @@ Docker host.
 ``` ifconfig docker0 | grep inet | awk '{print $2}' ``` and that IP is the one that you need to use for 
 notification purposes.
 
+Optionally, there are some extra variables that can be used during the generation of execution results of the Test 
+Case with a specific Robot Listener class to automatically generate a GitHub Issue in the GitHub repository of the 
+Context Broker of a failed Test Case. In case that you cannot or do not want to use this functionality, delete those 
+variables from the file.
+
+As an explanation of the process, the GitHub Issue will be created if there is no other issue in the repository with
+the same name or there is an issue with the same name, but it is not closed.
+
+In order to create these issues, the [GitHub REST API](https://docs.github.com/en/rest) is used. For this purpose, 
+the authentication process is using a personal access token. The needed variables are the following:
+* `github_owner`: Your GitHub user account. 
+* `github_broker_repo` : The corresponding URL of the Context Broker repository.
+* `github_token` : Your personal access token. Please take a look to the GitHub documentation if you want to generate 
+your own [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
 
 ## Execute the NGSI-LD Test Suite
 
@@ -100,7 +114,7 @@ Now, you can launch the tests with the following command in MacOS or Linux:
 
 ```$ robot --outputdir ./results .```  
 
-For Windows system, you can lauch the tests with the following command:
+For Windows system, you can launch the tests with the following command:
 
 ```> robot --outputdir .\results .\TP\NGSI-LD```
 
@@ -131,10 +145,107 @@ test launch command followed by the file name.
 > > .venv\scripts\deactivate.bat
 > ```
 
+## Test Suite Management (tsm)
+
+The `tsm` script is designed to facilitate the selection and execution of the Test Suite, especially if not all the 
+endpoints of the API have been implemented for a specific Context Broker. This script provides a set of commands 
+to enable or disable Test Cases, Robot Test Suites or Collections (Robot Test Suite Groups), visualize the current 
+status of the different Test Cases, execute the selected Test Cases and perform other related operations as described 
+below.
+
+The `tsm` script generates a pickle file named `tsm.pkl`, which stores the tuples list corresponding to each Test Case 
+with the following information:
+
+    (switch, running status, Test Case long name)
+
+where the values and their meaning are the following:
+* **switch**:
+  * `ON`: the Test Case is on, which means that it will be executed by the script.
+  * `OFF`: the Test Case is off, and therefore is not selected to be executed by the script.
+  * `MISSING`: the Test Case is not anymore in the Test Suite Structure. An update operation should be run to update 
+  the `tsm.pkl` with the current set of available Test Cases in the filesystem.
+  * `NEW`:  new Test Case discovered by the tsm after an update operation.
+* **status**:
+  * `PASSED`: the robot framework executes the Test Case with result PASS.
+  * `FAILED`: the robot framework executes the Test Case with result FAIL.
+  * `PENDING`: the Test Case is pending to be executed by the robot framework.
+* **test case long name**: the Test Case long name set by robot framework based on the Robot Test Suite number and 
+the Test Case name (e.g., NGSILD.032 02.032_02_01 Delete Unknown Subscription)
+
+### Installation
+The `tsm` script is integrated with arguments auto-completion for bash, therefore it is needed the installation of 
+the argcomplete python package on your system:
+
+    pip install argcomplete
+
+and to enable the completion after the installation executing the following command:
+
+    activate-global-python-argcomplete 
+
+and then 
+
+    eval "$(register-python-argcomplete tsm)"
+
+Now, it is possible to autocomplete the commands and show possible options executing the script. Also –help argument 
+is available to obtain more information about the options.
+
+### Execution
+
+The tsm cases update command updates the `tsm.pkl` file with all the Robot Test Suite under the local path. If the 
+pickle file does not exist, it is created. After the creation of this file, it is possible to execute the script 
+to maintain and run the selected Test Cases from the pickle file. The list of commands is the following:
+
+* **Test Cases (cases)**
+  * Switch ON Test Cases
+  
+        tsm cases on [test_cases]
+  
+  * Switch OFF Test Cases
+
+        tsm cases off [test_cases]
+        tsm cases off "NGSILD.032 01.032_01_02 InvalidId"
+  
+  * List Test Cases based on the specific flag.
+        
+        tsm cases list [on, off, missing, new, passed, failed, pending, all]
+        tsm cases list ./TP/NGSI-LD/CommonBehaviours
+  
+  * Run Test Cases that are enabled
+
+        tsm cases run [on, off, missing, new, passed, failed, pending, [test_cases]]
+        tsm cases run NGSILD.048\ 01.048_01_06\ Endpoint\ post\ /temporal/entities/
+        tsm cases run pending
+      
+  * Update the pickle file with the current Test Cases
+
+        tsm cases update
+       
+  * Clean Test Cases, remove the Test Cases that were marked as MISSING
+
+        tsm cases clean
+
+* **Robot Test Suites (suites)**
+  * Switch ON Robot Test Suites
+
+        tsm suites on [suites]
+       
+  * Switch OFF Robot Test Suites
+
+        tsm suites off [suites]
+
+* **Test Collections (collections)**
+  * Switch ON Test Collections
+
+        tsm collections on [collections]
+        tsm collections on ./TP/NGSI-LD/CommonBehaviours
+
+  * Switch OFF Test Collections
+
+        tsm collections off [collections]
 
 ## Contribute to the Test Suite
 
-In order to contribute to the ETSI NGSI-LD Test Suite, you recommend the installation of an IDE with the corresponding
+In order to contribute to the ETSI NGSI-LD Test Suite, it is recommended to install an IDE with the corresponding
 Robot Framework. Our recommendations are:
 
 - PyCharm
@@ -146,9 +257,108 @@ Robot Framework. Our recommendations are:
 
 - Install [Robot Framework Language Server](https://plugins.jetbrains.com/plugin/16086-robot-framework-language-server)
 
-- Define as variable the path of the working directory. In Settings > Languages & Frameworks > Robot Framework (Project), 
-insert the following: `{"EXECDIR": "{path}/auth-test-suite"}`
+- Define as variable the path of the working directory. In Settings > Languages & Frameworks > Robot Framework 
+(Project), insert the following: `{"EXECDIR": "{path}/ngsi-ld-test-suite"}`.
 
+### Develop a new Test Case
+
+In order to develop a new Test Case, some rules and conventions have to be followed.
+
+#### Test Case Template
+
+The following template shows the typical structure of a Test Case. It can be used as a template when creating a new
+Test Case.
+
+```
+*** Settings ***
+Documentation       {Describe the behavior that is being checked by this Test Case}
+
+Resource            ${EXECDIR}/resources/any/necessary/resource/file
+
+# For both setup and teardown steps, try as possible to use Keyword names already declared in doc/analysis/initial_setup.py
+Suite Setup         {An optional setup step to create data necessary for the Test Case}
+Suite Teardown      {An optional teardown step to delete data created in the setup step}
+Test Template       {If the Test Case uses permutations, the name of the Keyword that is called for each permutation}
+
+
+*** Variables ***
+${my_variable}=             my_variable
+
+
+*** Test Cases ***    PARAM_1    PARAM_2
+XXX_YY_01 Purpose of the first permutation
+    [Tags]    {resource_request_reference}    {section_reference_1}    {section_reference_2}
+    param_1_value    param_2_value
+XXX_YY_02 Purpose of the second permutation
+    [Tags]    {resource_request_reference}    {section_reference_1}    {section_reference_2}
+    param_1_value    param_2_value
+
+
+*** Keywords ***
+{Keyword name describing what the Test Case is doing} 
+    [Documentation]    {Not sure this documentation brings something?}
+    [Arguments]    ${param_1}    ${param_2}
+    
+    # Call operation that is being tested, passing any needed argument
+
+    # Perform checks on the response that has been received from the operation
+    
+    # Optionally call another endpoint to do extra checks (e.g. check an entity has really been created)
+
+# Add there keywords for setup and teardown steps
+# Setup step typically creates data necessary for the Test Case and set some variables that will be used by the Test Case
+# using Set Suite Variable or Set Test Variable keywords
+# Teardown step must delete any data that has been created in setup step
+```
+
+Where :
+
+- The possible values for `{resource_request_reference}` are defined in DGR/CIM-0015v211, section 6.1
+- The meaning of the `{section_reference_x}` tags is defined in DGR/CIM-0015v211, section 6.2. A Test Case can reference
+  more than one section in the specification (for instance, a Test Case whose goal is to check that scopes are correctly
+  created when an entity is created should reference sections 4.18 NGSI-LD Scopes and 5.6.1 Create Entity of the 
+  RGS/CIM-009v131 document)
+
+#### Generate the documentation
+
+The Conformance Tests include an option to automatically generate the documentation of them. If new tests are developed 
+but include the Check and Request operations already defined, it is not needed to modify the automatic generation system. 
+Nevertheless, if there are new operations to check and/or new request operations to develop in the Conformance Tests, 
+it is needed to describe them so that the automatic documentation generated covers these new operations.
+
+Additionally, there is defined a Unit Test mechanism to identify if new Test Suites are included in the system 
+(See `doc/tests/test_CheckTests.py`) and if there were some changes in any Test Suite (See the `doc/tests/other test_*.py`). 
+In these cases, it is needed to provide the corresponding information in the Python code:
+
+- When a new Test Case is created, it has to be declared in the corresponding `doc/tests/test_{group}.py` Python file
+  (where `{group}` represents the group of operations and how they are defined in the ETSI RGS/CIM-0012v211 document). 
+  Complementary to this, updates have to be done:
+  - In `doc/analysis/initial_setup.py` if it uses a new keyword to set up the initial state of the Test Case
+  - In `doc/analysis/requests.py` if it updates an endpoint operation, for instance by adding support for a new request
+    parameter (in `self.op` with the list and position of parameters, in the method that pretty prints the operation in 
+    the automated generation of the documentation associated with the Test Cases. If the positions array is empty, it 
+    means that all the parameters will be taken into consideration)
+  - Run the documentation generation script (`python doc/generateDocumentationData.py {new_tc_id}`) for the new Test 
+    Case and copy the generated JSON file in the folder containing all files for the given group and subgroup 
+    (`cp doc/results/{new_tc_id}.json doc/files/{group}/{subgroup}`)
+- When a new global Keyword is created, it has to be declared in the corresponding Python files:
+  - In `doc/analysis/checks.py` if it is an assertion type keyword (in `self.checks` to reference the method that pretty
+    prints the operation and `self.args` to identify the position of the arguments) and the corresponding method to 
+    provide the description of this new operation
+  - In `doc/analysis/requests.py` if it is an endpoint operation (in `self.op` with the list and position of parameters,
+    in `self.description` to reference the method that pretty print the operation, and add the method that pretty prints
+    the operation)
+- When a new permutation is added in an existing Test Case, run the documentation generation script 
+  (`python doc/generateDocumentationData.py {tc_id}`) for the Test Case and copy the generated JSON file in the 
+  folder containing all files for the given group and subgroup (`cp doc/results/{tc_id}.json doc/files/{group}/{subgroup}`)
+- When a new directory containing Test Cases is created, it has to be declared in `doc/generaterobotdata.py` along with
+  its acronym
+
+Finally, check that everything is OK by running the unit tests:
+
+```shell
+python -m unittest discover -s ./doc/tests -t ./doc
+```
 
 ### Run configurations (PyCharm)
 
@@ -225,7 +435,18 @@ And, if you want to generate a documentation for the Test Cases:
 
 ```$ python3  -m robot.testdoc  TP/NGSI-LD  api_docs/TestCases.html```
 
-### Coding Style of Test Suites
+## Generate output file details only for failed tests
+
+It is possible to generate a report only for the failed tests through the use of a specific listener in the execution
+of the robot framework. For example, if you want to execute the test suite number 043 and generate the report, you can
+execute the following command:
+
+```robot  --listener libraries/ErrorListener.py --outputdir ./results ./TP/NGSI-LD/CommonBehaviours/043.robot```
+
+It will generate a specific `errors.log` file into the `results` folder with the description of the different steps 
+developed and the mismatched observed on them.
+
+## Coding Style of Test Suites
 
 And if you want to tidy (code style) the Test Suites:
 

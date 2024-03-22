@@ -29,4 +29,4 @@ ${fragment_filename}=       vehicle-attribute-to-add-fragment.jsonld
 
 *** Keywords ***
 Delete Initial Entities
-    Delete Entity by Id Returning Response    ${entity_id}
+    Delete Entity by Id    ${entity_id}

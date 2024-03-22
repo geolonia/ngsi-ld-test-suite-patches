@@ -1,0 +1,38 @@
+{
+  "tp_id": "TP/NGSI-LD/CS/REG/034_04",
+  "test_objective": "Check that you cannot update a context source registration under some conditions",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.9.3",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.9.3"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Initial Context Source Registration",
+    "Delete Initial Context Source Registration"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT contains a Context Source Registration \n        with id equal to ${context_source_registration_id}\n        and payload set to ${context_source_registration_payload_file_path}\n}",
+  "test_cases": [
+    {
+      "name": "034_04_01 Update a context source registration if the request body is invalid",
+      "permutation_tp_id": "TP/NGSI-LD/CS/REG/034_04_01",
+      "doc": "Check that you cannot update a context source registration if the request body is invalid",
+      "tags": [
+        "5_9_3",
+        "csr-update"
+      ],
+      "setup": "Create Initial Context Source Registration",
+      "teardown": "Delete Initial Context Source Registration",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration From File with Response Status Code set to 400     and\n        Update Context Source Registration From File with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Update Context Source Registration From File with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with CSR Id set to '${registration_id}' and subscription update from file 'context-source-registration-invalid-json-sample.json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "csourceRegistrations/{context_source_registration_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextSource/Registration/UpdateContextSourceRegistration",
+  "robotfile": "034_04"
+}

@@ -5,73 +5,49 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.reso
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Suite Setup         Setup Initial Entities
+Test Setup          Create Initial Context Source Registration
+Test Teardown       Delete Initial Context Source Registration
+Test Template       Update A Context Source
 
 
 *** Variables ***
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
-${filename}=                            context-source-registration-simple-sample.jsonld
+${filename}=                            context-source-registration-sample.jsonld
 ${registration_payload_file_path}=      context-source-registration-invalid-sample.jsonld
+${reason_400}=                          Bad Request
 
 
-*** Test Cases ***
-034_02_01 Update a context source registration by id if the Id is not present
-    [Tags]    csr-update    5_9_3
-    Update Context Source    ${EMPTY}    fragments/context-source-registration-different-type-sample.jsonld
-
-034_02_02 Update a context source registration by id if the Id is not a valid URI
-    [Tags]    csr-update    5_9_3
-    Update Context Source    invalidURI    fragments/context-source-registration-different-type-sample.jsonld
-
-034_02_03 Update a context source registration if the request body is not of the same data type
-    [Tags]    csr-update    5_9_3
-    Update Context Source
-    ...    ${valid_registration_id}
-    ...    fragments/context-source-registration-different-type-sample.jsonld
-
-034_02_04_Update a context source registration if you attempt to remove a mandatory property
-    [Tags]    csr-update    5_9_3
-    Update Context Source    ${valid_registration_id}    context-source-registration-invalid-structure-sample.jsonld
-
-034_02_05_Update a context source registration if the request body is invalid
-    [Tags]    csr-update    5_9_3
-    Update a context source registration if the request body is invalid
+*** Test Cases ***    REGISTRATION_ID    FRAGMENT_FILENAME    EXPECTED_STATUS_CODE    PROBLEM_TYPE
+034_02_01 Update a context source registration by id if the Id is not a valid URI
+    invalidURI    fragments/context-source-registration-different-type-sample.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
+034_02_02 Update a context source registration if the request body is not of the same data type
+    ${valid_registration_id}    fragments/context-source-registration-different-type-sample.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
+034_02_03 Update a context source registration if you attempt to remove a mandatory property
+    ${valid_registration_id}    context-source-registration-invalid-sample.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 
 *** Keywords ***
-Update Context Source
+Update A Context Source
     [Documentation]    Check that you cannot update a context source registration under some conditions
-    [Arguments]    ${registration_id}    ${fragment_filename}
-    ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
-    ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${valid_registration_id}
-    ${response}=    Create Context Source Registration With Return    ${updated_payload}
-    Check Response Status Code    201    ${response.status_code}
+    [Tags]    csr-update    5_9_3
+    [Arguments]    ${registration_id}    ${fragment_filename}    ${expected_status_code}    ${problem_type}
     ${fragment}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${fragment_filename}
-    ${fragment_with_id}=    Update Value To JSON    ${fragment}    $..id    ${registration_id}
+    ${fragment_with_id}=    Update Value To JSON    ${fragment}    $.id    ${registration_id}
     ${response}=    Update Context Source Registration With Return
     ...    ${registration_id}
     ...    ${fragment_with_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    400    ${response.status_code}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Delete Context Source Registration    ${valid_registration_id}
+    Check Response Status Code    ${expected_status_code}    ${response.status_code}
+    Check Response Reason set to    ${response.reason}    ${reason_400}
+    Check Response Body Containing ProblemDetails Element    ${response.json()}    ${problem_type}
 
-Update a context source registration if the request body is invalid
-    [Documentation]    Check that you cannot update a context source registration if the request body is invalid
-    [Tags]    csr-update
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
-    ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
-    ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
-    ${response}=    Create Context Source Registration With Return    ${updated_payload}
-    Check Response Status Code    201    ${response.status_code}
-    ${response}=    Update Context Source Registration
-    ...    ${registration_id}
-    ...    ${registration_payload_file_path}
-    Check Response Status Code    <Response [400]>    ${response.json()}
-    Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Title When Using Session Request    ${response.json()}
-    [Teardown]    Delete Context Source Registration    ${registration_id}
-
-Setup Initial Entities
+Create Initial Context Source Registration
     ${valid_registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${valid_registration_id}
+    ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
+    ${updated_payload}=    Update Value To JSON    ${payload}    $.id    ${valid_registration_id}
+    ${response}=    Create Context Source Registration With Return    ${updated_payload}
+    Check Response Status Code    201    ${response.status_code}
+
+Delete Initial Context Source Registration
+    Delete Context Source Registration    ${valid_registration_id}
