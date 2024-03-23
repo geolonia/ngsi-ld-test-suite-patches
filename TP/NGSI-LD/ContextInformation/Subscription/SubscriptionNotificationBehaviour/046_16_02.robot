@@ -1,0 +1,56 @@
+*** Settings ***
+Documentation       If a subscription defines an entity type selection query, a notification shall be sent whenever an entity matches the query.
+
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+Resource            ${EXECDIR}/resources/NotificationUtils.resource
+
+Suite Setup         Before Test
+Suite Teardown      After Test
+
+
+*** Variables ***
+${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
+${subscription_payload_file_path}=      subscriptions/subscription-building-entities-type-selection.jsonld
+${vehicle_id_prefix}=                   urn:ngsi-ld:Vehicle:
+${notification_server_send_url}=        http://${notification_server_host}:${notification_server_port}/notify
+${entity_vehicle_filepath}=             vehicle-simple-attributes-sample.jsonld
+${content_type}=                        application/ld+json
+
+
+*** Test Cases ***
+046_16_02 Check that a notification is not sent if the entity type does not match the entity type selection
+    [Documentation]    If a subscription defines an entity type selection query, a notification shall not be sent if the entity type does not match the query
+    [Tags]    sub-notification    5_8_6    since_v1.5.1
+
+    ${vehicle_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${response}=    Create Entity Selecting Content Type
+    ...    ${entity_vehicle_filepath}
+    ...    ${vehicle_id}
+    ...    ${content_type}
+    Set Suite Variable    ${vehicle_id}
+
+    Wait for no notification
+
+
+*** Keywords ***
+Setup Initial Subscription
+    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
+    ...    ${subscription_payload_file_path}
+    ...    ${subscription_id}
+    ...    ${notification_server_send_url}
+    Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
+    Set Suite Variable    ${subscription_id}
+
+Before Test
+    Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Sleep    1s
+    Setup Initial Subscription
+
+After Test
+    Delete Subscription    ${subscription_id}
+    Delete Entity by Id    ${vehicle_id}
+    Stop Local Server
