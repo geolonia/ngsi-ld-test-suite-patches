@@ -244,6 +244,24 @@ class Requests:
             'Setup Initial Subscriptions': {
                 'positions': [],
                 'params': []
+            },
+            'List @contexts': {
+                'positions': [0, 1],
+                'params': ['details', 'kind']
+
+            },
+            'Serve a @context': {
+                'positions': [0, 1],
+                'params': ['contextId', 'details']
+
+            },
+            'Add a new @context': {
+                'positions': [0],
+                'params': ['filename']
+            },
+            'Delete a @context': {
+                'positions': [0],
+                'params': ['uri']
             }
         }
 
@@ -361,7 +379,15 @@ class Requests:
             'Query Temporal Representation Of Entities Via Post':
                 Requests.query_temporal_representation_of_entities_via_post,
             'Setup Initial Subscriptions':
-                Requests.setup_initial_subscriptions
+                Requests.setup_initial_subscriptions,
+            'List @contexts':
+                Requests.list_contexts,
+            'Serve a @context':
+                Requests.serve_a_context,
+            'Add a new @context':
+                Requests.add_a_new_context,
+            'Delete a @context':
+                Requests.delete_a_context
         }
 
         self.variables = variables
@@ -597,6 +623,42 @@ class Requests:
         else:
             raise Exception(f"ERROR, expected filename attribute, but received {kwargs}")
 
+    @staticmethod
+    def list_contexts(kwargs) -> str:
+        expected_parameters = ['details', 'kind']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "List @contexts:"
+        for key, value in kwargs.items():
+            match key:
+                case 'details':
+                    response = f"{response} and\n    Query Parameter: details set to '{value}'"
+                case 'kind':
+                    response = f"{response} and\n    Query Parameter: kind set to '{value}'"
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
+    def serve_a_context(kwargs) -> str:
+        if 'details' not in kwargs:
+            kwargs['details'] = '${EMPTY}'
+
+        response = f"Serve a @context with contextID '{kwargs['contextId']}' and details '{kwargs['details']}'"
+
+        return response
+
+    @staticmethod
+    def add_a_new_context(kwargs) -> str:
+        return f"Add a new @context based on the payload defined in the file {kwargs['filename']}"
+
+    @staticmethod
+    def delete_a_context(kwargs) -> str:
+        return f"Delete a @context whose 'URI' set to '{kwargs['uri']}'"
+
+    @staticmethod
     def create_context_source_registration(kwargs) -> str:
         if 'context_source_registration_payload' in kwargs:
             result = (f"Create Context Source Registration Request with Content-Type set to 'application/ld+json' "

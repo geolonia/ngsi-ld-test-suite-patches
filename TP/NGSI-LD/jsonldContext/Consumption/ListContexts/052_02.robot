@@ -1,0 +1,70 @@
+*** Settings ***
+Documentation       Check that you can list all the @context available in the broker with one add @context
+
+Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/HttpUtils.resource
+
+Test Setup          Create Initial @context
+Test Teardown       Delete Initial @context
+Test Template       List @contexts with one previous created @context
+
+
+*** Variables ***
+${first_filename}=      @context-minimal-valid.json
+${reason_200}=          OK
+${reason_204}=          No Content
+
+
+*** Test Cases ***    DETAILS    KIND    COUNT
+052_02_01 List @contexts with neither details or kind and with previously one add @context
+    [Tags]    ctx-list    5_13_3    since_v1.5.1
+    ${EMPTY}    ${EMPTY}    2
+052_02_02 List @contexts with no details and kind equal to hosted and with previously one add @context
+    [Tags]    ctx-list    5_13_3    since_v1.5.1
+    ${EMPTY}    Hosted    1
+052_02_03 List @contexts with no details and kind equal to cached and with previously one add @context
+    [Tags]    ctx-list    5_13_3    since_v1.5.1
+    ${EMPTY}    Cached    1
+052_02_04 List @contexts with no details and kind equal to implicitlycreated and with previously one add @context
+    [Tags]    ctx-list    5_13_3    since_v1.5.1
+    ${EMPTY}    ImplicitlyCreated    0
+052_02_05 List @contexts with details equal to false and no kind and with previously one add @context
+    [Tags]    ctx-list    5_13_3    since_v1.5.1
+    false    ${EMPTY}    2
+052_02_06 List @contexts with details equal to false and kind equal to hosted and with previously one add @context
+    [Tags]    ctx-list    5_13_3    since_v1.5.1
+    false    Hosted    1
+052_02_07 List @contexts with details equal to false and kind equal to cached abd with previously one add @context
+    [Tags]    ctx-list    5_13_3    since_v1.5.1
+    false    Cached    1
+052_02_08 List @contexts with details equal to false and kind equal to implicitlycreated and with previously one add @context
+    [Tags]    ctx-list    5_13_3    since_v1.5.1
+    false    ImplicitlyCreated    0
+
+
+*** Keywords ***
+Create Initial @context
+    ${response}=    Add a new @context    ${first_filename}
+    Check Response Status Code    201    ${response.status_code}
+    ${uri}=    Fetch Id From Response Location Header    ${response.headers}
+    @{uri_list}=    Create List
+    Append To List    ${uri_list}    ${uri}
+    Set Suite Variable    ${uri_list}
+
+List @contexts with one previous created @context
+    [Documentation]    Check that you can list @contexts
+    [Arguments]    ${details}    ${kind}    ${count}
+
+    ${response}=    List @contexts    ${details}    ${kind}
+
+    Check Response Status Code    200    ${response.status_code}
+    Check Response Reason set to    ${response.reason}    ${reason_200}
+    Check Context Response Body Containing a list of identifiers
+    ...    response_body=${response.json()}
+    ...    expected_length=${count}
+    ...    list_contexts=${uri_list}
+    ...    kind=${kind}
+
+Delete Initial @context
+    Delete a @context    ${uri_list[0]}

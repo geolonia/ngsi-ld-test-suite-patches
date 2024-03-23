@@ -1,0 +1,39 @@
+{
+  "tp_id": "TP/NGSI-LD/CTX/Prov/051_06",
+  "test_objective": "Delete a @context whose kind is ImplicitlyCreated without reload param",
+  "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.5",
+  "config_id": "",
+  "parent_release": "v1.5.1",
+  "clauses": [
+    "5.13.5"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create initial ImplicitlyCreated @context",
+    "Delete Initial @context Data"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT containing a ImplicitlyCreated @context created from a subscription query.\n            }",
+  "test_cases": [
+    {
+      "name": "051_06_01 Delete a @context whose kind is ImplicitlyCreated without reload param",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Prov/051_06_01",
+      "doc": "Check that we can delete a ImplicitlyCreated @context",
+      "tags": [
+        "5_13_5",
+        "ctx-serve",
+        "since_v1.5.1"
+      ],
+      "setup": "Create initial ImplicitlyCreated @context",
+      "teardown": "Delete Initial @context Data",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete a @context with Response Status Code set to 204     and\n        Delete a @context with Response reason set to 'No Content'     and\n        Delete a @context with Response does not contain a body\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts/{contextId}'\n        method set to 'DELETE'\n        Delete a @context whose 'URI' set to '${implicit_id}'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "jsonldContexts/{contextId}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "jsonldContext/Provision/DeleteContext",
+  "robotfile": "051_06"
+}

@@ -49,9 +49,9 @@ Delete Attribute From A Temporal Entity
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    instanceId    @context
     Check Updated Resource Set To
-    ...    ${temporal_entity_expectation_payload}
-    ...    ${response1.json()}
-    ...    ${ignored_attributes}
+    ...    updated_resource=${temporal_entity_expectation_payload}
+    ...    response_body=${response1.json()}
+    ...    ignored_keys=${ignored_attributes}
 
 Initialize Setup
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}

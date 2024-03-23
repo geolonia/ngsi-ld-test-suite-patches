@@ -1,0 +1,40 @@
+{
+  "tp_id": "TP/NGSI-LD/CTX/Cons/053_02",
+  "test_objective": "Check that you can serve a previous created @context with details equal to True",
+  "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.4",
+  "config_id": "",
+  "parent_release": "v1.5.1",
+  "clauses": [
+    "5.13.4"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Initial @context",
+    "Serve a @context with details equal to true",
+    "Delete Initial @context"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT containing a Hosted @context and the default Cached Core Context.\n        }",
+  "test_cases": [
+    {
+      "name": "053_02_01 Serve a @context with details set to True",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/053_02_01",
+      "doc": "Check that you can serve a @context with details",
+      "tags": [
+        "5_13_4",
+        "ctx-serve",
+        "since_v1.5.1"
+      ],
+      "setup": "Create Initial @context",
+      "teardown": "Delete Initial @context",
+      "template": "Serve a @context with details equal to true",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Serve a @context with Response Status Code set to 200     and\n        Serve a @context with Response reason set to 'OK'     and\n        Serve a @context with Response Header: Content-Type set to application/json     and\n        Serve a @context with Check the Body of the response should contain a @context with 'URL' key not Empty and 'string' type, with 'localId' key not Empty and 'string' type, with 'kind' key not Empty, 'string' type, and value set to 'Hosted', and 'timestamp and 'DateTime' format     and\n        Serve a @context with The Response Body `${response.json()}' might contain the key 'lastUsage'     and\n        Serve a @context with The Response Body `${response.json()}' might contain the key 'numberOfHits'     and\n        Serve a @context with The Response Body `${response.json()}' might contain the key 'extraInfo'     and\n        Serve a @context with Check that the only allowed keys in the response body of a @context are 'URL', 'localId', 'kind', 'timestamp', 'lastUsage', 'numberOfHits', 'extraInfo'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts/{contextId}'\n        method set to 'GET'\n        Serve a @context with contextID '${uri}' and details 'true'\n}",
+      "http_verb": "GET",
+      "endpoint": "jsonldContexts/{contextId}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "jsonldContext/Consumption/ServeContext",
+  "robotfile": "053_02"
+}

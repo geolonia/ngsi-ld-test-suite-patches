@@ -72,6 +72,9 @@ server to listen to notifications (the address must be accessible by the context
 Default value: `0.0.0.0` and `8085`.
 - `context_source_host` and `context_source_port` : The address and port used for the context source. 
 Default value: `0.0.0.0` and `8086`.
+- `context_server_host` and `context_server_port` : The address and port used for the context server provider. 
+Default value: `0.0.0.0` and `8087`.
+- `core_context`: The default cached core context used by the Brokers.
 
 When you execute locally the tests, you can leave the default values as they are. NGSI-LD Test Suite provides
 a mockup services to provide the notification functionality and therefore the notification_server_host can be

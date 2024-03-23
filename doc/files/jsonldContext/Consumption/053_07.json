@@ -1,0 +1,39 @@
+{
+  "tp_id": "TP/NGSI-LD/CTX/Cons/053_07",
+  "test_objective": "Check that we can serve a ImplicitlyCreated @context with details set to true",
+  "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.4",
+  "config_id": "",
+  "parent_release": "v1.5.1",
+  "clauses": [
+    "5.13.4"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create initial ImplicitlyCreated @context",
+    "Delete Initial @context Data"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT containing a ImplicitlyCreated @context created from a subscription query.\n            }",
+  "test_cases": [
+    {
+      "name": "053_07_01 Check that we can serve a ImplicitlyCreated @context with details set to true",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/053_07_01",
+      "doc": "Check that we can serve a ImplicitlyCreated @context with details set to true",
+      "tags": [
+        "5_13_4",
+        "since_v1.5.1",
+        "sub-create"
+      ],
+      "setup": "Create initial ImplicitlyCreated @context",
+      "teardown": "Delete Initial @context Data",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Serve a @context with Response Status Code set to 200     and\n        Serve a @context with Response reason set to 'OK'     and\n        Serve a @context with Response Header: Content-Type set to application/json     and\n        Serve a @context with Check the Body of the response should contain a @context with 'URL' key not Empty and 'string' type, with 'localId' key not Empty and 'string' type, with 'kind' key not Empty, 'string' type, and value set to 'ImplicitlyCreated', and 'timestamp and 'DateTime' format     and\n        Serve a @context with The Response Body `${response.json()}' might contain the key 'lastUsage'     and\n        Serve a @context with The Response Body `${response.json()}' might contain the key 'numberOfHits'     and\n        Serve a @context with The Response Body `${response.json()}' might contain the key 'extraInfo'     and\n        Serve a @context with Check that the only allowed keys in the response body of a @context are 'URL', 'localId', 'kind', 'timestamp', 'lastUsage', 'numberOfHits', 'extraInfo'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts/{contextId}'\n        method set to 'GET'\n        Serve a @context with contextID '${implicit_id}' and details 'true'\n}",
+      "http_verb": "GET",
+      "endpoint": "jsonldContexts/{contextId}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "jsonldContext/Consumption/ServeContext",
+  "robotfile": "053_07"
+}

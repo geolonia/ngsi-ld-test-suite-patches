@@ -1,0 +1,162 @@
+{
+  "tp_id": "TP/NGSI-LD/CTX/Cons/052_06",
+  "test_objective": "Check that you can list all the @context available in the broker with no previous add @context",
+  "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.3",
+  "config_id": "",
+  "parent_release": "v1.5.1",
+  "clauses": [
+    "5.13.3"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "List @contexts with no previous created @context",
+    "Create initial ImplicitlyCreated @context",
+    "Delete Initial @context Data"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT containing a ImplicitlyCreated @context created from a subscription query.\n            }",
+  "test_cases": [
+    {
+      "name": "052_06_01 List @contexts with neither details or kind and a created ImplicitlyCreated @context",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_06_01",
+      "doc": "Check that you can list @contexts",
+      "tags": [
+        "5_13_3",
+        "ctx-list",
+        "since_v1.5.1"
+      ],
+      "setup": "Create initial ImplicitlyCreated @context",
+      "teardown": "Delete Initial @context Data",
+      "template": "List @contexts with no previous created @context",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        List @contexts with Response Status Code set to 200     and\n        List @contexts with Response reason set to 'OK'     and\n        List @contexts with Check Context Response Body Containing a list of identifiers and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: expected_length set to '4' and\n            Query Parameter: list_contexts set to 'list_contexts'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts?${params_as_string}'\n        method set to 'GET'\n        List @contexts: and\n    Query Parameter: details set to '${EMPTY}' and\n    Query Parameter: kind set to '${EMPTY}'\n}",
+      "http_verb": "GET",
+      "endpoint": "jsonldContexts?${params_as_string}"
+    },
+    {
+      "name": "052_06_02 List @contexts with no details and kind set to hosted and a created ImplicitlyCreated @context",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_06_02",
+      "doc": "Check that you can list @contexts",
+      "tags": [
+        "5_13_3",
+        "ctx-list",
+        "since_v1.5.1"
+      ],
+      "setup": "Create initial ImplicitlyCreated @context",
+      "teardown": "Delete Initial @context Data",
+      "template": "List @contexts with no previous created @context",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        List @contexts with Response Status Code set to 200     and\n        List @contexts with Response reason set to 'OK'     and\n        List @contexts with Check Context Response Body Containing a list of identifiers and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: expected_length set to '0' and\n            Query Parameter: list_contexts set to 'list_contexts'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts?${params_as_string}'\n        method set to 'GET'\n        List @contexts: and\n    Query Parameter: details set to '${EMPTY}' and\n    Query Parameter: kind set to 'Hosted'\n}",
+      "http_verb": "GET",
+      "endpoint": "jsonldContexts?${params_as_string}"
+    },
+    {
+      "name": "052_06_03 List @contexts with no details and kind set to cached and a created ImplicitlyCreated @context",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_06_03",
+      "doc": "Check that you can list @contexts",
+      "tags": [
+        "5_13_3",
+        "ctx-list",
+        "since_v1.5.1"
+      ],
+      "setup": "Create initial ImplicitlyCreated @context",
+      "teardown": "Delete Initial @context Data",
+      "template": "List @contexts with no previous created @context",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        List @contexts with Response Status Code set to 200     and\n        List @contexts with Response reason set to 'OK'     and\n        List @contexts with Check Context Response Body Containing a list of identifiers and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: expected_length set to '3' and\n            Query Parameter: list_contexts set to 'list_contexts'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts?${params_as_string}'\n        method set to 'GET'\n        List @contexts: and\n    Query Parameter: details set to '${EMPTY}' and\n    Query Parameter: kind set to 'Cached'\n}",
+      "http_verb": "GET",
+      "endpoint": "jsonldContexts?${params_as_string}"
+    },
+    {
+      "name": "052_06_04 List @contexts with no details and kind set to implicitlycreated and a created ImplicitlyCreated @context",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_06_04",
+      "doc": "Check that you can list @contexts",
+      "tags": [
+        "5_13_3",
+        "ctx-list",
+        "since_v1.5.1"
+      ],
+      "setup": "Create initial ImplicitlyCreated @context",
+      "teardown": "Delete Initial @context Data",
+      "template": "List @contexts with no previous created @context",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        List @contexts with Response Status Code set to 200     and\n        List @contexts with Response reason set to 'OK'     and\n        List @contexts with Check Context Response Body Containing a list of identifiers and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: expected_length set to '1' and\n            Query Parameter: list_contexts set to 'list_contexts'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts?${params_as_string}'\n        method set to 'GET'\n        List @contexts: and\n    Query Parameter: details set to '${EMPTY}' and\n    Query Parameter: kind set to 'ImplicitlyCreated'\n}",
+      "http_verb": "GET",
+      "endpoint": "jsonldContexts?${params_as_string}"
+    },
+    {
+      "name": "052_06_05 List @contexts with details set to false and no kind and a created ImplicitlyCreated @context",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_06_05",
+      "doc": "Check that you can list @contexts",
+      "tags": [
+        "5_13_3",
+        "ctx-list",
+        "since_v1.5.1"
+      ],
+      "setup": "Create initial ImplicitlyCreated @context",
+      "teardown": "Delete Initial @context Data",
+      "template": "List @contexts with no previous created @context",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        List @contexts with Response Status Code set to 200     and\n        List @contexts with Response reason set to 'OK'     and\n        List @contexts with Check Context Response Body Containing a list of identifiers and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: expected_length set to '4' and\n            Query Parameter: list_contexts set to 'list_contexts'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts?${params_as_string}'\n        method set to 'GET'\n        List @contexts: and\n    Query Parameter: details set to 'false' and\n    Query Parameter: kind set to '${EMPTY}'\n}",
+      "http_verb": "GET",
+      "endpoint": "jsonldContexts?${params_as_string}"
+    },
+    {
+      "name": "052_06_06 List @contexts with details set to false and kind equal to hosted and a created ImplicitlyCreated @context",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_06_06",
+      "doc": "Check that you can list @contexts",
+      "tags": [
+        "5_13_3",
+        "ctx-list",
+        "since_v1.5.1"
+      ],
+      "setup": "Create initial ImplicitlyCreated @context",
+      "teardown": "Delete Initial @context Data",
+      "template": "List @contexts with no previous created @context",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        List @contexts with Response Status Code set to 200     and\n        List @contexts with Response reason set to 'OK'     and\n        List @contexts with Check Context Response Body Containing a list of identifiers and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: expected_length set to '0' and\n            Query Parameter: list_contexts set to 'list_contexts'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts?${params_as_string}'\n        method set to 'GET'\n        List @contexts: and\n    Query Parameter: details set to 'false' and\n    Query Parameter: kind set to 'Hosted'\n}",
+      "http_verb": "GET",
+      "endpoint": "jsonldContexts?${params_as_string}"
+    },
+    {
+      "name": "052_06_07 List @contexts with details set to false and kind equal to cached and a created ImplicitlyCreated @context",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_06_07",
+      "doc": "Check that you can list @contexts",
+      "tags": [
+        "5_13_3",
+        "ctx-list",
+        "since_v1.5.1"
+      ],
+      "setup": "Create initial ImplicitlyCreated @context",
+      "teardown": "Delete Initial @context Data",
+      "template": "List @contexts with no previous created @context",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        List @contexts with Response Status Code set to 200     and\n        List @contexts with Response reason set to 'OK'     and\n        List @contexts with Check Context Response Body Containing a list of identifiers and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: expected_length set to '3' and\n            Query Parameter: list_contexts set to 'list_contexts'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts?${params_as_string}'\n        method set to 'GET'\n        List @contexts: and\n    Query Parameter: details set to 'false' and\n    Query Parameter: kind set to 'Cached'\n}",
+      "http_verb": "GET",
+      "endpoint": "jsonldContexts?${params_as_string}"
+    },
+    {
+      "name": "052_06_08 List @contexts with details set to false and kind equal to implicitlycreated and a created ImplicitlyCreated @context",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_06_08",
+      "doc": "Check that you can list @contexts",
+      "tags": [
+        "5_13_3",
+        "ctx-list",
+        "since_v1.5.1"
+      ],
+      "setup": "Create initial ImplicitlyCreated @context",
+      "teardown": "Delete Initial @context Data",
+      "template": "List @contexts with no previous created @context",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        List @contexts with Response Status Code set to 200     and\n        List @contexts with Response reason set to 'OK'     and\n        List @contexts with Check Context Response Body Containing a list of identifiers and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: expected_length set to '1' and\n            Query Parameter: list_contexts set to 'list_contexts'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts?${params_as_string}'\n        method set to 'GET'\n        List @contexts: and\n    Query Parameter: details set to 'false' and\n    Query Parameter: kind set to 'ImplicitlyCreated'\n}",
+      "http_verb": "GET",
+      "endpoint": "jsonldContexts?${params_as_string}"
+    }
+  ],
+  "permutations": [
+    "then",
+    "when"
+  ],
+  "robotpath": "jsonldContext/Consumption/ListContexts",
+  "robotfile": "052_06"
+}

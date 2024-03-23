@@ -109,7 +109,7 @@ class ParseRobotFile:
         self.get_template_param_values(test_cases=string_test_cases)
 
     def get_template_content(self, string: str):
-        matches = re.findall(pattern=r'^(([a-zA-z0-9\-\/]+[ ]*)+)$', string=string, flags=re.MULTILINE)
+        matches = re.findall(pattern=r'^(([a-zA-z0-9\-\/@]+[ ]*)+)$', string=string, flags=re.MULTILINE)
 
         indexes = list()
         for match in matches:
@@ -252,7 +252,8 @@ class ParseRobotFile:
         lines_starting_with_check = re.findall(r'^\s*Check.*', content, re.MULTILINE)
 
         if len(lines_starting_with_check) != 0:
-            # TODO: From the list of Checks, we need to discard all 'Check Response Status Code' except the last one. Should be resolve when clearly defined the Setup process of the Test Suite
+            # TODO: From the list of Checks, we need to discard all 'Check Response Status Code' except the last one.
+            #  Should be resolve when clearly defined the Setup process of the Test Suite
             # check_string = 'Check Response Status Code'
             # lines_starting_with_check = [x.strip() for x in lines_starting_with_check]
             # new_list = [value for value in lines_starting_with_check if not value.startswith(check_string)]
@@ -264,7 +265,11 @@ class ParseRobotFile:
         elif content.find('Wait for notification') != 0:
             # There is no Check, we need to check if there is a 'Wait for notification',
             # then we need to check the 'Should be Equal' sentences
-            pattern = r'(Wait for no notification)|(Wait for notification and validate it)|(Wait for notification)([ ]{4}(.*))?'
+            pattern = \
+                (r'(Wait for no notification)|'
+                 r'(Wait for notification and validate it)|'
+                 r'(Wait for notification)([ ]{4}(.*))?')
+
             param = re.findall(pattern=pattern, string=content, flags=re.MULTILINE)
             for i in range(0, len(param)):
                 data = tuple(element for element in param[i] if element != '')
@@ -317,7 +322,9 @@ class ParseRobotFile:
 
     def generate_then_content(self, content):
         # Need to check if it is a Notification data or a normal Response
-        aux = [x for x in content if x['checks'].find('Notification data') != -1 or x['checks'].find('After waiting') != -1 or x['checks'].find('Notification and validate') != -1]
+        aux = [x for x in content if x['checks'].find('Notification data') != -1 or
+               x['checks'].find('After waiting') != -1 or
+               x['checks'].find('Notification and validate') != -1]
 
         if len(aux) == 0:
             # The SUT sends a valid Response
@@ -347,13 +354,15 @@ class ParseRobotFile:
                 #     exit(-1)
                 #     match = re.match(pattern=r"[\W\w]+'(\d+)'", string=content[0])
                 #     try:
-                #         checks = f"then {{\n    the SUT will not send a CsourceNotification after {match.group(1)} seconds}}"
+                #         checks =
+                #           f"then {{\n    the SUT will not send a CsourceNotification after {match.group(1)} seconds}}"
                 #     except Exception:
                 #         raise Exception(f"ERROR: unexpected timeout parameter: '{content[0]}'")
                 # else:
                 #     print("Error, need to control the generation of then message")
                 #     exit(-1)
-                #     checks = (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification, {content[0]}\n}}")
+                #     checks =
+                #       (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification, {content[0]}\n}}")
             else:
                 raise Exception("ERROR, It is expected at least 1 Notification Check operation in the Test Case")
 
@@ -384,8 +393,9 @@ class ParseRobotFile:
             position_params = checks.args[content[0]]
             if aux == 1:
                 # We are in multiline classification of the Check, need to extract the parameter for the next lines
-                params, attributes = self.find_attributes_next_line(test_case=test_case, name=content[0],
-                                                        position_params=position_params)
+                params, attributes = self.find_attributes_next_line(test_case=test_case,
+                                                                    name=content[0],
+                                                                    position_params=position_params)
                 return content[0], params, attributes
             elif aux > 1:
                 # We are in one line definition
@@ -418,7 +428,15 @@ class ParseRobotFile:
                 param_value = self.get_param_value_for_waiting(param_key=param_key, content=content)
 
                 if param_value is not None:
-                    result[param_key] = param_value
+                    try:
+                        # This is a parameter of the template, therefore we take the value of the param
+                        result[param_key] = self.template_params_value[self.test_case_name][f'${{{param_value}}}']
+                    except KeyError:
+                        # Check if it is a parameter of the Test Suite
+                        try:
+                            result[param_key] = self.variables[f'${{{param_value}}}']
+                        except KeyError:
+                            result[param_key] = param_value
 
         return result
 
@@ -437,7 +455,7 @@ class ParseRobotFile:
                 pattern = f"\${{([\w\W]+)}}|([\w\W]+)"
 
         # elif length == 0 and len(content) > 1:
-        #     # There is params but they are not written in the form key=value
+        #     # There is params, but they are not written in the form key=value
         #     found = content[1]
         #     # pattern = f"\${{(\d+)}}"
         #     pattern = f"\${{([\w\W]+)}}|([\w\W]+)"
@@ -513,12 +531,18 @@ class ParseRobotFile:
                     result = self.config_file.get_variable(aux)
                 except KeyError:
                     try:
-                        aux = self.template_params_value[self.test_case_name]
-                        result = aux[position]
+                        aux1 = self.template_params_value[self.test_case_name]
+                        result = aux1[f'${{{aux}}}']
 
-                        if result[:2] == "${":
-                            result = self.get_param_value(result)
+                        try:
+                            if result[:2] == "${":
+                                result = self.get_param_value(result)
+                        except KeyError:
+                            result = f'${{{aux}}}'
                     except KeyError:
-                        result = position
+                        if '$' in position:
+                            return position
+                        else:
+                            result = aux
 
         return result

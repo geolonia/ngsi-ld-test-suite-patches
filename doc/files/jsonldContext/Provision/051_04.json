@@ -1,0 +1,111 @@
+{
+  "tp_id": "TP/NGSI-LD/CTX/Prov/051_04",
+  "test_objective": "Check that you get an error when try to delete a @context",
+  "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.5",
+  "config_id": "",
+  "parent_release": "v1.5.1",
+  "clauses": [
+    "5.13.5"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Delete a @context with wrong data",
+    "Create Initial @context",
+    "Delete Initial @context"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT containing a Hosted @context and the default Cached Core Context.\n        }",
+  "test_cases": [
+    {
+      "name": "051_04_01 Delete a @contexts with a wrong id and reload set to true",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Prov/051_04_01",
+      "doc": "Check that you can delete a hosted @context",
+      "tags": [
+        "5_13_5",
+        "ctx-delete",
+        "since_v1.5.1"
+      ],
+      "setup": "Create Initial @context",
+      "teardown": "Delete Initial @context",
+      "template": "Delete a @context with wrong data",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete a @context with Response Status Code set to 404     and\n        Delete a @context with Response reason set to 'Not Found'     and\n        Delete a @context with Response Body containing the type '${ERROR_TYPE_RESOURCE_NOT_FOUND}' and Response Body Title is a string and is not ${EMPTY} and Response Body Detail is a string and is not ${EMPTY} and Response Boty Title is not equal to Response Body Detail\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts/{contextId}'\n        method set to 'DELETE'\n        Delete a @context whose 'URI' set to 'wrong_id_context'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "jsonldContexts/{contextId}"
+    },
+    {
+      "name": "051_04_02 Delete a @contexts with a wrong id and reload set to false",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Prov/051_04_02",
+      "doc": "Check that you can delete a hosted @context",
+      "tags": [
+        "5_13_5",
+        "ctx-delete",
+        "since_v1.5.1"
+      ],
+      "setup": "Create Initial @context",
+      "teardown": "Delete Initial @context",
+      "template": "Delete a @context with wrong data",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete a @context with Response Status Code set to 404     and\n        Delete a @context with Response reason set to 'Not Found'     and\n        Delete a @context with Response Body containing the type '${ERROR_TYPE_RESOURCE_NOT_FOUND}' and Response Body Title is a string and is not ${EMPTY} and Response Body Detail is a string and is not ${EMPTY} and Response Boty Title is not equal to Response Body Detail\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts/{contextId}'\n        method set to 'DELETE'\n        Delete a @context whose 'URI' set to 'wrong_id_context'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "jsonldContexts/{contextId}"
+    },
+    {
+      "name": "051_04_03 Delete a @contexts with a wrong id and no reload value",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Prov/051_04_03",
+      "doc": "Check that you can delete a hosted @context",
+      "tags": [
+        "5_13_5",
+        "ctx-delete",
+        "since_v1.5.1"
+      ],
+      "setup": "Create Initial @context",
+      "teardown": "Delete Initial @context",
+      "template": "Delete a @context with wrong data",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete a @context with Response Status Code set to 404     and\n        Delete a @context with Response reason set to 'Not Found'     and\n        Delete a @context with Response Body containing the type '${ERROR_TYPE_RESOURCE_NOT_FOUND}' and Response Body Title is a string and is not ${EMPTY} and Response Body Detail is a string and is not ${EMPTY} and Response Boty Title is not equal to Response Body Detail\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts/{contextId}'\n        method set to 'DELETE'\n        Delete a @context whose 'URI' set to 'wrong_id_context'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "jsonldContexts/{contextId}"
+    },
+    {
+      "name": "051_04_04 Delete a @contexts with a wrong id and wrong reload value",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Prov/051_04_04",
+      "doc": "Check that you can delete a hosted @context",
+      "tags": [
+        "5_13_5",
+        "ctx-delete",
+        "since_v1.5.1"
+      ],
+      "setup": "Create Initial @context",
+      "teardown": "Delete Initial @context",
+      "template": "Delete a @context with wrong data",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete a @context with Response Status Code set to 404     and\n        Delete a @context with Response reason set to 'Not Found'     and\n        Delete a @context with Response Body containing the type '${ERROR_TYPE_RESOURCE_NOT_FOUND}' and Response Body Title is a string and is not ${EMPTY} and Response Body Detail is a string and is not ${EMPTY} and Response Boty Title is not equal to Response Body Detail\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts/{contextId}'\n        method set to 'DELETE'\n        Delete a @context whose 'URI' set to 'wrong_id_context'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "jsonldContexts/{contextId}"
+    },
+    {
+      "name": "051_04_05 Delete a Hosted @contexts with a valid id and reload set to true",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Prov/051_04_05",
+      "doc": "Check that you can delete a hosted @context",
+      "tags": [
+        "5_13_5",
+        "ctx-delete",
+        "since_v1.5.1"
+      ],
+      "setup": "Create Initial @context",
+      "teardown": "Delete Initial @context",
+      "template": "Delete a @context with wrong data",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete a @context with Response Status Code set to 400     and\n        Delete a @context with Response reason set to 'Bad Request'     and\n        Delete a @context with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData' and Response Body Title is a string and is not ${EMPTY} and Response Body Detail is a string and is not ${EMPTY} and Response Boty Title is not equal to Response Body Detail\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts/{contextId}'\n        method set to 'DELETE'\n        Delete a @context whose 'URI' set to '${uri}'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "jsonldContexts/{contextId}"
+    }
+  ],
+  "permutations": [
+    "then",
+    "when"
+  ],
+  "robotpath": "jsonldContext/Provision/DeleteContext",
+  "robotfile": "051_04"
+}

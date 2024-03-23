@@ -31,6 +31,13 @@ class InitialSetup:
             'Setup Initial Context Source Registration Subscription': InitialSetup.init_csr_sub(),
             'Setup Initial Context Source Registration Subscriptions': InitialSetup.init_csr_subs(),
             'Create Initial Context Source Registration and Mock Server': InitialSetup.init_csr_and_server(),
+            'Create Initial set of @contexts': InitialSetup.create_set_contexts(),
+            'Create Initial @context': InitialSetup.create_context(),
+            'Create Initial cached @context': InitialSetup.created_cached_context(),
+            'Create initial ImplicitlyCreated @context': InitialSetup.create_implictlycreated_context(),
+            'Create Initial hosted @context': InitialSetup.create_hosted_context(),
+            'Create Initial @context condition from an external server': InitialSetup.create_from_external_server(),
+            'Delete core context and reload it': InitialSetup.delete_core_context()
         }
 
         self.total_files = -1
@@ -177,6 +184,55 @@ class InitialSetup:
 }'''
         return data
 
+    @staticmethod
+    def create_set_contexts():
+        data = '''with {
+    the SUT containing a set of three Hosted @contexts and the default Cached Core Context.
+        }'''
+        return data
+
+    @staticmethod
+    def create_context():
+        data = '''with {
+    the SUT containing a Hosted @context and the default Cached Core Context.
+        }'''
+        return data
+
+    @staticmethod
+    def created_cached_context():
+        data = '''with {
+    the SUT containing a Cached @context added from a URL.
+            }'''
+        return data
+
+    @staticmethod
+    def create_implictlycreated_context():
+        data = '''with {
+    the SUT containing a ImplicitlyCreated @context created from a subscription query.
+            }'''
+        return data
+
+    @staticmethod
+    def create_hosted_context():
+        data = '''with {
+    the SUT containing a Hosted @context and the default Cached Core Context.
+            }'''
+        return data
+
+    @staticmethod
+    def create_from_external_server():
+        data = '''with {
+    the SUT containing a Cached @context created from a entity creation through downloading from external server.
+            }'''
+        return data
+
+    @staticmethod
+    def delete_core_context():
+        data = '''with {
+    the SUT containing a core context and it has been deleted with reload set to true.
+                }'''
+        return data
+
     def get_property_values(self, root_folder: str, property_name: str) -> [str, str]:
         robot_files_without_setup = list()
         robot_files_with_setup = list()
@@ -223,18 +279,15 @@ class InitialSetup:
         deleted_setup = [item for item in keys if item not in self.code]
         not_included_keys = [item for item in self.code if item not in keys]
 
-        print('Checking the Setup functions...')
-        if len(deleted_setup) != 0:
-            print(f"    WARNING: Some of the Setup functions were deleted:\n{deleted_setup}")
-        else:
-            print(f"    INFO: All current Setup functions are used in the Robot files")
+        if len(deleted_setup) != 0 or len(not_included_keys) != 0:
+            print('Checking the Setup functions...')
+            if len(deleted_setup) != 0:
+                print(f"    WARNING: Some of the Setup functions were deleted or not implemented:\n{deleted_setup}")
 
-        if len(not_included_keys) != 0:
-            print(f"    ERROR: Some Setup functions are not include in the Class:\n{not_included_keys}")
-        else:
-            print(f"    INFO: All the current Setup functions used in Robot files are included in the Class")
+            if len(not_included_keys) != 0:
+                print(f"    ERROR: Some Setup functions are not include in the Class:\n{not_included_keys}")
 
-        print()
+            print()
 
     def generate_dictionaries(self):
         folder = "/home/fla/Documents/workspace/bdd/ngsi-ld-test-suite/doc/files"

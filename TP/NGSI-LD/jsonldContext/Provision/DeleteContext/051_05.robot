@@ -1,0 +1,62 @@
+*** Settings ***
+Documentation       Check that you get an error if we created an entity with a context (Cached context) and we try to delete it with reload=true
+
+Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+Resource            ${EXECDIR}/resources/HttpUtils.resource
+Resource            ${EXECDIR}/resources/ContextServerUtils.resource
+Library             Collections
+Library             String
+Variables           ${EXECDIR}/resources/variables.py
+Library             HttpCtrl.Client
+Library             HttpCtrl.Server
+
+Test Setup          Create Initial @context condition from an external server
+Test Teardown       Delete Initial @context condition from an external server
+
+
+*** Variables ***
+${filename}=                @context-minimal-valid.json
+${entityfile}=              minimal-entity-using-@context.jsonld
+${entity_context_id}=       urn:ngsi-ld:Testing:randomUUID
+${uri}                      /api/v1/context.jsonld
+
+
+*** Test Cases ***
+051_05_01 Delete and Reload a Cached @context with no communication with the Context Server
+    [Documentation]    Check that you get an error if we try to reload a cached context with no communication with the context server
+    [Tags]    ctx-serve    5_13_5    since_v1.5.1
+
+    ${response}=    Delete a @context    ${uri}    true
+
+    Check Response Status Code    503    ${response.status_code}
+    Check Response Reason set to    ${response.reason}    Service Unavailable
+    Check Response Body Containing ProblemDetails Element
+    ...    ${response.json()}
+    ...    ${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}
+
+
+*** Keywords ***
+Create Initial @context condition from an external server
+    Start @context Local Server
+
+    ${uri}=    Catenate    http://${context_server_host}:${context_server_port}${uri}
+    Set Global Variable    ${uri}
+
+    Create Entity selecting @context    ${entityfile}    ${uri}
+
+    Log    Waiting 3 seconds to continue...
+    Sleep    3s
+
+    ${response}=    Serve a @context    ${uri}    true
+    Check Response Status Code    200    ${response.status_code}
+    Check Context Response Kind    ${response.json()}    Cached
+
+    Stop @context Local Server
+
+Delete Initial @context condition from an external server
+    Log    Delete initial contidions
+    Delete Entity by Id    ${entity_context_id}
+    Delete a @context    ${uri}

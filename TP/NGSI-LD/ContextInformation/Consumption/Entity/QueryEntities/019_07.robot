@@ -21,15 +21,16 @@ ${airQualityLevel}=             airQualityLevel==6
 
 *** Test Cases ***    Q_PARAMETER    EXPECTED_STATUS    EXPECTED_COUNT
 019_07_01 Check that the total number of matching results is returned if the count parameter is set to true and only the entity type is provided
+    [Tags]    e-query    5_7_2    6_3_13
     ${EMPTY}    200    2
 019_07_02 Check that the total number of matching results is returned if the count parameter is set to true and a q parameter is provided
+    [Tags]    e-query    5_7_2    6_3_13
     ${airQualityLevel}    200    1
 
 
 *** Keywords ***
 Query Entities With Count
     [Documentation]    If the count parameter is set to true the special HTTP header NGSILD-Results-Count is set in the response and it must contain the total number of matching results.
-    [Tags]    e-query    5_7_2    6_3_13
     [Arguments]    ${q}    ${expected_status_code}    ${expected_count}
     ${response}=    Query Entities
     ...    entity_types=${entity_type}

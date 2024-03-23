@@ -30,7 +30,7 @@
       "setup": "Create Initial Entity",
       "teardown": "Delete Initial Entity",
       "template": "Append Attributes Without Params",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Append Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Updated Entity set to ${entity}\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Append Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Check Updated Entity and\n            Query Parameter: 'ignored_keys' set to '${None}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs'\n        method set to 'POST'\n        Append Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'vehicle-new-language-property-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
       "http_verb": "POST",
       "endpoint": "entities/{id}/attrs"

@@ -36,7 +36,9 @@ Append Attributes Without Params
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    Check Updated Resource Set To    ${entity_expectation_payload}    ${response1.json()}
+    Check Updated Resource Set To
+    ...    updated_resource=${entity_expectation_payload}
+    ...    response_body=${response1.json()}
 
 Create Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
