@@ -1,0 +1,39 @@
+{
+  "tp_id": "TP/NGSI-LD/CTX/Cons/053_08",
+  "test_objective": "Check that the numberOfHits is increased after using a ImplicitlyCreated context",
+  "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.4",
+  "config_id": "",
+  "parent_release": "v1.5.1",
+  "clauses": [
+    "5.13.4"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create initial ImplicitlyCreated @context",
+    "Delete Initial @context Data"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT containing a ImplicitlyCreated @context created from a subscription query.\n            }",
+  "test_cases": [
+    {
+      "name": "053_08_01 Check that the numberOfHits is increased after using a ImplicitlyCreated context",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/053_08_01",
+      "doc": "Check that the numberOfHits is increased after using a ImplicitlyCreated context",
+      "tags": [
+        "5_13_4",
+        "ctx-serve",
+        "since_v1.5.1"
+      ],
+      "setup": "Create initial ImplicitlyCreated @context",
+      "teardown": "Delete Initial @context Data",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Serve a @context with Response Status Code set to 200     and\n        Serve a @context with Check that the numberOfHits in the response body is set to '2'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts/{contextId}'\n        method set to 'GET'\n        Serve a @context with contextID '${implicit_id}' and details 'true'\n}",
+      "http_verb": "GET",
+      "endpoint": "jsonldContexts/{contextId}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "jsonldContext/Consumption/ServeContext",
+  "robotfile": "053_08"
+}

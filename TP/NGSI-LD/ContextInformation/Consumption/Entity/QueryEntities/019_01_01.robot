@@ -49,9 +49,9 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
     ...    entity_types=${entity_types_to_be_retrieved}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Entity Elements
-    ...    ${expectation_filename}
-    ...    ${entities_ids_to_be_compared}
-    ...    ${response.json()}
+    ...    expectation_filename=${expectation_filename}
+    ...    entities_ids=${entities_ids_to_be_compared}
+    ...    response_body=${response.json()}
 
 
 *** Keywords ***

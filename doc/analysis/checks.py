@@ -64,8 +64,10 @@ class Checks:
                 Checks.check_response_body_contains_datetime_value,
             'Check Response Body Containing ProblemDetails Element Containing Title Element':
                 Checks.check_response_body_containing_problemdetails_element_containing_title_element,
-            'Check Dictionary Might Contain Additional Members of the NotificationParams':
-                Checks.check_dictionary_might_contain_additional_members,
+            'Check Response Body Might Contain Additional Members of the NotificationParams':
+                Checks.check_response_body_might_contain_additional_members_notification_params,
+            'Check Response Body Might Contain Optional Fields':
+                Checks.check_response_body_might_contain_optional_fields,
             'Check Response Body Containing ProblemDetails Element':
                 Checks.check_response_body_containing_problemdetails_element,
             'Check RL Response Body Containing ProblemDetails Element Containing Type Element set to':
@@ -114,6 +116,22 @@ class Checks:
                 Checks.check_response_reason_set_to,
             'Check Response Does Not Contain Body':
                 Checks.check_response_does_not_contain_body,
+            'Check Context Response Body Containing a list of identifiers':
+                Checks.check_context_response_body_containing_a_list_of_identifiers,
+            'Check Context Response Body Containing a JSONObject with details of the @contexts':
+                Checks.check_context_response_body_containing_a_jsonobject_with_details_of_the_contexts,
+            'Check Context Response Body Content':
+                Checks.check_context_response_body_content,
+            'Check Context Response Body Containing Detailed Information':
+                Checks.check_context_response_body_containing_detailed_information,
+            'Check Context Detailed Information Keys':
+                Checks.check_context_detailed_information_keys,
+            'Check Context Response Body Containing numberOfHits value':
+                Checks.check_context_response_body_containing_numberofhits_value,
+            'Check Response Kind set to':
+                Checks.check_response_kind_set_to,
+            'Check Cached @Contexts':
+                Checks.check_cached_contexts,
             'Check Response Header is Empty':
                 Checks.check_response_header_is_empty,
             'Check Response Headers Link set to':
@@ -149,13 +167,17 @@ class Checks:
             },
             'Check Updated Resource Set To': {
                 'params': ['updated_resource', 'response_body', 'ignored_keys'],
-                'position': [0]
+                'position': []
             },
             'Check Response Body Containing ProblemDetails Element Containing Title Element': {
                 'params': ['response_body'],
                 'position': [0]
             },
-            'Check Dictionary Might Contain Additional Members of the NotificationParams': {
+            'Check Response Body Might Contain Additional Members of the NotificationParams': {
+                'params': ['dictionary', 'key'],
+                'position': [0, 1]
+            },
+            'Check Response Body Might Contain Optional Fields': {
                 'params': ['dictionary', 'key'],
                 'position': [0, 1]
             },
@@ -333,6 +355,38 @@ class Checks:
                 'params': ['response'],
                 'position': [0]
             },
+            'Check Context Response Body Containing a list of identifiers': {
+                'params': ['response_body', 'expected_length', 'list_contexts', 'kind'],
+                'position': []
+            },
+            'Check Context Response Body Containing a JSONObject with details of the @contexts': {
+                'params': ['response', 'expected_length', 'list_contexts'],
+                'position': [0, 1, 2]
+            },
+            'Check Context Response Body Content': {
+                'params': ['expectation_filename', 'response_body'],
+                'position': [0, 1]
+            },
+            'Check Context Response Body Containing Detailed Information': {
+                'params': ['response_body', 'context_type'],
+                'position': [0, 1]
+            },
+            'Check Context Detailed Information Keys': {
+                'params': ['my_dict'],
+                'position': [0]
+            },
+            'Check Context Response Body Containing numberOfHits value': {
+                'params': ['response_body', 'expected_number_of_hists'],
+                'position': [0, 1]
+            },
+            'Check Response Kind set to': {
+                'params': ['response', 'kind'],
+                'position': [0, 1]
+            },
+            'Check Cached @Contexts': {
+                'params': ['context'],
+                'position': [0]
+            },
             'Check Response Header is Empty': {
                 'params': ['response_headers'],
                 'position': [0]
@@ -458,7 +512,39 @@ class Checks:
         if 'dictionary' in kwargs and 'key' in kwargs:
             return f"The dictionary `{kwargs['dictionary']}' should contain the key '{kwargs['key']}'"
         else:
-            raise Exception(f'ERROR, Expected dictionary and key parameters but received: {kwargs}')
+            raise Exception(f"ERROR, Expected 'dictionary' and 'key' parameters but received: {kwargs}")
+
+    @staticmethod
+    def check_context_response_body_content(kwargs: list) -> str:
+        if 'expectation_filename' in kwargs and 'response_body' in kwargs:
+            return f"Check the Body of the response should contain the @context `{kwargs['expectation_filename']}'"
+        else:
+            raise Exception(f"ERROR, Expected 'dictionary' and 'key' parameters but received: {kwargs}")
+
+    @staticmethod
+    def check_context_response_body_containing_detailed_information(kwargs: list) -> str:
+        if 'response_body' in kwargs and 'context_type' in kwargs:
+            return (f"Check the Body of the response should contain a @context "
+                    f"with 'URL' key not Empty and 'string' type, "
+                    f"with 'localId' key not Empty and 'string' type, "
+                    f"with 'kind' key not Empty, 'string' type, and value set to '{kwargs['context_type']}', "
+                    f"and 'timestamp and 'DateTime' format")
+        else:
+            raise Exception(f"ERROR, Expected 'response_body' and 'context_type' parameters but received: {kwargs}")
+
+    @staticmethod
+    def check_response_body_might_contain_additional_members_notification_params(kwargs: list) -> str:
+        if 'dictionary' in kwargs and 'key' in kwargs:
+            return f"The Response Body `{kwargs['dictionary']}' might contain the key '{kwargs['key']}' in the NotificationParams"
+        else:
+            raise Exception(f"ERROR, Expected 'dictionary' and 'key' parameters but received: {kwargs}")
+
+    @staticmethod
+    def check_response_body_might_contain_optional_fields(kwargs: list) -> str:
+        if 'dictionary' in kwargs and 'key' in kwargs:
+            return f"The Response Body `{kwargs['dictionary']}' might contain the key '{kwargs['key']}'"
+        else:
+            raise Exception(f"ERROR, Expected 'dictionary' and 'key' parameters but received: {kwargs}")
 
     @staticmethod
     def should_not_be_empty(kwargs: list) -> str:
@@ -504,13 +590,6 @@ class Checks:
         return 'Response Header: Location is not Empty'
 
     @staticmethod
-    def check_dictionary_might_contain_additional_members(kwargs: list) -> str:
-        if 'dictionary' in kwargs and 'key' in kwargs:
-            return f"The dictionary `{kwargs['dictionary']}' might contain the key '{kwargs['key']}'"
-        else:
-            raise Exception(f"ERROR, Expected 'dictionary' and 'key' parameters but received: {kwargs}")
-
-    @staticmethod
     def check_response_body_containing_an_attribute_set_to(kwargs: list) -> str:
         expected_parameters = ['checks', 'expected_attribute_name', 'response_body', 'expected_attribute_value']
 
@@ -532,6 +611,58 @@ class Checks:
                                     f"'{expected_parameters}', but received: {kwargs}")
 
         return response
+
+    @staticmethod
+    def check_context_response_body_containing_a_list_of_identifiers(kwargs: list) -> str:
+        expected_parameters = ['response_body', 'expected_length', 'list_contexts', 'kind']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Check Context Response Body Containing a list of identifiers"
+        for key, value in kwargs.items():
+            match key:
+                case 'response_body':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case 'expected_length':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case 'list_contexts':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case 'kind':
+                    response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
+                case 'checks':
+                    pass
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
+
+    @staticmethod
+    def check_context_response_body_containing_a_jsonobject_with_details_of_the_contexts(kwargs: list) -> str:
+        if 'response' in kwargs and 'expected_length' in kwargs and 'list_contexts' in kwargs:
+            return (f"Response Body containing a Context element containing JSONObject with details of the contexts:\n"
+                    f"    * the expected length of contexts set to '{kwargs['expected_length']}'\n"
+                    f"    * the list of contexts URI set to '{kwargs['list_contexts']}'\n"
+                    f"    * response body to be checked set to '{kwargs['response']}'")
+        else:
+            raise Exception(f"ERROR, expected 'filename', 'temporal_entity_representation_id', and 'response_body' "
+                            f"attributes, received: '{kwargs}'")
+
+    @staticmethod
+    def check_context_detailed_information_keys(kwargs: list) -> str:
+        return (f"Check that the only allowed keys in the response body of a @context are 'URL', 'localId', 'kind', "
+                f"'timestamp', 'lastUsage', 'numberOfHits', 'extraInfo'")
+
+    @staticmethod
+    def check_context_response_body_containing_numberofhits_value(kwargs: list) -> str:
+        return f"Check that the numberOfHits in the response body is set to '{kwargs['expected_number_of_hists']}'"
+
+    @staticmethod
+    def check_response_kind_set_to(kwargs: list) -> str:
+        return f"Check that the Kind of the @context is set to '{kwargs['kind']}'"
+
+    @staticmethod
+    def check_cached_contexts(kwargs: list) -> str:
+        return f"Check that for each @context in the response body, they are of the type 'Cached'"
 
     @staticmethod
     def check_response_body_containing_entity_element(kwargs: list) -> str:
@@ -869,7 +1000,30 @@ class Checks:
 
     @staticmethod
     def check_updated_resource_set_to(kwargs: list) -> str:
-            return "Updated Entity set to ${entity}"
+        # return "Updated Entity set to ${entity}"
+        expected_parameters = ['updated_resource', 'response_body', 'ignored_keys']
+
+        if 'ignored_keys' not in kwargs:
+            kwargs['ignored_keys'] = '${None}'
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Check Updated Entity"
+        for key, value in kwargs.items():
+            match key:
+                case 'updated_resource':
+                    response = f"{response} and\n    Query Parameter: '{key}' set to '{value}'"
+                case 'response_body':
+                    response = f"{response} and\n    Query Parameter: '{key}' set to '{value}'"
+                case 'ignored_keys':
+                    response = f"{response} and\n    Query Parameter: '{key}' set to '{value}'"
+                # If an exact match is not confirmed, this last case will be used if provided
+                case 'checks':
+                    pass
+                case _:
+                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
+                                    f"'{expected_parameters}', but received: {kwargs}")
+
+        return response
 
     @staticmethod
     def check_updated_resources_set_to(kwargs: list) -> str:

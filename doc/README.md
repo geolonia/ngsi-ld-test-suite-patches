@@ -19,14 +19,24 @@ requirements and python virtual environment already defined in [README.md](../RE
 The unit tests where divided into several groups following the NGSI-LD Test Suite Structure (ETSI RGS CIM 012) divided
 in test groups and subgroups:
 
-- Group 1: Context Information (CI),  Provision (PROV), defined in the [test_ContextInformation_Provision.py](./tests/test_ContextInformation_Provision.py) file.
-- Group 2: Context Information (CI),  Consumption (CONS), defined in the [test_ContextInformation_Consumption.py](./tests/test_ContextInformation_Consumption.py) file.
-- Group 3: Context Information (CI),  Subscription (SUB), defined in the [test_ContextInformation_Subscription.py](./tests/test_ContextInformation_Subscription.py) file.
-- Group 4: Context Source (CS), Registration (REG), defined in the [test_ContextSource_Registration.py](./tests/test_ContextSource_Registration.py) file.
-- Group 5: Context Source (CS), Discovery (DISC), defined in the [test_ContextSource_Discovery.py](./tests/test_ContextSource_Discovery.py) file.
+- Group 1: Context Information (CI),  Provision (PROV), defined in the 
+[test_ContextInformation_Provision.py](./tests/test_ContextInformation_Provision.py) file.
+- Group 2: Context Information (CI),  Consumption (CONS), defined in the 
+[test_ContextInformation_Consumption.py](./tests/test_ContextInformation_Consumption.py) file.
+- Group 3: Context Information (CI),  Subscription (SUB), defined in the 
+[test_ContextInformation_Subscription.py](./tests/test_ContextInformation_Subscription.py) file.
+- Group 4: Context Source (CS), Registration (REG), defined in the 
+[test_ContextSource_Registration.py](./tests/test_ContextSource_Registration.py) file.
+- Group 5: Context Source (CS), Discovery (DISC), defined in the 
+[test_ContextSource_Discovery.py](./tests/test_ContextSource_Discovery.py) file.
 - Group 6: Context Source (CS), Registration Subscription (REGSUB), defined in the 
 [test_ContextSource_RegistrationSubscription.py](./tests/test_ContextSource_RegistrationSubscription.py) file.
-- Group 7: Common Behaviours (CB), defined in the [test_CommonBehaviours.py]() file.
+- Group 7: Common Behaviours (CB), defined in the 
+[test_CommonBehaviours.py](./tests/test_CommonBehaviours.py) file.
+- Group 8:  Storing, Managing and Serving @contexts (CTX), Consumption (CONS), defined in the 
+[test_jsonldContext_Consumption.py](./tests/test_jsonldContext_Consumption.py) file.
+- Group 9:  Storing, Managing and Serving @contexts (CTX), Provision (PROV), defined in the 
+[test_jsonldContext_Provision.py](./tests/test_jsonldContext_Provision.py) file.
 
 Additionally, a specific unit test called [test_CheckTests.py](./tests/test_CheckTests.py) was created to check that all
 robot files have the corresponding unit tests. 
@@ -37,6 +47,8 @@ divided into the NGSI-LD Test Suite Structure groups:
 - [CommonBehaviours](./files/CommonBehaviours) contains the expected results of the Common Behaviours robot files.
 - [ContextInformation](./files/ContextInformation) contains the expected results of the Context Information files.
 - [ContextSource](./files/ContextSource) contains the expected results of the Context Source files.
+- [jsonldContext](./files/jsonldContext) contains the expected results of the Storing, Managing and Serving @contexts 
+files.
 
 
 ## Execution
@@ -59,6 +71,10 @@ files.
 robot files.
 - [ContextSource RegistrationSubscription Unit Tests](../.idea/runConfigurations/ContextSource_RegistrationSubscription_Unit_Tests.xml) executes Context Source - Registration Subscription unit 
 tests associated to the robot files.
+- [jsonldContext Consumption Unit Tests](../.idea/runConfigurations/jsonldContext_Consumption_Unit_Tests.xml) executes Storing, Managing and Serving @contexts - Consumption unit tests 
+associated to the robot files.
+- [jsonldContext Provision Unit Tests](../.idea/runConfigurations/jsonldContext_Provision_Unit_Tests.xml)  executes Storing, Managing and Serving @contexts - Provision unit tests 
+associated to the robot files.
 - [Generate Documentation Data](../.idea/runConfigurations/Generate_Documentation_Data.xml) executes Generate Document 
 Data unit tests associated to the unit test execution of a specific robot file (e.g. 047_01). The generated files are 
 located in the [results](./results) folder.

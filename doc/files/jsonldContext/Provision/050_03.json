@@ -1,0 +1,38 @@
+{
+  "tp_id": "TP/NGSI-LD/CTX/Prov/050_03",
+  "test_objective": "Check that you can create a implicitlycreated @context through creating a subscription",
+  "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.2",
+  "config_id": "",
+  "parent_release": "v1.5.1",
+  "clauses": [
+    "5.13.2"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Delete Initial @context Data"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "050_03_01 Check the creation of ImplicitelyCreted @context",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Prov/050_03_01",
+      "doc": "Check that you can create a subscription",
+      "tags": [
+        "5_13_2",
+        "since_v1.5.1",
+        "sub-create"
+      ],
+      "setup": null,
+      "teardown": "Delete Initial @context Data",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Subscription with Response Status Code set to 200     and\n        Notification with Check that the Kind of the @context is set to 'ImplicitlyCreated'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts?${params_as_string}'\n        method set to 'GET'\n        List @contexts: and\n    Query Parameter: details set to 'true' and\n    Query Parameter: kind set to 'ImplicitlyCreated'\n}",
+      "http_verb": "GET",
+      "endpoint": "jsonldContexts?${params_as_string}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "jsonldContext/Provision/AddContext",
+  "robotfile": "050_03"
+}

@@ -26,7 +26,7 @@
       "setup": null,
       "teardown": "Delete Initial Entities",
       "template": "Delete Attributes",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Delete Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Updated Entity set to ${entity}\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Delete Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Check Updated Entity and\n            Query Parameter: 'updated_resource' set to 'entity_expectation_payload' and\n            Query Parameter: 'response_body' set to 'response2.json()' and\n            Query Parameter: 'ignored_keys' set to 'ignored_attributes'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${entity_id}' and\n    Query Parameter: attributeId set to 'speed' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: deleteAll set to '${deleteAll}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
       "http_verb": "DELETE",
       "endpoint": "entities/{entityId}/attrs/{attributeId}?${params_as_string}"
@@ -42,7 +42,7 @@
       "setup": null,
       "teardown": "Delete Initial Entities",
       "template": "Delete Attributes",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Delete Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Updated Entity set to ${entity}\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Delete Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Check Updated Entity and\n            Query Parameter: 'updated_resource' set to 'entity_expectation_payload' and\n            Query Parameter: 'response_body' set to 'response2.json()' and\n            Query Parameter: 'ignored_keys' set to 'ignored_attributes'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${entity_id}' and\n    Query Parameter: attributeId set to 'speed' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: deleteAll set to '${deleteAll}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
       "http_verb": "DELETE",
       "endpoint": "entities/{entityId}/attrs/{attributeId}?${params_as_string}"
@@ -58,7 +58,7 @@
       "setup": null,
       "teardown": "Delete Initial Entities",
       "template": "Delete Attributes",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Delete Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Updated Entity set to ${entity}\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Delete Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Check Updated Entity and\n            Query Parameter: 'updated_resource' set to 'entity_expectation_payload' and\n            Query Parameter: 'response_body' set to 'response2.json()' and\n            Query Parameter: 'ignored_keys' set to 'ignored_attributes'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${entity_id}' and\n    Query Parameter: attributeId set to 'speed' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: deleteAll set to '${deleteAll}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
       "http_verb": "DELETE",
       "endpoint": "entities/{entityId}/attrs/{attributeId}?${params_as_string}"

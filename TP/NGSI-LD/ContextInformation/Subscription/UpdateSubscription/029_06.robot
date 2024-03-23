@@ -32,7 +32,10 @@ ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscrip
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    context=${ngsild_test_suite_context}
     ${ignored_attributes}=    Create List    ${status_regex_expr}
-    Check Updated Resource Set To    ${subscription}    ${response1.json()}    ${ignored_attributes}
+    Check Updated Resource Set To
+    ...    updated_resource=${subscription}
+    ...    response_body=${response1.json()}
+    ...    ignored_keys=${ignored_attributes}
 
 
 *** Keywords ***

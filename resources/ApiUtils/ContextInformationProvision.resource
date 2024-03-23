@@ -146,6 +146,24 @@ Create Entity
     Output    ${response}    Create Entity
     RETURN    ${response}
 
+Create Entity selecting @context
+    [Arguments]    ${filename}    ${context}    ${entity_id}=${EMPTY}
+    ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/jsonldContext/${filename}
+    ${entity}=    Update Value To JSON    ${entity_payload}    $..@context    ${context}
+
+    IF    '${entity_id}'!=''
+        ${entity}=    Update Value To JSON    ${entity}    $..id    ${entity_id}
+    END
+
+    &{headers}=    Create Dictionary    Content-Type=application/ld+json
+    ${response}=    POST
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    json=${entity}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}    Create Entity selecting @context
+    RETURN    ${response}
+
 Create Entity Selecting Content Type
     [Arguments]    ${filename}    ${entity_id}    ${content_type}    ${context}=${EMPTY}    ${accept}=${EMPTY}
     ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/${filename}

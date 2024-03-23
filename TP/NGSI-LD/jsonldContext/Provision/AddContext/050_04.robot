@@ -1,0 +1,53 @@
+*** Settings ***
+Documentation       Check that you can add a hosted @context with list of URIs and each of them are cached @coxtexts
+
+Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/HttpUtils.resource
+
+Test Teardown       Delete Initial @context
+
+
+*** Variables ***
+${filename_list}=       @context-cached-valid.json
+${reason_201}=          Created
+${reason_204}=          No Content
+
+
+*** Test Cases ***
+050_04_01 Add a valid hosted @context with URIs and check that the URIs are Cached @contexts
+    [Documentation]    Check that you can add a @context
+    [Tags]    ctx-add    5_13_2    since_v1.5.1
+
+    ${response}=    Add a new @context    ${filename_list}
+
+    Check Response Status Code    201    ${response.status_code}
+    Check Response Does Not Contain Body    ${response}
+    Check Response Reason set to    ${response.reason}    ${reason_201}
+
+    Dictionary Should Contain Key    ${response.headers}    Location    msg=HTTP Headers do not contain key 'Location'
+    ${uri}=    Fetch Id From Response Location Header    ${response.headers}
+    Set Suite Variable    ${uri}
+
+    Log    URI: ${uri}
+
+    # Need to check that the kind value of the created context is "hosted"
+    ${response_serve}=    Serve a @context    ${uri}    true
+    Check Response Kind set to    ${response_serve.json()}    Hosted
+
+    # Need to check that each of the URIs are Cached @contexts
+    Check Cached @Contexts    ${filename_list}
+
+
+*** Keywords ***
+Delete Initial @context
+    ${response}=    List @contexts    true    ${EMPTY}
+    # We need to extract all the contexts except the core context and delete them
+    FOR    ${item}    IN    @{response.json()}
+        ${uri}=    Get From Dictionary    ${item}    URL
+        IF    '${uri}'=='${core_context}'
+            Log    WARNING, Trying to delete the Core Context
+        ELSE
+            Delete a @context    ${uri}
+        END
+    END

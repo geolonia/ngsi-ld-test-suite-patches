@@ -3,6 +3,7 @@ from re import findall
 from unittest import TestCase
 from os.path import dirname, join, basename, splitext
 from os import walk
+from json import dumps
 
 
 class TestCheckTests(TestCase):
@@ -60,8 +61,9 @@ class TestCheckTests(TestCase):
     def test_specific_robot_file_has_a_test(self):
         check = [item for item in self.robots if item not in self.tests]
         check = [item for item in self.robot_files if any(string in item for string in check)]
+        check = dumps(check, indent=4)
 
-        assert len(check) == 0, f"The following robot files are missing from unittest:\n '{check}'"
+        assert check == '[]', f"The following robot files are missing from unittest:\n '{check}'"
 
     def test_that_all_tests_have_the_corresponding_robot_files(self):
         check = [item for item in self.tests if item not in self.robots]

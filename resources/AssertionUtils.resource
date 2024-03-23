@@ -1,10 +1,12 @@
 *** Settings ***
 Library     ${EXECDIR}/libraries/assertionUtils.py
+Library     ${EXECDIR}/libraries/dateTimeUtils.py
 Library     RequestsLibrary
 Library     Collections
 Library     JSONLibrary
 Library     String
 Resource    ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource    ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 
 
 *** Variables ***
@@ -386,6 +388,10 @@ Check Response Reason set to
     [Arguments]    ${response_reason}    ${reason}
     Should Be Equal    ${response_reason}    ${reason}
 
+Check Response Kind set to
+    [Arguments]    ${response}    ${kind}
+    Should Be Equal    ${response['kind']}    ${kind}
+
 Check RL Response Body Containing ProblemDetails Element Containing Type Element set to
     [Arguments]    ${response_body}    ${type}
     ${json_response_body}=    Set Variable    ${response_body}
@@ -484,17 +490,17 @@ Check Retrieving Context Source Registration
     ${ignored_attributes}=    Create List    ${status_regex_expr}    @context
     Check Updated Resource Set To    ${registration_payload}    ${response.json()}    ${ignored_attributes}
 
-Check Dictionary Might Contain Additional Members of the NotificationParams
+Check Response Body Might Contain Additional Members of the NotificationParams
     # Check the Additional Members 5.2.14.2 in the NotificationParams data structure
     [Arguments]    ${dictionary}    ${key}
-    Log    Dictionary Might Contain Key with a specific type
-    Log    Dictionary: ${dictionary}
+    Log    Check Response Body Might Contain Additional Members of the NotificationParams
+    Log    Response Body: ${dictionary}
     Log    Key: ${key}
 
     ${value}=    Evaluate    $dictionary.get($key)
 
     IF    '${value}' != '' and '${value}' != 'None'
-        IF    "${key}" == "lastNotification" or "${key}" == "lastFailure" or "${key}" == "lastSuccess" or "${key}" == "expiresAt"
+        IF    "${key}" == "lastNotification" or "${key}" == "lastFailure" or "${key}" == "lastSuccess"
             # Need to check that there is a DateTime value
             ${type date}=    Parse Ngsild Date    ${dictionary}[${key}]
             Should Not Be Equal
@@ -502,7 +508,36 @@ Check Dictionary Might Contain Additional Members of the NotificationParams
             ...    ${None}
             ...    The Additional Member ${key} contains a value (${value}) that it is not in DateTime format
         END
-        IF    "${key}" == "timesSent" or "${key}" == "throttling" or "${key}" == "timeInterval"
+        IF    "${key}" == "timesSent"
+            # Need to check that there is a Integer value
+            ${type int}=    Evaluate    type(${dictionary}[${key}]).__name__
+            Should Be Equal
+            ...    ${type int}
+            ...    int
+            ...    The Additonal Member ${key} contains a value (${value}) that it is not in Number format
+        END
+    ELSE
+        Log    The key '${key}' is not present in the dictionary
+    END
+
+Check Response Body Might Contain Optional Fields
+    [Arguments]    ${dictionary}    ${key}
+    Log    Check Response Body Might Contain Optional Fields
+    Log    Response Body: ${dictionary}
+    Log    Key: ${key}
+
+    ${value}=    Evaluate    $dictionary.get($key)
+
+    IF    '${value}' != '' and '${value}' != 'None'
+        IF    "${key}" == "expiresAt" or "${key}" == "lastUsage"
+            # Need to check that there is a DateTime value
+            ${type date}=    Parse Ngsild Date    ${dictionary}[${key}]
+            Should Not Be Equal
+            ...    ${type date}
+            ...    ${None}
+            ...    The Additional Member ${key} contains a value (${value}) that it is not in DateTime format
+        END
+        IF    "${key}" == "throttling" or "${key}" == "timeInterval" or "${key}" == "numberOfHits"
             # Need to check that there is a Integer value
             ${type int}=    Evaluate    type(${dictionary}[${key}]).__name__
             Should Be Equal
@@ -526,6 +561,7 @@ Check Dictionary Might Contain Additional Members of the NotificationParams
             ...    str
             ...    The Additonal Member ${key} contains a value (${value}) that it is not in String format
         END
+        IF    "${key}" == "extraInfo"    Log    Found "extraInfo" key
     ELSE
         Log    The key '${key}' is not present in the dictionary
     END
@@ -546,3 +582,180 @@ Check Response Body Contains DateTime Value
     ...    ${expected value}
     ...    ${obtained value}
     ...    The expected value (${expected value}) is not the same as the obtained value (${obtained value})
+
+Check Context Response Body Content
+    [Arguments]    ${expectation_filename}    ${response_body}
+
+    ${context_payload}=    Load JSON From File    ${EXECDIR}/data/jsonldContext/${expectation_filename}
+    Dictionaries Should Be Equal    ${response_body}    ${context_payload}
+
+Check Context Response Body Containing Detailed Information
+    [Arguments]    ${response_body}    ${context_type}
+
+    Should Not Be Empty    ${response_body['URL']}
+    Should Not Be Empty    ${response_body['localId']}
+    Should Not Be Empty    ${response_body['kind']}
+
+    Should Be String    ${response_body['URL']}
+    Should Be String    ${response_body['localId']}
+    Should Be String    ${response_body['kind']}
+
+    IF    $response_body['kind'] not in $ALLOWED_CONTEXT
+        fail    The value of kind:"${response_body['kind']}" is not allowed
+    END
+
+    Should Be Equal    ${response_body['kind']}    ${context_type}
+
+    # TODO: v1.8.1 change timestamp -> createdAt
+    Should Not Be Empty    ${response_body['timestamp']}
+    ${date}=    Parse Ngsild Date    ${response_body['timestamp']}
+    Should Not Be Equal
+    ...    ${date}
+    ...    ${None}
+    ...    The createdAt key contains a value (${response_body['timestamp']}) that it is not in DateTime format
+
+Check Context Response Body Containing numberOfHits value
+    [Arguments]    ${response_body}    ${expected_number_of_hists}
+
+    ${value}=    Evaluate    $response_body.get('numberOfHits')
+
+    IF    '${value}' != '' and '${value}' != 'None'
+        Log    Expected number of hits: ${expected_number_of_hists}
+        Log    Received number of hits: ${response_body['numberOfHits']}
+
+        Should Be Equal As Numbers    ${response_body['numberOfHits']}    ${expected_number_of_hists}
+    END
+
+Check Context Response Kind
+    [Arguments]    ${response_body}    ${context_type}
+
+    Should Be Equal    ${response_body['kind']}    ${context_type}
+
+Check Context Response Body Containing a list of identifiers
+    [Arguments]    ${response_body}    ${expected_length}    ${list_contexts}=${EMPTY}    ${kind}=${EMPTY}
+
+    Length Should Be
+    ...    ${response_body}
+    ...    ${expected_length}
+    ...    msg=The length of the strings array of @contexts is not ${expected_length}
+
+    IF    ${expected_length}==0
+        Should Be Empty    ${response_body}
+    ELSE
+        IF    ${expected_length}==1
+            ${length_list_contexts}=    Get Length    ${list_contexts}
+            IF    '${kind}' == 'Cached' or ${length_list_contexts} == 0
+                Should Be Equal    ${response_body[0]}    ${core_context}
+            ELSE
+                List Should Contain Value
+                ...    ${list_contexts}
+                ...    ${response_body[0]}
+                ...    msg=The received @context ${response_body[0]} is not included in the list of expected @contexts: ${list_contexts}
+            END
+        ELSE
+            IF    ${expected_length}>1
+                IF    '${kind}' == ''
+                    Should Be Equal    ${response_body[0]}    ${core_context}
+                ELSE
+                    FOR    ${index}    ${uri_context}    IN ENUMERATE    @{list_contexts}
+                        Should Be Equal    ${response_body[${index}]}    ${uri_context}
+                    END
+                END
+            END
+        END
+    END
+
+Check Context Response Body Containing a list with several URLs
+    [Arguments]    ${response_body}    ${expected_length}    ${list_contexts}
+
+    Length Should Be
+    ...    ${response_body}
+    ...    ${expected_length}
+    ...    msg=The length of the strings array of @contexts is not ${expected_length}
+
+    Should Be Equal    ${response_body[0]}    ${core_context}
+
+    FOR    ${index}    ${uri_context}    IN ENUMERATE    @{list_contexts}
+        Log    URI: ${uri_context} index: ${index}
+        ${index}=    Evaluate    ${index} + 1
+
+        Should Be Equal    ${response_body[${index}]}    ${uri_context}
+    END
+
+Check Cached @Contexts
+    [Arguments]    ${filename}
+
+    ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/jsonldContext/${filename}
+    ${contexts}=    Get From Dictionary    ${entity_payload}    @context
+
+    &{params}=    Create Dictionary
+    Set To Dictionary    ${params}    details=true
+
+    FOR    ${contextId}    IN    @{contexts}
+        ${response}=    Serve a @context    ${contextId}    true
+        Check Response Kind set to    ${response.json()}    Cached
+    END
+
+Check Context Detailed Information Keys
+    [Arguments]    ${my_dict}
+
+    # TODO: spec v1.8.1 timestamp -> createdAt
+    ${expected_keys}=    Create List    URL    localId    kind    createdAt    lastUsage    numberOfHits    extraInfo
+    ${actual_keys}=    Get Dictionary Keys    ${my_dict}
+
+    FOR    ${key}    IN    @{expected_keys}
+        Remove Values From List    ${actual_keys}    ${key}
+    END
+
+    Should Be Empty
+    ...    ${actual_keys}
+    ...    msg=The @context detailed information contains keys not expected: ${actual_keys}
+
+Check Context Response Body Containing a JSONObject with details of the @contexts
+    [Arguments]    ${response}    ${expected_length}    ${list_contexts}
+
+    ${obtained_length}=    Get Length    ${response}
+    Length Should Be
+    ...    ${response}
+    ...    ${expected_length}
+    ...    msg=The expected number of @contexts was ${expected_length} but we have obtained ${obtained_length}
+
+    FOR    ${index}    ${item}    IN ENUMERATE    @{response}
+        ${URL}=    Get From Dictionary    ${item}    URL
+        IF    '${URL}'=='${core_context}'
+            ${context_kind}=    Set Variable    Cached
+        ELSE
+            ${context_kind}=    Set Variable    Hosted
+        END
+
+        # Check mandatory keys in the response (URL, localId, kind, timestamp) and their possible values
+        Check Context Response Body Containing Detailed Information    ${item}    ${context_kind}
+
+        # Check optional keys in the response (lastUsage, numberOfHits, extraInfo) and their possible values
+        Check Response Body Might Contain Optional Fields    ${response}[0]    lastUsage
+        Check Response Body Might Contain Optional Fields    ${response}[0]    numberOfHits
+        Check Response Body Might Contain Optional Fields    ${response}[0]    extraInfo
+
+        # Check that there is no other keys
+        Check Context Detailed Information Keys    ${item}
+    END
+
+Check Context Response Body Containing a JSONObject with details of a ImplicitlyCreated @contexts
+    [Arguments]    ${response}    ${expected_length}
+
+    ${obtained_length}=    Get Length    ${response}
+    Length Should Be
+    ...    ${response}
+    ...    ${expected_length}
+    ...    msg=The expected number of @contexts was ${expected_length} but we have obtained ${obtained_length}
+
+    # Check mandatory keys in the response (URL, localId, kind, timestamp) and their possible values
+    Check Context Response Body Containing Detailed Information    ${response}[0]    ImplicitlyCreated
+
+    # Check optional keys in the response (lastUsage, numberOfHits, extraInfo) and their possible values
+    Check Response Body Might Contain Optional Fields    ${response}[0]    lastUsage
+    Check Response Body Might Contain Optional Fields    ${response}[0]    numberOfHits
+    Check Response Body Might Contain Optional Fields    ${response}[0]    extraInfo
+
+    # Check that there is no other keys
+    Check Context Detailed Information Keys    ${response}[0]

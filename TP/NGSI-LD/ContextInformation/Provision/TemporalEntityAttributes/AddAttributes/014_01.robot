@@ -41,9 +41,9 @@ ${expectation_filename}=    vehicle-temporal-representation-added-attribute-expe
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ${ignored_attributes}=    Create List    instanceId    @context
     Check Updated Resource Set To
-    ...    ${temporal_entity_expectation_payload}
-    ...    ${response1.json()}
-    ...    ${ignored_attributes}
+    ...    updated_resource=${temporal_entity_expectation_payload}
+    ...    response_body=${response1.json()}
+    ...    ignored_keys=${ignored_attributes}
 
 
 *** Keywords ***
