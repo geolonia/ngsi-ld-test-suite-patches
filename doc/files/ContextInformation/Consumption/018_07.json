@@ -1,0 +1,135 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/018_07",
+  "test_objective": "Check that you can retrieve an entity using Language Filter",
+  "reference": "ETSI GS CIM 009 V1.4.1 [], clauses 4.15, 5.7.1",
+  "config_id": "",
+  "parent_release": "v1.4.1",
+  "clauses": [
+    "4.15",
+    "5.7.1"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Retrieve Entity With Language Filter",
+    "Create Initial Entity",
+    "Delete Created Entity"
+  ],
+  "teardown": "Delete Created Entity",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "018_07_01 Retrieve an entity using a specific natural language",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/018_07_01",
+      "doc": "Check that you can retrieve an entity using Language Filter",
+      "tags": [
+        "4_15",
+        "5_7_1",
+        "e-retrieve",
+        "since_v1.4.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Entity With Language Filter",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entity with Response Status Code set to 200     and\n        Query Entity with Response Body containing en entity element with id set to '${entity_id}' and body content set to 'building-language-property-fr-filter.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Get Entity Request: and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: accept set to 'application/ld+json' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: options set to '${EMPTY}' and\n    Query Parameter: lang set to 'fr'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    },
+    {
+      "name": "018_07_02 Retrieve an entity using multiple natural languages with no ranked preference",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/018_07_02",
+      "doc": "Check that you can retrieve an entity using Language Filter",
+      "tags": [
+        "4_15",
+        "5_7_1",
+        "e-retrieve",
+        "since_v1.4.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Entity With Language Filter",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entity with Response Status Code set to 200     and\n        Query Entity with Response Body containing en entity element with id set to '${entity_id}' and body content set to 'building-language-property-fr-filter.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Get Entity Request: and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: accept set to 'application/ld+json' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: options set to '${EMPTY}' and\n    Query Parameter: lang set to 'fr-CH,fr'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    },
+    {
+      "name": "018_07_03 Retrieve an entity with any supported language",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/018_07_03",
+      "doc": "Check that you can retrieve an entity using Language Filter",
+      "tags": [
+        "4_15",
+        "5_7_1",
+        "e-retrieve",
+        "since_v1.4.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Entity With Language Filter",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entity with Response Status Code set to 200     and\n        Query Entity with Response Body containing en entity element with id set to '${entity_id}' and body content set to 'building-language-property-any-language-filter.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Get Entity Request: and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: accept set to 'application/ld+json' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: options set to '${EMPTY}' and\n    Query Parameter: lang set to '*'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    },
+    {
+      "name": "018_07_04 Retrieve an entity using multiple natural languages with ranked preferences",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/018_07_04",
+      "doc": "Check that you can retrieve an entity using Language Filter",
+      "tags": [
+        "4_15",
+        "5_7_1",
+        "e-retrieve",
+        "since_v1.4.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Entity With Language Filter",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entity with Response Status Code set to 200     and\n        Query Entity with Response Body containing en entity element with id set to '${entity_id}' and body content set to 'building-language-property-fr-filter.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Get Entity Request: and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: accept set to 'application/ld+json' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: options set to '${EMPTY}' and\n    Query Parameter: lang set to 'fr-CH,fr;q=0.9,en;q=0.8,*;q=0.5'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    },
+    {
+      "name": "018_07_05 Retrieve an entity using a specific natural language with simplified representation",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/018_07_05",
+      "doc": "Check that you can retrieve an entity using Language Filter",
+      "tags": [
+        "4_15",
+        "5_7_1",
+        "e-retrieve",
+        "since_v1.4.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Entity With Language Filter",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entity with Response Status Code set to 200     and\n        Query Entity with Response Body containing en entity element with id set to '${entity_id}' and body content set to 'building-language-property-fr-filter-simplified.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Get Entity Request: and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: accept set to 'application/ld+json' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: options set to 'keyValues' and\n    Query Parameter: lang set to 'fr'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    },
+    {
+      "name": "018_07_06 Retrieve an entity with any supported language with simplified representation",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/018_07_06",
+      "doc": "Check that you can retrieve an entity using Language Filter",
+      "tags": [
+        "4_15",
+        "5_7_1",
+        "e-retrieve",
+        "since_v1.4.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Entity With Language Filter",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entity with Response Status Code set to 200     and\n        Query Entity with Response Body containing en entity element with id set to '${entity_id}' and body content set to 'building-language-property-any-language-filter-simplified.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Get Entity Request: and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: accept set to 'application/ld+json' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: options set to 'keyValues' and\n    Query Parameter: lang set to '*'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    }
+  ],
+  "permutations": [
+    "then",
+    "when"
+  ],
+  "robotpath": "ContextInformation/Consumption/Entity/RetrieveEntity",
+  "robotfile": "018_07"
+}

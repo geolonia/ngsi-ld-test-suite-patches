@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can append entity attributes
+Documentation       Check that you can append a LanguageProperty property to an entity
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -17,17 +17,14 @@ ${filename}=                vehicle-speed-two-datasetid-sample.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_FILENAME
-010_01_01 Append entity attributes
-    [Tags]    ea-append    5_6_3
-    204    vehicle-new-attribute-fragment.jsonld    vehicle-speed-appended-expectation.jsonld
-010_01_02 Append entity attributes with different datasetid
-    [Tags]    ea-append    5_6_3
-    204    vehicle-speed-different-datasetid-fragment.jsonld    vehicle-speed-different-datasetid-expectation.jsonld
+010_06_01 Append a LanguageProperty property
+    [Tags]    ea-append    5_6_3    4_5_18    since_v1.4.1
+    204    vehicle-new-language-property-fragment.jsonld    vehicle-language-property-appended-expectation.jsonld
 
 
 *** Keywords ***
 Append Attributes Without Params
-    [Documentation]    Check that you can append entity attributes
+    [Documentation]    Check that you can append a LanguageProperty property to an entity
     [Arguments]    ${status_code}    ${fragment_filename}    ${expectation_filename}
     ${response}=    Append Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}

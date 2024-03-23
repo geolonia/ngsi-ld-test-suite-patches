@@ -146,9 +146,11 @@ Query Entity
     ...    ${context}=${EMPTY}
     ...    ${geoproperty}=${EMPTY}
     ...    ${options}=${EMPTY}
+    ...    ${lang}=${EMPTY}
     ${attrs_length}=    Get Length    ${attrs}
     ${accept_length}=    Get Length    ${accept}
     ${options_length}=    Get Length    ${options}
+    ${lang_length}=    Get Length    ${lang}
     &{headers}=    Create Dictionary
     &{params}=    Create Dictionary
     IF    ${accept_length}>0
@@ -166,6 +168,7 @@ Query Entity
     IF    ${options_length}>0
         Set To Dictionary    ${params}    options=${options}
     END
+    IF    ${lang_length}>0    Set To Dictionary    ${params}    lang=${lang}
 
     ${response}=    GET
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}

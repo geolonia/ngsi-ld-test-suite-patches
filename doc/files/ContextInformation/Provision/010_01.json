@@ -21,8 +21,8 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/010_01_01",
       "doc": "Check that you can append entity attributes",
       "tags": [
-        "ea-append",
-        "5_6_3"
+        "5_6_3",
+        "ea-append"
       ],
       "setup": "Create Initial Entity",
       "teardown": "Delete Initial Entity",
@@ -37,8 +37,8 @@
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/010_01_02",
       "doc": "Check that you can append entity attributes",
       "tags": [
-        "ea-append",
-        "5_6_3"
+        "5_6_3",
+        "ea-append"
       ],
       "setup": "Create Initial Entity",
       "teardown": "Delete Initial Entity",
