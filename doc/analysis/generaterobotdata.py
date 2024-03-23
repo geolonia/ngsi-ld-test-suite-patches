@@ -121,6 +121,38 @@ class GenerateRobotData:
         # Generate the initial_condition of the test suite
         self.test_suite['initial_condition'] = self.generate_initial_condition()
 
+        # Generate the parent release and correct the reference in case that the tags include information since_v1.x.y
+        self.get_version()
+
+    def get_version(self):
+        data = [x['tags'] for x in self.test_suite['test_cases']]
+        aux = [item for sublist in data for item in sublist if item.startswith('since')]
+
+        if len(aux) == 0:
+            has_since = False
+        else:
+            has_since = True
+
+        are_all_same = all(item == aux[0] for item in aux)
+
+        if are_all_same and has_since:
+            aux = aux[0]
+            aux = aux.split('since_')[1]
+        else:
+            if has_since:
+                print('Error not all the tags have the same version. Select default v1.3.1')
+
+            aux = 'v1.3.1'
+
+        if 'clauses' in self.test_suite['reference']:
+            self.test_suite['reference'] = \
+                f"ETSI GS CIM 009 V{aux.split('v')[1]} [], clauses {self.test_suite['reference'].split('clauses ')[1]}"
+        else:
+            self.test_suite['reference'] = \
+                f"ETSI GS CIM 009 V{aux.split('v')[1]} [], clause {self.test_suite['reference'].split('clause ')[1]}"
+
+        self.test_suite['parent_release'] = aux
+
     def generate_initial_condition(self) -> str:
         aux = [x['setup'] for x in self.test_cases]
         if all(element == aux[0] for element in aux[1:]):
