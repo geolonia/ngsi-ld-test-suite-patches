@@ -30,7 +30,7 @@ class Requests:
             },
             'Query Entity': {
                 'positions': [],
-                'params': ['id', 'accept', 'attrs', 'context', 'geoproperty', 'options']
+                'params': ['id', 'accept', 'attrs', 'context', 'geoproperty', 'options', 'lang']
             },
             'Retrieve Subscription': {
                 'positions': [],
@@ -675,7 +675,7 @@ class Requests:
 
     @staticmethod
     def query_entity(kwargs) -> str:
-        expected_parameters = ['id', 'accept', 'attrs', 'context', 'geoproperty', 'options']
+        expected_parameters = ['id', 'accept', 'attrs', 'context', 'geoproperty', 'options', 'lang']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Get Entity Request:"
@@ -694,6 +694,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: geoproperty set to '{value}'"
                 case 'options':
                     response = f"{response} and\n    Query Parameter: options set to '{value}'"
+                case 'lang':
+                    response = f"{response} and\n    Query Parameter: lang set to '{value}'"
                 case _:
                     raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
                                     f"'{expected_parameters}', but received: {kwargs}")
