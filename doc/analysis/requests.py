@@ -85,7 +85,7 @@ class Requests:
                 'params': ['entity_ids', 'entity_types', 'accept',
                            'attrs', 'context', 'geoproperty',
                            'options', 'limit', 'entity_id_pattern',
-                           'georel', 'coordinates', 'geometry', 'count', 'q']
+                           'scopeq', 'georel', 'coordinates', 'geometry', 'count', 'q']
             },
             'Query Entities Via POST': {
                 'positions': [],
@@ -1139,7 +1139,7 @@ class Requests:
         expected_parameters = ['entity_ids', 'entity_types', 'accept',
                                'attrs', 'context', 'geoproperty',
                                'options', 'limit', 'entity_id_pattern',
-                               'georel', 'coordinates', 'geometry', 'count' , 'q']
+                               'scopeq', 'georel', 'coordinates', 'geometry', 'count' , 'q']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Get Entities Request:"
@@ -1164,6 +1164,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: limit set to '{value}'"
                 case 'entity_id_pattern':
                     response = f"{response} and\n    Query Parameter: entity_id_pattern set to '{value}'"
+                case 'scopeq':
+                    response = f"{response} and\n    Query Parameter: scopeq set to '{value}'"
                 case 'georel':
                     response = f"{response} and\n    Query Parameter: georel set to '{value}'"
                 case 'coordinates':

@@ -17,7 +17,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 *** Test Cases ***    FILENAME    CONTENT_TYPE
 001_01_01 MinimalEntity
     [Tags]    e-create    5_6_1
-    building-minimal-without-context-sample.jsonld    application/json
+    building-minimal-sample.json    application/json
 001_01_02 EntityWithSimpleProperties
     [Tags]    e-create    5_6_1
     building-simple-attributes-sample.jsonld    application/ld+json

@@ -35,6 +35,7 @@ Query Entities
     ...    ${options}=${EMPTY}
     ...    ${limit}=${EMPTY}
     ...    ${entity_id_pattern}=${EMPTY}
+    ...    ${scopeq}=${EMPTY}
     ...    ${georel}=${EMPTY}
     ...    ${coordinates}=${EMPTY}
     ...    ${geometry}=${EMPTY}
@@ -72,6 +73,7 @@ Query Entities
     IF    '${entity_id_pattern}'!=''
         Set To Dictionary    ${params}    idPattern=${entity_id_pattern}
     END
+    IF    '${scopeq}'!=''    Set To Dictionary    ${params}    scopeQ=${scopeq}
     IF    '${georel}'!=''    Set To Dictionary    ${params}    georel=${georel}
     IF    '${coordinates}'!=''
         Set To Dictionary    ${params}    coordinates=${coordinates}

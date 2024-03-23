@@ -1,0 +1,128 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/019_01_06",
+  "test_objective": "Check that you can query several entities based on scopes",
+  "reference": "ETSI GS CIM 009 V1.5.1 [], clause 4.19",
+  "config_id": "",
+  "parent_release": "v1.5.1",
+  "clauses": [
+    "4.19"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Query several entities based on scopes",
+    "Setup Initial Entities",
+    "Delete Entities"
+  ],
+  "teardown": "Delete Entities",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "019_01_06 QueryWithFullScope",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_01_06",
+      "doc": "Check that you can query several entities based on scopes",
+      "tags": [
+        "4_19",
+        "e-query",
+        "since_v1.5.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on scopes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body containing a list of entities equal to '${2}' of type 'https://ngsi-ld-test-suite/context#Building' with response set to '${response.json()}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: scopeq set to '/Madrid/Gardens/ParqueNorte' and\n    Query Parameter: entity_types set to 'https://ngsi-ld-test-suite/context#Building'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_01_06 QueryWithPlusMatching",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_01_06",
+      "doc": "Check that you can query several entities based on scopes",
+      "tags": [
+        "4_19",
+        "e-query",
+        "since_v1.5.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on scopes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body containing a list of entities equal to '${2}' of type 'https://ngsi-ld-test-suite/context#Building' with response set to '${response.json()}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: scopeq set to '/Madrid/+/ParqueNorte' and\n    Query Parameter: entity_types set to 'https://ngsi-ld-test-suite/context#Building'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_01_06 QueryWithHashMatching",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_01_06",
+      "doc": "Check that you can query several entities based on scopes",
+      "tags": [
+        "4_19",
+        "e-query",
+        "since_v1.5.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on scopes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body containing a list of entities equal to '${1}' of type 'https://ngsi-ld-test-suite/context#Building' with response set to '${response.json()}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: scopeq set to '/CompanyA/#' and\n    Query Parameter: entity_types set to 'https://ngsi-ld-test-suite/context#Building'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_01_06 QueryNonEmptyScope",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_01_06",
+      "doc": "Check that you can query several entities based on scopes",
+      "tags": [
+        "4_19",
+        "e-query",
+        "since_v1.5.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on scopes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body containing a list of entities equal to '${2}' of type 'https://ngsi-ld-test-suite/context#Building' with response set to '${response.json()}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: scopeq set to '/#' and\n    Query Parameter: entity_types set to 'https://ngsi-ld-test-suite/context#Building'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_01_06 QueryWithAndScope",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_01_06",
+      "doc": "Check that you can query several entities based on scopes",
+      "tags": [
+        "4_19",
+        "e-query",
+        "since_v1.5.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on scopes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body containing a list of entities equal to '${1}' of type 'https://ngsi-ld-test-suite/context#Building' with response set to '${response.json()}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: scopeq set to '/Madrid/Gardens/ParqueNorte;/CompanyA/OrganizationB/UnitC' and\n    Query Parameter: entity_types set to 'https://ngsi-ld-test-suite/context#Building'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_01_06 QueryWithOrScope",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_01_06",
+      "doc": "Check that you can query several entities based on scopes",
+      "tags": [
+        "4_19",
+        "e-query",
+        "since_v1.5.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on scopes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body containing a list of entities equal to '${2}' of type 'https://ngsi-ld-test-suite/context#Building' with response set to '${response.json()}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: scopeq set to '/Madrid/Gardens/ParqueNorte,/CompanyA/OrganizationB/UnitC' and\n    Query Parameter: entity_types set to 'https://ngsi-ld-test-suite/context#Building'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [
+    "then",
+    "when"
+  ],
+  "robotpath": "ContextInformation/Consumption/Entity/QueryEntities",
+  "robotfile": "019_01_06"
+}
