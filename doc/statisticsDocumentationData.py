@@ -13,7 +13,7 @@ if __name__ == "__main__":
     number_of_all_testcases = 0
     number_of_successes = 0
     ROBOT_FILE_EXTENSION = ".robot"
-    BASE_URL_OF_FORGE = "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/blob/tests-up-to-1_5/TP/NGSI-LD/"
+    BASE_URL_OF_FORGE = "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/blob/master/TP/NGSI-LD/"
 
     fullpath = basedir + "/TP/NGSI-LD"
     for root, dirs, files in walk(fullpath):
@@ -35,7 +35,7 @@ if __name__ == "__main__":
                 else:
                     statistics[name_of_test_case]["failed"] = False
                     number_of_successes += 1
-                    # we add it here because Fernando's code does not, in case of successfull parsing
+                    # we add it here because Fernando's code does not, in case of successful parsing
                     json_of_test_case["error_while_parsing"] = False
                     # establish the right configuration
                     if json_of_test_case["robotpath"].startswith("ContextSource"):
