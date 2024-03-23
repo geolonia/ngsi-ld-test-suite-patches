@@ -95,8 +95,8 @@ class Requests:
             'Retrieve Temporal Representation Of Entity': {
                 'positions': [],
                 'params': ['temporal_entity_representation_id', 'attrs', 'options',
-                           'context', 'timerel', 'timeAt',
-                           'endTimeAt', 'lastN', 'accept']
+                           'context', 'timerel', 'timeAt', 'endTimeAt', 'lastN', 'accept',
+                           'aggrMethods', 'aggrPeriodDuration']
             },
             'Delete Entity by Id': {
                 'positions': [0],
@@ -1079,8 +1079,8 @@ class Requests:
     @staticmethod
     def retrieve_temporal_representation_of_entity(kwargs) -> str:
         expected_parameters = ['temporal_entity_representation_id', 'attrs', 'options',
-                               'context', 'timerel', 'timeAt',
-                               'endTimeAt', 'lastN', 'accept']
+                               'context', 'timerel', 'timeAt', 'endTimeAt', 'lastN', 'accept',
+                               'aggrMethods', 'aggrPeriodDuration']
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Retrieve Temporal Representation of Entity"
         for key, value in kwargs.items():
@@ -1104,6 +1104,10 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: lastN set to '{value}'"
                 case 'accept':
                     response = f"{response} and\n    Query Parameter: accept set to '{value}'"
+                case 'aggrMethods':
+                    response = f"{response} and\n    Query Parameter: aggrMethods set to '{value}'"
+                case 'aggrPeriodDuration':
+                    response = f"{response} and\n    Query Parameter: aggrPeriodDuration set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case _:
                     raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "

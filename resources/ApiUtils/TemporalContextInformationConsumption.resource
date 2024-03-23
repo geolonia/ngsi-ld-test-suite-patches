@@ -188,6 +188,8 @@ Retrieve Temporal Representation Of Entity
     ...    ${endTimeAt}=${EMPTY}
     ...    ${lastN}=${EMPTY}
     ...    ${accept}=${EMPTY}
+    ...    ${aggrMethods}=${EMPTY}
+    ...    ${aggrPeriodDuration}=${EMPTY}
     ${attrs_length}=    Get Length    ${attrs}
     ${options_length}=    Get Length    ${options}
     &{headers}=    Create Dictionary
@@ -211,6 +213,12 @@ Retrieve Temporal Representation Of Entity
         Set To Dictionary    ${params}    endTimeAt=${endTimeAt}
     END
     IF    '${lastN}'!=''    Set To Dictionary    ${params}    lastN=${lastN}
+    IF    '${aggrMethods}'!=''
+        Set To Dictionary    ${params}    aggrMethods=${aggrMethods}
+    END
+    IF    '${aggrPeriodDuration}'!=''
+        Set To Dictionary    ${params}    aggrPeriodDuration=${aggrPeriodDuration}
+    END
 
     ${response}=    GET
     ...    url=${temporal_api_url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
