@@ -16,7 +16,7 @@ Test Template       Create Entity With Invalid Request Scenarios
     empty-sample.jsonld    ${ERROR_TYPE_INVALID_REQUEST}
 001_02_03 EntityWithNoContext
     [Tags]    e-create    5_6_1
-    building-minimal-without-context-sample.jsonld    ${ERROR_TYPE_BAD_REQUEST_DATA}
+    building-minimal-sample.json    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 
 *** Keywords ***

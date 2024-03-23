@@ -27,7 +27,7 @@
       "teardown": "Delete Initial Entity",
       "template": "Create Entity Scenarios",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Create Entity Selecting Content Type with Response Header: Location containing $${entity_id}     and\n        Retrieve Entity by Id with Check Created Resource Set To and\n            Query Parameter: 'created_resource' set to 'created_entity' and\n            Query Parameter: 'response_body' set to 'response1.json()' and\n            Query Parameter: 'ignored_keys' set to '${None}' list of keys\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/json' and\n payload defined in file: 'building-minimal-without-context-sample.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/json' and\n payload defined in file: 'building-minimal-sample.json'\n}",
       "http_verb": "POST",
       "endpoint": "entities/"
     },
