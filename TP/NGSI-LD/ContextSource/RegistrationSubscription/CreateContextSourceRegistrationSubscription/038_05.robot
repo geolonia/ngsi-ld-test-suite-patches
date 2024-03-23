@@ -40,6 +40,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-expire
     ...    response_body=${response1.json()}
     ...    expected_attribute_value=expired
 
+
 *** Keywords ***
 Generate Random Ids For Context Source Registration Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
