@@ -8,6 +8,8 @@ class Checks:
                 Checks.check_response_status_code,
             'Check Response Body Containing Array Of URIs set to':
                 Checks.check_response_body_containing_array_of_uris_set_to,
+            'Check Response Body Containing Entities URIS set to' :
+                 Checks.check_response_body_containing_entities_uris_set_to,
             'Check Created Resources Set To':
                 Checks.check_created_resources_set_to,
             'Check Response Headers Containing Content-Type set to':
@@ -126,6 +128,10 @@ class Checks:
                 'position': [0]
             },
             'Check Response Body Containing Array Of URIs set to': {
+                'params': ['expected_entities_ids', 'response_body'],
+                'position': [0, 1]
+            },
+            'Check Response Body Containing Entities URIS set to': {
                 'params': ['expected_entities_ids', 'response_body'],
                 'position': [0, 1]
             },
@@ -438,6 +444,10 @@ class Checks:
     @staticmethod
     def check_response_body_containing_array_of_uris_set_to(kwargs: list) -> str:
         return 'Response Body set to an array of created entities ids'
+
+    @staticmethod
+    def check_response_body_containing_entities_uris_set_to(kwargs: list) -> str:
+        return 'Response Body contains entities ids'
 
     @staticmethod
     def check_created_resources_set_to(kwargs: list) -> str:
@@ -967,6 +977,7 @@ if __name__ == "__main__":
     print(data.get_checks(checks='Check Response Status Code',
                           status_code=201))
     print(data.get_checks(checks='Check Response Body Containing Array Of URIs set to'))
+    print(data.get_checks(checks='Check Response Body Containing Entities URIS set to'))
     print(data.get_checks(checks='Check Created Resources Set To'))
     print(data.get_checks(checks='Check Response Headers Containing Content-Type set to',
                           content_type='application/json'))
