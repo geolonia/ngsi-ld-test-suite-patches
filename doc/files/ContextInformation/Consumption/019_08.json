@@ -1,0 +1,114 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/019_08",
+  "test_objective": "Query entities with Entity Type Selection Language.",
+  "reference": "ETSI GS CIM 009 V1.5.1 [], clauses 4.17, 5.7.2",
+  "config_id": "",
+  "parent_release": "v1.5.1",
+  "clauses": [
+    "4.17",
+    "5.7.2"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Query entities using Entity Type Selection Language",
+    "Setup Initial Entities",
+    "Delete Initial Entities"
+  ],
+  "teardown": "Delete Initial Entities",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "019_08_01 query with one type",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_08_01",
+      "doc": "Query entities with Entity Type Selection Language.",
+      "tags": [
+        "e-query",
+        "4_17",
+        "5_7_2",
+        "since_v1.5.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query entities using Entity Type Selection Language",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body contains entities ids\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to '${entity_types_selection}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_08_02 query with the AND operator",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_08_02",
+      "doc": "Query entities with Entity Type Selection Language.",
+      "tags": [
+        "e-query",
+        "4_17",
+        "5_7_2",
+        "since_v1.5.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query entities using Entity Type Selection Language",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body contains entities ids\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to '${entity_types_selection}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_08_03 query with the OR operator",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_08_03",
+      "doc": "Query entities with Entity Type Selection Language.",
+      "tags": [
+        "e-query",
+        "4_17",
+        "5_7_2",
+        "since_v1.5.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query entities using Entity Type Selection Language",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body contains entities ids\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to '${entity_types_selection}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_08_04 different query with the OR operator",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_08_04",
+      "doc": "Query entities with Entity Type Selection Language.",
+      "tags": [
+        "e-query",
+        "4_17",
+        "5_7_2",
+        "since_v1.5.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query entities using Entity Type Selection Language",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body contains entities ids\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to '${entity_types_selection}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_08_05 query with two operators",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_08_05",
+      "doc": "Query entities with Entity Type Selection Language.",
+      "tags": [
+        "e-query",
+        "4_17",
+        "5_7_2",
+        "since_v1.5.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query entities using Entity Type Selection Language",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body contains entities ids\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to '${entity_types_selection}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Consumption/Entity/QueryEntities",
+  "robotfile": "019_08"
+}
