@@ -52,7 +52,6 @@ Retrieve Entity With Language Filter
     ...    ${expectation_filename}
     ...    ${entity_id}
     ...    ${response.json()}
-    ...    ${True}
 
 Create Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}

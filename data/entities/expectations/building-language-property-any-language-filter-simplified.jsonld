@@ -1,12 +1,7 @@
 {
   "id": "urn:ngsi-ld:Building:randomUUID",
   "type": "Building",
-  "street": {
-    "languageMap": {
-      "fr": "Grand Place",
-      "nl": "Grote Markt"
-    }
-  },
+  "street": "Grand Place",
   "@context": [
     "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
   ]
