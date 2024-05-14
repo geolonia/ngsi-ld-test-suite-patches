@@ -329,6 +329,13 @@ class TestCIProvision(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
+    def test_001_15(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/Entities/CreateEntity/001_15.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/001_15.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_001_15.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
     def test_002_01(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/Entities/DeleteEntity/002_01.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/002_01.json'
@@ -448,6 +455,13 @@ class TestCIProvision(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
+    def test_010_11(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/EntityAttributes/AppendEntityAttributes/010_11.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/010_11.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_010_11.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
     def test_013_01(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/EntityAttributes/DeleteEntityAttribute/013_01.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/013_01.json'
@@ -487,6 +501,13 @@ class TestCIProvision(TestCase):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/EntityAttributes/DeleteEntityAttribute/013_06.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/013_06.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_013_06.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_013_07(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/EntityAttributes/DeleteEntityAttribute/013_07.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/013_07.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_013_07.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
@@ -543,6 +564,13 @@ class TestCIProvision(TestCase):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/EntityAttributes/PartialAttributeUpdate/012_08.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/012_08.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_012_08.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_012_09(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/EntityAttributes/PartialAttributeUpdate/012_09.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/012_09.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_012_09.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 

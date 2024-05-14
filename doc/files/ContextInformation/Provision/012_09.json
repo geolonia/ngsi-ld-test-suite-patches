@@ -1,0 +1,42 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/EA/012_09",
+  "test_objective": "Check that you can perform a partial update on a VocabProperty property",
+  "reference": "ETSI GS CIM 009 V1.7.1 [], clauses 4.5.20, 5.6.4",
+  "config_id": "",
+  "parent_release": "v1.7.1",
+  "clauses": [
+    "4.5.20",
+    "5.6.4"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Update Attributes",
+    "Initiate Test Case",
+    "Delete Initial Entities"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} \n        with an id set to ${entityId} \n        and an attribute with an id set to ${atrId}\n}",
+  "test_cases": [
+    {
+      "name": "012_09_01 Check that you can partially update a VocabProperty property",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_09_01",
+      "doc": "Check that you can perform a partial update on a VocabProperty property",
+      "tags": [
+        "4_5_20",
+        "5_6_4",
+        "ea-partial-update",
+        "since_v1.7.1"
+      ],
+      "setup": "Initiate Test Case",
+      "teardown": "Delete Initial Entities",
+      "template": "Update Attributes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Check Updated Entity and\n            Query Parameter: 'ignored_keys' set to '${None}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${entity_id}' and\n    Query Parameter: AttributeId set to 'vocabProperty' and\n    Query Parameter: fragment_filename set to 'building-vocab-property-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/EntityAttributes/PartialAttributeUpdate",
+  "robotfile": "012_09"
+}
