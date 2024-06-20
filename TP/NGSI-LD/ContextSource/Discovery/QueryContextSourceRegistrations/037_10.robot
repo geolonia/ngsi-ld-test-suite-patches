@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query context source registrations. If present, the conditions specified by the context source query match the respective Context Source Properties
+Documentation       Check that one can query context source registrations. If present, the conditions specified by the context source query match the respective Context Source Properties
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
@@ -29,7 +29,7 @@ ${third_context_source_registration_payload_file_path}=     csourceRegistrations
 
 *** Keywords ***
 Query Context Source Registration With Query Params
-    [Documentation]    Check that you can query context source registrations. If present, the conditions specified by the context source query match the respective Context Source Properties
+    [Documentation]    Check that one can query context source registrations. If present, the conditions specified by the context source query match the respective Context Source Properties
     [Arguments]
     ...    ${query_param_name}
     ...    ${query_param_value}

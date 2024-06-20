@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can delete a previous created cached @context without reload param
+Documentation       Check that one can delete a previous created cached @context without reload param
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -16,7 +16,7 @@ ${reason_204}=      No Content
 
 *** Test Cases ***
 051_03_01 Delete a @context whose kind is cached without reload param
-    [Documentation]    Check that you can delete a cached @context
+    [Documentation]    Check that one can delete a cached @context
     [Tags]    ctx-serve    5_13_5    since_v1.5.1
 
     ${response}=    Delete a @context    ${contextId}
@@ -43,7 +43,7 @@ Create Initial cached @context
 
 Delete Initial @context
     ${response}=    List @contexts    true    ${EMPTY}
-    # We need to extract all the contexts except the core context and delete them
+    # One needs to extract all the contexts except the core context and delete them
     FOR    ${item}    IN    @{response.json()}
         ${uri}=    Get From Dictionary    ${item}    URL
         IF    '${uri}'=='${core_context}'

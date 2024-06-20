@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that an error is raised if you delete a temporal entity with an unknown EntityId/Attribute Id
+Documentation       Check that an error is raised if one deletes a temporal entity with an unknown EntityId/Attribute Id
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -25,7 +25,7 @@ ${status_code}=             404
 
 *** Keywords ***
 Delete An Attribute
-    [Documentation]    Check that an error is raised if you delete a temporal entity with an unknown EntityId/Attribute Id
+    [Documentation]    Check that an error is raised if one deletes a temporal entity with an unknown EntityId/Attribute Id
     [Tags]    tea-delete    5_6_13
     [Arguments]    ${entity_id}    ${attribute_id}
     ${response}=    Delete Attribute From Temporal Entity

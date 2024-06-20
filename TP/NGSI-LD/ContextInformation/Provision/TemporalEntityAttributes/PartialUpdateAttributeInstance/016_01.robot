@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can modify an attribute instance in temporal representation of an entity
+Documentation       Check that one can modify an attribute instance in temporal representation of an entity
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
@@ -19,7 +19,7 @@ ${attributeId}=             speed
 
 *** Test Cases ***
 016_01_01 Modify attribute instance in temporal representation of an entity
-    [Documentation]    Check that you can partially update an attribute instance of a temporal representation of an entity
+    [Documentation]    Check that one can partially update an attribute instance of a temporal representation of an entity
     [Tags]    tea-partial-update    5_6_14
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Suite Variable    ${temporal_entity_representation_id}

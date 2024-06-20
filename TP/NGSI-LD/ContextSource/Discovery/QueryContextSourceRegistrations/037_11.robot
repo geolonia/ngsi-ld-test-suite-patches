@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query context source registrations with providing page and limit parameters, pagination logic shall be in place as mandated by clause 5.5.9.
+Documentation       Check that one can query context source registrations with providing page and limit parameters, pagination logic shall be in place as mandated by clause 5.5.9.
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
@@ -32,7 +32,7 @@ ${third_context_source_registration_payload_file_path}=     csourceRegistrations
 
 *** Keywords ***
 Query Context Source Registration With Limit And Offset Parameters
-    [Documentation]    Check that you can query context source registrations with providing page and limit parameters, pagination logic shall be in place as mandated by clause 5.5.9.
+    [Documentation]    Check that one can query context source registrations with providing page and limit parameters, pagination logic shall be in place as mandated by clause 5.5.9.
     [Arguments]    ${limit}    ${offset}    ${expected_number}    ${prev_link}    ${next_link}
     ${response}=    Query Context Source Registrations
     ...    context=${ngsild_test_suite_context}

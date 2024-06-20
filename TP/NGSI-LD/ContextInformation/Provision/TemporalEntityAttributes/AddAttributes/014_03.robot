@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that an error is raised if you add an attribute to a non-existent entity
+Documentation       Check that an error is raised if one adds an attribute to a non-existent entity
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -17,7 +17,7 @@ ${status_code}=             404
 
 *** Test Cases ***
 014_03_01 Add Attribute To Temporal Entity
-    [Documentation]    Check that an error is raised if you add an attribute to a non-existent entity
+    [Documentation]    Check that an error is raised if one adds an attribute to a non-existent entity
     [Tags]    tea-append    5_6_12
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Suite Variable    ${temporal_entity_representation_id}

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot append entity attributes with invalid/missing id or invalid request body
+Documentation       Check that one cannot append entity attributes with invalid/missing id or invalid request body
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -19,7 +19,7 @@ ${invalid_fragment_filename}=       invalid-fragment.jsonld
 
 *** Test Cases ***
 010_05_01 Append entity attributes with invalid entity fragments
-    [Documentation]    Check that you cannot append entity attributes with invalid entity fragments
+    [Documentation]    Check that one cannot append entity attributes with invalid entity fragments
     [Tags]    ea-append    5_6_3
     ${response}=    Append Entity Attributes
     ...    ${entity_id}

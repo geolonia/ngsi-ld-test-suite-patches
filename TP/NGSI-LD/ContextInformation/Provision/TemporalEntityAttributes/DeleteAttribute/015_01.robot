@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can delete an attribute of a temporal representation of an entity with simple temporal properties
+Documentation       Check that one can delete an attribute of a temporal representation of an entity with simple temporal properties
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
@@ -29,7 +29,7 @@ ${attribute_id}=            fuelLevel
 
 *** Keywords ***
 Delete Attribute From A Temporal Entity
-    [Documentation]    Check that you can delete an attribute of a temporal representation of an entity with simple temporal properties
+    [Documentation]    Check that one can delete an attribute of a temporal representation of an entity with simple temporal properties
     [Tags]    tea-delete    5_6_13
     [Arguments]    ${delete_all}    ${dataset_id}    ${expectation_filename}
     ${response}=    Delete Attribute From Temporal Entity

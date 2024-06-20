@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot perform a partial update on an entity attribute with invalid/missing ids
+Documentation       Check that one cannot perform a partial update on an entity attribute with invalid/missing ids
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -29,7 +29,7 @@ ${status_code}=             400
 
 *** Keywords ***
 Update Attributes
-    [Documentation]    Check that you cannot perform a partial update on an entity attribute with invalid/missing ids
+    [Documentation]    Check that one cannot perform a partial update on an entity attribute with invalid/missing ids
     [Tags]    ea-partial-update    5_6_4
     [Arguments]    ${entity_id}    ${attribute_id}    ${fragment_filename}
     ${response}=    Partial Update Entity Attributes

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you get an error when try to list @context with wrong details or kind
+Documentation       Check that one gets an error when try to list @context with wrong details or kind
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -33,7 +33,7 @@ ${reason_204}=      No Content
 
 *** Keywords ***
 List @contexts with no previous created @context
-    [Documentation]    Check that you can list @contexts
+    [Documentation]    Check that one can list @contexts
     [Arguments]    ${details}    ${kind}
     ${response}=    List @contexts    ${details}    ${kind}
 

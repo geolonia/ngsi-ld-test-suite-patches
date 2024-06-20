@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can delete a subscription
+Documentation       Check that one can delete a subscription
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -15,7 +15,7 @@ ${subscription_payload_file_path}=      subscriptions/subscription-sample.jsonld
 
 *** Test Cases ***
 032_03_01 Delete Subscription
-    [Documentation]    Check that you can delete a subscription
+    [Documentation]    Check that one can delete a subscription
     [Tags]    sub-delete    5_8_5
     ${response}=    Delete Subscription    ${subscription_id}
     Check Response Status Code    204    ${response.status_code}

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query one entity via POST Interaction based on id
+Documentation       Check that one can query one entity via POST Interaction based on id
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -19,7 +19,7 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 
 *** Test Cases ***
 019_02_01 Query one entity via POST Interaction based on id
-    [Documentation]    Check that you can query one entity via POST Interaction based on id
+    [Documentation]    Check that one can query one entity via POST Interaction based on id
     [Tags]    e-query    5_7_2
     @{entities_ids_to_be_compared}=    Create List    ${first_entity_id}
     ${response}=    Query Entities Via POST

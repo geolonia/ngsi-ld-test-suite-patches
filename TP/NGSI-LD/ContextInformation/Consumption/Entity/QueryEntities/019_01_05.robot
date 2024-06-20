@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query entities based on a geoquery
+Documentation       Check that one can query entities based on a geoquery
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -21,7 +21,7 @@ ${coordinates}=             [13.3986, 52.5547]
 
 *** Test Cases ***
 019_01_05 Query several entities based on a geoquery
-    [Documentation]    Check that you can query entities based on a geoquery
+    [Documentation]    Check that one can query entities based on a geoquery
     [Tags]    e-query    5_7_2
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${first_entity_id}

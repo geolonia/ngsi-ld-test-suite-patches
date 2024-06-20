@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query several entities via POST Interaction based on attribute names
+Documentation       Check that one can query several entities via POST Interaction based on attribute names
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -22,7 +22,7 @@ ${attribute_isparked}=      https://uri.etsi.org/ngsi-ld/default-context/isParke
 
 *** Test Cases ***
 019_02_04 Query several entities via POST Interaction based on attribute names
-    [Documentation]    Check that you can query several entities via POST Interaction based on attribute names
+    [Documentation]    Check that one can query several entities via POST Interaction based on attribute names
     [Tags]    e-query    5_7_2
     @{attributes_to_be_retrieved}=    Create List    ${attribute_brandname}    ${attribute_isparked}
     @{entities_ids_to_be_retrieved}=    Create List    ${vehicle_entity_id}

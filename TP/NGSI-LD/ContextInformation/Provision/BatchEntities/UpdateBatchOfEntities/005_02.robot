@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can update a batch of entities with noOverwrite option
+Documentation       Check that one can update a batch of entities with noOverwrite option
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -30,7 +30,7 @@ ${entity_payload_filename}=     building-simple-attributes-sample.jsonld
 
 *** Keywords ***
 Batch Update Entity With NoOverwrite Option Scenarios
-    [Documentation]    Check that you can update a batch of entities with noOverwrite option
+    [Documentation]    Check that one can update a batch of entities with noOverwrite option
     [Arguments]    ${filename}    ${update_fragment_filename}    ${expected_status}
     ${first_entity}=    Load Entity    ${filename}    ${first_entity_id}
     ${second_entity}=    Load Entity    ${filename}    ${second_entity_id}

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can create a context source registration with specific ID and expiration date
+Documentation       Check that one can create a context source registration with specific ID and expiration date
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
@@ -16,7 +16,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
 
 *** Test Cases ***
 033_01_01 Create Context Source Registration With Specific Date Expiration Date
-    [Documentation]    Check that you can create a context source registration with specific ID and expiration date
+    [Documentation]    Check that one can create a context source registration with specific ID and expiration date
     [Tags]    csr-create    5_9_2
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}

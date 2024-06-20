@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you get an error when try to delete a @context
+Documentation       Check that one gets an error when try to delete a @context
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -38,7 +38,7 @@ ${reason_422}=      Unprocessable
 
 *** Keywords ***
 Delete a @context with wrong data
-    [Documentation]    Check that you can delete a hosted @context
+    [Documentation]    Check that one can delete a hosted @context
     [Arguments]    ${contextid}    ${reload}    ${statuscode}    ${reason}    ${error}
     ${response}=    Delete a @context    ${contextid}    ${reload}
 

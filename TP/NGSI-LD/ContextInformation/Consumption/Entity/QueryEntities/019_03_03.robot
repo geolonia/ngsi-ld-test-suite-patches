@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot query entities if the requested id pattern is incorrect
+Documentation       Check that one cannot query entities if the requested id pattern is incorrect
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -18,7 +18,7 @@ ${invalid_entity_id_pattern}=       invalid_entity_id_pattern**
 
 *** Test Cases ***
 019_03_03 Query several entities based on incorrect id pattern
-    [Documentation]    Check that you cannot query entities if the requested id pattern is incorrect
+    [Documentation]    Check that one cannot query entities if the requested id pattern is incorrect
     [Tags]    e-query    5_7_2
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${first_entity_id}

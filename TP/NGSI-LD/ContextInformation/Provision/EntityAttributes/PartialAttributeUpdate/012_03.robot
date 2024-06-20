@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot perform a partial update on an entity attribute if the entity id or attribute is not known to the system
+Documentation       Check that one cannot perform a partial update on an entity attribute if the entity id or attribute is not known to the system
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -30,7 +30,7 @@ ${default_attr_id}=         speed
 
 *** Keywords ***
 Partial Update Attributes
-    [Documentation]    Check that you cannot perform a partial update on an entity attribute if the entity id or attribute is not known to the system
+    [Documentation]    Check that one cannot perform a partial update on an entity attribute if the entity id or attribute is not known to the system
     [Tags]    ea-partial-update    5_6_4
     [Arguments]    ${entity_id}    ${attr_id}    ${fragment_filename}
     ${response}=    Partial Update Entity Attributes

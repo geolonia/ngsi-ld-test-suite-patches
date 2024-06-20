@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can upsert a batch of non-existing entities and they will be created
+Documentation       Check that one can upsert a batch of non-existing entities and they will be created
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -28,7 +28,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 *** Keywords ***
 Batch Upsert Entity Scenarios
-    [Documentation]    Check that you can upsert a batch of non-existing entities
+    [Documentation]    Check that one can upsert a batch of non-existing entities
     [Arguments]    ${filename}
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

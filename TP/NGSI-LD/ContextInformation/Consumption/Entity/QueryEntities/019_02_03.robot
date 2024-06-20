@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query several entities via POST Interaction based on the given id pattern
+Documentation       Check that one can query several entities via POST Interaction based on the given id pattern
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -20,7 +20,7 @@ ${entity_id_pattern}=       urn:ngsi-ld:Building:.*
 
 *** Test Cases ***
 019_02_03 Query several entities via POST Interaction based on the given id pattern
-    [Documentation]    Check that you can query several entities via POST Interaction based on the given id pattern
+    [Documentation]    Check that one can query several entities via POST Interaction based on the given id pattern
     [Tags]    e-query    5_7_2
     @{entities_ids_to_be_compared}=    Create List    ${first_entity_id}    ${second_entity_id}
     ${response}=    Query Entities Via POST

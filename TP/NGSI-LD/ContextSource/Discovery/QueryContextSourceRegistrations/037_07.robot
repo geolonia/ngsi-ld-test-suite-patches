@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query context source registrations. If present, the geoquery is matched against the GeoProperty programmatic parameter identified in the geoquery
+Documentation       Check that one can query context source registrations. If present, the geoquery is matched against the GeoProperty programmatic parameter identified in the geoquery
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
@@ -28,7 +28,7 @@ ${expectation_file_path}=                               csourceRegistrations/exp
 
 *** Keywords ***
 Query Context Source Registration Matching Geoquery
-    [Documentation]    Check that you can query context source registrations. If present, the geoquery is matched against the GeoProperty programmatic parameter identified in the geoquery
+    [Documentation]    Check that one can query context source registrations. If present, the geoquery is matched against the GeoProperty programmatic parameter identified in the geoquery
     [Arguments]    ${georel}    ${geometry}    ${coordinates}    ${geoproperty}    ${expectation_file_path}
     ${response}=    Query Context Source Registrations
     ...    context=${ngsild_test_suite_context}

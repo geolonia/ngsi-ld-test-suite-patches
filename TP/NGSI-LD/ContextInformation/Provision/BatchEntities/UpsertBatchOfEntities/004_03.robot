@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can upsert a batch of existing entities and they will be replaced
+Documentation       Check that one can upsert a batch of existing entities and they will be replaced
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -29,7 +29,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 *** Keywords ***
 Batch Upsert Existing Entities Scenarios
-    [Documentation]    Check that you can upsert a batch of existing entities
+    [Documentation]    Check that one can upsert a batch of existing entities
     [Arguments]    ${filename}
     ${first_existing_entity}=    Load Entity    ${filename}    ${first_existing_entity_id}
     ${second_existing_entity}=    Load Entity    ${filename}    ${second_existing_entity_id}

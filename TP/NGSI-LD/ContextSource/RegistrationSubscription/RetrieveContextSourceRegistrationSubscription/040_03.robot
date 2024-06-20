@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot retrieve an unknown context source registration subscription, an error of type ResourceNotFound shall be raised
+Documentation       Check that one cannot retrieve an unknown context source registration subscription, an error of type ResourceNotFound shall be raised
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 *** Test Cases ***
 040_03_01 Retrieve Unknown Context Source Registration Subscription
-    [Documentation]    Check that you cannot retrieve an unknown context source registration subscription, an error of type ResourceNotFound shall be raised
+    [Documentation]    Check that one cannot retrieve an unknown context source registration subscription, an error of type ResourceNotFound shall be raised
     [Tags]    csrsub-retrieve    5_11_4
     ${response}=    Retrieve Context Source Registration Subscription
     ...    subscription_id=urn:ngsi-ld:Subscription:unknowSubscription

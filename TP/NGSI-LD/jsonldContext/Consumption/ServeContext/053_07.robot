@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that we can serve a ImplicitlyCreated @context with details set to true
+Documentation       Check that one can serve a ImplicitlyCreated @context with details set to true
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
@@ -16,8 +16,8 @@ ${reason_200}=                          OK
 
 
 *** Test Cases ***
-053_07_01 Check that we can serve a ImplicitlyCreated @context with details set to true
-    [Documentation]    Check that we can serve a ImplicitlyCreated @context with details set to true
+053_07_01 Check that one can serve a ImplicitlyCreated @context with details set to true
+    [Documentation]    Check that one can serve a ImplicitlyCreated @context with details set to true
     [Tags]    sub-create    5_13_4    since_v1.5.1
 
     ${response}=    Serve a @context
@@ -39,7 +39,7 @@ ${reason_200}=                          OK
     # Check that there is no other keys
     Check Context Detailed Information Keys    ${response.json()}
 
-    # We need to check the list of responses
+    # One needs to check the list of responses
     # Check Context Response Body Containing a JSONObject with details of a ImplicitlyCreated @contexts
     # ...    response=${response.json()}
     # ...    expected_length=1

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that an error is raised if you delete a temporal entity with a non-existing/invalid EntityId
+Documentation       Check that an error is raised if one deletes a temporal entity with a non-existing/invalid EntityId
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -13,7 +13,7 @@ ${status_code}=             404
 
 *** Test Cases ***
 009_03_01 Delete a temporal representation of an entity with an unknown entity id
-    [Documentation]    Check that an error is raised if you delete a temporal entity with a non-existing entity id
+    [Documentation]    Check that an error is raised if one deletes a temporal entity with a non-existing entity id
     [Tags]    te-delete    5_6_16
     ${temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${response}=    Delete Temporal Representation Of Entity With Returning Response    ${temporal_entity_id}

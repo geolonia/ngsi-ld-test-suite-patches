@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed
+Documentation       Check that one can update a subcription: Term to URI expansion of Attribute names shall be observed
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -19,7 +19,7 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
 
 *** Test Cases ***
 029_05_01 Update Subscription With Term to Uri Expansion with Context
-    [Documentation]    Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed
+    [Documentation]    Check that one can update a subcription: Term to URI expansion of Attribute names shall be observed
     [Tags]    sub-update    5_8_2
     ${response}=    Update Subscription
     ...    ${subscription_id}
@@ -36,7 +36,7 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
     ...    ${response1.json()}
 
 029_05_02 Update Subscription With Term to Uri Expansion without Context
-    [Documentation]    Check that you can update a subcription: Term to URI expansion of Attribute names shall be observed
+    [Documentation]    Check that one can update a subcription: Term to URI expansion of Attribute names shall be observed
     [Tags]    sub-update    5_8_2
     ${response}=    Update Subscription
     ...    ${subscription_id}

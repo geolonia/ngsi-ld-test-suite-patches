@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
+Documentation       Check that one can retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
@@ -30,7 +30,7 @@ ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-sample.json
 
 *** Keywords ***
 Retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
-    [Documentation]    Check that you can retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
+    [Documentation]    Check that one can retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
     [Arguments]    ${timerel}    ${timeat}    ${endtimeat}    ${vehicle_expectation_file}
     ${response}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}

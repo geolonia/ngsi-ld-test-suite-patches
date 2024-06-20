@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot query the temporal evolution of entities with an invalid request or invalid request content
+Documentation       Check that one cannot query the temporal evolution of entities with an invalid request or invalid request content
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
@@ -17,7 +17,7 @@ ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-sample.json
 
 *** Test Cases ***
 021_12_01 Query the temporal evolution of entities with an invalid request
-    [Documentation]    Check that you cannot query the temporal evolution of entities with an invalid request
+    [Documentation]    Check that one cannot query the temporal evolution of entities with an invalid request
     [Tags]    te-query    5_7_4
     ${response}=    Query Temporal Representation Of Entities
     ...    timerel=after

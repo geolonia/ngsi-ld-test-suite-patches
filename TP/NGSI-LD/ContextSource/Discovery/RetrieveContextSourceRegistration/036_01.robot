@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot retrieve a Context Source Registration, if the context source registration id is not a valid URI
+Documentation       Check that one cannot retrieve a Context Source Registration, if the context source registration id is not a valid URI
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -16,7 +16,7 @@ Test Template       Retrieve Context Source Registration With An Invalid Id
 
 *** Keywords ***
 Retrieve Context Source Registration With An Invalid Id
-    [Documentation]    Check that you cannot retrieve a Context Source Registration, if the context source registration id is not a valid URI
+    [Documentation]    Check that one cannot retrieve a Context Source Registration, if the context source registration id is not a valid URI
     [Arguments]    ${id}
     ${response}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${id}

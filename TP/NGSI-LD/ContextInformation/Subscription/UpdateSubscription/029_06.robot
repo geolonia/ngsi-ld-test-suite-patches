@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can update a subscription: The implementation shall modify the target Subscription
+Documentation       Check that one can update a subscription: The implementation shall modify the target Subscription
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -17,7 +17,7 @@ ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscrip
 
 *** Test Cases ***
 029_06_01 Update Subscription
-    [Documentation]    Check that you can update a subscription: The implementation shall modify the target Subscription
+    [Documentation]    Check that one can update a subscription: The implementation shall modify the target Subscription
     [Tags]    sub-update    5_8_2
     ${response}=    Update Subscription
     ...    ${subscription_id}

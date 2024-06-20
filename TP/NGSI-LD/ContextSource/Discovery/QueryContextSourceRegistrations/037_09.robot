@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query context source registrations. If present, the temporal query is matched against the observationInterval or the managementInterval
+Documentation       Check that one can query context source registrations. If present, the temporal query is matched against the observationInterval or the managementInterval
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
@@ -35,7 +35,7 @@ ${management_interval_expectation_file_path}=                               csou
 
 *** Keywords ***
 Query Context Source Registration Matching Temporal Query
-    [Documentation]    Check that you can query context source registrations. If present, the temporal query is matched against the observationInterval or the managementInterval
+    [Documentation]    Check that one can query context source registrations. If present, the temporal query is matched against the observationInterval or the managementInterval
     [Arguments]    ${payload_file_path}    ${timeproperty}    ${expectation_file_path}
     ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
     ${context_source_registration_payload}=    Load Test Sample

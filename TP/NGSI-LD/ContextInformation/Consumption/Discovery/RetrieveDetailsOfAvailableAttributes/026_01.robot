@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can retrieve a list with a detailed representation of NGSI-LD attributes
+Documentation       Check that one can retrieve a list with a detailed representation of NGSI-LD attributes
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
@@ -27,7 +27,7 @@ ${filename}=                building-simple-attributes-sample.json
 
 *** Keywords ***
 Retrieve Details Of Available Attributes
-    [Documentation]    Check that you can retrieve a list with a detailed representation of NGSI-LD attributes
+    [Documentation]    Check that one can retrieve a list with a detailed representation of NGSI-LD attributes
     [Arguments]    ${context}    ${expectation_file}
     ${response}=    Retrieve Attributes
     ...    context=${context}

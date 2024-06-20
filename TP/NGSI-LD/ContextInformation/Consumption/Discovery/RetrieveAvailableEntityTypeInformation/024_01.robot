@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot retrieve a detailed representation of an unknown NGSI-LD entity type
+Documentation       Check that one cannot retrieve a detailed representation of an unknown NGSI-LD entity type
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
@@ -17,7 +17,7 @@ ${filename}=                building-simple-attributes-sample.json
 
 *** Test Cases ***
 024_01_01 Retrieve Detailed Representation Of Available Entity Type Without Context
-    [Documentation]    Check that you cannot retrieve a detailed representation of an unknown NGSI-LD entity type
+    [Documentation]    Check that one cannot retrieve a detailed representation of an unknown NGSI-LD entity type
     [Tags]    ed-type    5_7_7
     ${response}=    Retrieve Entity Type    type=Building
     Check Response Status Code    404    ${response.status_code}

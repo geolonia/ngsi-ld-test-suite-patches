@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query context source registration subscriptions with providing page and limit parameters for pagination
+Documentation       Check that one can query context source registration subscriptions with providing page and limit parameters for pagination
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -31,7 +31,7 @@ ${third_subscription_payload_file_path}=        csourceSubscriptions/subscriptio
 
 *** Keywords ***
 Query Context Source Registration Subscriptions With Limit And Page Parameters
-    [Documentation]    Check that you can query context source registration subscriptions with providing page and limit parameters for pagination
+    [Documentation]    Check that one can query context source registration subscriptions with providing page and limit parameters for pagination
     [Arguments]    ${limit}    ${page}    ${expected_subscription_number}    ${prev_link}    ${next_link}
     ${response}=    Query Context Source Registration Subscriptions
     ...    context=${ngsild_test_suite_context}

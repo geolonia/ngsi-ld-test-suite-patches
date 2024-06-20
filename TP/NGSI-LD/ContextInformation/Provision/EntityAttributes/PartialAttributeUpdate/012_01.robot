@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can perform a partial update on an entity attribute
+Documentation       Check that one can perform a partial update on an entity attribute
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -18,15 +18,15 @@ ${status_code}=             204
 
 
 *** Test Cases ***    FRAGMENT_FILENAME    ATTRIBUTE_ID    EXPECTATION_FILENAME
-012_01_01 Check that you can partially update an attribute
+012_01_01 Check that one can partially update an attribute
     vehicle-isparked-fragment.jsonld    isParked    vehicle-isparked-update-expectation.jsonld
-012_01_02 Check that you can partially update an attribute by specifying the datasetId
+012_01_02 Check that one can partially update an attribute by specifying the datasetId
     vehicle-speed-equal-datasetid-fragment.jsonld    speed    vehicle-update-speed-expectation.jsonld
 
 
 *** Keywords ***
 Update Attributes
-    [Documentation]    Check that you can perform a partial update on an entity attribute
+    [Documentation]    Check that one can perform a partial update on an entity attribute
     [Tags]    ea-partial-update    5_6_4
     [Arguments]    ${fragment_filename}    ${attribute_id}    ${expectation_filename}
     ${response}=    Partial Update Entity Attributes

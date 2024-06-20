@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot update a subscription: If expiresAt is included but referring to a DateTime in the past, then a BadRequestData error shall be raised
+Documentation       Check that one cannot update a subscription: If expiresAt is included but referring to a DateTime in the past, then a BadRequestData error shall be raised
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -17,7 +17,7 @@ ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscrip
 
 *** Test Cases ***
 029_11_01 Update Subscription With ExpiresAt In The Past
-    [Documentation]    Check that you cannot update a subscription: If expiresAt is included but referring to a DateTime in the past, then a BadRequestData error shall be raised
+    [Documentation]    Check that one cannot update a subscription: If expiresAt is included but referring to a DateTime in the past, then a BadRequestData error shall be raised
     [Tags]    sub-update    5_8_2
     ${response}=    Update Subscription
     ...    ${subscription_id}

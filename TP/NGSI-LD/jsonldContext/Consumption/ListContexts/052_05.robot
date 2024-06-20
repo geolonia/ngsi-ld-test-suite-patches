@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can list all the @context available in the broker with several add @contexts with details equal to true
+Documentation       Check that one can list all the @context available in the broker with several add @contexts with details equal to true
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -57,7 +57,7 @@ Create Initial set of @contexts
     Set Suite Variable    ${uris}
 
 List @contexts with several previous created @context
-    [Documentation]    Check that you can list @contexts
+    [Documentation]    Check that one can list @contexts
     [Arguments]    ${details}    ${kind}    ${count}
 
     ${response}=    List @contexts    ${details}    ${kind}
@@ -65,7 +65,7 @@ List @contexts with several previous created @context
     Check Response Status Code    200    ${response.status_code}
     Check Response Reason set to    ${response.reason}    ${reason_200}
 
-    # We need to check the list of responses
+    # One needs to check the list of responses
     Check Context Response Body Containing a JSONObject with details of the @contexts
     ...    response=${response.json()}
     ...    expected_length=${count}

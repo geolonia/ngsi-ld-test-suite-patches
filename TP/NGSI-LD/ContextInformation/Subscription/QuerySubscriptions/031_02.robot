@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query a list of subscriptions: Pagination logic shall be in place
+Documentation       Check that one can query a list of subscriptions: Pagination logic shall be in place
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -31,7 +31,7 @@ ${third_subscription_payload_file_path}=        subscriptions/subscription-inact
 
 *** Keywords ***
 Query Subscriptions With Limit And Page Parameters
-    [Documentation]    Check that you can query a list of subscriptions: Pagination logic shall be in place
+    [Documentation]    Check that one can query a list of subscriptions: Pagination logic shall be in place
     [Arguments]    ${limit}    ${offset}    ${expectation_subscription_number}    ${prev_link}    ${next_link}
     ${response}=    Query Subscriptions
     ...    context=${ngsild_test_suite_context}

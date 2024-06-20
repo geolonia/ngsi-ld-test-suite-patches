@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot delete an attribute from an entity with invalid/missing ids
+Documentation       Check that one cannot delete an attribute from an entity with invalid/missing ids
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -26,7 +26,7 @@ ${filename}=                vehicle-two-datasetid-attributes-sample.jsonld
 
 *** Keywords ***
 Delete Attributes
-    [Documentation]    Check that you cannot delete an attribute from an entity with invalid/missing ids
+    [Documentation]    Check that one cannot delete an attribute from an entity with invalid/missing ids
     [Tags]    ea-delete    5_6_5
     [Arguments]    ${entity_id}    ${attribute_id}    ${expected_status_code}
     ${response}=    Delete Entity Attributes

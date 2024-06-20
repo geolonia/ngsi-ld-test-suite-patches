@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot retrieve the temporal evolution of non-existing entity attributes
+Documentation       Check that one cannot retrieve the temporal evolution of non-existing entity attributes
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
@@ -17,7 +17,7 @@ ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-sample.json
 
 *** Test Cases ***
 020_08_01 Retrieve the temporal evolution of non-existing entity attributes
-    [Documentation]    Check that you cannot retrieve the temporal evolution of non-existing entity attributes
+    [Documentation]    Check that one cannot retrieve the temporal evolution of non-existing entity attributes
     [Tags]    te-retrieve    5_7_3
     @{temporal_attributes_to_be_retrieved}=    Create List    unknownAttribute
     ${response}=    Retrieve Temporal Representation Of Entity

@@ -15,7 +15,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 *** Test Cases ***
 003_07_01 Create a batch of one entity using a JSON-LD @context obtained from the request payload
-    [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" and the response attribute should be compacted as we used the same context as provided when creating the entity
+    [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" and the response attribute should be compacted as one used the same context as provided when creating the entity
     [Tags]    be-create    6_3_5
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Test Variable    ${entity_id}
@@ -26,13 +26,13 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
-    # Attribute should be compacted as we used the same context as provided when creating the entity
+    # Attribute should be compacted as one used the same context as provided when creating the entity
     Check Response Body Containing an Attribute set to
     ...    expected_attribute_name=almostFull
     ...    response_body=${response1.json()}
 
 003_07_02 Create a batch of one entity using a JSON-LD @context obtained from the request payload
-    [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" and response attribute should not be compacted as we did not provide a context containing this term
+    [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" and response attribute should not be compacted as one did not provide a context containing this term
     [Tags]    be-create    6_3_5
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Test Variable    ${entity_id}
@@ -42,7 +42,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     Check Response Status Code    201    ${response.status_code}
     ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}
-    # Attribute should not be compacted as we did not provide a context containing this term
+    # Attribute should not be compacted as one did not provide a context containing this term
     Check Response Body Containing an Attribute set to
     ...    expected_attribute_name=https://ngsi-ld-test-suite/context#almostFull
     ...    response_body=${response1.json()}

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot query context source registrations, if the list of Entity identifiers includes a URI which it is not valid, or the query, geo-query or temporal query are not syntactically valid
+Documentation       Check that one cannot query context source registrations, if the list of Entity identifiers includes a URI which it is not valid, or the query, geo-query or temporal query are not syntactically valid
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -25,7 +25,7 @@ Test Template       Query Context Source Registration With Invalid Query Param
 
 *** Keywords ***
 Query Context Source Registration With Invalid Query Param
-    [Documentation]    Check that you cannot query context source registrations, if the list of Entity identifiers includes a URI which it is not valid, or the query, geo-query or temporal query are not syntactically valid
+    [Documentation]    Check that one cannot query context source registrations, if the list of Entity identifiers includes a URI which it is not valid, or the query, geo-query or temporal query are not syntactically valid
     [Arguments]    ${query_param_name}    ${query_param_value}
     ${response}=    Query Context Source Registrations
     ...    context=${ngsild_test_suite_context}

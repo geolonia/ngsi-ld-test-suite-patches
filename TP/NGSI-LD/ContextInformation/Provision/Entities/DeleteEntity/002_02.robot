@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot delete an entity with invalid/missing id
+Documentation       Check that one cannot delete an entity with invalid/missing id
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -19,7 +19,7 @@ Test Template       Delete Entity Scenarios
 
 *** Keywords ***
 Delete Entity Scenarios
-    [Documentation]    Check that you cannot delete an entity with invalid/missing id
+    [Documentation]    Check that one cannot delete an entity with invalid/missing id
     [Arguments]    ${entity_id}    ${expected_status_code}    ${problem_type}
     ${response}=    Delete Entity by Id    ${entity_id}
     Check Response Status Code    ${expected_status_code}    ${response.status_code}

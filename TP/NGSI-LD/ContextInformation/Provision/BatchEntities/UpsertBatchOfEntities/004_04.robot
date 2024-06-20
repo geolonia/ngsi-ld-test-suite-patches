@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can upsert a batch of entities with update option
+Documentation       Check that one can upsert a batch of entities with update option
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -30,7 +30,7 @@ ${existing_entity_payload_filename}=    building-minimal-sample.jsonld
 
 *** Keywords ***
 Batch Upsert Entities With Update Option Scenarios
-    [Documentation]    Check that you can upsert a batch of entities with update option
+    [Documentation]    Check that one can upsert a batch of entities with update option
     [Arguments]    ${filename}    ${update_fragment_filename}
     ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Test Variable    ${new_entity_id}

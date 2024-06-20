@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can create a minimal context source registration subscription
+Documentation       Check that one can create a minimal context source registration subscription
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -16,7 +16,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
 
 *** Test Cases ***
 038_01_01 Create Context Source Registration Subscription
-    [Documentation]    Check that you can create a minimal context source registration subscription
+    [Documentation]    Check that one can create a minimal context source registration subscription
     [Tags]    csrsub-create    5_11_2
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
@@ -27,7 +27,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
 
-    # We need to ignore the Additional Members ('lastFailure', 'lastNotification', 'timesFailed', 'timesSent')
+    # One needs to ignore the Additional Members ('lastFailure', 'lastNotification', 'timesFailed', 'timesSent')
     ${ignored_attributes}=    Create List
     ...    ${status_regex_expr}
     ...    ${lastfailure_regex_expr}

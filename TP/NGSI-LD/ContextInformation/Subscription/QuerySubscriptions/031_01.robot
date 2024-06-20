@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query a list of subscriptions
+Documentation       Check that one can query a list of subscriptions
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -19,7 +19,7 @@ ${expectation_file_path}=                       subscriptions/expectations/subsc
 
 *** Test Cases ***
 031_01_01 Query Subscriptions
-    [Documentation]    Check that you can query a list of subscriptions
+    [Documentation]    Check that one can query a list of subscriptions
     [Tags]    sub-query    5_8_4
     ${response}=    Query Subscriptions    context=${ngsild_test_suite_context}
     @{subscription_ids}=    Create List

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot create an entity with an invalid request
+Documentation       Check that one cannot create an entity with an invalid request
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -21,7 +21,7 @@ Test Template       Create Entity With Invalid Request Scenarios
 
 *** Keywords ***
 Create Entity With Invalid Request Scenarios
-    [Documentation]    Check that you cannot create an entity with an invalid request
+    [Documentation]    Check that one cannot create an entity with an invalid request
     [Arguments]    ${filename}    ${error_type}
     ${response}=    Create Entity From File    ${filename}
     Check Response Status Code    400    ${response.status_code}

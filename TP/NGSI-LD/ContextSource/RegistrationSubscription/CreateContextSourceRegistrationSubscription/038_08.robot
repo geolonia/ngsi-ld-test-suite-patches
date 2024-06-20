@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot create a context source registration subscription If the data types, cardinalities and restrictions expressed by clause 5.2.12 are not met
+Documentation       Check that one cannot create a context source registration subscription If the data types, cardinalities and restrictions expressed by clause 5.2.12 are not met
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -30,7 +30,7 @@ ${subscription_payload_file_path}=      ${EMPTY}
 
 *** Keywords ***
 Create Invalid Context Source Registration Subscription
-    [Documentation]    Check that you cannot create a context source registration subscription If the data types, cardinalities and restrictions expressed by clause 5.2.12 are not met
+    [Documentation]    Check that one cannot create a context source registration subscription If the data types, cardinalities and restrictions expressed by clause 5.2.12 are not met
     [Arguments]    ${filepath}
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Test Sample    ${filepath}    ${subscription_id}

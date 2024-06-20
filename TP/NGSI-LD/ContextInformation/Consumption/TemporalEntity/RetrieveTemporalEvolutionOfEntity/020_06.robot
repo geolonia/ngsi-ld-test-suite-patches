@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot retrieve the temporal evolution of an entity with an invalid id (invalid URI)
+Documentation       Check that one cannot retrieve the temporal evolution of an entity with an invalid id (invalid URI)
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 *** Test Cases ***
 020_06_01 Retrieve the temporal evolution of an entity with an invalid id
-    [Documentation]    Check that you cannot retrieve the temporal evolution of an entity with an invalid id (invalid URI)
+    [Documentation]    Check that one cannot retrieve the temporal evolution of an entity with an invalid id (invalid URI)
     [Tags]    te-retrieve    5_7_3
     ${response}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=invalidUri

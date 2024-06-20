@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can append a scope to an entity
+Documentation       Check that one can append a scope to an entity
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource

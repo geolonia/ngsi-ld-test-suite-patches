@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can add a simple temporal attribute to a temporal representation of an entity
+Documentation       Check that one can add a simple temporal attribute to a temporal representation of an entity
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
@@ -18,7 +18,7 @@ ${expectation_filename}=    vehicle-temporal-representation-added-attribute-expe
 
 *** Test Cases ***
 014_01_01 Add an attribute to a temporal entity with simple temporal properties
-    [Documentation]    Check that you can add a simple temporal attribute to a temporal representation of an entity
+    [Documentation]    Check that one can add a simple temporal attribute to a temporal representation of an entity
     [Tags]    tea-append    5_6_12
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Suite Variable    ${temporal_entity_representation_id}

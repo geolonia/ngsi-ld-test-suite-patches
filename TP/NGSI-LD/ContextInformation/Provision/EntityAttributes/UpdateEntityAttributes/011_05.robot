@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can update a scope in an entity
+Documentation       Check that one can update a scope in an entity
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource

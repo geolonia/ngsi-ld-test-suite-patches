@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that an error is raised if you add a temporal entity attribute with empty/invalid content
+Documentation       Check that an error is raised if one adds a temporal entity attribute with empty/invalid content
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -25,7 +25,7 @@ ${status_code}=             400
 
 *** Keywords ***
 Add an Attribute To a Temporal Entity From File
-    [Documentation]    Check that an error is raised if you add a temporal entity attribute with empty/invalid content
+    [Documentation]    Check that an error is raised if one adds a temporal entity attribute with empty/invalid content
     [Tags]    tea-append    5_6_12
     [Arguments]    ${update_filename}
     ${response}=    Append Attribute To Temporal Entity

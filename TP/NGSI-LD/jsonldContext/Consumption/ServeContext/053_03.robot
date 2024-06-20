@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you get an error when try to serve a @context
+Documentation       Check that one gets an error when try to serve a @context
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -32,7 +32,7 @@ ${reason_422}=      Unprocessable Content
 
 *** Keywords ***
 Serve @context with no previous created @context
-    [Documentation]    Check that an error is returned when we request for a @context that does not exist
+    [Documentation]    Check that an error is returned when one requests for a @context that does not exist
     [Arguments]    ${contextid}    ${details}    ${statuscode}    ${reason}    ${error}
     ${response}=    Serve a @context    ${contextid}    ${details}
 

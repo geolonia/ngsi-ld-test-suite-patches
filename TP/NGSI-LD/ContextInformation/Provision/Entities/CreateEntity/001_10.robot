@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can create an entity with a LanguageProperty property
+Documentation       Check that one can create an entity with a LanguageProperty property
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -22,7 +22,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 *** Keywords ***
 Create Entity Scenarios
-    [Documentation]    Check that you can create an entity with a LanguageProperty property
+    [Documentation]    Check that one can create an entity with a LanguageProperty property
     [Arguments]    ${filename}    ${content_type}
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Test Variable    ${entity_id}

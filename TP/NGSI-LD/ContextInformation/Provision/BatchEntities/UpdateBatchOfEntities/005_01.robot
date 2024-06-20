@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can update a batch of entities
+Documentation       Check that one can update a batch of entities
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -30,7 +30,7 @@ ${entity_payload_filename}=     building-simple-attributes-sample.jsonld
 
 *** Keywords ***
 Batch Update Entity Scenarios
-    [Documentation]    Check that you can update a batch of entities
+    [Documentation]    Check that one can update a batch of entities
     [Arguments]    ${filename}    ${update_fragment_filename}
     ${first_entity}=    Load Entity    ${filename}    ${first_entity_id}
     ${second_entity}=    Load Entity    ${filename}    ${second_entity_id}

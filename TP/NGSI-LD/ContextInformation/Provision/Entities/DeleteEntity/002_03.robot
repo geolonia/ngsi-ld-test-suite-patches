@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot delete an entity if the entity id is not known to the system
+Documentation       Check that one cannot delete an entity if the entity id is not known to the system
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -13,7 +13,7 @@ ${expected_status_code}=    404
 
 *** Test Cases ***
 002_03_01 Delete an entity with an id not known to the system
-    [Documentation]    Check that you cannot delete an entity if the entity id is not known to the system
+    [Documentation]    Check that one cannot delete an entity if the entity id is not known to the system
     [Tags]    e-delete    5_6_6
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${response}=    Delete Entity by Id    ${entity_id}

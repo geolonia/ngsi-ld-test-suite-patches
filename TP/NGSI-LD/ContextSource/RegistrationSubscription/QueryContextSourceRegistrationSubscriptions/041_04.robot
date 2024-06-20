@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot query context source registration subscriptions with invalid page and limit parameters
+Documentation       Check that one cannot query context source registration subscriptions with invalid page and limit parameters
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -22,7 +22,7 @@ Test Template       Query Context Source Registration Subscriptions With Invalid
 
 *** Keywords ***
 Query Context Source Registration Subscriptions With Invalid Limit And Page Parameters
-    [Documentation]    Check that you cannot query context source registration subscriptions with invalid page and limit parameters
+    [Documentation]    Check that one cannot query context source registration subscriptions with invalid page and limit parameters
     [Arguments]    ${limit}    ${page}
     ${response}=    Query Context Source Registration Subscriptions    limit=${limit}    page=${page}
     Check Response Status Code    400    ${response.status_code}

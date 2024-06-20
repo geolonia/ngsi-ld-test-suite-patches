@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot update a batch of entities with an invalid request
+Documentation       Check that one cannot update a batch of entities with an invalid request
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -18,7 +18,7 @@ Test Template       Batch Update Entity With Invalid Request Scenarios
 
 *** Keywords ***
 Batch Update Entity With Invalid Request Scenarios
-    [Documentation]    Check that you cannot update a batch of entities with an invalid request
+    [Documentation]    Check that one cannot update a batch of entities with an invalid request
     [Arguments]    ${filename}    ${problem_type}
     ${response}=    Batch Request Entities From File    update    filename=${filename}
     Check Response Status Code    400    ${response.status_code}

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can create a context source registration subscription with an expiresAt member and when it is due the status of the subscription changes to "expired"
+Documentation       Check that one can create a context source registration subscription with an expiresAt member and when it is due the status of the subscription changes to "expired"
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -16,7 +16,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-expire
 
 *** Test Cases ***
 038_05_01 Create Context Source Registration Subscription With expiresAt Member
-    [Documentation]    Check that you can create a context source registration subscription with an expiresAt member and when it is due the status of the subscription changes to "expired"
+    [Documentation]    Check that one can create a context source registration subscription with an expiresAt member and when it is due the status of the subscription changes to "expired"
     [Tags]    csrsub-create    5_11_2
     ${subscription_payload_sample}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
     ${current_date}=    Get Current Date    time_zone=UTC    result_format=${date_format}

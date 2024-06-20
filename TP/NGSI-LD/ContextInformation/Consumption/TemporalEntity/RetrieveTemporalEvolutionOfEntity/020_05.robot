@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can retrieve the temporal evolution of the last N instances of entity attributes
+Documentation       Check that one can retrieve the temporal evolution of the last N instances of entity attributes
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
@@ -27,7 +27,7 @@ ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-multiple-in
 
 *** Keywords ***
 Retrieve the temporal evolution of the last N instances of entity attributes
-    [Documentation]    Check that you can retrieve the temporal evolution of the last N instances of entity attributes
+    [Documentation]    Check that one can retrieve the temporal evolution of the last N instances of entity attributes
     [Arguments]    ${lastn}    ${vehicle_expectation_file}
     ${response}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}

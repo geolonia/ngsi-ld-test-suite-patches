@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can update a context source registration by id
+Documentation       Check that one can update a context source registration by id
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
@@ -23,7 +23,7 @@ ${registration_id_prefix}=      urn:ngsi-ld:Registration:
 
 *** Keywords ***
 Update A Context Source
-    [Documentation]    Check that you can update a context source registration by id
+    [Documentation]    Check that one can update a context source registration by id
     [Arguments]    ${filename}    ${update_filename}
     Set Test Variable    ${filename}
     ${fragment}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/fragments/${update_filename}

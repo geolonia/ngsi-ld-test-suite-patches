@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot update a context source registration under some conditions
+Documentation       Check that one cannot update a context source registration under some conditions
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -17,7 +17,7 @@ ${registration_payload_file_path}=      context-source-registration-invalid-json
 
 *** Test Cases ***
 034_04_01 Update a context source registration if the request body is invalid
-    [Documentation]    Check that you cannot update a context source registration if the request body is invalid
+    [Documentation]    Check that one cannot update a context source registration if the request body is invalid
     [Tags]    csr-update    5_9_3
     ${response}=    Update Context Source Registration From File
     ...    ${registration_id}

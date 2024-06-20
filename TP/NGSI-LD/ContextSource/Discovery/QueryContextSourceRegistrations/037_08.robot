@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query context source registrations. If no temporal query is present, only Context Source Registrations for Context Sources providing latest information are considered
+Documentation       Check that one can query context source registrations. If no temporal query is present, only Context Source Registrations for Context Sources providing latest information are considered
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
@@ -18,7 +18,7 @@ ${expectation_file_path}=                               csourceRegistrations/exp
 
 *** Test Cases ***
 037_08_01 Query Context Source Registration Without Temporal Query
-    [Documentation]    Check that you can query context source registrations. If no temporal query is present, only Context Source Registrations for Context Sources providing latest information are considered
+    [Documentation]    Check that one can query context source registrations. If no temporal query is present, only Context Source Registrations for Context Sources providing latest information are considered
     [Tags]    csr-query    5_10_2
     ${response}=    Query Context Source Registrations    context=${ngsild_test_suite_context}    type=Vehicle
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}

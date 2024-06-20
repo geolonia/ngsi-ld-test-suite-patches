@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can delete a previous created hosted @context without reload param
+Documentation       Check that one can delete a previous created hosted @context without reload param
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -15,7 +15,7 @@ ${reason_204}=      No Content
 
 *** Test Cases ***
 051_01_01 Delete a @context whose kind is hosted without reload param
-    [Documentation]    Check that you can delete a hosted @context
+    [Documentation]    Check that one can delete a hosted @context
     [Tags]    ctx-serve    5_13_5    since_v1.5.1
 
     ${response}=    Delete a @context    ${uri}

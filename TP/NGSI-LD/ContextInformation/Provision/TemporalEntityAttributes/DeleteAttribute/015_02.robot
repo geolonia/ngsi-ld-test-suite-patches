@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that an error is raised if you delete an attribute to temporal entity with an unknown/invalid Entity/Attribute Id
+Documentation       Check that an error is raised if one deletes an attribute to temporal entity with an unknown/invalid Entity/Attribute Id
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -27,7 +27,7 @@ ${filename}=                vehicle-temporal-representation-sample.jsonld
 
 *** Keywords ***
 Delete attribute from temporal entity with unknow entity/attribute id
-    [Documentation]    Check that an error is raised if you delete an attribute to temporal entity with an unknown/invalid Entity/Attribute Id
+    [Documentation]    Check that an error is raised if one deletes an attribute to temporal entity with an unknown/invalid Entity/Attribute Id
     [Tags]    tea-delete    5_6_13
     [Arguments]    ${entity_id}    ${attribute_id}
     ${response}=    Delete Attribute From Temporal Entity

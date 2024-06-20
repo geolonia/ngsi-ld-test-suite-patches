@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot retrieve a detailed representation of an unknown NGSI-LD attribute
+Documentation       Check that one cannot retrieve a detailed representation of an unknown NGSI-LD attribute
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
@@ -17,7 +17,7 @@ ${filename}=                building-simple-attributes-sample.json
 
 *** Test Cases ***
 027_01_01 Retrieve Detailed Representation Of Available Attribute Without Context
-    [Documentation]    Check that you cannot retrieve a detailed representation of an unknown NGSI-LD attribute
+    [Documentation]    Check that one cannot retrieve a detailed representation of an unknown NGSI-LD attribute
     [Tags]    ed-attr    5_7_10
     ${response}=    Retrieve Attribute    attribute_name=airQualityLevel
     Check Response Status Code    404    ${response.status_code}

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query the temporal evolution of certain attributes of entities
+Documentation       Check that one can query the temporal evolution of certain attributes of entities
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
@@ -19,7 +19,7 @@ ${expectation_file}=                vehicles-temporal-representation-021-02-expe
 
 *** Test Cases ***
 021_02_01 Query the temporal evolution of certain attributes of entities
-    [Documentation]    Check that you can query the temporal evolution of certain attributes of entities
+    [Documentation]    Check that one can query the temporal evolution of certain attributes of entities
     [Tags]    te-query    5_7_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
     ${temporal_attributes_to_be_retrieved}=    Catenate    SEPARATOR=,    speed

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can upsert a batch of non-existing and existing entities where non-existing will be created and existing will be replaced
+Documentation       Check that one can upsert a batch of non-existing and existing entities where non-existing will be created and existing will be replaced
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -28,7 +28,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 *** Keywords ***
 Batch Upsert Non-existing And Existing Entities Scenarios
-    [Documentation]    Check that you can upsert a batch of non-existing and existing entities
+    [Documentation]    Check that one can upsert a batch of non-existing and existing entities
     [Arguments]    ${filename}
     Setup Initial Entities    ${filename}
     ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}

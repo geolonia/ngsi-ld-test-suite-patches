@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot partially modify attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not found
+Documentation       Check that one cannot partially modify attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not found
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
@@ -29,7 +29,7 @@ ${status_code}=             404
 
 *** Keywords ***
 Modify Attribute Instance Temporal Entity
-    [Documentation]    Check that you cannot partially modify attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not found
+    [Documentation]    Check that one cannot partially modify attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not found
     [Tags]    tea-partial-update    5_6_14
     [Arguments]    ${temporal_entity_id}    ${attributeId}    ${instanceId}
     ${response}=    Modify Attribute Instance From Temporal Entity

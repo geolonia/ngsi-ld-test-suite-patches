@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot create a context source registration that already exists
+Documentation       Check that one cannot create a context source registration that already exists
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -16,7 +16,7 @@ ${filename}=                    csourceRegistrations/context-source-registration
 
 *** Test Cases ***
 033_03_01 Create a context source registration that already exists
-    [Documentation]    Check that you cannot create a context source registration that already exists
+    [Documentation]    Check that one cannot create a context source registration that already exists
     [Tags]    csr-create    5_9_2
     ${response}=    Create Context Source Registration With Return    ${updated_payload}
     Check Response Status Code    409    ${response.status_code}

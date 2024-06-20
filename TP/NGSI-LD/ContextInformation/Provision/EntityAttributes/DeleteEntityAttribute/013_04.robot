@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can delete a scope from an entity
+Documentation       Check that one can delete a scope from an entity
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -18,7 +18,7 @@ ${expectation_filename}=    building-minimal-compacted-expectation.json
 
 *** Test Cases ***
 013_04 Delete scope from an entity
-    [Documentation]    Check that you can delete a scope from an entity
+    [Documentation]    Check that one can delete a scope from an entity
     [Tags]    ea-delete    5_6_5    4_18    since_v1.5.1
     ${response}=    Delete Entity Attributes
     ...    ${entity_id}

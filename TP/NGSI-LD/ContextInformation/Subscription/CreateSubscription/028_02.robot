@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot create a subscription with an invalid request
+Documentation       Check that one cannot create a subscription with an invalid request
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -16,7 +16,7 @@ Test Template       Create Subscription With Invalid Request
 
 *** Keywords ***
 Create Subscription With Invalid Request
-    [Documentation]    Check that you cannot create a subscription with an invalid request
+    [Documentation]    Check that one cannot create a subscription with an invalid request
     [Tags]    sub-create    5_8_1
     [Arguments]    ${filename}    ${expected_status}
     ${response}=    Create Subscription From File    ${filename}

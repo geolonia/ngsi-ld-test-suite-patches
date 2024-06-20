@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query context source registration subscriptions
+Documentation       Check that one can query context source registration subscriptions
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -18,7 +18,7 @@ ${expectation_file_path}=                       csourceSubscriptions/expectation
 
 *** Test Cases ***
 041_01_01 Query Context Source Registration Subscriptions
-    [Documentation]    Check that you can query context source registration subscriptions
+    [Documentation]    Check that one can query context source registration subscriptions
     [Tags]    csrsub-query    5_11_5
     ${response}=    Query Context Source Registration Subscriptions    context=${ngsild_test_suite_context}
     @{subscription_ids}=    Create List    ${first_subscription_id}    ${second_subscription_id}

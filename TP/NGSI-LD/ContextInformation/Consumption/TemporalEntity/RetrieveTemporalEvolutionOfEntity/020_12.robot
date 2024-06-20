@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can retrieve the temporal evolution of an entity with a LanguageProperty property
+Documentation       Check that one can retrieve the temporal evolution of an entity with a LanguageProperty property
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
@@ -27,7 +27,7 @@ ${vehicle_payload_file}=    vehicle-language-property-temporal-representation-sa
 
 *** Keywords ***
 Retrieve Temporal Entity
-    [Documentation]    Check that you can retrieve the temporal evolution of an entity with a LanguageProperty property
+    [Documentation]    Check that one can retrieve the temporal evolution of an entity with a LanguageProperty property
     [Arguments]    ${representation}    ${expectation_filename}
     ${response}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}

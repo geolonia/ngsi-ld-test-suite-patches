@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you get an error if we created an entity with a context (Cached context) and we try to delete it with reload=true
+Documentation       Check that one gets an error if one created an entity with a context (Cached context) and one tries to delete it with reload=true
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
@@ -26,7 +26,7 @@ ${uri}                      /api/v1/context.jsonld
 
 *** Test Cases ***
 051_05_01 Delete and Reload a Cached @context with no communication with the Context Server
-    [Documentation]    Check that you get an error if we try to reload a cached context with no communication with the context server
+    [Documentation]    Check that one gets an error if one tries to reload a cached context with no communication with the context server
     [Tags]    ctx-serve    5_13_5    since_v1.5.1
 
     ${response}=    Delete a @context    ${uri}    true

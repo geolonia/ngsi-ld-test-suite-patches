@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot modify an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right
+Documentation       Check that one cannot modify an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
@@ -34,7 +34,7 @@ ${fragment_filename}=       vehicle-temporal-modify-attribute-instance-fragment.
 
 *** Keywords ***
 Modify Attribute Instance Temporal Entity
-    [Documentation]    Check that you cannot partially modify attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right
+    [Documentation]    Check that one cannot partially modify attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right
     [Tags]    tea-partial-update    5_6_14
     [Arguments]    ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${expected_status_code}
     ${response}=    Modify Attribute Instance From Temporal Entity

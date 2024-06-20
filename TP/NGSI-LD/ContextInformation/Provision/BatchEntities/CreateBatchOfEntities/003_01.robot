@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can create a batch of entities
+Documentation       Check that one can create a batch of entities
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -31,7 +31,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 *** Keywords ***
 Batch Create Entity Scenarios
-    [Documentation]    Check that you can create a batch of entities
+    [Documentation]    Check that one can create a batch of entities
     [Arguments]    ${filename}
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
