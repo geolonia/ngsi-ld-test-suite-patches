@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can add a hosted @context with list of URIs and each of them are cached @coxtexts
+Documentation       Check that one can add a hosted @context with list of URIs and each of them are cached @coxtexts
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -16,7 +16,7 @@ ${reason_204}=          No Content
 
 *** Test Cases ***
 050_04_01 Add a valid hosted @context with URIs and check that the URIs are Cached @contexts
-    [Documentation]    Check that you can add a @context
+    [Documentation]    Check that one can add a @context
     [Tags]    ctx-add    5_13_2    since_v1.5.1
 
     ${response}=    Add a new @context    ${filename_list}
@@ -42,7 +42,7 @@ ${reason_204}=          No Content
 *** Keywords ***
 Delete Initial @context
     ${response}=    List @contexts    true    ${EMPTY}
-    # We need to extract all the contexts except the core context and delete them
+    # One needs to extract all the contexts except the core context and delete them
     FOR    ${item}    IN    @{response.json()}
         ${uri}=    Get From Dictionary    ${item}    URL
         IF    '${uri}'=='${core_context}'

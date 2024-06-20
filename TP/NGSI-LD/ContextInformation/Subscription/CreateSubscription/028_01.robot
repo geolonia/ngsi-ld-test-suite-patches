@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can create a subscription
+Documentation       Check that one can create a subscription
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -16,7 +16,7 @@ ${subscription_expectation_file_path}=      subscriptions/expectations/subscript
 
 *** Test Cases ***
 028_01_01 Create Subscription
-    [Documentation]    Check that you can create a subscription
+    [Documentation]    Check that one can create a subscription
     [Tags]    sub-create    5_8_1
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     Set Suite Variable    ${subscription_id}

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can update a temporal representation of an entity with simple temporal properties
+Documentation       Check that one can update a temporal representation of an entity with simple temporal properties
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
@@ -18,7 +18,7 @@ ${expectation_filename}=    vehicle-temporal-representation-update-expectation.j
 
 *** Test Cases ***
 008_01_01 Update a temporal representation of an entity with simple temporal properties
-    [Documentation]    Check that you can update a temporal representation of an entity with simple temporal properties
+    [Documentation]    Check that one can update a temporal representation of an entity with simple temporal properties
     [Tags]    te-update    5_6_11
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Suite Variable    ${temporal_entity_representation_id}

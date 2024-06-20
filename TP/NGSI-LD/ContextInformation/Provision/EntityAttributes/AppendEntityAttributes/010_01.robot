@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can append entity attributes
+Documentation       Check that one can append entity attributes
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -27,7 +27,7 @@ ${filename}=                vehicle-speed-two-datasetid-sample.jsonld
 
 *** Keywords ***
 Append Attributes Without Params
-    [Documentation]    Check that you can append entity attributes
+    [Documentation]    Check that one can append entity attributes
     [Arguments]    ${status_code}    ${fragment_filename}    ${expectation_filename}
     ${response}=    Append Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}

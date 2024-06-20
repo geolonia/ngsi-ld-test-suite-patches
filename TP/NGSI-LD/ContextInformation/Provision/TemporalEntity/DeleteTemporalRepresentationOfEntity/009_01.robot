@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can delete a temporal representation of an entity with simple temporal properties
+Documentation       Check that one can delete a temporal representation of an entity with simple temporal properties
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
@@ -16,7 +16,7 @@ ${filename}=                vehicle-temporal-representation-sample.jsonld
 
 *** Test Cases ***
 009_01_01 Delete a temporal representation of an entity with simple temporal properties
-    [Documentation]    Check that you can delete a temporal representation of an entity with simple temporal properties
+    [Documentation]    Check that one can delete a temporal representation of an entity with simple temporal properties
     [Tags]    te-delete    5_6_16
     ${response}=    Delete Temporal Representation Of Entity With Returning Response
     ...    ${temporal_entity_representation_id}

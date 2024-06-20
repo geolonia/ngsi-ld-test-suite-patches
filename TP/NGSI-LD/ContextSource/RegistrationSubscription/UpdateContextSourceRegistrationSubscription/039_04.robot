@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot update a context source registration subscription with a fragment that does not meet the data types and restrictions expressed by clause 5.2.12
+Documentation       Check that one cannot update a context source registration subscription with a fragment that does not meet the data types and restrictions expressed by clause 5.2.12
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -26,7 +26,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
 
 *** Keywords ***
 Update Context Source Registration Subscription With Invalid Fragment
-    [Documentation]    Check that you cannot update a context source registration subscription with a fragment that does not meet the data types and restrictions expressed by clause 5.2.12
+    [Documentation]    Check that one cannot update a context source registration subscription with a fragment that does not meet the data types and restrictions expressed by clause 5.2.12
     [Arguments]    ${filepath}
     ${subscription_update_fragment}=    Load Test Sample    ${filepath}
     ${response}=    Update Context Source Registration Subscription

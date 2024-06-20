@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query the temporal evolution of entities matching the given NGSI-LD geo-query
+Documentation       Check that one can query the temporal evolution of entities matching the given NGSI-LD geo-query
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
@@ -29,7 +29,7 @@ ${expectation_file}=                vehicles-temporal-representation-021-09-expe
 
 *** Keywords ***
 Query the temporal evolution of entities matching the given NGSI-LD geo-query
-    [Documentation]    Check that you can query the temporal evolution of entities matching the given NGSI-LD geo-query
+    [Documentation]    Check that one can query the temporal evolution of entities matching the given NGSI-LD geo-query
     [Arguments]    ${georel}    ${geometry}    ${coordinates}    ${geoproperty}    ${expectation_file}
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
     ${response}=    Query Temporal Representation Of Entities

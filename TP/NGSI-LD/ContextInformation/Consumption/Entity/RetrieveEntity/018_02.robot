@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot get an entity with invalid id
+Documentation       Check that one cannot get an entity with invalid id
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -14,7 +14,7 @@ Test Template       Get Entity With Invalid Id
 
 *** Keywords ***
 Get Entity With Invalid Id
-    [Documentation]    Check that you cannot get an entity with invalid/missing id
+    [Documentation]    Check that one cannot get an entity with invalid/missing id
     [Tags]    e-retrieve    5_7_1
     [Arguments]    ${entity_id}    ${expected_status_code}    ${problem_type}
     ${response}=    Query Entity

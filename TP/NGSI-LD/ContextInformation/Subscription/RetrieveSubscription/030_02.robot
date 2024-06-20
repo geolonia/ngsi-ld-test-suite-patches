@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot retrieve a subscription: If the identifier provided does not correspond to any existing subscription in the system then an error of type ResourceNotFound shall be raised
+Documentation       Check that one cannot retrieve a subscription: If the identifier provided does not correspond to any existing subscription in the system then an error of type ResourceNotFound shall be raised
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -7,7 +7,7 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 
 *** Test Cases ***
 030_02_01 Retrieve Unknown Subscription
-    [Documentation]    Check that you cannot retrieve a subscription: If the identifier provided does not correspond to any existing subscription in the system then an error of type ResourceNotFound shall be raised
+    [Documentation]    Check that one cannot retrieve a subscription: If the identifier provided does not correspond to any existing subscription in the system then an error of type ResourceNotFound shall be raised
     [Tags]    sub-retrieve    5_8_3
     ${response}=    Retrieve Subscription
     ...    id=urn:ngsi-ld:Subscription:unknowSubscription

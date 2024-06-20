@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query context source registrations if at least one of list of Entity Types or list of Attribute names is present
+Documentation       Check that one can query context source registrations if at least one of list of Entity Types or list of Attribute names is present
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
@@ -28,7 +28,7 @@ ${second_context_source_registration_payload_file_path}=    csourceRegistrations
 
 *** Keywords ***
 Query A Context Source Registration
-    [Documentation]    Check that you can query context source registrations if at least one of list of Entity Types or list of Attribute names is present
+    [Documentation]    Check that one can query context source registrations if at least one of list of Entity Types or list of Attribute names is present
     [Arguments]
     ...    ${query_param_name}
     ...    ${query_param_value}

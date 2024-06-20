@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can perform a partial update on a LanguageProperty property
+Documentation       Check that one can perform a partial update on a LanguageProperty property
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -18,14 +18,14 @@ ${status_code}=             204
 
 
 *** Test Cases ***    FRAGMENT_FILENAME    ATTRIBUTE_ID    EXPECTATION_FILENAME
-012_04_01 Check that you can partially update a LanguageProperty property
+012_04_01 Check that one can partially update a LanguageProperty property
     [Tags]    ea-partial-update    5_6_4    4_5_18    since_v1.4.1
     building-language-property-fragment.jsonld    street    building-language-property-update-expectation.jsonld
 
 
 *** Keywords ***
 Update Attributes
-    [Documentation]    Check that you can perform a partial update on a LanguageProperty property
+    [Documentation]    Check that one can perform a partial update on a LanguageProperty property
     [Arguments]    ${fragment_filename}    ${attribute_id}    ${expectation_filename}
     ${response}=    Partial Update Entity Attributes
     ...    entityId=${entity_id}

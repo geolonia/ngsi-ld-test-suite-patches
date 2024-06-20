@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can get an entity by id
+Documentation       Check that one can get an entity by id
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -17,7 +17,7 @@ ${expectation_filename}=    building-simple-attributes-expectation.jsonld
 
 *** Test Cases ***
 018_01_01 Get an entity by id
-    [Documentation]    Check that you can get an entity by id
+    [Documentation]    Check that one can get an entity by id
     [Tags]    e-retrieve    5_7_1
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${entity_id}

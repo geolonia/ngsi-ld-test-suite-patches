@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can retrieve a context source registration subscription
+Documentation       Check that one can retrieve a context source registration subscription
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -17,7 +17,7 @@ ${expectation_file_path}=               csourceSubscriptions/expectations/subscr
 
 *** Test Cases ***
 040_01_01 Retrieve Context Source Registration Subscription
-    [Documentation]    Check that you can retrieve a context source registration subscription
+    [Documentation]    Check that one can retrieve a context source registration subscription
     [Tags]    csrsub-retrieve    5_11_4
     ${response}=    Retrieve Context Source Registration Subscription
     ...    subscription_id=${subscription_id}
@@ -37,7 +37,7 @@ ${expectation_file_path}=               csourceSubscriptions/expectations/subscr
 
     ${expectation_payload}=    Load Test Sample    ${expectation_file_path}    ${subscription_id}
 
-    # We need to ignore the Additional Members ('lastFailure', 'lastNotification', 'timesFailed', 'timesSent', 'isActive')
+    # One needs to ignore the Additional Members ('lastFailure', 'lastNotification', 'timesFailed', 'timesSent', 'isActive')
     ${ignored_attributes}=    Create List
     ...    ${status_regex_expr}
     ...    ${lastfailure_regex_expr}

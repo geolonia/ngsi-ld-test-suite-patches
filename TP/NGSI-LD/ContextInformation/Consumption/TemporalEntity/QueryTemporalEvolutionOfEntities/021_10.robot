@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query the temporal evolution of entities matching the given NGSI-LD Context Source filter
+Documentation       Check that one can query the temporal evolution of entities matching the given NGSI-LD Context Source filter
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
@@ -19,7 +19,7 @@ ${context_source_url}=                                  http://${context_source_
 
 *** Test Cases ***
 021_10_01 Query the temporal evolution of entities matching the given NGSI-LD context source filter
-    [Documentation]    Check that you can query the temporal evolution of entities matching the given NGSI-LD Context Source filter
+    [Documentation]    Check that one can query the temporal evolution of entities matching the given NGSI-LD Context Source filter
     [Tags]    te-query    5_7_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Building
     ${response}=    Query Temporal Representation Of Entities

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot update a context source registration under some conditions
+Documentation       Check that one cannot update a context source registration under some conditions
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -22,13 +22,13 @@ ${reason_400}=                          Bad Request
     invalidURI    fragments/context-source-registration-different-type-sample.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 034_02_02 Update a context source registration if the request body is not of the same data type
     ${valid_registration_id}    fragments/context-source-registration-different-type-sample.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
-034_02_03 Update a context source registration if you attempt to remove a mandatory property
+034_02_03 Update a context source registration if one attempts to remove a mandatory property
     ${valid_registration_id}    context-source-registration-invalid-sample.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 
 *** Keywords ***
 Update A Context Source
-    [Documentation]    Check that you cannot update a context source registration under some conditions
+    [Documentation]    Check that one cannot update a context source registration under some conditions
     [Tags]    csr-update    5_9_3
     [Arguments]    ${registration_id}    ${fragment_filename}    ${expected_status_code}    ${problem_type}
     ${fragment}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${fragment_filename}

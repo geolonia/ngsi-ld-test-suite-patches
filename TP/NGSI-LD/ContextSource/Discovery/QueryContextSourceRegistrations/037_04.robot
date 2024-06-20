@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query context source registrations. If a JSON-LD context is not provided, then all the query terms shall be resolved against the default JSON-LD @context
+Documentation       Check that one can query context source registrations. If a JSON-LD context is not provided, then all the query terms shall be resolved against the default JSON-LD @context
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
@@ -19,7 +19,7 @@ ${entity_type}=                                         https://ngsi-ld-test-sui
 
 *** Test Cases ***
 037_04_01 Query Context Source Registrations Without Context
-    [Documentation]    Check that you can query context source registrations. If a JSON-LD context is not provided, then all the query terms shall be resolved against the default JSON-LD @context
+    [Documentation]    Check that one can query context source registrations. If a JSON-LD context is not provided, then all the query terms shall be resolved against the default JSON-LD @context
     [Tags]    csr-query    5_10_2
     ${response}=    Query Context Source Registrations    id=${context_source_registration_id}    type=${entity_type}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}

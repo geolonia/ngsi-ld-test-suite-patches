@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query the temporal evolution of entities matching the given NGSI-LD query
+Documentation       Check that one can query the temporal evolution of entities matching the given NGSI-LD query
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
@@ -19,7 +19,7 @@ ${expectation_file}=                vehicles-temporal-representation-021-08-expe
 
 *** Test Cases ***
 021_08_01 Query the temporal evolution of entities matching the given NGSI-LD query
-    [Documentation]    Check that you can query the temporal evolution of entities matching the given NGSI-LD query
+    [Documentation]    Check that one can query the temporal evolution of entities matching the given NGSI-LD query
     [Tags]    te-query    5_7_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
     ${response}=    Query Temporal Representation Of Entities

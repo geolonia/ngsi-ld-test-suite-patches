@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you get an error when try to delete the core @context
+Documentation       Check that one gets an error when try to delete the core @context
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource

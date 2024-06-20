@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can retrieve a list with a detailed representation of NGSI-LD entity types
+Documentation       Check that one can retrieve a list with a detailed representation of NGSI-LD entity types
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
@@ -29,7 +29,7 @@ ${second_filename}=         vehicle-simple-attributes-sample.json
 
 *** Keywords ***
 Retrieve Details Of Available Entity Types
-    [Documentation]    Check that you can retrieve a list with a detailed representation of NGSI-LD entity types
+    [Documentation]    Check that one can retrieve a list with a detailed representation of NGSI-LD entity types
     [Arguments]    ${context}    ${expectation_file}
     ${response}=    Retrieve Entity Types
     ...    context=${context}

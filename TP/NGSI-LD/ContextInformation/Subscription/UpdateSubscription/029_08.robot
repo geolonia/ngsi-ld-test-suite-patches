@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can update a subscription: If isActive is equal to true and expiresAt corresponds to a DateTime in the future, then status shall be updated to "active"
+Documentation       Check that one can update a subscription: If isActive is equal to true and expiresAt corresponds to a DateTime in the future, then status shall be updated to "active"
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -23,7 +23,7 @@ ${subscription_payload_file_path}=      subscriptions/subscription-inactive-samp
 
 *** Keywords ***
 Activate Paused Subscription With isActive And ExpiresAt Members
-    [Documentation]    Check that you can update a subscription: If isActive is equal to true and expiresAt corresponds to a DateTime in the future, then status shall be updated to "active"
+    [Documentation]    Check that one can update a subscription: If isActive is equal to true and expiresAt corresponds to a DateTime in the future, then status shall be updated to "active"
     [Arguments]    ${subscription_update_fragment_file_path}
     ${response}=    Update Subscription
     ...    ${subscription_id}

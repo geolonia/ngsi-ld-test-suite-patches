@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot create a temporal entity with an empty/invalid json/id
+Documentation       Check that one cannot create a temporal entity with an empty/invalid json/id
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -21,7 +21,7 @@ ${status_code}=     400
 
 *** Keywords ***
 Create Temporal Entity From File
-    [Documentation]    Check that you cannot create a temporal entity with an empty/invalid json/id
+    [Documentation]    Check that one cannot create a temporal entity with an empty/invalid json/id
     [Tags]    te-create    5_6_11
     [Arguments]    ${filename}
     ${response}=    Create Temporal Representation Of Entity Selecting Content Type

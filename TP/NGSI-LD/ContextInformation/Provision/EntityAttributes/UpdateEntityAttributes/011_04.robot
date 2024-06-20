@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot update entity attributes with invalid request body
+Documentation       Check that one cannot update entity attributes with invalid request body
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -21,7 +21,7 @@ ${filename}=                vehicle-speed-two-datasetid-sample.jsonld
 
 *** Keywords ***
 Update entity attributes with invalid entity fragments
-    [Documentation]    Check that you cannot update an attribute if the entity fragment is invalid
+    [Documentation]    Check that one cannot update an attribute if the entity fragment is invalid
     [Tags]    ea-update    5_6_2
     [Arguments]    ${filename}    ${fragment_filename}
     ${response}=    Update Entity Attributes

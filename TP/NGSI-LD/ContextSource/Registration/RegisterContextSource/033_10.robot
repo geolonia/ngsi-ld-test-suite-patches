@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot create a context source with invalid content
+Documentation       Check that one cannot create a context source with invalid content
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -21,7 +21,7 @@ ${registration_id_prefix}=      urn:ngsi-ld:Registration:
 
 *** Keywords ***
 Create Context Source With Invalid Content
-    [Documentation]    Check that you cannot create a context source with invalid content
+    [Documentation]    Check that one cannot create a context source with invalid content
     [Tags]    csr-create    6_3_5
     [Arguments]    ${filename}
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can list all the @context available in the broker with one add @context
+Documentation       Check that one can list all the @context available in the broker with one add @context
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -53,7 +53,7 @@ Create Initial @context
     Set Suite Variable    ${uri_list}
 
 List @contexts with one previous created @context
-    [Documentation]    Check that you can list @contexts
+    [Documentation]    Check that one can list @contexts
     [Arguments]    ${details}    ${kind}    ${count}
 
     ${response}=    List @contexts    ${details}    ${kind}

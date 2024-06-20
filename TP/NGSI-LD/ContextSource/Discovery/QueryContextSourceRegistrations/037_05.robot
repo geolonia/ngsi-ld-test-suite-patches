@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query context source registrations matching EntityInfo of RegistrationInfo
+Documentation       Check that one can query context source registrations matching EntityInfo of RegistrationInfo
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
@@ -25,7 +25,7 @@ ${context_source_registration_id_prefix}=       urn:ngsi-ld:ContextSourceRegistr
 
 *** Keywords ***
 Query Context Source Registration Matching EntityInfo of RegistrationInfo
-    [Documentation]    Check that you can query context source registrations matching EntityInfo of RegistrationInfo
+    [Documentation]    Check that one can query context source registrations matching EntityInfo of RegistrationInfo
     [Arguments]    ${registration_file_path}    ${expectation_file_path}
     ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
     ${context_source_registration_payload}=    Load Test Sample

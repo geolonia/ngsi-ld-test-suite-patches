@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot update entity attributes with invalid/missing id or invalid request body
+Documentation       Check that one cannot update entity attributes with invalid/missing id or invalid request body
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -23,7 +23,7 @@ ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 
 *** Keywords ***
 Update Attributes
-    [Documentation]    Check that you cannot update entity attributes with invalid/missing id or invalid request body
+    [Documentation]    Check that one cannot update entity attributes with invalid/missing id or invalid request body
     [Tags]    ea-update    5_6_2
     [Arguments]    ${entity_invalid_id}    ${fragment_filename}
     ${response}=    Update Entity Attributes    ${entity_invalid_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}

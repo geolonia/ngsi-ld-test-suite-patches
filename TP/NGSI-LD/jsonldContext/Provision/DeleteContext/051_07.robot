@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot delete a ImplicitlyCreated @context with reload set to true
+Documentation       Check that one cannot delete a ImplicitlyCreated @context with reload set to true
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -16,7 +16,7 @@ ${reason_400}=                          Bad Request
 
 *** Test Cases ***
 051_07_01 Delete a ImplicitlyCreated @contexts with a valid id and reload set to true
-    [Documentation]    Check that you cannot delete a ImplicitlyCreated @context with reload set to true
+    [Documentation]    Check that one cannot delete a ImplicitlyCreated @context with reload set to true
     [Tags]    ctx-delete    5_13_5    since_v1.5.1
 
     ${response}=    Delete a @context    ${implicit_id}    true

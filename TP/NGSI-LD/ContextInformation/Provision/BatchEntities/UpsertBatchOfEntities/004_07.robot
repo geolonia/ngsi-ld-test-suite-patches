@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can upsert a batch of entities where two have the same id
+Documentation       Check that one can upsert a batch of entities where two have the same id
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -15,7 +15,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 *** Test Cases ***
 004_07_01 Upsert a batch of three valid entities where two have the same id
-    [Documentation]    Check that you can upsert a batch of where two have the same id
+    [Documentation]    Check that one can upsert a batch of where two have the same id
     [Tags]    be-upsert    5_6_8    since_v1.5.1
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

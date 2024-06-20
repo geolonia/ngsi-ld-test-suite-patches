@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can get an increase numberOfHits after creation of a Hosted @context and using it
+Documentation       Check that one can get an increase numberOfHits after creation of a Hosted @context and using it
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource

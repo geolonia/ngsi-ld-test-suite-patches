@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can update entity attributes
+Documentation       Check that one can update entity attributes
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -17,17 +17,17 @@ ${filename}=                vehicle-two-datasetid-attributes-sample.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_RESPONSE_FILENAME    EXPECTATION_FILENAME
-011_01_01 Check that you can update existing attributes with no datasetId
+011_01_01 Check that one can update existing attributes with no datasetId
     204    vehicle-speed-two-datasetid-01-fragment.jsonld    ${EMPTY}    expectations/vehicle-update-attributes-expectation.jsonld
-011_01_02 Check that you can update existing attributes with the datasetId
+011_01_02 Check that one can update existing attributes with the datasetId
     204    vehicle-speed-two-datasetid-02-fragment.jsonld    ${EMPTY}    expectations/vehicle-update-datasetid-attributes-expectation.jsonld
-011_01_03 Check that you can update only some attributes while unknown are ignored
+011_01_03 Check that one can update only some attributes while unknown are ignored
     204    vehicle-speed-two-datasetid-03-fragment.jsonld    ${EMPTY}    expectations/vehicle-multi-attributes-expectation.jsonld
 
 
 *** Keywords ***
 Update Attributes
-    [Documentation]    Check that you can update entity attributes
+    [Documentation]    Check that one can update entity attributes
     [Tags]    ea-update    5_6_2
     [Arguments]
     ...    ${status_code}

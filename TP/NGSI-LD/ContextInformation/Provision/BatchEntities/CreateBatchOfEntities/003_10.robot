@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can create a batch of entities where two have the same id
+Documentation       Check that one can create a batch of entities where two have the same id
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -15,7 +15,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 *** Test Cases ***
 003_10_01 Create a batch of three valid entities where two have the same id
-    [Documentation]    Check that you can create a batch of entities where two have the same id
+    [Documentation]    Check that one can create a batch of entities where two have the same id
     [Tags]    be-create    5_6_7    since_v1.5.1
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${first_entity_id}

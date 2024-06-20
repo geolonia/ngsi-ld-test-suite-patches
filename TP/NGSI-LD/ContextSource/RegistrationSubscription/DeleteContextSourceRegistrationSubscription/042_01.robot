@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can delete a context source registration subscription
+Documentation       Check that one can delete a context source registration subscription
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -15,7 +15,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
 
 *** Test Cases ***
 042_01_01 Delete Context Source Registration Subscription
-    [Documentation]    Check that you can delete a context source registration subscription
+    [Documentation]    Check that one can delete a context source registration subscription
     [Tags]    csrsub-delete    5_11_6
     ${response}=    Delete Context Source Registration Subscription    ${subscription_id}
     Check Response Status Code    204    ${response.status_code}

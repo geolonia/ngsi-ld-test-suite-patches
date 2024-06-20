@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can delete an attribute from an entity
+Documentation       Check that one can delete an attribute from an entity
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -28,7 +28,7 @@ ${attribute_id}=            speed
 
 *** Keywords ***
 Delete Attributes
-    [Documentation]    Check that you can delete an attribute from an entity
+    [Documentation]    Check that one can delete an attribute from an entity
     [Tags]    ea-delete    5_6_5
     [Arguments]    ${datasetId}    ${deleteAll}    ${expectation_filename}
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}

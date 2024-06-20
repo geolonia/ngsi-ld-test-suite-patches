@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query entities specifying a maximum number of results
+Documentation       Check that one can query entities specifying a maximum number of results
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -18,7 +18,7 @@ ${limit}=                   2
 
 *** Test Cases ***
 019_06_01 Query entities specifying a maximum number of results
-    [Documentation]    Check that you can query entities specifying a maximum number of results
+    [Documentation]    Check that one can query entities specifying a maximum number of results
     [Tags]    e-query    6_3_10
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${first_entity_id}

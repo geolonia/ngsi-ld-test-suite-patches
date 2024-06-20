@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot update a subscription: If the NGSI-LD System does not know about the target Subscription, because there is no existing Subscription whose id (URI) is equivalent, an error of type ResourceNotFound shall be raised
+Documentation       Check that one cannot update a subscription: If the NGSI-LD System does not know about the target Subscription, because there is no existing Subscription whose id (URI) is equivalent, an error of type ResourceNotFound shall be raised
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -12,7 +12,7 @@ ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscrip
 
 *** Test Cases ***
 029_02_01 Update Unknown Subscription
-    [Documentation]    Check that you cannot update a subscription: If the NGSI-LD System does not know about the target Subscription, because there is no existing Subscription whose id (URI) is equivalent, an error of type ResourceNotFound shall be raised
+    [Documentation]    Check that one cannot update a subscription: If the NGSI-LD System does not know about the target Subscription, because there is no existing Subscription whose id (URI) is equivalent, an error of type ResourceNotFound shall be raised
     [Tags]    sub-update    5_8_2
     ${response}=    Update Subscription
     ...    urn:ngsi-ld:Subscription:unknowSubscription

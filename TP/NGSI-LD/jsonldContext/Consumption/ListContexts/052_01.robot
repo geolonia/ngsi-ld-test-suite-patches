@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can list all the @context available in the broker with no previous add @context
+Documentation       Check that one can list all the @context available in the broker with no previous add @context
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -42,7 +42,7 @@ ${reason_204}=      No Content
 
 *** Keywords ***
 List @contexts with no previous created @context
-    [Documentation]    Check that you can list @contexts
+    [Documentation]    Check that one can list @contexts
     [Arguments]    ${details}    ${kind}    ${count}
     ${response}=    List @contexts    ${details}    ${kind}
 

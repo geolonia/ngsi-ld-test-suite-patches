@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check if you update a context source registration subscription, a CsourceNotification will be sent with all currently matching context source registrations
+Documentation       Check if one updates a context source registration subscription, a CsourceNotification will be sent with all currently matching context source registrations
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
@@ -34,7 +34,7 @@ ${subscription_payload_file_path}=                          csourceSubscriptions
 
 *** Keywords ***
 Receive cSourceNotification For Newly Matching Context Source Registrations
-    [Documentation]    Check if you update a context source registration subscription, a CsourceNotification will be sent with all currently matching context source registrations
+    [Documentation]    Check if one updates a context source registration subscription, a CsourceNotification will be sent with all currently matching context source registrations
     [Arguments]    ${filepath}    @{notification_csr_ids}
     ${subscription_update_fragment}=    Load Test Sample    ${filepath}
     ${response}=    Update Context Source Registration Subscription

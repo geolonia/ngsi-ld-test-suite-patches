@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query the temporal evolution of entities with a limit to the number of entities to be retrieved
+Documentation       Check that one can query the temporal evolution of entities with a limit to the number of entities to be retrieved
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
@@ -28,7 +28,7 @@ ${second_vehicle_payload_file}=     2020-09-vehicule-temporal-representation-sam
 
 *** Keywords ***
 Query the temporal evolution of entities with a limit to the number of entities to be retrieved
-    [Documentation]    Check that you can query the temporal evolution of entities with a limit to the number of entities to be retrieved
+    [Documentation]    Check that one can query the temporal evolution of entities with a limit to the number of entities to be retrieved
     [Arguments]    ${limit}
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Bus,Vehicle
     ${response}=    Query Temporal Representation Of Entities

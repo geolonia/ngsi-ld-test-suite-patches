@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can create a context source registration that never expires
+Documentation       Check that one can create a context source registration that never expires
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
@@ -16,7 +16,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
 
 *** Test Cases ***
 033_01_02 Create Context Source Registration That Never Expires
-    [Documentation]    Check that you can create a context source registration that never expires
+    [Documentation]    Check that one can create a context source registration that never expires
     [Tags]    csr-create    5_9_2
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot retrieve the temporal evolution of an entity with an invalid request content
+Documentation       Check that one cannot retrieve the temporal evolution of an entity with an invalid request content
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
@@ -30,7 +30,7 @@ ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-sample.json
 
 *** Keywords ***
 Retrieve the temporal evolution of an entity with an invalid request content
-    [Documentation]    Check that you cannot retrieve the temporal evolution of an entity with an invalid request content
+    [Documentation]    Check that one cannot retrieve the temporal evolution of an entity with an invalid request content
     [Arguments]    ${timerel}    ${timeat}    ${endtimeat}
     ${response}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}

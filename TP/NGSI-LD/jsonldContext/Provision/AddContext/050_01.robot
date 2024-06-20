@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can add a hosted @context
+Documentation       Check that one can add a hosted @context
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -28,7 +28,7 @@ ${reason_204}=              No Content
 
 *** Keywords ***
 Add a valid @context
-    [Documentation]    Check that you can add a @context
+    [Documentation]    Check that one can add a @context
     [Arguments]    ${filename}    ${context_type}
 
     ${response}=    Add a new @context    ${filename}
@@ -51,7 +51,7 @@ Add a valid @context
 
 Delete Initial @context
     ${response}=    List @contexts    true    ${EMPTY}
-    # We need to extract all the contexts except the core context and delete them
+    # One needs to extract all the contexts except the core context and delete them
     FOR    ${item}    IN    @{response.json()}
         ${uri}=    Get From Dictionary    ${item}    URL
         IF    '${uri}'=='${core_context}'

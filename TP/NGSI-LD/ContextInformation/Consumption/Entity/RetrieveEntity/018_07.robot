@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can retrieve an entity using Language Filter
+Documentation       Check that one can retrieve an entity using Language Filter
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -39,7 +39,7 @@ ${filename}=                building-language-property-sample.jsonld
 
 *** Keywords ***
 Retrieve Entity With Language Filter
-    [Documentation]    Check that you can retrieve an entity using Language Filter
+    [Documentation]    Check that one can retrieve an entity using Language Filter
     [Arguments]    ${language_filter}    ${options}    ${expectation_filename}
     ${response}=    Query Entity
     ...    id=${entity_id}

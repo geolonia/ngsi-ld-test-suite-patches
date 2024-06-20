@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can update a subscription: If isActive is equal to true and expiresAt is not present, then status shall be updated to "active", if and only if, the previous value of status was different than "expired"
+Documentation       Check that one can update a subscription: If isActive is equal to true and expiresAt is not present, then status shall be updated to "active", if and only if, the previous value of status was different than "expired"
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -23,7 +23,7 @@ ${subscription_payload_file_path}=      subscriptions/subscription-inactive-samp
 
 *** Keywords ***
 Activate Paused Subscription With isActive Member
-    [Documentation]    Check that you can update a subscription: If isActive is equal to true and expiresAt is not present, then status shall be updated to "active", if and only if, the previous value of status was different than "expired"
+    [Documentation]    Check that one can update a subscription: If isActive is equal to true and expiresAt is not present, then status shall be updated to "active", if and only if, the previous value of status was different than "expired"
     [Arguments]    ${subscription_update_fragment_file_path}
     ${response}=    Update Subscription
     ...    ${subscription_id}

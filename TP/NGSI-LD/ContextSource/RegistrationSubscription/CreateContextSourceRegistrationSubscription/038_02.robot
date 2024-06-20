@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can create a context source registration subscription without providing an id and it will be automatically generated
+Documentation       Check that one can create a context source registration subscription without providing an id and it will be automatically generated
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -15,7 +15,7 @@ ${subscription_id}=                     ${EMPTY}
 
 *** Test Cases ***
 038_02_01 Create Context Source Registration Subscription Without An Id
-    [Documentation]    Check that you can create a context source registration subscription without providing an id and it will be automatically generated
+    [Documentation]    Check that one can create a context source registration subscription without providing an id and it will be automatically generated
     [Tags]    csrsub-create    5_11_2
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}
     Remove From Dictionary    ${subscription_payload}    id

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can append entity attributes
+Documentation       Check that one can append entity attributes
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
@@ -25,7 +25,7 @@ ${filename}=                vehicle-speed-two-datasetid-sample.jsonld
 
 *** Keywords ***
 Append Attributes With Params
-    [Documentation]    Check that you can append entity attributes
+    [Documentation]    Check that one can append entity attributes
     [Tags]    ea-append    5_6_3
     [Arguments]    ${status_code}    ${fragment_filename}    ${expectation_filename}
     ${response}=    Append Entity Attributes With Parameters

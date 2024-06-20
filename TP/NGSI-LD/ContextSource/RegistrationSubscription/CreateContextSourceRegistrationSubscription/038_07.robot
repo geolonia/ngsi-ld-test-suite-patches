@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot create a context source registration subscription where another context source registration subscription whose id is equivalent exists
+Documentation       Check that one cannot create a context source registration subscription where another context source registration subscription whose id is equivalent exists
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -16,7 +16,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample
 
 *** Test Cases ***
 038_07_01 Create Existing Context Source Registration Subscription
-    [Documentation]    Check that you cannot create a context source registration subscription where another context source registration subscription whose id is equivalent exists
+    [Documentation]    Check that one cannot create a context source registration subscription where another context source registration subscription whose id is equivalent exists
     [Tags]    csrsub-create    5_11_2
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}

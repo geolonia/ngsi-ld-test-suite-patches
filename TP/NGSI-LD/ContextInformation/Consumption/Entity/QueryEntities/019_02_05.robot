@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query entitites via POST Interaction asking for a GeoJSON representation
+Documentation       Check that one can query entitites via POST Interaction asking for a GeoJSON representation
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -22,7 +22,7 @@ ${parking_entity_type}=     https://ngsi-ld-test-suite/context#OffStreetParking
 
 *** Test Cases ***
 019_02_05 Query several entities via POST Interaction asking for a GeoJSON representation
-    [Documentation]    Check that you can query entities via POST Interaction asking for a GeoJSON representation
+    [Documentation]    Check that one can query entities via POST Interaction asking for a GeoJSON representation
     [Tags]    e-query    5_7_2
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${vehicle_entity_type}    ${parking_entity_type}
     ${response}=    Query Entities Via POST

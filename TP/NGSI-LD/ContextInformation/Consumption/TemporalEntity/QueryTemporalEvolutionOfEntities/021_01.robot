@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query the temporal evolution of entities
+Documentation       Check that one can query the temporal evolution of entities
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
@@ -30,7 +30,7 @@ ${bus_payload_file}=                2020-08-bus-temporal-representation-sample.j
 
 *** Keywords ***
 Query the temporal evolution of entities
-    [Documentation]    Check that you can query the temporal evolution of entities
+    [Documentation]    Check that one can query the temporal evolution of entities
     [Arguments]    ${timerel}    ${timeat}    ${expectation_file}
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
     ${response}=    Query Temporal Representation Of Entities

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can retrieve a Context Source Registration
+Documentation       Check that one can retrieve a Context Source Registration
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
@@ -18,7 +18,7 @@ ${expectation_file_path}=                               csourceRegistrations/exp
 
 *** Test Cases ***
 036_04_01 Retrieve Context Source Registration
-    [Documentation]    Check that you can retrieve a Context Source Registration
+    [Documentation]    Check that one can retrieve a Context Source Registration
     [Tags]    csr-retrieve    5_10_1
     ${response}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${context_source_registration_id}

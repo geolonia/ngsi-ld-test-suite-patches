@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot delete a subscription: If the subscription Id is not present or it is not a valid URI, then an error shall be raised
+Documentation       Check that one cannot delete a subscription: If the subscription Id is not present or it is not a valid URI, then an error shall be raised
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -18,7 +18,7 @@ Test Template       Delete Subscription With Non present Or Invalid Id
 
 *** Keywords ***
 Delete Subscription With Non present Or Invalid Id
-    [Documentation]    Check that you cannot delete a subscription: If the subscription Id is not present or it is not a valid URI, then an error shall be raised
+    [Documentation]    Check that one cannot delete a subscription: If the subscription Id is not present or it is not a valid URI, then an error shall be raised
     [Arguments]    ${id}    ${expected_status_code}    ${problem_type}
     ${response}=    Delete Subscription    ${id}
     Check Response Status Code    ${expected_status_code}    ${response.status_code}

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can retrieve the temporal evolution of an entity
+Documentation       Check that one can retrieve the temporal evolution of an entity
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
@@ -18,7 +18,7 @@ ${vehicle_expectation_file}=    vehicle-temporal-representation-020-01-expectati
 
 *** Test Cases ***
 020_01_01 Retrieve the temporal evolution of an entity
-    [Documentation]    Check that you can retrieve the temporal evolution of an entity
+    [Documentation]    Check that one can retrieve the temporal evolution of an entity
     [Tags]    te-retrieve    5_7_3
     ${response}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}

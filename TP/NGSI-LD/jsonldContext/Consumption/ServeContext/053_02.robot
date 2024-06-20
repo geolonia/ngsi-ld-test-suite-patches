@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can serve a previous created @context with details equal to True
+Documentation       Check that one can serve a previous created @context with details equal to True
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -30,7 +30,7 @@ Create Initial @context
     Set Suite Variable    ${uri}
 
 Serve a @context with details equal to true
-    [Documentation]    Check that you can serve a @context with details
+    [Documentation]    Check that one can serve a @context with details
     [Arguments]    ${details}    ${context_type}
 
     ${response}=    Serve a @context    ${uri}    ${details}

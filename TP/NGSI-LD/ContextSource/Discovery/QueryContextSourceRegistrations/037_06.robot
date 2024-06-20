@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query context source registrations matching property and relationship names of RegistrationInfo
+Documentation       Check that one can query context source registrations matching property and relationship names of RegistrationInfo
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
@@ -27,7 +27,7 @@ ${context_source_registration_payload_file_path}=       csourceRegistrations/con
 
 *** Keywords ***
 Query Context Source Registration Matching Properties And Relationships Of RegistrationInfo
-    [Documentation]    Check that you can query context source registrations matching property and relationship names of RegistrationInfo
+    [Documentation]    Check that one can query context source registrations matching property and relationship names of RegistrationInfo
     [Arguments]    ${attrs_value}    ${expectation_file_path}
     ${response}=    Query Context Source Registrations
     ...    context=${ngsild_test_suite_context}

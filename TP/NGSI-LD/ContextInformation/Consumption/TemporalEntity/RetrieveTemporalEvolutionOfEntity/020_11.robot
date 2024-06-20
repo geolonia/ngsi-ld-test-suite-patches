@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can retrieve the temporal evolution of an entity with the aggregated temporal representation
+Documentation       Check that one can retrieve the temporal evolution of an entity with the aggregated temporal representation
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
@@ -33,7 +33,7 @@ ${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-sample.json
 
 *** Keywords ***
 Retrieve the temporal evolution of an entity with the aggregated temporal representation
-    [Documentation]    Check that you can retrieve the temporal evolution of an entity with the aggregated temporal representation
+    [Documentation]    Check that one can retrieve the temporal evolution of an entity with the aggregated temporal representation
     [Arguments]    ${aggrmethods}    ${aggrperiodduration}    ${attrs}    ${vehicle_expectation_file}
     @{options}=    Create List    aggregatedValues
     ${response}=    Retrieve Temporal Representation Of Entity

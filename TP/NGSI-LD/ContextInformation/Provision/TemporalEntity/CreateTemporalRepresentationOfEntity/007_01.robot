@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can create a temporal representation of an entity
+Documentation       Check that one can create a temporal representation of an entity
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
@@ -23,7 +23,7 @@ ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 
 *** Keywords ***
 Create Temporal Entity
-    [Documentation]    Check that you can create a temporal representation of an entity
+    [Documentation]    Check that one can create a temporal representation of an entity
     [Tags]    te-create    5_6_11
     [Arguments]    ${filename}    ${expectation_filename}    ${content_type}
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}

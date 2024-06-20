@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot create a context source with invalid content
+Documentation       Check that one cannot create a context source with invalid content
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource

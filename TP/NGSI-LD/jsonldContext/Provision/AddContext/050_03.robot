@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can create a implicitlycreated @context through creating a subscription
+Documentation       Check that one can create a implicitlycreated @context through creating a subscription
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
@@ -15,7 +15,7 @@ ${subscription_payload_file_path}=      jsonldContext/subscription-with-implicit
 
 *** Test Cases ***
 050_03_01 Check the creation of ImplicitelyCreted @context
-    [Documentation]    Check that you can create a subscription
+    [Documentation]    Check that one can create a subscription
     [Tags]    sub-create    5_13_2    since_v1.5.1
     ${subscription_payload}=    Load JSON From File    ${EXECDIR}/data/${subscription_payload_file_path}
 

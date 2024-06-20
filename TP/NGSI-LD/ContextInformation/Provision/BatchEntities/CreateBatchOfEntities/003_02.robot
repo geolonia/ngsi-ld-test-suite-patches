@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can create a batch of entities where some will succeed and others will fail
+Documentation       Check that one can create a batch of entities where some will succeed and others will fail
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -16,7 +16,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 *** Test Cases ***
 003_02_01 Create a batch of two valid entities and one invalid entity
-    [Documentation]    Check that you can create a batch of two valid entities and one invalid entity
+    [Documentation]    Check that one can create a batch of two valid entities and one invalid entity
     [Tags]    be-create    5_6_7
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${first_entity_id}

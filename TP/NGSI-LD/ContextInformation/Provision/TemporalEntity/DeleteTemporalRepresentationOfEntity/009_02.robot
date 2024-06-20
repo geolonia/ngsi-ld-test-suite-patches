@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that an error is raised if you delete a temporal entity with an empty/invalid EntityId
+Documentation       Check that an error is raised if one deletes a temporal entity with an empty/invalid EntityId
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -21,7 +21,7 @@ ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 
 *** Keywords ***
 Delete Temporal Entity
-    [Documentation]    Check that an error is raised if you delete a temporal entity with an empty/invalid EntityId
+    [Documentation]    Check that an error is raised if one deletes a temporal entity with an empty/invalid EntityId
     [Tags]    te-delete    5_6_16
     [Arguments]    ${id}    ${expected_status_code}    ${problem_type}
     ${response}=    Delete Temporal Representation Of Entity With Returning Response    ${id}

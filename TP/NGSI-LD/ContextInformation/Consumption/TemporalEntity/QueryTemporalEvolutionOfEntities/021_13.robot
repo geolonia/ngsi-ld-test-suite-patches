@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query the temporal evolution of entities using the entityOperations method
+Documentation       Check that one can query the temporal evolution of entities using the entityOperations method
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
@@ -28,7 +28,7 @@ ${second_vehicle_payload_file}=     2020-09-vehicule-temporal-representation-sam
 
 *** Keywords ***
 Query the temporal evolution of entities using the entityOperations method
-    [Documentation]    Check that you can query the temporal evolution of entities using the entityOperations method
+    [Documentation]    Check that one can query the temporal evolution of entities using the entityOperations method
     [Arguments]    ${payload_file}    ${expectation_file}
     ${response}=    Query Temporal Representation Of Entities Via Post
     ...    query_file_name=${payload_file}

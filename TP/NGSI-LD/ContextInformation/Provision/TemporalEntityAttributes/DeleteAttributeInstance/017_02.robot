@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot delete an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right
+Documentation       Check that one cannot delete an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right
 
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
@@ -32,7 +32,7 @@ ${status_code}=             400
 
 *** Keywords ***
 Delete attribute instance
-    [Documentation]    Check that you cannot delete an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right
+    [Documentation]    Check that one cannot delete an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right
     [Tags]    tea-instance-delete    5_6_15
     [Arguments]    ${temporal_entity_id}    ${attributeId}    ${instanceId}
     ${response}=    Delete Attribute Instance From Temporal Entity

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query context source registration subscriptions with a limit parameter and it will be the maximum number of subscriptions to be retrieved
+Documentation       Check that one can query context source registration subscriptions with a limit parameter and it will be the maximum number of subscriptions to be retrieved
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -32,7 +32,7 @@ ${expectation_file_path}=                       csourceSubscriptions/expectation
 
 *** Keywords ***
 Query Context Source Registration Subscriptions With Limit Parameter
-    [Documentation]    Check that you can query context source registration subscriptions with a limit parameter and it will be the maximum number of subscriptions to be retrieved
+    [Documentation]    Check that one can query context source registration subscriptions with a limit parameter and it will be the maximum number of subscriptions to be retrieved
     [Arguments]    ${limit}    ${expected_subscription_number}
     ${response}=    Query Context Source Registration Subscriptions
     ...    context=${ngsild_test_suite_context}

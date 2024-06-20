@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot delete a context source registration under some conditions
+Documentation       Check that one cannot delete a context source registration under some conditions
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -26,7 +26,7 @@ ${filename}=                    context-source-registration-sample.jsonld
 
 *** Keywords ***
 Delete A Context Source
-    [Documentation]    Check that you cannot delete a context source registration under some conditions
+    [Documentation]    Check that one cannot delete a context source registration under some conditions
     [Arguments]    ${invalid_registration_id}    ${expected_status_code}    ${problem_type}
     ${response}=    Delete Context Source Registration With Return    ${invalid_registration_id}
     Check Response Status Code    ${expected_status_code}    ${response.status_code}

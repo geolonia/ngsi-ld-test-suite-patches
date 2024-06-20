@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can update a batch of entities where some will succeed and others will fail
+Documentation       Check that one can update a batch of entities where some will succeed and others will fail
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -18,7 +18,7 @@ ${update_fragment_filename}=    fragmentEntities/simple-attributes-relationship-
 
 *** Test Cases ***
 005_03_01 Update a batch of non-existing and existing entities
-    [Documentation]    Check that you can update a batch of non-existing and existing entities
+    [Documentation]    Check that one can update a batch of non-existing and existing entities
     [Tags]    be-update    5_6_9
     ${first_existing_entity}=    Load Entity
     ...    building-relationship-of-property-sample.jsonld

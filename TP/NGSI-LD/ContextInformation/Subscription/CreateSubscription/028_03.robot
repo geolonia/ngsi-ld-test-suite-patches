@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot create a subscription with an invalid/empty id
+Documentation       Check that one cannot create a subscription with an invalid/empty id
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -22,7 +22,7 @@ ${subscription_payload_file_path}=      subscriptions/subscription-sample.jsonld
 
 *** Keywords ***
 Create Subscription With Invalid/Empty Id
-    [Documentation]    Check that you cannot create a subscription with an invalid/empty id
+    [Documentation]    Check that one cannot create a subscription with an invalid/empty id
     [Tags]    sub-create    5_8_1
     [Arguments]    ${subscription_id}
     Set Suite Variable    ${subscription_id}

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you can query several entities based on scopes
+Documentation       Check that one can query several entities based on scopes
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -41,7 +41,7 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 
 *** Keywords ***
 Query several entities based on scopes
-    [Documentation]    Check that you can query several entities based on scopes
+    [Documentation]    Check that one can query several entities based on scopes
     [Arguments]    ${scopeq}    ${expected_count}
     ${response}=    Query Entities
     ...    scopeq=${scopeq}

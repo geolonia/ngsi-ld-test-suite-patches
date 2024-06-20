@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you receive a 400 Bad Request creating a @context if the content is incorrect
+Documentation       Check that one receives a 400 Bad Request creating a @context if the content is incorrect
 
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource

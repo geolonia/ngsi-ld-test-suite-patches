@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that you cannot update a context source registration if the Id is not present
+Documentation       Check that one cannot update a context source registration if the Id is not present
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -24,7 +24,7 @@ ${reason_405}=                          Method Not Allowed
 
 *** Keywords ***
 Update A Context Source
-    [Documentation]    Check that you cannot update a context source registration under some conditions
+    [Documentation]    Check that one cannot update a context source registration under some conditions
     [Tags]    csr-update    5_9_3
     [Arguments]    ${fragment_filename}    ${expected_status_code}    ${reason}
     ${fragment}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${fragment_filename}
