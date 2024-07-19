@@ -8,6 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Create Temporal Entity
 Test Teardown       Delete Initial Temporal Entity
+Test Template       Retrieve the temporal evolution of certain attributes of an entity
 
 
 *** Variables ***
@@ -16,23 +17,29 @@ ${vehicle_payload_file}=        2020-08-vehicule-temporal-representation-sample.
 ${vehicle_expectation_file}=    vehicle-temporal-representation-020-03-expectation.jsonld
 
 
-*** Test Cases ***
-020_03_01 Retrieve the temporal evolution of certain attributes of an entity
-    [Documentation]    Check that one can retrieve the temporal evolution of certain attributes of an entity
+*** Test Cases ***    ATTRS    EXPECTED_RESULT
+020_03_01 With one attribute
     [Tags]    te-retrieve    5_7_3
-    @{temporal_attributes_to_be_retrieved}=    Create List    fuelLevel
-    ${response}=    Retrieve Temporal Representation Of Entity
-    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
-    ...    attrs=${temporal_attributes_to_be_retrieved}
-    ...    context=${ngsild_test_suite_context}
-    Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing EntityTemporal element
-    ...    ${vehicle_expectation_file}
-    ...    ${temporal_entity_representation_id}
-    ...    ${response.json()}
+    fuelLevel    vehicle-temporal-representation-020-03-01.jsonld
+020_03_02 With two attributes
+    [Tags]    te-retrieve    5_7_3
+    fuelLevel,speed    vehicle-temporal-representation-020-03-02.jsonld
 
 
 *** Keywords ***
+Retrieve the temporal evolution of certain attributes of an entity
+    [Documentation]    Check that one can retrieve the temporal evolution of certain attributes of an entity
+    [Arguments]    ${attrs}    ${expected_result}
+    ${response}=    Retrieve Temporal Representation Of Entity
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    attrs=${attrs}
+    ...    context=${ngsild_test_suite_context}
+    Check Response Status Code    200    ${response.status_code}
+    Check Response Body Containing EntityTemporal element
+    ...    ${expected_result}
+    ...    ${temporal_entity_representation_id}
+    ...    ${response.json()}
+
 Create Temporal Entity
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
     Create Temporal Representation Of Entity    ${vehicle_payload_file}    ${temporal_entity_representation_id}
