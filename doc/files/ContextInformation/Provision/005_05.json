@@ -1,0 +1,41 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/BE/005_05",
+  "test_objective": "Check that you can update types of entities in a batch update operation",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clauses 4.16, 5.6.9",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "4.16",
+    "5.6.9"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Batch Update Entity Scenarios",
+    "Setup Initial Entities",
+    "Delete Initial Entities"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    and containing a list of entities\n}",
+  "test_cases": [
+    {
+      "name": "005_05_01 EntityWithNewType",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/005_05_01",
+      "doc": "Check that you can update types of entities in a batch update operation",
+      "tags": [
+        "4_16",
+        "5_6_9",
+        "be-update"
+      ],
+      "setup": "Setup Initial Entities",
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Update Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Update Entities with Response Status Code set to 204     and\n        Query Entities with Updated Entities set to '${updated_entities}' valid entities\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/update?${params_as_string}'\n        method set to 'POST'\n        Request batch update operation over entity from filename '@{entities_to_be_updated}' with overwrite_option set to '${EMPTY}' and Content-Type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/update?${params_as_string}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/BatchEntities/UpdateBatchOfEntities",
+  "robotfile": "005_05"
+}
