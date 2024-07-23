@@ -469,6 +469,13 @@ class TestCIProvision(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
+    def test_011_06(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/EntityAttributes/UpdateEntityAttributes/011_06.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/011_06.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_011_06.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
     def test_007_01(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Provision/TemporalEntity/CreateTemporalRepresentationOfEntity/007_01.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Provision/007_01.json'

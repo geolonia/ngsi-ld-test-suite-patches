@@ -1,0 +1,6 @@
+{
+    "type": ["Vehicle", "Car"],
+    "@context": [
+      "https://easy-global-market.github.io/ngsild-api-data-models/ngsildTestSuite/ngsildTestSuiteV1.8-compound.jsonld"
+    ]
+}
