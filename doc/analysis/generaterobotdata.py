@@ -68,6 +68,7 @@ class GenerateRobotData:
             'Subscription/RetrieveSubscription': 'SUB',
             'Subscription/UpdateSubscription': 'SUB',
             'Subscription/SubscriptionNotificationBehaviour': 'SUB',
+            'Subscription/SubscriptionNotificationBehaviour/MQTT': 'SUBMQTT',
             'Registration/CreateContextSourceRegistration': 'REG',
             'Registration/CreateCSRegistration': 'REG',
             'Registration/UpdateCSRegistration': 'REG',

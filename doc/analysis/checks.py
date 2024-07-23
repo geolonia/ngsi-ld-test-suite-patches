@@ -138,7 +138,13 @@ class Checks:
                 Checks.check_response_headers_link_set_to,
             'Check Response Headers Containing NGSILD-Results-Count Equals To' :
                 Checks.check_response_header_contains_ngsild_results_count_equals_to,
-        }
+            'Check Messages Contain One Instance' :
+                Checks.check_messages_contain_one_instance,
+            'Check Message Contain Key':
+                Checks.check_message_contain_key,
+            'Check Message Field Equal':
+                Checks.check_message_field_equal
+            }
 
         self.args = {
             'Check Response Status Code': {
@@ -399,6 +405,18 @@ class Checks:
             'Check Response Headers Containing NGSILD-Results-Count Equals To': {
                 'params': ['expected_result_count' , 'response_headers'],
                 'position': [0, 1]
+            },
+            'Check Messages Contain One Instance': {
+                'params': ['messages'],
+                'position': [0]
+            },
+            'Check Message Contain Key': {
+                'params': ['message', 'key'],
+                'position': [0,1]
+            },
+            'Check Message Field Equal': {
+                'params': ['expected_field', 'field'],
+                'position': [0,1]
             }
         }
 
@@ -1105,6 +1123,32 @@ class Checks:
             return f'Response Header: NGSILD-Results-Count equals to {expected_result_count}'
         else:
             raise Exception(f"ERROR, Expected 'expected_result_count' but received: '{kwargs}'")
+
+    @staticmethod
+    def check_messages_contain_one_instance(kwargs: list) -> str:
+        if 'messages' in kwargs:
+            messages = kwargs['messages']
+            return f'Received messages {messages}'
+        else:
+            raise Exception(f"ERROR, Expected 1 message but received: '{kwargs}'")
+
+    @staticmethod
+    def check_message_contain_key(kwargs: list) -> str:
+        if 'message' in kwargs and 'key' in kwargs:
+            message = kwargs['message']
+            key = kwargs['key']
+            return f'Received message {message} with key {key}'
+        else:
+            raise Exception(f"ERROR, Expected a message containing the key but received: '{kwargs}'")
+
+    @staticmethod
+    def check_message_field_equal(kwargs: list) -> str:
+        if 'expected_field' in kwargs and 'field' in kwargs:
+            field = kwargs['field']
+            expected_field = kwargs['expected_field']
+            return f'expected field {expected_field} equals field {field}'
+        else:
+            raise Exception(f"ERROR, Expected the field to be equal 'expected_field' but received: '{kwargs}'")
 
     def get_checks(self, **kwargs) -> str:
         checking = None

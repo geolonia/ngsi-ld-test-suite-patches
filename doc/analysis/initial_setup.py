@@ -21,6 +21,7 @@ class InitialSetup:
             'Create Id': InitialSetup.init_temporal_entity2(),
             'Create Initial Subscription': InitialSetup.init_subscription(),
             'Setup Initial Subscriptions': InitialSetup.init_subscription(),
+            'Start Mqtt Server And Connect': InitialSetup.init_mqtt_subscription(),
             'Setup Initial Entities': InitialSetup.init_entities(),
             'Setup Initial Temporal Entities': InitialSetup.init_temporal_entities(),
             'Create Initial Context Source Registration and Context Source Registration Subscription':
@@ -107,6 +108,17 @@ class InitialSetup:
         with an id set to ${subscription_id} 
 }'''
         return data
+
+    @staticmethod
+    def init_mqtt_subscription() -> str:
+        data = '''with 
+    the SUT being in the "initial state" and
+    the SUT containing an initial Subscription ${subscription} 
+        with an id set to ${subscription_id}
+        and an notification endpoint set to a mqtt broker
+}'''
+        return data
+
 
     @staticmethod
     def init_entities() -> str:

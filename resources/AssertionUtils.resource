@@ -43,7 +43,7 @@ Check Response Body Containing Entities URIS set to
         Append To List    ${response_entities_ids}    ${entity['id']}
     END
 
-    Lists Should Be Equal    ${expected_entities_ids}    ${response_entities_ids}   ignore_order=True
+    Lists Should Be Equal    ${expected_entities_ids}    ${response_entities_ids}    ignore_order=True
 
 Check Response Body Content
     [Arguments]    ${expectation_filename}    ${response_body}    ${additional_ignored_path}=${EMPTY}
@@ -759,3 +759,15 @@ Check Context Response Body Containing a JSONObject with details of a Implicitly
 
     # Check that there is no other keys
     Check Context Detailed Information Keys    ${response}[0]
+
+Check Messages Contain One Instance
+    [Arguments]    ${messages}
+    Length Should Be    ${messages}    1
+
+Check Message Contain Key
+    [Arguments]    ${message}    ${key}
+    Dictionary Should Contain Key    ${message}    ${key}
+
+Check Message Field Equal
+    [Arguments]    ${expected_field}    ${field}
+    Should Be Equal As Strings    ${expected_field}    ${field}

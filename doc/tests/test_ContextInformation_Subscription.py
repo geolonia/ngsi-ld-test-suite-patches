@@ -328,3 +328,32 @@ class TestCISubscription(TestCase):
         difference_file = f'{self.folder_test_suites}/doc/results/out_029_11.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_058_01(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/UpdateSubscription/058_01.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/058_01.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_058_01.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_058_02(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/UpdateSubscription/058_02.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/058_02.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_058_02.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_058_03(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/UpdateSubscription/058_03.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/058_03.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_058_03.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_058_04(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/UpdateSubscription/058_04.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/058_04.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_058_04.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
