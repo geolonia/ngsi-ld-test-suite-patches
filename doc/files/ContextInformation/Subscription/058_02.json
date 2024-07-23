@@ -1,0 +1,74 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/SUB/MQTT/058_02",
+  "test_objective": "Check that the mqtt notification is received with different qos",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.6",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.8.6"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Receive MQTT Notification",
+    "Start Mqtt Server And Connect",
+    "After Test",
+    "Setup Mqtt Subscription",
+    "Delete Initial Subscriptions",
+    "Delete Initial Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with \n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Subscription ${subscription} \n        with an id set to ${subscription_id}\n        and an notification endpoint set to a mqtt broker\n}",
+  "test_cases": [
+    {
+      "name": "058_02_01 With Default QoS",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/MQTT/058_02_01",
+      "doc": "Check that the broker supports different quality of service (qos)",
+      "tags": [
+        "5_8_6",
+        "sub-mqtt-notification"
+      ],
+      "setup": "Start Mqtt Server And Connect",
+      "teardown": "After Test",
+      "template": "Receive MQTT Notification",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Notification with Received messages ${listenMessages}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to '${fragment_filename}' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    },
+    {
+      "name": "058_02_02 With QoS 1",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/MQTT/058_02_02",
+      "doc": "Check that the broker supports different quality of service (qos)",
+      "tags": [
+        "5_8_6",
+        "sub-mqtt-notification"
+      ],
+      "setup": "Start Mqtt Server And Connect",
+      "teardown": "After Test",
+      "template": "Receive MQTT Notification",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Notification with Received messages ${listenMessages}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to '${fragment_filename}' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    },
+    {
+      "name": "058_02_03 With QoS 2",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/MQTT/058_02_03",
+      "doc": "Check that the broker supports different quality of service (qos)",
+      "tags": [
+        "5_8_6",
+        "sub-mqtt-notification"
+      ],
+      "setup": "Start Mqtt Server And Connect",
+      "teardown": "After Test",
+      "template": "Receive MQTT Notification",
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Notification with Received messages ${listenMessages}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to '${fragment_filename}' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Subscription/SubscriptionNotificationBehaviour/MQTT",
+  "robotfile": "058_02"
+}

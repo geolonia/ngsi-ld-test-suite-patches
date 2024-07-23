@@ -148,6 +148,9 @@ test launch command followed by the file name.
 > > .venv\scripts\deactivate.bat
 > ```
 
+###  Specific test requirements
+- Mqtt tests (058) launch a mosquitto container with docker, thus it requires docker to be installed and running
+
 ## Test Suite Management (tsm)
 
 The `tsm` script is designed to facilitate the selection and execution of the Test Suite, especially if not all the 
@@ -352,7 +355,7 @@ In these cases, it is needed to provide the corresponding information in the Pyt
     in `self.description` to reference the method that pretty print the operation, and add the method that pretty prints
     the operation)
 - When a new permutation is added in an existing Test Case, run the documentation generation script 
-  (`python doc/generateDocumentationData.py {tc_id}`) for the Test Case and copy the generated JSON file in the 
+  (`python doc/analysis/generateDocumentationData.py {tc_id}`) for the Test Case and copy the generated JSON file in the 
   folder containing all files for the given group and subgroup (`cp doc/results/{tc_id}.json doc/files/{group}/{subgroup}`)
 - When a new directory containing Test Cases is created, it has to be declared in `doc/generaterobotdata.py` along with
   its acronym
