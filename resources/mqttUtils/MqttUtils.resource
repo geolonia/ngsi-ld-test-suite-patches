@@ -17,12 +17,12 @@ Start Mqtt Server
 
     ${result} =    Run Process    ${request}    shell=yes
     IF    ${result.rc} > 0
-        Log    The launch of mosquitto encount an error
-        Log    Check that docker is installed
-        Log    that the port ${port} is available
-        Log    and that no other container named ${container_name} is running
-        Log    ${result.stdout}
-        Log    ${result.stderr}
+        Log To Console    The launch of mosquitto encounter an error
+        Log To Console    Check that docker is installed
+        Log To Console    that the port ${port} is available
+        Log To Console    and that no other container named ${container_name} is running
+        Log To Console    ${result.stdout}
+        Log To Console    ${result.stderr}
     END
 
 Stop Mqtt Server

@@ -24,19 +24,19 @@ ${topic}                                ngsild-test-suite/topic
 *** Test Cases ***
 058_01_01 Without User And Port
     [Tags]    sub-mqtt-notification    5_8_6
-    mosquitto.conf    mqtt://127.0.0.1/${topic}
+    mosquitto.conf    mqtt://${mqtt_broker_host}/${topic}
 058_01_02 With Non Default Port
     [Tags]    sub-mqtt-notification    5_8_6
-    mosquitto.conf    mqtt://127.0.0.1:2883/${topic}    port=2883
+    mosquitto.conf    mqtt://${mqtt_broker_host}:${mqtt_broker_non_default_port}/${topic}    port=${mqtt_broker_non_default_port}
 058_01_03 With User
     [Tags]    sub-mqtt-notification    5_8_6
-    mosquitto.conf    mqtt://user@127.0.0.1/${topic}
+    mosquitto.conf    mqtt://user@${mqtt_broker_host}/${topic}
 058_01_04 With User And Password
     [Tags]    sub-mqtt-notification    5_8_6
-    mosquitto_with_user.conf    mqtt://user_with_password:password@127.0.0.1/${topic}    username=user_with_password    password=password
+    mosquitto_with_user.conf    mqtt://user_with_password:password@${mqtt_broker_host}/${topic}    username=user_with_password    password=password
 058_01_05 With User Password And Non Default Port
     [Tags]    sub-mqtt-notification    5_8_6
-    mosquitto_with_user.conf    mqtt://user_with_password:password@127.0.0.1:2883/${topic}    username=user_with_password    password=password    port=2883
+    mosquitto_with_user.conf    mqtt://user_with_password:password@${mqtt_broker_host}:${mqtt_broker_non_default_port}/${topic}    username=user_with_password    password=password    port=${mqtt_broker_non_default_port}
 
 
 *** Keywords ***
@@ -48,7 +48,7 @@ Receive MQTT Notification
     Setup Mqtt Subscription    ${endpoint_uri}
 
     Set Username And Password    ${username}    ${password}
-    Connect    127.0.0.1    ${port}
+    Connect    ${mqtt_broker_host}    ${port}
     Subscribe    topic=${topic}    qos=1
 
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}

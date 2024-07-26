@@ -20,7 +20,7 @@ ${building_id_prefix}                   urn:ngsi-ld:Building:
 ${entity_building_filepath}             building-simple-attributes-sample.jsonld
 ${fragment_filename}                    airQualityLevel-fragment.jsonld
 ${topic}                                ngsild-test-suite/topic
-${endpoint}                             mqtt://127.0.0.1/${topic}
+${endpoint}                             mqtt://${mqtt_broker_host}/${topic}
 ${config_filename}                      mosquitto.conf
 
 
@@ -49,7 +49,7 @@ Receive MQTT Notification
 
 Start Mqtt Server And Connect
     Start Mqtt Server    ${config_filename}    1883
-    Connect    127.0.0.1    1883
+    Connect    ${mqtt_broker_host}    1883
     Subscribe    topic=${topic}    qos=1
 
 After Test
