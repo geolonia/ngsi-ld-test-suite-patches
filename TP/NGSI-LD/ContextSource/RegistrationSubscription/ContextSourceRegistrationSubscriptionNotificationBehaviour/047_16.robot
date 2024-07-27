@@ -59,9 +59,12 @@ Create Initial Context Source Registrations And Context Source Registration Subs
     ${second_context_source_registration_payload}=    Load Test Sample
     ...    ${second_context_source_registration_payload_file_path}
     ...    ${second_context_source_registration_id}
-    Create Context Source Registration Subscription    ${subscription_payload}
-    Create Context Source Registration    ${first_context_source_registration_payload}
-    Create Context Source Registration    ${second_context_source_registration_payload}
+    ${create_csrsub_response}=    Create Context Source Registration Subscription    ${subscription_payload}
+    Check Response Status Code    201    ${create_csrsub_response.status_code}
+    ${create_csr_response1}=    Create Context Source Registration    ${first_context_source_registration_payload}
+    Check Response Status Code    201    ${create_csr_response1.status_code}
+    ${create_csr_response2}=    Create Context Source Registration    ${second_context_source_registration_payload}
+    Check Response Status Code    201    ${create_csr_response2.status_code}
     Set Test Variable    ${subscription_id}
     Set Test Variable    ${first_context_source_registration_id}
     Set Test Variable    ${second_context_source_registration_id}

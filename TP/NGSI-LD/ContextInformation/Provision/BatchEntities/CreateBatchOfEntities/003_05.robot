@@ -22,9 +22,10 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     Set Test Variable    ${entity_id}
     ${entity}=    Load Entity    building-simple-attributes-sample.json    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
-    ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_JSON}
-    Check Response Status Code    201    ${response.status_code}
 
+    ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_JSON}
+
+    Check Response Status Code    201    ${response.status_code}
     ${response1}=    Retrieve Entity by Id    id=${entity_id}
     # Attribute should be compacted as one used the same default context as provided when creating the entity
     Check Response Body Containing an Attribute set to
@@ -39,9 +40,10 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     Set Test Variable    ${entity_id}
     ${entity}=    Load Entity    building-simple-attributes-sample.json    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
-    ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_JSON}
-    Check Response Status Code    201    ${response.status_code}
 
+    ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_JSON}
+
+    Check Response Status Code    201    ${response.status_code}
     ${response1}=    Retrieve Entity by Id    id=${entity_id}    context=${ngsild_test_suite_context}
     # Attribute should not be compacted as one did not provide a context containing this term
     Check Response Body Containing an Attribute set to

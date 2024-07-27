@@ -27,10 +27,6 @@ ${date_format_with_millis}=             %Y-%m-%dT%H:%M:%S.%fZ
     [Documentation]    The notification.timesSent member shall be incremented by one.
     [Tags]    sub-notification    5_8_6
 
-    Add Initial Entity
-    Sleep    1s
-    Setup Initial Subscriptions
-
     Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     Wait for notification    timeout=${10}
@@ -47,6 +43,9 @@ ${date_format_with_millis}=             %Y-%m-%dT%H:%M:%S.%fZ
 *** Keywords ***
 Before Test
     Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Add Initial Entity
+    Sleep    1s
+    Setup Initial Subscriptions
 
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
@@ -55,12 +54,16 @@ Setup Initial Subscriptions
     ...    ${subscription_id}
     ...    ${notification_server_send_url}
     ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
-    Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
+    ${create_response}=    Create Subscription From Subscription Payload
+    ...    ${subscription_payload}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${create_response.status_code}
     Set Suite Variable    ${subscription_id}
 
 Add Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Create Entity    ${entity_building_filepath}    ${entity_id}
+    ${create_response}=    Create Entity    ${entity_building_filepath}    ${entity_id}
+    Check Response Status Code    201    ${create_response.status_code}
     Set Suite Variable    ${entity_id}
 
 After Test

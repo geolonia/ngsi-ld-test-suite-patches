@@ -31,6 +31,7 @@ ${update_fragment_filename}=    fragmentEntities/simple-attributes-relationship-
     @{entities_to_be_updated}=    Create List    ${first_existing_entity}    ${second_existing_entity}    ${new_entity}
 
     ${response}=    Batch Update Entities    @{entities_to_be_updated}
+
     @{expected_successful_entities_ids}=    Create List    ${first_existing_entity_id}    ${second_existing_entity_id}
     Set Suite Variable    @{expected_successful_entities_ids}
     @{expected_failed_entities_ids}=    Create List    ${new_entity_id}
@@ -61,10 +62,12 @@ ${update_fragment_filename}=    fragmentEntities/simple-attributes-relationship-
 *** Keywords ***
 Setup Initial Entities
     ${first_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${second_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Create Entity    ${entity_payload_filename}    ${first_existing_entity_id}
-    Create Entity    ${entity_payload_filename}    ${second_existing_entity_id}
+    ${create_response1}=    Create Entity    ${entity_payload_filename}    ${first_existing_entity_id}
+    Check Response Status Code    201    ${create_response1.status_code}
     Set Suite Variable    ${first_existing_entity_id}
+    ${second_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${create_response2}=    Create Entity    ${entity_payload_filename}    ${second_existing_entity_id}
+    Check Response Status Code    201    ${create_response2.status_code}
     Set Suite Variable    ${second_existing_entity_id}
 
 Delete Initial Entities

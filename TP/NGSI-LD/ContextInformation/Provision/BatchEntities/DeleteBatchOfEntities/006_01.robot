@@ -18,8 +18,8 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     [Documentation]    Check that one can delete a batch of entities
     [Tags]    be-delete    5_6_10
     ${response}=    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}
-    Check Response Status Code    204    ${response.status_code}
 
+    Check Response Status Code    204    ${response.status_code}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{entities_ids_to_be_deleted}
     ${response1}=    Query Entities
     ...    entity_ids=${expected_entities_ids}
@@ -31,8 +31,10 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 *** Keywords ***
 Setup Initial Entities
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${create_response1}=    Create Entity    building-simple-attributes-sample.jsonld    ${first_entity_id}
+    Check Response Status Code    201    ${create_response1.status_code}
     ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Create Entity    building-simple-attributes-sample.jsonld    ${first_entity_id}
-    Create Entity    building-simple-attributes-sample.jsonld    ${second_entity_id}
+    ${create_response2}=    Create Entity    building-simple-attributes-sample.jsonld    ${second_entity_id}
+    Check Response Status Code    201    ${create_response2.status_code}
     @{entities_ids_to_be_deleted}=    Create List    ${first_entity_id}    ${second_entity_id}
     Set Test Variable    ${entities_ids_to_be_deleted}

@@ -36,7 +36,9 @@ Batch Update Entity With NoOverwrite Option Scenarios
     ${second_entity}=    Load Entity    ${filename}    ${second_entity_id}
     @{entities_to_be_updated}=    Create List    ${first_entity}    ${second_entity}
     @{entities_ids_to_be_updated}=    Create List    ${first_entity_id}    ${second_entity_id}
+
     ${response}=    Batch Update Entities    @{entities_to_be_updated}    overwrite_option=noOverwrite
+
     Check Response Status Code    ${expected_status}    ${response.status_code}
     ${first_created_entity}=    Load Test Sample    entities/${entity_payload_filename}    ${first_entity_id}
     ${second_created_entity}=    Load Test Sample    entities/${entity_payload_filename}    ${second_entity_id}
@@ -54,10 +56,12 @@ Batch Update Entity With NoOverwrite Option Scenarios
 
 Setup Initial Entities
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Create Entity    ${entity_payload_filename}    ${first_entity_id}
-    Create Entity    ${entity_payload_filename}    ${second_entity_id}
+    ${create_response1}=    Create Entity    ${entity_payload_filename}    ${first_entity_id}
+    Check Response Status Code    201    ${create_response1.status_code}
     Set Test Variable    ${first_entity_id}
+    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${create_response2}=    Create Entity    ${entity_payload_filename}    ${second_entity_id}
+    Check Response Status Code    201    ${create_response2.status_code}
     Set Test Variable    ${second_entity_id}
 
 Delete Initial Entities

@@ -25,11 +25,6 @@ ${notification_server_send_url}         http://${notification_server_host}:${not
     [Documentation]    The Notification content shall be JSON-LD when endpoint.accept is set to 'application/ld+json'
     [Tags]    sub-notification    5_8_6
 
-    Add Initial Entity
-    Sleep    1s
-    Setup Initial Subscriptions
-    Sleep    1s
-
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}    ${headers}=    Wait For Notification    timeout=${10}
@@ -46,6 +41,19 @@ ${notification_server_send_url}         http://${notification_server_host}:${not
 
 
 *** Keywords ***
+Before Test
+    Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Add Initial Entity
+    Sleep    1s
+    Setup Initial Subscriptions
+    Sleep    1s
+
+Add Initial Entity
+    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${create_response}=    Create Entity    ${entity_building_filepath}    ${entity_id}
+    Check Response Status Code    201    ${create_response.status_code}
+    Set Suite Variable    ${entity_id}
+
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
@@ -53,24 +61,19 @@ Setup Initial Subscriptions
     ...    ${subscription_id}
     ...    ${notification_server_send_url}
     ${subscription_payload}=    Set Entity Id In Subscription    ${subscription_payload}    ${entity_id}
-    Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
+    ${create_response}=    Create Subscription From Subscription Payload
+    ...    ${subscription_payload}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${create_response.status_code}
     Set Suite Variable    ${subscription_id}
-
-Delete Initial Subscriptions
-    Delete Subscription    ${subscription_id}
-
-Before Test
-    Start Local Server    ${notification_server_host}    ${notification_server_port}
 
 After Test
     Delete Initial Subscriptions
     Delete Initial Entity
     Stop Local Server
 
-Add Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Create Entity    ${entity_building_filepath}    ${entity_id}
-    Set Suite Variable    ${entity_id}
+Delete Initial Subscriptions
+    Delete Subscription    ${subscription_id}
 
 Delete Initial Entity
     Delete Entity by Id    ${entity_id}

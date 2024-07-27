@@ -6,6 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationCons
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Setup         Create Temporal Entity
 Suite Teardown      Delete Temporal Entity
 
 
@@ -20,18 +21,12 @@ ${expectation_filename}=    vehicle-temporal-representation-update-expectation.j
 008_01_01 Update a temporal representation of an entity with simple temporal properties
     [Documentation]    Check that one can update a temporal representation of an entity with simple temporal properties
     [Tags]    te-update    5_6_11
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Suite Variable    ${temporal_entity_representation_id}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
-    ...    filename=${filename}
-    ...    content_type=${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
-    ${response1}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    filename=${update_filename}
     ...    content_type=${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    204    ${response1.status_code}
+
+    Check Response Status Code    204    ${response.status_code}
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}
@@ -47,5 +42,14 @@ ${expectation_filename}=    vehicle-temporal-representation-update-expectation.j
 
 
 *** Keywords ***
+Create Temporal Entity
+    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    Set Suite Variable    ${temporal_entity_representation_id}
+    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    filename=${filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${response.status_code}
+
 Delete Temporal Entity
     Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

@@ -6,6 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Setup         Setup Initial Entities
 Suite Teardown      Delete Entities
 
 
@@ -23,6 +24,26 @@ ${coordinates}=             [13.3986, 52.5547]
 019_01_05 Query several entities based on a geoquery
     [Documentation]    Check that one can query entities based on a geoquery
     [Tags]    e-query    5_7_2
+    @{entities_ids_to_be_compared}=    Create List    ${first_entity_id}    ${second_entity_id}
+    ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${entity_type}
+
+    ${response}=    Query Entities
+    ...    entity_types=${entity_types_to_be_retrieved}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
+    ...    georel=${georal}
+    ...    geometry=${geometry}
+    ...    coordinates=${coordinates}
+
+    Check Response Status Code    200    ${response.status_code}
+    Check Response Body Containing List Containing Entity Elements
+    ...    ${expectation_filename}
+    ...    ${entities_ids_to_be_compared}
+    ...    ${response.json()}
+    ...    ${True}
+
+
+*** Keywords ***
+Setup Initial Entities
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${first_entity_id}
     ${create_response1}=    Create Entity Selecting Content Type
@@ -37,24 +58,7 @@ ${coordinates}=             [13.3986, 52.5547]
     ...    ${second_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${create_response2.status_code}
-    @{entities_ids_to_be_compared}=    Create List    ${first_entity_id}    ${second_entity_id}
-    ${entities_ids_to_be_retrieved}=    Catenate    SEPARATOR=,    ${first_entity_id}    ${second_entity_id}
-    ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${entity_type}
-    ${response}=    Query Entities
-    ...    entity_types=${entity_types_to_be_retrieved}
-    ...    accept=${CONTENT_TYPE_LD_JSON}
-    ...    georel=${georal}
-    ...    geometry=${geometry}
-    ...    coordinates=${coordinates}
-    Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing List Containing Entity Elements
-    ...    ${expectation_filename}
-    ...    ${entities_ids_to_be_compared}
-    ...    ${response.json()}
-    ...    ${True}
 
-
-*** Keywords ***
 Delete Entities
     Delete Entity by Id    ${first_entity_id}
     Delete Entity by Id    ${second_entity_id}

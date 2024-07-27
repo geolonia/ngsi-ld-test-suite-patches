@@ -42,7 +42,11 @@ ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscrip
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
-    Create Subscription    ${subscription_id}    ${subscription_payload_file_path}    ${CONTENT_TYPE_LD_JSON}
+    ${initial_response}=    Create Subscription
+    ...    ${subscription_id}
+    ...    ${subscription_payload_file_path}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${initial_response.status_code}
     Set Suite Variable    ${subscription_id}
     Set Suite Variable    ${subscription_payload}
 

@@ -6,6 +6,7 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Initialize Test Case
+Test Teardown       Delete Temporal Entity
 Test Template       Add an Attribute To a Temporal Entity From File
 
 
@@ -35,7 +36,6 @@ Add an Attribute To a Temporal Entity From File
     Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_INVALID_REQUEST}
     Check Response Body Title When Using Session Request    ${response.json()}
-    [Teardown]    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}
 
 Initialize Test Case
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
@@ -45,3 +45,6 @@ Initialize Test Case
     ...    filename=${filename}
     ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
+
+Delete Temporal Entity
+    Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

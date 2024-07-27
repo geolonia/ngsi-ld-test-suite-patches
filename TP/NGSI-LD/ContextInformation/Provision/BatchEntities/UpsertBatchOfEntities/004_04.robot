@@ -38,9 +38,11 @@ Batch Upsert Entities With Update Option Scenarios
     ${existing_entity}=    Load Entity    ${filename}    ${existing_entity_id}
     @{entities_to_be_upserted}=    Create List    ${new_entity}    ${existing_entity}
     @{entities_ids_to_be_upserted}=    Create List    ${existing_entity_id}    ${new_entity_id}
+
     ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}    update_option=update
-    @{expected_entities_ids}=    Create List    ${new_entity_id}
+
     Check Response Status Code    201    ${response.status_code}
+    @{expected_entities_ids}=    Create List    ${new_entity_id}
     Check Response Body Containing Array Of URIs set to    ${expected_entities_ids}    ${response.json()}
     ${old_entity}=    Load Test Sample    entities/${existing_entity_payload_filename}    ${existing_entity_id}
     ${update_fragment}=    Load Test Sample    entities/${update_fragment_filename}
@@ -56,7 +58,8 @@ Batch Upsert Entities With Update Option Scenarios
 
 Setup Initial Entity
     ${existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Create Entity    ${existing_entity_payload_filename}    ${existing_entity_id}
+    ${create_response}=    Create Entity    ${existing_entity_payload_filename}    ${existing_entity_id}
+    Check Response Status Code    201    ${create_response.status_code}
     Set Test Variable    ${existing_entity_id}
 
 Delete Initial Entities

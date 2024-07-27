@@ -32,7 +32,11 @@ ${expectation_file_path}=               subscriptions/expectations/subscriptions
 *** Keywords ***
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    Create Subscription    ${subscription_id}    ${subscription_payload_file_path}    ${CONTENT_TYPE_LD_JSON}
+    ${create_response}=    Create Subscription
+    ...    ${subscription_id}
+    ...    ${subscription_payload_file_path}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${create_response.status_code}
     Set Suite Variable    ${subscription_id}
 
 Delete Initial Subscriptions

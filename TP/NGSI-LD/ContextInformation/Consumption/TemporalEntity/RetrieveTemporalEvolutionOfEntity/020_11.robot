@@ -51,7 +51,10 @@ Retrieve the temporal evolution of an entity with the aggregated temporal repres
 
 Create Temporal Entity
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
-    Create Temporal Representation Of Entity    ${vehicle_payload_file}    ${temporal_entity_representation_id}
+    ${create_response}=    Create Temporal Representation Of Entity
+    ...    ${vehicle_payload_file}
+    ...    ${temporal_entity_representation_id}
+    Check Response Status Code    201    ${create_response.status_code}
     Set Suite Variable    ${temporal_entity_representation_id}
 
 Delete Initial Temporal Entity

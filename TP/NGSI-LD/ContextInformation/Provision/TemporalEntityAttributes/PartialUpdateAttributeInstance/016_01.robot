@@ -6,6 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationCons
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Setup         Create Temporal Entity
 Suite Teardown      Delete Intitial Temporal Representation Of Entity
 
 
@@ -21,20 +22,11 @@ ${attributeId}=             speed
 016_01_01 Modify attribute instance in temporal representation of an entity
     [Documentation]    Check that one can partially update an attribute instance of a temporal representation of an entity
     [Tags]    tea-partial-update    5_6_14
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Suite Variable    ${temporal_entity_representation_id}
-
-    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
-    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
-    ...    filename=${filename}
-    ...    content_type=${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
-
-    ${response1}=    Retrieve Temporal Representation Of Entity
+    ${response}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    ${instanceId_before_update}=    Set Variable    ${response1.json()['speed'][0]['instanceId']}
+    ${instanceId_before_update}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
 
     ${response2}=    Modify Attribute Instance From Temporal Entity
     ...    ${temporal_entity_representation_id}
@@ -43,8 +35,8 @@ ${attributeId}=             speed
     ...    ${fragment_filename}
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
-    Check Response Status Code    204    ${response2.status_code}
 
+    Check Response Status Code    204    ${response2.status_code}
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}
@@ -67,5 +59,15 @@ ${attributeId}=             speed
 
 
 *** Keywords ***
+Create Temporal Entity
+    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    Set Suite Variable    ${temporal_entity_representation_id}
+
+    ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
+    ...    temporal_entity_representation_id=${temporal_entity_representation_id}
+    ...    filename=${filename}
+    ...    content_type=${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${response.status_code}
+
 Delete Intitial Temporal Representation Of Entity
     Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

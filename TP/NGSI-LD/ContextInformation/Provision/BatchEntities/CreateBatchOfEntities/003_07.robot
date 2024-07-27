@@ -21,7 +21,9 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     Set Test Variable    ${entity_id}
     ${entity}=    Load Entity    building-simple-attributes-sample.jsonld    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
+
     ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_LD_JSON}
+
     Check Response Status Code    201    ${response.status_code}
     ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}
@@ -38,7 +40,9 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     Set Test Variable    ${entity_id}
     ${entity}=    Load Entity    building-simple-attributes-sample.jsonld    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
+
     ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_LD_JSON}
+
     Check Response Status Code    201    ${response.status_code}
     ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}

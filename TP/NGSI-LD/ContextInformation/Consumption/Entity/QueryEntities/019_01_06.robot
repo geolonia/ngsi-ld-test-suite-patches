@@ -52,18 +52,20 @@ Query several entities based on scopes
 Setup Initial Entities
     ${entity_one_scope_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${entity_one_scope_id}
-    Create Entity Selecting Content Type
+    ${create_response1}=    Create Entity Selecting Content Type
     ...    ${entity_one_scope}
     ...    ${entity_one_scope_id}
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
+    Check Response Status Code    201    ${create_response1.status_code}
     ${entity_many_scopes_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${entity_many_scopes_id}
-    Create Entity Selecting Content Type
+    ${create_response2}=    Create Entity Selecting Content Type
     ...    ${entity_many_scopes}
     ...    ${entity_many_scopes_id}
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
+    Check Response Status Code    201    ${create_response2.status_code}
 
 Delete Entities
     Delete Entity by Id    ${entity_one_scope_id}

@@ -43,7 +43,7 @@ Check Response Body Containing Entities URIS set to
         Append To List    ${response_entities_ids}    ${entity['id']}
     END
 
-    Lists Should Be Equal    ${expected_entities_ids}    ${response_entities_ids}   ignore_order=True
+    Lists Should Be Equal    ${expected_entities_ids}    ${response_entities_ids}    ignore_order=True
 
 Check Response Body Content
     [Arguments]    ${expectation_filename}    ${response_body}    ${additional_ignored_path}=${EMPTY}

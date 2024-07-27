@@ -47,22 +47,25 @@ Query Subscriptions With Limit And Page Parameters
 
 Setup Initial Subscriptions
     ${first_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${second_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${third_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    Create Subscription
+    ${create_response1}=    Create Subscription
     ...    ${first_subscription_id}
     ...    ${first_subscription_payload_file_path}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Create Subscription
+    Check Response Status Code    201    ${create_response1.status_code}
+    Set Test Variable    ${first_subscription_id}
+    ${second_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${create_response2}=    Create Subscription
     ...    ${second_subscription_id}
     ...    ${second_subscription_payload_file_path}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Create Subscription
+    Check Response Status Code    201    ${create_response2.status_code}
+    Set Test Variable    ${second_subscription_id}
+    ${third_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${create_response3}=    Create Subscription
     ...    ${third_subscription_id}
     ...    ${third_subscription_payload_file_path}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Set Test Variable    ${first_subscription_id}
-    Set Test Variable    ${second_subscription_id}
+    Check Response Status Code    201    ${create_response3.status_code}
     Set Test Variable    ${third_subscription_id}
 
 Delete Initial Subscriptions

@@ -44,6 +44,7 @@ Create Initial Entity
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${response.status_code}
 
 Delete Created Entity
     Delete Entity by Id    ${entity_id}

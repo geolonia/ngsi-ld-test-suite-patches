@@ -39,6 +39,7 @@ Delete Attribute From A Temporal Entity
     ...    datasetId=${datasetid}
     ...    deleteAll=${deleteall}
     ...    context=${ngsild_test_suite_context}
+
     Check Response Status Code    ${status_code}    ${response.status_code}
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}

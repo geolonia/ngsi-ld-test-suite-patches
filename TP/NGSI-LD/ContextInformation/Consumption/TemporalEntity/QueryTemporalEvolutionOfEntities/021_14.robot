@@ -50,19 +50,22 @@ Query the temporal evolution of entities
 
 Setup Initial Entities
     ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
-    ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
-    ${third_temporal_entity_representation_id}=    Generate Random Entity Id    ${bus_id_prefix}
-    Create Temporal Representation Of Entity
+    ${create_response1}=    Create Temporal Representation Of Entity
     ...    ${first_vehicle_payload_file}
     ...    ${first_temporal_entity_representation_id}
-    Create Temporal Representation Of Entity
+    Check Response Status Code    201    ${create_response1.status_code}
+    Set Test Variable    ${first_temporal_entity_representation_id}
+    ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${create_response2}=    Create Temporal Representation Of Entity
     ...    ${second_vehicle_payload_file}
     ...    ${second_temporal_entity_representation_id}
-    Create Temporal Representation Of Entity
+    Check Response Status Code    201    ${create_response2.status_code}
+    Set Test Variable    ${second_temporal_entity_representation_id}
+    ${third_temporal_entity_representation_id}=    Generate Random Entity Id    ${bus_id_prefix}
+    ${create_response3}=    Create Temporal Representation Of Entity
     ...    ${bus_payload_file}
     ...    ${third_temporal_entity_representation_id}
-    Set Test Variable    ${first_temporal_entity_representation_id}
-    Set Test Variable    ${second_temporal_entity_representation_id}
+    Check Response Status Code    201    ${create_response3.status_code}
     Set Test Variable    ${third_temporal_entity_representation_id}
 
 Delete Initial Entities

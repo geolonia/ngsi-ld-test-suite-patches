@@ -29,17 +29,19 @@ ${expectation_file}=        types/expectations/entity-type-info-024-01-expectati
 Setup Initial Entities
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Create Entity Selecting Content Type
+    ${create_response1}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${first_entity_id}
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
-    Create Entity Selecting Content Type
+    Check Response Status Code    201    ${create_response1.status_code}
+    Set Suite Variable    ${first_entity_id}
+    ${create_response2}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${second_entity_id}
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
-    Set Suite Variable    ${first_entity_id}
+    Check Response Status Code    201    ${create_response2.status_code}
     Set Suite Variable    ${second_entity_id}
 
 Delete Initial Entities

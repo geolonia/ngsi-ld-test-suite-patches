@@ -42,7 +42,10 @@ Setup Initial Subscription
     ...    ${subscription_payload_file_path}
     ...    ${subscription_id}
     ...    ${notification_server_send_url}
-    Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
+    ${create_response}=    Create Subscription From Subscription Payload
+    ...    ${subscription_payload}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${create_response.status_code}
     Set Suite Variable    ${subscription_id}
 
 Before Test

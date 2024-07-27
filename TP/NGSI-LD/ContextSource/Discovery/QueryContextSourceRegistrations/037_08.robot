@@ -35,7 +35,8 @@ Setup Initial Context Source Registration
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}
-    Create Context Source Registration    ${context_source_registration_payload}
+    ${create_response}=    Create Context Source Registration    ${context_source_registration_payload}
+    Check Response Status Code    201    ${create_response.status_code}
     Set Suite Variable    ${context_source_registration_id}
 
 Delete Created Context Source Registration

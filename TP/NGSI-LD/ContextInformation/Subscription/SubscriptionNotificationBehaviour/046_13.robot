@@ -46,26 +46,31 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 
 
 *** Keywords ***
-Setup Initial Subscription
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    Create Subscription    ${subscription_id}    ${subscription_payload_file_path}    ${CONTENT_TYPE_LD_JSON}
-    Set Suite Variable    ${subscription_id}
-
-Delete Initial Subscription
-    Delete Subscription    ${subscription_id}
-
-Add Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Create Entity    ${entity_building_filepath}    ${entity_id}
-    Set Suite Variable    ${entity_id}
-
-Delete Initial Entity
-    Delete Entity by Id    ${entity_id}
-
 Before Test
     Setup Initial Subscription
     Add Initial Entity
 
+Setup Initial Subscription
+    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${create_response}=    Create Subscription
+    ...    ${subscription_id}
+    ...    ${subscription_payload_file_path}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${create_response.status_code}
+    Set Suite Variable    ${subscription_id}
+
+Add Initial Entity
+    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${create_response}=    Create Entity    ${entity_building_filepath}    ${entity_id}
+    Check Response Status Code    201    ${create_response.status_code}
+    Set Suite Variable    ${entity_id}
+
 After Test
     Delete Initial Subscription
     Delete Initial Entity
+
+Delete Initial Subscription
+    Delete Subscription    ${subscription_id}
+
+Delete Initial Entity
+    Delete Entity by Id    ${entity_id}

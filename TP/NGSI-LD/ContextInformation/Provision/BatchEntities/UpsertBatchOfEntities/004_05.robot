@@ -25,14 +25,16 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     ${third_entity}=    Load Entity    building-minimal-sample.jsonld    ${third_entity_id}
     ${invalid_entity}=    Remove Entity Type    ${third_entity}
     @{entities_to_be_upserted}=    Create List    ${first_entity}    ${second_entity}    ${invalid_entity}
+
     ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}
+
+    Check Response Status Code    207    ${response.status_code}
     @{expected_successful_entities_ids}=    Create List    ${first_entity_id}    ${second_entity_id}
     Set Test Variable    ${expected_successful_entities_ids}
     @{expected_failed_entities_ids}=    Create List    ${third_entity_id}
     &{expected_batch_operation_result}=    Create Batch Operation Result
     ...    success=${expected_successful_entities_ids}
     ...    errors=${expected_failed_entities_ids}
-    Check Response Status Code    207    ${response.status_code}
     Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}    ${response.json()}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{expected_successful_entities_ids}
     ${response1}=    Query Entities

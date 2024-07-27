@@ -35,7 +35,9 @@ Batch Upsert Entity Scenarios
     ${first_entity}=    Load Entity    ${filename}    ${first_entity_id}
     ${second_entity}=    Load Entity    ${filename}    ${second_entity_id}
     @{entities_to_be_upserted}=    Create List    ${first_entity}    ${second_entity}
+
     ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}
+
     @{expected_entities_ids}=    Create List    ${first_entity_id}    ${second_entity_id}
     Set Test Variable    @{expected_entities_ids}
     Check Response Status Code    201    ${response.status_code}

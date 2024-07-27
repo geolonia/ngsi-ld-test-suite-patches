@@ -26,8 +26,6 @@ ${expected_header_links}                <${ngsild_test_suite_context}>; rel="htt
     [Documentation]    The Notification shall be sent as JSON
     [Tags]    sub-notification    5_8_6
 
-    Setup Initial Subscriptions
-
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}    ${headers}=    Wait for notification    timeout=${10}
@@ -39,6 +37,7 @@ ${expected_header_links}                <${ngsild_test_suite_context}>; rel="htt
 *** Keywords ***
 Before Test
     Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Setup Initial Subscriptions
 
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
@@ -51,9 +50,13 @@ Setup Initial Subscriptions
     Set Suite Variable    ${subscription_id}
     Set Suite Variable    ${entity_id}
 
-    Create Entity    ${entity_building_filepath}    ${entity_id}
+    ${create_response1}=    Create Entity    ${entity_building_filepath}    ${entity_id}
+    Check Response Status Code    201    ${create_response1.status_code}
     Sleep    1s
-    Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
+    ${create_response2}=    Create Subscription From Subscription Payload
+    ...    ${subscription_payload}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${create_response2.status_code}
     Sleep    1s
 
 After Test
