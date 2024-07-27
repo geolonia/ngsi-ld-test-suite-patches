@@ -34,12 +34,14 @@ Receive cSourceNotification For Matching Context Source Registrations On Managem
     Set Suite Variable    ${subscription_id}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint    ${filepath}    ${subscription_id}
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
+    Check Response Status Code    201    ${response.status_code}
     ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
     Set Suite Variable    ${context_source_registration_id}
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}
     ${response1}=    Create Context Source Registration    ${context_source_registration_payload}
+    Check Response Status Code    201    ${response1.status_code}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
     Wait for notification and validate it
     ...    expected_subscription_id=${subscription_id}

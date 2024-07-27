@@ -23,11 +23,13 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
     [Tags]    e-query    6_3_7
     ${entities_ids_to_be_retrieved}=    Catenate    SEPARATOR=,    ${first_entity_id}    ${second_entity_id}
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${entity_type}
+
     ${response}=    Query Entities
     ...    entity_ids=${entities_ids_to_be_retrieved}
     ...    entity_types=${entity_types_to_be_retrieved}
     ...    accept=${CONTENT_TYPE_GEOJSON}
     ...    context=${ngsild_test_suite_context}
+
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Content
     ...    expectation_filename=${expectation_filename}

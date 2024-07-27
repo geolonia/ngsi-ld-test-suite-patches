@@ -39,8 +39,10 @@ Setup Initial Context Source Registration Subscriptions
     ${second_subscription_payload}=    Load Test Sample
     ...    ${second_subscription_payload_file_path}
     ...    ${second_subscription_id}
-    Create Context Source Registration Subscription    ${first_subscription_payload}
-    Create Context Source Registration Subscription    ${second_subscription_payload}
+    ${create_csrsub1_response}=    Create Context Source Registration Subscription    ${first_subscription_payload}
+    Check Response Status Code    201    ${create_csrsub1_response.status_code}
+    ${create_csrsub2_response}=    Create Context Source Registration Subscription    ${second_subscription_payload}
+    Check Response Status Code    201    ${create_csrsub2_response.status_code}
     Set Suite Variable    ${first_subscription_id}
     Set Suite Variable    ${second_subscription_id}
 

@@ -53,9 +53,13 @@ Setup Initial Subscriptions
     Set Suite Variable    ${entity_id}
     Set Suite Variable    ${subscription_id}
 
-    Create Entity    ${entity_building_filepath}    ${entity_id}
+    ${create_response1}=    Create Entity    ${entity_building_filepath}    ${entity_id}
+    Check Response Status Code    201    ${create_response1.status_code}
     Sleep    1s
-    Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
+    ${create_response2}=    Create Subscription From Subscription Payload
+    ...    ${subscription_payload}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${create_response2.status_code}
     Sleep    1s
 
 After Test

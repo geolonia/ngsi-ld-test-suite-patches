@@ -30,8 +30,10 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 Batch Upsert Non-existing And Existing Entities Scenarios
     [Documentation]    Check that one can upsert a batch of non-existing and existing entities
     [Arguments]    ${filename}
-    Setup Initial Entities    ${filename}
+    Prepare Entities To Upsert    ${filename}
+
     ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}
+
     @{expected_entities_ids}=    Create List    ${new_entity_id}
     Check Response Status Code    201    ${response.status_code}
     Check Response Body Containing Array Of URIs set to    ${expected_entities_ids}    ${response.json()}
@@ -47,7 +49,7 @@ Batch Upsert Non-existing And Existing Entities Scenarios
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Updated Resources Set To    ${entities_to_be_upserted}    ${response1.json()}
 
-Setup Initial Entities
+Prepare Entities To Upsert
     [Arguments]    ${filename}
     ${first_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${second_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

@@ -43,8 +43,10 @@ Create Initial Context Source Registration And Context Source Registration Subsc
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
     ...    ${subscription_payload_file_path}
     ...    ${subscription_id}
-    Create Context Source Registration    ${context_source_registration_payload}
-    Create Context Source Registration Subscription    ${subscription_payload}
+    ${create_csr_response}=    Create Context Source Registration    ${context_source_registration_payload}
+    Check Response Status Code    201    ${create_csr_response.status_code}
+    ${create_csrsub_response}=    Create Context Source Registration Subscription    ${subscription_payload}
+    Check Response Status Code    201    ${create_csrsub_response.status_code}
     Set Suite Variable    ${context_source_registration_id}
     Set Suite Variable    ${subscription_id}
 

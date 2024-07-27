@@ -39,7 +39,11 @@ Activate Paused Subscription With isActive Member
 
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    Create Subscription    ${subscription_id}    ${subscription_payload_file_path}    ${CONTENT_TYPE_LD_JSON}
+    ${initial_response}=    Create Subscription
+    ...    ${subscription_id}
+    ...    ${subscription_payload_file_path}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${initial_response.status_code}
     Set Suite Variable    ${subscription_id}
 
 Delete Initial Subscriptions

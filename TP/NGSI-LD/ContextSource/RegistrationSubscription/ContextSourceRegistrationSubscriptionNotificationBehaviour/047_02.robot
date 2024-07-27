@@ -44,12 +44,14 @@ Create Initial Context Source Registration and Context Source Registration Subsc
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}
 
-    Create Context Source Registration    ${context_source_registration_payload}
+    ${create_csr_response}=    Create Context Source Registration    ${context_source_registration_payload}
+    Check Response Status Code    201    ${create_csr_response.status_code}
 
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
     ...    ${subscription_payload_file_path}
     ...    ${subscription_id}
-    ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
+    ${create_csrsub_response}=    Create Context Source Registration Subscription    ${subscription_payload}
+    Check Response Status Code    201    ${create_csrsub_response.status_code}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
     Set Suite Variable    ${expected_context_source_registration_ids}
     Wait for notification and validate it

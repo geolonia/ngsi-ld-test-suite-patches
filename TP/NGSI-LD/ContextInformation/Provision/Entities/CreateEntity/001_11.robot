@@ -29,10 +29,12 @@ Create Entity Scenarios
     [Arguments]    ${filename}    ${content_type}
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Test Variable    ${entity_id}
+
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${content_type}
+
     Check Response Status Code    201    ${response.status_code}
     Check Response Headers Containing URI set to    ${entity_id}    ${response.headers}
     ${created_entity}=    Load Test Sample    entities/${filename}    ${entity_id}

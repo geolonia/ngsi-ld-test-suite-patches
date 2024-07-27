@@ -22,12 +22,13 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     Set Test Variable    ${entity_id}
     ${entity}=    Load Entity    building-simple-attributes-sample.json    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
+
     ${response}=    Batch Create Entities
     ...    @{entities_to_be_created}
     ...    content_type=${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
-    Check Response Status Code    201    ${response.status_code}
 
+    Check Response Status Code    201    ${response.status_code}
     ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
@@ -44,12 +45,13 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     Set Test Variable    ${entity_id}
     ${entity}=    Load Entity    building-simple-attributes-sample.json    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
+
     ${response}=    Batch Create Entities
     ...    @{entities_to_be_created}
     ...    content_type=${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
-    Check Response Status Code    201    ${response.status_code}
 
+    Check Response Status Code    201    ${response.status_code}
     ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}
     # Attribute should not be compacted as one did not provide a context containing this attribute

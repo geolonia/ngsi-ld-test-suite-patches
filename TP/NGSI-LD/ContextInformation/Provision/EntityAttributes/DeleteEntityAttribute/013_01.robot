@@ -6,6 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Test Setup          Setup Initial Entity
 Test Teardown       Delete Initial Entities
 Test Template       Delete Attributes
 
@@ -31,19 +32,13 @@ Delete Attributes
     [Documentation]    Check that one can delete an attribute from an entity
     [Tags]    ea-delete    5_6_5
     [Arguments]    ${datasetId}    ${deleteAll}    ${expectation_filename}
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Test Variable    ${entity_id}
-    ${create_response}=    Create Entity Selecting Content Type
-    ...    ${filename}
-    ...    ${entity_id}
-    ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${create_response.status_code}
     ${response}=    Delete Entity Attributes
     ...    entityId=${entity_id}
     ...    attributeId=${attribute_id}
     ...    datasetId=${datasetId}
     ...    deleteAll=${deleteAll}
     ...    context=${ngsild_test_suite_context}
+
     Check Response Status Code    ${status_code}    ${response.status_code}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response2}=    Retrieve Entity by Id
@@ -55,6 +50,15 @@ Delete Attributes
     ...    updated_resource=${entity_expectation_payload}
     ...    response_body=${response2.json()}
     ...    ignored_keys=${ignored_attributes}
+
+Setup Initial Entity
+    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    Set Test Variable    ${entity_id}
+    ${create_response}=    Create Entity Selecting Content Type
+    ...    ${filename}
+    ...    ${entity_id}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${create_response.status_code}
 
 Delete Initial Entities
     Delete Entity by Id    ${entity_id}

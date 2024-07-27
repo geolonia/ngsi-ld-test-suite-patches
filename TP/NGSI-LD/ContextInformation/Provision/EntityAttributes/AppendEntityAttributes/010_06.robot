@@ -37,11 +37,11 @@ Append Attributes Without Params
 
 Create Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${response}=    Create Entity Selecting Content Type
+    ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    201    ${response.status_code}
+    Check Response Status Code    201    ${create_response.status_code}
     Set Suite Variable    ${entity_id}
 
 Delete Initial Entity

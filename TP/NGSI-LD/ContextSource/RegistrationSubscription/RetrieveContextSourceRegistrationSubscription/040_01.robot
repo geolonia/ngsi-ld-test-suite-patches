@@ -63,7 +63,8 @@ ${expectation_file_path}=               csourceSubscriptions/expectations/subscr
 Setup Initial Context Source Registration Subscription
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
-    Create Context Source Registration Subscription    ${subscription_payload}
+    ${create_csrsub_response}=    Create Context Source Registration Subscription    ${subscription_payload}
+    Check Response Status Code    201    ${create_csrsub_response.status_code}
     Set Suite Variable    ${subscription_id}
 
 Delete Created Context Source Registration Subscription

@@ -17,7 +17,9 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${entity}=    Load Entity    building-simple-attributes-sample.jsonld    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
+
     ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_JSON}
+
     Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}

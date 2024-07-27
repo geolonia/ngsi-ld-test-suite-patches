@@ -27,13 +27,13 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
     ${response}=    Batch Create Entities    @{entities_to_be_created}
 
+    Check Response Status Code    207    ${response.status_code}
     @{expected_successful_entities_ids}=    Create List    ${first_entity_id}    ${second_entity_id}
     Set Test Variable    @{expected_successful_entities_ids}
     @{expected_failed_entities_ids}=    Create List    ${first_entity_id}
     &{expected_batch_operation_result}=    Create Batch Operation Result
     ...    ${expected_successful_entities_ids}
     ...    ${expected_failed_entities_ids}
-    Check Response Status Code    207    ${response.status_code}
     Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}    ${response.json()}
 
 

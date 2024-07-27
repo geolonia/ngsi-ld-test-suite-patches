@@ -59,9 +59,12 @@ Setup Initial Context Source Registrations
     ${third_context_source_registration_payload}=    Load Test Sample
     ...    ${third_context_source_registration_payload_file_path}
     ...    ${third_context_source_registration_id}
-    Create Context Source Registration    ${first_context_source_registration_payload}
-    Create Context Source Registration    ${second_context_source_registration_payload}
-    Create Context Source Registration    ${third_context_source_registration_payload}
+    ${create_response1}=    Create Context Source Registration    ${first_context_source_registration_payload}
+    Check Response Status Code    201    ${create_response1.status_code}
+    ${create_response2}=    Create Context Source Registration    ${second_context_source_registration_payload}
+    Check Response Status Code    201    ${create_response2.status_code}
+    ${create_response3}=    Create Context Source Registration    ${third_context_source_registration_payload}
+    Check Response Status Code    201    ${create_response3.status_code}
     Set Test Variable    ${first_context_source_registration_id}
     Set Test Variable    ${second_context_source_registration_id}
     Set Test Variable    ${third_context_source_registration_id}

@@ -24,9 +24,8 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 046_03_01 Check that a notification is sent with all entities
     [Documentation]    A notification with all subscribed Entities will be included if query or geoquery are not defined.
     [Tags]    sub-notification    5_8_6
-    ${response}=    Setup Initial Subscriptions
 
-    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
+    ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}    ${headers}=    Wait for notification    ${5}
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
@@ -41,6 +40,7 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 *** Keywords ***
 Before Test
     Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Setup Initial Subscriptions
 
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
@@ -53,9 +53,13 @@ Setup Initial Subscriptions
     Set Suite Variable    ${entity_id}
     Set Suite Variable    ${subscription_id}
 
-    Create Entity    ${entity_building_filepath}    ${entity_id}
+    ${create_response1}=    Create Entity    ${entity_building_filepath}    ${entity_id}
+    Check Response Status Code    201    ${create_response1.status_code}
     Sleep    1s
-    Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
+    ${create_response2}=    Create Subscription From Subscription Payload
+    ...    ${subscription_payload}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${create_response2.status_code}
     Sleep    1s
 
 After Test

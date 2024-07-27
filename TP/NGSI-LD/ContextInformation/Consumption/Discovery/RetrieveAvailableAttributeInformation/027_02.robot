@@ -28,11 +28,12 @@ ${expectation_file}=        types/expectations/attribute-027-01-expectation.json
 *** Keywords ***
 Setup Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Create Entity Selecting Content Type
+    ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
+    Check Response Status Code    201    ${create_response.status_code}
     Set Suite Variable    ${entity_id}
 
 Delete Initial Entity

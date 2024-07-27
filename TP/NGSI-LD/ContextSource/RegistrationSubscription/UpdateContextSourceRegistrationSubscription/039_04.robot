@@ -40,7 +40,8 @@ Update Context Source Registration Subscription With Invalid Fragment
 Setup Initial Context Source Registration Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
-    ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
+    ${create_csrsub_response}=    Create Context Source Registration Subscription    ${subscription_payload}
+    Check Response Status Code    201    ${create_csrsub_response.status_code}
     Set Test Variable    ${subscription_id}
 
 Delete Initial Context Source Registration Subscriptions

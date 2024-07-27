@@ -27,13 +27,15 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     ${second_entity}=    Load Entity    building-minimal-sample.jsonld    ${second_entity_id}
     ${already_existing_entity}=    Load Entity    building-minimal-sample.jsonld    ${existing_entity_id}
     @{entities_to_be_created}=    Create List    ${first_entity}    ${second_entity}    ${already_existing_entity}
+
     ${response}=    Batch Create Entities    @{entities_to_be_created}
+
+    Check Response Status Code    207    ${response.status_code}
     @{expected_successful_entities_ids}=    Create List    ${first_entity_id}    ${second_entity_id}
     @{expected_failed_entities_ids}=    Create List    ${existing_entity_id}
     &{expected_batch_operation_result}=    Create Batch Operation Result
     ...    ${expected_successful_entities_ids}
     ...    ${expected_failed_entities_ids}
-    Check Response Status Code    207    ${response.status_code}
     Check Response Body Containing Batch Operation Result    ${expected_batch_operation_result}    ${response.json()}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{expected_successful_entities_ids}
     ${response1}=    Query Entities
@@ -48,7 +50,8 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 *** Keywords ***
 Setup Initial Entity
     ${existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Create Entity    building-minimal-sample.jsonld    ${existing_entity_id}
+    ${create_response}=    Create Entity    building-minimal-sample.jsonld    ${existing_entity_id}
+    Check Response Status Code    201    ${create_response.status_code}
     Set Suite Variable    ${existing_entity_id}
 
 Delete Initial Entities

@@ -49,8 +49,6 @@ Create Id
     ...    filename=${filename}
     ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${unknown_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    Set Test Variable    ${unknown_temporal_entity_id}
     ${response}=    Retrieve Temporal Representation Of Entity
     ...    ${temporal_entity_representation_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
@@ -58,6 +56,8 @@ Create Id
     ...    context=${ngsild_test_suite_context}
     ${valid_instanceId}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
     Set Test Variable    ${valid_instanceId}
+    ${unknown_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    Set Test Variable    ${unknown_temporal_entity_id}
 
 Delete Temporal Entity
     Delete Temporal Representation Of Entity    ${temporal_entity_representation_id}

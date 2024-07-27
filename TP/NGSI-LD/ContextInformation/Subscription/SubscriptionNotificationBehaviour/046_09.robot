@@ -25,8 +25,6 @@ ${notification_server_send_url}         http://${notification_server_host}:${not
     [Documentation]    A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.receiverInfo defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.1
     [Tags]    sub-notification    5_8_6
 
-    Setup Initial Subscriptions
-
     ${response}=    Update Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
 
     ${notification}    ${headers}=    Wait for notification    timeout=${10}
@@ -36,6 +34,7 @@ ${notification_server_send_url}         http://${notification_server_host}:${not
 *** Keywords ***
 Before Test
     Start Local Server    ${notification_server_host}    ${notification_server_port}
+    Setup Initial Subscriptions
 
 Setup Initial Subscriptions
     ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
@@ -48,9 +47,13 @@ Setup Initial Subscriptions
     Set Suite Variable    ${entity_id}
     Set Suite Variable    ${subscription_id}
 
-    Create Entity    ${entity_building_filepath}    ${entity_id}
+    ${create_response1}=    Create Entity    ${entity_building_filepath}    ${entity_id}
+    Check Response Status Code    201    ${create_response1.status_code}
     Sleep    1s
-    Create Subscription From Subscription Payload    ${subscription_payload}    ${CONTENT_TYPE_LD_JSON}
+    ${create_response2}=    Create Subscription From Subscription Payload
+    ...    ${subscription_payload}
+    ...    ${CONTENT_TYPE_LD_JSON}
+    Check Response Status Code    201    ${create_response2.status_code}
     Sleep    1s
 
 After Test

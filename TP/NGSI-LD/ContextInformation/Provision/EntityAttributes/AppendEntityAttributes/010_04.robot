@@ -53,7 +53,7 @@ Create Initial Entity
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    Set Global Variable    ${entity_id}
+    Set Test Variable    ${entity_id}
 
 Delete Initial Entity
     Delete Entity by Id    ${entity_id}

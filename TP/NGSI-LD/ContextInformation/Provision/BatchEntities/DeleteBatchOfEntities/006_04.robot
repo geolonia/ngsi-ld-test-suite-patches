@@ -22,17 +22,18 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
     ${response}=    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}
 
+    Check Response Status Code    207    ${response.status_code}
     @{expected_successful_entities_ids}=    Create List    ${entity_id}
     @{expected_failed_entities_ids}=    Create List    ${entity_id}
     &{response1}=    Create Batch Operation Result
     ...    ${expected_successful_entities_ids}
     ...    ${expected_failed_entities_ids}
-    Check Response Status Code    207    ${response.status_code}
     Check Response Body Containing Batch Operation Result    ${response1}    ${response.json()}
 
 
 *** Keywords ***
 Setup Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Create Entity    building-simple-attributes-sample.jsonld    ${entity_id}
+    ${create_response}=    Create Entity    building-simple-attributes-sample.jsonld    ${entity_id}
+    Check Response Status Code    201    ${create_response.status_code}
     Set Test Variable    ${entity_id}

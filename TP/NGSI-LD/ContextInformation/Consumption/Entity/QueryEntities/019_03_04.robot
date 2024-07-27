@@ -6,6 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
+Suite Setup         Create Entities
 Suite Teardown      Delete Entities
 
 
@@ -21,6 +22,19 @@ ${invalid_attribute_two}=       type
 019_03_04 Query several entities based on incorrect attribute names
     [Documentation]    Check that one cannot query entities if the requested attribute names are incorrect
     [Tags]    e-query    5_7_2
+    ${attributes_to_be_retrieved}=    Catenate    SEPARATOR=,    ${invalid_attribute_one}    ${invalid_attribute_two}
+
+    ${response}=    Query Entities    attrs=${attributes_to_be_retrieved}
+
+    Check Response Status Code    400    ${response.status_code}
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to
+    ...    ${response.json()}
+    ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+
+
+*** Keywords ***
+Create Entities
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${first_entity_id}
     ${create_response1}=    Create Entity Selecting Content Type
@@ -35,16 +49,7 @@ ${invalid_attribute_two}=       type
     ...    ${second_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${create_response2.status_code}
-    ${attributes_to_be_retrieved}=    Catenate    SEPARATOR=,    ${invalid_attribute_one}    ${invalid_attribute_two}
-    ${response}=    Query Entities    attrs=${attributes_to_be_retrieved}
-    Check Response Status Code    400    ${response.status_code}
-    Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response.json()}
-    ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
-
-*** Keywords ***
 Delete Entities
     Delete Entity by Id    ${first_entity_id}
     Delete Entity by Id    ${second_entity_id}

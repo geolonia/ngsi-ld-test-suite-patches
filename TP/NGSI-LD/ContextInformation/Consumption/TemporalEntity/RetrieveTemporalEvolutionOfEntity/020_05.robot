@@ -41,7 +41,10 @@ Retrieve the temporal evolution of the last N instances of entity attributes
 
 Create Temporal Entity
     ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
-    Create Temporal Representation Of Entity    ${vehicle_payload_file}    ${temporal_entity_representation_id}
+    ${create_response}=    Create Temporal Representation Of Entity
+    ...    ${vehicle_payload_file}
+    ...    ${temporal_entity_representation_id}
+    Check Response Status Code    201    ${create_response.status_code}
     Set Test Variable    ${temporal_entity_representation_id}
 
 Delete Initial Temporal Entity

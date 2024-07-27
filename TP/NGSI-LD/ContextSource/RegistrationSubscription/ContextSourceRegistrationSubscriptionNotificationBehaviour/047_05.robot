@@ -46,7 +46,8 @@ Setup Initial Context Source Registration Subscription
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
     ...    ${subscription_payload_file_path}
     ...    ${subscription_id}
-    Create Context Source Registration Subscription    ${subscription_payload}
+    ${create_response}=    Create Context Source Registration Subscription    ${subscription_payload}
+    Check Response Status Code    201    ${create_response.status_code}
     Set Suite Variable    ${subscription_id}
 
 Delete Created Context Source Registration And Subscription
