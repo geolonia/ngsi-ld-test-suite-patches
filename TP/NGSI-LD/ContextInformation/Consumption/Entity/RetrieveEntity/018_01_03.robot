@@ -12,8 +12,8 @@ Suite Teardown      Delete Created Entity
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-location-attribute-sample.jsonld
-${expectation_filename}=    building-geoproperty-query-expectation.jsonld
+${filename}=                building-location-attribute.jsonld
+${expectation_filename}=    building-geoproperty-query.jsonld
 ${geometry_property}=       location
 
 

@@ -11,10 +11,10 @@ Suite Teardown      Delete Initial Temporal Entities
 
 
 *** Variables ***
-${vehicule_id_prefix}=              urn:ngsi-ld:Vehicle:
-${first_vehicle_payload_file}=      2020-08-vehicule-temporal-representation-sample.jsonld
-${second_vehicle_payload_file}=     2020-09-vehicule-temporal-representation-sample.jsonld
-${expectation_file}=                vehicles-temporal-representation-021-06-expectation.jsonld
+${vehicle_id_prefix}=               urn:ngsi-ld:Vehicle:
+${first_vehicle_payload_file}=      2020-08-vehicle-temporal-representation.jsonld
+${second_vehicle_payload_file}=     2020-09-vehicle-temporal-representation.jsonld
+${expectation_file}=                vehicles-temporal-representation-021-06.jsonld
 
 
 *** Test Cases ***
@@ -41,13 +41,13 @@ ${expectation_file}=                vehicles-temporal-representation-021-06-expe
 
 *** Keywords ***
 Setup Initial Temporal Entities
-    ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${create_response1}=    Create Temporal Representation Of Entity
     ...    ${first_vehicle_payload_file}
     ...    ${first_temporal_entity_representation_id}
     Check Response Status Code    201    ${create_response1.status_code}
     Set Suite Variable    ${first_temporal_entity_representation_id}
-    ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${create_response2}=    Create Temporal Representation Of Entity
     ...    ${second_vehicle_payload_file}
     ...    ${second_temporal_entity_representation_id}

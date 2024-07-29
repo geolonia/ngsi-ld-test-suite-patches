@@ -14,17 +14,17 @@ Test Template       Delete Attributes
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${status_code}=             204
-${filename}=                vehicle-two-datasetid-attributes-sample.jsonld
+${filename}=                vehicle-two-datasetid-attributes.jsonld
 ${attribute_id}=            speed
 
 
 *** Test Cases ***    DATASETID    DELETEALL    EXPECTATION_FILENAME
 013_01_01 Delete an attribute with the default instance
-    ${EMPTY}    false    vehicle-delete-default-speed-expectation.jsonld
+    ${EMPTY}    false    vehicle-delete-default-speed.jsonld
 013_01_02 Delete an attribute with the datasetId
-    urn:ngsi-ld:Property:gpsBxyz123-speed    false    vehicle-delete-datasetid-speed-expectation.jsonld
+    urn:ngsi-ld:Property:gpsBxyz123-speed    false    vehicle-delete-datasetid-speed.jsonld
 013_01_03 Delete all target attribute instances
-    ${EMPTY}    true    vehicle-delete-deleteall-speed-expectation.jsonld
+    ${EMPTY}    true    vehicle-delete-deleteall-speed.jsonld
 
 
 *** Keywords ***

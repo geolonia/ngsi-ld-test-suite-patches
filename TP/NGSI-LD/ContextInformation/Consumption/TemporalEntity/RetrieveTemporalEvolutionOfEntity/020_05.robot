@@ -12,17 +12,17 @@ Test Template       Retrieve the temporal evolution of the last N instances of e
 
 
 *** Variables ***
-${vehicule_id_prefix}=      urn:ngsi-ld:Vehicle:
-${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-multiple-instances-sample.jsonld
+${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
+${vehicle_payload_file}=    2020-08-vehicle-temporal-representation-multiple-instances.jsonld
 
 
 *** Test Cases ***    LASTN    VEHICLE_EXPECTATION_FILE
 020_05_01 Retrieve Some Instances
     [Tags]    te-retrieve    5_7_3
-    ${10}    vehicle-temporal-representation-020-05-01-expectation.jsonld
+    ${10}    vehicle-temporal-representation-020-05-01.jsonld
 020_05_02 Retrieve All Instances
     [Tags]    te-retrieve    5_7_3
-    ${20}    vehicle-temporal-representation-020-05-02-expectation.jsonld
+    ${20}    vehicle-temporal-representation-020-05-02.jsonld
 
 
 *** Keywords ***
@@ -40,7 +40,7 @@ Retrieve the temporal evolution of the last N instances of entity attributes
     ...    ${response.json()}
 
 Create Temporal Entity
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${create_response}=    Create Temporal Representation Of Entity
     ...    ${vehicle_payload_file}
     ...    ${temporal_entity_representation_id}

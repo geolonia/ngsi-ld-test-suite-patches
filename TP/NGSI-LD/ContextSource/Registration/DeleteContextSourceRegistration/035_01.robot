@@ -12,7 +12,7 @@ Test Teardown       Delete Created Context Source Registrations
 
 *** Variables ***
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
-${registration_payload_file_path}=      context-source-registration-sample.jsonld
+${registration_payload_file_path}=      context-source-registration.jsonld
 
 
 *** Test Cases ***

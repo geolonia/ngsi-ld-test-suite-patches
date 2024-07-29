@@ -13,7 +13,7 @@ Test Teardown       Delete Initial Entity
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${filename}=                building-minimal-with-one-scope.json
-${expectation_filename}=    building-minimal-compacted-expectation.json
+${expectation_filename}=    building-minimal-compacted.json
 
 
 *** Test Cases ***

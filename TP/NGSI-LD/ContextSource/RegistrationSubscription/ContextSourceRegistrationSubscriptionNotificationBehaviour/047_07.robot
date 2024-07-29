@@ -15,17 +15,17 @@ Test Template       Do Not Receive cSourceNotification If Subscription Status Is
 *** Variables ***
 ${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
 ${subscription_id_prefix}=                              urn:ngsi-ld:Subscription:
-${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-sample.jsonld
-${subscription_payload_file_path}=                      csourceSubscriptions/subscription-sample.jsonld
+${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration.jsonld
+${subscription_payload_file_path}=                      csourceSubscriptions/subscription.jsonld
 
 
 *** Test Cases ***    FILEPATH
 047_07_01 PausedSubscription
     [Tags]    csrsub-notification    5_11_7
-    csourceSubscriptions/fragments/subscription-isActive-update-sample.json
+    csourceSubscriptions/fragments/subscription-isActive-update.json
 047_07_02 ExpiredSubscription
     [Tags]    csrsub-notification    5_11_7
-    csourceSubscriptions/fragments/subscription-expiresAt-update-sample.json
+    csourceSubscriptions/fragments/subscription-expiresAt-update.json
 
 
 *** Keywords ***

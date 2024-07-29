@@ -12,9 +12,9 @@ Suite Teardown      Delete Temporal Entity
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-temporal-representation-sample.jsonld
+${filename}=                vehicle-temporal-representation.jsonld
 ${attributeId}=             speed
-${expectation_filename}=    vehicle-temporal-representation-delete-speed-instanceid-sample.jsonld
+${expectation_filename}=    vehicle-temporal-representation-delete-speed-instanceid.jsonld
 
 
 *** Test Cases ***

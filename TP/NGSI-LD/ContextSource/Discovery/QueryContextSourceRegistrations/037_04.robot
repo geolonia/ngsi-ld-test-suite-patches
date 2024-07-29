@@ -12,8 +12,8 @@ Suite Teardown      Delete Created Context Source Registration
 
 *** Variables ***
 ${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
-${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-detailed-information-sample.jsonld
-${expectation_file_path}=                               csourceRegistrations/expectations/context-source-registrations-037-04-expectation.json
+${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-detailed-information.jsonld
+${expectation_file_path}=                               csourceRegistrations/expectations/context-source-registrations-037-04.json
 ${entity_type}=                                         https://ngsi-ld-test-suite/context#Building
 
 

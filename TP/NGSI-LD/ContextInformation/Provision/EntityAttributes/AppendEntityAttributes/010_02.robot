@@ -12,7 +12,7 @@ Test Template       Append Attributes
 
 *** Variables ***
 ${vehicle_id_prefix}=               urn:ngsi-ld:Vehicle:
-${filename}=                        vehicle-speed-two-datasetid-sample.jsonld
+${filename}=                        vehicle-speed-two-datasetid.jsonld
 ${fragment_filename}=               vehicle-attribute-to-add-fragment.jsonld
 ${status_code}=                     400
 ${invalid_fragment_filename}=       invalid-fragment.jsonld

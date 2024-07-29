@@ -11,7 +11,7 @@ Suite Teardown      Delete Created Context Source Registrations
 
 *** Variables ***
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
-${registration_payload_file_path}=      csourceRegistrations/context-source-registration-with-expiration-sample.jsonld
+${registration_payload_file_path}=      csourceRegistrations/context-source-registration-with-expiration.jsonld
 
 
 *** Test Cases ***

@@ -13,8 +13,8 @@ Test Template       Query Context Source Registration Matching Geoquery
 
 *** Variables ***
 ${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
-${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-location-sample.jsonld
-${expectation_file_path}=                               csourceRegistrations/expectations/context-source-registrations-037-07-expectation.json
+${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-location.jsonld
+${expectation_file_path}=                               csourceRegistrations/expectations/context-source-registrations-037-07.json
 
 
 *** Test Cases ***    GEOREL    GEOMETRY    COORDINATES    GEOPROPERTY    EXPECTATION_FILE_PATH

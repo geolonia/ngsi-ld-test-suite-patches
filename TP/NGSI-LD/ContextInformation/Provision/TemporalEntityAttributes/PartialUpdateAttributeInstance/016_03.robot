@@ -13,7 +13,7 @@ Test Template       Modify Attribute Instance Temporal Entity
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-temporal-representation-sample.jsonld
+${filename}=                vehicle-temporal-representation.jsonld
 ${fragment_filename}=       vehicle-temporal-modify-attribute-instance-fragment.jsonld
 ${status_code}=             404
 

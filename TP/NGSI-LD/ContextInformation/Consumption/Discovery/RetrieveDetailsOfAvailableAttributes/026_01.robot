@@ -13,16 +13,16 @@ Test Template       Retrieve Details Of Available Attributes
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-simple-attributes-sample.json
+${filename}=                building-simple-attributes.json
 
 
 *** Test Cases ***    CONTEXT    EXPECTATION_FILE
 026_01_01 WithoutJsonLdContext
     [Tags]    ed-attrs-details    5_7_9
-    ${EMPTY}    types/expectations/attribute-026-01-01-expectation.json
+    ${EMPTY}    types/expectations/attribute-026-01-01.json
 026_01_02 WithJsonLdContext
     [Tags]    ed-attrs-details    5_7_9
-    ${ngsild_test_suite_context}    types/expectations/attribute-026-01-02-expectation.json
+    ${ngsild_test_suite_context}    types/expectations/attribute-026-01-02.json
 
 
 *** Keywords ***

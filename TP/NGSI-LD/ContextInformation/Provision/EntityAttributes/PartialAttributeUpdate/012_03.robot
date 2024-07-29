@@ -12,7 +12,7 @@ Test Template       Partial Update Attributes
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-speed-two-datasetid-sample.jsonld
+${filename}=                vehicle-speed-two-datasetid.jsonld
 ${status_code}=             404
 ${default_attr_id}=         speed
 

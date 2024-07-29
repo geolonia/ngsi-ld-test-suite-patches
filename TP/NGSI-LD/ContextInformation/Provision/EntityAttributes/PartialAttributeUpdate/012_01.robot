@@ -13,15 +13,15 @@ Test Template       Update Attributes
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-speed-two-datasetid-sample.jsonld
+${filename}=                vehicle-speed-two-datasetid.jsonld
 ${status_code}=             204
 
 
 *** Test Cases ***    FRAGMENT_FILENAME    ATTRIBUTE_ID    EXPECTATION_FILENAME
 012_01_01 Check that one can partially update an attribute
-    vehicle-isparked-fragment.jsonld    isParked    vehicle-isparked-update-expectation.jsonld
+    vehicle-isparked-fragment.jsonld    isParked    vehicle-isparked-update.jsonld
 012_01_02 Check that one can partially update an attribute by specifying the datasetId
-    vehicle-speed-equal-datasetid-fragment.jsonld    speed    vehicle-update-speed-expectation.jsonld
+    vehicle-speed-equal-datasetid-fragment.jsonld    speed    vehicle-update-speed.jsonld
 
 
 *** Keywords ***

@@ -18,7 +18,7 @@ ${registration_id_prefix}=      urn:ngsi-ld:Registration:
 *** Test Cases ***    FILENAME    UPDATE_FILENAME
 034_01_01 Update a context source registration by id
     [Tags]    csr-update    5_9_3
-    context-source-registration-sample.jsonld    context-source-registration-update-sample.json
+    context-source-registration.jsonld    context-source-registration-update.json
 
 
 *** Keywords ***
@@ -47,7 +47,7 @@ Initialize the Test Case
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Test Variable    ${registration_id}
     ${payload}=    Load JSON From File
-    ...    ${EXECDIR}/data/csourceRegistrations/context-source-registration-sample.jsonld
+    ...    ${EXECDIR}/data/csourceRegistrations/context-source-registration.jsonld
     ${registration_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
     Set Test Variable    ${registration_payload}
     ${response}=    Create Context Source Registration With Return    ${registration_payload}

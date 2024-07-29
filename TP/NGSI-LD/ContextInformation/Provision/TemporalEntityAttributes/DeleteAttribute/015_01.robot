@@ -13,18 +13,18 @@ Test Template       Delete Attribute From A Temporal Entity
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-temporal-representation-sample.jsonld
+${filename}=                vehicle-temporal-representation.jsonld
 ${status_code}=             204
 ${attribute_id}=            fuelLevel
 
 
 *** Test Cases ***    DELETE_ALL    DATASET_ID    EXPECTATION_FILE
 015_01_01 Delete an attribute from a temporal representation of an entity without deleteAll/datasetId
-    false    ${EMPTY}    vehicle-temporal-representation-delete-fuelLevel-expectation.jsonld
+    false    ${EMPTY}    vehicle-temporal-representation-delete-fuelLevel.jsonld
 015_01_02 Delete an attribute from a temporal representation of an entity with datasetId
-    false    urn:ngsi-ld:Vehicle:12345-fuel    vehicle-temporal-representation-delete-fuelLevel-datasetid-expectation.jsonld
+    false    urn:ngsi-ld:Vehicle:12345-fuel    vehicle-temporal-representation-delete-fuelLevel-datasetid.jsonld
 015_01_03 Delete an attribute from a temporal representation of an entity with deleteAll
-    true    ${EMPTY}    vehicle-temporal-representation-deleteall-fuelLevel-expectation.jsonld
+    true    ${EMPTY}    vehicle-temporal-representation-deleteall-fuelLevel.jsonld
 
 
 *** Keywords ***

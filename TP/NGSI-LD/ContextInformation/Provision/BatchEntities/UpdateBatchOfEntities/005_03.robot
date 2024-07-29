@@ -12,7 +12,7 @@ Suite Teardown      Delete Initial Entities
 
 *** Variables ***
 ${building_id_prefix}=          urn:ngsi-ld:Building:
-${entity_payload_filename}=     building-simple-attributes-sample.jsonld
+${entity_payload_filename}=     building-simple-attributes.jsonld
 ${update_fragment_filename}=    fragmentEntities/simple-attributes-relationship-of-property-fragment.json
 
 
@@ -21,13 +21,13 @@ ${update_fragment_filename}=    fragmentEntities/simple-attributes-relationship-
     [Documentation]    Check that one can update a batch of non-existing and existing entities
     [Tags]    be-update    5_6_9
     ${first_existing_entity}=    Load Entity
-    ...    building-relationship-of-property-sample.jsonld
+    ...    building-relationship-of-property.jsonld
     ...    ${first_existing_entity_id}
     ${second_existing_entity}=    Load Entity
-    ...    building-relationship-of-property-sample.jsonld
+    ...    building-relationship-of-property.jsonld
     ...    ${second_existing_entity_id}
     ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${new_entity}=    Load Entity    building-relationship-of-property-sample.jsonld    ${new_entity_id}
+    ${new_entity}=    Load Entity    building-relationship-of-property.jsonld    ${new_entity_id}
     @{entities_to_be_updated}=    Create List    ${first_existing_entity}    ${second_existing_entity}    ${new_entity}
 
     ${response}=    Batch Update Entities    @{entities_to_be_updated}

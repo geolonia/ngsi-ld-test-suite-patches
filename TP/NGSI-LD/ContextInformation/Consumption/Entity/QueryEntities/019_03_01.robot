@@ -12,7 +12,7 @@ Suite Teardown      Delete Entities
 
 *** Variables ***
 ${building_id_prefix}=          urn:ngsi-ld:Building:
-${filename}=                    building-minimal-sample.jsonld
+${filename}=                    building-minimal.jsonld
 ${entity_type}=                 https://ngsi-ld-test-suite/context#Building
 ${entity_invalid_id_one}=       thisisaninvaliduri1
 ${entity_invalid_id_two}=       thisisaninvaliduri2

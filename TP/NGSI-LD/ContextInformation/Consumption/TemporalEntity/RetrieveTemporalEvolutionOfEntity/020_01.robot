@@ -11,9 +11,9 @@ Suite Teardown      Delete Initial Temporal Entity
 
 
 *** Variables ***
-${vehicule_id_prefix}=          urn:ngsi-ld:Vehicle:
-${vehicle_payload_file}=        2020-08-vehicule-temporal-representation-sample.jsonld
-${vehicle_expectation_file}=    vehicle-temporal-representation-020-01-expectation.jsonld
+${vehicle_id_prefix}=           urn:ngsi-ld:Vehicle:
+${vehicle_payload_file}=        2020-08-vehicle-temporal-representation.jsonld
+${vehicle_expectation_file}=    vehicle-temporal-representation-020-01.jsonld
 
 
 *** Test Cases ***
@@ -31,7 +31,7 @@ ${vehicle_expectation_file}=    vehicle-temporal-representation-020-01-expectati
 
 *** Keywords ***
 Create Temporal Entity
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${create_response}=    Create Temporal Representation Of Entity
     ...    ${vehicle_payload_file}
     ...    ${temporal_entity_representation_id}

@@ -13,16 +13,16 @@ Test Template       Append Attributes Without Params
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-speed-two-datasetid-sample.jsonld
+${filename}=                vehicle-speed-two-datasetid.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_FILENAME
 010_01_01 Append entity attributes
     [Tags]    ea-append    5_6_3
-    204    vehicle-new-attribute-fragment.jsonld    vehicle-speed-appended-expectation.jsonld
+    204    vehicle-new-attribute-fragment.jsonld    vehicle-speed-appended.jsonld
 010_01_02 Append entity attributes with different datasetid
     [Tags]    ea-append    5_6_3
-    204    vehicle-speed-different-datasetid-fragment.jsonld    vehicle-speed-different-datasetid-expectation.jsonld
+    204    vehicle-speed-different-datasetid-fragment.jsonld    vehicle-speed-different-datasetid.jsonld
 
 
 *** Keywords ***

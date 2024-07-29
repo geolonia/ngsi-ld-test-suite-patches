@@ -11,7 +11,7 @@ Suite Teardown      Delete Created Context Source Registration Subscriptions
 
 *** Variables ***
 ${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=      csourceSubscriptions/subscription-inactive-sample.jsonld
+${subscription_payload_file_path}=      csourceSubscriptions/subscription-inactive.jsonld
 
 
 *** Test Cases ***

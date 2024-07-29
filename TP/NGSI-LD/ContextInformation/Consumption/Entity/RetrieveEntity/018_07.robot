@@ -13,7 +13,7 @@ Test Template       Retrieve Entity With Language Filter
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-language-property-sample.jsonld
+${filename}=                building-language-property.jsonld
 
 
 *** Test Cases ***    LANGUAGE_FILTER    OPTIONS    EXPECTATION_FILENAME

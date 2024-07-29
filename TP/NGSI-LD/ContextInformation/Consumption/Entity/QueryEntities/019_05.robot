@@ -12,7 +12,7 @@ Suite Teardown      Delete Entities
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-location-attribute-sample.jsonld
+${filename}=                building-location-attribute.jsonld
 ${expectation_filename}=    two-buildings-location-attribute-normalized.geojson
 ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 

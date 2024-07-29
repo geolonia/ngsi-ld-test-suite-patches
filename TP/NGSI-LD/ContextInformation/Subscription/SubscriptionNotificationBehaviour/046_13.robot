@@ -16,7 +16,7 @@ Suite Teardown      After Test
 ${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=      subscriptions/subscription-building-entities-active.jsonld
 ${building_id_prefix}=                  urn:ngsi-ld:Building:
-${entity_building_filepath}=            building-simple-attributes-sample.jsonld
+${entity_building_filepath}=            building-simple-attributes.jsonld
 ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 
 

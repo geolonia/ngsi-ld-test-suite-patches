@@ -15,21 +15,21 @@ Test Template       Receive cSourceNotification For Newly Matching Context Sourc
 *** Variables ***
 ${context_source_registration_id_prefix}=                   urn:ngsi-ld:ContextSourceRegistration:
 ${subscription_id_prefix}=                                  urn:ngsi-ld:Subscription:
-${first_context_source_registration_payload_file_path}=     csourceRegistrations/context-source-registration-vehicle-entities-sample.jsonld
-${second_context_source_registration_payload_file_path}=    csourceRegistrations/context-source-registration-bus-entities-sample.jsonld
-${subscription_payload_file_path}=                          csourceSubscriptions/subscription-sample.jsonld
+${first_context_source_registration_payload_file_path}=     csourceRegistrations/context-source-registration-vehicle-entities.jsonld
+${second_context_source_registration_payload_file_path}=    csourceRegistrations/context-source-registration-bus-entities.jsonld
+${subscription_payload_file_path}=                          csourceSubscriptions/subscription.jsonld
 
 
 *** Test Cases ***    FILEPATH    NOTIFICATION_CSR_IDS
 047_16_01 MatchFirstContextSourceRegistration
     [Tags]    csrsub-notification    5_11_7
-    csourceSubscriptions/fragments/subscription-vehicle-entities-sample.json    ${first_context_source_registration_id}
+    csourceSubscriptions/fragments/subscription-vehicle-entities.json    ${first_context_source_registration_id}
 047_16_02 MatchSecondContextSourceRegistration
     [Tags]    csrsub-notification    5_11_7
-    csourceSubscriptions/fragments/subscription-bus-entities-sample.json    ${second_context_source_registration_id}
+    csourceSubscriptions/fragments/subscription-bus-entities.json    ${second_context_source_registration_id}
 047_16_03 MatchBothContextSourceRegistrations
     [Tags]    csrsub-notification    5_11_7
-    csourceSubscriptions/fragments/subscription-vehicle-and-bus-entities-sample.json    ${first_context_source_registration_id}    ${second_context_source_registration_id}
+    csourceSubscriptions/fragments/subscription-vehicle-and-bus-entities.json    ${first_context_source_registration_id}    ${second_context_source_registration_id}
 
 
 *** Keywords ***

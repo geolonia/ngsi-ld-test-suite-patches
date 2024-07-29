@@ -17,10 +17,10 @@ ${context_source_registration_id_prefix}=       urn:ngsi-ld:ContextSourceRegistr
 *** Test Cases ***    REGISTRATION_FILE_PATH    EXPECTATION_FILE_PATH
 037_05_01 Registration With EntityInfo Matching The Query
     [Tags]    csr-query    5_10_2
-    csourceRegistrations/context-source-registration-sample.jsonld    csourceRegistrations/expectations/context-source-registrations-037-05-01-expectation.json
+    csourceRegistrations/context-source-registration.jsonld    csourceRegistrations/expectations/context-source-registrations-037-05-01.json
 037_05_02 Registration Without EntityInfo
     [Tags]    csr-query    5_10_2
-    csourceRegistrations/context-source-registration-with-only-properties-information-sample.jsonld    csourceRegistrations/expectations/context-source-registrations-037-05-02-expectation.json
+    csourceRegistrations/context-source-registration-with-only-properties-information.jsonld    csourceRegistrations/expectations/context-source-registrations-037-05-02.json
 
 
 *** Keywords ***

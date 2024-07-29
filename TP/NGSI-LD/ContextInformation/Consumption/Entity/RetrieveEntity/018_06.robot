@@ -13,9 +13,9 @@ Test Template       Review JSON-LD Resolution When retrieving an entity
 
 *** Variables ***
 ${building_id_prefix}=                      urn:ngsi-ld:Building:
-${filename}=                                building-simple-attributes-sample.json
-${empty_jsonld_expectation_filename}=       building-simple-attributes-sample-expanded-expectation.json
-${creation_jsonld_expectation_filename}=    building-simple-attributes-sample-compacted-expectation.json
+${filename}=                                building-simple-attributes.json
+${empty_jsonld_expectation_filename}=       building-simple-attributes-expanded.json
+${creation_jsonld_expectation_filename}=    building-simple-attributes-compacted.json
 
 
 *** Test Cases ***    CONTEXT    EXPECTED_PAYLOAD

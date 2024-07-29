@@ -12,20 +12,20 @@ Test Template       Retrieve the temporal evolution of an entity matching the gi
 
 
 *** Variables ***
-${vehicule_id_prefix}=      urn:ngsi-ld:Vehicle:
-${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-sample.jsonld
+${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
+${vehicle_payload_file}=    2020-08-vehicle-temporal-representation.jsonld
 
 
 *** Test Cases ***    TIMEREL    TIMEAT    ENDTIMEAT    VEHICLE_EXPECTATION_FILE
 020_04_01 After
     [Tags]    te-retrieve    5_7_3
-    after    2020-08-01T13:03:00Z    ${EMPTY}    vehicle-temporal-representation-020-04-01-expectation.jsonld
+    after    2020-08-01T13:03:00Z    ${EMPTY}    vehicle-temporal-representation-020-04-01.jsonld
 020_04_02 Before
     [Tags]    te-retrieve    5_7_3
-    before    2020-08-01T12:05:00Z    ${EMPTY}    vehicle-temporal-representation-020-04-02-expectation.jsonld
+    before    2020-08-01T12:05:00Z    ${EMPTY}    vehicle-temporal-representation-020-04-02.jsonld
 020_04_03 Between
     [Tags]    te-retrieve    5_7_3
-    between    2020-08-01T12:00:00Z    2020-08-01T13:00:00Z    vehicle-temporal-representation-020-04-03-expectation.jsonld
+    between    2020-08-01T12:00:00Z    2020-08-01T13:00:00Z    vehicle-temporal-representation-020-04-03.jsonld
 
 
 *** Keywords ***
@@ -45,7 +45,7 @@ Retrieve the temporal evolution of an entity matching the given NGSI-LD temporal
     ...    ${response.json()}
 
 Create Temporal Entity
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${create_response}=    Create Temporal Representation Of Entity
     ...    ${vehicle_payload_file}
     ...    ${temporal_entity_representation_id}

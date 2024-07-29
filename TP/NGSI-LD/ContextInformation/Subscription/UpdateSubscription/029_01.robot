@@ -9,7 +9,7 @@ Test Template       Update Subscription With Non present Or Invalid Id
 
 
 *** Variables ***
-${subscription_update_fragment_file_path}=      subscriptions/fragments/subscription-update-sample.json
+${subscription_update_fragment_file_path}=      subscriptions/fragments/subscription-update.json
 
 
 *** Test Cases ***    ID    EXPECTED_STATUS_CODE    PROBLEM_TYPE

@@ -7,7 +7,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 
 *** Variables ***
-${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/subscription-update-sample.json
+${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/subscription-update.json
 
 
 *** Test Cases ***

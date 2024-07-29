@@ -13,14 +13,14 @@ Test Template       Update Attributes
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Building:
-${filename}=                building-language-property-sub-property-sample.jsonld
+${filename}=                building-language-property-sub-property.jsonld
 ${status_code}=             204
 
 
 *** Test Cases ***    FRAGMENT_FILENAME    ATTRIBUTE_ID    EXPECTATION_FILENAME
 012_04_01 Check that one can partially update a LanguageProperty property
     [Tags]    ea-partial-update    5_6_4    4_5_18    since_v1.4.1
-    building-language-property-fragment.jsonld    street    building-language-property-update-expectation.jsonld
+    building-language-property-fragment.jsonld    street    building-language-property-update.jsonld
 
 
 *** Keywords ***

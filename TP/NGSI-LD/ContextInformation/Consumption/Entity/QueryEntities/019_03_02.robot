@@ -13,8 +13,8 @@ Suite Teardown      Delete Entities
 *** Variables ***
 ${building_id_prefix}=          urn:ngsi-ld:Building:
 ${vehicle_id_prefix}=           urn:ngsi-ld:Vehicle:
-${building_filename}=           building-minimal-sample.jsonld
-${vehicle_filename}=            vehicle-simple-attributes-sample.jsonld
+${building_filename}=           building-minimal.jsonld
+${vehicle_filename}=            vehicle-simple-attributes.jsonld
 ${invalid_entity_type_one}=     type
 ${invalid_entity_type_two}=     invalid_entity_type_two
 

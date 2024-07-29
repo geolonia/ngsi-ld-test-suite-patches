@@ -13,7 +13,7 @@ Test Teardown       Delete Initial Context Source Registration and Mock Server
 
 *** Variables ***
 ${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
-${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-observationInterval-sample.jsonld
+${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-observationInterval.jsonld
 ${context_source_url}=                                  http://${context_source_host}:${context_source_port}
 
 

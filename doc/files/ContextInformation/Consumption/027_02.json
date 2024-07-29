@@ -26,7 +26,7 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Attribute with Response Status Code set to 200     and\n        Retrieve Attribute with Response body containing an array of attributes\n            * with the expected payload defined in the file 'types/expectations/attribute-027-01-expectation.json'\n            * and response body set to '${response.json()}'\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Attribute with Response Status Code set to 200     and\n        Retrieve Attribute with Response body containing an array of attributes\n            * with the expected payload defined in the file 'types/expectations/attribute-027-01.json'\n            * and response body set to '${response.json()}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/attributes/{attribute_name}'\n        method set to 'GET'\n        Retrieve Attribute with attributeName set to 'airQualityLevel'\n}",
       "http_verb": "GET",
       "endpoint": "attributes/{attribute_name}"

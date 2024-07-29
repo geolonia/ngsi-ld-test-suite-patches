@@ -9,7 +9,7 @@ Suite Teardown      Delete Created Context Source Registration Subscriptions
 
 
 *** Variables ***
-${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample.jsonld
+${subscription_payload_file_path}=      csourceSubscriptions/subscription.jsonld
 ${subscription_id}=                     ${EMPTY}
 
 

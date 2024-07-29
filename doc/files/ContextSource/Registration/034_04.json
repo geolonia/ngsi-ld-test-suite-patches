@@ -27,7 +27,7 @@
       "teardown": "Delete Initial Context Source Registration",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Context Source Registration From File with Response Status Code set to 400     and\n        Update Context Source Registration From File with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Update Context Source Registration From File with Response body containing 'title' element\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with CSR Id set to '${registration_id}' and subscription update from file 'context-source-registration-invalid-json-sample.json'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/csourceRegistrations/{context_source_registration_id}'\n        method set to 'PATCH'\n        Update Context Source Registration with CSR Id set to '${registration_id}' and subscription update from file 'context-source-registration-invalid-json.json'\n}",
       "http_verb": "PATCH",
       "endpoint": "csourceRegistrations/{context_source_registration_id}"
     }

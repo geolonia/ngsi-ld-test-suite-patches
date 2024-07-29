@@ -12,10 +12,10 @@ Test Template       Query Context Source Registration Matching Temporal Query
 
 *** Variables ***
 ${context_source_registration_id_prefix}=                                   urn:ngsi-ld:ContextSourceRegistration:
-${context_source_registration_observation_interval_payload_file_path}=      csourceRegistrations/context-source-registration-observationInterval-sample.jsonld
-${context_source_registration_management_interval_payload_file_path}=       csourceRegistrations/context-source-registration-managementInterval-sample.jsonld
-${observation_interval_expectation_file_path}=                              csourceRegistrations/expectations/context-source-registrations-037-09-01-expectation.json
-${management_interval_expectation_file_path}=                               csourceRegistrations/expectations/context-source-registrations-037-09-02-expectation.json
+${context_source_registration_observation_interval_payload_file_path}=      csourceRegistrations/context-source-registration-observationInterval.jsonld
+${context_source_registration_management_interval_payload_file_path}=       csourceRegistrations/context-source-registration-managementInterval.jsonld
+${observation_interval_expectation_file_path}=                              csourceRegistrations/expectations/context-source-registrations-037-09-01.json
+${management_interval_expectation_file_path}=                               csourceRegistrations/expectations/context-source-registrations-037-09-02.json
 
 
 *** Test Cases ***    PAYLOAD_FILE_PATH    TIMEPROPERTY    EXPECTATION_FILE_PATH

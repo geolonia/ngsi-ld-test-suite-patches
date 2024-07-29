@@ -15,7 +15,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     [Documentation]    Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is "application/json" and the request payload body (as JSON) contains a "@context" term
     [Tags]    be-create    6_3_5
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${entity}=    Load Entity    building-simple-attributes-sample.jsonld    ${entity_id}
+    ${entity}=    Load Entity    building-simple-attributes.jsonld    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
 
     ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_JSON}

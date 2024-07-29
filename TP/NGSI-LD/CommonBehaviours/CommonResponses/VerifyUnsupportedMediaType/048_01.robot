@@ -10,16 +10,16 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variables ***
 ${vehicle_id_prefix}=           urn:ngsi-ld:Vehicle:
-${vehicle_filename}=            vehicle-simple-attributes-sample.jsonld
+${vehicle_filename}=            vehicle-simple-attributes.jsonld
 ${vehicle_attribute}=           speed
 ${vehicle_fragment}=            vehicle-brandname-fragment.jsonld
 ${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
-${subscription_filename}=       csourceSubscriptions/subscription-sample.jsonld
-${subscription_fragment}=       csourceSubscriptions/fragments/subscription-update-sample.jsonld
+${subscription_filename}=       csourceSubscriptions/subscription.jsonld
+${subscription_fragment}=       csourceSubscriptions/fragments/subscription-update.jsonld
 ${tea_id_prefix}=               urn:ngsi-ld:Vehicle:
-${tea_filename}=                vehicle-temporal-representation-sample.jsonld
+${tea_filename}=                vehicle-temporal-representation.jsonld
 ${building_id_prefix}=          urn:ngsi-ld:Building:
-${building_filename}=           building-simple-attributes-sample.jsonld
+${building_filename}=           building-simple-attributes.jsonld
 ${content_type}=                application/xml
 
 

@@ -12,9 +12,9 @@ Test Template       Query Context Source Registration Subscriptions With Limit A
 
 *** Variables ***
 ${subscription_id_prefix}=                      urn:ngsi-ld:Subscription:
-${first_subscription_payload_file_path}=        csourceSubscriptions/subscription-sample.jsonld
-${second_subscription_payload_file_path}=       csourceSubscriptions/subscription-watchedAttributes-sample.jsonld
-${third_subscription_payload_file_path}=        csourceSubscriptions/subscription-geoQ-sample.jsonld
+${first_subscription_payload_file_path}=        csourceSubscriptions/subscription.jsonld
+${second_subscription_payload_file_path}=       csourceSubscriptions/subscription-watchedAttributes.jsonld
+${third_subscription_payload_file_path}=        csourceSubscriptions/subscription-geoQ.jsonld
 
 
 *** Test Cases ***    LIMIT    PAGE    EXPECTED_SUBSCRIPTION_NUMBER    PREV_LINK    NEXT_LINK

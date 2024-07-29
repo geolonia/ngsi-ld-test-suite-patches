@@ -12,16 +12,16 @@ Test Template       Update Context Source Registration Subscription With Invalid
 
 *** Variables ***
 ${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample.jsonld
+${subscription_payload_file_path}=      csourceSubscriptions/subscription.jsonld
 
 
 *** Test Cases ***    FILEPATH
 039_04_01 InvalidType
     [Tags]    csrsub-update    5_11_3
-    csourceSubscriptions/fragments/subscription-update-invalid-type-sample.json
+    csourceSubscriptions/fragments/subscription-update-invalid-type.json
 039_04_02 InvalidNotification
     [Tags]    csrsub-update    5_11_3
-    csourceSubscriptions/fragments/subscription-update-invalid-notification-sample.json
+    csourceSubscriptions/fragments/subscription-update-invalid-notification.json
 
 
 *** Keywords ***

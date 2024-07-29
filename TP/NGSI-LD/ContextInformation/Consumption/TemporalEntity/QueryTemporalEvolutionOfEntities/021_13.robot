@@ -12,18 +12,18 @@ Test Template       Query the temporal evolution of entities using the entityOpe
 
 
 *** Variables ***
-${vehicule_id_prefix}=              urn:ngsi-ld:Vehicle:
-${first_vehicle_payload_file}=      2020-08-vehicule-temporal-representation-sample.jsonld
-${second_vehicle_payload_file}=     2020-09-vehicule-temporal-representation-sample.jsonld
+${vehicle_id_prefix}=               urn:ngsi-ld:Vehicle:
+${first_vehicle_payload_file}=      2020-08-vehicle-temporal-representation.jsonld
+${second_vehicle_payload_file}=     2020-09-vehicle-temporal-representation.jsonld
 
 
 *** Test Cases ***    PAYLOAD_FILE    EXPECTATION_FILE
 021_13_01 After
     [Tags]    te-query    5_7_4
-    entity-operations-after-query.jsonld    vehicles-temporal-representation-021-13-01-expectation.jsonld
+    entity-operations-after-query.jsonld    vehicles-temporal-representation-021-13-01.jsonld
 021_13_02 Before
     [Tags]    te-query    5_7_4
-    entity-operations-before-query.jsonld    vehicles-temporal-representation-021-13-02-expectation.jsonld
+    entity-operations-before-query.jsonld    vehicles-temporal-representation-021-13-02.jsonld
 
 
 *** Keywords ***
@@ -43,13 +43,13 @@ Query the temporal evolution of entities using the entityOperations method
     ...    ${response.json()}
 
 Setup Initial Temporal Entities
-    ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${create_response1}=    Create Temporal Representation Of Entity
     ...    ${first_vehicle_payload_file}
     ...    ${first_temporal_entity_representation_id}
     Check Response Status Code    201    ${create_response1.status_code}
     Set Test Variable    ${first_temporal_entity_representation_id}
-    ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${create_response2}=    Create Temporal Representation Of Entity
     ...    ${second_vehicle_payload_file}
     ...    ${second_temporal_entity_representation_id}

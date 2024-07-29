@@ -27,7 +27,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 Setup Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${response}=    Create Entity Selecting Content Type
-    ...    building-simple-attributes-sample.jsonld
+    ...    building-simple-attributes.jsonld
     ...    ${entity_id}
     ...    application/ld+json
     Check Response Status Code    201    ${response.status_code}

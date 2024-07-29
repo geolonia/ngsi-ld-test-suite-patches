@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variables ***
 ${registration_id_prefix}=      urn:ngsi-ld:Registration:
-${filename}=                    context-source-registration-sample.jsonld
+${filename}=                    context-source-registration.jsonld
 ${reason_404}=                  Not Found
 
 

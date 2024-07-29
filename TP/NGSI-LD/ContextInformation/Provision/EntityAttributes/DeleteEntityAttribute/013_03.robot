@@ -13,7 +13,7 @@ Test Template       Delete Attributes
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${status_code}=             404
-${filename}=                vehicle-two-datasetid-attributes-sample.jsonld
+${filename}=                vehicle-two-datasetid-attributes.jsonld
 
 
 *** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID    DATASETID

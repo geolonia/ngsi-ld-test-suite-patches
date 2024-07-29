@@ -11,12 +11,12 @@ Test Template       Update entity attributes with invalid entity fragments
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-speed-two-datasetid-sample.jsonld
+${filename}=                vehicle-speed-two-datasetid.jsonld
 
 
 *** Test Cases ***
 011_04_01 Update entity attributes with invalid entity fragments
-    vehicle-speed-two-datasetid-sample.jsonld    invalid-fragment.jsonld
+    vehicle-speed-two-datasetid.jsonld    invalid-fragment.jsonld
 
 
 *** Keywords ***

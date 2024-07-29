@@ -42,8 +42,8 @@ Batch Upsert Existing Entities Scenarios
 Setup Initial Entities
     ${first_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${second_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Create Entity    building-minimal-sample.jsonld    ${first_existing_entity_id}
-    Create Entity    building-minimal-sample.jsonld    ${second_existing_entity_id}
+    Create Entity    building-minimal.jsonld    ${first_existing_entity_id}
+    Create Entity    building-minimal.jsonld    ${second_existing_entity_id}
     Set Test Variable    ${first_existing_entity_id}
     Set Test Variable    ${second_existing_entity_id}
 

@@ -12,7 +12,7 @@ Suite Teardown      Delete Created Entity
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-simple-attributes-sample.jsonld
+${filename}=                building-simple-attributes.jsonld
 ${attribute_not_known}=     property_not_found
 
 

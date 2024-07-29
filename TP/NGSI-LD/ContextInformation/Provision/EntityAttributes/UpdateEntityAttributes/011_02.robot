@@ -37,7 +37,7 @@ Initialize Environment
     ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
-    ...    vehicle-two-datasetid-attributes-sample.jsonld
+    ...    vehicle-two-datasetid-attributes.jsonld
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}

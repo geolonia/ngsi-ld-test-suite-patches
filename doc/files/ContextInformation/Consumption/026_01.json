@@ -27,7 +27,7 @@
       "setup": "Setup Initial Entity",
       "teardown": "Delete Initial Entity",
       "template": "Retrieve Details Of Available Attributes",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Attributes with Response Status Code set to 200     and\n        Retrieve Attributes with Response body containing an array of attributes\n            * with the expected payload defined in the file 'types/expectations/attribute-026-01-01-expectation.json'\n            * and response body set to '${response.json()}'\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Attributes with Response Status Code set to 200     and\n        Retrieve Attributes with Response body containing an array of attributes\n            * with the expected payload defined in the file 'types/expectations/attribute-026-01-01.json'\n            * and response body set to '${response.json()}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/attributes'\n        method set to 'GET'\n        Retrieve attributes: and\n    Query Parameter: context set to '${EMPTY}' and\n    Query Parameter: details set to 'true'\n}",
       "http_verb": "GET",
       "endpoint": "attributes"
@@ -43,7 +43,7 @@
       "setup": "Setup Initial Entity",
       "teardown": "Delete Initial Entity",
       "template": "Retrieve Details Of Available Attributes",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Attributes with Response Status Code set to 200     and\n        Retrieve Attributes with Response body containing an array of attributes\n            * with the expected payload defined in the file 'types/expectations/attribute-026-01-02-expectation.json'\n            * and response body set to '${response.json()}'\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Attributes with Response Status Code set to 200     and\n        Retrieve Attributes with Response body containing an array of attributes\n            * with the expected payload defined in the file 'types/expectations/attribute-026-01-02.json'\n            * and response body set to '${response.json()}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/attributes'\n        method set to 'GET'\n        Retrieve attributes: and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: details set to 'true'\n}",
       "http_verb": "GET",
       "endpoint": "attributes"

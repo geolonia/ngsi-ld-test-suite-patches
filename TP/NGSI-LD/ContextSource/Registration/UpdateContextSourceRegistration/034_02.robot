@@ -12,18 +12,18 @@ Test Template       Update A Context Source
 
 *** Variables ***
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
-${filename}=                            context-source-registration-sample.jsonld
-${registration_payload_file_path}=      context-source-registration-invalid-sample.jsonld
+${filename}=                            context-source-registration.jsonld
+${registration_payload_file_path}=      context-source-registration-invalid.jsonld
 ${reason_400}=                          Bad Request
 
 
 *** Test Cases ***    REGISTRATION_ID    FRAGMENT_FILENAME    EXPECTED_STATUS_CODE    PROBLEM_TYPE
 034_02_01 Update a context source registration by id if the Id is not a valid URI
-    invalidURI    fragments/context-source-registration-different-type-sample.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
+    invalidURI    fragments/context-source-registration-different-type.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 034_02_02 Update a context source registration if the request body is not of the same data type
-    ${valid_registration_id}    fragments/context-source-registration-different-type-sample.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
+    ${valid_registration_id}    fragments/context-source-registration-different-type.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 034_02_03 Update a context source registration if one attempts to remove a mandatory property
-    ${valid_registration_id}    context-source-registration-invalid-sample.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
+    ${valid_registration_id}    context-source-registration-invalid.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 
 *** Keywords ***

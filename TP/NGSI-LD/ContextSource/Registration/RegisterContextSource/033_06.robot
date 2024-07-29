@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variables ***
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
-${registration_payload_file_path}=      csourceRegistrations/context-source-registration-sample.jsonld
+${registration_payload_file_path}=      csourceRegistrations/context-source-registration.jsonld
 
 
 *** Test Cases ***

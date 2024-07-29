@@ -9,7 +9,7 @@ Library             OperatingSystem
 
 *** Variables ***
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
-${registration_payload_file_path}=      csourceRegistrations/context-source-registration-invalid-sample.jsonld
+${registration_payload_file_path}=      csourceRegistrations/context-source-registration-invalid.jsonld
 
 
 *** Test Cases ***

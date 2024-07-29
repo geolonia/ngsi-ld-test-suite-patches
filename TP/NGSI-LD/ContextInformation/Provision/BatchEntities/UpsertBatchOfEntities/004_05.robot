@@ -20,9 +20,9 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${third_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${first_entity}=    Load Entity    building-minimal-sample.jsonld    ${first_entity_id}
-    ${second_entity}=    Load Entity    building-minimal-sample.jsonld    ${second_entity_id}
-    ${third_entity}=    Load Entity    building-minimal-sample.jsonld    ${third_entity_id}
+    ${first_entity}=    Load Entity    building-minimal.jsonld    ${first_entity_id}
+    ${second_entity}=    Load Entity    building-minimal.jsonld    ${second_entity_id}
+    ${third_entity}=    Load Entity    building-minimal.jsonld    ${third_entity_id}
     ${invalid_entity}=    Remove Entity Type    ${third_entity}
     @{entities_to_be_upserted}=    Create List    ${first_entity}    ${second_entity}    ${invalid_entity}
 

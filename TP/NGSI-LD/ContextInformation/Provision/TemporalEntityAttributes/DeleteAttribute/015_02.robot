@@ -13,7 +13,7 @@ Test Template       Delete attribute from temporal entity with unknow entity/att
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${status_code}=             400
-${filename}=                vehicle-temporal-representation-sample.jsonld
+${filename}=                vehicle-temporal-representation.jsonld
 
 
 *** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID

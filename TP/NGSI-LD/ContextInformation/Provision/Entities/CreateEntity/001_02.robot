@@ -10,13 +10,13 @@ Test Template       Create Entity With Invalid Request Scenarios
 *** Test Cases ***    FILENAME    ERROR_TYPE
 001_02_01 InvalidJson
     [Tags]    e-create    5_6_1
-    invalid-json-sample.jsonld    ${ERROR_TYPE_INVALID_REQUEST}
+    invalid-json.jsonld    ${ERROR_TYPE_INVALID_REQUEST}
 001_02_02 EmptyJson
     [Tags]    e-create    5_6_1
-    empty-sample.jsonld    ${ERROR_TYPE_INVALID_REQUEST}
+    empty.jsonld    ${ERROR_TYPE_INVALID_REQUEST}
 001_02_03 EntityWithNoContext
     [Tags]    e-create    5_6_1
-    building-minimal-sample.json    ${ERROR_TYPE_BAD_REQUEST_DATA}
+    building-minimal.json    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 
 *** Keywords ***

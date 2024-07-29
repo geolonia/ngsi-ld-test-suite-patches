@@ -13,9 +13,9 @@ Suite Teardown      Delete Entities
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${parking_id_prefix}=       urn:ngsi-ld:OffStreetParking:
-${vehicle_filename}=        vehicle-simple-attributes-sample.jsonld
-${parking_filename}=        parking-simple-attributes-sample.jsonld
-${expectation_filename}=    vehicle-parking-simple-expectation.geojson
+${vehicle_filename}=        vehicle-simple-attributes.jsonld
+${parking_filename}=        parking-simple-attributes.jsonld
+${expectation_filename}=    vehicle-parking-simple.geojson
 ${vehicle_entity_type}=     https://ngsi-ld-test-suite/context#Vehicle
 ${parking_entity_type}=     https://ngsi-ld-test-suite/context#OffStreetParking
 

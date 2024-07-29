@@ -12,7 +12,7 @@ Test Template       Delete A Context Source
 
 *** Variables ***
 ${registration_id_prefix}=      urn:ngsi-ld:Registration:
-${filename}=                    context-source-registration-sample.jsonld
+${filename}=                    context-source-registration.jsonld
 
 
 *** Test Cases ***    INVALID_REGISTRATION_ID    EXPECTED_STATUS_CODE    PROBLEM_TYPE

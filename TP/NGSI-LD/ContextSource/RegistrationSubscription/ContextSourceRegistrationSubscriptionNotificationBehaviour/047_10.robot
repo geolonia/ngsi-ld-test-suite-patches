@@ -14,8 +14,8 @@ Test Teardown       Delete Created Context Source Registration And Subscription
 *** Variables ***
 ${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
 ${subscription_id_prefix}=                              urn:ngsi-ld:Subscription:
-${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-observationInterval-sample.jsonld
-${subscription_payload_file_path}=                      csourceSubscriptions/subscription-temporalQ-observedAt-sample.jsonld
+${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-observationInterval.jsonld
+${subscription_payload_file_path}=                      csourceSubscriptions/subscription-temporalQ-observedAt.jsonld
 
 
 *** Test Cases ***

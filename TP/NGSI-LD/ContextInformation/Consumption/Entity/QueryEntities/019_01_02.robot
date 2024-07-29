@@ -14,10 +14,10 @@ Suite Teardown      Delete Entities
 ${building_id_prefix}=      urn:ngsi-ld:Building:
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${parking_id_prefix}=       urn:ngsi-ld:OffStreetParking:
-${building_filename}=       building-minimal-sample.jsonld
-${vehicle_filename}=        vehicle-simple-attributes-sample.jsonld
-${parking_filename}=        parking-simple-attributes-sample.jsonld
-${expectation_filename}=    two-types-vehicle-offstreetparking-expectation.jsonld
+${building_filename}=       building-minimal.jsonld
+${vehicle_filename}=        vehicle-simple-attributes.jsonld
+${parking_filename}=        parking-simple-attributes.jsonld
+${expectation_filename}=    two-types-vehicle-offstreetparking.jsonld
 ${building_entity_type}=    https://ngsi-ld-test-suite/context#Building
 ${vehicle_entity_type}=     https://ngsi-ld-test-suite/context#Vehicle
 ${parking_entity_type}=     https://ngsi-ld-test-suite/context#OffStreetParking

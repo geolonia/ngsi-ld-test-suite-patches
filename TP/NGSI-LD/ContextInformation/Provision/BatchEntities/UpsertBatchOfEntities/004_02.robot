@@ -17,13 +17,13 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 *** Test Cases ***    FILENAME
 004_02_01 EntityWithSimpleProperties
     [Tags]    be-upsert    5_6_8
-    building-simple-attributes-sample.jsonld
+    building-simple-attributes.jsonld
 004_02_02 EntityWithSimpleRelationships
     [Tags]    be-upsert    5_6_8
-    building-relationship-sample.jsonld
+    building-relationship.jsonld
 004_02_03 EntityWithRelationshipsProperties
     [Tags]    be-upsert    5_6_8
-    building-relationship-of-property-sample.jsonld
+    building-relationship-of-property.jsonld
 
 
 *** Keywords ***
@@ -53,8 +53,8 @@ Prepare Entities To Upsert
     [Arguments]    ${filename}
     ${first_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${second_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    Create Entity    building-minimal-sample.jsonld    ${first_existing_entity_id}
-    Create Entity    building-minimal-sample.jsonld    ${second_existing_entity_id}
+    Create Entity    building-minimal.jsonld    ${first_existing_entity_id}
+    Create Entity    building-minimal.jsonld    ${second_existing_entity_id}
     Set Test Variable    ${first_existing_entity_id}
     Set Test Variable    ${second_existing_entity_id}
     ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}

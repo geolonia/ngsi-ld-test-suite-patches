@@ -11,8 +11,8 @@ Test Teardown       Delete Created Context Source Registration Subscription
 
 *** Variables ***
 ${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample.jsonld
-${expectation_file_path}=               csourceSubscriptions/expectations/subscriptions-040-01-expectation.json
+${subscription_payload_file_path}=      csourceSubscriptions/subscription.jsonld
+${expectation_file_path}=               csourceSubscriptions/expectations/subscriptions-040-01.json
 
 
 *** Test Cases ***

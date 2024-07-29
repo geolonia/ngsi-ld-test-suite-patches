@@ -11,7 +11,7 @@ Suite Teardown      Delete Initial Subscriptions
 
 *** Variables ***
 ${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=      subscriptions/subscription-sample.jsonld
+${subscription_payload_file_path}=      subscriptions/subscription.jsonld
 
 
 *** Test Cases ***

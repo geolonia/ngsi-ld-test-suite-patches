@@ -24,7 +24,7 @@ ${scope_fragment_filename}=     one-scope-fragment.json
     ...    ${scope_fragment_filename}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
-    ${expectation_filename}=    Set Variable    building-minimal-with-one-scope-expectation.json
+    ${expectation_filename}=    Set Variable    building-minimal-with-one-scope.json
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response}=    Retrieve Entity by Id
     ...    ${entity_id}
@@ -35,13 +35,13 @@ ${scope_fragment_filename}=     one-scope-fragment.json
 011_05_02 Update scope to an entity not having a scope
     [Documentation]    Check that scope is not added if entity does not already have a scope
     [Tags]    ea-append    5_6_2    4_18    since_v1.5.1
-    [Setup]    Create Initial Entity    building-minimal-sample.json
+    [Setup]    Create Initial Entity    building-minimal.json
     ${response}=    Update Entity Attributes
     ...    ${entity_id}
     ...    ${scope_fragment_filename}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    207    ${response.status_code}
-    ${expectation_filename}=    Set Variable    building-minimal-compacted-expectation.json
+    ${expectation_filename}=    Set Variable    building-minimal-compacted.json
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response}=    Retrieve Entity by Id
     ...    ${entity_id}

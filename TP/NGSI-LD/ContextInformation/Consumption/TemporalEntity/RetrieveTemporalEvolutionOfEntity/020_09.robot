@@ -12,8 +12,8 @@ Test Template       Retrieve the temporal evolution of an entity with an invalid
 
 
 *** Variables ***
-${vehicule_id_prefix}=      urn:ngsi-ld:Vehicle:
-${vehicle_payload_file}=    2020-08-vehicule-temporal-representation-sample.jsonld
+${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
+${vehicle_payload_file}=    2020-08-vehicle-temporal-representation.jsonld
 
 
 *** Test Cases ***    TIMEREL    TIMEAT    ENDTIMEAT
@@ -44,7 +44,7 @@ Retrieve the temporal evolution of an entity with an invalid request content
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 Create Temporal Entity
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${create_response}=    Create Temporal Representation Of Entity
     ...    ${vehicle_payload_file}
     ...    ${temporal_entity_representation_id}

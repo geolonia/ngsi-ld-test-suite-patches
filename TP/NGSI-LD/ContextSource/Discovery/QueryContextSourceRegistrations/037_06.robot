@@ -13,16 +13,16 @@ Test Template       Query Context Source Registration Matching Properties And Re
 
 *** Variables ***
 ${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
-${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-detailed-information-sample.jsonld
+${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-detailed-information.jsonld
 
 
 *** Test Cases ***    ATTRS_VALUE    EXPECTATION_FILE_PATH
 037_06_01 Query With Matching Properties And Relationships
     [Tags]    csr-query    5_10_2
-    name,locatedAt    csourceRegistrations/expectations/context-source-registrations-037-06-expectation.json
+    name,locatedAt    csourceRegistrations/expectations/context-source-registrations-037-06.json
 037_06_02 Query Without Properties And Relationships
     [Tags]    csr-query    5_10_2
-    ${EMPTY}    csourceRegistrations/expectations/context-source-registrations-037-06-expectation.json
+    ${EMPTY}    csourceRegistrations/expectations/context-source-registrations-037-06.json
 
 
 *** Keywords ***
