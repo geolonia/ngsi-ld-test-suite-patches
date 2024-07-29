@@ -15,7 +15,7 @@ Suite Teardown      After Test
 ${subscription_id_prefix}               urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}       subscriptions/subscription-building-entities-default.jsonld
 ${building_id_prefix}                   urn:ngsi-ld:Building:
-${entity_building_filepath}             building-simple-attributes-sample.jsonld
+${entity_building_filepath}             building-simple-attributes.jsonld
 ${fragment_filename}                    airQualityLevel-fragment.jsonld
 ${notification_server_send_url}         http://${notification_server_host}:${notification_server_port}/notify
 ${expected_header_links}                <${ngsild_test_suite_context}>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"

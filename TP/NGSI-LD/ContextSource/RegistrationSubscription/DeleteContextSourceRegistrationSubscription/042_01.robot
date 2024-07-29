@@ -10,7 +10,7 @@ Test Setup          Setup Initial Context Source Registration Subscription
 
 *** Variables ***
 ${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=      csourceSubscriptions/subscription-sample.jsonld
+${subscription_payload_file_path}=      csourceSubscriptions/subscription.jsonld
 
 
 *** Test Cases ***

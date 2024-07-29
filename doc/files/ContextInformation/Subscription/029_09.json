@@ -27,7 +27,7 @@
       "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Subscription with Response Status Code set to 204     and\n        Retrieve Subscription with Check Response Body containing an Attribute set to and\n            Query Parameter: expected_attribute_name set to 'status' and\n            Query Parameter: response_body set to 'response1.json()' and\n            Query Parameter: expected_attribute_value set to 'paused'\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Request Update Subscription and \nHeader['Content-Type'] set to 'application/json' and\nPayload defined in file 'subscriptions/fragments/subscription-isActive-false-update-sample.json'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/{subscription_id}'\n        method set to 'PATCH'\n        Request Update Subscription and \nHeader['Content-Type'] set to 'application/json' and\nPayload defined in file 'subscriptions/fragments/subscription-isActive-false-update.json'\n}",
       "http_verb": "PATCH",
       "endpoint": "subscriptions/{subscription_id}"
     }

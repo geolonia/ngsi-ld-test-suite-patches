@@ -9,9 +9,9 @@ Test Template       Create Subscription With Invalid Throttling
 
 *** Test Cases ***    FILENAME    EXPECTED_STATUS
 028_05_01 ThrottlingAndTimeIntervalConjunction
-    subscription-invalid-throttling-timeInterval-sample.jsonld    ${ERROR_TYPE_BAD_REQUEST_DATA}
+    subscription-invalid-throttling-timeInterval.jsonld    ${ERROR_TYPE_BAD_REQUEST_DATA}
 028_05_02 NegativeThrottling
-    subscription-invalid-negative-throttling-sample.jsonld    ${ERROR_TYPE_BAD_REQUEST_DATA}
+    subscription-invalid-negative-throttling.jsonld    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 
 *** Keywords ***

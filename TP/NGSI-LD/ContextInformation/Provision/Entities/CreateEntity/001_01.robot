@@ -17,16 +17,16 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 *** Test Cases ***    FILENAME    CONTENT_TYPE
 001_01_01 MinimalEntity
     [Tags]    e-create    5_6_1
-    building-minimal-sample.json    application/json
+    building-minimal.json    application/json
 001_01_02 EntityWithSimpleProperties
     [Tags]    e-create    5_6_1
-    building-simple-attributes-sample.jsonld    application/ld+json
+    building-simple-attributes.jsonld    application/ld+json
 001_01_03 EntityWithRelationshipsProperties
     [Tags]    e-create    5_6_1
-    building-relationship-of-property-sample.jsonld    application/ld+json
+    building-relationship-of-property.jsonld    application/ld+json
 001_01_04 EntityWithLocationAttribute
     [Tags]    e-create    5_6_1
-    building-location-attribute-sample.jsonld    application/ld+json
+    building-location-attribute.jsonld    application/ld+json
 
 
 *** Keywords ***

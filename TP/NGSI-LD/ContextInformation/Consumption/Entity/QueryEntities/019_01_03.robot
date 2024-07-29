@@ -12,8 +12,8 @@ Suite Teardown      Delete Entities
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-minimal-sample.jsonld
-${expectation_filename}=    building-minimal-expectation.json
+${filename}=                building-minimal.jsonld
+${expectation_filename}=    building-minimal.json
 ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 ${entity_id_pattern}=       urn:ngsi-ld:Building:.*
 

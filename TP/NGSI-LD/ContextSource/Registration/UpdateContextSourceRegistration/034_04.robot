@@ -11,8 +11,8 @@ Test Teardown       Delete Initial Context Source Registration
 
 *** Variables ***
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
-${filename}=                            context-source-registration-sample.jsonld
-${registration_payload_file_path}=      context-source-registration-invalid-json-sample.json
+${filename}=                            context-source-registration.jsonld
+${registration_payload_file_path}=      context-source-registration-invalid-json.json
 
 
 *** Test Cases ***

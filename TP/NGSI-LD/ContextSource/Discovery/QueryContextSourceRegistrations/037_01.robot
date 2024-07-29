@@ -13,17 +13,17 @@ Test Template       Query A Context Source Registration
 
 *** Variables ***
 ${context_source_registration_id_prefix}=                   urn:ngsi-ld:ContextSourceRegistration:
-${first_context_source_registration_payload_file_path}=     csourceRegistrations/context-source-registration-sample.jsonld
-${second_context_source_registration_payload_file_path}=    csourceRegistrations/context-source-registration-detailed-information-sample.jsonld
+${first_context_source_registration_payload_file_path}=     csourceRegistrations/context-source-registration.jsonld
+${second_context_source_registration_payload_file_path}=    csourceRegistrations/context-source-registration-detailed-information.jsonld
 
 
 *** Test Cases ***    QUERY_PARAM_NAME    QUERY_PARAM_VALUE    EXPECTATION_FILE_PATH    EXPECTED_CONTEXT_SOURCE_REGISTRATION_IDS
 037_01_01 With list of entity types
     [Tags]    csr-query    5_10_2
-    type    Building    csourceRegistrations/expectations/context-source-registrations-037-01-expectation.json    ${second_context_source_registration_id}
+    type    Building    csourceRegistrations/expectations/context-source-registrations-037-01.json    ${second_context_source_registration_id}
 037_01_02 With list of attribute names
     [Tags]    csr-query    5_10_2
-    attrs    name    csourceRegistrations/expectations/context-source-registrations-037-01-expectation.json    ${second_context_source_registration_id}
+    attrs    name    csourceRegistrations/expectations/context-source-registrations-037-01.json    ${second_context_source_registration_id}
 
 
 *** Keywords ***

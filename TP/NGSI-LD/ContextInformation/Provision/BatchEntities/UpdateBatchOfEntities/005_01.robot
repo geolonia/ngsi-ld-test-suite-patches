@@ -13,19 +13,19 @@ Test Template       Batch Update Entity Scenarios
 
 *** Variables ***
 ${building_id_prefix}=          urn:ngsi-ld:Building:
-${entity_payload_filename}=     building-simple-attributes-sample.jsonld
+${entity_payload_filename}=     building-simple-attributes.jsonld
 
 
 *** Test Cases ***    FILENAME    UPDATE_FRAGMENT_FILENAME
 005_01_01 EntityWithSimpleProperties
     [Tags]    be-update    5_6_9
-    building-simple-attributes-sample.jsonld    fragmentEntities/empty-fragment.json
+    building-simple-attributes.jsonld    fragmentEntities/empty-fragment.json
 005_01_02 EntityWithSimpleRelationships
     [Tags]    be-update    5_6_9
-    building-relationship-sample.jsonld    fragmentEntities/locatedAt-fragment.json
+    building-relationship.jsonld    fragmentEntities/locatedAt-fragment.json
 005_01_03 EntityWithRelationshipsProperties
     [Tags]    be-update    5_6_9
-    building-relationship-of-property-sample.jsonld    fragmentEntities/airQualityLevel-with-relationship-fragment.json
+    building-relationship-of-property.jsonld    fragmentEntities/airQualityLevel-with-relationship-fragment.json
 
 
 *** Keywords ***

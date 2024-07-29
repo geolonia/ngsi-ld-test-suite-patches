@@ -11,8 +11,8 @@ Test Teardown       Delete Initial Context Source Registration Subscriptions
 
 *** Variables ***
 ${subscription_id_prefix}=                      urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=              csourceSubscriptions/subscription-sample.jsonld
-${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/subscription-update-invalid-json-sample.json
+${subscription_payload_file_path}=              csourceSubscriptions/subscription.jsonld
+${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/subscription-update-invalid-json.json
 
 
 *** Test Cases ***

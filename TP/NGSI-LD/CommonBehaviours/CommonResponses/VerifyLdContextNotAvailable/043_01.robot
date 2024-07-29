@@ -12,13 +12,13 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 *** Variables ***
 ${expected_status_code}=        503
 ${building_id_prefix}=          urn:ngsi-ld:Building:
-${building_filename}=           building-unretrievable-context-sample.jsonld
+${building_filename}=           building-unretrievable-context.jsonld
 ${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
-${subscription_filename}=       subscriptions/subscription-unretrievable-context-sample.jsonld
+${subscription_filename}=       subscriptions/subscription-unretrievable-context.jsonld
 ${tea_id_prefix}=               urn:ngsi-ld:Vehicle:
-${tea_filename}=                bus-temporal-representation-unretrievable-context-sample.jsonld
+${tea_filename}=                bus-temporal-representation-unretrievable-context.jsonld
 ${registration_id_prefix}=      urn:ngsi-ld:Registration:
-${registration_filename}=       csourceRegistrations/context-source-registration-unretrievable-context-sample.jsonld
+${registration_filename}=       csourceRegistrations/context-source-registration-unretrievable-context.jsonld
 
 
 *** Test Cases ***

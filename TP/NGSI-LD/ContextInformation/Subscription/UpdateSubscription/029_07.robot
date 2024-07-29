@@ -12,13 +12,13 @@ Test Template       Activate Paused Subscription With isActive Member
 
 *** Variables ***
 ${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=      subscriptions/subscription-inactive-sample.jsonld
+${subscription_payload_file_path}=      subscriptions/subscription-inactive.jsonld
 
 
 *** Test Cases ***    SUBSCRIPTION_UPDATE_FRAGMENT_FILE_PATH
 029_07_01 ActiveTrue
     [Tags]    sub-update    5_8_2
-    subscriptions/fragments/subscription-isActive-true-update-sample.json
+    subscriptions/fragments/subscription-isActive-true-update.json
 
 
 *** Keywords ***

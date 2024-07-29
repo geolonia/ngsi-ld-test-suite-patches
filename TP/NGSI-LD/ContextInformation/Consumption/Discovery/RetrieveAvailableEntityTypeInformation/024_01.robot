@@ -12,7 +12,7 @@ Suite Teardown      Delete Initial Entities
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-simple-attributes-sample.json
+${filename}=                building-simple-attributes.json
 
 
 *** Test Cases ***

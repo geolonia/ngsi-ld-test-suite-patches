@@ -16,14 +16,14 @@ Test Template       Receive cSourceNotification For Matching Context Source Regi
 *** Variables ***
 ${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
 ${subscription_id_prefix}=                              urn:ngsi-ld:Subscription:
-${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-managementInterval-sample.jsonld
+${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-managementInterval.jsonld
 
 
 *** Test Cases ***    FILEPATH
 047_11_01 CreatedAt    [Tags]    csrsub-notification    5_11_7
-    csourceSubscriptions/subscription-temporalQ-createdAt-sample.jsonld
+    csourceSubscriptions/subscription-temporalQ-createdAt.jsonld
 047_11_02 ModifiedAt    [Tags]    csrsub-notification    5_11_7
-    csourceSubscriptions/subscription-temporalQ-modifiedAt-sample.jsonld
+    csourceSubscriptions/subscription-temporalQ-modifiedAt.jsonld
 
 
 *** Keywords ***

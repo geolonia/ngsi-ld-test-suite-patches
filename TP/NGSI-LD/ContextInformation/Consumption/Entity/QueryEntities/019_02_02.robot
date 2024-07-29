@@ -13,9 +13,9 @@ Suite Teardown      Delete Entities
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${building_filename}=       building-minimal-sample.jsonld
-${vehicle_filename}=        vehicle-simple-attributes-sample.jsonld
-${expectation_filename}=    two-vehicles-expectation.jsonld
+${building_filename}=       building-minimal.jsonld
+${vehicle_filename}=        vehicle-simple-attributes.jsonld
+${expectation_filename}=    two-vehicles.jsonld
 ${building_entity_type}=    https://ngsi-ld-test-suite/context#Building
 ${vehicle_entity_type}=     https://ngsi-ld-test-suite/context#Vehicle
 

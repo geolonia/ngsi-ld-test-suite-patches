@@ -12,9 +12,9 @@ Test Template       Query Subscriptions With Limit And Page Parameters
 
 *** Variables ***
 ${subscription_id_prefix}=                      urn:ngsi-ld:Subscription:
-${first_subscription_payload_file_path}=        subscriptions/subscription-sample.jsonld
-${second_subscription_payload_file_path}=       subscriptions/subscription-watchedAttributes-sample.jsonld
-${third_subscription_payload_file_path}=        subscriptions/subscription-inactive-sample.jsonld
+${first_subscription_payload_file_path}=        subscriptions/subscription.jsonld
+${second_subscription_payload_file_path}=       subscriptions/subscription-watchedAttributes.jsonld
+${third_subscription_payload_file_path}=        subscriptions/subscription-inactive.jsonld
 
 
 *** Test Cases ***    LIMIT    OFFSET    EXPECTED_SUBSCRIPTION_NUMBER    PREV_LINK    NEXT_LINK

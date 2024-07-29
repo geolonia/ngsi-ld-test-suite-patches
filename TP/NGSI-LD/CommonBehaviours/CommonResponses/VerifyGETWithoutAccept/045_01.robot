@@ -14,14 +14,14 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variables ***
 ${building_id_prefix}=          urn:ngsi-ld:Building:
-${building_filename}=           building-simple-attributes-sample.jsonld
+${building_filename}=           building-simple-attributes.jsonld
 ${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
-${subscription_filename}=       subscriptions/subscription-sample.jsonld
+${subscription_filename}=       subscriptions/subscription.jsonld
 ${registration_id_prefix}=      urn:ngsi-ld:Registration:
-${registration_filename}=       csourceRegistrations/context-source-registration-with-expiration-sample.jsonld
+${registration_filename}=       csourceRegistrations/context-source-registration-with-expiration.jsonld
 ${registration_type}=           Vehicle
 ${tea_id_prefix}=               urn:ngsi-ld:Vehicle:
-${tea_filename}=                vehicle-temporal-representation-sample.jsonld
+${tea_filename}=                vehicle-temporal-representation.jsonld
 ${teatype}=                     Vehicle
 ${content_type}=                application/json
 

@@ -20,7 +20,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Test Variable    ${entity_id}
-    ${entity}=    Load Entity    building-simple-attributes-sample.json    ${entity_id}
+    ${entity}=    Load Entity    building-simple-attributes.json    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
 
     ${response}=    Batch Create Entities
@@ -43,7 +43,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Test Variable    ${entity_id}
-    ${entity}=    Load Entity    building-simple-attributes-sample.json    ${entity_id}
+    ${entity}=    Load Entity    building-simple-attributes.json    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
 
     ${response}=    Batch Create Entities

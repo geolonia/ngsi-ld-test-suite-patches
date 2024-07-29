@@ -34,6 +34,6 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 *** Keywords ***
 Setup Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${create_response}=    Create Entity    building-simple-attributes-sample.jsonld    ${entity_id}
+    ${create_response}=    Create Entity    building-simple-attributes.jsonld    ${entity_id}
     Check Response Status Code    201    ${create_response.status_code}
     Set Test Variable    ${entity_id}

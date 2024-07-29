@@ -21,8 +21,8 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     Set Suite Variable    ${first_entity_id}
     ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${second_entity_id}
-    ${first_entity}=    Load Entity    building-minimal-sample.jsonld    ${first_entity_id}
-    ${second_entity}=    Load Entity    building-minimal-sample.jsonld    ${second_entity_id}
+    ${first_entity}=    Load Entity    building-minimal.jsonld    ${first_entity_id}
+    ${second_entity}=    Load Entity    building-minimal.jsonld    ${second_entity_id}
     @{entities_to_be_created}=    Create List    ${first_entity}    ${second_entity}    ${first_entity}
 
     ${response}=    Batch Create Entities    @{entities_to_be_created}

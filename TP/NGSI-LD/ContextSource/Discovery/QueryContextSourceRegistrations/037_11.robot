@@ -13,9 +13,9 @@ Test Template       Query Context Source Registration With Limit And Offset Para
 
 *** Variables ***
 ${context_source_registration_id_prefix}=                   urn:ngsi-ld:ContextSourceRegistration:
-${first_context_source_registration_payload_file_path}=     csourceRegistrations/context-source-registration-sample.jsonld
-${second_context_source_registration_payload_file_path}=    csourceRegistrations/context-source-registration-location-sample.jsonld
-${third_context_source_registration_payload_file_path}=     csourceRegistrations/context-source-registration-detailed-information-sample.jsonld
+${first_context_source_registration_payload_file_path}=     csourceRegistrations/context-source-registration.jsonld
+${second_context_source_registration_payload_file_path}=    csourceRegistrations/context-source-registration-location.jsonld
+${third_context_source_registration_payload_file_path}=     csourceRegistrations/context-source-registration-detailed-information.jsonld
 
 
 *** Test Cases ***    LIMIT    OFFSET    EXPECTED_NUMBER    PREV_LINK    NEXT_LINK

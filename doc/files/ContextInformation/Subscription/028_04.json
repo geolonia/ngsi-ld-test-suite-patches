@@ -26,7 +26,7 @@
       "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Subscription with Response Status Code set to 409     and\n        Create Subscription with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/AlreadyExists'     and\n        Create Subscription with Response body containing 'title' element\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: 'subscriptions/subscription-sample.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/subscriptions/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: 'subscriptions/subscription.jsonld'\n}",
       "http_verb": "POST",
       "endpoint": "subscriptions/"
     }

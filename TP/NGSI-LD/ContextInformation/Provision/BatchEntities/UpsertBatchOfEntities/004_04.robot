@@ -13,19 +13,19 @@ Test Template       Batch Upsert Entities With Update Option Scenarios
 
 *** Variables ***
 ${building_id_prefix}=                  urn:ngsi-ld:Building:
-${existing_entity_payload_filename}=    building-minimal-sample.jsonld
+${existing_entity_payload_filename}=    building-minimal.jsonld
 
 
 *** Test Cases ***    FILENAME    UPDATE_FRAGMENT_FILENAME
 004_04_01 EntityWithSimpleProperties
     [Tags]    be-upsert    5_6_8
-    building-simple-attributes-sample.jsonld    fragmentEntities/simple-attributes-fragment.json
+    building-simple-attributes.jsonld    fragmentEntities/simple-attributes-fragment.json
 004_04_02 EntityWithSimpleRelationships
     [Tags]    be-upsert    5_6_8
-    building-relationship-sample.jsonld    fragmentEntities/locatedAt-fragment.json
+    building-relationship.jsonld    fragmentEntities/locatedAt-fragment.json
 004_04_03 EntityWithRelationshipsProperties
     [Tags]    be-upsert    5_6_8
-    building-relationship-of-property-sample.jsonld    fragmentEntities/simple-attributes-relationship-of-property-fragment.json
+    building-relationship-of-property.jsonld    fragmentEntities/simple-attributes-relationship-of-property-fragment.json
 
 
 *** Keywords ***

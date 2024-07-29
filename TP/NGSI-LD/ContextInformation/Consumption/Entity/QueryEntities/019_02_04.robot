@@ -13,9 +13,9 @@ Suite Teardown      Delete Entities
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${building_filename}=       building-minimal-sample.jsonld
-${vehicle_filename}=        vehicle-simple-attributes-sample.jsonld
-${expectation_filename}=    vehicle-simple-attributes-core-context-expectation.json
+${building_filename}=       building-minimal.jsonld
+${vehicle_filename}=        vehicle-simple-attributes.jsonld
+${expectation_filename}=    vehicle-simple-attributes-core-context.json
 ${attribute_brandname}=     https://ngsi-ld-test-suite/context#brandName
 ${attribute_isparked}=      https://uri.etsi.org/ngsi-ld/default-context/isParked
 

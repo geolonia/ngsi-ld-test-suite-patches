@@ -12,7 +12,7 @@ Test Template       Add Attribute To Temporal Entity
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-temporal-representation-sample.jsonld
+${filename}=                vehicle-temporal-representation.jsonld
 ${fragment_filename}=       vehicle-temporal-representation-fragment.jsonld
 ${status_code}=             400
 

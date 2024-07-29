@@ -17,7 +17,7 @@ Test Template       Receive Mqtt Notification
 ${subscription_id_prefix}               urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}       subscriptions/subscription-building-entities-default.jsonld
 ${building_id_prefix}                   urn:ngsi-ld:Building:
-${entity_building_filepath}             building-simple-attributes-sample.jsonld
+${entity_building_filepath}             building-simple-attributes.jsonld
 ${fragment_filename}                    airQualityLevel-fragment.jsonld
 ${topic}                                ngsild-test-suite/topic
 ${endpoint}                             mqtt://${mqtt_broker_host}/${topic}

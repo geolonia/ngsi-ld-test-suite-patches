@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 *** Variables ***
 ${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=      csourceSubscriptions/subscription-expired-sample.jsonld
+${subscription_payload_file_path}=      csourceSubscriptions/subscription-expired.jsonld
 
 
 *** Test Cases ***

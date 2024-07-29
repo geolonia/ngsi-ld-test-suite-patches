@@ -12,7 +12,7 @@ Test Template       Delete An Attribute
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-temporal-representation-sample.jsonld
+${filename}=                vehicle-temporal-representation.jsonld
 ${status_code}=             404
 
 

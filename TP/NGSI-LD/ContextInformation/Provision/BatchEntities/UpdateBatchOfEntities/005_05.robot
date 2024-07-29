@@ -13,7 +13,7 @@ Test Template       Batch Update Entity Scenarios
 
 *** Variables ***
 ${building_id_prefix}=          urn:ngsi-ld:Building:
-${entity_payload_filename}=     building-minimal-sample.jsonld
+${entity_payload_filename}=     building-minimal.jsonld
 
 
 *** Test Cases ***    FILENAME    UPDATE_FRAGMENT_FILENAME

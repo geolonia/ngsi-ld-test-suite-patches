@@ -19,8 +19,8 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     [Tags]    be-upsert    5_6_8    since_v1.5.1
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${first_entity}=    Load Entity    building-minimal-sample.jsonld    ${first_entity_id}
-    ${second_entity}=    Load Entity    building-minimal-sample.jsonld    ${second_entity_id}
+    ${first_entity}=    Load Entity    building-minimal.jsonld    ${first_entity_id}
+    ${second_entity}=    Load Entity    building-minimal.jsonld    ${second_entity_id}
     @{entities_to_be_upserted}=    Create List    ${first_entity}    ${second_entity}    ${first_entity}
 
     ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}

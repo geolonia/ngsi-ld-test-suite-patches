@@ -16,16 +16,16 @@ ${subscription_payload_file_path}=      ${EMPTY}
 *** Test Cases ***    FILEPATH
 038_08_01 WithoutNotification
     [Tags]    csrsub-create    5_11_2
-    csourceSubscriptions/subscription-without-notification-sample.jsonld
+    csourceSubscriptions/subscription-without-notification.jsonld
 038_08_02 InvalidType
     [Tags]    csrsub-create    5_11_2
-    csourceSubscriptions/subscription-invalid-type-sample.jsonld
+    csourceSubscriptions/subscription-invalid-type.jsonld
 038_08_03 InvalidQuery
     [Tags]    csrsub-create    5_11_2
-    csourceSubscriptions/subscription-invalid-query-sample.jsonld
+    csourceSubscriptions/subscription-invalid-query.jsonld
 038_08_04 EmptyWatchedAttributes
     [Tags]    csrsub-create    5_11_2
-    csourceSubscriptions/subscription-empty-watchedAttributes-sample.jsonld
+    csourceSubscriptions/subscription-empty-watchedAttributes.jsonld
 
 
 *** Keywords ***

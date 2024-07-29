@@ -18,13 +18,13 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 *** Test Cases ***    FILENAME
 004_03_01 EntityWithSimpleProperties
     [Tags]    be-upsert    5_6_8
-    building-simple-attributes-sample.jsonld
+    building-simple-attributes.jsonld
 004_03_02 EntityWithSimpleRelationships
     [Tags]    be-upsert    5_6_8
-    building-relationship-sample.jsonld
+    building-relationship.jsonld
 004_03_03 EntityWithRelationshipsProperties
     [Tags]    be-upsert    5_6_8
-    building-relationship-of-property-sample.jsonld
+    building-relationship-of-property.jsonld
 
 
 *** Keywords ***
@@ -49,11 +49,11 @@ Batch Upsert Existing Entities Scenarios
 
 Setup Initial Entities
     ${first_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${create_response1}=    Create Entity    building-minimal-sample.jsonld    ${first_existing_entity_id}
+    ${create_response1}=    Create Entity    building-minimal.jsonld    ${first_existing_entity_id}
     Check Response Status Code    201    ${create_response1.status_code}
     Set Test Variable    ${first_existing_entity_id}
     ${second_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${create_response2}=    Create Entity    building-minimal-sample.jsonld    ${second_existing_entity_id}
+    ${create_response2}=    Create Entity    building-minimal.jsonld    ${second_existing_entity_id}
     Check Response Status Code    201    ${create_response2.status_code}
     Set Test Variable    ${second_existing_entity_id}
 

@@ -11,8 +11,8 @@ Suite Teardown      Delete Initial Subscriptions
 
 *** Variables ***
 ${subscription_id_prefix}                       urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}               subscriptions/subscription-sample.jsonld
-${subscription_update_fragment_file_path}       subscriptions/fragments/subscription-expiresAt-future-update-sample.json
+${subscription_payload_file_path}               subscriptions/subscription.jsonld
+${subscription_update_fragment_file_path}       subscriptions/fragments/subscription-expiresAt-future-update.json
 
 
 *** Test Cases ***
@@ -23,7 +23,7 @@ ${subscription_update_fragment_file_path}       subscriptions/fragments/subscrip
     ${now}=    Get Current Date    time_zone=UTC
     ${in_5_seconds}=    Add Time To Date    ${now}    5s    result_format=%Y-%m-%dT%H:%M:%SZ
     ${update_template_fragment}=    Load JSON From File
-    ...    ${EXECDIR}/data/subscriptions/fragments/subscription-expiresAt-update-sample.json
+    ...    ${EXECDIR}/data/subscriptions/fragments/subscription-expiresAt-update.json
     ${update_fragment}=    Update Value To JSON    ${update_template_fragment}    $..expiresAt    ${in_5_seconds}
     ${update_response}=    Update Subscription With Payload
     ...    ${subscription_id}

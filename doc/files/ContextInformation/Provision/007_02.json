@@ -26,7 +26,7 @@
       "teardown": null,
       "template": "Create Temporal Entity From File",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Temporal Representation Of Entity Selecting Content Type with Response Status Code set to 400     and\n        Create Temporal Representation Of Entity Selecting Content Type with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'     and\n        Create Temporal Representation Of Entity Selecting Content Type with Response body containing 'title' element\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'POST'\n        Create Temporal Representation of Entity Selecting Content Type: and\n    Query Parameter: filename set to 'vehicle-temporal-representation-invalid-json-sample.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'POST'\n        Create Temporal Representation of Entity Selecting Content Type: and\n    Query Parameter: filename set to 'vehicle-temporal-representation-invalid-json.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
       "http_verb": "POST",
       "endpoint": "temporal/entities"
     },
@@ -42,7 +42,7 @@
       "teardown": null,
       "template": "Create Temporal Entity From File",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Temporal Representation Of Entity Selecting Content Type with Response Status Code set to 400     and\n        Create Temporal Representation Of Entity Selecting Content Type with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'     and\n        Create Temporal Representation Of Entity Selecting Content Type with Response body containing 'title' element\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'POST'\n        Create Temporal Representation of Entity Selecting Content Type: and\n    Query Parameter: filename set to 'vehicle-temporal-representation-empty-json-sample.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'POST'\n        Create Temporal Representation of Entity Selecting Content Type: and\n    Query Parameter: filename set to 'vehicle-temporal-representation-empty-json.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
       "http_verb": "POST",
       "endpoint": "temporal/entities"
     }

@@ -13,9 +13,9 @@ Test Template       Query entities using Entity Type Selection Language
 
 *** Variables ***
 ${entity_id_prefix}                     urn:ngsi-ld:MultiTypes:
-${first_entity_filename}                building-simple-attributes-sample.jsonld
-${second_entity_filename}               building-with-different-type-sample.jsonld
-${third_entity_filename}                building-with-two-types-sample.jsonld
+${first_entity_filename}                building-simple-attributes.jsonld
+${second_entity_filename}               building-with-different-type.jsonld
+${third_entity_filename}                building-with-two-types.jsonld
 ${building_entity_type}                 Building
 ${parking_entity_type}                  Parking
 ${tourist_destination_entity_type}      TouristDestination

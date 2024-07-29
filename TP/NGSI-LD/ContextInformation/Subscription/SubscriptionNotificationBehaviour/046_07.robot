@@ -19,7 +19,7 @@ ${subscription_payload_file_path_notificationAttributes}    subscriptions/subscr
 ${subscription_payload_file_path_default_context}           subscriptions/subscription-building-entities-active-default-context.jsonld
 ${building_id_prefix}                                       urn:ngsi-ld:Building:
 ${notification_server_send_url}                             http://${notification_server_host}:${notification_server_port}/notify
-${entity_building_filepath}                                 building-simple-attributes-sample.jsonld
+${entity_building_filepath}                                 building-simple-attributes.jsonld
 ${fragment_filename}                                        airQualityLevel-fragment.jsonld
 ${date_format}                                              %Y-%m-%dT%H:%M:%SZ
 ${date_format_with_millis}                                  %Y-%m-%dT%H:%M:%S.%fZ

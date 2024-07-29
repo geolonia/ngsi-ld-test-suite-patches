@@ -13,14 +13,14 @@ Test Template       Append Attributes With Params
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-speed-two-datasetid-sample.jsonld
+${filename}=                vehicle-speed-two-datasetid.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_FILENAME
 010_04_01 Append entity attributes and ignore existing multi-attribute instance
-    204    vehicle-attribute-to-add-fragment.jsonld    vehicle-speed-appended-expectation.jsonld
+    204    vehicle-attribute-to-add-fragment.jsonld    vehicle-speed-appended.jsonld
 010_04_02 Append entity attributes with a new multi-attribute instance
-    204    vehicle-speed-different-datasetid-fragment.jsonld    vehicle-speed-different-datasetid-expectation.jsonld
+    204    vehicle-speed-different-datasetid-fragment.jsonld    vehicle-speed-different-datasetid.jsonld
 
 
 *** Keywords ***

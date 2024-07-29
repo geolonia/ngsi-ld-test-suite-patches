@@ -17,7 +17,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 *** Test Cases ***    FILENAME    CONTENT_TYPE
 001_10_01 EntityWithLanguageProperty
     [Tags]    e-create    5_6_1    4_5_18    since_v1.4.1
-    building-language-property-sample.jsonld    application/ld+json
+    building-language-property.jsonld    application/ld+json
 
 
 *** Keywords ***

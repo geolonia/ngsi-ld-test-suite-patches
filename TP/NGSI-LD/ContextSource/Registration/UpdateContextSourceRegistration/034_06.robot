@@ -12,14 +12,14 @@ Test Template       Update A Context Source
 
 *** Variables ***
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
-${filename}=                            context-source-registration-sample.jsonld
-${registration_payload_file_path}=      context-source-registration-invalid-sample.jsonld
+${filename}=                            context-source-registration.jsonld
+${registration_payload_file_path}=      context-source-registration-invalid.jsonld
 ${reason_405}=                          Method Not Allowed
 
 
 *** Test Cases ***    FRAGMENT_FILENAME    EXPECTED_STATUS_CODE    REASON
 034_06_01 Update a context source registration by id if the Id is not present
-    fragments/context-source-registration-different-type-sample.jsonld    405    ${reason_405}
+    fragments/context-source-registration-different-type.jsonld    405    ${reason_405}
 
 
 *** Keywords ***

@@ -19,7 +19,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     [Tags]    be-create    6_3_5
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Test Variable    ${entity_id}
-    ${entity}=    Load Entity    building-simple-attributes-sample.jsonld    ${entity_id}
+    ${entity}=    Load Entity    building-simple-attributes.jsonld    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
 
     ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_LD_JSON}
@@ -38,7 +38,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     [Tags]    be-create    6_3_5
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Test Variable    ${entity_id}
-    ${entity}=    Load Entity    building-simple-attributes-sample.jsonld    ${entity_id}
+    ${entity}=    Load Entity    building-simple-attributes.jsonld    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
 
     ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_LD_JSON}

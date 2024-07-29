@@ -14,9 +14,9 @@ Suite Teardown      Delete Created Context Source Registration And Context Sourc
 *** Variables ***
 ${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
 ${subscription_id_prefix}=                              urn:ngsi-ld:Subscription:
-${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-sample.jsonld
-${subscription_payload_file_path}=                      csourceSubscriptions/subscription-sample.jsonld
-${update_fragment_file_path}=                           csourceRegistrations/fragments/context-source-registration-update-information-sample.json
+${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration.jsonld
+${subscription_payload_file_path}=                      csourceSubscriptions/subscription.jsonld
+${update_fragment_file_path}=                           csourceRegistrations/fragments/context-source-registration-update-information.json
 
 
 *** Test Cases ***

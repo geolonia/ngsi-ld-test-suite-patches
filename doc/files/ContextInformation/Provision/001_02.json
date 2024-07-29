@@ -26,7 +26,7 @@
       "teardown": null,
       "template": "Create Entity With Invalid Request Scenarios",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity From File with Response Status Code set to 400     and\n        Create Entity From File with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'     and\n        Create Entity From File with Response body containing 'title' element\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request creation of an entity from filename 'invalid-json-sample.jsonld' and Content-Type set to 'application/ld+json'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request creation of an entity from filename 'invalid-json.jsonld' and Content-Type set to 'application/ld+json'\n}",
       "http_verb": "POST",
       "endpoint": "entities/"
     },
@@ -42,7 +42,7 @@
       "teardown": null,
       "template": "Create Entity With Invalid Request Scenarios",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity From File with Response Status Code set to 400     and\n        Create Entity From File with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'     and\n        Create Entity From File with Response body containing 'title' element\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request creation of an entity from filename 'empty-sample.jsonld' and Content-Type set to 'application/ld+json'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request creation of an entity from filename 'empty.jsonld' and Content-Type set to 'application/ld+json'\n}",
       "http_verb": "POST",
       "endpoint": "entities/"
     },
@@ -58,7 +58,7 @@
       "teardown": null,
       "template": "Create Entity With Invalid Request Scenarios",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity From File with Response Status Code set to 400     and\n        Create Entity From File with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Create Entity From File with Response body containing 'title' element\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request creation of an entity from filename 'building-minimal-sample.json' and Content-Type set to 'application/ld+json'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request creation of an entity from filename 'building-minimal.json' and Content-Type set to 'application/ld+json'\n}",
       "http_verb": "POST",
       "endpoint": "entities/"
     }

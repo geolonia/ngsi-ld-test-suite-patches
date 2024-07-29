@@ -10,7 +10,7 @@ Test Template       Create Subscription With Invalid/Empty Id
 
 
 *** Variables ***
-${subscription_payload_file_path}=      subscriptions/subscription-sample.jsonld
+${subscription_payload_file_path}=      subscriptions/subscription.jsonld
 
 
 *** Test Cases ***    ID

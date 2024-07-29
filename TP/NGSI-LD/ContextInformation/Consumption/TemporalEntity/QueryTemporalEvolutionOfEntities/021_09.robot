@@ -12,19 +12,19 @@ Test Template       Query the temporal evolution of entities matching the given 
 
 
 *** Variables ***
-${vehicule_id_prefix}=              urn:ngsi-ld:Vehicle:
-${first_vehicle_payload_file}=      2020-08-vehicule-temporal-representation-sample.jsonld
-${second_vehicle_payload_file}=     2020-10-vehicule-temporal-representation-with-location-sample.jsonld
-${expectation_file}=                vehicles-temporal-representation-021-09-expectation.jsonld
+${vehicle_id_prefix}=               urn:ngsi-ld:Vehicle:
+${first_vehicle_payload_file}=      2020-08-vehicle-temporal-representation.jsonld
+${second_vehicle_payload_file}=     2020-10-vehicle-temporal-representation-with-location.jsonld
+${expectation_file}=                vehicles-temporal-representation-021-09.jsonld
 
 
 *** Test Cases ***    GEOREL    GEOMETRY    COORDINATES    GEOPROPERTY    EXPECTATION_FILE
 021_09_01 Near Point
     [Tags]    te-query    5_7_4
-    near;maxDistance==2000    Point    [-8.503,41.202]    ${EMPTY}    vehicles-temporal-representation-021-09-01-expectation.jsonld
+    near;maxDistance==2000    Point    [-8.503,41.202]    ${EMPTY}    vehicles-temporal-representation-021-09-01.jsonld
 021_09_02 Within Polygon
     [Tags]    te-query    5_7_4
-    contains    Polygon    [[[-13.503,47.202],[6.541, 52.961],[20.37,44.653],[9.46,32.57],[-13.503,32.57],[-13.503,47.202]]]    location    vehicles-temporal-representation-021-09-02-expectation.jsonld
+    contains    Polygon    [[[-13.503,47.202],[6.541, 52.961],[20.37,44.653],[9.46,32.57],[-13.503,32.57],[-13.503,47.202]]]    location    vehicles-temporal-representation-021-09-02.jsonld
 
 
 *** Keywords ***
@@ -51,13 +51,13 @@ Query the temporal evolution of entities matching the given NGSI-LD geo-query
     ...    ${response.json()}
 
 Setup Initial Temporal Entities
-    ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${create_response1}=    Create Temporal Representation Of Entity
     ...    ${first_vehicle_payload_file}
     ...    ${first_temporal_entity_representation_id}
     Check Response Status Code    201    ${create_response1.status_code}
     Set Test Variable    ${first_temporal_entity_representation_id}
-    ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${create_response2}=    Create Temporal Representation Of Entity
     ...    ${second_vehicle_payload_file}
     ...    ${second_temporal_entity_representation_id}

@@ -13,13 +13,13 @@ Test Template       Append Attributes Without Params
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-speed-two-datasetid-sample.jsonld
+${filename}=                vehicle-speed-two-datasetid.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_FILENAME
 010_06_01 Append a LanguageProperty property
     [Tags]    ea-append    5_6_3    4_5_18    since_v1.4.1
-    204    vehicle-new-language-property-fragment.jsonld    vehicle-language-property-appended-expectation.jsonld
+    204    vehicle-new-language-property-fragment.jsonld    vehicle-language-property-appended.jsonld
 
 
 *** Keywords ***

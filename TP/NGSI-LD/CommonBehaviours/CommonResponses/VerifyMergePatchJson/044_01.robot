@@ -11,7 +11,7 @@ Test Teardown       Delete Initial Entity
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${vehicle_filename}=        vehicle-simple-attributes-sample.jsonld
+${vehicle_filename}=        vehicle-simple-attributes.jsonld
 ${vehicle_fragment}=        vehicle-brandname-fragment.json
 ${attribute_id}=            brandName
 

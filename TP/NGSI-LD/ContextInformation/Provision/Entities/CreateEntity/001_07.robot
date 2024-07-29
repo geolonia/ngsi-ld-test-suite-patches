@@ -11,7 +11,7 @@ Test Teardown       Delete Initial Entity
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-simple-attributes-sample.jsonld
+${filename}=                building-simple-attributes.jsonld
 
 
 *** Test Cases ***

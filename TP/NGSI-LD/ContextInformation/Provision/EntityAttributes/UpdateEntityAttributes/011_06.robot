@@ -13,7 +13,7 @@ Test Template       Append Types to an Entity
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${entity_filename}=         building-minimal-sample.json
+${entity_filename}=         building-minimal.json
 
 
 *** Test Cases ***    FRAGMENT_FILENAME    EXPECTATION_FILENAME
@@ -22,7 +22,7 @@ ${entity_filename}=         building-minimal-sample.json
 011_06_02 AppendTwoTypes
     types-vehicle-car-fragment.json    building-minimal-with-three-types.json
 011_06_03 AppendExistingType
-    type-building-fragment.json    building-minimal-compacted-expectation.json
+    type-building-fragment.json    building-minimal-compacted.json
 011_06_04 AppendOneTypeAndOneExisting
     type-vehicle-building-fragment.json    building-minimal-with-two-types.json
 

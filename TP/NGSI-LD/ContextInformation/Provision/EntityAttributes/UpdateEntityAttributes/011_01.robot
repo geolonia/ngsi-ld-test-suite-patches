@@ -13,16 +13,16 @@ Test Template       Update Attributes
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-two-datasetid-attributes-sample.jsonld
+${filename}=                vehicle-two-datasetid-attributes.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_RESPONSE_FILENAME    EXPECTATION_FILENAME
 011_01_01 Check that one can update existing attributes with no datasetId
-    204    vehicle-speed-two-datasetid-01-fragment.jsonld    ${EMPTY}    expectations/vehicle-update-attributes-expectation.jsonld
+    204    vehicle-speed-two-datasetid-01-fragment.jsonld    ${EMPTY}    expectations/vehicle-update-attributes.jsonld
 011_01_02 Check that one can update existing attributes with the datasetId
-    204    vehicle-speed-two-datasetid-02-fragment.jsonld    ${EMPTY}    expectations/vehicle-update-datasetid-attributes-expectation.jsonld
+    204    vehicle-speed-two-datasetid-02-fragment.jsonld    ${EMPTY}    expectations/vehicle-update-datasetid-attributes.jsonld
 011_01_03 Check that one can update only some attributes while unknown are ignored
-    204    vehicle-speed-two-datasetid-03-fragment.jsonld    ${EMPTY}    expectations/vehicle-multi-attributes-expectation.jsonld
+    204    vehicle-speed-two-datasetid-03-fragment.jsonld    ${EMPTY}    expectations/vehicle-multi-attributes.jsonld
 
 
 *** Keywords ***

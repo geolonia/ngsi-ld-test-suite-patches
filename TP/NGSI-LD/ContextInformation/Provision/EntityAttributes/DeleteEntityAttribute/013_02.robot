@@ -12,7 +12,7 @@ Test Template       Delete Attributes
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-two-datasetid-attributes-sample.jsonld
+${filename}=                vehicle-two-datasetid-attributes.jsonld
 
 
 *** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID    EXPECTED_STATUS_CODE

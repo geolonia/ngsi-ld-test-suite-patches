@@ -13,8 +13,8 @@ Test Template       Query Entities With Count
 
 *** Variables ***
 ${building_id_prefix}=          urn:ngsi-ld:Building:
-${first_entity_filename}=       building-simple-attributes-sample.jsonld
-${second_entity_filename}=      building-simple-attributes-second-sample.jsonld
+${first_entity_filename}=       building-simple-attributes.jsonld
+${second_entity_filename}=      building-simple-attributes-second.jsonld
 ${entity_type}=                 Building
 ${airQualityLevel}=             airQualityLevel==6
 

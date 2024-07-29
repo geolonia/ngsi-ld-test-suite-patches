@@ -11,10 +11,10 @@ Suite Teardown      Delete Initial Temporal Entities
 
 
 *** Variables ***
-${vehicule_id_prefix}=              urn:ngsi-ld:Vehicle:
-${first_vehicle_payload_file}=      2020-08-vehicule-temporal-representation-sample.jsonld
-${second_vehicle_payload_file}=     2020-09-vehicule-temporal-representation-sample.jsonld
-${expectation_file}=                vehicles-temporal-representation-021-08-expectation.jsonld
+${vehicle_id_prefix}=               urn:ngsi-ld:Vehicle:
+${first_vehicle_payload_file}=      2020-08-vehicle-temporal-representation.jsonld
+${second_vehicle_payload_file}=     2020-09-vehicle-temporal-representation.jsonld
+${expectation_file}=                vehicles-temporal-representation-021-08.jsonld
 
 
 *** Test Cases ***
@@ -22,14 +22,12 @@ ${expectation_file}=                vehicles-temporal-representation-021-08-expe
     [Documentation]    Check that one can query the temporal evolution of entities matching the given NGSI-LD query
     [Tags]    te-query    5_7_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
-
     ${response}=    Query Temporal Representation Of Entities
     ...    entity_types=${entity_types_to_be_retrieved}
     ...    ngsild_query=speed>90
     ...    timerel=after
     ...    timeAt=2020-07-01T12:05:00Z
     ...    context=${ngsild_test_suite_context}
-
     @{temporal_entities_representation_ids}=    Create List
     ...    ${first_temporal_entity_representation_id}
     ...    ${second_temporal_entity_representation_id}
@@ -42,13 +40,13 @@ ${expectation_file}=                vehicles-temporal-representation-021-08-expe
 
 *** Keywords ***
 Setup Initial Temporal Entities
-    ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${create_response1}=    Create Temporal Representation Of Entity
     ...    ${first_vehicle_payload_file}
     ...    ${first_temporal_entity_representation_id}
     Check Response Status Code    201    ${create_response1.status_code}
     Set Suite Variable    ${first_temporal_entity_representation_id}
-    ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${create_response2}=    Create Temporal Representation Of Entity
     ...    ${second_vehicle_payload_file}
     ...    ${second_temporal_entity_representation_id}

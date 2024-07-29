@@ -13,7 +13,7 @@ Test Template       Review JSON-LD resolution when retrieving a context source r
 
 *** Variables ***
 ${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
-${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-sample.jsonld
+${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration.jsonld
 ${expectation_file_path_compacted}=                     csourceRegistrations/expectations/context-source-registration.json
 ${expectation_file_path_expanded}=                      csourceRegistrations/expectations/context-source-registration-expanded-format.json
 

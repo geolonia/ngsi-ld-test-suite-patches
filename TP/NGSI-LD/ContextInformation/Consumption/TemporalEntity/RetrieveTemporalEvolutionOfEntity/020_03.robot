@@ -12,9 +12,9 @@ Test Template       Retrieve the temporal evolution of certain attributes of an 
 
 
 *** Variables ***
-${vehicule_id_prefix}=          urn:ngsi-ld:Vehicle:
-${vehicle_payload_file}=        2020-08-vehicule-temporal-representation-sample.jsonld
-${vehicle_expectation_file}=    vehicle-temporal-representation-020-03-expectation.jsonld
+${vehicle_id_prefix}=           urn:ngsi-ld:Vehicle:
+${vehicle_payload_file}=        2020-08-vehicle-temporal-representation.jsonld
+${vehicle_expectation_file}=    vehicle-temporal-representation-020-03.jsonld
 
 
 *** Test Cases ***    ATTRS    EXPECTED_RESULT
@@ -41,7 +41,7 @@ Retrieve the temporal evolution of certain attributes of an entity
     ...    ${response.json()}
 
 Create Temporal Entity
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
     ${create_response}=    Create Temporal Representation Of Entity
     ...    ${vehicle_payload_file}
     ...    ${temporal_entity_representation_id}

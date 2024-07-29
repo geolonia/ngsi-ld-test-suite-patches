@@ -12,9 +12,9 @@ Suite Teardown      Delete Entities
 
 *** Variables ***
 ${building_id_prefix}=              urn:ngsi-ld:Building:
-${filename}=                        building-simple-attributes-sample.jsonld
-${filename2}=                       building-minimal-sample.jsonld
-${expectation_filename}=            building-attributes-query-expectation.json
+${filename}=                        building-simple-attributes.jsonld
+${filename2}=                       building-minimal.jsonld
+${expectation_filename}=            building-attributes-query.json
 ${entity_type}=                     https://ngsi-ld-test-suite/context#Building
 ${attribute_airqualitylevel}=       https://ngsi-ld-test-suite/context#airQualityLevel
 ${attribute_subcategory}=           https://ngsi-ld-test-suite/context#subCategory

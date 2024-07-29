@@ -12,8 +12,8 @@ Test Teardown       Delete Initial Subscription
 
 *** Variables ***
 ${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
-${subscription_filename}=       subscriptions/subscription-sample.jsonld
-${subscription_fragment}=       subscriptions/fragments/subscription-update-sample.json
+${subscription_filename}=       subscriptions/subscription.jsonld
+${subscription_fragment}=       subscriptions/fragments/subscription-update.json
 
 
 *** Test Cases ***

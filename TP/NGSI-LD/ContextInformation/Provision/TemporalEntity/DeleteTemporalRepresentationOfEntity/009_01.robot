@@ -11,7 +11,7 @@ Test Setup          Create Initial Temporal Entity
 
 *** Variables ***
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-temporal-representation-sample.jsonld
+${filename}=                vehicle-temporal-representation.jsonld
 
 
 *** Test Cases ***

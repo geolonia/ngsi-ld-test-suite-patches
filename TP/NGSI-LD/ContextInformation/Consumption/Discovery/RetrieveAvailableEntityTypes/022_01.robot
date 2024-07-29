@@ -14,17 +14,17 @@ Test Template       Retrieve Available Entity Types
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
 ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${first_filename}=          building-simple-attributes-sample.json
-${second_filename}=         vehicle-simple-attributes-sample.json
+${first_filename}=          building-simple-attributes.json
+${second_filename}=         vehicle-simple-attributes.json
 
 
 *** Test Cases ***    CONTEXT    EXPECTATION_FILE
 022_01_01 WithoutJsonLdContext
     [Tags]    ed-types    5_7_5
-    ${EMPTY}    types/expectations/entity-type-list-022-01-01-expectation.json
+    ${EMPTY}    types/expectations/entity-type-list-022-01-01.json
 022_01_02 WithJsonLdContext
     [Tags]    ed-types    5_7_5
-    ${ngsild_test_suite_context}    types/expectations/entity-type-list-022-01-02-expectation.json
+    ${ngsild_test_suite_context}    types/expectations/entity-type-list-022-01-02.json
 
 
 *** Keywords ***

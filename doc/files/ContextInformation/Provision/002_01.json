@@ -24,7 +24,7 @@
       "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Delete Entity by Id with Response Status Code set to 204     and\n        Retrieve Entity by Id with Response Status Code set to ${response2.status_code}\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: 'building-simple-attributes-sample.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: 'building-simple-attributes.jsonld'\n}",
       "http_verb": "POST",
       "endpoint": "entities/"
     }

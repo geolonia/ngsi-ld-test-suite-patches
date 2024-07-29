@@ -12,8 +12,8 @@ Suite Teardown      Delete Initial Entity
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-simple-attributes-sample.json
-${expectation_file}=        types/expectations/attribute-027-01-expectation.json
+${filename}=                building-simple-attributes.json
+${expectation_file}=        types/expectations/attribute-027-01.json
 
 
 *** Test Cases ***

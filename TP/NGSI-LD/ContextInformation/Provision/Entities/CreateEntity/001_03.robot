@@ -11,7 +11,7 @@ Suite Teardown      Delete Initial Entity
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-minimal-sample.jsonld
+${filename}=                building-minimal.jsonld
 ${content_type}=            application/ld+json
 
 
