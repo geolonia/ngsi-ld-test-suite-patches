@@ -1,6 +1,6 @@
 {
     "type": ["Building", "Vehicle"],
     "@context": [
-      "https://easy-global-market.github.io/ngsild-api-data-models/ngsildTestSuite/ngsildTestSuiteV1.8-compound.jsonld"
+      "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
     ]
 }

@@ -760,6 +760,14 @@ Check Context Response Body Containing a JSONObject with details of a Implicitly
     # Check that there is no other keys
     Check Context Detailed Information Keys    ${response}[0]
 
+Check Content Range Part Equal
+    [Arguments]    ${expectedPart}    ${part}
+    Should Be Equal As Strings    ${expectedPart}    ${part}
+
+Check Data Is Empty
+    [Arguments]    ${data}
+    Should Be Empty    ${data}
+
 Check Messages Contain One Instance
     [Arguments]    ${messages}
     Length Should Be    ${messages}    1

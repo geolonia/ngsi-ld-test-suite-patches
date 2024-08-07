@@ -5,56 +5,6 @@
       "speed":[
          {
             "type":"Property",
-            "value":100,
-            "observedAt":"2020-08-01T12:07:00Z"
-         },
-         {
-            "type":"Property",
-            "value":110,
-            "observedAt":"2020-08-01T12:09:00Z"
-         },
-         {
-            "type":"Property",
-            "value":100,
-            "observedAt":"2020-08-01T12:11:00Z"
-         },
-         {
-            "type":"Property",
-            "value":80,
-            "observedAt":"2020-08-01T12:13:00Z"
-         },
-         {
-            "type":"Property",
-            "value":50,
-            "observedAt":"2020-08-01T12:15:00Z"
-         },
-         {
-            "type":"Property",
-            "value":40,
-            "observedAt":"2020-08-01T12:17:00Z"
-         },
-         {
-            "type":"Property",
-            "value":50,
-            "observedAt":"2020-08-01T12:19:00Z"
-         },
-         {
-            "type":"Property",
-            "value":60,
-            "observedAt":"2020-08-01T12:21:00Z"
-         },
-         {
-            "type":"Property",
-            "value":80,
-            "observedAt":"2020-08-01T12:23:00Z"
-         },
-         {
-            "type":"Property",
-            "value":85,
-            "observedAt":"2020-08-01T12:25:00Z"
-         },
-         {
-            "type":"Property",
             "value":105,
             "observedAt":"2020-08-01T12:27:00Z"
          },
@@ -75,56 +25,6 @@
          }
       ],
       "fuelLevel":[
-         {
-            "type":"Property",
-            "value":35,
-            "observedAt":"2020-08-01T14:20:00Z"
-         },
-         {
-            "type":"Property",
-            "value":30,
-            "observedAt":"2020-08-01T15:05:00Z"
-         },
-         {
-            "type":"Property",
-            "value":85,
-            "observedAt":"2020-08-01T15:07:00Z"
-         },
-         {
-            "type":"Property",
-            "value":80,
-            "observedAt":"2020-08-01T15:20:00Z"
-         },
-         {
-            "type":"Property",
-            "value":76,
-            "observedAt":"2020-08-01T16:05:00Z"
-         },
-         {
-            "type":"Property",
-            "value":70,
-            "observedAt":"2020-08-01T17:07:00Z"
-         },
-         {
-            "type":"Property",
-            "value":50,
-            "observedAt":"2020-08-01T18:03:00Z"
-         },
-         {
-            "type":"Property",
-            "value":48,
-            "observedAt":"2020-08-01T19:05:00Z"
-         },
-         {
-            "type":"Property",
-            "value":40,
-            "observedAt":"2020-08-01T19:07:00Z"
-         },
-         {
-            "type":"Property",
-            "value":35,
-            "observedAt":"2020-08-01T20:05:00Z"
-         },
          {
             "type":"Property",
             "value":31,

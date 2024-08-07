@@ -1,0 +1,208 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/TE/020_13",
+  "test_objective": "Check temporal pagination is applied when retrieving the temporal evolution of an entity",
+  "reference": "ETSI GS CIM 009 V1.5.1 [], clauses 5.7.3, 6.3.10",
+  "config_id": "",
+  "parent_release": "v1.5.1",
+  "clauses": [
+    "5.7.3",
+    "6.3.10"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Retrieve Temporal Entity",
+    "Create Temporal Entity",
+    "Delete Initial Temporal Entity",
+    "Get Least Recent Timestamp From Vehicle Body",
+    "Get Most Recent Timestamp From Vehicle Body"
+  ],
+  "teardown": "Delete Initial Temporal Entity",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "020_13_01 retrieve an entity with 20 instances on two attributes",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/020_13_01",
+      "doc": "Check temporal pagination behavior",
+      "tags": [
+        "5_7_3",
+        "6_3_10",
+        "since_v1.5.1",
+        "te-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 206     and\n        Notification with Content range part date-time equals ${unit}     and\n        Notification with Content range part ${rangeStart} equals ${expectedRangeStart}     and\n        Notification with Content range part ${rangeEnd} equals ${expectedRangeEnd}     and\n        Notification with Content range part ${size} equals ${expectedSize}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: options set to '${EMPTY}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: timerel set to '${timerel}' and\n    Query Parameter: timeAt set to '${timeAt}' and\n    Query Parameter: endTimeAt set to '${endTimeAt}' and\n    Query Parameter: lastN set to '${lastN}'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    },
+    {
+      "name": "020_13_02 retrieve the entity with lastN",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/020_13_02",
+      "doc": "Check temporal pagination behavior",
+      "tags": [
+        "5_7_3",
+        "6_3_10",
+        "since_v1.5.1",
+        "te-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 206     and\n        Notification with Content range part date-time equals ${unit}     and\n        Notification with Content range part ${rangeStart} equals ${expectedRangeStart}     and\n        Notification with Content range part ${rangeEnd} equals ${expectedRangeEnd}     and\n        Notification with Content range part ${size} equals ${expectedSize}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: options set to 'lastN=${20}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: timerel set to '${timerel}' and\n    Query Parameter: timeAt set to '${timeAt}' and\n    Query Parameter: endTimeAt set to '${endTimeAt}' and\n    Query Parameter: lastN set to '${lastN}'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    },
+    {
+      "name": "020_13_03 retrieve the entity with lastN and timerel before",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/020_13_03",
+      "doc": "Check temporal pagination behavior",
+      "tags": [
+        "5_7_3",
+        "6_3_10",
+        "since_v1.5.1",
+        "te-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 206     and\n        Notification with Content range part date-time equals ${unit}     and\n        Notification with Content range part ${rangeStart} equals ${expectedRangeStart}     and\n        Notification with Content range part ${rangeEnd} equals ${expectedRangeEnd}     and\n        Notification with Content range part ${size} equals ${expectedSize}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: options set to 'lastN=${20}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: timerel set to '${timerel}' and\n    Query Parameter: timeAt set to '${timeAt}' and\n    Query Parameter: endTimeAt set to '${endTimeAt}' and\n    Query Parameter: lastN set to '${lastN}'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    },
+    {
+      "name": "020_13_04 retrieve the entity with lastN and timerel between",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/020_13_04",
+      "doc": "Check temporal pagination behavior",
+      "tags": [
+        "5_7_3",
+        "6_3_10",
+        "since_v1.5.1",
+        "te-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 206     and\n        Notification with Content range part date-time equals ${unit}     and\n        Notification with Content range part ${rangeStart} equals ${expectedRangeStart}     and\n        Notification with Content range part ${rangeEnd} equals ${expectedRangeEnd}     and\n        Notification with Content range part ${size} equals ${expectedSize}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: options set to 'lastN=${20}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: timerel set to '${timerel}' and\n    Query Parameter: timeAt set to '${timeAt}' and\n    Query Parameter: endTimeAt set to '${endTimeAt}' and\n    Query Parameter: lastN set to '${lastN}'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    },
+    {
+      "name": "020_13_05 retrieve the entity with lastN and timerel after",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/020_13_05",
+      "doc": "Check temporal pagination behavior",
+      "tags": [
+        "5_7_3",
+        "6_3_10",
+        "since_v1.5.1",
+        "te-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 206     and\n        Notification with Content range part date-time equals ${unit}     and\n        Notification with Content range part ${rangeStart} equals ${expectedRangeStart}     and\n        Notification with Content range part ${rangeEnd} equals ${expectedRangeEnd}     and\n        Notification with Content range part ${size} equals ${expectedSize}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: options set to 'lastN=${20}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: timerel set to '${timerel}' and\n    Query Parameter: timeAt set to '${timeAt}' and\n    Query Parameter: endTimeAt set to '${endTimeAt}' and\n    Query Parameter: lastN set to '${lastN}'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    },
+    {
+      "name": "020_13_06 retrieve the entity with timerel before",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/020_13_06",
+      "doc": "Check temporal pagination behavior",
+      "tags": [
+        "5_7_3",
+        "6_3_10",
+        "since_v1.5.1",
+        "te-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 206     and\n        Notification with Content range part date-time equals ${unit}     and\n        Notification with Content range part ${rangeStart} equals ${expectedRangeStart}     and\n        Notification with Content range part ${rangeEnd} equals ${expectedRangeEnd}     and\n        Notification with Content range part ${size} equals ${expectedSize}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: options set to 'timerel=before' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: timerel set to '${timerel}' and\n    Query Parameter: timeAt set to '${timeAt}' and\n    Query Parameter: endTimeAt set to '${endTimeAt}' and\n    Query Parameter: lastN set to '${lastN}'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    },
+    {
+      "name": "020_13_07 retrieve the entity with timerel between",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/020_13_07",
+      "doc": "Check temporal pagination behavior",
+      "tags": [
+        "5_7_3",
+        "6_3_10",
+        "since_v1.5.1",
+        "te-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 206     and\n        Notification with Content range part date-time equals ${unit}     and\n        Notification with Content range part ${rangeStart} equals ${expectedRangeStart}     and\n        Notification with Content range part ${rangeEnd} equals ${expectedRangeEnd}     and\n        Notification with Content range part ${size} equals ${expectedSize}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: options set to 'timerel=between' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: timerel set to '${timerel}' and\n    Query Parameter: timeAt set to '${timeAt}' and\n    Query Parameter: endTimeAt set to '${endTimeAt}' and\n    Query Parameter: lastN set to '${lastN}'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    },
+    {
+      "name": "020_13_08 retrieve the entity with timerel after",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/020_13_08",
+      "doc": "Check temporal pagination behavior",
+      "tags": [
+        "5_7_3",
+        "6_3_10",
+        "since_v1.5.1",
+        "te-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 206     and\n        Notification with Content range part date-time equals ${unit}     and\n        Notification with Content range part ${rangeStart} equals ${expectedRangeStart}     and\n        Notification with Content range part ${rangeEnd} equals ${expectedRangeEnd}     and\n        Notification with Content range part ${size} equals ${expectedSize}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: options set to 'timerel=after' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: timerel set to '${timerel}' and\n    Query Parameter: timeAt set to '${timeAt}' and\n    Query Parameter: endTimeAt set to '${endTimeAt}' and\n    Query Parameter: lastN set to '${lastN}'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    },
+    {
+      "name": "020_13_09 retrieve the entity with temporalValues and timerel after",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/020_13_09",
+      "doc": "Check temporal pagination behavior",
+      "tags": [
+        "5_7_3",
+        "6_3_10",
+        "since_v1.5.1",
+        "te-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 206     and\n        Notification with Content range part date-time equals ${unit}     and\n        Notification with Content range part ${rangeStart} equals ${expectedRangeStart}     and\n        Notification with Content range part ${rangeEnd} equals ${expectedRangeEnd}     and\n        Notification with Content range part ${size} equals ${expectedSize}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: options set to 'representation=temporalValues' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: timerel set to '${timerel}' and\n    Query Parameter: timeAt set to '${timeAt}' and\n    Query Parameter: endTimeAt set to '${endTimeAt}' and\n    Query Parameter: lastN set to '${lastN}'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    },
+    {
+      "name": "020_13_10 retrieve the entity with temporalValues, lastN and timerel between",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/020_13_10",
+      "doc": "Check temporal pagination behavior",
+      "tags": [
+        "5_7_3",
+        "6_3_10",
+        "since_v1.5.1",
+        "te-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve Temporal Entity",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 206     and\n        Notification with Content range part date-time equals ${unit}     and\n        Notification with Content range part ${rangeStart} equals ${expectedRangeStart}     and\n        Notification with Content range part ${rangeEnd} equals ${expectedRangeEnd}     and\n        Notification with Content range part ${size} equals ${expectedSize}\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities/{temporal_entity_representation_id}'\n        method set to 'GET'\n        Retrieve Temporal Representation of Entity and\n    Query Parameter: id set to '${temporal_entity_representation_id}' and\n    Query Parameter: options set to 'representation=temporalValues' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: timerel set to '${timerel}' and\n    Query Parameter: timeAt set to '${timeAt}' and\n    Query Parameter: endTimeAt set to '${endTimeAt}' and\n    Query Parameter: lastN set to '${lastN}'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities/{temporal_entity_representation_id}"
+    }
+  ],
+  "permutations": [
+    "when"
+  ],
+  "robotpath": "ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity",
+  "robotfile": "020_13"
+}

@@ -19,10 +19,10 @@ ${vehicle_payload_file}=    2020-08-vehicle-temporal-representation-multiple-ins
 *** Test Cases ***    LASTN    VEHICLE_EXPECTATION_FILE
 020_05_01 Retrieve Some Instances
     [Tags]    te-retrieve    5_7_3
-    ${10}    vehicle-temporal-representation-020-05-01.jsonld
+    ${4}    vehicle-temporal-representation-020-05-01.jsonld
 020_05_02 Retrieve All Instances
     [Tags]    te-retrieve    5_7_3
-    ${20}    vehicle-temporal-representation-020-05-02.jsonld
+    ${7}    vehicle-temporal-representation-020-05-02.jsonld
 
 
 *** Keywords ***

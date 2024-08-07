@@ -27,7 +27,7 @@ ${expectation_file}=                vehicles-temporal-representation-021-03.json
     ...    entity_types=${entity_types_to_be_retrieved}
     ...    timerel=after
     ...    timeAt=2020-07-01T12:05:00Z
-    ...    lastN=${14}
+    ...    lastN=${4}
     ...    context=${ngsild_test_suite_context}
 
     @{temporal_entities_representation_ids}=    Create List

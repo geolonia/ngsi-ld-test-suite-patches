@@ -33,6 +33,7 @@ Query Temporal Representation Of Entities
     ...    ${geoproperty}=${EMPTY}
     ...    ${timerel}=${EMPTY}
     ...    ${timeAt}=${EMPTY}
+    ...    ${endTimeAt}=${EMPTY}
     ...    ${attrs}=${EMPTY}
     ...    ${limit}=${EMPTY}
     ...    ${lastN}=${EMPTY}
@@ -59,6 +60,9 @@ Query Temporal Representation Of Entities
         Set To Dictionary    ${params}    timerel=${timerel}
     END
     IF    '${timeAt}'!=''    Set To Dictionary    ${params}    timeAt=${timeAt}
+    IF    '${endTimeAt}'!=''
+        Set To Dictionary    ${params}    endTimeAt=${endTimeAt}
+    END
     IF    ${attrs_length}>0    Set To Dictionary    ${params}    attrs=${attrs}
     IF    '${lastN}'!=''    Set To Dictionary    ${params}    lastN=${lastN}
     IF    '${entity_id_pattern}'!=''
