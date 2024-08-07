@@ -30,7 +30,7 @@
       "teardown": "Delete Initial Entity",
       "template": null,
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Entity Attributes with Response Status Code set to 204     and\n        Update Entity Attributes with Check Updated Entity and\n            Query Parameter: 'ignored_keys' set to '${None}'\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: accept set to 'application/json' and\n    Query Parameter: context set to 'https://easy-global-market.github.io/ngsild-api-data-models/ngsildTestSuite/ngsildTestSuiteV1.8-compound.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/'\n        method set to 'GET'\n        Request Retrieve Entity by Id and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: accept set to 'application/json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
       "http_verb": "GET",
       "endpoint": ""
     }

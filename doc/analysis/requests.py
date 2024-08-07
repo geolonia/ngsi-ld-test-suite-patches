@@ -61,7 +61,7 @@ class Requests:
                 'positions': [],
                 'params': ['context', 'entity_types', 'entity_ids', 'entity_id_pattern',
                            'ngsild_query', 'csf', 'georel', 'geometry',
-                           'coordinates', 'geoproperty', 'timerel', 'timeAt',
+                           'coordinates', 'geoproperty', 'timerel', 'timeAt', 'endTimeAt',
                            'attrs', 'limit', 'lastN', 'accept', 'options']
             },
             'Query Temporal Representation Of Entities Via Post': {
@@ -1088,7 +1088,7 @@ class Requests:
         # in the same position, so we make a different analysis to extract the values
         expected_parameters = ['context', 'entity_types', 'entity_ids', 'entity_id_pattern',
                                'ngsild_query', 'csf', 'georel', 'geometry',
-                               'coordinates', 'geoproperty', 'timerel', 'timeAt',
+                               'coordinates', 'geoproperty', 'timerel', 'timeAt','endTimeAt',
                                'attrs', 'limit', 'lastN', 'accept', 'options']
 
         result = [x for x in kwargs if x not in expected_parameters]
@@ -1119,12 +1119,15 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: timerel set to '{value}'"
                 case 'timeAt':
                     response = f"{response} and\n    Query Parameter: timeAt set to '{value}'"
+                case 'endTimeAt':
+                    response = f"{response} and\n    Query Parameter: endTimeAt set to '{value}'"
                 case 'attrs':
                     response = f"{response} and\n    Query Parameter: attrs set to '{value}'"
                 case 'limit':
                     response = f"{response} and\n    Query Parameter: limit set to '{value}'"
                 case 'lastN':
-                    value = re.search(pattern=r'\d+', string=value).group()
+                    if re.search(pattern=r'\d+', string=value):
+                        value = re.search(pattern=r'\d+', string=value).group()
                     response = f"{response} and\n    Query Parameter: lastN set to '{value}'"
                 case 'accept':
                     response = f"{response} and\n    Query Parameter: accept set to '{value}'"
@@ -1162,7 +1165,8 @@ class Requests:
                 case 'endTimeAt':
                     response = f"{response} and\n    Query Parameter: endTimeAt set to '{value}'"
                 case 'lastN':
-                    value = re.search(pattern=r'\d+', string=value).group()
+                    if re.search(pattern=r'\d+', string=value):
+                        value = re.search(pattern=r'\d+', string=value).group()
                     response = f"{response} and\n    Query Parameter: lastN set to '{value}'"
                 case 'accept':
                     response = f"{response} and\n    Query Parameter: accept set to '{value}'"

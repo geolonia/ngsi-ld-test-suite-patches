@@ -143,8 +143,12 @@ class Checks:
             'Check Message Contain Key':
                 Checks.check_message_contain_key,
             'Check Message Field Equal':
-                Checks.check_message_field_equal
-            }
+                Checks.check_message_field_equal,
+            'Check Content Range Part Equal':
+                Checks.check_content_range_part_equal,
+            'Check Data Is Empty':
+                Checks.check_data_is_empty
+        }
 
         self.args = {
             'Check Response Status Code': {
@@ -417,7 +421,15 @@ class Checks:
             'Check Message Field Equal': {
                 'params': ['expected_field', 'field'],
                 'position': [0,1]
-            }
+            },
+            'Check Content Range Part Equal': {
+                'params': ['expected_part' , 'part'],
+                'position': [0, 1]
+            },
+            'Check Data Is Empty':{
+                'params': ['data'],
+                'position': [0]
+            },
         }
 
     @staticmethod
@@ -1149,6 +1161,25 @@ class Checks:
             return f'expected field {expected_field} equals field {field}'
         else:
             raise Exception(f"ERROR, Expected the field to be equal 'expected_field' but received: '{kwargs}'")
+
+    @staticmethod
+    def check_content_range_part_equal(kwargs: list) -> str:
+        if 'expected_part' in kwargs and 'part' in kwargs:
+            expected_part = kwargs['expected_part']
+            part = kwargs['part']
+            return f'Content range part {part} equals {expected_part}'
+        else:
+            raise Exception(f"ERROR, Expected 'expected_part' but received: '{kwargs}'")
+
+    @staticmethod
+    def check_data_is_empty(kwargs: list) -> str:
+        if 'data' in kwargs :
+            data = kwargs['data']
+            return f'data is empty : {data}'
+        else:
+            raise Exception(f"ERROR, Expected empty data but received: '{kwargs}'")
+
+
 
     def get_checks(self, **kwargs) -> str:
         checking = None
