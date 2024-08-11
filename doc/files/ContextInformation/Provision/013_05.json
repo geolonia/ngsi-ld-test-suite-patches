@@ -1,0 +1,41 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/EA/013_05",
+  "test_objective": "Check that one can delete an observationSpace geospatial Property from an entity",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clauses 4.7, 5.6.5",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "4.7",
+    "5.6.5"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Initial Entity",
+    "Delete Initial Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} \n        with an id set to ${entityId} \n}",
+  "test_cases": [
+    {
+      "name": "013_05 Delete an observationSpace geospatial Property from an entity",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/013_05",
+      "doc": "Check that one can delete an observationSpace geospatial Property from an entity",
+      "tags": [
+        "4_7",
+        "5_6_5",
+        "ea-delete"
+      ],
+      "setup": "Create Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Delete Entity Attributes with Response Status Code set to 204     and\n        Delete Entity Attributes with Check Updated Entity and\n            Query Parameter: 'ignored_keys' set to '${None}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Get Entity Request: and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/EntityAttributes/DeleteEntityAttribute",
+  "robotfile": "013_05",
+  "error_while_autogenerating": "no error"
+}
