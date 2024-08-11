@@ -1,0 +1,40 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/E/001_12",
+  "test_objective": "Check that one can create an entity with observationSpace geospatial Property",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clauses 4.7, 5.6.1",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "4.7",
+    "5.6.1"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Delete Initial Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "001_12 Create Entity With observationSpace Geospatial Property",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/001_12",
+      "doc": "Check that one can create an entity with observationSpace geospatial Property",
+      "tags": [
+        "4_7",
+        "5_6_1",
+        "e-create"
+      ],
+      "setup": null,
+      "teardown": "Delete Initial Entity",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Create Entity Selecting Content Type with Response Header: Location containing $${entity_id}     and\n        Retrieve Entity by Id with Check Created Resource Set To and\n            Query Parameter: 'created_resource' set to 'created_entity' and\n            Query Parameter: 'response_body' set to 'response1.json()' and\n            Query Parameter: 'ignored_keys' set to '${None}' list of keys\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'POST'\n        Request Header['Content-Type'] set to 'application/ld+json' and\n payload defined in file: 'building-observation-space-geoproperty.jsonld'\n}",
+      "http_verb": "POST",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/Entities/CreateEntity",
+  "robotfile": "001_12",
+  "error_while_autogenerating": "no error"
+}
