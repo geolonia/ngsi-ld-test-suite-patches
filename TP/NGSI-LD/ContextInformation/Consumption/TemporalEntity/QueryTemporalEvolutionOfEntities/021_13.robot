@@ -24,6 +24,9 @@ ${second_vehicle_payload_file}=     2020-09-vehicle-temporal-representation.json
 021_13_02 Before
     [Tags]    te-query    5_7_4
     entity-operations-before-query.jsonld    vehicles-temporal-representation-021-13-02.jsonld
+021_13_03 Between
+    [Tags]    te-query    5_7_4
+    entity-operations-between-query.jsonld    vehicles-temporal-representation-021-13-03.jsonld
 
 
 *** Keywords ***
