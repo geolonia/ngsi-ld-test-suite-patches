@@ -19,24 +19,28 @@ ${second_vehicle_payload_file}=     2020-09-vehicle-temporal-representation.json
 ${bus_payload_file}=                2020-08-bus-temporal-representation.jsonld
 
 
-*** Test Cases ***    TIMEREL    TIMEAT    EXPECTATION_FILE
+*** Test Cases ***    TIMEREL    TIMEAT    ENDTIMEAT    EXPECTATION_FILE
 021_14_01 After
     [Tags]    te-query    5_7_4
-    after    2020-08-01T12:04:00Z    vehicles-temporal-representation-021-14-01.json
+    after    2020-08-01T12:04:00Z    ${EMPTY}    vehicles-temporal-representation-021-14-01.json
 021_14_02 Before
     [Tags]    te-query    5_7_4
-    before    2020-09-01T13:06:00Z    vehicles-temporal-representation-021-14-02.json
+    before    2020-09-01T13:06:00Z    ${EMPTY}    vehicles-temporal-representation-021-14-02.json
+021_14_02 Between
+    [Tags]    te-query    5_7_4
+    between    2020-08-01T12:04:00Z    2020-09-01T13:06:00Z    vehicles-temporal-representation-021-14-03.json
 
 
 *** Keywords ***
 Query the temporal evolution of entities
     [Documentation]    Check that one can query the temporal evolution of entities with the simplified representation
-    [Arguments]    ${timerel}    ${timeat}    ${expectation_file}
+    [Arguments]    ${timerel}    ${timeAt}    ${endTimeAt}    ${expectation_file}
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
     ${response}=    Query Temporal Representation Of Entities
     ...    entity_types=${entity_types_to_be_retrieved}
     ...    timerel=${timerel}
-    ...    timeAt=${timeat}
+    ...    timeAt=${timeAt}
+    ...    endTimeAt=${endTimeAt}
     ...    context=${ngsild_test_suite_context}
     ...    options=temporalValues
     @{temporal_entities_representation_ids}=    Create List
