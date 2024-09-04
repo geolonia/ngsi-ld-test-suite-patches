@@ -27,10 +27,10 @@
        "relationshipNames": ["isNextToBuilding"]
        }
    ],
-  "mode": "inclusive",
-  "operations": ["federationOps"],
+   "mode": "exclusive",
+   "operations": ["queryEntity","queryTemporal","updateOps"],
    "endpoint": "http://my.csource.org:1026",
    "@context": [
-       "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
+      "https://easy-global-market.github.io/ngsild-api-data-models/ngsildTestSuite/ngsildTestSuiteV1.8-compound.jsonld"
    ]
 }

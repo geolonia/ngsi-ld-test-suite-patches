@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that one can create a context source registration that never expires
+Documentation       Check that one can create a context source registration without specifying an ID
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
@@ -11,20 +11,20 @@ Suite Teardown      Delete Created Context Source Registrations
 
 *** Variables ***
 ${registration_id_prefix}=              urn:ngsi-ld:Registration:
-${registration_payload_file_path}=      csourceRegistrations/context-source-registration.jsonld
+${registration_payload_file_path}=      csourceRegistrations/context-source-registration-no-id.jsonld
 
 
 *** Test Cases ***
-033_01_02 Create Context Source Registration That Never Expires
-    [Documentation]    Check that one can create a context source registration that never expires
-    [Tags]    csr-create    5_9_2
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
-    Set Suite Variable    ${registration_id}
+033_11 Create Context Source Registration Without Specifying an ID
+    [Documentation]    Check that one can create a context source registration without specifying an ID
+    [Tags]    csr-create    5_9_2    since_v1.6.1
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
-    ${registration_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
-    ${response}=    Create Context Source Registration With Return    ${registration_payload}
+    ${response}=    Create Context Source Registration With Return    ${payload}
     Check Response Status Code    201    ${response.status_code}
-    Check Response Headers Containing URI set to    ${registration_id}    ${response.headers}
+    ${registration_id}=    Check Response Headers ID Not Empty    ${response.headers}
+    Set Suite Variable    ${registration_id}
+    ${id_dict}=    Create Dictionary    id=${registration_id}
+    ${registration_payload}=    Add Object To Json    ${payload}    $    ${id_dict}
     ${response1}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${registration_id}
     ...    context=${ngsild_test_suite_context}

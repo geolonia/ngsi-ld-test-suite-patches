@@ -7,7 +7,6 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Setup Initial Context Source Registrations
-Test Teardown       Delete Created Context Source Registrations
 
 
 *** Variables ***
@@ -37,6 +36,3 @@ Setup Initial Context Source Registrations
     ${create_response}=    Create Context Source Registration With Return    ${updated_payload}
     Check Response Status Code    201    ${create_response.status_code}
     Set Test Variable    ${registration_id}
-
-Delete Created Context Source Registrations
-    Delete Context Source Registration    ${registration_id}
