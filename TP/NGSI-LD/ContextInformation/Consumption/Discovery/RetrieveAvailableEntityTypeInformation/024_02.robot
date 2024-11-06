@@ -8,6 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Suite Setup         Setup Initial Entities
 Suite Teardown      Delete Initial Entities
+Test Template       Retrieve Detailed Representation Of Available Entity Type
 
 
 *** Variables ***
@@ -16,16 +17,23 @@ ${filename}=                building-simple-attributes.json
 ${expectation_file}=        types/expectations/entity-type-info-024-01.json
 
 
-*** Test Cases ***
-024_02_01 Retrieve Detailed Representation Of Available Entity Type
-    [Documentation]    Check that one can retrieve a detailed representation of a specified NGSI-LD entity type
+*** Test Cases ***    TYPE
+024_02_01 WithCompactedType
     [Tags]    ed-type    5_7_7
-    ${response}=    Retrieve Entity Type    type=Building    context=${ngsild_test_suite_context}
-    Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing EntityTypeInfo element    ${expectation_file}    ${response.json()}
+    Building
+024_02_02 WithExpandedType
+    [Tags]    ed-type    5_7_7
+    https%3A%2F%2Fngsi-ld-test-suite%2Fcontext%23Building
 
 
 *** Keywords ***
+Retrieve Detailed Representation Of Available Entity Type
+    [Documentation]    Check that one can retrieve a detailed representation of a specified NGSI-LD entity type
+    [Arguments]    ${type}
+    ${response}=    Retrieve Entity Type    type=${type}    context=${ngsild_test_suite_context}
+    Check Response Status Code    200    ${response.status_code}
+    Check Response Body Containing EntityTypeInfo element    ${expectation_file}    ${response.json()}
+
 Setup Initial Entities
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
