@@ -22,9 +22,10 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
     [Documentation]    Check that one can query one entity via POST Interaction based on id
     [Tags]    e-query    5_7_2
     @{entities_ids_to_be_compared}=    Create List    ${first_entity_id}
+    ${entity_selector}=    Create Dictionary    id=${first_entity_id}    type=${entity_type}
+    @{entities}=    Create List    ${entity_selector}
     ${response}=    Query Entities Via POST
-    ...    entity_id=${first_entity_id}
-    ...    entity_type=${entity_type}
+    ...    entities=${entities}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Entity Elements
     ...    ${expectation_filename}

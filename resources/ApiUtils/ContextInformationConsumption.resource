@@ -94,13 +94,11 @@ Query Entities
 
 Query Entities Via POST
     [Arguments]
-    ...    ${entity_id}=${EMPTY}
-    ...    ${entity_type}=${EMPTY}
+    ...    ${entities}=${EMPTY}
     ...    ${content_type}=${CONTENT_TYPE_JSON}
     ...    ${accept}=${CONTENT_TYPE_JSON}
     ...    ${context}=${EMPTY}
     ...    ${attrs}=${EMPTY}
-    ...    ${entity_id_pattern}=${EMPTY}
     ...    ${geometry_property}=${EMPTY}
     &{headers}=    Create Dictionary
     Set To Dictionary    ${headers}    Content-Type    ${content_type}
@@ -112,20 +110,9 @@ Query Entities Via POST
     END
     &{body}=    Create Dictionary
     Set To Dictionary    ${body}    type=Query
-    &{entities}=    Create Dictionary
-    IF    '${entity_id}'!=''
-        Set To Dictionary    ${entities}    id=${entity_id}
-    END
-    IF    '${entity_type}'!=''
-        Set To Dictionary    ${entities}    type=${entity_type}
-    END
-    IF    '${entity_id_pattern}'!=''
-        Set To Dictionary    ${entities}    idPattern=${entity_id_pattern}
-    END
     ${entities_length}=    Get Length    ${entities}
     IF    ${entities_length}>0
-        ${entities_list}=    Create List    ${entities}
-        Set To Dictionary    ${body}    entities=${entities_list}
+        Set To Dictionary    ${body}    entities=${entities}
     END
     ${attrs_length}=    Get Length    ${attrs}
     IF    ${attrs_length}>0    Set To Dictionary    ${body}    attrs=${attrs}

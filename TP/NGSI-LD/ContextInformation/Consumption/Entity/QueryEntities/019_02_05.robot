@@ -25,8 +25,10 @@ ${parking_entity_type}=     https://ngsi-ld-test-suite/context#OffStreetParking
     [Documentation]    Check that one can query entities via POST Interaction asking for a GeoJSON representation
     [Tags]    e-query    5_7_2
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${vehicle_entity_type}    ${parking_entity_type}
+    ${entity_selector}=    Create Dictionary    type=${entity_types_to_be_retrieved}
+    @{entities}=    Create List    ${entity_selector}
     ${response}=    Query Entities Via POST
-    ...    entity_type=${entity_types_to_be_retrieved}
+    ...    entities=${entities}
     ...    accept=${CONTENT_TYPE_GEOJSON}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}

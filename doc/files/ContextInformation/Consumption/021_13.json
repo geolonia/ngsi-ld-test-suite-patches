@@ -17,7 +17,7 @@
   "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an a list of Temporal Entities \n}",
   "test_cases": [
     {
-      "name": "021_13_01 After",
+      "name": "021_13_01 After One Entity",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_13_01",
       "doc": "Check that one can query the temporal evolution of entities using the entityOperations method",
       "tags": [
@@ -33,7 +33,7 @@
       "endpoint": "temporal/entityOperations/query"
     },
     {
-      "name": "021_13_02 Before",
+      "name": "021_13_02 Before One Entity",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_13_02",
       "doc": "Check that one can query the temporal evolution of entities using the entityOperations method",
       "tags": [
@@ -49,7 +49,7 @@
       "endpoint": "temporal/entityOperations/query"
     },
     {
-      "name": "021_13_03 Between",
+      "name": "021_13_03 Between One Entity",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_13_03",
       "doc": "Check that one can query the temporal evolution of entities using the entityOperations method",
       "tags": [
@@ -61,6 +61,22 @@
       "template": "Query the temporal evolution of entities using the entityOperations method",
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Temporal Representation Of Entities Via Post with Response Status Code set to 200     and\n        Query Temporal Representation Of Entities Via Post with Request response body containing a list that contains Entity Temporal Elements\n            compared with file 'vehicles-temporal-representation-021-13-03.jsonld'\n            and using the list of entity ids define in '${temporal_entities_representation_ids}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entityOperations/query'\n        method set to 'POST'\n        Query Temporal Representation of Entities Via POST Request: and\n    Query Parameter: query_file_name set to 'entity-operations-between-query.jsonld' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: content_type set to 'application/json'\n}",
+      "http_verb": "POST",
+      "endpoint": "temporal/entityOperations/query"
+    },
+    {
+      "name": "021_13_04 After Two Entities",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_13_04",
+      "doc": "Check that one can query the temporal evolution of entities using the entityOperations method",
+      "tags": [
+        "5_7_4",
+        "te-query"
+      ],
+      "setup": "Setup Initial Temporal Entities",
+      "teardown": "Delete Initial Temporal Entities",
+      "template": "Query the temporal evolution of entities using the entityOperations method",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Temporal Representation Of Entities Via Post with Response Status Code set to 200     and\n        Query Temporal Representation Of Entities Via Post with Request response body containing a list that contains Entity Temporal Elements\n            compared with file 'vehicles-bus-temporal-representation-021-13-04.jsonld'\n            and using the list of entity ids define in '${temporal_entities_representation_ids}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entityOperations/query'\n        method set to 'POST'\n        Query Temporal Representation of Entities Via POST Request: and\n    Query Parameter: query_file_name set to 'entity-operations-after-query-two-entities.jsonld' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: content_type set to 'application/json'\n}",
       "http_verb": "POST",
       "endpoint": "temporal/entityOperations/query"
     }
