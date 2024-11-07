@@ -8,6 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Suite Setup         Setup Initial Entity
 Suite Teardown      Delete Initial Entity
+Test Template       Retrieve Detailed Representation Of Available Attribute
 
 
 *** Variables ***
@@ -16,16 +17,23 @@ ${filename}=                building-simple-attributes.json
 ${expectation_file}=        types/expectations/attribute-027-01.json
 
 
-*** Test Cases ***
-027_02_01 Retrieve Detailed Representation Of Available Attribute
-    [Documentation]    Check that one can retrieve a list with a detailed representation of NGSI-LD attributes
+*** Test Cases ***    ATTR_NAME
+027_02_01 WithCompactedAttributeName
     [Tags]    ed-attr    5_7_10
-    ${response}=    Retrieve Attribute    attribute_name=airQualityLevel    context=${ngsild_test_suite_context}
-    Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing Attribute element    ${expectation_file}    ${response.json()}
+    airQualityLevel
+027_02_02 WithExpandedAttributeName
+    [Tags]    ed-attr    5_7_10
+    https%3A%2F%2Fngsi-ld-test-suite%2Fcontext%23airQualityLevel
 
 
 *** Keywords ***
+Retrieve Detailed Representation Of Available Attribute
+    [Documentation]    Check that one can retrieve a list with a detailed representation of NGSI-LD attributes
+    [Arguments]    ${attributeName}
+    ${response}=    Retrieve Attribute    attribute_name=${attributeName}    context=${ngsild_test_suite_context}
+    Check Response Status Code    200    ${response.status_code}
+    Check Response Body Containing Attribute element    ${expectation_file}    ${response.json()}
+
 Setup Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${create_response}=    Create Entity Selecting Content Type
