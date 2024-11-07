@@ -89,8 +89,8 @@ class Requests:
             },
             'Query Entities Via POST': {
                 'positions': [],
-                'params': ['entity_ids', 'entity_type', 'content_type', 'accept',
-                           'context', 'attrs', 'entity_id_pattern', 'geometry_property']
+                'params': ['entities', 'content_type', 'accept',
+                           'context', 'attrs', 'geometry_property']
             },
             'Retrieve Temporal Representation Of Entity': {
                 'positions': [],
@@ -1249,8 +1249,7 @@ class Requests:
         return response
 
     def query_entities_via_post(kwargs) -> str:
-        expected_parameters = ['entity_id', 'entity_type', 'content_type', 'accept',
-                               'attrs', 'entity_id_pattern', 'geometry_property']
+        expected_parameters = ['entities', 'content_type', 'accept', 'attrs', 'geometry_property']
 
         if 'content_type' not in kwargs:
             kwargs['content_type'] = 'application/json'
@@ -1262,10 +1261,8 @@ class Requests:
         response = "Get Entities Via POST Request:"
         for key, value in kwargs.items():
             match key:
-                case 'entity_id':
-                    response = f"{response} and\n    Query Parameter: entity_ids set to '{value}'"
-                case 'entity_type':
-                    response = f"{response} and\n    Query Parameter: entity_types set to '{value}'"
+                case 'entities':
+                    response = f"{response} and\n    Query Parameter: entities set to '{value}'"
                 case 'content_type':
                     response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
                 case 'accept':
@@ -1276,8 +1273,6 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: attrs set to '{value}'"
                 case 'geometry_property':
                     response = f"{response} and\n    Query Parameter: geoproperty set to '{value}'"
-                case 'entity_id_pattern':
-                    response = f"{response} and\n    Query Parameter: entity_id_pattern set to '{value}'"
                 case _:
                     raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
                                     f"'{expected_parameters}', but received: {kwargs}")

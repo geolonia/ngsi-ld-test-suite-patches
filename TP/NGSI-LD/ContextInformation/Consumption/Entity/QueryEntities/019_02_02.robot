@@ -25,8 +25,10 @@ ${vehicle_entity_type}=     https://ngsi-ld-test-suite/context#Vehicle
     [Documentation]    Check that one can query several entities via POST Interaction based on the entity type
     [Tags]    e-query    5_7_2
     ${entities_ids_to_be_compared}=    Create List    ${first_vehicle_entity_id}    ${second_vehicle_entity_id}
+    ${entity_selector}=    Create Dictionary    type=${vehicle_entity_type}
+    @{entities}=    Create List    ${entity_selector}
     ${response}=    Query Entities Via POST
-    ...    entity_type=${vehicle_entity_type}
+    ...    entities=${entities}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing Entity Elements With Different Types
