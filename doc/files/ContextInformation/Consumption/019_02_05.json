@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CI/Cons/E/019_02_05",
-  "test_objective": "Check that you can query entitites via POST Interaction asking for a GeoJSON representation",
+  "test_objective": "Check that one can query entitites via POST Interaction asking for a GeoJSON representation",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.2",
   "config_id": "",
   "parent_release": "v1.3.1",
@@ -18,7 +18,7 @@
     {
       "name": "019_02_05 Query several entities via POST Interaction asking for a GeoJSON representation",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_02_05",
-      "doc": "Check that you can query entities via POST Interaction asking for a GeoJSON representation",
+      "doc": "Check that one can query entities via POST Interaction asking for a GeoJSON representation",
       "tags": [
         "5_7_2",
         "e-query"
@@ -26,8 +26,8 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities Via POST with Response Status Code set to 200     and\n        Query Entities Via POST with Check Response Body Content and\n            Query Parameter: expectation_filename set to 'vehicle-parking-simple.geojson' and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: additional_ignored_path set to '${EMPTY}'\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/query'\n        method set to 'POST'\n        Get Entities Via POST Request: and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: accept set to 'application/geo+json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: content_type set to 'application/json'\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities Via POST with Response Status Code set to 200     and\n        Query Entities Via POST with Check Response Body Content and\n            Query Parameter: expectation_filename set to 'vehicle-parking-019-02-05.geojson' and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: additional_ignored_path set to '${EMPTY}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/query'\n        method set to 'POST'\n        Get Entities Via POST Request: and\n    Query Parameter: entities set to '${entities}' and\n    Query Parameter: accept set to 'application/geo+json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: content_type set to 'application/json'\n}",
       "http_verb": "POST",
       "endpoint": "entityOperations/query"
     }

@@ -26,7 +26,7 @@
       "setup": null,
       "teardown": null,
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Check Response Body Content and\n            Query Parameter: expectation_filename set to 'two-buildings-location-attribute-normalized.geojson' and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: additional_ignored_path set to '${EMPTY}'\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Check Response Body Content and\n            Query Parameter: expectation_filename set to 'two-buildings-location-attribute-normalized-019-05.geojson' and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: additional_ignored_path set to '${EMPTY}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_ids set to '${entities_ids_to_be_retrieved}' and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: accept set to 'application/geo+json' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
       "http_verb": "GET",
       "endpoint": "entities/"
