@@ -16,13 +16,13 @@ ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${filename}=                vehicle-two-datasetid-attributes.jsonld
 
 
-*** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_RESPONSE_FILENAME    EXPECTATION_FILENAME
+*** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_FILENAME
 011_01_01 Check that one can update existing attributes with no datasetId
-    204    vehicle-speed-two-datasetid-01-fragment.jsonld    ${EMPTY}    expectations/vehicle-update-attributes.jsonld
+    204    vehicle-speed-two-datasetid-01-fragment.jsonld    expectations/vehicle-update-attributes.jsonld
 011_01_02 Check that one can update existing attributes with the datasetId
-    204    vehicle-speed-two-datasetid-02-fragment.jsonld    ${EMPTY}    expectations/vehicle-update-datasetid-attributes.jsonld
-011_01_03 Check that one can update only some attributes while unknown are ignored
-    204    vehicle-speed-two-datasetid-03-fragment.jsonld    ${EMPTY}    expectations/vehicle-multi-attributes.jsonld
+    204    vehicle-speed-two-datasetid-02-fragment.jsonld    expectations/vehicle-update-datasetid-attributes.jsonld
+011_01_03 Check that one can update existing attributes and append non-existing attributes
+    204    vehicle-speed-two-datasetid-03-fragment.jsonld    expectations/vehicle-multi-attributes.jsonld
 
 
 *** Keywords ***
@@ -32,18 +32,12 @@ Update Attributes
     [Arguments]
     ...    ${status_code}
     ...    ${fragment_filename}
-    ...    ${expectation_resp_filename}
     ...    ${expectation_filename}
     ${response}=    Update Entity Attributes
     ...    ${entity_id}
     ...    ${fragment_filename}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
-    IF    "${expectation_resp_filename}"!="${EMPTY}"
-        Check Response Body Content
-        ...    expectation_filename=${expectation_resp_filename}
-        ...    response_body=${response.json()}
-    END
     ${entity_expectation_payload}=    Load Test Sample    entities/${expectation_filename}    ${entity_id}
     ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}

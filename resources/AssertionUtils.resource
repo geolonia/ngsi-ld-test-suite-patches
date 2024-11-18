@@ -48,7 +48,11 @@ Check Response Body Containing Entities URIS set to
 Check Response Body Content
     [Arguments]    ${expectation_filename}    ${response_body}    ${additional_ignored_path}=${EMPTY}
     ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/expectations/${expectation_filename}
-    ${all_ignored_paths}=    Create List    ${instance_id_regex_expr}    ${additional_ignored_path}
+    IF    $additional_ignored_path!=${EMPTY}
+        ${all_ignored_paths}=    Create List    ${instance_id_regex_expr}    ${additional_ignored_path}
+    ELSE
+        ${all_ignored_paths}=    Create List    ${instance_id_regex_expr}
+    END
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${entity_payload}
     ...    ${response_body}

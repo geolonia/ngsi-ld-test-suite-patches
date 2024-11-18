@@ -2,8 +2,9 @@
   "type": "FeatureCollection",
   "features": [
     {
-      "id": "urn:ngsi-ld:Vehicle:9584898452850406",
+      "id": "urn:ngsi-ld:Vehicle:019-02-05",
       "type": "Feature",
+      "geometry": null,
       "properties": {
         "type": "Vehicle",
         "brandName": {
@@ -19,13 +20,11 @@
           "object": "urn:ngsi-ld:OffStreetParking:Downtown1",
           "observedAt": "2017-07-29T12:00:04Z"
         },
-        "@context": [
-          "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
-        ]
+        "@context": "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
       }
     },
     {
-      "id": "urn:ngsi-ld:OffStreetParking:8449859096747487",
+      "id": "urn:ngsi-ld:OffStreetParking:019-02-05",
       "type": "Feature",
       "geometry": {
         "type": "Point",
@@ -67,9 +66,7 @@
             ]
           }
         },
-        "@context": [
-          "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
-        ]
+        "@context": "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
       }
     }
   ]

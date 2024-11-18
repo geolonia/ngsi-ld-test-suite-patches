@@ -15,7 +15,7 @@ ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${parking_id_prefix}=       urn:ngsi-ld:OffStreetParking:
 ${vehicle_filename}=        vehicle-simple-attributes.jsonld
 ${parking_filename}=        parking-simple-attributes.jsonld
-${expectation_filename}=    vehicle-parking-simple.geojson
+${expectation_filename}=    vehicle-parking-019-02-05.geojson
 ${vehicle_entity_type}=     https://ngsi-ld-test-suite/context#Vehicle
 ${parking_entity_type}=     https://ngsi-ld-test-suite/context#OffStreetParking
 
@@ -39,14 +39,14 @@ ${parking_entity_type}=     https://ngsi-ld-test-suite/context#OffStreetParking
 
 *** Keywords ***
 Create Entities
-    ${vehicle_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${vehicle_entity_id}=    Catenate    ${vehicle_id_prefix}019-02-05
     Set Suite Variable    ${vehicle_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${vehicle_filename}
     ...    ${vehicle_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${parking_entity_id}=    Generate Random Entity Id    ${parking_id_prefix}
+    ${parking_entity_id}=    Catenate    ${parking_id_prefix}019-02-05
     Set Suite Variable    ${parking_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${parking_filename}

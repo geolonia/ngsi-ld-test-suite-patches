@@ -13,7 +13,7 @@ Suite Teardown      Delete Entities
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
 ${filename}=                building-location-attribute.jsonld
-${expectation_filename}=    two-buildings-location-attribute-normalized.geojson
+${expectation_filename}=    two-buildings-location-attribute-normalized-019-05.geojson
 ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 
 
@@ -38,13 +38,13 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 
 *** Keywords ***
 Create Initial Entities
-    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_entity_id}=    Catenate    ${building_id_prefix}019-05-01
     Set Suite Variable    ${first_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${first_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
-    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${second_entity_id}=    Catenate    ${building_id_prefix}019-05-02
     Set Suite Variable    ${second_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
