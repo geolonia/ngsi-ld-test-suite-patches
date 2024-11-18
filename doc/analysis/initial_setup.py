@@ -1,4 +1,5 @@
 import os
+from os.path import dirname
 import json
 
 
@@ -40,6 +41,8 @@ class InitialSetup:
             'Create Initial @context condition from an external server': InitialSetup.create_from_external_server(),
             'Delete core context and reload it': InitialSetup.delete_core_context()
         }
+
+        self.folder_test_suites = dirname(dirname(dirname(__file__)))
 
         self.total_files = -1
         self.files_with_setup = -1
@@ -302,7 +305,7 @@ class InitialSetup:
             print()
 
     def generate_dictionaries(self):
-        folder = "/home/fla/Documents/workspace/bdd/ngsi-ld-test-suite/doc/files"
+        folder = f'{self.folder_test_suites}/doc/files'
         attribute = "setup"
 
         self.files_with_setup, self.files_without_setup = self.get_property_values(folder, attribute)
