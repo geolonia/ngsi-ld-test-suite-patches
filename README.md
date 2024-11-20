@@ -12,11 +12,14 @@ specification of the ETSI NGSI-LD API.
 -   [Install the Test Suite](#install-the-test-suite)
 -   [Configure the test suite](#configure-the-test-suite)
 -   [Execute the NGSI-LD Test Suite](#execute-the-ngsi-ld-test-suite)
+-   [Use the Test Suite Management (tsm) tool](#test-suite-management-tsm)
 -   [Contribute to the Test Suite](#contribute-to-the-test-suite)
     -   [Install IDE (PyCharm)](#install-ide-pycharm)
+    -   [Develop a new Test Case](#develop-a-new-test-case)
     -   [Run configurations (PyCharm)](#run-configurations-pycharm)
     -   [Pre commit](#pre-commit)
 -   [Tooling](#tooling)
+-   [Coding style](#coding-style-of-test-suites)
 -   [Frameworks and libraries used in the project](#frameworks-and-libraries-used-in-the-project)
 -   [Useful links](#useful-links)   
 -   [LICENSE](#license)
@@ -375,6 +378,10 @@ Finally, check that everything is OK by running the unit tests:
 ```shell
 python -m unittest discover -s ./doc/tests -t ./doc
 ```
+
+In order to help in investigating errors that can be encountered when generating the documentation, you can check in
+the [Documentation generation troubleshoot document](Troubleshoot_Documentation_Generation.md) for further documentation
+and tips.
 
 ### Run configurations (PyCharm)
 
