@@ -438,7 +438,7 @@ class Requests:
                     # Get the list of keys
                     params = aux.split('    ')[1:]
                 else:
-                    raise Exception(f"Error, unexpected format, received: '{response_to_check}'")
+                    raise Exception(f"Error: unexpected format, received: '{response_to_check}'")
 
             params = self.find_attributes_in_the_same_line(request_name=request, params=params)
         elif '    ...    ' in aux[1]:
@@ -564,7 +564,7 @@ class Requests:
                       f"payload defined in file: '{kwargs['filename']}'")
             return result
         else:
-            raise Exception(f"ERROR, expected filename and content_type attributes, but received {kwargs}")
+            raise Exception(f"ERROR: expected filename and content_type attributes, but received {kwargs}")
 
     @staticmethod
     def append_entity_attributes_with_parameters(kwargs) -> str:
@@ -583,8 +583,8 @@ class Requests:
                 case 'options':
                     response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -595,7 +595,7 @@ class Requests:
                       f" and Content-Type set to 'application/ld+json'")
             return result
         else:
-            raise Exception(f"ERROR, expected filename attribute, but received {kwargs}")
+            raise Exception(f"ERROR: expected filename attribute, but received {kwargs}")
 
     @staticmethod
     def batch_update_entities(kwargs) -> str:
@@ -608,7 +608,7 @@ class Requests:
                       f"and Content-Type set to 'application/ld+json'")
             return result
         else:
-            raise Exception(f"ERROR, expected filename attribute, but received {kwargs}")
+            raise Exception(f"ERROR: expected overwrite_option or entities attributes, but received {kwargs}")
 
     @staticmethod
     def batch_upsert_entities(kwargs) -> str:
@@ -621,7 +621,7 @@ class Requests:
                       f"and Content-Type set to 'application/ld+json'")
             return result
         else:
-            raise Exception(f"ERROR, expected filename attribute, but received {kwargs}")
+            raise Exception(f"ERROR: expected update_option or entities_to_be_upserted attributes, but received {kwargs}")
 
     @staticmethod
     def list_contexts(kwargs) -> str:
@@ -636,8 +636,8 @@ class Requests:
                 case 'kind':
                     response = f"{response} and\n    Query Parameter: kind set to '{value}'"
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -665,7 +665,7 @@ class Requests:
                       f"and payload set to '{kwargs['context_source_registration_payload']}'")
             return result
         else:
-            raise Exception(f"ERROR, expected filename and content_type attributes, but received {kwargs}")
+            raise Exception(f"ERROR: expected context_source_registration_payload attribute, but received {kwargs}")
 
     @staticmethod
     def wait_for_notification(kwargs) -> str:
@@ -673,7 +673,7 @@ class Requests:
             result = f"Waiting for notification with timeout set to '{kwargs['timeout']}'"
             return result
         else:
-            raise Exception(f"ERROR, expected filename and content_type attributes, but received {kwargs}")
+            raise Exception(f"ERROR: expected timeout attribute, but received {kwargs}")
 
     @staticmethod
     def setup_initial_subscriptions(kwargs) -> str:
@@ -699,7 +699,7 @@ class Requests:
                       f"payload defined in file: '{kwargs['filename']}'")
             return result
         else:
-            raise Exception(f"ERROR, expected filename and content_type attributes, but received {kwargs}")
+            raise Exception(f"ERROR: expected filename attribute, but received {kwargs}")
 
     @staticmethod
     def batch_request_entities_from_file(kwargs) -> str:
@@ -707,7 +707,7 @@ class Requests:
             result = (f"Batch Entity Delete Request with operation set to '{kwargs['operation']}', Content-Type set to 'application/ld+json', and body set to '{kwargs['filename']}")
             return result
         else:
-            raise Exception(f"ERROR, expected content_type attribute, but received {kwargs}")
+            raise Exception(f"ERROR: expected operation and filename attributes, but received {kwargs}")
 
     @staticmethod
     def request_entity_from_file(kwargs) -> str:
@@ -715,7 +715,7 @@ class Requests:
             result = f"Request Entity from file with filename set to '{kwargs['filename']}' and content-type set to 'application/ld+json'"
             return result
         else:
-            raise Exception(f"ERROR, expected filename attribute, but received {kwargs}")
+            raise Exception(f"ERROR: expected filename attribute, but received {kwargs}")
 
     @staticmethod
     def batch_create_entities(kwargs) -> str:
@@ -724,7 +724,7 @@ class Requests:
                       f"payload set to a list of entities to be created")
             return result
         else:
-            raise Exception(f"ERROR, expected content_type attribute, but received {kwargs}")
+            raise Exception(f"ERROR: expected content_type attribute, but received {kwargs}")
 
     @staticmethod
     def create_context_source_registration_with_return(kwargs) -> str:
@@ -733,7 +733,7 @@ class Requests:
                       f"payload defined in file: '{kwargs['filename']}'")
             return result
         else:
-            raise Exception(f"ERROR, expected filename attribute, but received {kwargs}")
+            raise Exception(f"ERROR: expected filename attribute, but received {kwargs}")
 
     @staticmethod
     def query_entity(kwargs) -> str:
@@ -759,8 +759,8 @@ class Requests:
                 case 'lang':
                     response = f"{response} and\n    Query Parameter: lang set to '{value}'"
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -788,8 +788,8 @@ class Requests:
                 case 'context':
                     response = f"{response} and\n    Query Parameter: context set to '{value}'"
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -815,8 +815,8 @@ class Requests:
                 case 'context':
                     response = f"{response} and\n    Query Parameter: context set to '{value}'"
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -844,8 +844,8 @@ class Requests:
                 case 'context':
                     response = f"{response} and\n    Query Parameter: context set to '{value}'"
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -869,8 +869,8 @@ class Requests:
                 case 'accept':
                     response = f"{response} and\n    Query Parameter: accept set to '{value}'"
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(w) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -887,8 +887,8 @@ class Requests:
                 case 'content_type':
                     response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -911,8 +911,8 @@ class Requests:
                 case 'context':
                     response = f"{response} and\n    Query Parameter: context set to '{value}'"
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -931,8 +931,8 @@ class Requests:
                 case 'context':
                     response = f"{response} and\n    Query Parameter: context set to '{value}'"
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -949,8 +949,8 @@ class Requests:
                 case 'teardown':
                     response = f"{response} and\n    Query Parameter: teardown set to '{value}'"
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -969,8 +969,8 @@ class Requests:
                 case 'context':
                     response = f"{response} and\n    Query Parameter: context set to '{value}'"
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -996,8 +996,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -1039,8 +1039,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: context set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -1057,7 +1057,7 @@ class Requests:
                         f"Header['Content-Type'] set to '{kwargs['content']}' and\n"
                         f"Payload defined in file '{kwargs['filename']}'")
         else:
-            raise Exception(f"ERROR, expected context attribute, but received {kwargs}")
+            raise Exception(f"ERROR: expected context, content and filename attributes, but received {kwargs}")
 
     @staticmethod
     def query_context_source_registration_subscriptions(kwargs) -> str:
@@ -1077,8 +1077,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: accept set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -1136,8 +1136,8 @@ class Requests:
 
             # If an exact match is not confirmed, this last case will be used if provided
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -1176,8 +1176,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: aggrPeriodDuration set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -1196,7 +1196,7 @@ class Requests:
             result = f"{result}, with Header['Link'] containing '{kwargs['context']}'"
 
         if 'type' not in kwargs or 'context' not in kwargs:
-            raise Exception(f"ERROR, expected type or context attributes, received '{kwargs}'")
+            raise Exception(f"ERROR: expected type and context attributes, received '{kwargs}'")
 
         return result
 
@@ -1243,8 +1243,8 @@ class Requests:
                 case 'q':
                     response = f"{response} and\n    Query Parameter: q set to '{value}'"
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -1274,8 +1274,8 @@ class Requests:
                 case 'geometry_property':
                     response = f"{response} and\n    Query Parameter: geoproperty set to '{value}'"
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -1297,8 +1297,8 @@ class Requests:
                     response = (f"{response} and\n    Query Parameter: Link set to "
                                 f"'<${value}>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'")
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -1319,8 +1319,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: context set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -1352,8 +1352,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: accept set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -1373,8 +1373,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: accept set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -1390,7 +1390,7 @@ class Requests:
                     f"with CSR Id set to '{kwargs['context_source_registration_id']}' and "
                     f"subscription update fragment set to '{kwargs['update_fragment']}'")
         else:
-            raise Exception(f"ERROR, expected 'context_source_registration_id' and 'update_fragment'"
+            raise Exception(f"ERROR: expected 'context_source_registration_id' and 'update_fragment'"
                             f" but received: {kwargs}")
 
     @staticmethod
@@ -1400,7 +1400,7 @@ class Requests:
                     f"with CSR Id set to '{kwargs['context_source_registration_id']}' and "
                     f"subscription update from file '{kwargs['filename']}'")
         else:
-            raise Exception(f"ERROR, expected 'context_source_registration_id' and 'update_fragment'"
+            raise Exception(f"ERROR: expected 'context_source_registration_id' and 'filename'"
                             f" but received: {kwargs}")
 
     @staticmethod
@@ -1410,7 +1410,7 @@ class Requests:
                     f"with subscription id set to '{kwargs['subscription_id']}' and "
                     f"subscription update fragment set to '{kwargs['subscription_update_fragment']}'")
         else:
-            raise Exception(f"ERROR, expected 'subscription_id' and 'subscription_update_fragment' but received: {kwargs}")
+            raise Exception(f"ERROR: expected 'subscription_id' and 'subscription_update_fragment' but received: {kwargs}")
 
     @staticmethod
     def update_context_source_registration_subscription_from_file(kwargs) -> str:
@@ -1419,7 +1419,7 @@ class Requests:
                     f"with subscription id set to '{kwargs['subscription_id']}' and "
                     f"subscription update fragment set to '{kwargs['subscription_update_fragment']}'")
         else:
-            raise Exception(f"ERROR, expected 'subscription_id' and 'subscription_update_fragment' but received: {kwargs}")
+            raise Exception(f"ERROR: expected 'subscription_id' and 'subscription_update_fragment' but received: {kwargs}")
 
     @staticmethod
     def retrieve_context_source_registration(kwargs) -> str:
@@ -1437,8 +1437,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: accept set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -1491,8 +1491,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: accept set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -1513,14 +1513,14 @@ class Requests:
         if 'id' in kwargs:
             return f"Retrieve Context Source Registration Subscription with id set to '{kwargs['id']}'"
         else:
-            raise Exception(f"ERROR, expected 'id' but received: '{kwargs}'")
+            raise Exception(f"ERROR: expected 'id' but received: '{kwargs}'")
 
     @staticmethod
     def delete_context_source_registration_subscription(kwargs) -> str:
         if 'id' in kwargs:
             return f"Delete Context Source Registration Subscription with id set to '{kwargs['id']}'"
         else:
-            raise Exception(f"ERROR, expected 'id' but received: '{kwargs}'")
+            raise Exception(f"ERROR: expected 'id' but received: '{kwargs}'")
 
     @staticmethod
     def create_context_source_registration_subscription(kwargs) -> str:
@@ -1528,7 +1528,7 @@ class Requests:
             return (f"Create Context Source Registration Subscription with filename set to '{kwargs['filename']}', "
                     f"accept set to '${{EMPTY}}', and content-type set to 'application/ld+json'")
         else:
-            raise Exception(f"ERROR, expected 'filename' but received: '{kwargs}'")
+            raise Exception(f"ERROR: expected 'filename' but received: '{kwargs}'")
 
     @staticmethod
     def append_attribute_to_temporal_entity(kwargs) -> str:
@@ -1546,8 +1546,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -1567,8 +1567,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 
@@ -1588,8 +1588,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}', the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
 
         return response
 

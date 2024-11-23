@@ -367,6 +367,9 @@ In these cases, it is needed to provide the corresponding information in the Pyt
   - In `doc/analysis/requests.py` if it is an endpoint operation (in `self.op` with the list and position of parameters,
     in `self.description` to reference the method that pretty print the operation, and add the method that pretty prints
     the operation)
+- When a new endpoint Keyword is created, additions have to be done in `doc/analysis/requests.py`:
+  - Add corresponding entries in the `self.op` and `self.description` dictionaries in the initialization function of the `Requests` class
+  - Implement the function generating the documentation related to the endpoint Keyword 
 - When a new permutation is added in an existing Test Case, run the documentation generation script 
   (`python doc/generateDocumentationData.py {tc_id}`) for the Test Case and copy the generated JSON file in the 
   folder containing all files for the given group and subgroup (`cp doc/results/{tc_id}.json doc/files/{group}/{subgroup}`)
