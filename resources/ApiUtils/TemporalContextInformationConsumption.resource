@@ -39,13 +39,15 @@ Query Temporal Representation Of Entities
     ...    ${lastN}=${EMPTY}
     ...    ${accept}=${EMPTY}
     ...    ${options}=${EMPTY}
+    ...    ${aggrMethods}=${EMPTY}
+    ...    ${aggrPeriodDuration}=${EMPTY}
     ${entity_types_length}=    Get Length    ${entity_types}
     ${entity_ids_length}=    Get Length    ${entity_ids}
     ${attrs_length}=    Get Length    ${attrs}
     &{headers}=    Create Dictionary
     &{params}=    Create Dictionary
-    IF    '${accept}'!=''    Set To Dictionary    ${headers}    Accept=${accept}
-    IF    '${context}'!=''
+    IF    $accept!=''    Set To Dictionary    ${headers}    Accept=${accept}
+    IF    $context!=''
         Set To Dictionary
         ...    ${headers}
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
@@ -56,35 +58,37 @@ Query Temporal Representation Of Entities
     IF    ${entity_ids_length}>0
         Set To Dictionary    ${params}    id=${entity_ids}
     END
-    IF    '${timerel}'!=''
-        Set To Dictionary    ${params}    timerel=${timerel}
-    END
-    IF    '${timeAt}'!=''    Set To Dictionary    ${params}    timeAt=${timeAt}
-    IF    '${endTimeAt}'!=''
+    IF    $timerel!=''    Set To Dictionary    ${params}    timerel=${timerel}
+    IF    $timeAt!=''    Set To Dictionary    ${params}    timeAt=${timeAt}
+    IF    $endTimeAt!=''
         Set To Dictionary    ${params}    endTimeAt=${endTimeAt}
     END
     IF    ${attrs_length}>0    Set To Dictionary    ${params}    attrs=${attrs}
-    IF    '${lastN}'!=''    Set To Dictionary    ${params}    lastN=${lastN}
-    IF    '${entity_id_pattern}'!=''
+    IF    $lastN!=''    Set To Dictionary    ${params}    lastN=${lastN}
+    IF    $entity_id_pattern!=''
         Set To Dictionary    ${params}    idPattern=${entity_id_pattern}
     END
-    IF    '${ngsild_query}'!=''
+    IF    $ngsild_query!=''
         Set To Dictionary    ${params}    q=${ngsild_query}
     END
-    IF    '${csf}'!=''    Set To Dictionary    ${params}    csf=${csf}
-    IF    '${georel}'!=''    Set To Dictionary    ${params}    georel=${georel}
-    IF    '${geometry}'!=''
+    IF    $csf!=''    Set To Dictionary    ${params}    csf=${csf}
+    IF    $georel!=''    Set To Dictionary    ${params}    georel=${georel}
+    IF    $geometry!=''
         Set To Dictionary    ${params}    geometry=${geometry}
     END
-    IF    '${coordinates}'!=''
+    IF    $coordinates!=''
         Set To Dictionary    ${params}    coordinates=${coordinates}
     END
-    IF    '${geoproperty}'!=''
+    IF    $geoproperty!=''
         Set To Dictionary    ${params}    geoproperty=${geoproperty}
     END
-    IF    '${limit}'!=''    Set To Dictionary    ${params}    limit=${limit}
-    IF    '${options}'!=''
-        Set To Dictionary    ${params}    options=${options}
+    IF    $limit!=''    Set To Dictionary    ${params}    limit=${limit}
+    IF    $options!=''    Set To Dictionary    ${params}    options=${options}
+    IF    $aggrMethods!=''
+        Set To Dictionary    ${params}    aggrMethods=${aggrMethods}
+    END
+    IF    $aggrPeriodDuration!=''
+        Set To Dictionary    ${params}    aggrPeriodDuration=${aggrPeriodDuration}
     END
 
     ${response}=    GET

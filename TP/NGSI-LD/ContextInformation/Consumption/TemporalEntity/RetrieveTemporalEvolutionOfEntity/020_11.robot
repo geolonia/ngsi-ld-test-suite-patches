@@ -19,29 +19,29 @@ ${vehicle_payload_file}=    2020-08-vehicle-temporal-representation.jsonld
 *** Test Cases ***    AGGRMETHODS    AGGRPERIODDURATION    ATTRS    VEHICLE_EXPECTATION_FILE
 020_11_01 One aggregate method aggregated by one hour duration
     [Tags]    te-retrieve    5_7_3    4_5_19    since_v1.4.1
-    avg    PT1H    ${EMPTY}    vehicle-temporal-representation-020-11-01.json
+    avg    PT1H    ${EMPTY}    vehicle-temporal-representation-aggregated-avg-PT1H.json
 020_11_02 One aggregate method aggregated by one hour duration asking for one attribute
     [Tags]    te-retrieve    5_7_3    4_5_19    since_v1.4.1
-    avg    PT1H    fuelLevel    vehicle-temporal-representation-020-11-02.json
+    avg    PT1H    fuelLevel    vehicle-temporal-representation-aggregated-avg-PT1H-fuelLevel.json
 020_11_03 Multiple aggregate methods aggregated by one hour duration
     [Tags]    te-retrieve    5_7_3    4_5_19    since_v1.4.1
-    avg,max    PT1H    ${EMPTY}    vehicle-temporal-representation-020-11-03.json
+    avg,max    PT1H    ${EMPTY}    vehicle-temporal-representation-aggregated-avg-max-PT1H.json
 020_11_04 Multiple aggregate methods aggregated by one day duration
     [Tags]    te-retrieve    5_7_3    4_5_19    since_v1.4.1
-    min,max    P1D    ${EMPTY}    vehicle-temporal-representation-020-11-04.json
+    min,max    P1D    ${EMPTY}    vehicle-temporal-representation-aggregated-min-max-P1D.json
 
 
 *** Keywords ***
 Retrieve the temporal evolution of an entity with the aggregated temporal representation
     [Documentation]    Check that one can retrieve the temporal evolution of an entity with the aggregated temporal representation
-    [Arguments]    ${aggrmethods}    ${aggrperiodduration}    ${attrs}    ${vehicle_expectation_file}
+    [Arguments]    ${aggr_methods}    ${aggr_period_duration}    ${attrs}    ${vehicle_expectation_file}
     @{options}=    Create List    aggregatedValues
     ${response}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    attrs=${attrs}
     ...    options=${options}
-    ...    aggrMethods=${aggrmethods}
-    ...    aggrPeriodDuration=${aggrperiodduration}
+    ...    aggrMethods=${aggr_methods}
+    ...    aggrPeriodDuration=${aggr_period_duration}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing EntityTemporal element

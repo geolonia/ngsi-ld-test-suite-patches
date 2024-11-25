@@ -1,0 +1,99 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/TE/021_17",
+  "test_objective": "Check that one can retrieve the temporal evolution of entities with the aggregated temporal representation",
+  "reference": "ETSI GS CIM 009 V1.4.1 [], clauses 4.5.19, 5.7.3",
+  "config_id": "",
+  "parent_release": "v1.4.1",
+  "clauses": [
+    "4.5.19",
+    "5.7.3"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Retrieve the temporal evolution of entities with the aggregated temporal representation",
+    "Setup Initial Entities",
+    "Delete Initial Entities"
+  ],
+  "teardown": "Delete Initial Entities",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "021_17_01 One aggregate method aggregated by one hour duration",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_17_01",
+      "doc": "Check that one can retrieve the temporal evolution of entities with the aggregated temporal representation",
+      "tags": [
+        "4_5_19",
+        "5_7_3",
+        "since_v1.4.1",
+        "te-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve the temporal evolution of entities with the aggregated temporal representation",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Temporal Representation Of Entities with Response Status Code set to 200     and\n        Query Temporal Representation Of Entities with Response Body containing EntityTemporal element containing attribute instances in the time range specified by the NGSI-LD temporal query:\n            * the payload is defined in the file set to 'vehicle-temporal-representation-aggregated-avg-PT1H.json'\n            * the id was changed to '${first_temporal_entity_representation_id}'\n            * response body to be checked set to '${response.json()[0]}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n        Query Temporal Representation of Entities and\n    Query Parameter: entity_types set to '${types}' and\n    Query Parameter: attrs set to '${EMPTY}' and\n    Query Parameter: options set to '${options}' and\n    Query Parameter: aggrMethods set to '${aggr_methods}' and\n    Query Parameter: aggrPeriodDuration set to '${aggr_period_duration}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: timerel set to 'after' and\n    Query Parameter: timeAt set to '2020-01-01T12:03:00Z'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities"
+    },
+    {
+      "name": "021_17_02 One aggregate method aggregated by one hour duration asking for one attribute",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_17_02",
+      "doc": "Check that one can retrieve the temporal evolution of entities with the aggregated temporal representation",
+      "tags": [
+        "4_5_19",
+        "5_7_3",
+        "since_v1.4.1",
+        "te-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve the temporal evolution of entities with the aggregated temporal representation",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Temporal Representation Of Entities with Response Status Code set to 200     and\n        Query Temporal Representation Of Entities with Response Body containing EntityTemporal element containing attribute instances in the time range specified by the NGSI-LD temporal query:\n            * the payload is defined in the file set to 'vehicle-temporal-representation-aggregated-avg-PT1H-fuelLevel.json'\n            * the id was changed to '${first_temporal_entity_representation_id}'\n            * response body to be checked set to '${response.json()[0]}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n        Query Temporal Representation of Entities and\n    Query Parameter: entity_types set to '${types}' and\n    Query Parameter: attrs set to 'fuelLevel' and\n    Query Parameter: options set to '${options}' and\n    Query Parameter: aggrMethods set to '${aggr_methods}' and\n    Query Parameter: aggrPeriodDuration set to '${aggr_period_duration}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: timerel set to 'after' and\n    Query Parameter: timeAt set to '2020-01-01T12:03:00Z'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities"
+    },
+    {
+      "name": "021_17_03 Multiple aggregate methods aggregated by one hour duration",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_17_03",
+      "doc": "Check that one can retrieve the temporal evolution of entities with the aggregated temporal representation",
+      "tags": [
+        "4_5_19",
+        "5_7_3",
+        "since_v1.4.1",
+        "te-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve the temporal evolution of entities with the aggregated temporal representation",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Temporal Representation Of Entities with Response Status Code set to 200     and\n        Query Temporal Representation Of Entities with Response Body containing EntityTemporal element containing attribute instances in the time range specified by the NGSI-LD temporal query:\n            * the payload is defined in the file set to 'vehicle-temporal-representation-aggregated-avg-max-PT1H.json'\n            * the id was changed to '${first_temporal_entity_representation_id}'\n            * response body to be checked set to '${response.json()[0]}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n        Query Temporal Representation of Entities and\n    Query Parameter: entity_types set to '${types}' and\n    Query Parameter: attrs set to '${EMPTY}' and\n    Query Parameter: options set to '${options}' and\n    Query Parameter: aggrMethods set to '${aggr_methods}' and\n    Query Parameter: aggrPeriodDuration set to '${aggr_period_duration}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: timerel set to 'after' and\n    Query Parameter: timeAt set to '2020-01-01T12:03:00Z'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities"
+    },
+    {
+      "name": "021_17_04 Multiple aggregate methods aggregated by one day duration",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_17_04",
+      "doc": "Check that one can retrieve the temporal evolution of entities with the aggregated temporal representation",
+      "tags": [
+        "4_5_19",
+        "5_7_3",
+        "since_v1.4.1",
+        "te-retrieve"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Retrieve the temporal evolution of entities with the aggregated temporal representation",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Temporal Representation Of Entities with Response Status Code set to 200     and\n        Query Temporal Representation Of Entities with Response Body containing EntityTemporal element containing attribute instances in the time range specified by the NGSI-LD temporal query:\n            * the payload is defined in the file set to 'vehicle-temporal-representation-aggregated-min-max-P1D.json'\n            * the id was changed to '${first_temporal_entity_representation_id}'\n            * response body to be checked set to '${response.json()[0]}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/temporal/entities'\n        method set to 'GET'\n        Query Temporal Representation of Entities and\n    Query Parameter: entity_types set to '${types}' and\n    Query Parameter: attrs set to '${EMPTY}' and\n    Query Parameter: options set to '${options}' and\n    Query Parameter: aggrMethods set to '${aggr_methods}' and\n    Query Parameter: aggrPeriodDuration set to '${aggr_period_duration}' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld' and\n    Query Parameter: timerel set to 'after' and\n    Query Parameter: timeAt set to '2020-01-01T12:03:00Z'\n}",
+      "http_verb": "GET",
+      "endpoint": "temporal/entities"
+    }
+  ],
+  "permutations": [
+    "then",
+    "when"
+  ],
+  "robotpath": "ContextInformation/Consumption/TemporalEntity/QueryTemporalEvolutionOfEntities",
+  "robotfile": "021_17"
+}
