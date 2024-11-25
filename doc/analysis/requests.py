@@ -211,7 +211,7 @@ class Requests:
             },
             'Batch Merge Entities': {
                 'positions': [],
-                'params': ['entities']
+                'params': ['entities_to_be_merged']
             },
             'Request Entity From File': {
                 'positions': [0],
