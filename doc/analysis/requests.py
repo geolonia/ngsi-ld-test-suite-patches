@@ -205,6 +205,10 @@ class Requests:
                 'positions': [],
                 'params': ['entities_to_be_upserted', 'update_option']
             },
+            'Batch Merge Entities': {
+                'positions': [],
+                'params': ['entities']
+            },
             'Request Entity From File': {
                 'positions': [0],
                 'params': ['filename']
@@ -356,6 +360,8 @@ class Requests:
                 Requests.batch_update_entities,
             'Batch Upsert Entities':
                 Requests.batch_upsert_entities,
+            'Batch Merge Entities':
+                Requests.batch_merge_entities,
             'Request Entity From File':
                 Requests.request_entity_from_file,
             'Delete Entity Attributes':
@@ -622,6 +628,19 @@ class Requests:
             return result
         else:
             raise Exception(f"ERROR: expected update_option or entities_to_be_upserted attributes, but received {kwargs}")
+
+    @staticmethod
+    def batch_merge_entities(kwargs) -> str:
+        if 'overwrite_option' not in kwargs:
+            kwargs['overwrite_option'] = '${EMPTY}'
+
+        if 'entities_to_be_merged' in kwargs:
+            result = (f"Request batch merge operation over entity from entities_to_be_merged '{kwargs['entities_to_be_merged']}' "
+                      f"with Content-Type set to 'application/ld+json'")
+            return result
+        else:
+            raise Exception(f"ERROR, expected entities_to_be_merged attribute, but received {kwargs}")
+
 
     @staticmethod
     def list_contexts(kwargs) -> str:

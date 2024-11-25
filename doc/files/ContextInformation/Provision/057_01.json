@@ -1,0 +1,91 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/BE/057_01",
+  "test_objective": "Check that you can merge a batch of entities",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clause 5.6.17",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "5.6.17"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Batch Merge Entity Scenarios",
+    "Setup Initial Entities",
+    "Delete Initial Entities"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    and containing a list of entities\n}",
+  "test_cases": [
+    {
+      "name": "057_01_01 MergeAnEmptyEntity",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/057_01_01",
+      "doc": "Check that you can merge a batch of entities",
+      "tags": [
+        "5_6_17",
+        "be-merge",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Initial Entities",
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Merge Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Merge Entities with Response Status Code set to 204     and\n        Query Entities with Response body containing a list containing entity elements with different types and\n            Query Parameter: filename set to 'expectation_filename' and\n            Query Parameter: entities_representation_ids set to 'entities_ids_to_be_merged' and\n            Query Parameter: response_body set to 'response1.json()' and\n            Query Parameter: ignore_core_context_version set to 'True'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/merge'\n        method set to 'POST'\n        Request batch merge operation over entity from entities_to_be_merged '@{entities_to_be_merged}' with Content-Type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/merge"
+    },
+    {
+      "name": "057_01_02 MergeSimpleProperties",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/057_01_02",
+      "doc": "Check that you can merge a batch of entities",
+      "tags": [
+        "5_6_17",
+        "be-merge",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Initial Entities",
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Merge Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Merge Entities with Response Status Code set to 204     and\n        Query Entities with Response body containing a list containing entity elements with different types and\n            Query Parameter: filename set to 'expectation_filename' and\n            Query Parameter: entities_representation_ids set to 'entities_ids_to_be_merged' and\n            Query Parameter: response_body set to 'response1.json()' and\n            Query Parameter: ignore_core_context_version set to 'True'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/merge'\n        method set to 'POST'\n        Request batch merge operation over entity from entities_to_be_merged '@{entities_to_be_merged}' with Content-Type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/merge"
+    },
+    {
+      "name": "057_01_03 MergeSimpleRelationship",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/057_01_03",
+      "doc": "Check that you can merge a batch of entities",
+      "tags": [
+        "5_6_17",
+        "be-merge",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Initial Entities",
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Merge Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Merge Entities with Response Status Code set to 204     and\n        Query Entities with Response body containing a list containing entity elements with different types and\n            Query Parameter: filename set to 'expectation_filename' and\n            Query Parameter: entities_representation_ids set to 'entities_ids_to_be_merged' and\n            Query Parameter: response_body set to 'response1.json()' and\n            Query Parameter: ignore_core_context_version set to 'True'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/merge'\n        method set to 'POST'\n        Request batch merge operation over entity from entities_to_be_merged '@{entities_to_be_merged}' with Content-Type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/merge"
+    },
+    {
+      "name": "057_01_04 MergePropertyWithPartialData",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/057_01_04",
+      "doc": "Check that you can merge a batch of entities",
+      "tags": [
+        "5_6_17",
+        "be-merge",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Initial Entities",
+      "teardown": "Delete Initial Entities",
+      "template": "Batch Merge Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Merge Entities with Response Status Code set to 204     and\n        Query Entities with Response body containing a list containing entity elements with different types and\n            Query Parameter: filename set to 'expectation_filename' and\n            Query Parameter: entities_representation_ids set to 'entities_ids_to_be_merged' and\n            Query Parameter: response_body set to 'response1.json()' and\n            Query Parameter: ignore_core_context_version set to 'True'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/merge'\n        method set to 'POST'\n        Request batch merge operation over entity from entities_to_be_merged '@{entities_to_be_merged}' with Content-Type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/merge"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/BatchEntities/MergeBatchOfEntities",
+  "robotfile": "057_01"
+}

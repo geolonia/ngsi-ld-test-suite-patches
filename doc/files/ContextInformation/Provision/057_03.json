@@ -1,0 +1,55 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/BE/057_03",
+  "test_objective": "Check that you cannot merge a batch of entities with an invalid request",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clause 5.6.17",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "5.6.17"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Batch Merge Entity With Invalid Request Scenarios"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "057_03_01 InvalidJson",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/057_03_01",
+      "doc": "Check that you cannot merge a batch of entities with an invalid request",
+      "tags": [
+        "5_6_17",
+        "be-merge",
+        "since_v1.6.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Batch Merge Entity With Invalid Request Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Request Entities From File with Response Status Code set to 400     and\n        Batch Request Entities From File with Response Body containing the type '${problem_type}'     and\n        Batch Request Entities From File with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/merge'\n        method set to 'POST'\n        Batch Entity Delete Request with operation set to 'merge', Content-Type set to 'application/ld+json', and body set to '${filename}\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/merge"
+    },
+    {
+      "name": "057_03_02 InvalidJsonLd",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/057_03_02",
+      "doc": "Check that you cannot merge a batch of entities with an invalid request",
+      "tags": [
+        "5_6_17",
+        "be-merge",
+        "since_v1.6.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Batch Merge Entity With Invalid Request Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Request Entities From File with Response Status Code set to 400     and\n        Batch Request Entities From File with Response Body containing the type '${problem_type}'     and\n        Batch Request Entities From File with Response body containing 'title' element\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/merge'\n        method set to 'POST'\n        Batch Entity Delete Request with operation set to 'merge', Content-Type set to 'application/ld+json', and body set to '${filename}\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/merge"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/BatchEntities/MergeBatchOfEntities",
+  "robotfile": "057_03"
+}
