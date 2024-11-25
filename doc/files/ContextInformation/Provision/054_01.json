@@ -1,0 +1,41 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/E/054_01",
+  "test_objective": "Check that one can replace an existing entity and that its createdAt Temporal Property remains unchanged",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clauses 5.6.18, 6.5.3.3",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "5.6.18",
+    "6.5.3.3"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Initial Entity",
+    "Delete Initial Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} \n        with an id set to ${entityId} \n}",
+  "test_cases": [
+    {
+      "name": "054_01_01 Replace an existing entity",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/054_01_01",
+      "doc": "Check that one can replace an existing entity and that its createdAt Temporal Property remains unchanged",
+      "tags": [
+        "5_6_18",
+        "6_5_3_3",
+        "e-replace",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Replace Entity Selecting Content Type with Response Status Code set to 204     and\n        Retrieve Entity by Id with Check Updated Entity and\n            Query Parameter: 'updated_resource' set to 'entity_expectation_payload' and\n            Query Parameter: 'response_body' set to 'response1.json()' and\n            Query Parameter: 'ignored_keys' set to 'ignored_attributes'     and\n        Retrieve Entity by Id with Check Response Body containing an Attribute set to and\n            Query Parameter: expected_attribute_name set to 'createdAt' and\n            Query Parameter: response_body set to 'response1.json()' and\n            Query Parameter: expected_attribute_value set to 'createdAt'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entity_id}'\n        method set to 'PUT'\n        Replace Entity Selecting Content Type and\n    Query Parameter: entity_id set to '${entity_id}' and\n    Query Parameter: entity_fragment set to '${entity}' and\n    Query Parameter: content_type set to 'application/ld+json' and\n    Query Parameter: context set to ''\n}",
+      "http_verb": "PUT",
+      "endpoint": "entities/{entity_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/Entities/ReplaceEntity",
+  "robotfile": "054_01"
+}

@@ -278,3 +278,23 @@ Update Entity Attributes
     ...    expected_status=any
     Output    ${response}    Update Entity Attributes
     RETURN    ${response}
+
+Replace Entity Selecting Content Type
+    [Arguments]
+    ...    ${entity_id}
+    ...    ${entity_fragment}
+    ...    ${content_type}
+    ...    ${context}=${EMPTY}
+    &{headers}=    Create Dictionary    Content-Type=${content_type}
+    IF    '${context}'!=''
+        Set To Dictionary
+        ...    ${headers}
+        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    END
+    ${response}=    PUT
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entity_id}
+    ...    headers=${headers}
+    ...    json=${entity_fragment}
+    ...    expected_status=any
+    Output    ${response}    Replace Entity Selecting Content Type
+    RETURN    ${response}
