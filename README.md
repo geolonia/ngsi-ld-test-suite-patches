@@ -114,7 +114,7 @@ execution of the following command in MacOS or Ubuntu:
 
 In case of Windows, you need to execute the following command:
 
-```> .\.venv\scripts\activate.bat ```
+```> .\venv\Scripts\activate.bat ```
 
 Now, you can launch the tests with the following command in MacOS or Linux:
 

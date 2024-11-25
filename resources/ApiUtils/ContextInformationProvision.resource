@@ -12,11 +12,13 @@ ${BATCH_CREATE_ENDPOINT_PATH}               entityOperations/create
 ${BATCH_DELETE_ENDPOINT_PATH}               entityOperations/delete
 ${BATCH_UPDATE_ENDPOINT_PATH}               entityOperations/update
 ${BATCH_UPSERT_ENDPOINT_PATH}               entityOperations/upsert
+${BATCH_MERGE_ENDPOINT_PATH}                entityOperations/merge
 &{BATCH_OPERATION_ENDPOINT_MAPPING}         &{EMPTY}
  ...                                        create=${BATCH_CREATE_ENDPOINT_PATH}
  ...                                        delete=${BATCH_DELETE_ENDPOINT_PATH}
  ...                                        update=${BATCH_UPDATE_ENDPOINT_PATH}
  ...                                        upsert=${BATCH_UPSERT_ENDPOINT_PATH}
+ ...                                        merge=${BATCH_MERGE_ENDPOINT_PATH}
 
 ${ENTITIES_ENDPOINT_PATH}                   entities/
 
@@ -120,6 +122,17 @@ Batch Update Entities
     ...    headers=${headers}
     ...    expected_status=any
     Output    ${response}    Batch Update Entities
+    RETURN    ${response}
+
+Batch Merge Entities
+    [Arguments]    @{entities_to_be_merged}
+    &{headers}=    Create Dictionary    Content-Type=application/ld+json
+    ${response}=    POST
+    ...    url=${url}/${BATCH_MERGE_ENDPOINT_PATH}
+    ...    json=@{entities_to_be_merged}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}    Batch Merge Entities
     RETURN    ${response}
 
 Batch Upsert Entities

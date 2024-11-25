@@ -1,0 +1,38 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/BE/057_02",
+  "test_objective": "Check that you can merge a batch of entities where some will succeed and others will fail",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.17 since.v1.6.1",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.6.17 since.v1.6.1"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Initial Entities",
+    "Delete Initial Entities"
+  ],
+  "teardown": "Delete Initial Entities",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "057_02_01 Merge a batch should succeed for existing entities and fail for non existing one by returning 207 status",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/BE/057_02_01",
+      "doc": "Check that you can merge a batch of non-existing and existing entities",
+      "tags": [
+        "5_6_17 since_v1.6.1",
+        "be-merge"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Batch Merge Entities with Response Status Code set to 207     and\n        Batch Merge Entities with Response body containing batch operation result set to '${expected_batch_operation_result}'     and\n        Query Entities with Updated Entities set to '${merged_entities}' valid entities\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entityOperations/merge'\n        method set to 'POST'\n        Request batch merge operation over entity from entities_to_be_merged '@{entities_to_be_merged}' with Content-Type set to 'application/ld+json'\n}",
+      "http_verb": "POST",
+      "endpoint": "entityOperations/merge"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Provision/BatchEntities/MergeBatchOfEntities",
+  "robotfile": "057_02"
+}
