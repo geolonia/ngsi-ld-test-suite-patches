@@ -106,6 +106,10 @@ class Requests:
                 'positions': [0, 1, 2, 3],
                 'params': ['entity_id', 'entity_fragment', 'content_type', 'context']
             },
+            'Replace Attribute Selecting Content Type': {
+                'positions': [0, 1, 2, 3, 4],
+                'params': ['entity_id', 'attr_id', 'attribute_fragment', 'content_type', 'context']
+            },
             'Append Entity Attributes': {
                 'positions': [0, 1, 2],
                 'params': ['id', 'fragment_filename', 'content_type']
@@ -316,6 +320,8 @@ class Requests:
                 Requests.delete_entity_by_id,
             'Replace Entity Selecting Content Type':
                 Requests.replace_entity_selecting_content_type,
+            'Replace Attribute Selecting Content Type':
+                Requests.replace_attribute_selecting_content_type,
             'Append Entity Attributes':
                 Requests.append_entity_attributes,
             'Update Entity Attributes':
@@ -1373,6 +1379,33 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: entity_id set to '{value}'"
                 case 'entity_fragment':
                     response = f"{response} and\n    Query Parameter: entity_fragment set to '{value}'"
+                case 'content_type':
+                    response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case _:
+                    raise Exception(f"ERROR: unexpected attribute {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
+
+        return response
+
+    @staticmethod
+    def replace_attribute_selecting_content_type(kwargs) -> str:
+        expected_parameters = ['entity_id', 'attr_id', 'attribute_fragment', 'content_type', 'context']
+
+        if 'context' not in kwargs:
+            kwargs['context'] = '${EMPTY}'
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Replace Attribute Selecting Content Type"
+        for key, value in kwargs.items():
+            match key:
+                case 'entity_id':
+                    response = f"{response} and\n    Query Parameter: entity_id set to '{value}'"
+                case 'attr_id':
+                    response = f"{response} and\n    Query Parameter: attr_id set to '{value}'"
+                case 'attribute_fragment':
+                    response = f"{response} and\n    Query Parameter: attribute_fragment set to '{value}'"
                 case 'content_type':
                     response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
                 case 'context':

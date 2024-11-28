@@ -298,3 +298,24 @@ Replace Entity Selecting Content Type
     ...    expected_status=any
     Output    ${response}    Replace Entity Selecting Content Type
     RETURN    ${response}
+
+Replace Attribute Selecting Content Type
+    [Arguments]
+    ...    ${entity_id}
+    ...    ${attr_id}
+    ...    ${attribute_fragment}
+    ...    ${content_type}
+    ...    ${context}=${EMPTY}
+    &{headers}=    Create Dictionary    Content-Type=${content_type}
+    IF    '${context}'!=''
+        Set To Dictionary
+        ...    ${headers}
+        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    END
+    ${response}=    PUT
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entity_id}/attrs/${attr_id}
+    ...    headers=${headers}
+    ...    json=${attribute_fragment}
+    ...    expected_status=any
+    Output    ${response}    Replace Attribute Selecting Content Type
+    RETURN    ${response}

@@ -27,14 +27,17 @@ ${expectation_filename}             building-locatedAt-and-name-normalized.jsonl
     ${response}=    Replace Entity Selecting Content Type
     ...    entity_id=${entity_id}
     ...    entity_fragment=${entity}
-    ...    content_type=${CONTENT_TYPE_LD_JSON}
+    ...    content_type=${CONTENT_TYPE_JSON}
+    ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
     ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
     ...    options=sysAttrs
     ${ignored_attributes}=    Create List    @context    createdAt    modifiedAt
-    ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
+    ${entity_expectation_payload}=    Load Test Sample
+    ...    test_sample_file_path=entities/expectations/${expectation_filename}
+    ...    test_sample_id=${entity_id}
     Check Updated Resource Set To
     ...    updated_resource=${entity_expectation_payload}
     ...    response_body=${response1.json()}

@@ -49,6 +49,7 @@ class GenerateRobotData:
             'EntityAttributes/AppendEntityAttributes': 'EA',
             'EntityAttributes/UpdateEntityAttributes': 'EA',
             'EntityAttributes/PartialAttributeUpdate': 'EA',
+            'EntityAttributes/ReplaceEntityAttribute': 'EA',
             'EntityAttributes/DeleteEntityAttribute': 'EA',
             'BatchEntities/CreateBatchOfEntities': 'BE',
             'BatchEntities/UpsertBatchOfEntities': 'BE',

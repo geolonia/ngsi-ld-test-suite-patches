@@ -373,7 +373,7 @@ In these cases, it is needed to provide the corresponding information in the Pyt
 - When a new permutation is added in an existing Test Case, run the documentation generation script 
   (`python doc/generateDocumentationData.py {tc_id}`) for the Test Case and copy the generated JSON file in the 
   folder containing all files for the given group and subgroup (`cp doc/results/{tc_id}.json doc/files/{group}/{subgroup}`)
-- When a new directory containing Test Cases is created, it has to be declared in `doc/generaterobotdata.py` along with
+- When a new directory containing Test Cases is created, it has to be declared in `doc/analysis/generaterobotdata.py` along with
   its acronym
 
 Finally, check that everything is OK by running the unit tests:

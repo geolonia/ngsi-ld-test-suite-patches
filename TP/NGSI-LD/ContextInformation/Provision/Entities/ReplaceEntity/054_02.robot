@@ -39,7 +39,8 @@ Replace an existing entity with a faulty ID
     ${response}=    Replace Entity Selecting Content Type
     ...    entity_id=${faulty_entity_id}
     ...    entity_fragment=${entity}
-    ...    content_type=${CONTENT_TYPE_LD_JSON}
+    ...    content_type=${CONTENT_TYPE_JSON}
+    ...    context=${ngsild_test_suite_context}
     Check Response Status Code    ${expected_status_code}    ${response.status_code}
 
 Setup Initial Entity
