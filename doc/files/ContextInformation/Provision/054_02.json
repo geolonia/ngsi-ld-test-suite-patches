@@ -31,7 +31,7 @@
       "teardown": "Delete Initial Entity",
       "template": "Replace an existing entity with a faulty ID",
       "then": "then {\n    the SUT sends a valid Response for the operation:\n        Replace Entity Selecting Content Type with Response Status Code set to 400\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entity_id}'\n        method set to 'PUT'\n        Replace Entity Selecting Content Type and\n    Query Parameter: entity_id set to 'invalidUri' and\n    Query Parameter: entity_fragment set to '${entity}' and\n    Query Parameter: content_type set to 'application/ld+json' and\n    Query Parameter: context set to ''\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entity_id}'\n        method set to 'PUT'\n        Replace Entity Selecting Content Type and\n    Query Parameter: entity_id set to 'invalidUri' and\n    Query Parameter: entity_fragment set to '${entity}' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
       "http_verb": "PUT",
       "endpoint": "entities/{entity_id}"
     },
@@ -49,7 +49,7 @@
       "teardown": "Delete Initial Entity",
       "template": "Replace an existing entity with a faulty ID",
       "then": "then {\n    the SUT sends a valid Response for the operation:\n        Replace Entity Selecting Content Type with Response Status Code set to 400\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entity_id}'\n        method set to 'PUT'\n        Replace Entity Selecting Content Type and\n    Query Parameter: entity_id set to '${EMPTY}' and\n    Query Parameter: entity_fragment set to '${entity}' and\n    Query Parameter: content_type set to 'application/ld+json' and\n    Query Parameter: context set to ''\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entity_id}'\n        method set to 'PUT'\n        Replace Entity Selecting Content Type and\n    Query Parameter: entity_id set to '${EMPTY}' and\n    Query Parameter: entity_fragment set to '${entity}' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
       "http_verb": "PUT",
       "endpoint": "entities/{entity_id}"
     },
@@ -67,7 +67,7 @@
       "teardown": "Delete Initial Entity",
       "template": "Replace an existing entity with a faulty ID",
       "then": "then {\n    the SUT sends a valid Response for the operation:\n        Replace Entity Selecting Content Type with Response Status Code set to 404\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entity_id}'\n        method set to 'PUT'\n        Replace Entity Selecting Content Type and\n    Query Parameter: entity_id set to 'urn:ngsi-ld:Building:Nonexistent' and\n    Query Parameter: entity_fragment set to '${entity}' and\n    Query Parameter: content_type set to 'application/ld+json' and\n    Query Parameter: context set to ''\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entity_id}'\n        method set to 'PUT'\n        Replace Entity Selecting Content Type and\n    Query Parameter: entity_id set to 'urn:ngsi-ld:Building:Nonexistent' and\n    Query Parameter: entity_fragment set to '${entity}' and\n    Query Parameter: content_type set to 'application/json' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
       "http_verb": "PUT",
       "endpoint": "entities/{entity_id}"
     }
