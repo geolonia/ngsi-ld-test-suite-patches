@@ -133,7 +133,7 @@ Query Entity
     ...    ${accept}=${EMPTY}
     ...    ${attrs}=${EMPTY}
     ...    ${context}=${EMPTY}
-    ...    ${geoproperty}=${EMPTY}
+    ...    ${geometryProperty}=${EMPTY}
     ...    ${options}=${EMPTY}
     ...    ${lang}=${EMPTY}
     ${attrs_length}=    Get Length    ${attrs}
@@ -151,8 +151,8 @@ Query Entity
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
     IF    ${attrs_length}>0    Set To Dictionary    ${params}    attrs=${attrs}
-    IF    '${geoproperty}'!=''
-        Set To Dictionary    ${params}    geoproperty=${geoproperty}
+    IF    '${geometryProperty}'!=''
+        Set To Dictionary    ${params}    geometryProperty=${geometryProperty}
     END
     IF    ${options_length}>0
         Set To Dictionary    ${params}    options=${options}

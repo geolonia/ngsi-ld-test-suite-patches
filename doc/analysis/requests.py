@@ -30,7 +30,7 @@ class Requests:
             },
             'Query Entity': {
                 'positions': [],
-                'params': ['id', 'accept', 'attrs', 'context', 'geoproperty', 'options', 'lang']
+                'params': ['id', 'accept', 'attrs', 'context', 'geometryProperty', 'options', 'lang']
             },
             'Retrieve Subscription': {
                 'positions': [],
@@ -768,7 +768,7 @@ class Requests:
 
     @staticmethod
     def query_entity(kwargs) -> str:
-        expected_parameters = ['id', 'accept', 'attrs', 'context', 'geoproperty', 'options', 'lang']
+        expected_parameters = ['id', 'accept', 'attrs', 'context', 'geometry_property', 'options', 'lang']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Get Entity Request:"
@@ -783,8 +783,8 @@ class Requests:
                 case 'context':
                     response = (f"{response} and\n    Query Parameter: Link set to "
                                 f"'<${value}>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'")
-                case 'geoproperty':
-                    response = f"{response} and\n    Query Parameter: geoproperty set to '{value}'"
+                case 'geometryProperty':
+                    response = f"{response} and\n    Query Parameter: geometryProperty set to '{value}'"
                 case 'options':
                     response = f"{response} and\n    Query Parameter: options set to '{value}'"
                 case 'lang':
