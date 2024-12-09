@@ -13,12 +13,12 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***
-033_02_01 Create a context source registration with invalid JSON file
-    [Documentation]    Create a context source registration with invalid JSON file
+033_02_01 Create a context source registration with invalid content
+    [Documentation]    Check that one cannot create a context source with invalid content
     [Tags]    csr-create    5_9_2
-    ${subscription_payload}=    Get File    ${EXECDIR}/data/${registration_payload_file_path}
+    ${csr_payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
     ${response}=    Create Context Source Registration
-    ...    ${subscription_payload}
+    ...    ${csr_payload}
     Check Response Status Code    400    ${response.status_code}
     Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Title When Using Session Request    ${response.json()}

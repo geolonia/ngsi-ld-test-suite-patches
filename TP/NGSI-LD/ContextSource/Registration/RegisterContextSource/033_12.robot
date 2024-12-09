@@ -32,11 +32,8 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
 
-    ${ignored_attributes}=    Create List    ${status_regex_expr}    mode    operations
-    ${expected_payload}=    Add Object To Json    ${registration_payload}    $.mode    inclusive
-    ${operations}=    Create List    federationOps
-    ${expected_payload}=    Add Object To Json    ${expected_payload}    $.operations    ${operations}
-    Check Created Resource Set To    ${expected_payload}    ${response1.json()}    ${ignored_attributes}
+    ${ignored_attributes}=    Create List    ${status_regex_expr}    mode    operations    timesSent    timesFailed
+    Check Created Resource Set To    ${registration_payload}    ${response1.json()}    ${ignored_attributes}
 
 
 *** Keywords ***

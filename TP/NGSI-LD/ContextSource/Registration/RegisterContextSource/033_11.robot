@@ -29,8 +29,10 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ...    context_source_registration_id=${registration_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    ${ignored_attributes}=    Create List    ${status_regex_expr}
-    Check Created Resource Set To    ${registration_payload}    ${response1.json()}    ${ignored_attributes}
+    Check Response Body Containing Context Source Registration element
+    ...    ${registration_payload_file_path}
+    ...    ${registration_id}
+    ...    ${response1.json()}
 
 
 *** Keywords ***

@@ -21,6 +21,7 @@ ${lastNotification_regex_expr}=             root\\['lastNotification'\\]
 ${timesFailed_regex_expr}=                  root\\['timesFailed'\\]
 ${timesSent_regex_expr}=                    root\\['timesSent'\\]
 ${is_active_expr}=                          root\\['isActive'\\]
+${context_source_ignored_regex_expr}=       root\\['@context'\\]
 
 
 *** Keywords ***
@@ -305,14 +306,24 @@ Check Response Body Containing Number Of Entities
 
 Check Response Body Containing Context Source Registration element
     [Arguments]    ${expectation_filename}    ${context_source_registration_id}    ${response_body}
-    ${context_source_registration_payload}=    Load JSON From File    ${EXECDIR}/data/${expectation_filename}
-    ${context_source_registration}=    Update Value To JSON
-    ...    ${context_source_registration_payload}
-    ...    $.id
-    ...    ${context_source_registration_id}
-    ${ignored_keys}=    Create List    ${context_regex_expr}
+    ${expectation_json}=    Load JSON From File    ${EXECDIR}/data/${expectation_filename}
+
+    ${id_dict}=    Create Dictionary    id=${context_source_registration_id}
+    ${expectation_json_with_id}=    Add Object To JSON    ${expectation_json}    $    ${id_dict}
+
+    Log To Console    context_source_registration_id
+    Log To Console    ${context_source_registration_id}
+    Log To Console    ${context_source_registration_id}
+    Log To Console    ${context_source_registration_id}
+    Log To Console    ${context_source_registration_id}
+
+    Log To Console    expectation_json_with_id
+    Log To Console    ${expectation_json_with_id}
+    Log To Console    response_body
+    Log To Console    ${response_body}
+    ${ignored_keys}=    Create List    ${context_regex_expr}    mode    operations
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
-    ...    ${context_source_registration}
+    ...    ${expectation_json_with_id}
     ...    ${response_body}
     ...    ${ignored_keys}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
