@@ -311,16 +311,6 @@ Check Response Body Containing Context Source Registration element
     ${id_dict}=    Create Dictionary    id=${context_source_registration_id}
     ${expectation_json_with_id}=    Add Object To JSON    ${expectation_json}    $    ${id_dict}
 
-    Log To Console    context_source_registration_id
-    Log To Console    ${context_source_registration_id}
-    Log To Console    ${context_source_registration_id}
-    Log To Console    ${context_source_registration_id}
-    Log To Console    ${context_source_registration_id}
-
-    Log To Console    expectation_json_with_id
-    Log To Console    ${expectation_json_with_id}
-    Log To Console    response_body
-    Log To Console    ${response_body}
     ${ignored_keys}=    Create List    ${context_regex_expr}    mode    operations
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${expectation_json_with_id}

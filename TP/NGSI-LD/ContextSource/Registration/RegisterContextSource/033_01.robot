@@ -16,18 +16,18 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***    FILENAME    HAS_MODE
-033_01_01 Create Context Source Registration With Specific Date Expiration Date
-    [Tags]    csr-create    5_9_2
-    csourceRegistrations/context-source-registration-with-expiration.jsonld
-033_01_02 Create Context Source Registration That Never Expires
+033_01_01 Create Context Source Registration Without Mode And Operation
     [Tags]    csr-create    5_9_2
     csourceRegistrations/context-source-registration.jsonld
-033_01_03 Create Context Source Registration With Non Default Mode And Operations
+033_01_02 Create Context Source Registration With Non Default Mode And Operations
     [Tags]    csr-create    5_9_2    since_v1.6.1
     csourceRegistrations/context-source-registration-with-mode-and-operations.jsonld    ${True}
-033_01_04 Create Context Source Registration With Location
+033_01_03 Create Context Source Registration With Location
     [Tags]    csr-create    5_9_2
     csourceRegistrations/context-source-registration-location.jsonld
+033_01_04 Create Context Source Registration With Specific Date Expiration Date
+    [Tags]    csr-create    5_9_2
+    csourceRegistrations/context-source-registration-with-expiration.jsonld
 
 
 *** Keywords ***
