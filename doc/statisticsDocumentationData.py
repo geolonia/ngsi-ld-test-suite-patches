@@ -197,17 +197,3 @@ if __name__ == "__main__":
     permutations_file = join(basedir, "doc", "results", "permutations.json")
     with open(permutations_file, 'w') as fp:
         json.dump(obj=permutations, indent=2, fp=fp)
-
-    # The URL of the REST endpoint of the NoSQL database
-    dburl = 'http://ec2-18-153-159-20.eu-central-1.compute.amazonaws.com:5555/fromrobot'
-    delete(dburl)
-
-    # Set the appropriate headers for JSON, if required by the endpoint
-    headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        # Include any other headers the API requires
-    }
-
-    # Make the POST request
-    response = post(dburl, data=json.dumps(permutations), headers=headers)
