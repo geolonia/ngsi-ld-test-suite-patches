@@ -1,3 +1,4 @@
+import os.path
 from os import listdir
 from os.path import isfile, isdir, dirname, abspath, join
 from colorama import Fore, Style
@@ -27,7 +28,7 @@ def find_test_data_in_tc(dir_name, filename):
         else:
             if filename in open(path).read():
                 found = True
-                print(Fore.GREEN + "    Found usage of", filename, "in", path)
+                print(Fore.GREEN + "    Found usage in", os.path.relpath(path, join(base_folder, 'TP/NGSI-LD')))
 
     return found
 
