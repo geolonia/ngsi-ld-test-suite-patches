@@ -16,7 +16,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 *** Test Cases ***
 004_07_01 Upsert a batch of three valid entities where two have the same id
     [Documentation]    Check that one can upsert a batch of where two have the same id
-    [Tags]    be-upsert    5_6_8    since_v1.5.1
+    [Tags]    be-upsert    5_6_8    5_5_11    since_v1.5.1
     ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     ${first_entity}=    Load Entity    building-minimal.jsonld    ${first_entity_id}

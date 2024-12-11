@@ -15,7 +15,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 ${filename}=                building-location-attribute.jsonld
 ${expectation_filename}=    building-geoproperty-query.jsonld
 ${entity_type}=             https://ngsi-ld-test-suite/context#Building
-${georal}=                  equals
+${georel}=                  equals
 ${geometry}=                Point
 ${coordinates}=             [13.3986, 52.5547]
 
@@ -30,7 +30,7 @@ ${coordinates}=             [13.3986, 52.5547]
     ${response}=    Query Entities
     ...    entity_types=${entity_types_to_be_retrieved}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    ...    georel=${georal}
+    ...    georel=${georel}
     ...    geometry=${geometry}
     ...    coordinates=${coordinates}
 
