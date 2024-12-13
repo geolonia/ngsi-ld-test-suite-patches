@@ -14,23 +14,25 @@ Test Template       Delete Attributes
 
 *** Variables ***
 ${status_code}=     204
-${filename}=        vehicle-two-datasetid-attributes.jsonld
+${filename}=        vehicle-speed-only-multi-instances.jsonld
 ${attribute_id}=    speed
 
 
 *** Test Cases ***    DATASETID    DELETEALL    EXPECTATION_FILENAME
 013_01_01 Delete An Attribute With The Default Instance
+    [Tags]    ea-delete    5_6_5
     ${EMPTY}    false    vehicle-delete-default-speed.jsonld
-013_01_02 Delete An Attribute With The datasetId
-    urn:ngsi-ld:Property:gpsBxyz123-speed    false    vehicle-delete-datasetid-speed.jsonld
-013_01_03 Delete All Target Attribute Instances
+013_01_02 Delete An Attribute With A Specific datasetId
+    [Tags]    ea-delete    5_6_5
+    urn:ngsi-ld:Dataset:gps    false    vehicle-delete-datasetid-speed.jsonld
+013_01_03 Delete All Attribute Instances
+    [Tags]    ea-delete    5_6_5
     ${EMPTY}    true    vehicle-delete-deleteall-speed.jsonld
 
 
 *** Keywords ***
 Delete Attributes
     [Documentation]    Check that one can delete an attribute from an entity
-    [Tags]    ea-delete    5_6_5
     [Arguments]    ${datasetId}    ${deleteAll}    ${expectation_filename}
     ${response}=    Delete Entity Attributes
     ...    entityId=${entity_id}
