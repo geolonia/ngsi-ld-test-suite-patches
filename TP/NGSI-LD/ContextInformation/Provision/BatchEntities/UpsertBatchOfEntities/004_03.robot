@@ -25,6 +25,12 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 004_03_03 EntityWithRelationshipsProperties
     [Tags]    be-upsert    5_6_8
     building-relationship-of-property.jsonld
+004_03_04 EntityWithScope
+    [Tags]    be-upsert    4_18    5_6_8
+    building-with-one-scope.jsonld
+004_03_05 EntityWithTypes
+    [Tags]    be-upsert    4_16    5_6_8
+    building-with-two-types.jsonld
 
 
 *** Keywords ***

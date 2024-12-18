@@ -102,6 +102,10 @@ class Requests:
                 'positions': [0],
                 'params': ['id']
             },
+            'Replace Entity': {
+                'positions': [0, 1, 2, 3],
+                'params': ['entity_id', 'filename', 'content_type', 'context']
+            },
             'Replace Entity Selecting Content Type': {
                 'positions': [0, 1, 2, 3],
                 'params': ['entity_id', 'entity_fragment', 'content_type', 'context']
@@ -318,6 +322,8 @@ class Requests:
                 Requests.query_entities,
             'Delete Entity by Id':
                 Requests.delete_entity_by_id,
+            'Replace Entity':
+                Requests.replace_entity,
             'Replace Entity Selecting Content Type':
                 Requests.replace_entity_selecting_content_type,
             'Replace Attribute Selecting Content Type':
@@ -1363,6 +1369,31 @@ class Requests:
     def delete_entity_by_id(kwargs) -> str:
         if 'id' in kwargs:
             return f"Delete Entity Request with id set to '{kwargs['id']}'"
+
+    @staticmethod
+    def replace_entity(kwargs) -> str:
+        expected_parameters = ['entity_id', 'filename', 'content_type', 'context']
+
+        if 'context' not in kwargs:
+            kwargs['context'] = '${EMPTY}'
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Replace Entity"
+        for key, value in kwargs.items():
+            match key:
+                case 'entity_id':
+                    response = f"{response} and\n    Query Parameter: entity_id set to '{value}'"
+                case 'filename':
+                    response = f"{response} and\n    Query Parameter: filename set to '{value}'"
+                case 'content_type':
+                    response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case _:
+                    raise Exception(f"ERROR: unexpected attribute {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
+
+        return response
 
     @staticmethod
     def replace_entity_selecting_content_type(kwargs) -> str:
