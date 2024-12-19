@@ -5,6 +5,7 @@ Library         RequestsLibrary
 Library         OperatingSystem
 Library         Collections
 Library         JSONLibrary
+Resource        ${EXECDIR}/resources/JsonUtils.resource
 
 
 *** Variables ***
@@ -277,6 +278,29 @@ Update Entity Attributes
     ...    headers=${headers}
     ...    expected_status=any
     Output    ${response}    Update Entity Attributes
+    RETURN    ${response}
+
+Replace Entity
+    [Arguments]
+    ...    ${entity_id}
+    ...    ${filename}
+    ...    ${content_type}
+    ...    ${context}=${EMPTY}
+    ${entity}=    Load Entity
+    ...    entity_file_name=${filename}
+    ...    entity_id=${entity_id}
+    &{headers}=    Create Dictionary    Content-Type=${content_type}
+    IF    '${context}'!=''
+        Set To Dictionary
+        ...    ${headers}
+        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    END
+    ${response}=    PUT
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entity_id}
+    ...    headers=${headers}
+    ...    json=${entity}
+    ...    expected_status=any
+    Output    ${response}    Replace Entity
     RETURN    ${response}
 
 Replace Entity Selecting Content Type
