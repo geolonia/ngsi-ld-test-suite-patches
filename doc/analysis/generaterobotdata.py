@@ -9,7 +9,7 @@ from re import match, findall, finditer, sub, MULTILINE
 
 class GenerateRobotData:
     def __init__(self, robot_file: str, execdir: str):
-        self.robot_file = robot_file
+        self.robot_file = robot_file.replace('\\', "/")
         self.execdir = execdir
         self.suite = TestSuiteBuilder().build(robot_file)
 
@@ -502,8 +502,8 @@ class GenerateRobotData:
         return aux
 
     def generate_name(self):
-        base_dir = dirname(dirname(dirname(__file__)))
-        tp_id = str(self.suite.source.parent).replace(f'{base_dir}/', "")
+        base_dir = dirname(dirname(dirname(__file__))).replace('\\', "/")
+        tp_id = str(self.suite.source.parent).replace('\\', "/").replace(f'{base_dir}/', "")
 
         for key, value in self.identifier.items():
             tp_id = tp_id.replace(key, value)
