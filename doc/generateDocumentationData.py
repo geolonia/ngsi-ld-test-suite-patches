@@ -7,8 +7,7 @@ from os import makedirs, walk
 
 def create_json_of_robotfile(robot_file_to_be_processed: str, computestatistics: bool=False):
     # TODO: ApiUtils.resource -> 'Delete Context Source Registration Subscription' added 'url=' as parameter
-    folder_test_suites = dirname(dirname(__file__))
-
+    folder_test_suites = dirname(dirname(__file__)).replace('\\', "/")
     folder_result_path = f'{folder_test_suites}/doc/results'
     result_file = f'{folder_result_path}/{robot_file_to_be_processed}.json'
     robot_path_to_be_processed, robot_file = find_robot_file(basedir=folder_test_suites,

@@ -9,7 +9,7 @@ from re import match, findall, finditer, sub, MULTILINE
 
 class GenerateRobotData:
     def __init__(self, robot_file: str, execdir: str):
-        self.robot_file = robot_file
+        self.robot_file = robot_file.replace('\\', "/")
         self.execdir = execdir
         self.suite = TestSuiteBuilder().build(robot_file)
 
