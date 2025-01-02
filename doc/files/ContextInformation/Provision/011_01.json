@@ -63,6 +63,22 @@
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-two-datasetid-03-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
       "http_verb": "PATCH",
       "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    },
+    {
+      "name": "011_01_04 Check that one can change the type of an existing attribute",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/011_01_04",
+      "doc": "Check that one can update entity attributes",
+      "tags": [
+        "ea-update",
+        "5_6_2"
+      ],
+      "setup": "Initialize Test",
+      "teardown": "Delete Initial Entities",
+      "template": "Update Attributes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Check Updated Entity and\n            Query Parameter: 'updated_resource' set to 'entity_expectation_payload' and\n            Query Parameter: 'response_body' set to 'response1.json()' and\n            Query Parameter: 'ignored_keys' set to 'ignored_attributes'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-two-datasetid-04-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
     }
   ],
   "permutations": [

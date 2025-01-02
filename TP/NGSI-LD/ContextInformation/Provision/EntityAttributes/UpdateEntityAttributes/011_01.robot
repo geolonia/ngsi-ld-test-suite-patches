@@ -23,6 +23,8 @@ ${filename}=                vehicle-two-datasetid-attributes.jsonld
     204    vehicle-speed-two-datasetid-02-fragment.jsonld    expectations/vehicle-update-datasetid-attributes.jsonld
 011_01_03 Check that one can update existing attributes and append non-existing attributes
     204    vehicle-speed-two-datasetid-03-fragment.jsonld    expectations/vehicle-multi-attributes.jsonld
+011_01_04 Check that one can change the type of an existing attribute
+    204    vehicle-speed-two-datasetid-04-fragment.jsonld    expectations/vehicle-update-attributes-new-attribute-type.jsonld
 
 
 *** Keywords ***
