@@ -137,7 +137,7 @@ class ParseRobotFile:
         for k in keys:
             aux = data[k]
             aux = aux.split('\n')[1:]
-            aux = [x.strip() for x in aux if x.find("[Tags]") == -1][0]
+            aux = [x.strip() for x in aux if x.find("[Tags]") == -1 and x.find("[Documentation]") == -1][0]
             aux = aux.split("    ")
 
             result = [{f"${{{k}}}": v} for k, v in zip(params, aux)]
