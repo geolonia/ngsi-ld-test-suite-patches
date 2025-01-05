@@ -1,0 +1,186 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/019_09",
+  "test_objective": "Check that one can query several entities based on q",
+  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.2",
+  "config_id": "",
+  "parent_release": "v1.3.1",
+  "clauses": [
+    "5.7.2"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Query several entities based on q",
+    "Setup Initial Entities",
+    "Delete Entities"
+  ],
+  "teardown": "Delete Entities",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "019_09_01 QueryOnName",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_09_01",
+      "doc": "Check that one can query several entities based on ids",
+      "tags": [
+        "5_7_2",
+        "e-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on q",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Header: NGSILD-Results-Count equals to 1\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: q set to 'name==\"Eiffel Tower\"' and\n    Query Parameter: count set to '${true}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_09_02 QueryOnNameAndAlmostFullFalse",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_09_02",
+      "doc": "Check that one can query several entities based on ids",
+      "tags": [
+        "5_7_2",
+        "e-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on q",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Header: NGSILD-Results-Count equals to 1\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: q set to 'name==\"Pisa Tower\";almostFull==false' and\n    Query Parameter: count set to '${true}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_09_03 QueryOnNameAndAlmostFullFalse",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_09_03",
+      "doc": "Check that one can query several entities based on ids",
+      "tags": [
+        "5_7_2",
+        "e-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on q",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Header: NGSILD-Results-Count equals to 1\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: q set to 'name==\"Pisa Tower\";almostFull==false' and\n    Query Parameter: count set to '${true}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_09_04 QueryOnNameOrAlmostFullFalse",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_09_04",
+      "doc": "Check that one can query several entities based on ids",
+      "tags": [
+        "5_7_2",
+        "e-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on q",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Header: NGSILD-Results-Count equals to 3\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: q set to 'name==\"Pisa Tower\"|almostFull==false' and\n    Query Parameter: count set to '${true}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_09_05 QueryOnNamesAndAlmostFullFalse",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_09_05",
+      "doc": "Check that one can query several entities based on ids",
+      "tags": [
+        "5_7_2",
+        "e-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on q",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Header: NGSILD-Results-Count equals to 2\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: q set to '(name==\"Pisa Tower\"|name==\"Eiffel Tower\");almostFull==false' and\n    Query Parameter: count set to '${true}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_09_06 QueryOnAirQualityLevel",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_09_06",
+      "doc": "Check that one can query several entities based on ids",
+      "tags": [
+        "5_7_2",
+        "e-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on q",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Header: NGSILD-Results-Count equals to 1\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: q set to 'airQualityLevel==4' and\n    Query Parameter: count set to '${true}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_09_07 QueryOnAirQualityLevelRange",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_09_07",
+      "doc": "Check that one can query several entities based on ids",
+      "tags": [
+        "5_7_2",
+        "e-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on q",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Header: NGSILD-Results-Count equals to 2\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: q set to 'airQualityLevel>=4;airQualityLevel<7' and\n    Query Parameter: count set to '${true}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_09_08 QueryOnLocatedInExisting",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_09_08",
+      "doc": "Check that one can query several entities based on ids",
+      "tags": [
+        "5_7_2",
+        "e-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on q",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Header: NGSILD-Results-Count equals to 1\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: q set to 'locatedIn==urn:ngsi-ld:City:Pisa' and\n    Query Parameter: count set to '${true}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_09_09 QueryOnLocatedInNonExisting",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_09_09",
+      "doc": "Check that one can query several entities based on ids",
+      "tags": [
+        "5_7_2",
+        "e-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on q",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Header: NGSILD-Results-Count equals to 0\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: q set to 'locatedIn==urn:ngsi-ld:City:Paris' and\n    Query Parameter: count set to '${true}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_09_10 QueryOnLocatedInTwoCities",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_09_10",
+      "doc": "Check that one can query several entities based on ids",
+      "tags": [
+        "5_7_2",
+        "e-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Query several entities based on q",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Header: NGSILD-Results-Count equals to 1\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: q set to 'locatedIn==urn:ngsi-ld:City:Pisa|locatedIn==urn:ngsi-ld:City:Paris' and\n    Query Parameter: count set to '${true}' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [
+    "then",
+    "when"
+  ],
+  "robotpath": "ContextInformation/Consumption/Entity/QueryEntities",
+  "robotfile": "019_09"
+}
