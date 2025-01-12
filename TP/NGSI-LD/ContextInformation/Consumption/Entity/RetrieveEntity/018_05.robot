@@ -26,6 +26,9 @@ ${filename}=                building-two-geometry-attributes.jsonld
 018_05_03 with geometryProperty
     [Tags]    e-retrieve    6_3_7
     ${EMPTY}    observationSpace    building-two-geometry-property-on-observation-space.geojson
+018_05_04 with nonexistent geometryProperty
+    [Tags]    e-retrieve    6_3_7
+    ${EMPTY}    operationSpace    building-two-geometry-property-on-nonexistent-operation-space.geojson
 
 
 *** Keywords ***
@@ -39,7 +42,10 @@ Retrieve Entity In GeoJSON Representation
     ...    context=${ngsild_test_suite_context}
     ...    geometryProperty=${geometry_property}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response.json()}
+    Check Response Body Containing Entity element
+    ...    expectation_filename=${expectation_filename}
+    ...    entity_id=${entity_id}
+    ...    response_body=${response.json()}
 
 Create Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
