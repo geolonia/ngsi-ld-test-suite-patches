@@ -1,6 +1,7 @@
 import os
 from os.path import dirname
 import json
+from os.path import dirname
 
 
 class InitialSetup:
@@ -39,7 +40,12 @@ class InitialSetup:
             'Create initial ImplicitlyCreated @context': InitialSetup.create_implictlycreated_context(),
             'Create Initial hosted @context': InitialSetup.create_hosted_context(),
             'Create Initial @context condition from an external server': InitialSetup.create_from_external_server(),
-            'Delete core context and reload it': InitialSetup.delete_core_context()
+            'Delete core context and reload it': InitialSetup.delete_core_context(),
+            'Setup Entities And Registration': InitialSetup.init_entities_and_csr(),
+            'Setup Entity Id And Registration': InitialSetup.init_eid_and_csr(),
+            'Setup Entity On Remote And Registration': InitialSetup.init_remote_entity_and_csr(),
+            'Setup Entity On Local And Registration': InitialSetup.init_local_entity_and_csr(),
+            'Create Entities With Different Payloads And Registration': InitialSetup.init_diff_entities_and_csr()
         }
 
         self.folder_test_suites = dirname(dirname(dirname(__file__)))
@@ -247,6 +253,72 @@ class InitialSetup:
     the SUT containing a core context and it has been deleted with reload set to true.
                 }'''
         return data
+    
+    @staticmethod
+    def init_entities_and_csr() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing an initial Entity ${entity} on both the Context Broker and Context Source
+        with an id set to ${entity_id}
+        and payload set to ${entity_payload_filename}
+    and the SUT containing a Context Source Registration 
+        with id equal to ${registration_id}
+        and payload set to ${registration_payload_file_path}
+}'''
+        return data
+    
+    @staticmethod
+    def init_eid_and_csr() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing an initial Entity id set to ${entity_id}
+    and the SUT containing a Context Source Registration 
+        with id equal to ${registration_id}
+        and payload set to ${registration_payload_file_path}
+}'''
+        return data
+    
+    @staticmethod
+    def init_remote_entity_and_csr() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing an initial Entity ${entity} on the Context Source
+        with an id set to ${entity_id}
+        and payload set to ${entity_payload_filename}
+    and the SUT containing a Context Source Registration 
+        with id equal to ${registration_id}
+        and payload set to ${registration_payload_file_path}
+}'''
+        return data
+    
+    @staticmethod
+    def init_local_entity_and_csr() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing an initial Entity ${entity} on the Context Broker
+        with an id set to ${entity_id}
+        and payload set to ${entity_payload_filename}
+    and the SUT containing a Context Source Registration 
+        with id equal to ${registration_id}
+        and payload set to ${registration_payload_file_path}
+}'''
+        return data
+    
+    @staticmethod
+    def init_diff_entities_and_csr() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing an initial Entity ${entity} on the Context Broker
+        with an id set to ${entity_id}
+        and payload set to ${entity_payload_filename}
+    and the SUT containing an initial Entity ${entity} on the Context Source
+        with an id set to ${entity_id}
+        and payload set to ${entity_payload_filename2}
+    and the SUT containing a Context Source Registration 
+        with id equal to ${registration_id}
+        and payload set to ${registration_payload_file_path}
+}'''
+        return data
 
     def get_property_values(self, root_folder: str, property_name: str) -> [str, str]:
         robot_files_without_setup = list()
@@ -305,7 +377,7 @@ class InitialSetup:
             print()
 
     def generate_dictionaries(self):
-        folder = f'{self.folder_test_suites}/doc/files'
+        folder = os.path.join(self.folder_test_suites, 'doc', 'files')
         attribute = "setup"
 
         self.files_with_setup, self.files_without_setup = self.get_property_values(folder, attribute)

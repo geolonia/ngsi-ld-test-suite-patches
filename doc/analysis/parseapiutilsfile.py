@@ -28,7 +28,7 @@ class ParseApiUtilsFile:
 
                 if match:
                     verb = match.groups()[0]
-            elif 'url' in item:
+            if 'url' in item:
                 url, query_param = self.get_url_request(url=item)
 
         return verb, url, query_param
@@ -44,7 +44,10 @@ class ParseApiUtilsFile:
         if 'response' in url:
             url = [x for x in url.split('    ') if 'url' in x][0]
 
-        regex = r"\s*\.*\s*url=\$\{url\}\/(.*)"
+        if 'base_url' not in url:
+            regex = r"\s*\.*\s*url=\$\{url\}\/(.*)"
+        else:
+            regex = r"\s*\.*\s*url=\$\{base_url\}\/(.*)"
 
         match = re.match(pattern=regex, string=url)
         if match:

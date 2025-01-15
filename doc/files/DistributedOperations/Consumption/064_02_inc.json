@@ -1,0 +1,38 @@
+{
+  "tp_id": "TP/NGSI-LD/DistributedOperations/Cons/E/064_02_Inc",
+  "test_objective": "Verify that, when one has an inclusive registration on a Context Broker and an entity only on a Context Source, if one queries the Context Broker with local flag entity not found error is raised",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clause 5.7.2",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "5.7.2"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Entity On Remote And Registration",
+    "Delete Created Entity And Registration"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} on the Context Source\n        with an id set to ${entity_id}\n        and payload set to ${entity_payload_filename}\n    and the SUT containing a Context Source Registration \n        with id equal to ${registration_id}\n        and payload set to ${registration_payload_file_path}\n}",
+  "test_cases": [
+    {
+      "name": "064_02_inc Query The Context Broker With Local Flag",
+      "permutation_tp_id": "TP/NGSI-LD/DistributedOperations/Cons/E/064_02_inc",
+      "doc": "Check that if one queries with the local flag, no entity from Context Source gets returned",
+      "tags": [
+        "5_7_2",
+        "additive-inclusive",
+        "dist-ops",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Entity On Remote And Registration",
+      "teardown": "Delete Created Entity And Registration",
+      "template": null,
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "DistributedOperations/Consumption/Entity/QueryEntities",
+  "robotfile": "064_02_inc"
+}

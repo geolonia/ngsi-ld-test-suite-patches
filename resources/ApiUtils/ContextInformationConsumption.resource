@@ -26,6 +26,7 @@ ${response}                                 ${EMPTY}
 *** Keywords ***
 Query Entities
     [Arguments]
+    ...    ${base_url}=${url}
     ...    ${entity_ids}=${EMPTY}
     ...    ${entity_types}=${EMPTY}
     ...    ${accept}=${EMPTY}
@@ -41,6 +42,7 @@ Query Entities
     ...    ${geometry}=${EMPTY}
     ...    ${count}=${EMPTY}
     ...    ${q}=${EMPTY}
+    ...    ${local}=${EMPTY}
     ${attrs_length}=    Get Length    ${attrs}
     ${accept_length}=    Get Length    ${accept}
     ${options_length}=    Get Length    ${options}
@@ -83,9 +85,9 @@ Query Entities
     END
     IF    '${count}'!=''    Set To Dictionary    ${params}    count=${count}
     IF    '${q}'!=''    Set To Dictionary    ${params}    q=${q}
-
+    IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
     ${response}=    GET
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    url=${base_url}/${ENTITIES_ENDPOINT_PATH}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
@@ -209,7 +211,7 @@ Retrieve Attributes
     RETURN    ${response}
 
 Retrieve Entity by Id
-    [Arguments]    ${id}    ${accept}=${CONTENT_TYPE_LD_JSON}    ${context}=${EMPTY}    ${options}=${EMPTY}
+    [Arguments]    ${id}    ${accept}=${CONTENT_TYPE_LD_JSON}    ${context}=${EMPTY}    ${local}=${EMPTY}    ${options}=${EMPTY}
     ${headers}=    Create Dictionary
     &{params}=    Create Dictionary
     ${options_length}=    Get Length    ${options}
@@ -219,6 +221,7 @@ Retrieve Entity by Id
         ...    ${headers}
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
+    IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}    
     IF    ${options_length}>0
         Set To Dictionary    ${params}    options=${options}
     END

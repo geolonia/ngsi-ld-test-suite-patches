@@ -148,12 +148,12 @@ Batch Upsert Entities
     RETURN    ${response}
 
 Create Entity
-    [Arguments]    ${filename}    ${entity_id}
+    [Arguments]    ${filename}    ${entity_id}    ${base_url}=${url}
     ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/${filename}
     ${entity}=    Update Value To JSON    ${entity_payload}    $..id    ${entity_id}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    url=${base_url}/${ENTITIES_ENDPOINT_PATH}
     ...    json=${entity}
     ...    headers=${headers}
     ...    expected_status=any
@@ -235,9 +235,9 @@ Delete Entity Attributes
     RETURN    ${response}
 
 Delete Entity by Id
-    [Arguments]    ${id}
+    [Arguments]    ${id}    ${base_url}=${url}
     ${response}=    DELETE
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}
+    ...    url=${base_url}/${ENTITIES_ENDPOINT_PATH}${id}
     ...    expected_status=any
     Output    ${response}    Delete Entity by Id
     RETURN    ${response}
