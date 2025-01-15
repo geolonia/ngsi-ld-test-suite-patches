@@ -4,3 +4,4 @@ results
 *.http
 .vscode/
 .venv
+.DS_Store

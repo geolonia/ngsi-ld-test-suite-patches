@@ -3,6 +3,7 @@ Variables       ${EXECDIR}/resources/variables.py
 Library         ${EXECDIR}/libraries/logUtils.py
 Library         Collections
 Library         OperatingSystem
+Library         JSONLibrary
 Library         RequestsLibrary
 
 
@@ -19,6 +20,34 @@ ${response}                                     ${EMPTY}
 
 
 *** Keywords ***
+Prepare Context Source Registration From File
+    [Arguments]    ${id}    ${registration_file}    ${entity_id}=${EMPTY}    ${mode}=${EMPTY}
+    
+    ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_file}
+    ${registration_payload}=    Update Value To JSON
+    ...    ${payload}
+    ...    $.id
+    ...    ${id}
+    ${registration_payload}=    Update Value To JSON
+    ...    ${registration_payload}
+    ...    $..endpoint
+    ...    ${context_source_endpoint}
+    IF    '${entity_id}' != ''
+        ${dict}=    Create Dictionary    id=${entity_id}
+        ${registration_payload}=    Add Object To JSON
+        ...    ${registration_payload}
+        ...    $..entities[*]
+        ...    ${dict}
+    END
+    IF    '${mode}' != ''    
+        ${dict}=    Create Dictionary    mode=${mode}
+        ${registration_payload}=    Add Object To JSON
+        ...    ${registration_payload}
+        ...    $
+        ...    ${dict}
+    END
+    RETURN    ${registration_payload}
+
 Create Context Source Registration
     [Arguments]    ${context_source_registration_payload}
 

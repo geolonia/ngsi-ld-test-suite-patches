@@ -11,6 +11,10 @@ context_server_host = '0.0.0.0'
 context_server_port = 8087
 core_context = 'https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld'
 
+#DistOps variables
+remote_url = 'http://localhost:8081/ngsi-ld/v1'
+context_source_endpoint  = 'http://localhost:8081'
+
 # GitHub repository details
 # github_owner = 'your_github_username'
 # github_broker_repo = 'context_broker_repository'

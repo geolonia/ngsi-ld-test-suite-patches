@@ -1,0 +1,38 @@
+{
+  "tp_id": "TP/NGSI-LD/DistributedOperations/Cons/E/064_01_05_Inc",
+  "test_objective": "Verify that, when one has an inclusive registration on a Context Broker, entities with same id on the Context Broker and on a Context Source, if one queries the Context Broker the query gets forwarded to the Context Source correctly",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clause 5.7.2",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "5.7.2"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Entities With Different Payloads And Registration",
+    "Delete Created Entities And Registration"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} on the Context Broker\n        with an id set to ${entity_id}\n        and payload set to ${entity_payload_filename}\n    and the SUT containing an initial Entity ${entity} on the Context Source\n        with an id set to ${entity_id}\n        and payload set to ${entity_payload_filename2}\n    and the SUT containing a Context Source Registration \n        with id equal to ${registration_id}\n        and payload set to ${registration_payload_file_path}\n}",
+  "test_cases": [
+    {
+      "name": "064_01_05_inc Query The Context Broker With Type",
+      "permutation_tp_id": "TP/NGSI-LD/DistributedOperations/Cons/E/064_01_05_inc",
+      "doc": "Check that entities on the Context Broker and Context Source with the same id get merged and returned as one entity",
+      "tags": [
+        "5_7_2",
+        "additive-inclusive",
+        "dist-ops",
+        "since_v1.6.1"
+      ],
+      "setup": "Create Entities With Different Payloads And Registration",
+      "teardown": "Delete Created Entities And Registration",
+      "template": null,
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "DistributedOperations/Consumption/Entity/QueryEntities",
+  "robotfile": "064_01_05_inc"
+}

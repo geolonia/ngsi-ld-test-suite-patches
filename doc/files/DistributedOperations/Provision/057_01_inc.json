@@ -1,0 +1,38 @@
+{
+  "tp_id": "TP/NGSI-LD/DistributedOperations/Prov/EA/057_01_Inc",
+  "test_objective": "Verify that, when one has an inclusive registration on a Context Broker with redirectionOps, one is able to update entities on a Context Source",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clause 5.6.2",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "5.6.2"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Entity On Remote And Registration",
+    "Delete Created Entity And Registration"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} on the Context Source\n        with an id set to ${entity_id}\n        and payload set to ${entity_payload_filename}\n    and the SUT containing a Context Source Registration \n        with id equal to ${registration_id}\n        and payload set to ${registration_payload_file_path}\n}",
+  "test_cases": [
+    {
+      "name": "057_01_inc Query The Context Broker With Type",
+      "permutation_tp_id": "TP/NGSI-LD/DistributedOperations/Prov/EA/057_01_inc",
+      "doc": "Check that if one request the Context Broker to update an entity that matches an inclusive registration, this is updated on the Context Source too",
+      "tags": [
+        "5_6_2",
+        "additive-inclusive",
+        "dist-ops",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Entity On Remote And Registration",
+      "teardown": "Delete Created Entity And Registration",
+      "template": null,
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "DistributedOperations/Provision/EntityAttributes/UpdateEntityAttributes",
+  "robotfile": "057_01_inc"
+}
