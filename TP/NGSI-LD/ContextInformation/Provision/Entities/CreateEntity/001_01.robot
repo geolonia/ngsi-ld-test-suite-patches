@@ -27,6 +27,9 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 001_01_04 EntityWithLocationAttribute
     [Tags]    e-create    5_6_1
     building-location-attribute.jsonld    application/ld+json
+001_01_05 EntityWithNonCoreGeoProperty
+    [Tags]    e-create    5_6_1
+    building-non-core-geoproperty-attribute.jsonld    application/ld+json
 
 
 *** Keywords ***
