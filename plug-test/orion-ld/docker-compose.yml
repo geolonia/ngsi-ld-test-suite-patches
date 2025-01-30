@@ -2,22 +2,22 @@ version: "3.5"
 services:
   orion:
     image: fiware/orion-ld
-    hostname: orion
-    container_name: fiware-orion
+    hostname: orion${SUFFIX}
+    container_name: fiware-orion${SUFFIX}
     expose:
       - "1026"
     ports:
-      - "8092:1026"
+      - "${PORT}:1026"
+
     depends_on:
       - mongo-db
-    command: -dbhost mongo-db -logLevel DEBUG -mongocOnly -wip entityMaps
-
+    command: -dbhost mongo-db${SUFFIX} -logLevel DEBUG -mongocOnly -wip entityMaps -forwarding
   mongo-db:
     image: mongo:3.6
-    hostname: mongo-db
-    container_name: db-mongo
+    hostname: mongo-db${SUFFIX}
+    container_name: db-mongo${SUFFIX}
     ports:
-      - "27017:27017"
+      - "${DB_PORT}:27017"
     networks:
       - default
     command: --nojournal
