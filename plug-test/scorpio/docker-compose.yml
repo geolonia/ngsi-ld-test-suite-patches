@@ -1,82 +1,22 @@
 version: '3'
 
 services:
-  broker1:
+  scorpio:
     image: scorpiobroker/all-in-one-runner:java-latest
+    container_name: scorpio${SUFFIX}
+    hostname: scorpio${SUFFIX}
     environment:
-      DBHOST: postgres1
+      DBHOST: scorpio-database${SUFFIX}
     ports:
-      - "8090:9090"
+      - "${PORT}:9090"
     depends_on:
-      - postgres1
-  postgres1:
+      - postgres
+  postgres:
     image: postgis/postgis
+    hostname: scorpio-database${SUFFIX}
+    container_name: scorpio-database${SUFFIX}
     ports:
-      - "5432"
-    environment:
-      POSTGRES_USER: ngb
-      POSTGRES_PASSWORD: ngb
-      POSTGRES_DB: ngb
-  broker2:
-    image: scorpiobroker/all-in-one-runner:java-latest
-    environment:
-      DBHOST: postgres2
-    ports:
-      - "8091:9090"
-    depends_on:
-      - postgres2
-  postgres2:
-    image: postgis/postgis
-    ports:
-      - "5432"
-    environment:
-      POSTGRES_USER: ngb
-      POSTGRES_PASSWORD: ngb
-      POSTGRES_DB: ngb
-  broker3:
-    image: scorpiobroker/all-in-one-runner:java-latest
-    environment:
-      DBHOST: postgres3
-    ports:
-      - "8092:9090"
-    depends_on:
-      - postgres3
-  postgres3:
-    image: postgis/postgis
-    ports:
-      - "5432"
-    environment:
-      POSTGRES_USER: ngb
-      POSTGRES_PASSWORD: ngb
-      POSTGRES_DB: ngb
-  broker4:
-    image: scorpiobroker/all-in-one-runner:java-latest
-    environment:
-      DBHOST: postgres4
-    ports:
-      - "8093:9090"
-    depends_on:
-      - postgres4
-  postgres4:
-    image: postgis/postgis
-    ports:
-      - "5432"
-    environment:
-      POSTGRES_USER: ngb
-      POSTGRES_PASSWORD: ngb
-      POSTGRES_DB: ngb
-  broker5:
-    image: scorpiobroker/all-in-one-runner:java-latest
-    environment:
-      DBHOST: postgres5
-    ports:
-      - "8094:9090"
-    depends_on:
-      - postgres5
-  postgres5:
-    image: postgis/postgis
-    ports:
-      - "5432"
+      - "${DB_PORT}:5432"
     environment:
       POSTGRES_USER: ngb
       POSTGRES_PASSWORD: ngb
