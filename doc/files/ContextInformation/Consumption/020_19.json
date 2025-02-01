@@ -1,0 +1,44 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/TE/020_19",
+  "test_objective": "Check that one can retrieve the temporal evolution of a scope following the deletedAt temporal property",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clauses 4.18, 5.7.3, 6.19.3.1",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "4.18",
+    "5.7.3",
+    "6.19.3.1"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Delete Temporal Attribute and Retrieve Temporal Evolution of Attribute",
+    "Create Temporal Entity",
+    "Delete Initial Temporal Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Temporal Entity ${entity} \n        with an id set to ${temporal_entity_representation_id} \n}",
+  "test_cases": [
+    {
+      "name": "020_19_01 With a Scope",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/020_19_01",
+      "doc": "Check that one can retrieve the temporal evolution of a scope following the deletedAt temporal property",
+      "tags": [
+        "4_18",
+        "5_7_3",
+        "6_19_3_1",
+        "since_v1.6.1",
+        "te-retrieve"
+      ],
+      "setup": "Create Temporal Entity",
+      "teardown": "Delete Initial Temporal Entity",
+      "template": "Delete Temporal Attribute and Retrieve Temporal Evolution of Attribute",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Retrieve Temporal Representation Of Entity with Response Status Code set to 200     and\n        Retrieve Temporal Representation Of Entity with Response Body containing EntityTemporal element containing attribute instances in the time range specified by the NGSI-LD temporal query:\n            * the payload is defined in the file set to 'vehicle-temporal-representation-property-020-19.jsonld'\n            * the id was changed to 'temporal_entity_representation_id=${temporal_entity_representation_id}'\n            * response body to be checked set to 'response_body=${response2.json()}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}?${params_as_string}'\n        method set to 'DELETE'\n        Delete Entity Attributes: and\n    Query Parameter: entityId set to '${temporal_entity_representation_id}' and\n    Query Parameter: attributeId set to 'scope' and\n    Query Parameter: datasetId set to '${EMPTY}' and\n    Query Parameter: deleteAll set to 'false' and\n    Query Parameter: context set to 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}?${params_as_string}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity",
+  "robotfile": "020_19"
+}

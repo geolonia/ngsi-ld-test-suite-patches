@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       If a Subscription does not define a timeInterval member, the notification shall be sent whenever an entity matches the query defined in the subscription. The notification message shall include all the subscribed Entities that changed and that match (as mandated by clauses 4.9 and 4.10) the query and geoquery conditions
+Documentation       Check that a notification is sent when an entity is created and entityCreated notification trigger is configured
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
@@ -13,7 +13,7 @@ Suite Teardown      Delete Server And Subscriptions
 
 *** Variables ***
 ${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
-${subscription_payload_file_path}=      subscriptions/subscription-building-entities-active-query.jsonld
+${subscription_payload_file_path}=      subscriptions/subscription-building-entities-entityCreated.jsonld
 ${building_id_prefix}=                  urn:ngsi-ld:Building:
 ${building_filename}=                   building-location-attribute.jsonld
 ${notification_server_send_url}=        http://${notification_server_host}:${notification_server_port}/notify
@@ -21,8 +21,8 @@ ${notification_server_send_url}=        http://${notification_server_host}:${not
 
 *** Test Cases ***
 046_06_01 Check that a notification is sent with all matching entities
-    [Documentation]    only the subscribed Entities matching the query and watched attributes shall be included.
-    [Tags]    sub-notification    5_8_6
+    [Documentation]    Check that a notification is sent when an entity is created and entityCreated notification trigger is configured
+    [Tags]    sub-notification    5_8_6    since_v1.6.1
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Suite Variable    ${entity_id}
 

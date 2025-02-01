@@ -14,5 +14,9 @@
          "accept":"application/json"
       }
    },
-   "status": "active"
+   "status": "active",
+   "notificationTrigger": [
+      "attributeCreated",
+      "attributeUpdated"
+   ]
 }

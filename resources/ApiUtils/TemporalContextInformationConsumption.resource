@@ -198,6 +198,7 @@ Retrieve Temporal Representation Of Entity
     ...    ${accept}=${EMPTY}
     ...    ${aggrMethods}=${EMPTY}
     ...    ${aggrPeriodDuration}=${EMPTY}
+    ...    ${timeproperty}=${EMPTY}
     ${attrs_length}=    Get Length    ${attrs}
     ${options_length}=    Get Length    ${options}
     &{headers}=    Create Dictionary
@@ -226,6 +227,9 @@ Retrieve Temporal Representation Of Entity
     END
     IF    '${aggrPeriodDuration}'!=''
         Set To Dictionary    ${params}    aggrPeriodDuration=${aggrPeriodDuration}
+    END
+    IF    '${timeproperty}'!=''
+        Set To Dictionary    ${params}    timeproperty=${timeproperty}
     END
 
     ${response}=    GET

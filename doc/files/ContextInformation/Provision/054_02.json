@@ -54,7 +54,7 @@
       "endpoint": "entities/{entity_id}"
     },
     {
-      "name": "054_02_03 Replace an existing entity giving a nonexsitent Id",
+      "name": "054_02_03 Replace an existing entity giving a nonexistent Id",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/054_02_03",
       "doc": "Check that if the target entity ID is faulty an error is raised",
       "tags": [

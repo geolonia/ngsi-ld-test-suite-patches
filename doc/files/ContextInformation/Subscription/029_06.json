@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CI/SUB/029_06",
-  "test_objective": "Check that you can update a subscription: The implementation shall modify the target Subscription",
+  "test_objective": "Check that one can update a subscription: The implementation shall modify the target Subscription",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.2",
   "config_id": "",
   "parent_release": "v1.3.1",
@@ -18,7 +18,7 @@
     {
       "name": "029_06_01 Update Subscription",
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/029_06_01",
-      "doc": "Check that you can update a subscription: The implementation shall modify the target Subscription",
+      "doc": "Check that one can update a subscription: The implementation shall modify the target Subscription",
       "tags": [
         "5_8_2",
         "sub-update"

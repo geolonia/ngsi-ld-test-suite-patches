@@ -96,7 +96,7 @@ class Requests:
                 'positions': [],
                 'params': ['temporal_entity_representation_id', 'attrs', 'options',
                            'context', 'timerel', 'timeAt', 'endTimeAt', 'lastN', 'accept',
-                           'aggrMethods', 'aggrPeriodDuration']
+                           'aggrMethods', 'aggrPeriodDuration', 'timeproperty']
             },
             'Delete Entity by Id': {
                 'positions': [0],
@@ -109,6 +109,10 @@ class Requests:
             'Replace Entity Selecting Content Type': {
                 'positions': [0, 1, 2, 3],
                 'params': ['entity_id', 'entity_fragment', 'content_type', 'context']
+            },
+            'Merge Entity': {
+                'positions': [0, 1, 2, 3],
+                'params': ['entity_id', 'entity_filename', 'content_type', 'context']
             },
             'Replace Attribute Selecting Content Type': {
                 'positions': [0, 1, 2, 3, 4],
@@ -326,6 +330,8 @@ class Requests:
                 Requests.replace_entity,
             'Replace Entity Selecting Content Type':
                 Requests.replace_entity_selecting_content_type,
+            'Merge Entity':
+                Requests.merge_entity,
             'Replace Attribute Selecting Content Type':
                 Requests.replace_attribute_selecting_content_type,
             'Append Entity Attributes':
@@ -1185,7 +1191,7 @@ class Requests:
     def retrieve_temporal_representation_of_entity(kwargs) -> str:
         expected_parameters = ['temporal_entity_representation_id', 'attrs', 'options',
                                'context', 'timerel', 'timeAt', 'endTimeAt', 'lastN', 'accept',
-                               'aggrMethods', 'aggrPeriodDuration']
+                               'aggrMethods', 'aggrPeriodDuration', 'timeproperty']
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Retrieve Temporal Representation of Entity"
         for key, value in kwargs.items():
@@ -1214,6 +1220,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: aggrMethods set to '{value}'"
                 case 'aggrPeriodDuration':
                     response = f"{response} and\n    Query Parameter: aggrPeriodDuration set to '{value}'"
+                case 'timeproperty':
+                    response = f"{response} and\n    Query Parameter: timeproperty set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case _:
                     raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
@@ -1410,6 +1418,31 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: entity_id set to '{value}'"
                 case 'entity_fragment':
                     response = f"{response} and\n    Query Parameter: entity_fragment set to '{value}'"
+                case 'content_type':
+                    response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case _:
+                    raise Exception(f"ERROR: unexpected attribute {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
+
+        return response
+
+    @staticmethod
+    def merge_entity(kwargs) -> str:
+        expected_parameters = ['entity_id', 'entity_filename', 'content_type', 'context']
+
+        if 'context' not in kwargs:
+            kwargs['context'] = '${EMPTY}'
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Merge Entity"
+        for key, value in kwargs.items():
+            match key:
+                case 'entity_id':
+                    response = f"{response} and\n    Query Parameter: entity_id set to '{value}'"
+                case 'entity_filename':
+                    response = f"{response} and\n    Query Parameter: entity_filename set to '{value}'"
                 case 'content_type':
                     response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
                 case 'context':

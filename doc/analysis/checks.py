@@ -147,7 +147,9 @@ class Checks:
             'Check Content Range Part Equal':
                 Checks.check_content_range_part_equal,
             'Check Data Is Empty':
-                Checks.check_data_is_empty
+                Checks.check_data_is_empty,
+            'Check Notification Containing Entity Element':
+                Checks.check_notification_containing_entity_element,
         }
 
         self.args = {
@@ -430,6 +432,10 @@ class Checks:
                 'params': ['data'],
                 'position': [0]
             },
+            'Check Notification Containing Entity Element': {
+                'params': ['filename', 'notification'],
+                'position': [0, 1]
+            }
         }
 
     @staticmethod
@@ -1163,6 +1169,11 @@ class Checks:
             raise Exception(f"ERROR, Expected the field to be equal 'expected_field' but received: '{kwargs}'")
 
     @staticmethod
+    def check_notification_containing_entity_element(kwargs: list) -> str:
+        if 'filename' in kwargs and 'notification' in kwargs:
+            return f"Notification containing entity element set to '{kwargs['filename']}'"
+
+    @staticmethod
     def check_content_range_part_equal(kwargs: list) -> str:
         if 'expected_part' in kwargs and 'part' in kwargs:
             expected_part = kwargs['expected_part']
@@ -1289,6 +1300,9 @@ if __name__ == "__main__":
                           , status_code=201))
     print()
     print(data.get_checks(checks='Check Response Headers Containing NGSILD-Results-Count Equals To'))
+
+    print()
+    print(data.get_checks(checks='Check Notification Containing Entity Element'))
 
     # Check exceptions
     try:

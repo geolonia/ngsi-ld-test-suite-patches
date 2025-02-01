@@ -191,17 +191,25 @@ Check Response Body Containing List Containing Entity Elements With Different Ty
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing EntityTemporal element
-    [Arguments]    ${filename}    ${temporal_entity_representation_id}    ${response_body}
+    [Arguments]
+    ...    ${filename}
+    ...    ${temporal_entity_representation_id}
+    ...    ${response_body}
+    ...    ${excluded_regex}=${EMPTY}
     ${temporal_entity_representation_payload}=    Load JSON From File
     ...    ${EXECDIR}/data/temporalEntities/expectations/${filename}
+    ${all_excluded_regex}=    Create List    ${instance_id_regex_expr}
+    IF    $excluded_regex != ''
+        Append To List    ${all_excluded_regex}    ${excluded_regex}
+    END
     ${temporal_entity_representation}=    Update Value To JSON
     ...    ${temporal_entity_representation_payload}
-    ...    $..id
+    ...    $.id
     ...    ${temporal_entity_representation_id}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${temporal_entity_representation}
     ...    ${response_body}
-    ...    ${instance_id_regex_expr}
+    ...    ${all_excluded_regex}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing List Containing EntityTemporal elements
@@ -429,6 +437,17 @@ Check NotificationParams
     FOR    ${expected_additional_member}    IN    @{expected_additional_members}
         Should Not Be Empty    ${response_body['notification']['${expected_additional_member}']}
     END
+
+Check Notification Containing Entity Element
+    [Arguments]    ${filename}    ${notification}
+    ${expected_entity_in_notification}=    Load JSON From File
+    ...    ${EXECDIR}/data/subscriptions/expectations/${filename}
+    ${ignored_keys}=    Create List    id
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys
+    ...    ${expected_entity_in_notification}
+    ...    ${notification['data'][0]}
+    ...    ${ignored_keys}
+    Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Pagination Prev And Next Headers
     [Arguments]    ${prev_link}    ${next_link}    ${response_headers}

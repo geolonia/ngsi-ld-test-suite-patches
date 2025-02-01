@@ -1,0 +1,103 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/E/056_03",
+  "test_objective": "Check that one can delete an attribute using NGSI-LD Null in a Merge Entity operation",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clauses 4.5.18, 4.5.5, 5.6.17, 6.5.3.4",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "4.5.18",
+    "4.5.5",
+    "5.6.17",
+    "6.5.3.4"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Merge Entity Scenarios",
+    "Setup Initial Entity",
+    "Delete Initial Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} \n        with an id set to ${entityId} \n}",
+  "test_cases": [
+    {
+      "name": "056_03_01 Delete a Property",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/056_03_01",
+      "doc": "Check that one can delete an attribute using NGSI-LD Null in a Merge Entity operation",
+      "tags": [
+        "4_5_5",
+        "5_6_17",
+        "6_5_3_4",
+        "e-merge",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": "Merge Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Merge Entity with Response Status Code set to 204     and\n        Query Entity with Response Body containing en entity element with id set to 'entity_id=${entity_id}' and body content set to 'ngsild-null/building-deleted-property.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entity_id}'\n        method set to 'PATCH'\n        Merge Entity and\n    Query Parameter: entity_id set to '${entity_id}' and\n    Query Parameter: entity_filename set to 'fragmentEntities/ngsild-null/building-null-property.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json' and\n    Query Parameter: context set to ''\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entity_id}"
+    },
+    {
+      "name": "056_03_02 Delete a Relationship",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/056_03_02",
+      "doc": "Check that one can delete an attribute using NGSI-LD Null in a Merge Entity operation",
+      "tags": [
+        "5_6_17",
+        "6_5_3_4",
+        "e-merge",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": "Merge Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Merge Entity with Response Status Code set to 204     and\n        Query Entity with Response Body containing en entity element with id set to 'entity_id=${entity_id}' and body content set to 'ngsild-null/building-deleted-relationship.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entity_id}'\n        method set to 'PATCH'\n        Merge Entity and\n    Query Parameter: entity_id set to '${entity_id}' and\n    Query Parameter: entity_filename set to 'fragmentEntities/ngsild-null/building-null-relationship.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json' and\n    Query Parameter: context set to ''\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entity_id}"
+    },
+    {
+      "name": "056_03_03 Delete a GeoProperty",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/056_03_03",
+      "doc": "Check that one can delete an attribute using NGSI-LD Null in a Merge Entity operation",
+      "tags": [
+        "5_6_17",
+        "6_5_3_4",
+        "e-merge",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": "Merge Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Merge Entity with Response Status Code set to 204     and\n        Query Entity with Response Body containing en entity element with id set to 'entity_id=${entity_id}' and body content set to 'ngsild-null/building-deleted-geoproperty.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entity_id}'\n        method set to 'PATCH'\n        Merge Entity and\n    Query Parameter: entity_id set to '${entity_id}' and\n    Query Parameter: entity_filename set to 'fragmentEntities/ngsild-null/building-null-geoproperty.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json' and\n    Query Parameter: context set to ''\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entity_id}"
+    },
+    {
+      "name": "056_03_04 Delete a LanguageProperty",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/E/056_03_04",
+      "doc": "Check that one can delete an attribute using NGSI-LD Null in a Merge Entity operation",
+      "tags": [
+        "4_5_18",
+        "5_6_17",
+        "6_5_3_4",
+        "e-merge",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": "Merge Entity Scenarios",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Merge Entity with Response Status Code set to 204     and\n        Query Entity with Response Body containing en entity element with id set to 'entity_id=${entity_id}' and body content set to 'ngsild-null/building-deleted-languageproperty.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entity_id}'\n        method set to 'PATCH'\n        Merge Entity and\n    Query Parameter: entity_id set to '${entity_id}' and\n    Query Parameter: entity_filename set to 'fragmentEntities/ngsild-null/building-null-languageproperty.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json' and\n    Query Parameter: context set to ''\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entity_id}"
+    }
+  ],
+  "permutations": [
+    "then",
+    "when"
+  ],
+  "robotpath": "ContextInformation/Provision/Entities/MergeEntity",
+  "robotfile": "056_03"
+}
