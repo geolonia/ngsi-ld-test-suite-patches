@@ -23,6 +23,8 @@ ${BATCH_MERGE_ENDPOINT_PATH}                entityOperations/merge
 
 ${ENTITIES_ENDPOINT_PATH}                   entities/
 
+${BUILDING_ID_PREFIX}                       urn:ngsi-ld:Building:
+
 ${CONTENT_TYPE_JSON}                        application/json
 ${CONTENT_TYPE_LD_JSON}                     application/ld+json
 ${CONTENT_TYPE_MERGE_PATCH_JSON}            application/merge-patch+json
@@ -321,6 +323,28 @@ Replace Entity Selecting Content Type
     ...    json=${entity_fragment}
     ...    expected_status=any
     Output    ${response}    Replace Entity Selecting Content Type
+    RETURN    ${response}
+
+Merge Entity
+    [Arguments]
+    ...    ${entity_id}
+    ...    ${entity_filename}
+    ...    ${content_type}
+    ...    ${context}=${EMPTY}
+    ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/${entity_filename}
+    ${entity}=    Update Value To JSON    ${entity_payload}    $.id    ${entity_id}
+    &{headers}=    Create Dictionary    Content-Type=${content_type}
+    IF    '${context}'!=''
+        Set To Dictionary
+        ...    ${headers}
+        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+    END
+    ${response}=    PATCH
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entity_id}
+    ...    headers=${headers}
+    ...    json=${entity}
+    ...    expected_status=any
+    Output    ${response}    Merge Entity
     RETURN    ${response}
 
 Replace Attribute Selecting Content Type

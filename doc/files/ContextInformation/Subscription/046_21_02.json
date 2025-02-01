@@ -1,0 +1,39 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/SUB/046_21_02",
+  "test_objective": "Check that a notification is sent with sysAttrs when an entity is deleted\nand entityDeleted notification trigger is configured",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clause 5.8.6",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "5.8.6"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Initial Subscription And Entity",
+    "Delete Initial Subscription And Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Subscription ${subscription} \n        with an id set to ${subscription_id}\n        and an initial Entity ${entity}\n        with an id set to ${entity_id}\n}",
+  "test_cases": [
+    {
+      "name": "046_21_02 Check that a notification is sent with matching entity",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_21_02",
+      "doc": "Delete an entity and check the received notification",
+      "tags": [
+        "5_8_6",
+        "since_v1.6.1",
+        "sub-notification"
+      ],
+      "setup": "Create Initial Subscription And Entity",
+      "teardown": "Delete Initial Subscription And Entity",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Delete Entity by Id with Response Status Code set to 204\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'DELETE'\n        Delete Entity Request with id set to '${entity_id}'\n}",
+      "http_verb": "DELETE",
+      "endpoint": "entities/{id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Subscription/SubscriptionNotificationBehaviour",
+  "robotfile": "046_21_02"
+}

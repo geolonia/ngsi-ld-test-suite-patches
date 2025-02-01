@@ -13,6 +13,8 @@ ${SUBSCRIPTION_ENDPOINT_PATH}       subscriptions/
 ${CONTENT_TYPE_JSON}                application/json
 ${CONTENT_TYPE_LD_JSON}             application/ld+json
 
+${SUBSCRIPTION_ID_PREFIX}           urn:ngsi-ld:Subscription:
+
 ${ERROR_TYPE_BAD_REQUEST_DATA}      https://uri.etsi.org/ngsi-ld/errors/BadRequestData
 ${ERROR_TYPE_INVALID_REQUEST}       https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
 ${ERROR_TYPE_RESOURCE_NOT_FOUND}    https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound

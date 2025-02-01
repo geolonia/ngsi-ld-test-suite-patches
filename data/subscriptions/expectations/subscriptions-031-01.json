@@ -15,7 +15,11 @@
             "accept":"application/json"
          }
       },
-      "status": "active"
+      "status": "active",
+      "notificationTrigger": [
+         "attributeCreated",
+         "attributeUpdated"
+      ]
    },
    {
       "id":"urn:ngsi-ld:Subscription:randomUUID",
@@ -36,7 +40,11 @@
             "accept":"application/json"
          }
       },
-      "status": "active"
+      "status": "active",
+      "notificationTrigger": [
+         "attributeCreated",
+         "attributeUpdated"
+      ]
    },
    {
       "id":"urn:ngsi-ld:Subscription:randomUUID",
@@ -54,6 +62,10 @@
          }
       },
       "isActive": false,
-      "status": "paused"
+      "status": "paused",
+      "notificationTrigger": [
+         "attributeCreated",
+         "attributeUpdated"
+      ]
    }
 ]

@@ -24,7 +24,7 @@ ${entity_replacement_filename}      building-locatedAt-and-name.json
 054_02_02 Replace an existing entity without giving an Id
     [Tags]    e-replace    5_6_18    6_5_3_3    since_v1.6.1
     ${EMPTY}    400
-054_02_03 Replace an existing entity giving a nonexsitent Id
+054_02_03 Replace an existing entity giving a nonexistent Id
     [Tags]    e-replace    5_6_18    6_5_3_3    since_v1.6.1
     urn:ngsi-ld:Building:Nonexistent    404
 

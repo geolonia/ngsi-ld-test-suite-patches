@@ -1,0 +1,101 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Prov/EA/012_05",
+  "test_objective": "Check that one can delete an attribute using NGSI-LD Null in an Partial Attribute Update operation",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clauses 4.5.18, 5.6.4, 6.7.3.1",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "4.5.18",
+    "5.6.4",
+    "6.7.3.1"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Update Attributes",
+    "Delete Initial Entity",
+    "Setup Initial Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} \n        with an id set to ${entityId} \n}",
+  "test_cases": [
+    {
+      "name": "012_05_01 Delete a Property",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_05_01",
+      "doc": "Check that one can delete an attribute using NGSI-LD Null in an Partial Attribute Update operation",
+      "tags": [
+        "5_6_4",
+        "6_7_3_1",
+        "ea-partial-update",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": "Update Attributes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Response Body containing en entity element with id set to 'entity_id=${entity_id}' and body content set to 'ngsild-null/building-deleted-property.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${entity_id}' and\n    Query Parameter: AttributeId set to 'name' and\n    Query Parameter: fragment_filename set to 'ngsild-null/null-property-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    },
+    {
+      "name": "012_05_02 Delete a Relationship",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_05_02",
+      "doc": "Check that one can delete an attribute using NGSI-LD Null in an Partial Attribute Update operation",
+      "tags": [
+        "5_6_4",
+        "6_7_3_1",
+        "ea-partial-update",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": "Update Attributes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Response Body containing en entity element with id set to 'entity_id=${entity_id}' and body content set to 'ngsild-null/building-deleted-relationship.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${entity_id}' and\n    Query Parameter: AttributeId set to 'locatedAt' and\n    Query Parameter: fragment_filename set to 'ngsild-null/null-relationship-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    },
+    {
+      "name": "012_05_03 Delete a GeoProperty",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_05_03",
+      "doc": "Check that one can delete an attribute using NGSI-LD Null in an Partial Attribute Update operation",
+      "tags": [
+        "5_6_4",
+        "6_7_3_1",
+        "ea-partial-update",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": "Update Attributes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Response Body containing en entity element with id set to 'entity_id=${entity_id}' and body content set to 'ngsild-null/building-deleted-geoproperty.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${entity_id}' and\n    Query Parameter: AttributeId set to 'location' and\n    Query Parameter: fragment_filename set to 'ngsild-null/null-geoproperty-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    },
+    {
+      "name": "012_05_04 Delete a LanguageProperty",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/012_05_04",
+      "doc": "Check that one can delete an attribute using NGSI-LD Null in an Partial Attribute Update operation",
+      "tags": [
+        "4_5_18",
+        "5_6_4",
+        "6_7_3_1",
+        "ea-partial-update",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Initial Entity",
+      "teardown": "Delete Initial Entity",
+      "template": "Update Attributes",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Partial Update Entity Attributes with Response Status Code set to 204     and\n        Retrieve Entity by Id with Response Body containing en entity element with id set to 'entity_id=${entity_id}' and body content set to 'ngsild-null/building-deleted-languageproperty.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Request Partial Update Entity Attributes and\n    Query Parameter: entityId set to '${entity_id}' and\n    Query Parameter: AttributeId set to 'street' and\n    Query Parameter: fragment_filename set to 'ngsild-null/null-languageproperty-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    }
+  ],
+  "permutations": [
+    "then",
+    "when"
+  ],
+  "robotpath": "ContextInformation/Provision/EntityAttributes/PartialAttributeUpdate",
+  "robotfile": "012_05"
+}

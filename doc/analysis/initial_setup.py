@@ -23,6 +23,7 @@ class InitialSetup:
             'Create Id': InitialSetup.init_temporal_entity2(),
             'Create Initial Subscription': InitialSetup.init_subscription(),
             'Setup Initial Subscriptions': InitialSetup.init_subscription(),
+            'Create Initial Subscription And Entity': InitialSetup.init_subscription_and_entity(),
             'Start Mqtt Server And Connect': InitialSetup.init_mqtt_subscription(),
             'Setup Initial Entities': InitialSetup.init_entities(),
             'Setup Initial Temporal Entities': InitialSetup.init_temporal_entities(),
@@ -96,7 +97,6 @@ class InitialSetup:
     the SUT being in the "initial state" and
     the SUT containing an initial Temporal Entity ${entity} 
         with an id set to ${temporal_entity_representation_id} 
-        and an attribute with an id set to ${atrId}
 }'''
         return data
 
@@ -115,6 +115,17 @@ class InitialSetup:
     the SUT being in the "initial state" and
     the SUT containing an initial Subscription ${subscription} 
         with an id set to ${subscription_id} 
+}'''
+        return data
+
+    @staticmethod
+    def init_subscription_and_entity() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing an initial Subscription ${subscription} 
+        with an id set to ${subscription_id}
+        and an initial Entity ${entity}
+        with an id set to ${entity_id}
 }'''
         return data
 

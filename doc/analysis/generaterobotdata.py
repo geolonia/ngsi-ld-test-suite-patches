@@ -43,6 +43,7 @@ class GenerateRobotData:
             'Discovery/RetrieveDetailsOfAvailableAttributes': 'DISC',
             'Entity/RetrieveEntity': 'E',
             'Entities/CreateEntity': 'E',
+            'Entities/MergeEntity': 'E',
             'Entities/ReplaceEntity': 'E',
             'Entity/QueryEntities': 'E',
             'Entities/DeleteEntity': 'E',

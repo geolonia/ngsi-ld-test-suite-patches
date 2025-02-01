@@ -1,9 +1,9 @@
 {
   "tp_id": "TP/NGSI-LD/CI/SUB/046_06",
-  "test_objective": "If a Subscription does not define a timeInterval member, the notification shall be sent whenever an entity matches the query defined in the subscription. The notification message shall include all the subscribed Entities that changed and that match (as mandated by clauses 4.9 and 4.10) the query and geoquery conditions",
-  "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.8.6",
+  "test_objective": "Check that a notification is sent when an entity is created and entityCreated notification trigger is configured",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clause 5.8.6",
   "config_id": "",
-  "parent_release": "v1.3.1",
+  "parent_release": "v1.6.1",
   "clauses": [
     "5.8.6"
   ],
@@ -18,9 +18,10 @@
     {
       "name": "046_06_01 Check that a notification is sent with all matching entities",
       "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_06_01",
-      "doc": "only the subscribed Entities matching the query and watched attributes shall be included.",
+      "doc": "Check that a notification is sent when an entity is created and entityCreated notification trigger is configured",
       "tags": [
         "5_8_6",
+        "since_v1.6.1",
         "sub-notification"
       ],
       "setup": null,
