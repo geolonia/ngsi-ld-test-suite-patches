@@ -13,7 +13,7 @@ cd plug-test
 cd stellio
 PORT=8080 DB_PORT=5432 SUFFIX="-1" docker compose -p first_broker  up
 ```
-if you prefer using an .env file or you are a windows user you can use the .example.env file to set the variable instead.
+if you are a windows user or prefer using an .env file you can use the .example.env file to set the variable instead.
 
 by changing the variables you can easilly launch a second instance of a broker 
 ```
@@ -22,7 +22,9 @@ cd stellio
 PORT=8081 DB_PORT=5433 SUFFIX="-2" docker compose -p second_broker  up
 ```
 
-## CAVEAT with docker network (for non leaf brokers)
+## CAVEAT with localhost and docker (for non leaf brokers)
 
 An application running on a container will not be able to contact another container on http://localhost:$PORT
-you may need to call http://container-name:$PORT instead or put the network mode to "host" in the docker-compose. 
+It may need to call http://container-name:$PORT instead.
+
+Another solution is to put the network mode to "host" in the docker-compose, but it can lead to some port conflict if you have multiple instances
