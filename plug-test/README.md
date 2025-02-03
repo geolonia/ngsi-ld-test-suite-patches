@@ -21,3 +21,8 @@ cd plug-test
 cd stellio
 PORT=8081 DB_PORT=5433 SUFFIX="-2" docker compose -p second_broker  up
 ```
+
+## CAVEAT with docker network (for non leaf brokers)
+
+An application running on a container will not be able to contact another container on http://localhost:$PORT
+you may need to call http://container-name:$PORT instead or put the network mode to "host" in the docker-compose. 
