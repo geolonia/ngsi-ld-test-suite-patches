@@ -1,7 +1,15 @@
 {
     "id": "urn:ngsi-ld:Building:randomUUID",
     "type": "Building",
-    "observationSpace": {
+    "name": {
+        "type": "Property",
+        "value": "Eiffel Tower"
+    },
+    "subCategory": {
+        "type": "Property",
+        "value": "tourism"
+    },
+    "location": {
         "type": "GeoProperty",
         "value": {
             "type": "Point",

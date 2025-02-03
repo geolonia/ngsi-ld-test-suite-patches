@@ -13,7 +13,7 @@ Test Template       Retrieve Entity In GeoJSON Representation
 
 *** Variables ***
 ${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-location-attribute-sample.jsonld
+${filename}=                building-two-geometry-attributes.jsonld
 
 
 *** Test Cases ***    OPTIONS    EXPECTATION_FILENAME
