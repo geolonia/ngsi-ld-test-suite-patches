@@ -2,7 +2,7 @@ version: '3'
 
 services:
   scorpio:
-    image: scorpiobroker/all-in-one-runner:java-latest
+    image: scorpiobroker/all-in-one-runner:${DOCKER_TAG:-plug-test-latest}
     container_name: scorpio${SUFFIX}
     hostname: scorpio${SUFFIX}
     environment:

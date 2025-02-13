@@ -37,14 +37,14 @@ services:
       start_period: 10s
   api-gateway:
     container_name: "stellio-api-gateway${SUFFIX}"
-    image: stellio/stellio-api-gateway:${STELLIO_DOCKER_TAG:-plug-test-latest}
+    image: stellio/stellio-api-gateway:${DOCKER_TAG:-plug-test-latest}
     environment:
       - SPRING_PROFILES_ACTIVE=${ENVIRONMENT:-docker}
     ports:
       - "${PORT}:8080"
   search-service:
     container_name: "stellio-search-service${SUFFIX}"
-    image: stellio/stellio-search-service:${STELLIO_DOCKER_TAG:-plug-test-latest}
+    image: stellio/stellio-search-service:${DOCKER_TAG:-plug-test-latest}
     environment:
       - SPRING_PROFILES_ACTIVE=${ENVIRONMENT:-docker}
       - SPRING_R2DBC_URL=r2dbc:pool:postgresql://postgres/stellio_search
@@ -57,7 +57,7 @@ services:
         condition: service_started
   subscription-service:
     container_name: "stellio-subscription-service${SUFFIX}"
-    image: stellio/stellio-subscription-service:${STELLIO_DOCKER_TAG:-plug-test-latest}
+    image: stellio/stellio-subscription-service:${DOCKER_TAG:-plug-test-latest}
     environment:
       - SPRING_PROFILES_ACTIVE=${ENVIRONMENT:-docker}
       - SPRING_R2DBC_URL=r2dbc:pool:postgresql://postgres/stellio_subscription
