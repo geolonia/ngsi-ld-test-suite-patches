@@ -89,4 +89,4 @@ ${registration_filename}=       csourceRegistrations/context-source-registration
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
     ${response}=    Create Context Source Registration With Return    ${updated_payload}
     Check Response Status Code    ${expected_status_code}    ${response.status_code}
-    [Teardown]    Delete Context Source Registration    ${registration_id}
+    [Teardown]    Delete Context Source Registration With Return    ${registration_id}
