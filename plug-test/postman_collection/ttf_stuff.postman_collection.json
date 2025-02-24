@@ -1,0 +1,6297 @@
+{
+	"info": {
+		"_postman_id": "7d058416-b4cf-4183-9b35-b96fb80aa5fb",
+		"name": "ttf stuff",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "check broker health",
+			"item": [
+				{
+					"name": "check instance 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check that broker is empty\", function () {\r",
+									"    pm.expect([]).to.eql(pm.response.json());\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities?local=true",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check instance 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check that broker is empty\", function () {\r",
+									"    pm.expect([]).to.eql(pm.response.json());\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities?local=true",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check instance 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check that broker is empty\", function () {\r",
+									"    pm.expect([]).to.eql(pm.response.json());\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities?local=true",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check instance 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check that broker is empty\", function () {\r",
+									"    pm.expect([]).to.eql(pm.response.json());\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker4}}/ngsi-ld/v1/entities?local=true",
+							"host": [
+								"{{broker4}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check instance 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check that broker is empty\", function () {\r",
+									"    pm.expect([]).to.eql(pm.response.json());\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker5}}/ngsi-ld/v1/entities?local=true",
+							"host": [
+								"{{broker5}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "create setup1",
+			"item": [
+				{
+					"name": "Create Simple inclusive registry for broker2 in broker1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var payloadBody = JSON.parse(pm.request.body.raw);\r",
+									"console.log(payloadBody.id);\r",
+									"var cSourceId = payloadBody.id;\r",
+									"pm.collectionVariables.set(\"created\", payloadBody);\r",
+									"pm.collectionVariables.set(\"cSourceId\", cSourceId);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Check location header\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.include(cSourceId);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr1\",\r\n  \"type\": \"ContextSourceRegistration\",\r\n  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"availableSpotsNumber\",\r\n        \"totalSpotsNumber\"\t\t\t\r\n      ]\r\n    }\r\n  ],\r\n  \"operations\": [\"redirectionOps\"],\r\n  \"endpoint\": \"{{internalbroker2}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Simple exclusive registry for broker3 in broker1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var payloadBody = JSON.parse(pm.request.body.raw);\r",
+									"console.log(payloadBody.id);\r",
+									"var cSourceId = payloadBody.id;\r",
+									"pm.collectionVariables.set(\"created\", payloadBody);\r",
+									"pm.collectionVariables.set(\"cSourceId\", cSourceId);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Check location header\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.include(cSourceId);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr2\",\r\n  \"type\": \"ContextSourceRegistration\",\r\n  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"location\"\t\t\r\n      ]\r\n    }\r\n  ],\r\n  \"mode\": \"exclusive\",\r\n  \"operations\": [\"redirectionOps\"],\r\n  \"endpoint\": \"{{internalbroker3}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create Offstreet Parking Entity IOP_CNF_01",
+			"item": [
+				{
+					"name": "Create Entity in Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown One\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 121,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.7\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 200\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.5,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"      \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"      \"type\": \"OffStreetParking\",\r",
+									"      \"name\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": \"Downtown One\"\r",
+									"      },\r",
+									"      \"availableSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 121,\r",
+									"        \"observedAt\": \"2017-07-29T12:05:02Z\",\r",
+									"        \"reliability\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 0.7\r",
+									"        }\r",
+									"    },\r",
+									"    \"totalSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 200\r",
+									"    },\r",
+									"    \"location\": {\r",
+									"        \"type\": \"GeoProperty\",\r",
+									"        \"value\": {\r",
+									"            \"type\": \"Point\",\r",
+									"            \"coordinates\": [\r",
+									"                -8.5,\r",
+									"                41.2\r",
+									"            ]\r",
+									"        }\r",
+									"    }\r",
+									"}\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"      \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"      \"type\": \"OffStreetParking\",\r",
+									"      \"availableSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 121,\r",
+									"        \"observedAt\": \"2017-07-29T12:05:02Z\",\r",
+									"        \"reliability\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 0.7\r",
+									"        }\r",
+									"    },\r",
+									"    \"totalSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 200\r",
+									"    }\r",
+									"}\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Deletion on Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Deletion on Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Entity in Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown Two\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 112,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.4\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 150\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.45,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"  \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r",
+									"  \"type\": \"OffStreetParking\",\r",
+									"  \"name\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": \"Downtown Two\"\r",
+									"  },\r",
+									"  \"availableSpotsNumber\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": 112,\r",
+									"    \"observedAt\": \"2017-07-29T12:05:02Z\",\r",
+									"    \"reliability\": {\r",
+									"      \"type\": \"Property\",\r",
+									"      \"value\": 0.4\r",
+									"    }\r",
+									"  },\r",
+									"  \"totalSpotsNumber\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": 150\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2?local=true",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:2"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"  \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r",
+									"  \"type\": \"OffStreetParking\",\r",
+									"  \"availableSpotsNumber\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": 112,\r",
+									"    \"observedAt\": \"2017-07-29T12:05:02Z\",\r",
+									"    \"reliability\": {\r",
+									"      \"type\": \"Property\",\r",
+									"      \"value\": 0.4\r",
+									"    }\r",
+									"  },\r",
+									"  \"totalSpotsNumber\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": 150\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2?local=true",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:2"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"  \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r",
+									"  \"type\": \"OffStreetParking\",\r",
+									"  \"location\": {\r",
+									"    \"type\": \"GeoProperty\",\r",
+									"    \"value\": {\r",
+									"      \"type\": \"Point\",\r",
+									"      \"coordinates\": [\r",
+									"        -8.45,\r",
+									"        41.2\r",
+									"      ]\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2?local=true",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:2"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Retrieve Offstreet Parking Entity IOP_CNF_01",
+			"item": [
+				{
+					"name": "Create Entity 1 in Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown One\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 121,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.7\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 200\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.5,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Entity 2 in Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown Two\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 112,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.4\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 150\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.45,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Entity 2 in Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown Two\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 112,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.4\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 150\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.45,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"      \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"      \"type\": \"OffStreetParking\",\r",
+									"      \"availableSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 121,\r",
+									"        \"observedAt\": \"2017-07-29T12:05:02Z\",\r",
+									"        \"reliability\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 0.7\r",
+									"        }\r",
+									"    },\r",
+									"    \"totalSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 200\r",
+									"    }\r",
+									"}\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"  \"type\": \"OffStreetParking\",\r",
+									"  \"name\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": \"Downtown One\"\r",
+									"  },\r",
+									"  \"availableSpotsNumber\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": 121,\r",
+									"    \"observedAt\": \"2017-07-29T12:05:02Z\",\r",
+									"    \"reliability\": {\r",
+									"      \"type\": \"Property\",\r",
+									"      \"value\": 0.7\r",
+									"    }\r",
+									"  },\r",
+									"  \"totalSpotsNumber\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": 200\r",
+									"  },\r",
+									"  \"location\": {\r",
+									"    \"type\": \"GeoProperty\",\r",
+									"    \"value\": {\r",
+									"      \"type\": \"Point\",\r",
+									"      \"coordinates\": [\r",
+									"        -8.5,\r",
+									"        41.2\r",
+									"      ]\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 2 From Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 1 From Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 2 From Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Entity 2 in Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown Two\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 87,\r\n    \"observedAt\": \"2017-07-29T12:10:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.55\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 150\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Entity 2 in Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown Two\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 112,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.4\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 150\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.45,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity 2 from Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"  \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r",
+									"  \"type\": \"OffStreetParking\",\r",
+									"  \"availableSpotsNumber\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": 87,\r",
+									"    \"observedAt\": \"2017-07-29T12:10:02Z\",\r",
+									"    \"reliability\": {\r",
+									"      \"type\": \"Property\",\r",
+									"      \"value\": 0.55\r",
+									"    }\r",
+									"  },\r",
+									"  \"totalSpotsNumber\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": 150\r",
+									"  },\r",
+									"  \"location\": {\r",
+									"    \"type\": \"GeoProperty\",\r",
+									"    \"value\": {\r",
+									"      \"type\": \"Point\",\r",
+									"      \"coordinates\": [\r",
+									"        -8.45,\r",
+									"        41.2\r",
+									"      ]\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 2 From Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 2 From Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Query Offstreet Parking Entity IOP_CNF_01",
+			"item": [
+				{
+					"name": "Create Entity 1 in Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown One\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 121,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.7\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 200\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.5,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Entity 2 in Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown Two\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 92,\r\n    \"observedAt\": \"2017-07-30T12:10:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.56\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Entity 2 in Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown Two\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 112,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.4\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 150\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.45,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Query Entities from Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = [\r",
+									"    {\r",
+									"        \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"        \"type\": \"OffStreetParking\",\r",
+									"        \"availableSpotsNumber\": {\r",
+									"            \"type\": \"Property\",\r",
+									"            \"reliability\": {\r",
+									"                \"type\": \"Property\",\r",
+									"                \"value\": 0.7\r",
+									"            },\r",
+									"            \"value\": 121,\r",
+									"            \"observedAt\": \"2017-07-29T12:05:02Z\"\r",
+									"        },\r",
+									"        \"totalSpotsNumber\": {\r",
+									"            \"type\": \"Property\",\r",
+									"            \"value\": 200\r",
+									"        }\r",
+									"    },\r",
+									"    {\r",
+									"        \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r",
+									"        \"type\": \"OffStreetParking\",\r",
+									"        \"availableSpotsNumber\": {\r",
+									"            \"type\": \"Property\",\r",
+									"            \"reliability\": {\r",
+									"                \"type\": \"Property\",\r",
+									"                \"value\": 0.56\r",
+									"            },\r",
+									"            \"value\": 92,\r",
+									"            \"observedAt\": \"2017-07-30T12:10:02Z\"\r",
+									"        },\r",
+									"        \"location\": {\r",
+									"            \"type\": \"GeoProperty\",\r",
+									"            \"value\": {\r",
+									"                \"type\": \"Point\",\r",
+									"                \"coordinates\": [\r",
+									"                    -8.45,\r",
+									"                    41.2\r",
+									"                ]\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"]\r",
+									"    var sortedExpected = sortJsonArrayByHash(expected);\r",
+									"    var sortedReceived = sortJsonArrayByHash(pm.response.json());\r",
+									"    for (let i = 0; i < sortedExpected.length; i++) {\r",
+									"        sortedExpected[i] =  sortJsonByKey(sortedExpected[i]);\r",
+									"    }\r",
+									"    for (let i = 0; i < sortedReceived.length; i++) {\r",
+									"        sortedReceived[i] =  sortJsonByKey(sortedReceived[i]);\r",
+									"    }\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"function sortJsonArrayByHash(jsonArray) {\r",
+									"    \r",
+									"    return jsonArray.sort((a, b) => {\r",
+									"        const idA = a.id;\r",
+									"        const idB = b.id;\r",
+									"        return idA.localeCompare(idB);\r",
+									"    });\r",
+									"}\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities?type=OffStreetParking",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "OffStreetParking"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 1 From Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 2 From Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 2 From Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "delete setup1",
+			"item": [
+				{
+					"name": "Delete registration 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.collectionVariables.clear();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations/urn:ngsi-ld:ContextSourceRegistration:cr1",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations",
+								"urn:ngsi-ld:ContextSourceRegistration:cr1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete registration 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.collectionVariables.clear();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations/urn:ngsi-ld:ContextSourceRegistration:cr2",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations",
+								"urn:ngsi-ld:ContextSourceRegistration:cr2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "create setup2",
+			"item": [
+				{
+					"name": "Create Simple inclusive registry for broker2 in broker1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var payloadBody = JSON.parse(pm.request.body.raw);\r",
+									"console.log(payloadBody.id);\r",
+									"var cSourceId = payloadBody.id;\r",
+									"pm.collectionVariables.set(\"created\", payloadBody);\r",
+									"pm.collectionVariables.set(\"cSourceId\", cSourceId);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Check location header\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.include(cSourceId);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr1\",\r\n  \"type\": \"ContextSourceRegistration\",\r\n  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"availableSpotsNumber\",\r\n        \"totalSpotsNumber\"\t\t\t\r\n      ]\r\n    }\r\n  ],\r\n  \"operations\": [\"redirectionOps\"],\r\n  \"endpoint\": \"{{internalbroker2}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Simple redirect registry for broker3 in broker1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var payloadBody = JSON.parse(pm.request.body.raw);\r",
+									"console.log(payloadBody.id);\r",
+									"var cSourceId = payloadBody.id;\r",
+									"pm.collectionVariables.set(\"created\", payloadBody);\r",
+									"pm.collectionVariables.set(\"cSourceId\", cSourceId);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Check location header\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.include(cSourceId);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr2\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"location\"\t\t\r\n      ]\r\n    }\r\n  ],\r\n\"operations\": [\"redirectionOps\"],\r\n    \"mode\": \"redirect\",\r\n\t\"endpoint\": \"{{internalbroker3}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Simple redirect registry for broker4 in broker1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var payloadBody = JSON.parse(pm.request.body.raw);\r",
+									"console.log(payloadBody.id);\r",
+									"var cSourceId = payloadBody.id;\r",
+									"pm.collectionVariables.set(\"created\", payloadBody);\r",
+									"pm.collectionVariables.set(\"cSourceId\", cSourceId);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Check location header\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.include(cSourceId);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr3\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n\t  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"location\"\t\t\r\n      ]\r\n    }\r\n  ],\r\n\"operations\": [\"redirectionOps\"],\r\n    \"mode\": \"redirect\",\r\n\t\"endpoint\": \"{{internalbroker4}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create Offstreet Parking Entity IOP_CNF_02",
+			"item": [
+				{
+					"name": "Create Entity in Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown One\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 121,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.7\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 200\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.5,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"      \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"      \"type\": \"OffStreetParking\",\r",
+									"      \"name\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": \"Downtown One\"\r",
+									"      },\r",
+									"      \"availableSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 121,\r",
+									"        \"observedAt\": \"2017-07-29T12:05:02Z\",\r",
+									"        \"reliability\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 0.7\r",
+									"        }\r",
+									"    },\r",
+									"    \"totalSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 200\r",
+									"    }\r",
+									"}\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"      \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"      \"type\": \"OffStreetParking\",\r",
+									"      \"availableSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 121,\r",
+									"        \"observedAt\": \"2017-07-29T12:05:02Z\",\r",
+									"        \"reliability\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 0.7\r",
+									"        }\r",
+									"    },\r",
+									"    \"totalSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 200\r",
+									"    }\r",
+									"}\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"      \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"      \"type\": \"OffStreetParking\",\r",
+									"    \"location\": {\r",
+									"        \"type\": \"GeoProperty\",\r",
+									"        \"value\": {\r",
+									"            \"type\": \"Point\",\r",
+									"            \"coordinates\": [\r",
+									"                -8.5,\r",
+									"                41.2\r",
+									"            ]\r",
+									"        }\r",
+									"    }\r",
+									"}\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"      \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"      \"type\": \"OffStreetParking\",\r",
+									"    \"location\": {\r",
+									"        \"type\": \"GeoProperty\",\r",
+									"        \"value\": {\r",
+									"            \"type\": \"Point\",\r",
+									"            \"coordinates\": [\r",
+									"                -8.5,\r",
+									"                41.2\r",
+									"            ]\r",
+									"        }\r",
+									"    }\r",
+									"}\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker4}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker4}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Deletion on Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "localOnly",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Deletion on Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "localOnly",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Deletion on Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "localOnly",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Deletion on Broker 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
+							"host": [
+								"{{broker4}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "localOnly",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Retrieve Offstreet Parking Entity IOP_CNF_02",
+			"item": [
+				{
+					"name": "Create Entity 1 in Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown One\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 169,\r\n    \"observedAt\": \"2017-07-29T12:10:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.3\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 200\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Entity 1 in Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown One\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 121,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.7\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 200\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.5,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Entity 2 in Broker 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown Two\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 112,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.4\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 150\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.45,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker4}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker4}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"    \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"    \"type\": \"OffStreetParking\",\r",
+									"    \"availableSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"reliability\": {\r",
+									"            \"type\": \"Property\",\r",
+									"            \"value\": 0.3\r",
+									"        },\r",
+									"        \"value\": 169,\r",
+									"        \"observedAt\": \"2017-07-29T12:10:02Z\"\r",
+									"    },\r",
+									"    \"totalSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 200\r",
+									"    },\r",
+									"    \"location\": {\r",
+									"        \"type\": \"GeoProperty\",\r",
+									"        \"value\": {\r",
+									"            \"type\": \"Point\",\r",
+									"            \"coordinates\": [\r",
+									"                -8.5,\r",
+									"                41.2\r",
+									"            ]\r",
+									"        }\r",
+									"    }\r",
+									"}\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 1 From Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 1 From Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 2 From Broker 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2",
+							"host": [
+								"{{broker4}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "delete setup2",
+			"item": [
+				{
+					"name": "Delete registration 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.collectionVariables.clear();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations/urn:ngsi-ld:ContextSourceRegistration:cr1",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations",
+								"urn:ngsi-ld:ContextSourceRegistration:cr1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete registration 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.collectionVariables.clear();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations/urn:ngsi-ld:ContextSourceRegistration:cr2",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations",
+								"urn:ngsi-ld:ContextSourceRegistration:cr2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete registration 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.collectionVariables.clear();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations/urn:ngsi-ld:ContextSourceRegistration:cr3",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations",
+								"urn:ngsi-ld:ContextSourceRegistration:cr3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "create setup3",
+			"item": [
+				{
+					"name": "Create Simple auxiliary registry for broker2 in broker1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var payloadBody = JSON.parse(pm.request.body.raw);\r",
+									"console.log(payloadBody.id);\r",
+									"var cSourceId = payloadBody.id;\r",
+									"pm.collectionVariables.set(\"created\", payloadBody);\r",
+									"pm.collectionVariables.set(\"cSourceId\", cSourceId);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Check location header\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.include(cSourceId);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr1\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"availableSpotsNumber\",\r\n        \"totalSpotsNumber\"\t\t\t\r\n      ]\r\n    }\r\n  ],\r\n\"operations\": [\"redirectionOps\"],\r\n    \"mode\": \"auxiliary\",\r\n\t\"endpoint\": \"{{internalbroker2}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Simple inclusive registry for broker3 in broker1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var payloadBody = JSON.parse(pm.request.body.raw);\r",
+									"console.log(payloadBody.id);\r",
+									"var cSourceId = payloadBody.id;\r",
+									"pm.collectionVariables.set(\"created\", payloadBody);\r",
+									"pm.collectionVariables.set(\"cSourceId\", cSourceId);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Check location header\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.include(cSourceId);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr2\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n\t\"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n\"operations\": [\"redirectionOps\"],\r\n    \"mode\": \"inclusive\",\r\n\t\"endpoint\": \"{{internalbroker3}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Simple inclusive registry for broker4 in broker1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var payloadBody = JSON.parse(pm.request.body.raw);\r",
+									"console.log(payloadBody.id);\r",
+									"var cSourceId = payloadBody.id;\r",
+									"pm.collectionVariables.set(\"created\", payloadBody);\r",
+									"pm.collectionVariables.set(\"cSourceId\", cSourceId);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Check location header\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.include(cSourceId);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr3\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"availableSpotsNumber\",\r\n        \"totalSpotsNumber\"\t\t\t\r\n      ]\r\n    }\r\n  ],\r\n\"operations\": [\"redirectionOps\"],\r\n    \"mode\": \"inclusive\",\r\n\t\"endpoint\": \"{{internalbroker4}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create Offstreet Parking Entity IOP_CNF_03",
+			"item": [
+				{
+					"name": "Create Entity in Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown One\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 121,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.7\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 200\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.5,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"    \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"    \"type\": \"OffStreetParking\",\r",
+									"    \"availableSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"reliability\": {\r",
+									"            \"type\": \"Property\",\r",
+									"            \"value\": 0.7\r",
+									"        },\r",
+									"        \"value\": 121,\r",
+									"        \"observedAt\": \"2017-07-29T12:05:02Z\"\r",
+									"    },\r",
+									"    \"name\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": \"Downtown One\"\r",
+									"    },\r",
+									"    \"totalSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 200\r",
+									"    },\r",
+									"    \"location\": {\r",
+									"        \"type\": \"GeoProperty\",\r",
+									"        \"value\": {\r",
+									"            \"type\": \"Point\",\r",
+									"            \"coordinates\": [\r",
+									"                -8.5,\r",
+									"                41.2\r",
+									"            ]\r",
+									"        }\r",
+									"    }\r",
+									"}\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"  \"type\": \"OffStreetParking\",\r",
+									"  \"name\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": \"Downtown One\"\r",
+									"  },\r",
+									"  \"availableSpotsNumber\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": 121,\r",
+									"    \"observedAt\": \"2017-07-29T12:05:02Z\",\r",
+									"    \"reliability\": {\r",
+									"      \"type\": \"Property\",\r",
+									"      \"value\": 0.7\r",
+									"    }\r",
+									"  },\r",
+									"  \"totalSpotsNumber\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": 200\r",
+									"  },\r",
+									"  \"location\": {\r",
+									"    \"type\": \"GeoProperty\",\r",
+									"    \"value\": {\r",
+									"      \"type\": \"Point\",\r",
+									"      \"coordinates\": [\r",
+									"        -8.5,\r",
+									"        41.2\r",
+									"      ]\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"      \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"      \"type\": \"OffStreetParking\",\r",
+									"      \"availableSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 121,\r",
+									"        \"observedAt\": \"2017-07-29T12:05:02Z\",\r",
+									"        \"reliability\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 0.7\r",
+									"        }\r",
+									"    },\r",
+									"    \"totalSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 200\r",
+									"    }\r",
+									"}\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker4}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker4}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Deletion on Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "localOnly",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Deletion on Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "localOnly",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Deletion on Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "localOnly",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Deletion on Broker 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
+							"host": [
+								"{{broker4}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "localOnly",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Retrieve Offstreet Parking Entity IOP_CNF_03",
+			"item": [
+				{
+					"name": "Create Entity 1 in Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown One\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 169,\r\n    \"observedAt\": \"2017-07-29T12:10:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.3\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 200\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Entity 1 in Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown One\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 121,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.7\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 200\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.5,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove what B1 has created in B3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Entity 1 in Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown One\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 169,\r\n    \"observedAt\": \"2017-07-29T12:10:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.3\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 200\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Entity 2 in Broker 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown Two\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 112,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.4\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 150\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.45,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker4}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker4}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"    \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"    \"type\": \"OffStreetParking\",\r",
+									"    \"availableSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"reliability\": {\r",
+									"            \"type\": \"Property\",\r",
+									"            \"value\": 0.3\r",
+									"        },\r",
+									"        \"value\": 169,\r",
+									"        \"observedAt\": \"2017-07-29T12:10:02Z\"\r",
+									"    },\r",
+									"    \"name\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": \"Downtown One\"\r",
+									"    },\r",
+									"    \"totalSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 200\r",
+									"    }\r",
+									"}\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 2 From Broker 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2",
+							"host": [
+								"{{broker4}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 1 From Broker 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker4}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 1 From Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 1 From Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 1 From Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "delete setup3",
+			"item": [
+				{
+					"name": "Delete registration 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.collectionVariables.clear();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations/urn:ngsi-ld:ContextSourceRegistration:cr1",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations",
+								"urn:ngsi-ld:ContextSourceRegistration:cr1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete registration 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.collectionVariables.clear();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations/urn:ngsi-ld:ContextSourceRegistration:cr2",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations",
+								"urn:ngsi-ld:ContextSourceRegistration:cr2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete registration 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.collectionVariables.clear();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations/urn:ngsi-ld:ContextSourceRegistration:cr3",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations",
+								"urn:ngsi-ld:ContextSourceRegistration:cr3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "create setup4",
+			"item": [
+				{
+					"name": "Create Simple auxiliary registry for broker2 in broker1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var payloadBody = JSON.parse(pm.request.body.raw);\r",
+									"console.log(payloadBody.id);\r",
+									"var cSourceId = payloadBody.id;\r",
+									"pm.collectionVariables.set(\"created\", payloadBody);\r",
+									"pm.collectionVariables.set(\"cSourceId\", cSourceId);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Check location header\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.include(cSourceId);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr1\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"availableSpotsNumber\",\r\n        \"totalSpotsNumber\"\t\t\t\r\n      ]\r\n    }\r\n  ],\r\n\"operations\": [\"redirectionOps\"],\r\n    \"mode\": \"auxiliary\",\r\n\t\"endpoint\": \"{{internalbroker2}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Simple inclusive registry for broker3 in broker1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var payloadBody = JSON.parse(pm.request.body.raw);\r",
+									"console.log(payloadBody.id);\r",
+									"var cSourceId = payloadBody.id;\r",
+									"pm.collectionVariables.set(\"created\", payloadBody);\r",
+									"pm.collectionVariables.set(\"cSourceId\", cSourceId);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Check location header\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.include(cSourceId);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr2\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n\r\n\"operations\": [\"redirectionOps\"],\r\n    \"mode\": \"inclusive\",\r\n\t\"endpoint\": \"{{internalbroker3}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Simple exclusive registry for broker5 in broker3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var payloadBody = JSON.parse(pm.request.body.raw);\r",
+									"console.log(payloadBody.id);\r",
+									"var cSourceId = payloadBody.id;\r",
+									"pm.collectionVariables.set(\"created\", payloadBody);\r",
+									"pm.collectionVariables.set(\"cSourceId\", cSourceId);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Check location header\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.include(cSourceId);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr4\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"id\": \"urn:ngsi-ld:OffStreetParking:2\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"totalSpotsNumber\"\t\t\r\n      ]\r\n    }\r\n  ],\r\n\r\n\"operations\": [\"redirectionOps\"],\r\n    \"mode\": \"exclusive\",\r\n\t\"endpoint\": \"{{internalbroker5}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/csourceRegistrations",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Simple redirect registry for broker5 in broker2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var payloadBody = JSON.parse(pm.request.body.raw);\r",
+									"console.log(payloadBody.id);\r",
+									"var cSourceId = payloadBody.id;\r",
+									"pm.collectionVariables.set(\"created\", payloadBody);\r",
+									"pm.collectionVariables.set(\"cSourceId\", cSourceId);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Check location header\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.include(cSourceId);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr4\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n  \r\n\"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"location\"\t\t\r\n      ]\r\n    }\r\n  ],\r\n\"operations\": [\"redirectionOps\"],\r\n\r\n    \"mode\": \"redirect\",\r\n\t\"endpoint\": \"{{internalbroker5}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/csourceRegistrations",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Simple redirect registry for broker4 in broker2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var payloadBody = JSON.parse(pm.request.body.raw);\r",
+									"console.log(payloadBody.id);\r",
+									"var cSourceId = payloadBody.id;\r",
+									"pm.collectionVariables.set(\"created\", payloadBody);\r",
+									"pm.collectionVariables.set(\"cSourceId\", cSourceId);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Check location header\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.include(cSourceId);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr3\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n\t\"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"operations\": [\"redirectionOps\"],\r\n    \"mode\": \"redirect\",\r\n\t\"endpoint\": \"{{internalbroker4}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/csourceRegistrations",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create Offstreet Parking Entity IOP_CNF_04",
+			"item": [
+				{
+					"name": "Create Entity in Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown One\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 121,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.7\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 200\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.5,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"  \"type\": \"OffStreetParking\",\r",
+									"  \"name\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": \"Downtown One\"\r",
+									"  },\r",
+									"  \"availableSpotsNumber\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": 121,\r",
+									"    \"observedAt\": \"2017-07-29T12:05:02Z\",\r",
+									"    \"reliability\": {\r",
+									"      \"type\": \"Property\",\r",
+									"      \"value\": 0.7\r",
+									"    }\r",
+									"  },\r",
+									"  \"totalSpotsNumber\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": 200\r",
+									"  },\r",
+									"  \"location\": {\r",
+									"    \"type\": \"GeoProperty\",\r",
+									"    \"value\": {\r",
+									"      \"type\": \"Point\",\r",
+									"      \"coordinates\": [\r",
+									"        -8.5,\r",
+									"        41.2\r",
+									"      ]\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"  \"type\": \"OffStreetParking\",\r",
+									"  \"name\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": \"Downtown One\"\r",
+									"  },\r",
+									"  \"availableSpotsNumber\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": 121,\r",
+									"    \"observedAt\": \"2017-07-29T12:05:02Z\",\r",
+									"    \"reliability\": {\r",
+									"      \"type\": \"Property\",\r",
+									"      \"value\": 0.7\r",
+									"    }\r",
+									"  },\r",
+									"  \"totalSpotsNumber\": {\r",
+									"    \"type\": \"Property\",\r",
+									"    \"value\": 200\r",
+									"  },\r",
+									"  \"location\": {\r",
+									"    \"type\": \"GeoProperty\",\r",
+									"    \"value\": {\r",
+									"      \"type\": \"Point\",\r",
+									"      \"coordinates\": [\r",
+									"        -8.5,\r",
+									"        41.2\r",
+									"      ]\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker4}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker5}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
+							"host": [
+								"{{broker5}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "local",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker5}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker5}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity From Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Deletion on Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "localOnly",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Deletion on Broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							],
+							"query": [
+								{
+									"key": "localOnly",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Retrieve Offstreet Parking Entity IOP_CNF_04",
+			"item": [
+				{
+					"name": "Create Entity 1 in Broker 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown One\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 169,\r\n    \"observedAt\": \"2017-07-29T12:10:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.3\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 200\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker4}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker4}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Entity 1 in Broker 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r\n  \"type\": \"OffStreetParking\",\r\n  \"name\": {\r\n    \"type\": \"Property\",\r\n    \"value\": \"Downtown One\"\r\n  },\r\n  \"availableSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 121,\r\n    \"observedAt\": \"2017-07-29T12:05:02Z\",\r\n    \"reliability\": {\r\n      \"type\": \"Property\",\r\n      \"value\": 0.7\r\n    }\r\n  },\r\n  \"totalSpotsNumber\": {\r\n    \"type\": \"Property\",\r\n    \"value\": 200\r\n  },\r\n  \"location\": {\r\n    \"type\": \"GeoProperty\",\r\n    \"value\": {\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [\r\n        -8.5,\r\n        41.2\r\n      ]\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{broker5}}/ngsi-ld/v1/entities",
+							"host": [
+								"{{broker5}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Entity from Broker 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the result entity\", function () {\r",
+									"    var expected = {\r",
+									"    \"id\": \"urn:ngsi-ld:OffStreetParking:1\",\r",
+									"    \"type\": \"OffStreetParking\",\r",
+									"    \"availableSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"reliability\": {\r",
+									"            \"type\": \"Property\",\r",
+									"            \"value\": 0.3\r",
+									"        },\r",
+									"        \"value\": 169,\r",
+									"        \"observedAt\": \"2017-07-29T12:10:02Z\"\r",
+									"    },\r",
+									"    \"totalSpotsNumber\": {\r",
+									"        \"type\": \"Property\",\r",
+									"        \"value\": 200\r",
+									"    }\r",
+									"}\r",
+									"    const sortedExpected = sortJsonByKey(expected);\r",
+									"    const sortedReceived = sortJsonByKey(pm.response.json());\r",
+									"    pm.expect(sortedExpected).to.eql(sortedReceived);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"function sortJsonByKey(obj) {\r",
+									"    const sortedKeys = Object.keys(obj).sort();\r",
+									"    const sortedObj = {};\r",
+									"\r",
+									"    sortedKeys.forEach(key => {\r",
+									"        sortedObj[key] = obj[key];\r",
+									"    });\r",
+									"\r",
+									"    return sortedObj;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 1 From Broker 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker5}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker5}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity 1 From Broker 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
+							"host": [
+								"{{broker4}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:OffStreetParking:1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "delete setup4",
+			"item": [
+				{
+					"name": "Delete registration 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.collectionVariables.clear();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations/urn:ngsi-ld:ContextSourceRegistration:cr1",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations",
+								"urn:ngsi-ld:ContextSourceRegistration:cr1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete registration 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.collectionVariables.clear();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker1}}/ngsi-ld/v1/csourceRegistrations/urn:ngsi-ld:ContextSourceRegistration:cr2",
+							"host": [
+								"{{broker1}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations",
+								"urn:ngsi-ld:ContextSourceRegistration:cr2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete registration broker3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.collectionVariables.clear();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker3}}/ngsi-ld/v1/csourceRegistrations/urn:ngsi-ld:ContextSourceRegistration:cr4",
+							"host": [
+								"{{broker3}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations",
+								"urn:ngsi-ld:ContextSourceRegistration:cr4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete registration 1 in broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.collectionVariables.clear();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/csourceRegistrations/urn:ngsi-ld:ContextSourceRegistration:cr4",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations",
+								"urn:ngsi-ld:ContextSourceRegistration:cr4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete registration 2 in broker 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.collectionVariables.clear();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{broker2}}/ngsi-ld/v1/csourceRegistrations/urn:ngsi-ld:ContextSourceRegistration:cr3",
+							"host": [
+								"{{broker2}}"
+							],
+							"path": [
+								"ngsi-ld",
+								"v1",
+								"csourceRegistrations",
+								"urn:ngsi-ld:ContextSourceRegistration:cr3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
