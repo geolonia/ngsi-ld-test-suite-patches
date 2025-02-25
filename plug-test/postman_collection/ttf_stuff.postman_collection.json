@@ -268,10 +268,9 @@
 								"type": "default"
 							},
 							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default",
-								"disabled": true
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -342,10 +341,9 @@
 								"type": "default"
 							},
 							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default",
-								"disabled": true
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -399,6 +397,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 								"type": "default"
 							}
 						],
@@ -491,7 +494,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -565,7 +574,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -605,7 +620,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -797,6 +818,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -879,7 +905,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2?local=true",
 							"host": [
@@ -954,7 +986,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2?local=true",
 							"host": [
@@ -1026,7 +1064,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2?local=true",
 							"host": [
@@ -1176,6 +1220,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -1225,6 +1274,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -1273,6 +1327,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 								"type": "default"
 							}
 						],
@@ -1351,7 +1410,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
 							"host": [
@@ -1434,7 +1499,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
 							"host": [
@@ -1573,6 +1644,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -1621,6 +1697,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 								"type": "default"
 							}
 						],
@@ -1710,7 +1791,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:2",
 							"host": [
@@ -1821,6 +1908,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -1870,6 +1962,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -1918,6 +2015,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 								"type": "default"
 							}
 						],
@@ -2034,7 +2136,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker1}}/ngsi-ld/v1/entities?type=OffStreetParking",
 							"host": [
@@ -2277,10 +2385,9 @@
 								"type": "default"
 							},
 							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default",
-								"disabled": true
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -2351,10 +2458,9 @@
 								"type": "default"
 							},
 							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default",
-								"disabled": true
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -2425,10 +2531,9 @@
 								"type": "default"
 							},
 							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default",
-								"disabled": true
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -2482,6 +2587,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 								"type": "default"
 							}
 						],
@@ -2564,7 +2674,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -2638,7 +2754,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -2709,7 +2831,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -2780,7 +2908,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -2952,7 +3086,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
 							"host": [
@@ -2992,7 +3132,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
 							"host": [
@@ -3032,7 +3178,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
 							"host": [
@@ -3072,7 +3224,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
 							"host": [
@@ -3123,6 +3281,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -3172,6 +3335,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -3220,6 +3388,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 								"type": "default"
 							}
 						],
@@ -3308,7 +3481,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
 							"host": [
@@ -3580,15 +3759,14 @@
 								"type": "default"
 							},
 							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default",
-								"disabled": true
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr1\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"availableSpotsNumber\",\r\n        \"totalSpotsNumber\"\t\t\t\r\n      ]\r\n    }\r\n  ],\r\n\"operations\": [\"redirectionOps\"],\r\n    \"mode\": \"auxiliary\",\r\n\t\"endpoint\": \"{{internalbroker2}}\"\r\n}",
+							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr1\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"availableSpotsNumber\",\r\n        \"totalSpotsNumber\"\t\t\t\r\n      ]\r\n    }\r\n  ],\r\n\r\n    \"mode\": \"auxiliary\",\r\n\t\"endpoint\": \"{{internalbroker2}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3654,10 +3832,9 @@
 								"type": "default"
 							},
 							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default",
-								"disabled": true
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -3728,10 +3905,9 @@
 								"type": "default"
 							},
 							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default",
-								"disabled": true
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -3785,6 +3961,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 								"type": "default"
 							}
 						],
@@ -3877,7 +4058,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -3917,7 +4104,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -4006,7 +4199,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -4080,7 +4279,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -4219,7 +4424,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
 							"host": [
@@ -4259,7 +4470,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
 							"host": [
@@ -4299,7 +4516,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
 							"host": [
@@ -4339,7 +4562,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
 							"host": [
@@ -4390,6 +4619,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -4438,6 +4672,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 								"type": "default"
 							}
 						],
@@ -4521,6 +4760,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -4569,6 +4813,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 								"type": "default"
 							}
 						],
@@ -4651,7 +4900,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
 							"host": [
@@ -4989,15 +5244,14 @@
 								"type": "default"
 							},
 							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default",
-								"disabled": true
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr1\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"availableSpotsNumber\",\r\n        \"totalSpotsNumber\"\t\t\t\r\n      ]\r\n    }\r\n  ],\r\n\"operations\": [\"redirectionOps\"],\r\n    \"mode\": \"auxiliary\",\r\n\t\"endpoint\": \"{{internalbroker2}}\"\r\n}",
+							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr1\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"availableSpotsNumber\",\r\n        \"totalSpotsNumber\"\t\t\t\r\n      ]\r\n    }\r\n  ],\r\n\r\n    \"mode\": \"auxiliary\",\r\n\t\"endpoint\": \"{{internalbroker2}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5063,10 +5317,9 @@
 								"type": "default"
 							},
 							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default",
-								"disabled": true
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -5137,15 +5390,14 @@
 								"type": "default"
 							},
 							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default",
-								"disabled": true
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr4\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"id\": \"urn:ngsi-ld:OffStreetParking:2\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"totalSpotsNumber\"\t\t\r\n      ]\r\n    }\r\n  ],\r\n\r\n\"operations\": [\"redirectionOps\"],\r\n    \"mode\": \"exclusive\",\r\n\t\"endpoint\": \"{{internalbroker5}}\"\r\n}",
+							"raw": "{\r\n\t\"id\": \"urn:ngsi-ld:ContextSourceRegistration:cr4\",\r\n\t\"type\": \"ContextSourceRegistration\",\r\n  \"information\": [\r\n    {\r\n      \"entities\": [\r\n        {\r\n          \"id\": \"urn:ngsi-ld:OffStreetParking:2\",\r\n          \"type\": \"OffStreetParking\"\r\n        }\r\n      ],\r\n      \"propertyNames\": [\r\n        \"totalSpotsNumber\"\t\t\r\n      ]\r\n    }\r\n  ],\r\n\r\n\"operations\": [\"redirectionOps\"],\r\n    \"mode\": \"exclusive\",\r\n\t\"endpoint\": \"{{internalbroker5}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5211,10 +5463,9 @@
 								"type": "default"
 							},
 							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default",
-								"disabled": true
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -5285,10 +5536,9 @@
 								"type": "default"
 							},
 							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default",
-								"disabled": true
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -5342,6 +5592,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 								"type": "default"
 							}
 						],
@@ -5435,7 +5690,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -5475,7 +5736,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -5565,7 +5832,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker3}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -5605,7 +5878,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker4}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -5645,7 +5924,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker5}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?local=true",
 							"host": [
@@ -5817,7 +6102,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
 							"host": [
@@ -5857,7 +6148,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker2}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1?localOnly=true",
 							"host": [
@@ -5908,6 +6205,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -5956,6 +6258,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 								"type": "default"
 							}
 						],
@@ -6034,7 +6341,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{contextUrl}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{broker1}}/ngsi-ld/v1/entities/urn:ngsi-ld:OffStreetParking:1",
 							"host": [
