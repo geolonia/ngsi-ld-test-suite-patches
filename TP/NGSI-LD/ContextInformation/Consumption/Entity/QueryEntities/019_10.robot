@@ -61,7 +61,7 @@ Query several entities based on complex geoqueries
     ...    georel=${georel}
     ...    geometry=${geometry}
     ...    coordinates=${coordinates}
-    ...    count=${true}
+    ...    count=true
 
     Check Response Status Code    200    ${response.status_code}
     Check Response Headers Containing NGSILD-Results-Count Equals To    ${expected_count}    ${response.headers}

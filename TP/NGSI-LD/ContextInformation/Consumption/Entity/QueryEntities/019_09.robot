@@ -56,7 +56,7 @@ Query several entities based on q
 
     ${response}=    Query Entities
     ...    q=${q}
-    ...    count=${true}
+    ...    count=true
     ...    context=${ngsild_test_suite_context}
 
     Check Response Status Code    200    ${response.status_code}

@@ -35,7 +35,7 @@ Query Entities With Count
     ${response}=    Query Entities
     ...    entity_types=${entity_type}
     ...    q=${q}
-    ...    count=${True}
+    ...    count=true
     ...    context=${ngsild_test_suite_context}
 
     Check Response Status Code    ${expected_status_code}    ${response.status_code}
