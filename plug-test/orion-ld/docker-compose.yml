@@ -11,7 +11,7 @@ services:
 
     depends_on:
       - mongo-db
-    command: -fg -experimental -wip entityMaps,distSubs -forwarding -t 0-255 -debugCurl
+    command: -dbhost mongo-db${SUFFIX} -logLevel DEBUG -mongocOnly -wip entityMaps,distSubs -forwarding
   mongo-db:
     image: mongo:3.6
     hostname: mongo-db${SUFFIX}
