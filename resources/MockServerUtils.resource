@@ -19,6 +19,9 @@ Wait for redirected request
     Wait For Request    ${timeout}
     Reply By    200
 
+Answer to Create Entity
+    Set Stub Reply    POST    /ngsi-ld/v1/entities    201
+
 Stop Context Source Mock Server
     # Terminate HTTP Server
     Stop Server
