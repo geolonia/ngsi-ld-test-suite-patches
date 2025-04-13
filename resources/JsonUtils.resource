@@ -83,6 +83,12 @@ Create Batch Operation Result
     &{batch_operation_result}=    Create Dictionary    success=${success}    errors=${errors}
     RETURN    &{batch_operation_result}
 
+Create Update Result
+    [Arguments]    ${updated}    ${notUpdated}
+
+    &{update_result}=    Create Dictionary    updated=${updated}    notUpdated=${notUpdated}
+    RETURN    &{update_result}
+
 Upsert Element In Entity
     [Arguments]    ${initial_entity}    ${fragment}    ${jsonPath}=$
 

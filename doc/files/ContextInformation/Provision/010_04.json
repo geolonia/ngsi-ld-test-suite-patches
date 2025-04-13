@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CI/Prov/EA/010_04",
-  "test_objective": "Check that you can append entity attributes",
+  "test_objective": "Check that one can append entity attributes with noOverwrite option",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.6.3",
   "config_id": "",
   "parent_release": "v1.3.1",
@@ -19,7 +19,7 @@
     {
       "name": "010_04_01 Append entity attributes and ignore existing multi-attribute instance",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/010_04_01",
-      "doc": "Check that you can append entity attributes",
+      "doc": "Check that one can append entity attributes with noOverwrite option",
       "tags": [
         "ea-append",
         "5_6_3"
@@ -27,7 +27,7 @@
       "setup": "Create Initial Entity",
       "teardown": "Delete Initial Entity",
       "template": "Append Attributes With Params",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Append Entity Attributes With Parameters with Response Status Code set to 204     and\n        Retrieve Entity by Id with Check Updated Entity and\n            Query Parameter: 'updated_resource' set to 'entity_expectation_payload' and\n            Query Parameter: 'response_body' set to 'response1.json()' and\n            Query Parameter: 'ignored_keys' set to 'ignored_attributes'\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Append Entity Attributes With Parameters with Response Status Code set to 207     and\n        Append Entity Attributes With Parameters with Response body containing update result set to '${expected_update_result}'     and\n        Retrieve Entity by Id with Check Updated Entity and\n            Query Parameter: 'updated_resource' set to 'entity_expectation_payload' and\n            Query Parameter: 'response_body' set to 'response1.json()' and\n            Query Parameter: 'ignored_keys' set to 'ignored_attributes'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs?options=${options}'\n        method set to 'POST'\n        Append entity attributes with parameters: and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'vehicle-attribute-to-add-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json' and\n    Query Parameter: options set to 'noOverwrite'\n}",
       "http_verb": "POST",
       "endpoint": "entities/{id}/attrs?options=${options}"
@@ -35,7 +35,7 @@
     {
       "name": "010_04_02 Append entity attributes with a new multi-attribute instance",
       "permutation_tp_id": "TP/NGSI-LD/CI/Prov/EA/010_04_02",
-      "doc": "Check that you can append entity attributes",
+      "doc": "Check that one can append entity attributes with noOverwrite option",
       "tags": [
         "ea-append",
         "5_6_3"
@@ -43,13 +43,14 @@
       "setup": "Create Initial Entity",
       "teardown": "Delete Initial Entity",
       "template": "Append Attributes With Params",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Append Entity Attributes With Parameters with Response Status Code set to 204     and\n        Retrieve Entity by Id with Check Updated Entity and\n            Query Parameter: 'updated_resource' set to 'entity_expectation_payload' and\n            Query Parameter: 'response_body' set to 'response1.json()' and\n            Query Parameter: 'ignored_keys' set to 'ignored_attributes'\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Append Entity Attributes With Parameters with Response Status Code set to 204     and\n        Append Entity Attributes With Parameters with Response body containing update result set to '${expected_update_result}'     and\n        Retrieve Entity by Id with Check Updated Entity and\n            Query Parameter: 'updated_resource' set to 'entity_expectation_payload' and\n            Query Parameter: 'response_body' set to 'response1.json()' and\n            Query Parameter: 'ignored_keys' set to 'ignored_attributes'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}/attrs?options=${options}'\n        method set to 'POST'\n        Append entity attributes with parameters: and\n    Query Parameter: id set to '${entity_id}' and\n    Query Parameter: fragment_filename set to 'vehicle-speed-different-datasetid-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json' and\n    Query Parameter: options set to 'noOverwrite'\n}",
       "http_verb": "POST",
       "endpoint": "entities/{id}/attrs?options=${options}"
     }
   ],
   "permutations": [
+    "then",
     "when"
   ],
   "robotpath": "ContextInformation/Provision/EntityAttributes/AppendEntityAttributes",

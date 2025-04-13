@@ -141,6 +141,25 @@ Check Response Body Containing Batch Operation Result
         Should Not Be Empty    ${response_error['error']}
     END
 
+Check Response Body Containing Update Result
+    [Arguments]    ${expected_update_result}    ${response_body}
+    @{expected_successful_attributes_names}=    Get From Dictionary    ${expected_update_result}    updated
+    @{expected_failed_attributes_names}=    Get From Dictionary    ${expected_update_result}    notUpdated
+    ${expected_failed_attributes_names_length}=    Get Length    ${expected_failed_attributes_names}
+
+    @{response_errors}=    Get From Dictionary    ${response_body}    notUpdated
+    ${response_errors_length}=    Get Length    ${response_errors}
+
+    Lists Should Be Equal
+    ...    ${expected_successful_attributes_names}
+    ...    ${response_body['updated']}
+    ...    ignore_order=True
+    Should be Equal as Integers    ${expected_failed_attributes_names_length}    ${response_errors_length}
+    FOR    ${response_error}    IN    @{response_errors}
+        List Should Contain Value    ${expected_failed_attributes_names}    ${response_error['attributeName']}
+        Should Not Be Empty    ${response_error['reason']}
+    END
+
 Check Response Body Containing Entity element
     [Arguments]    ${expectation_filename}    ${entity_id}    ${response_body}    ${ignore_core_context_version}=False
     ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/expectations/${expectation_filename}
