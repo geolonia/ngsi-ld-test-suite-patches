@@ -150,6 +150,8 @@ class Checks:
                 Checks.check_data_is_empty,
             'Check Notification Containing Entity Element':
                 Checks.check_notification_containing_entity_element,
+            'Check Body With Alternatives':
+                Checks.check_body_with_alternatives
         }
 
         self.args = {
@@ -434,6 +436,10 @@ class Checks:
             },
             'Check Notification Containing Entity Element': {
                 'params': ['filename', 'notification'],
+                'position': [0, 1]
+            },
+            'Check Body With Alternatives': {
+                'params': ['response_body', 'alternatives'],
                 'position': [0, 1]
             }
         }
@@ -1190,6 +1196,14 @@ class Checks:
         else:
             raise Exception(f"ERROR, Expected empty data but received: '{kwargs}'")
 
+    @staticmethod
+    def check_body_with_alternatives(kwargs: list) -> str:
+        if 'response_body' in kwargs and 'alternatives' in kwargs :
+            response_body = kwargs['response_body']
+            alternatives = kwargs['alternatives']
+            return f'response body : {response_body} found in alternatives : {alternatives}'
+        else:
+            raise Exception(f"ERROR, Expected 'response_body' to be present in 'alternatives' but received: '{kwargs}'")
 
 
     def get_checks(self, **kwargs) -> str:
@@ -1303,6 +1317,8 @@ if __name__ == "__main__":
 
     print()
     print(data.get_checks(checks='Check Notification Containing Entity Element'))
+    print()
+    print(data.get_checks(checks='Check Body With Alternatives'))
 
     # Check exceptions
     try:

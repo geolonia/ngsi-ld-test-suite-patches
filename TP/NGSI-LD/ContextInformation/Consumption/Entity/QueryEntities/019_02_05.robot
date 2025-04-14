@@ -15,6 +15,8 @@ ${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${parking_id_prefix}=       urn:ngsi-ld:OffStreetParking:
 ${vehicle_filename}=        vehicle-simple-attributes.jsonld
 ${parking_filename}=        parking-simple-attributes.jsonld
+${expectation_filename_alt2}=    vehicle-parking-019-02-05.alternative2.geojson
+${expectation_filename_alt1}=    vehicle-parking-019-02-05.alternative.geojson
 ${expectation_filename}=    vehicle-parking-019-02-05.geojson
 ${vehicle_entity_type}=     https://ngsi-ld-test-suite/context#Vehicle
 ${parking_entity_type}=     https://ngsi-ld-test-suite/context#OffStreetParking
@@ -32,9 +34,10 @@ ${parking_entity_type}=     https://ngsi-ld-test-suite/context#OffStreetParking
     ...    accept=${CONTENT_TYPE_GEOJSON}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Content
-    ...    expectation_filename=${expectation_filename}
+    ${alternatives}=	Create List	${expectation_filename}	${expectation_filename_alt1}	${expectation_filename_alt2}
+    Check Body With Alternatives
     ...    response_body=${response.json()}
+    ...    alternatives=${alternatives}
 
 
 *** Keywords ***
