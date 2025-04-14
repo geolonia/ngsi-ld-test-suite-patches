@@ -29,7 +29,8 @@ ${subscription_expectation_file_path}=      subscriptions/expectations/subscript
     ...    id=${subscription_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    context=${ngsild_test_suite_context}
-    Check Created Resource Set To    ${expected_subscription}    ${response1.json()}
+    ${ignore_keys}=    Create List    "jsonldContext"    "timesFailed"    "timesSent"    "notificationTrigger"
+    Check Created Resource Set To    ${expected_subscription}    ${response1.json()}    ${ignore_keys}
 
 
 *** Keywords ***

@@ -310,8 +310,8 @@ class Checks:
                 'position': [0, 1]
             },
             'Check Response Body Containing Subscription element': {
-                'params': ['filename', 'subscription_id', 'response_body'],
-                'position': [0, 1, 2]
+                'params': ['filename', 'subscription_id', 'response_body', 'additional_ignored_keys'],
+                'position': [0, 1, 2, 3]
             },
             'Wait for notification': {
                 'params': ['timeout'],

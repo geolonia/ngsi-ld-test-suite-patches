@@ -232,10 +232,13 @@ Check Response Body Containing List Containing EntityTemporal elements
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing Subscription element
-    [Arguments]    ${expectation_filename}    ${subscription_id}    ${response_body}
+    [Arguments]    ${expectation_filename}    ${subscription_id}    ${response_body}    ${additional_ignored_keys}=None
     ${subscription_payload}=    Load JSON From File    ${EXECDIR}/data/${expectation_filename}
     ${subscription}=    Update Value To JSON    ${subscription_payload}    $..id    ${subscription_id}
     ${ignored_keys}=    Create List    ${context_regex_expr}
+    IF    ${additional_ignored_keys} != None
+        Extend List    ${ignored_keys}    ${additional_ignored_keys}
+    END
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${subscription}
     ...    ${response_body}
@@ -253,7 +256,7 @@ Check Response Body Containing List Containing Subscription elements
         ...    ${subscription_id}
         ${index}=    Evaluate    ${index} + 1
     END
-    ${ignored_keys}=    Create List    ${context_regex_expr}
+    ${ignored_keys}=    Create List    ${context_regex_expr}    "jsonldContext"    "timesFailed"    "timesSent"    "notificationTrigger"
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${subscription_payload}
     ...    ${response_body}

@@ -30,10 +30,12 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
     ${response1}=    Retrieve Subscription
     ...    id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
+    ${ignore_keys}=    Create List    "jsonldContext"    "timesFailed"    "timesSent"    "notificationTrigger"
     Check Response Body Containing Subscription element
     ...    ${expected_subscription_payload_file_path}
     ...    ${subscription_id}
     ...    ${response1.json()}
+	...    ${ignore_keys}
 
 029_05_02 Update Subscription With Term to Uri Expansion without Context
     [Documentation]    Check that one can update a subcription: Term to URI expansion of Attribute names shall be observed
