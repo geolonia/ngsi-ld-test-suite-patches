@@ -14,6 +14,8 @@ Suite Teardown      Delete Entities
 ${building_id_prefix}=      urn:ngsi-ld:Building:
 ${filename}=                building-location-attribute.jsonld
 ${expectation_filename}=    two-buildings-location-attribute-normalized-019-05.geojson
+${expectation_filename_alt1}=    two-buildings-location-attribute-normalized-019-05.alternative.geojson
+${expectation_filename_alt2}=    two-buildings-location-attribute-normalized-019-05.alternative2.geojson
 ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 
 
@@ -30,11 +32,12 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
     ...    accept=${CONTENT_TYPE_GEOJSON}
     ...    context=${ngsild_test_suite_context}
 
-    Check Response Status Code    200    ${response.status_code}
-    Check Response Body Content
-    ...    expectation_filename=${expectation_filename}
-    ...    response_body=${response.json()}
 
+    Check Response Status Code    200    ${response.status_code}
+    ${alternatives}=	Create List	${expectation_filename}	${expectation_filename_alt1}	${expectation_filename_alt2}
+    Check Body With Alternatives
+    ...    response_body=${response.json()}
+    ...    alternatives=${alternatives}
 
 *** Keywords ***
 Create Initial Entities

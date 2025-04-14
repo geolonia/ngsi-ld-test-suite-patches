@@ -24,7 +24,8 @@
                     "coordinates": [13.3986, 52.5547]
                 }
             }
-        }
+        },
+		"@context": "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
     }, {
             "id": "urn:ngsi-ld:Building:019-05-02",
             "type": "Feature",
@@ -49,7 +50,7 @@
                         "coordinates": [13.3986, 52.5547]
                     }
                 }
-            }
-    }],
-	"@context": "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
+            },
+			"@context": "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
+    }]
 }

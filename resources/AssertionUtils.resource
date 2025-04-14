@@ -802,3 +802,14 @@ Check Message Contain Key
 Check Message Field Equal
     [Arguments]    ${expected_field}    ${field}
     Should Be Equal As Strings    ${expected_field}    ${field}
+
+Check Body With Alternatives
+    [Arguments]    ${response_body}    ${alternatives}
+	${result}=	False
+	FOR    ${alternative}    IN    @{alternatives}
+        ${result}=	Run Keyword And Return Status    Check Response Body Content    expectation_filename=${alternative}    response_body=${response_body}
+		IF	${result}
+			BREAK
+		END
+    END
+	Should Be True	${result}
