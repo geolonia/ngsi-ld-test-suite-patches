@@ -805,7 +805,7 @@ Check Message Field Equal
 
 Check Body With Alternatives
     [Arguments]    ${response_body}    ${alternatives}
-	${result}=	False
+	${result}=    Set Variable    ${False}
 	FOR    ${alternative}    IN    @{alternatives}
         ${result}=	Run Keyword And Return Status    Check Response Body Content    expectation_filename=${alternative}    response_body=${response_body}
 		IF	${result}
