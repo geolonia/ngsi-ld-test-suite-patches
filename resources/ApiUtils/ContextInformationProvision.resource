@@ -5,6 +5,7 @@ Library         RequestsLibrary
 Library         OperatingSystem
 Library         Collections
 Library         JSONLibrary
+Resource        ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource        ${EXECDIR}/resources/JsonUtils.resource
 
 
@@ -241,6 +242,9 @@ Delete Entity by Id
     ${response}=    DELETE
     ...    url=${base_url}/${ENTITIES_ENDPOINT_PATH}${id}
     ...    expected_status=any
+    IF    ${delete_temporal_on_core_delete}
+        Delete Temporal Representation Of Entity    ${id}
+    END
     Output    ${response}    Delete Entity by Id
     RETURN    ${response}
 
