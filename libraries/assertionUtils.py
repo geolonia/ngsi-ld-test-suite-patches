@@ -45,17 +45,27 @@ class StringOrSingleListContextOperator:
         return expected_context == actual_context
 
 
-class TemporalPropertyOperator:
+# for observedAt, check there is a strict equality between expected and actual
+class ObservedAtPropertyOperator:
     def match(self, level) -> bool:
-        return (level.path().endswith("['createdAt']")
-                or level.path().endswith("['modifiedAt']")
-                or level.path().endswith("['observedAt']")
-                or level.path().endswith("['deletedAt']"))
+        return level.path().endswith("['observedAt']")
 
     def give_up_diffing(self, level, diff_instance) -> bool:
         expected_datetime = dateTimeUtils.parse_ngsild_date(level.t1)
         actual_datetime = dateTimeUtils.parse_ngsild_date(level.t2)
         return actual_datetime is not None and expected_datetime == actual_datetime
+
+
+# for system generated temporal properties, only check it is present and has the correct format
+class SystemGeneratedTemporalPropertyOperator:
+    def match(self, level) -> bool:
+        return (level.path().endswith("['createdAt']")
+                or level.path().endswith("['modifiedAt']")
+                or level.path().endswith("['deletedAt']"))
+
+    def give_up_diffing(self, level, diff_instance) -> bool:
+        actual_datetime = dateTimeUtils.parse_ngsild_date(level.t2)
+        return actual_datetime is not None
 
 
 def compare_func(x, y, level=None):
@@ -78,21 +88,37 @@ def compare_dictionaries_ignoring_keys(expected, actual, exclude_regex_paths, ig
     if group_by is not None and ignore_core_context_version:
         res = DeepDiff(expected, actual, exclude_regex_paths=exclude_regex_paths, ignore_order=True, verbose_level=1,
                        iterable_compare_func=compare_func,
-                       custom_operators=[AnyCoreContextVersionOperator(), TemporalPropertyOperator()],
+                       custom_operators=[
+                           AnyCoreContextVersionOperator(),
+                           ObservedAtPropertyOperator(),
+                           SystemGeneratedTemporalPropertyOperator()
+                       ],
                        group_by=group_by)
     elif group_by is not None:
         res = DeepDiff(expected, actual, exclude_regex_paths=exclude_regex_paths, ignore_order=True, verbose_level=1,
                        iterable_compare_func=compare_func,
-                       custom_operators=[StringOrSingleListContextOperator(), TemporalPropertyOperator()],
+                       custom_operators=[
+                           StringOrSingleListContextOperator(),
+                           ObservedAtPropertyOperator(),
+                           SystemGeneratedTemporalPropertyOperator()
+                       ],
                        group_by=group_by)
     elif ignore_core_context_version:
         res = DeepDiff(expected, actual, exclude_regex_paths=exclude_regex_paths, ignore_order=True, verbose_level=1,
                        iterable_compare_func=compare_func,
-                       custom_operators=[AnyCoreContextVersionOperator(), TemporalPropertyOperator()])
+                       custom_operators=[
+                           AnyCoreContextVersionOperator(),
+                           ObservedAtPropertyOperator(),
+                           SystemGeneratedTemporalPropertyOperator()
+                       ])
     else:
         res = DeepDiff(expected, actual, exclude_regex_paths=exclude_regex_paths, ignore_order=True, verbose_level=1,
                        iterable_compare_func=compare_func,
-                       custom_operators=[StringOrSingleListContextOperator(), TemporalPropertyOperator()])
+                       custom_operators=[
+                           StringOrSingleListContextOperator(),
+                           ObservedAtPropertyOperator(),
+                           SystemGeneratedTemporalPropertyOperator()
+                       ])
 
     if len(res) > 0:
         output_pretty_diff(expected, actual, Theme(added="", removed="", reset=""))
