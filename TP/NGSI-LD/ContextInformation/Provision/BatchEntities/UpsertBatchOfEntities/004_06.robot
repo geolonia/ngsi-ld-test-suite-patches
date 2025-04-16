@@ -25,4 +25,4 @@ Batch Upsert Entity With Invalid Request Scenarios
     Check RL Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()['errors'][0]['error']}
     ...    ${problem_type}
-    Check RL Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+    Check RL Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()['errors'][0]['error']}
