@@ -76,7 +76,10 @@ ${registration_filename}=       csourceRegistrations/context-source-registration
     ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${expected_status_code}    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response.json()}
+    ...    ${response.json()['errors'][0]['error']}
+    ...    ${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to
+    ...    ${response.json()['errors'][1]['error']}
     ...    ${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
     [Teardown]    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_created}

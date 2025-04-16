@@ -22,6 +22,6 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
     Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
-    ...    ${response.json()}
+    ...    ${response.json()['errors'][0]['error']}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
