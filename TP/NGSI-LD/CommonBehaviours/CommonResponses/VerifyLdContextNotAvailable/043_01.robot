@@ -81,7 +81,8 @@ ${registration_filename}=       csourceRegistrations/context-source-registration
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()['errors'][1]['error']}
     ...    ${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()['errors'][0]['error']}
+	Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()['errors'][1]['error']}
     [Teardown]    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_created}
 
 043_01_05 Create context source registration

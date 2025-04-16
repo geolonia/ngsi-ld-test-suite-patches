@@ -24,4 +24,4 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()['errors'][0]['error']}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()['errors'][0]['error']}
