@@ -21,7 +21,7 @@ Create Subscription With Invalid Request
     [Arguments]    ${filename}    ${expected_status}
     ${response}=    Create Subscription From File    ${filename}
     Check Response Status Code    400    ${response.status_code}
-    Check RL Response Body Containing ProblemDetails Element Containing Type Element set to
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}
     ...    ${expected_status}
-    Check RL Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

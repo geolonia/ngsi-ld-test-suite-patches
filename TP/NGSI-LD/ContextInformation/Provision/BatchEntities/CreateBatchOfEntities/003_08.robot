@@ -20,8 +20,9 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
     ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_LD_JSON}
 
-    Check Response Status Code    400    ${response.status_code}
+    Check Response Status Code    207    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()['errors'][0]['error']}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()['errors'][0]['error']}
+    Check Response Body Containing ProblemDetails Element Containing Title Element
+    ...    ${response.json()['errors'][0]['error']}
