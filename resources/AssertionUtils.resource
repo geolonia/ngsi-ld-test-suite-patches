@@ -423,17 +423,6 @@ Check Response Kind set to
     [Arguments]    ${response}    ${kind}
     Should Be Equal    ${response['kind']}    ${kind}
 
-Check RL Response Body Containing ProblemDetails Element Containing Type Element set to
-    [Arguments]    ${response_body}    ${type}
-    ${json_response_body}=    Set Variable    ${response_body}
-
-    Should Be Equal    ${json_response_body['type']}    ${type}
-
-Check RL Response Body Containing ProblemDetails Element Containing Title Element
-    [Arguments]    ${response_body}
-    ${json_response_body}=    Set Variable    ${response_body}
-    Should Not Be Empty    ${json_response_body['title']}
-
 Check JSON Value In Response Body
     [Arguments]    ${json_path_expr}    ${value_to_check}    ${response_body}
     Should Be Equal As Strings    ${response_body${json_path_expr}}    ${value_to_check}

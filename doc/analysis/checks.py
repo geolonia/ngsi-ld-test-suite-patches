@@ -70,10 +70,6 @@ class Checks:
                 Checks.check_response_body_might_contain_optional_fields,
             'Check Response Body Containing ProblemDetails Element':
                 Checks.check_response_body_containing_problemdetails_element,
-            'Check RL Response Body Containing ProblemDetails Element Containing Type Element set to':
-                Checks.check_rl_response_body_containing_problemdetails_element_containing_type_element_set_to,
-            'Check RL Response Body Containing ProblemDetails Element Containing Title Element':
-                Checks.check_rl_response_body_containing_problemdetails_element_containing_title_element,
             'Check JSON Value In Response Body':
                 Checks.check_json_value_in_response_body,
             'Check Pagination Prev And Next Headers':
@@ -237,10 +233,6 @@ class Checks:
                 'params': ['filename', 'entity_ids'],
                 'position': [0, 1]
             },
-            'Check RL Response Body Containing ProblemDetails Element Containing Title Element': {
-                'params': ['response_body'],
-                'position': [0]
-            },
             'Check Response Body Containing a Boolean Attribute set to': {
                 'params': ['expected_attribute_name', 'response_body', 'expected_attribute_value'],
                 'position': [0, 1, 2]
@@ -280,10 +272,6 @@ class Checks:
             'Check Created Resources Set To': {
                 'params': ['expected_resources', 'response_body', 'ignored_keys'],
                 'position': []
-            },
-            'Check RL Response Body Containing ProblemDetails Element Containing Type Element set to': {
-                'params': ['type'],
-                'position': [1]
             },
             'Check JSON Value In Response Body': {
                 'params': ['key', 'value'],
@@ -943,18 +931,6 @@ class Checks:
         return "Response body containing 'title' element"
 
     @staticmethod
-    def check_rl_response_body_containing_problemdetails_element_containing_type_element_set_to(kwargs: list) -> str:
-        if 'type' in kwargs:
-            type = kwargs['type']
-            return f"Response Body containing the type '{type}'"
-        else:
-            raise Exception(f"ERROR, expected type attribute, but received: {kwargs}")
-
-    @staticmethod
-    def check_rl_response_body_containing_problemdetails_element_containing_title_element(kwargs: list) -> str:
-        return "Response body containing 'title' element"
-
-    @staticmethod
     def check_json_value_in_response_body(kwargs: list) -> str:
         if 'key' in kwargs and 'value' in kwargs:
             key = kwargs['key']
@@ -1287,9 +1263,6 @@ if __name__ == "__main__":
                           type='https://uri.etsi.org/ngsi-ld/errors/BadRequestData'))
     print(data.get_checks(checks='Check Response Body Title When Using Session Request'))
     print(data.get_checks(checks='Check Response Body Containing ProblemDetails Element Containing Title Element'))
-    print(data.get_checks(checks='Check RL Response Body Containing ProblemDetails Element Containing Type Element set to',
-                          type='https://uri.etsi.org/ngsi-ld/errors/BadRequestData'))
-    print(data.get_checks(checks='Check RL Response Body Containing ProblemDetails Element Containing Title Element'))
     print(data.get_checks(checks='Check JSON Value In Response Body',
                           key="['information']['entities'][0]['type']",
                           value="Building"))
