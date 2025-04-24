@@ -19,13 +19,13 @@ ${entity_payload_filename}=     building-simple-attributes.jsonld
 *** Test Cases ***    FILENAME    UPDATE_FRAGMENT_FILENAME    EXPECTED_STATUS
 005_02_01 EntityWithExistingAttributes
     [Tags]    be-update    5_6_9
-    building-simple-attributes.jsonld    fragmentEntities/empty-fragment.json    204
+    building-simple-attributes.jsonld    fragmentEntities/empty-fragment.json    207
 005_02_02 EntityWithNewAttribute
     [Tags]    be-update    5_6_9
     building-relationship.jsonld    fragmentEntities/locatedAt-fragment.json    204
 005_02_03 EntityWithNewAndExistingAttribute
     [Tags]    be-update    5_6_9
-    building-location-attribute.jsonld    fragmentEntities/location-fragment.json    204
+    building-location-attribute.jsonld    fragmentEntities/location-fragment.json    207
 
 
 *** Keywords ***

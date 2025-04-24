@@ -92,6 +92,8 @@ class Checks:
                 Checks.check_notificationparams,
             'Check Response Body Containing Batch Operation Result':
                 Checks.check_response_body_containing_batch_operation_result,
+            'Check Response Body Containing Update Result':
+                Checks.check_response_body_containing_update_result,
             'Wait for notification':
                 Checks.wait_for_notification,
             'Wait for no notification':
@@ -305,6 +307,10 @@ class Checks:
             },
             'Check Response Body Containing Batch Operation Result': {
                 'params': ['operation'],
+                'position': [0]
+            },
+            'Check Response Body Containing Update Result': {
+                'params': ['expected_update_result'],
                 'position': [0]
             },
             'Should be Equal': {
@@ -1105,6 +1111,13 @@ class Checks:
             return f"Response body containing batch operation result set to '{kwargs['operation']}'"
         else:
             raise Exception(f'ERROR, Expected operation parameter but received: {kwargs}')
+
+    @staticmethod
+    def check_response_body_containing_update_result(kwargs: list) -> str:
+        if "expected_update_result" in kwargs:
+            return f"Response body containing update result set to '{kwargs['expected_update_result']}'"
+        else:
+            raise Exception(f'ERROR, Expected expected_update_result parameter but received: {kwargs}')
 
     @staticmethod
     def check_response_body_content(kwargs: list) -> str:

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that one can append entity attributes
+Documentation       Check that one can append entity attributes with noOverwrite option
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
@@ -12,20 +12,22 @@ Test Template       Append Attributes With Params
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-speed-two-datasetid.jsonld
+${vehicle_id_prefix}=               urn:ngsi-ld:Vehicle:
+${filename}=                        vehicle-speed-two-datasetid.jsonld
+${existing_attribute_name}=         https://ngsi-ld-test-suite/context#speed
+${non_existing_attribute_name}=     https://uri.etsi.org/ngsi-ld/default-context/attribute_to_be_added
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_FILENAME
 010_04_01 Append entity attributes and ignore existing multi-attribute instance
-    204    vehicle-attribute-to-add-fragment.jsonld    vehicle-speed-appended.jsonld
+    207    vehicle-attribute-to-add-fragment.jsonld    vehicle-speed-appended.jsonld
 010_04_02 Append entity attributes with a new multi-attribute instance
     204    vehicle-speed-different-datasetid-fragment.jsonld    vehicle-speed-different-datasetid.jsonld
 
 
 *** Keywords ***
 Append Attributes With Params
-    [Documentation]    Check that one can append entity attributes
+    [Documentation]    Check that one can append entity attributes with noOverwrite option
     [Tags]    ea-append    5_6_3
     [Arguments]    ${status_code}    ${fragment_filename}    ${expectation_filename}
     ${response}=    Append Entity Attributes With Parameters
@@ -34,6 +36,14 @@ Append Attributes With Params
     ...    ${CONTENT_TYPE_LD_JSON}
     ...    noOverwrite
     Check Response Status Code    ${status_code}    ${response.status_code}
+    IF    ${status_code} == 207
+        @{expected_successful_attributes_names}=    Create List    ${non_existing_attribute_name}
+        @{expected_failed_attributes_names}=    Create List    ${existing_attribute_name}
+        &{expected_update_result}=    Create Update Result
+        ...    ${expected_successful_attributes_names}
+        ...    ${expected_failed_attributes_names}
+        Check Response Body Containing Update Result    ${expected_update_result}    ${response.json()}
+    END
 
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response1}=    Retrieve Entity by Id
