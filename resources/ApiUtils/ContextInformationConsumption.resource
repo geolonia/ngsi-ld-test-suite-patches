@@ -211,7 +211,7 @@ Retrieve Attributes
     RETURN    ${response}
 
 Retrieve Entity by Id
-    [Arguments]    ${id}    ${accept}=${CONTENT_TYPE_LD_JSON}    ${context}=${EMPTY}    ${local}=${EMPTY}    ${options}=${EMPTY}
+    [Arguments]    ${id}    ${accept}=${CONTENT_TYPE_LD_JSON}    ${context}=${EMPTY}    ${local}=${EMPTY}    ${base_url}=${url}    ${options}=${EMPTY}
     ${headers}=    Create Dictionary
     &{params}=    Create Dictionary
     ${options_length}=    Get Length    ${options}
@@ -226,7 +226,7 @@ Retrieve Entity by Id
         Set To Dictionary    ${params}    options=${options}
     END
     ${response}=    GET
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}
+    ...    url=${base_url}/${ENTITIES_ENDPOINT_PATH}${id}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
