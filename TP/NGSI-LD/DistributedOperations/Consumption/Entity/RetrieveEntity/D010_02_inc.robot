@@ -7,6 +7,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.re
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
+Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
 Test Setup         Setup Entity On Remote And Registration
 Test Teardown      Delete Created Entity And Registration
@@ -29,8 +30,8 @@ D010_02_inc Retrieve entity on a Context Source from the Context Broker with loc
 Setup Entity On Remote And Registration
     ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
     Set Suite Variable    ${entity_id}
-    ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    base_url=${remote_url}
-    Check Response Status Code    201    ${response.status_code}
+    # ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    base_url=${remote_url}
+    # Check Response Status Code    201    ${response.status_code}
 
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}
@@ -39,9 +40,11 @@ Setup Entity On Remote And Registration
     ...    ${registration_payload_file_path}
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response1.status_code}
-    
+    Start Context Source Mock Server
+
 
 
 Delete Created Entity And Registration
-    Delete Entity By Id    ${entity_id}    base_url=${remote_url}
-    Delete Context Source Registration    ${registration_id} 
+    # Delete Entity By Id    ${entity_id}    base_url=${remote_url}
+    Delete Context Source Registration    ${registration_id}
+    Stop Context Source Mock Server

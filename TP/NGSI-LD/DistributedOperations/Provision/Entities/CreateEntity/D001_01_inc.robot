@@ -29,10 +29,6 @@ D001_01_inc Create Entity On Both Context Broker and Context Source
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Check Response Status Code    201    ${response.status_code}
 
-    # Works after adding these two lines in venv/lib/python3.12/site-packages/HttpCtrl/http_handler.py
-    #    at line 86-87:
-    #    request = Request(host, port, method, self.path, self.headers, body)
-    #    RequestStorage().push(request)
     Wait for redirected request
 
     ${request_payload}=    Get Request Body
@@ -42,13 +38,13 @@ D001_01_inc Create Entity On Both Context Broker and Context Source
     Log    ${request_headers}
 
     @{entities_id}=    Create List    ${entity_id}
+    ${payload_list}    Evaluate    [$payload]
+    Check Response Body Containing Entities URIS set to    ${entities_id}    ${payload_list}
+
     ${response_query}=    Query Entities    entity_types=Vehicle    local=true    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response_query.status_code}
     Check Response Body Containing Entities URIS set to    ${entities_id}    ${response_query.json()}
-    ${response_query_remote}=    Query Entities    entity_types=Vehicle    base_url=${remote_url}
-    Check Response Body Containing Entities URIS set to    ${entities_id}    ${response_query_remote.json()}
-
-
+    
 *** Keywords ***
 Setup Entity Id And Registration
     ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
@@ -60,10 +56,10 @@ Setup Entity Id And Registration
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
     ...    entity_id=${entity_id}
-    ${response1}=    Create Context Source Registration With Return    ${registration_payload}
-    Check Response Status Code    201    ${response1.status_code}
+    ${response}=    Create Context Source Registration With Return    ${registration_payload}
+    Check Response Status Code    201    ${response.status_code}
+    
     Start Context Source Mock Server
-
 Delete Created Entities And Registration
     Delete Context Source Registration    ${registration_id}
     Delete Entity By Id    ${entity_id}
