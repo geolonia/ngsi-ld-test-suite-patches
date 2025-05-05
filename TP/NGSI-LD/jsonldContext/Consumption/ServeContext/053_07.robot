@@ -60,13 +60,11 @@ Create initial ImplicitlyCreated @context
     ...    ${subscription_payload_file_path}
     ...    ${CONTENT_TYPE_LD_JSON}
 
-    ${response}=    List @contexts    true    ImplicitlyCreated
 
-    Check Response Status Code    200    ${response.status_code}
-
-    ${data}=    Get From List    ${response.json()}    0
-    ${implicit_id}=    Get From Dictionary    ${data}    URL
-
+    ${response}=    Retrieve Subscription    ${subscription_id}
+    ${data}=    Set Variable    ${response.json()}
+    ${implicit_id}=    Get From Dictionary    ${response.json()}    jsonldContext
+    ${implicit_id}=    Evaluate    '${implicit_id}'.split('/')[-1]
     Set Global Variable    ${implicit_id}
     Set Suite Variable    ${subscription_id}
     Set Suite Variable    ${list_contexts}

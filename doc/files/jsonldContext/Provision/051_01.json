@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CTX/Prov/051_01",
-  "test_objective": "Check that you can delete a previous created hosted @context without reload param",
+  "test_objective": "Check that one can delete a previous created hosted @context without reload param",
   "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.5",
   "config_id": "",
   "parent_release": "v1.5.1",
@@ -17,7 +17,7 @@
     {
       "name": "051_01_01 Delete a @context whose kind is hosted without reload param",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Prov/051_01_01",
-      "doc": "Check that you can delete a hosted @context",
+      "doc": "Check that one can delete a hosted @context",
       "tags": [
         "5_13_5",
         "ctx-serve",

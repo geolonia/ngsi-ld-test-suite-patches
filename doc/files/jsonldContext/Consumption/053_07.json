@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CTX/Cons/053_07",
-  "test_objective": "Check that we can serve a ImplicitlyCreated @context with details set to true",
+  "test_objective": "Check that one can serve a ImplicitlyCreated @context with details set to true",
   "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.4",
   "config_id": "",
   "parent_release": "v1.5.1",
@@ -16,9 +16,9 @@
   "initial_condition": "with {\n    the SUT containing a ImplicitlyCreated @context created from a subscription query.\n            }",
   "test_cases": [
     {
-      "name": "053_07_01 Check that we can serve a ImplicitlyCreated @context with details set to true",
+      "name": "053_07_01 Check that one can serve a ImplicitlyCreated @context with details set to true",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/053_07_01",
-      "doc": "Check that we can serve a ImplicitlyCreated @context with details set to true",
+      "doc": "Check that one can serve a ImplicitlyCreated @context with details set to true",
       "tags": [
         "5_13_4",
         "since_v1.5.1",

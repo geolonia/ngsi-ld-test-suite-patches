@@ -1,0 +1,40 @@
+{
+  "tp_id": "TP/NGSI-LD/CTX/Cons/052_07",
+  "test_objective": "Check that one can list all the cached @context entries",
+  "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.3",
+  "config_id": "",
+  "parent_release": "v1.5.1",
+  "clauses": [
+    "5.13.3"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Initial Cached @context from entity",
+    "List @contexts with several previous created @context",
+    "Delete Initial @context and entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT containing a cached context from creating an entity.\n        }",
+  "test_cases": [
+    {
+      "name": "052_07_01 List @contexts with details set to true and kind set to cached and with previously several add @contexts",
+      "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_07_01",
+      "doc": "Check that one can find a previously cached context",
+      "tags": [
+        "5_13_3",
+        "ctx-list",
+        "since_v1.5.1"
+      ],
+      "setup": "Create Initial Cached @context from entity",
+      "teardown": "Delete Initial @context and entity",
+      "template": "List @contexts with several previous created @context",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        List @contexts with Response Status Code set to 200     and\n        List @contexts with Response reason set to 'OK'     and\n        List @contexts with Check Context Response Body Containing a list of identifiers and\n            Query Parameter: kind set to 'Cached'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts?${params_as_string}'\n        method set to 'GET'\n        List @contexts: and\n    Query Parameter: details set to 'true' and\n    Query Parameter: kind set to 'Cached'\n}",
+      "http_verb": "GET",
+      "endpoint": "jsonldContexts?${params_as_string}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "jsonldContext/Consumption/ListContexts",
+  "robotfile": "052_07"
+}

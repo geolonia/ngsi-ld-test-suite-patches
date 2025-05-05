@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CTX/Prov/051_02",
-  "test_objective": "Check that you get an error when trying to delete an unknown @context identifier",
+  "test_objective": "Check that one gets an error when trying to delete an unknown @context identifier",
   "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.5",
   "config_id": "",
   "parent_release": "v1.5.1",
@@ -15,7 +15,7 @@
     {
       "name": "051_02_01 Delete a @context with unknown @context identifier",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Prov/051_02_01",
-      "doc": "Check that an error message is obtained in the response when we try to delete a @context with unknonwn id",
+      "doc": "Check that an error message is obtained in the response when one tries to delete a @context with unknonwn id",
       "tags": [
         "5_13_5",
         "ctx-serve",

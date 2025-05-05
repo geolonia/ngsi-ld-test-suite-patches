@@ -29,7 +29,8 @@ ${reason_200}=              OK
 053_05_01 Check that the context served by a context server is still in the broker after a ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE with details=true
     [Documentation]    Check that the context served by a context server is still in the broker after a ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE with details=true
     [Tags]    ctx-serve    5_13_4    since_v1.5.1
-
+    ${response}=    List @contexts     ${TRUE}
+    Log    ${response}
     ${response}=    Serve a @context
     ...    contextId=${uri}
     ...    details=true
@@ -61,7 +62,8 @@ Create Initial @context condition from an external server
 
     Log    Waiting 3 seconds to continue...
     Sleep    3s
-
+    ${response}=    List @contexts     ${TRUE}
+    Log    ${response}
     ${response}=    Serve a @context    ${uri}    true
     Check Response Status Code    200    ${response.status_code}
     Check Context Response Kind    ${response.json()}    Cached

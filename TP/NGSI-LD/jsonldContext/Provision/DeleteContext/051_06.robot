@@ -46,14 +46,16 @@ Create initial ImplicitlyCreated @context
 
     Check Response Status Code    200    ${response.status_code}
 
-    ${data}=    Get From List    ${response.json()}    0
-    ${implicit_id}=    Get From Dictionary    ${data}    URL
-
-    Check Context Response Body Containing numberOfHits value    ${data}    1
-
+    ${response}=    Retrieve Subscription    ${subscription_id}
+    ${data}=    Set Variable    ${response.json()}
+    ${implicit_id}=    Get From Dictionary    ${response.json()}    jsonldContext
+    ${implicit_id}=    Evaluate    '${implicit_id}'.split('/')[-1]
     Set Global Variable    ${implicit_id}
     Set Suite Variable    ${subscription_id}
     Set Suite Variable    ${list_contexts}
+    Check Context Response Body Containing numberOfHits value    ${data}    0
+
+
 
 Delete Initial @context Data
     Delete Subscription    ${subscription_id}

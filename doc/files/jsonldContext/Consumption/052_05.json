@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CTX/Cons/052_05",
-  "test_objective": "Check that you can list all the @context available in the broker with several add @contexts with details equal to true",
+  "test_objective": "Check that one can list all the @context available in the broker with several add @contexts with details equal to true",
   "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.3",
   "config_id": "",
   "parent_release": "v1.5.1",
@@ -19,7 +19,7 @@
     {
       "name": "052_05_01 List @contexts with details set to true and no kind and with previously several add @contexts",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_05_01",
-      "doc": "Check that you can list @contexts",
+      "doc": "Check that one can list @contexts",
       "tags": [
         "5_13_3",
         "ctx-list",
@@ -28,7 +28,7 @@
       "setup": "Create Initial set of @contexts",
       "teardown": "Delete Initial @contexts",
       "template": "List @contexts with several previous created @context",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        List @contexts with Response Status Code set to 200     and\n        List @contexts with Response reason set to 'OK'     and\n        List @contexts with Response Body containing a Context element containing JSONObject with details of the contexts:\n            * the expected length of contexts set to '4'\n            * the list of contexts URI set to 'list_contexts=${uris}'\n            * response body to be checked set to 'response=${response.json()}'\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        List @contexts with Response Status Code set to 200     and\n        List @contexts with Response reason set to 'OK'     and\n        List @contexts with Check Context Response Body Containing a list of identifiers and\n            Query Parameter: kind set to '${EMPTY}'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts?${params_as_string}'\n        method set to 'GET'\n        List @contexts: and\n    Query Parameter: details set to 'true' and\n    Query Parameter: kind set to '${EMPTY}'\n}",
       "http_verb": "GET",
       "endpoint": "jsonldContexts?${params_as_string}"
@@ -36,7 +36,7 @@
     {
       "name": "052_05_02 List @contexts with details set to true and kind set to hosted and with previously several add @contexts",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_05_02",
-      "doc": "Check that you can list @contexts",
+      "doc": "Check that one can list @contexts",
       "tags": [
         "5_13_3",
         "ctx-list",
@@ -45,42 +45,8 @@
       "setup": "Create Initial set of @contexts",
       "teardown": "Delete Initial @contexts",
       "template": "List @contexts with several previous created @context",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        List @contexts with Response Status Code set to 200     and\n        List @contexts with Response reason set to 'OK'     and\n        List @contexts with Response Body containing a Context element containing JSONObject with details of the contexts:\n            * the expected length of contexts set to '3'\n            * the list of contexts URI set to 'list_contexts=${uris}'\n            * response body to be checked set to 'response=${response.json()}'\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        List @contexts with Response Status Code set to 200     and\n        List @contexts with Response reason set to 'OK'     and\n        List @contexts with Check Context Response Body Containing a list of identifiers and\n            Query Parameter: kind set to 'Hosted'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts?${params_as_string}'\n        method set to 'GET'\n        List @contexts: and\n    Query Parameter: details set to 'true' and\n    Query Parameter: kind set to 'Hosted'\n}",
-      "http_verb": "GET",
-      "endpoint": "jsonldContexts?${params_as_string}"
-    },
-    {
-      "name": "052_05_03 List @contexts with details set to true and kind set to cached abd with previously several add @contexts",
-      "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_05_03",
-      "doc": "Check that you can list @contexts",
-      "tags": [
-        "5_13_3",
-        "ctx-list",
-        "since_v1.5.1"
-      ],
-      "setup": "Create Initial set of @contexts",
-      "teardown": "Delete Initial @contexts",
-      "template": "List @contexts with several previous created @context",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        List @contexts with Response Status Code set to 200     and\n        List @contexts with Response reason set to 'OK'     and\n        List @contexts with Response Body containing a Context element containing JSONObject with details of the contexts:\n            * the expected length of contexts set to '1'\n            * the list of contexts URI set to 'list_contexts=${uris}'\n            * response body to be checked set to 'response=${response.json()}'\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts?${params_as_string}'\n        method set to 'GET'\n        List @contexts: and\n    Query Parameter: details set to 'true' and\n    Query Parameter: kind set to 'Cached'\n}",
-      "http_verb": "GET",
-      "endpoint": "jsonldContexts?${params_as_string}"
-    },
-    {
-      "name": "052_05_04 List @contexts with details set to true and kind set to implicitlycreated and with previously several add @contexts",
-      "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_05_04",
-      "doc": "Check that you can list @contexts",
-      "tags": [
-        "5_13_3",
-        "ctx-list",
-        "since_v1.5.1"
-      ],
-      "setup": "Create Initial set of @contexts",
-      "teardown": "Delete Initial @contexts",
-      "template": "List @contexts with several previous created @context",
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        List @contexts with Response Status Code set to 200     and\n        List @contexts with Response reason set to 'OK'     and\n        List @contexts with Response Body containing a Context element containing JSONObject with details of the contexts:\n            * the expected length of contexts set to '0'\n            * the list of contexts URI set to 'list_contexts=${uris}'\n            * response body to be checked set to 'response=${response.json()}'\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts?${params_as_string}'\n        method set to 'GET'\n        List @contexts: and\n    Query Parameter: details set to 'true' and\n    Query Parameter: kind set to 'ImplicitlyCreated'\n}",
       "http_verb": "GET",
       "endpoint": "jsonldContexts?${params_as_string}"
     }

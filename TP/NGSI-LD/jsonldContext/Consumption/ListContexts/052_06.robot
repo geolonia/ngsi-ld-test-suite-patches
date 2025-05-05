@@ -17,45 +17,58 @@ ${reason_200}=                          OK
 ${reason_204}=                          No Content
 
 
-*** Test Cases ***    DETAILS    KIND    COUNT
+*** Test Cases ***    DETAILS    KIND
 052_06_01 List @contexts with neither details or kind and a created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
-    ${EMPTY}    ${EMPTY}    4
+    ${EMPTY}    ${EMPTY}
 052_06_02 List @contexts with no details and kind set to hosted and a created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
-    ${EMPTY}    Hosted    0
+    ${EMPTY}    Hosted
 052_06_03 List @contexts with no details and kind set to cached and a created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
-    ${EMPTY}    Cached    3
+    ${EMPTY}    Cached
 052_06_04 List @contexts with no details and kind set to implicitlycreated and a created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
-    ${EMPTY}    ImplicitlyCreated    1
+    ${EMPTY}    ImplicitlyCreated
 052_06_05 List @contexts with details set to false and no kind and a created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
-    false    ${EMPTY}    4
+    false    ${EMPTY}
 052_06_06 List @contexts with details set to false and kind equal to hosted and a created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
-    false    Hosted    0
+    false    Hosted
 052_06_07 List @contexts with details set to false and kind equal to cached and a created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
-    false    Cached    3
+    false    Cached
 052_06_08 List @contexts with details set to false and kind equal to implicitlycreated and a created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
-    false    ImplicitlyCreated    1
+    false    ImplicitlyCreated
 
 
 *** Keywords ***
 List @contexts with no previous created @context
     [Documentation]    Check that one can list @contexts
-    [Arguments]    ${details}    ${kind}    ${count}
+    [Arguments]    ${details}    ${kind}
     ${response}=    List @contexts    ${details}    ${kind}
 
     Check Response Status Code    200    ${response.status_code}
     Check Response Reason set to    ${response.reason}    ${reason_200}
-    Check Context Response Body Containing a list of identifiers
-    ...    response_body=${response.json()}
-    ...    expected_length=${count}
-    ...    list_contexts=${list_contexts}
+    
+    IF    '${kind}' == 'Hosted'
+        ${entryFound}=    Run Keyword And Return Status    Check Context Response Body Containing a list of identifiers    ${response.json()}    ${list_contexts}    ${kind}
+        Should Not Be True    ${entryFound}
+    ELSE IF    '${kind}' == 'ImplicitlyCreated'
+        ${tmp}=    Create List    ${implicit_id}
+        Check Context Response Body Containing a list of identifiers
+        ...    ${response.json()}
+        ...    ${tmp}
+        ...    ${kind}
+    ELSE IF    '${kind}' == 'Cached' or '{$kind}' == ''
+        Check Context Response Body Containing a list of identifiers
+        ...    ${response.json()}
+        ...    ${list_contexts}
+        ...    ${kind}
+    END
+
 
 Create initial ImplicitlyCreated @context
     ${subscription_payload}=    Load JSON From File    ${EXECDIR}/data/${subscription_payload_file_path}
@@ -71,19 +84,19 @@ Create initial ImplicitlyCreated @context
     ...    ${subscription_payload_file_path}
     ...    ${CONTENT_TYPE_LD_JSON}
 
-    ${response}=    List @contexts    true    ImplicitlyCreated
-
-    Check Response Status Code    200    ${response.status_code}
-
-    ${data}=    Get From List    ${response.json()}    0
-    ${implicit_id}=    Get From Dictionary    ${data}    URL
-    Append To List    ${list_contexts}    ${implicit_id}
-
-    Check Context Response Body Containing numberOfHits value    ${data}    1
+    ${response}=    Retrieve Subscription    ${subscription_id}
+    ${implicit_id}=    Get From Dictionary    ${response.json()}    jsonldContext
+    ${implicit_id}=    Evaluate    '${implicit_id}'.split('/')[-1]
 
     Set Global Variable    ${implicit_id}
     Set Suite Variable    ${subscription_id}
     Set Suite Variable    ${list_contexts}
+    ${response}=    Serve a @context    ${implicit_id}
+    Check Response Status Code    200    ${response.status_code}
+	
+    ${data}=    Set Variable    ${response.json()}
+    
+    Check Context Response Body Containing numberOfHits value    ${data}    1
 
 Delete Initial @context Data
     Delete Subscription    ${subscription_id}

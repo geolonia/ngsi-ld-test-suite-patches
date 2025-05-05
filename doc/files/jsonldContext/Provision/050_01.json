@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CTX/Prov/050_01",
-  "test_objective": "Check that you can add a hosted @context",
+  "test_objective": "Check that one can add a hosted @context",
   "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.2",
   "config_id": "",
   "parent_release": "v1.5.1",
@@ -18,7 +18,7 @@
     {
       "name": "050_01_01 Add a valid hosted @context from key=value",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Prov/050_01_01",
-      "doc": "Check that you can add a @context",
+      "doc": "Check that one can add a @context",
       "tags": [
         "5_13_2",
         "ctx-add",
@@ -35,7 +35,7 @@
     {
       "name": "050_01_02 Add a valid cached @context from URI",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Prov/050_01_02",
-      "doc": "Check that you can add a @context",
+      "doc": "Check that one can add a @context",
       "tags": [
         "5_13_2",
         "ctx-add",

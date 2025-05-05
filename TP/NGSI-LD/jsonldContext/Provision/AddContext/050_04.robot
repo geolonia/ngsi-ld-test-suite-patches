@@ -1,17 +1,22 @@
 *** Settings ***
 Documentation       Check that one can add a hosted @context with list of URIs and each of them are cached @coxtexts
-
+Variables       ${EXECDIR}/resources/variables.py
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/HttpUtils.resource
+
 
 Test Teardown       Delete Initial @context
 
 
 *** Variables ***
 ${filename_list}=       @context-cached-valid.json
+${entity_filename}=     building-simple-attributes.json
 ${reason_201}=          Created
 ${reason_204}=          No Content
+${building_id_prefix}=      urn:ngsi-ld:Building:
+${content_type}=    application/json
 
 
 *** Test Cases ***
@@ -34,7 +39,15 @@ ${reason_204}=          No Content
     # Need to check that the kind value of the created context is "hosted"
     ${response_serve}=    Serve a @context    ${uri}    true
     Check Response Kind set to    ${response_serve.json()}    Hosted
-
+    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${response}=    Create Entity Selecting Content Type
+    ...    ${entity_filename}
+    ...    ${entity_id}
+    ...    ${content_type}
+    ...    ${url}${uri}
+    
+    
+    ${response}=    Delete Entity By Id    ${entity_id}
     # Need to check that each of the URIs are Cached @contexts
     Check Cached @Contexts    ${filename_list}
 

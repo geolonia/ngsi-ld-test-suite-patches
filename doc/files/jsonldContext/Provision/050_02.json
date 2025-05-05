@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CTX/Prov/050_02",
-  "test_objective": "Check that you receive a 400 Bad Request creating a @context if the content is incorrect",
+  "test_objective": "Check that one receives a 400 Bad Request creating a @context if the content is incorrect",
   "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.2",
   "config_id": "",
   "parent_release": "v1.5.1",

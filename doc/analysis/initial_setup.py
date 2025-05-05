@@ -46,7 +46,8 @@ class InitialSetup:
             'Setup Entity Id And Registration': InitialSetup.init_eid_and_csr(),
             'Setup Entity On Remote And Registration': InitialSetup.init_remote_entity_and_csr(),
             'Setup Entity On Local And Registration': InitialSetup.init_local_entity_and_csr(),
-            'Create Entities With Different Payloads And Registration': InitialSetup.init_diff_entities_and_csr()
+            'Create Entities With Different Payloads And Registration': InitialSetup.init_diff_entities_and_csr(),
+            'Create Initial Cached @context from entity': InitialSetup.init_cached_conctext()
         }
 
         self.folder_test_suites = dirname(dirname(dirname(__file__)))
@@ -220,6 +221,13 @@ class InitialSetup:
     def create_set_contexts():
         data = '''with {
     the SUT containing a set of three Hosted @contexts and the default Cached Core Context.
+        }'''
+        return data
+
+    @staticmethod
+    def init_cached_conctext():
+        data = '''with {
+    the SUT containing a cached context from creating an entity.
         }'''
         return data
 

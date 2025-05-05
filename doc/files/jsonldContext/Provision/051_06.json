@@ -18,7 +18,7 @@
     {
       "name": "051_06_01 Delete a @context whose kind is ImplicitlyCreated without reload param",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Prov/051_06_01",
-      "doc": "Check that we can delete a ImplicitlyCreated @context",
+      "doc": "Check that one can delete a ImplicitlyCreated @context",
       "tags": [
         "5_13_5",
         "ctx-serve",

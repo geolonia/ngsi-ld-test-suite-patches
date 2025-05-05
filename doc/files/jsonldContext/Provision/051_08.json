@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CTX/Prov/051_08",
-  "test_objective": "Check that you get an error when try to delete the core @context",
+  "test_objective": "Check that one gets an error when try to delete the core @context",
   "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.5",
   "config_id": "",
   "parent_release": "v1.5.1",
@@ -17,7 +17,7 @@
     {
       "name": "051_08_01 Delete a core @contexts and return an error with no reload",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Prov/051_08_01",
-      "doc": "Check that you get an error when try to delete the core @context",
+      "doc": "Check that one gets an error when try to delete the core @context",
       "tags": [
         "5_13_5",
         "ctx-delete",
@@ -34,7 +34,7 @@
     {
       "name": "051_08_02 Delete a core @contexts and return an error with reload set to false",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Prov/051_08_02",
-      "doc": "Check that you get an error when try to delete the core @context",
+      "doc": "Check that one gets an error when try to delete the core @context",
       "tags": [
         "5_13_5",
         "ctx-delete",

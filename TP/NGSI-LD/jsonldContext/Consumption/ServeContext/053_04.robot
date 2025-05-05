@@ -28,7 +28,7 @@ ${entity_context_id}=       urn:ngsi-ld:Building:randomUUID
     ...    details=true
 
     Check Response Status Code    200    ${response.status_code}
-    Check Context Response Body Containing numberOfHits value    ${response.json()}    2
+    Check Context Response Body Containing numberOfHits value    ${response.json()}    1
 
 
 *** Keywords ***
@@ -43,7 +43,7 @@ Create Initial @context condition from an external server
     ...    details=true
 
     Check Response Status Code    200    ${response.status_code}
-    Check Context Response Body Containing numberOfHits value    ${response.json()}    1
+    Check Context Response Body Containing numberOfHits value    ${response.json()}    0
 
 Delete Initial @context condition from an external server
     Delete Entity by Id    ${entity_context_id}

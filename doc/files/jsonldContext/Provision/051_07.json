@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CTX/Prov/051_07",
-  "test_objective": "Check that you cannot delete a ImplicitlyCreated @context with reload set to true",
+  "test_objective": "Check that one cannot delete a ImplicitlyCreated @context with reload set to true",
   "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.5",
   "config_id": "",
   "parent_release": "v1.5.1",
@@ -18,7 +18,7 @@
     {
       "name": "051_07_01 Delete a ImplicitlyCreated @contexts with a valid id and reload set to true",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Prov/051_07_01",
-      "doc": "Check that you cannot delete a ImplicitlyCreated @context with reload set to true",
+      "doc": "Check that one cannot delete a ImplicitlyCreated @context with reload set to true",
       "tags": [
         "5_13_5",
         "ctx-delete",

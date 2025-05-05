@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CTX/Cons/053_02",
-  "test_objective": "Check that you can serve a previous created @context with details equal to True",
+  "test_objective": "Check that one can serve a previous created @context with details equal to True",
   "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.4",
   "config_id": "",
   "parent_release": "v1.5.1",
@@ -19,7 +19,7 @@
     {
       "name": "053_02_01 Serve a @context with details set to True",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/053_02_01",
-      "doc": "Check that you can serve a @context with details",
+      "doc": "Check that one can serve a @context with details",
       "tags": [
         "5_13_4",
         "ctx-serve",

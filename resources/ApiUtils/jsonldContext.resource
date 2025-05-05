@@ -37,7 +37,8 @@ Add a new @context
 
 Serve a @context
     [Arguments]    ${contextId}    ${details}=${EMPTY}
-
+    ${contextId}=    Replace String    ${contextId}    /ngsi-ld/v1/${JSONLDCONTEXTS_ENDPOINT_PATH}/    ${EMPTY}
+    ${contextId}=    Evaluate    urllib.parse.quote("${contextId}", safe='')    modules=urllib
     IF    '${details}'!=''
         &{params}=    Create Dictionary
         Set To Dictionary    ${params}    details=${details}
@@ -57,7 +58,8 @@ Serve a @context
 
 Delete a @context
     [Arguments]    ${contextId}    ${reload}=${EMPTY}
-
+    ${contextId}=    Replace String    ${contextId}    /ngsi-ld/v1/${JSONLDCONTEXTS_ENDPOINT_PATH}/    ${EMPTY}
+    ${contextId}=    Evaluate    urllib.parse.quote("${contextId}", safe='')    modules=urllib
     IF    '${reload}'!=''
         &{params}=    Create Dictionary
         Set To Dictionary    ${params}    reload=${reload}
