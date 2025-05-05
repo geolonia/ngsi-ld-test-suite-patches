@@ -42,14 +42,14 @@ ${uri}                      /api/v1/context.jsonld
 Create Initial @context condition from an external server
     Start @context Local Server
 
-    ${uri}=    Catenate    http://${context_server_host}:${context_server_port}${uri}
+    #${uri}=    Catenate    http://${context_server_host}:${context_server_port}${uri}
     Set Global Variable    ${uri}
 
     Create Entity selecting @context    ${entityfile}    ${uri}
 
     Log    Waiting 3 seconds to continue...
     Sleep    3s
-
+    ${response}=    List @contexts
     ${response}=    Serve a @context    ${uri}    true
     Check Response Status Code    200    ${response.status_code}
     Check Context Response Kind    ${response.json()}    Cached

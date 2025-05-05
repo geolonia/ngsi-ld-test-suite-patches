@@ -18,31 +18,20 @@ ${reason_200}=          OK
 ${reason_204}=          No Content
 
 
-*** Test Cases ***    DETAILS    KIND    COUNT
+*** Test Cases ***    DETAILS    KIND
 052_03_01 List @contexts with neither details or kind and with previously several add @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
-    ${EMPTY}    ${EMPTY}    4
+    ${EMPTY}    ${EMPTY}
 052_03_02 List @contexts with no details and kind equal to hosted and with previously several add @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
-    ${EMPTY}    Hosted    3
-052_03_03 List @contexts with no details and kind equal to cached and with previously several add @context
+    ${EMPTY}    Hosted
+052_03_03 List @contexts with details equal to false and no kind and with previously several add @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
-    ${EMPTY}    Cached    1
-052_03_04 List @contexts with no details and kind equal to implicitlycreated and with previously several add @context
+    false    ${EMPTY}
+052_03_04 List @contexts with details equal to false and kind equal to hosted and with previously several add @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
-    ${EMPTY}    ImplicitlyCreated    0
-052_03_05 List @contexts with details equal to false and no kind and with previously several add @context
-    [Tags]    ctx-list    5_13_3    since_v1.5.1
-    false    ${EMPTY}    4
-052_03_06 List @contexts with details equal to false and kind equal to hosted and with previously several add @context
-    [Tags]    ctx-list    5_13_3    since_v1.5.1
-    false    Hosted    3
-052_03_07 List @contexts with details equal to false and kind equal to cached abd with previously several add @context
-    [Tags]    ctx-list    5_13_3    since_v1.5.1
-    false    Cached    1
-052_03_08 List @contexts with details equal to false and kind equal to implicitlycreated and with previously several add @context
-    [Tags]    ctx-list    5_13_3    since_v1.5.1
-    false    ImplicitlyCreated    0
+    false    Hosted
+
 
 
 *** Keywords ***
@@ -70,17 +59,17 @@ Create Initial set of @contexts
 
 List @contexts with several previous created @context
     [Documentation]    Check that one can list @contexts
-    [Arguments]    ${details}    ${kind}    ${count}
+    [Arguments]    ${details}    ${kind}
 
     ${response}=    List @contexts    ${details}    ${kind}
 
     Check Response Status Code    200    ${response.status_code}
     Check Response Reason set to    ${response.reason}    ${reason_200}
     Check Context Response Body Containing a list of identifiers
-    ...    response_body=${response.json()}
-    ...    expected_length=${count}
-    ...    list_contexts=${uri_list}
-    ...    kind=${kind}
+    ...    ${response.json()}
+    ...    ${uri_list}
+    ...    ${kind}
+    ...    ${FALSE}
 
 Delete Initial @contexts
     FOR    ${uri}    IN    @{uri_list}

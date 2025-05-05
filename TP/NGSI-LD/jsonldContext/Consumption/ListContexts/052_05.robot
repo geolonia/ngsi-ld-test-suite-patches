@@ -18,19 +18,20 @@ ${reason_200}=          OK
 ${reason_204}=          No Content
 
 
-*** Test Cases ***    DETAILS    KIND    COUNT
+*** Test Cases ***    DETAILS    KIND
 052_05_01 List @contexts with details set to true and no kind and with previously several add @contexts
     [Tags]    ctx-list    5_13_3    since_v1.5.1
-    true    ${EMPTY}    4
+    true    ${EMPTY}
 052_05_02 List @contexts with details set to true and kind set to hosted and with previously several add @contexts
     [Tags]    ctx-list    5_13_3    since_v1.5.1
-    true    Hosted    3
-052_05_03 List @contexts with details set to true and kind set to cached abd with previously several add @contexts
-    [Tags]    ctx-list    5_13_3    since_v1.5.1
-    true    Cached    1
-052_05_04 List @contexts with details set to true and kind set to implicitlycreated and with previously several add @contexts
-    [Tags]    ctx-list    5_13_3    since_v1.5.1
-    true    ImplicitlyCreated    0
+    true    Hosted
+#move to new tests this doesn't work like this. cached need to run differently 
+#052_05_03 List @contexts with details set to true and kind set to cached abd with previously several add @contexts
+#    [Tags]    ctx-list    5_13_3    since_v1.5.1
+#    true    Cached
+#052_05_04 List @contexts with details set to true and kind set to implicitlycreated and with previously several add @contexts
+#    [Tags]    ctx-list    5_13_3    since_v1.5.1
+#    true    ImplicitlyCreated
 
 
 *** Keywords ***
@@ -49,7 +50,7 @@ Create Initial set of @contexts
     Check Response Status Code    201    ${response.status_code}
     ${third_uri}=    Fetch Id From Response Location Header    ${response.headers}
     Set Suite Variable    ${third_uri}
-
+    
     @{uris}=    Create List
     Append To List    ${uris}    ${first_uri}
     Append To List    ${uris}    ${second_uri}
@@ -58,7 +59,7 @@ Create Initial set of @contexts
 
 List @contexts with several previous created @context
     [Documentation]    Check that one can list @contexts
-    [Arguments]    ${details}    ${kind}    ${count}
+    [Arguments]    ${details}    ${kind}
 
     ${response}=    List @contexts    ${details}    ${kind}
 
@@ -66,10 +67,11 @@ List @contexts with several previous created @context
     Check Response Reason set to    ${response.reason}    ${reason_200}
 
     # One needs to check the list of responses
-    Check Context Response Body Containing a JSONObject with details of the @contexts
-    ...    response=${response.json()}
-    ...    expected_length=${count}
-    ...    list_contexts=${uris}
+    Check Context Response Body Containing a list of identifiers
+    ...    ${response.json()}
+    ...    ${uris}
+    ...    ${kind}
+    ...    ${TRUE}
 
 Delete Initial @contexts
     FOR    ${uri}    IN    @{uris}

@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CTX/Prov/051_09",
-  "test_objective": "Check that you get an error when try to delete the core @context",
+  "test_objective": "Check that one gets an error when try to delete the core @context",
   "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.5",
   "config_id": "",
   "parent_release": "v1.5.1",

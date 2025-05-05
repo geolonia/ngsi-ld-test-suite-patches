@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CTX/Cons/052_04",
-  "test_objective": "Check that you get an error when try to list @context with wrong details or kind",
+  "test_objective": "Check that one gets an error when try to list @context with wrong details or kind",
   "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.3",
   "config_id": "",
   "parent_release": "v1.5.1",
@@ -17,7 +17,7 @@
     {
       "name": "052_04_01 List @contexts with no details and kind set to other and not previously created @context",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_04_01",
-      "doc": "Check that you can list @contexts",
+      "doc": "Check that one can list @contexts",
       "tags": [
         "5_13_3",
         "ctx-list",
@@ -34,7 +34,7 @@
     {
       "name": "052_04_02 List @contexts with details set to other and no kind and not previously created @context",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_04_02",
-      "doc": "Check that you can list @contexts",
+      "doc": "Check that one can list @contexts",
       "tags": [
         "5_13_3",
         "ctx-list",
@@ -51,7 +51,7 @@
     {
       "name": "052_04_03 List @contexts with details set to other and kind set to other and not previously created @context",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_04_03",
-      "doc": "Check that you can list @contexts",
+      "doc": "Check that one can list @contexts",
       "tags": [
         "5_13_3",
         "ctx-list",
@@ -68,7 +68,7 @@
     {
       "name": "052_04_04 List @contexts with details set to true and kind set to other and not previously created @context",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_04_04",
-      "doc": "Check that you can list @contexts",
+      "doc": "Check that one can list @contexts",
       "tags": [
         "5_13_3",
         "ctx-list",
@@ -85,7 +85,7 @@
     {
       "name": "052_04_05 List @contexts with details set to other and kind set to Hosted and not previously created @context",
       "permutation_tp_id": "TP/NGSI-LD/CTX/Cons/052_04_05",
-      "doc": "Check that you can list @contexts",
+      "doc": "Check that one can list @contexts",
       "tags": [
         "5_13_3",
         "ctx-list",

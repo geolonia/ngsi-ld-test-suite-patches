@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CTX/Cons/053_04",
-  "test_objective": "Check that you can get an increase numberOfHits after creation of a Hosted @context and using it",
+  "test_objective": "Check that one can get an increase numberOfHits after creation of a Hosted @context and using it",
   "reference": "ETSI GS CIM 009 V1.5.1 [], clause 5.13.4",
   "config_id": "",
   "parent_release": "v1.5.1",
@@ -27,7 +27,7 @@
       "setup": "Create Initial @context condition from an external server",
       "teardown": "Delete Initial @context condition from an external server",
       "template": null,
-      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Serve a @context with Response Status Code set to 200     and\n        Serve a @context with Check that the numberOfHits in the response body is set to '2'\n}",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Serve a @context with Response Status Code set to 200     and\n        Serve a @context with Check that the numberOfHits in the response body is set to '1'\n}",
       "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/jsonldContexts/{contextId}'\n        method set to 'GET'\n        Serve a @context with contextID '${uri}' and details 'true'\n}",
       "http_verb": "GET",
       "endpoint": "jsonldContexts/{contextId}"

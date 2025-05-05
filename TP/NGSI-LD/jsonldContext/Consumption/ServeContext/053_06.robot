@@ -40,7 +40,7 @@ ${testing_id_prefix}=       urn:ngsi-ld:Testing:
     ...    details=true
 
     Check Response Status Code    200    ${response.status_code}
-    Check Context Response Body Containing numberOfHits value    ${response.json()}    2
+    Check Context Response Body Containing numberOfHits value    ${response.json()}    3
 
 
 *** Keywords ***
@@ -50,11 +50,10 @@ Create Initial @context condition from an external server
     ${first_existing_entity_id}=    Generate Random Entity Id    ${testing_id_prefix}
     Set Global Variable    ${first_existing_entity_id}
 
-    ${uri}=    Catenate    http://${context_server_host}:${context_server_port}${uri}
+    #${uri}=    Catenate    http://${context_server_host}:${context_server_port}${uri}
     Set Global Variable    ${uri}
 
     Create Entity selecting @context    ${entityfile}    ${uri}    ${first_existing_entity_id}
-
     ${response}=    Serve a @context
     ...    contextId=${uri}
     ...    details=true

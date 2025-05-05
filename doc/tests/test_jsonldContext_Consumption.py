@@ -84,6 +84,13 @@ class TestContextServerConsumption(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
+    def test_052_07(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/jsonldContext/Consumption/ListContexts/052_07.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/jsonldContext/Consumption/052_07.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_052_07.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
     def test_053_01(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/jsonldContext/Consumption/ServeContext/053_01.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/jsonldContext/Consumption/053_01.json'

@@ -637,13 +637,12 @@ Check Context Response Body Containing Detailed Information
 
     Should Be Equal    ${response_body['kind']}    ${context_type}
 
-    # TODO: v1.8.1 change timestamp -> createdAt
-    Should Not Be Empty    ${response_body['timestamp']}
-    ${date}=    Parse Ngsild Date    ${response_body['timestamp']}
+    Should Not Be Empty    ${response_body['createdAt']}
+    ${date}=    Parse Ngsild Date    ${response_body['createdAt']}
     Should Not Be Equal
     ...    ${date}
     ...    ${None}
-    ...    The createdAt key contains a value (${response_body['timestamp']}) that it is not in DateTime format
+    ...    The createdAt key contains a value (${response_body['createdAt']}) that it is not in DateTime format
 
 Check Context Response Body Containing numberOfHits value
     [Arguments]    ${response_body}    ${expected_number_of_hists}
@@ -663,38 +662,43 @@ Check Context Response Kind
     Should Be Equal    ${response_body['kind']}    ${context_type}
 
 Check Context Response Body Containing a list of identifiers
-    [Arguments]    ${response_body}    ${expected_length}    ${list_contexts}=${EMPTY}    ${kind}=${EMPTY}
-
-    Length Should Be
-    ...    ${response_body}
-    ...    ${expected_length}
-    ...    msg=The length of the strings array of @contexts is not ${expected_length}
-
-    IF    ${expected_length}==0
-        Should Be Empty    ${response_body}
-    ELSE
-        IF    ${expected_length}==1
-            ${length_list_contexts}=    Get Length    ${list_contexts}
-            IF    '${kind}' == 'Cached' or ${length_list_contexts} == 0
-                Should Be Equal    ${response_body[0]}    ${core_context}
-            ELSE
-                List Should Contain Value
-                ...    ${list_contexts}
-                ...    ${response_body[0]}
-                ...    msg=The received @context ${response_body[0]} is not included in the list of expected @contexts: ${list_contexts}
-            END
-        ELSE
-            IF    ${expected_length}>1
-                IF    '${kind}' == ''
-                    Should Be Equal    ${response_body[0]}    ${core_context}
-                ELSE
-                    FOR    ${index}    ${uri_context}    IN ENUMERATE    @{list_contexts}
-                        Should Be Equal    ${response_body[${index}]}    ${uri_context}
+    [Arguments]    ${response_body}    ${list_contexts}=${EMPTY}    ${kind}=${EMPTY}    ${details}=${FALSE}
+    ${found}=    Set Variable    ${TRUE}
+    IF    ${details}
+        FOR    ${index}    ${uri_context}    IN ENUMERATE    @{list_contexts}
+            ${found}=	Set Variable    ${FALSE}
+            FOR    ${index2}    ${respObj}    IN ENUMERATE    @{response_body}
+                ${uri}=    Evaluate    urllib.parse.unquote("${respObj['URL']}")    modules=urllib
+                ${entryFound}=    Run Keyword And Return Status    Should End With    ${uri}    ${uri_context}
+                IF    ${entryFound}
+                    IF    '${kind}' != ''
+                        Check Context Response Body Containing Detailed Information    ${respObj}    ${kind}
+                        Check Response Body Might Contain Optional Fields    ${respObj}    lastUsage
+                        Check Response Body Might Contain Optional Fields    ${respObj}    numberOfHits
+                        Check Response Body Might Contain Optional Fields    ${respObj}    extraInfo
                     END
+                    ${found}=	Set Variable    ${TRUE}
+                    BREAK
                 END
             END
+            Should Be True    ${found}
         END
+    ELSE
+        FOR    ${index}    ${uri_context}    IN ENUMERATE    @{list_contexts}
+            ${found}=	Set Variable    ${FALSE}
+            FOR    ${index2}    ${respObj}    IN ENUMERATE    @{response_body}
+                ${uri}=    Evaluate    urllib.parse.unquote("${respObj}")    modules=urllib
+                ${entryFound}=    Run Keyword And Return Status    Should End With    ${uri}    ${uri_context}
+                IF    ${entryFound}
+                    ${found}=	Set Variable    ${TRUE}
+                    BREAK
+                END
+            END
+            Should Be True    ${found}
+        END
+        Should Be True    ${found}
     END
+
 
 Check Context Response Body Containing a list with several URLs
     [Arguments]    ${response_body}    ${expected_length}    ${list_contexts}
@@ -730,8 +734,8 @@ Check Cached @Contexts
 Check Context Detailed Information Keys
     [Arguments]    ${my_dict}
 
-    # TODO: spec v1.8.1 timestamp -> createdAt
-    ${expected_keys}=    Create List    URL    localId    kind    createdAt    lastUsage    numberOfHits    extraInfo
+
+    ${expected_keys}=    Create List    URL    localId    kind    createdAt    lastUsage    numberOfHits    extraInfo    body    expiresAt
     ${actual_keys}=    Get Dictionary Keys    ${my_dict}
 
     FOR    ${key}    IN    @{expected_keys}
