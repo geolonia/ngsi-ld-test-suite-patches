@@ -9,8 +9,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup          Setup Entity Id And Registration
-Test Teardown       Delete Created Entities And Registration
+Test Setup          Setup Entity Id And Registration And Start Context Source Mock Server
+Test Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
@@ -24,21 +24,14 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 D001_01_inc Create Entity On Both Context Broker and Context Source
     [Documentation]    Check that if one requests the Context Broker to create an entity that matches an inclusive registration, this is created on the Context Source too
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_1
-
     Set Stub Reply    POST    /ngsi-ld/v1/entities    201
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Check Response Status Code    201    ${response.status_code}
 
     Wait for redirected request
-
     ${request_payload}=    Get Request Body
-    ${payload}=    Evaluate    json.loads('''${request_payload}''')    json
-    Log    ${payload}
-    ${request_headers}=    Get Request Headers
-    Log    ${request_headers}
-
+    ${payload_list}=    Evaluate    [json.loads('''${request_payload}''')]    json
     @{entities_id}=    Create List    ${entity_id}
-    ${payload_list}    Evaluate    [$payload]
     Check Response Body Containing Entities URIS set to    ${entities_id}    ${payload_list}
 
     ${response_query}=    Query Entities    entity_types=Vehicle    local=true    context=${ngsild_test_suite_context}
@@ -46,7 +39,7 @@ D001_01_inc Create Entity On Both Context Broker and Context Source
     Check Response Body Containing Entities URIS set to    ${entities_id}    ${response_query.json()}
     
 *** Keywords ***
-Setup Entity Id And Registration
+Setup Entity Id And Registration And Start Context Source Mock Server
     ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
     Set Suite Variable    ${entity_id}
 
@@ -60,7 +53,7 @@ Setup Entity Id And Registration
     Check Response Status Code    201    ${response.status_code}
     
     Start Context Source Mock Server
-Delete Created Entities And Registration
+Delete Created Entity And Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
     Delete Entity By Id    ${entity_id}
     Stop Context Source Mock Server

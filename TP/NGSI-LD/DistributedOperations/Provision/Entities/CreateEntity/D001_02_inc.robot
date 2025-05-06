@@ -9,8 +9,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup         Setup Initial Context Source Registration
-Test Teardown      Delete Created Registration
+Test Setup         Setup Initial Context Source Registration And Start Context Source Mock Server
+Test Teardown      Delete Created Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
@@ -24,7 +24,6 @@ ${context_source_registration_payload_file_path}        csourceRegistrations/con
 D001_02_inc Request to create an entity with a malformed id on both Context Broker and Context Source
     [Documentation]    Check that if one requests the Context Broker to create an entity that matches an inclusive registration but is malformed, this is created neither on the Context Broker nor on the Context Source
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_1    6_3_3
-
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Check Response Status Code    400    ${response.status_code}
 
@@ -34,7 +33,7 @@ D001_02_inc Request to create an entity with a malformed id on both Context Brok
     Should Be Empty    ${response_query.json()}
 
 *** Keywords ***
-Setup Initial Context Source Registration
+Setup Initial Context Source Registration And Start Context Source Mock Server
     ${context_source_registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${context_source_registration_id}
     ${registration_payload}=    Prepare Context Source Registration From File   
@@ -44,6 +43,6 @@ Setup Initial Context Source Registration
     Check Response Status Code    201    ${response1.status_code}
     Start Context Source Mock Server
 
-Delete Created Registration
+Delete Created Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${context_source_registration_id}
     Stop Context Source Mock Server

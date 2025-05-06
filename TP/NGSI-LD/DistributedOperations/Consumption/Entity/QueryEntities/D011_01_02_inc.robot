@@ -9,8 +9,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup         Setup Entity On Remote And Registration
-Test Teardown      Delete Created Entity And Registration
+Test Setup         Setup Registration And Start Context Source Mock Server
+Test Teardown      Delete Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
@@ -21,19 +21,20 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 
 *** Test Cases ***
 D011_01_02_inc Query The Context Broker With Type And Missing Attribute
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2
     [Documentation]    Check that if one queries for type and an attribute that is missing, no entity gets returned
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2
+    ${entity_body}=    Load Entity    ${entity_payload_filename}    ${entity_id}
+    Set Stub Reply    GET   /ngsi-ld/v1/entities?type=Vehicle   200    ${entity_body}
     ${response}=    Query Entities    entity_types=Vehicle    attrs=speed    context=${ngsild_test_suite_context}
+
     Check Response Status Code    200    ${response.status_code}
     Should Be Empty    ${response.json()}
 
     
 *** Keywords ***
-Setup Entity On Remote And Registration
+Setup Registration And Start Context Source Mock Server
     ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
     Set Suite Variable    ${entity_id}
-    # ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    base_url=${remote_url}
-    # Check Response Status Code    201    ${response.status_code}
 
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}
@@ -46,7 +47,6 @@ Setup Entity On Remote And Registration
 
 
 
-Delete Created Entity And Registration
-    # Delete Entity By Id    ${entity_id}     base_url=${remote_url}
+Delete Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id} 
     Stop Context Source Mock Server

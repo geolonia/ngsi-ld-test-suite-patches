@@ -9,8 +9,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup         Setup Entity On Remote And Registration
-Test Teardown      Delete Created Entity And Registration
+Test Setup         Setup Registration And Start Context Source Mock Server
+Test Teardown      Delete Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
@@ -23,7 +23,6 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 D002_02_02_inc Delete Entity On a Context Source 
     [Documentation]    Verify that, when one has an inclusive registration on a Context Broker, one is able to delete entities on a Context Source and should get a BatchOperationResult structure
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_6    6_3_3
-
     Set Stub Reply    DELETE    /ngsi-ld/v1/entities/${entity_id}    204
     ${response}=    Delete Entity by Id    ${entity_id}
     Check Response Status Code    207    ${response.status_code}
@@ -33,7 +32,7 @@ D002_02_02_inc Delete Entity On a Context Source
     Should Be Equal As Integers    ${length}    1
 
 *** Keywords ***
-Setup Entity On Remote And Registration
+Setup Registration And Start Context Source Mock Server
     ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
     Set Suite Variable    ${entity_id}
 
@@ -47,6 +46,6 @@ Setup Entity On Remote And Registration
     Check Response Status Code    201    ${response1.status_code}
     Start Context Source Mock Server
 
-Delete Created Entity And Registration
+Delete Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
     Stop Context Source Mock Server

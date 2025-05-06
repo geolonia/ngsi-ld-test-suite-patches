@@ -9,8 +9,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup         Setup Entities And Registration
-Test Teardown      Delete Created Entities And Registration
+Test Setup         Create Entity And Registration On The Context Broker And Start Context Source Mock Server
+Test Teardown      Delete Created Entity And Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
@@ -23,7 +23,6 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 D001_03_02_inc Create entity already existing on both Context Broker and Context Source
     [Documentation]    Check that if one requests the Context Broker to create an entity that matches an inclusive registration and already exists both locally and remotely, this raises an error on both Context Broker and Context Source
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_1    6_3_3
-
     Set Stub Reply    POST    /ngsi-ld/v1/entities    409
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Check Response Status Code    207    ${response.status_code}
@@ -32,7 +31,7 @@ D001_03_02_inc Create entity already existing on both Context Broker and Context
     Check JSON Value In Response Body    ['status']    409    ${response.json()['errors'][1]['error']}
 
 *** Keywords ***
-Setup Entities And Registration
+Create Entity And Registration On The Context Broker And Start Context Source Mock Server
     ${entity_id}=    Generate Random Entity Id   ${entity_id_prefix}
     Set Suite Variable    ${entity_id}
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
@@ -48,7 +47,7 @@ Setup Entities And Registration
     Check Response Status Code    201    ${response1.status_code}
     Start Context Source Mock Server
 
-Delete Created Entities And Registration
+Delete Created Entity And Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
     Delete Entity By Id    ${entity_id}
     Stop Context Source Mock Server
