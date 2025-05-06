@@ -3,15 +3,15 @@
     "type": "Vehicle",
     "brandName": {
         "type": "Property",
-        "value": "Mercedes"
+        "value": "BMW"
     },
-    "isParked": {
+    "isParked2": {
         "type": "Relationship",
-        "object": "urn:ngsi-ld:OffStreetParking:Downtown1",
+        "object": "urn:ngsi-ld:OffStreetParking:Downtown2",
         "observedAt": "2017-07-29T12:00:04Z",
         "providedBy": {
         "type": "Relationship",
-        "object": "urn:ngsi-ld:Person:Bob"
+        "object": "urn:ngsi-ld:Person:Alice"
         }
     }
 } 
