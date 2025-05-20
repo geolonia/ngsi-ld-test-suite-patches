@@ -16,7 +16,10 @@ if __name__ == "__main__":
     BASE_URL_OF_FORGE = "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/blob/master/TP/NGSI-LD/"
 
     fullpath = basedir + "/TP/NGSI-LD"
+    excluded_dirs = ['']
     for root, dirs, files in walk(fullpath):
+        if root == fullpath:
+            dirs[:] = [d for d in dirs if d not in excluded_dirs]
         for filename in files:
             if filename.endswith(ROBOT_FILE_EXTENSION):
                 number_of_all_testcases += 1
@@ -40,6 +43,8 @@ if __name__ == "__main__":
                     # establish the right configuration
                     if json_of_test_case["robotpath"].startswith("ContextSource"):
                         json_of_test_case["config_id"] = "CF_05"
+                    elif 'cf_06' in json_of_test_case["test_cases"][0]["tags"]:
+                        json_of_test_case["config_id"] = "CF_06"
                     else:
                         json_of_test_case["config_id"] = "CF_01"
 
@@ -63,7 +68,6 @@ if __name__ == "__main__":
                         print("NO PERMUTATIONS in TESTCASE??? " + json_of_test_case["tp_id"])
                         exit(1)
                 testcases.append(json_of_test_case)
-
     print()
     print()
     print()
