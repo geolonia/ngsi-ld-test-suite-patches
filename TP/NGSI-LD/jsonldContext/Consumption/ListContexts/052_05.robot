@@ -25,11 +25,11 @@ ${reason_204}=          No Content
 052_05_02 List @contexts with details set to true and kind set to hosted and with previously several add @contexts
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     true    Hosted
-#move to new tests this doesn't work like this. cached need to run differently 
-#052_05_03 List @contexts with details set to true and kind set to cached abd with previously several add @contexts
+# move to new tests this doesn't work like this. cached need to run differently
+# 052_05_03 List @contexts with details set to true and kind set to cached abd with previously several add @contexts
 #    [Tags]    ctx-list    5_13_3    since_v1.5.1
 #    true    Cached
-#052_05_04 List @contexts with details set to true and kind set to implicitlycreated and with previously several add @contexts
+# 052_05_04 List @contexts with details set to true and kind set to implicitlycreated and with previously several add @contexts
 #    [Tags]    ctx-list    5_13_3    since_v1.5.1
 #    true    ImplicitlyCreated
 
@@ -50,7 +50,7 @@ Create Initial set of @contexts
     Check Response Status Code    201    ${response.status_code}
     ${third_uri}=    Fetch Id From Response Location Header    ${response.headers}
     Set Suite Variable    ${third_uri}
-    
+
     @{uris}=    Create List
     Append To List    ${uris}    ${first_uri}
     Append To List    ${uris}    ${second_uri}

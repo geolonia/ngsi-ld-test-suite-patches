@@ -19,6 +19,7 @@ ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 
+
 *** Test Cases ***
 D001_03_02_inc Create entity already existing on both Context Broker and Context Source
     [Documentation]    Check that if one requests the Context Broker to create an entity that matches an inclusive registration and already exists both locally and remotely, this raises an error on both Context Broker and Context Source
@@ -30,6 +31,7 @@ D001_03_02_inc Create entity already existing on both Context Broker and Context
     Check JSON Value In Response Body    ['status']    409    ${response.json()['errors'][0]['error']}
     Check JSON Value In Response Body    ['status']    409    ${response.json()['errors'][1]['error']}
 
+
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
     ${entity_id}=    Generate Random Entity Id   ${entity_id_prefix}
@@ -39,7 +41,7 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
 
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}
-    ${registration_payload}=    Prepare Context Source Registration From File   
+    ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
     ...    entity_id=${entity_id}

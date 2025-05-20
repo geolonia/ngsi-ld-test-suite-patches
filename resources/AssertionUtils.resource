@@ -667,7 +667,7 @@ Check Context Response Body Containing a list of identifiers
     ${found}=    Set Variable    ${TRUE}
     IF    ${details}
         FOR    ${index}    ${uri_context}    IN ENUMERATE    @{list_contexts}
-            ${found}=	Set Variable    ${FALSE}
+            ${found}=    Set Variable    ${FALSE}
             FOR    ${index2}    ${respObj}    IN ENUMERATE    @{response_body}
                 ${uri}=    Evaluate    urllib.parse.unquote("${respObj['URL']}")    modules=urllib
                 ${entryFound}=    Run Keyword And Return Status    Should End With    ${uri}    ${uri_context}
@@ -678,7 +678,7 @@ Check Context Response Body Containing a list of identifiers
                         Check Response Body Might Contain Optional Fields    ${respObj}    numberOfHits
                         Check Response Body Might Contain Optional Fields    ${respObj}    extraInfo
                     END
-                    ${found}=	Set Variable    ${TRUE}
+                    ${found}=    Set Variable    ${TRUE}
                     BREAK
                 END
             END
@@ -686,12 +686,12 @@ Check Context Response Body Containing a list of identifiers
         END
     ELSE
         FOR    ${index}    ${uri_context}    IN ENUMERATE    @{list_contexts}
-            ${found}=	Set Variable    ${FALSE}
+            ${found}=    Set Variable    ${FALSE}
             FOR    ${index2}    ${respObj}    IN ENUMERATE    @{response_body}
                 ${uri}=    Evaluate    urllib.parse.unquote("${respObj}")    modules=urllib
                 ${entryFound}=    Run Keyword And Return Status    Should End With    ${uri}    ${uri_context}
                 IF    ${entryFound}
-                    ${found}=	Set Variable    ${TRUE}
+                    ${found}=    Set Variable    ${TRUE}
                     BREAK
                 END
             END
@@ -699,7 +699,6 @@ Check Context Response Body Containing a list of identifiers
         END
         Should Be True    ${found}
     END
-
 
 Check Context Response Body Containing a list with several URLs
     [Arguments]    ${response_body}    ${expected_length}    ${list_contexts}
@@ -735,8 +734,16 @@ Check Cached @Contexts
 Check Context Detailed Information Keys
     [Arguments]    ${my_dict}
 
-
-    ${expected_keys}=    Create List    URL    localId    kind    createdAt    lastUsage    numberOfHits    extraInfo    body    expiresAt
+    ${expected_keys}=    Create List
+    ...    URL
+    ...    localId
+    ...    kind
+    ...    createdAt
+    ...    lastUsage
+    ...    numberOfHits
+    ...    extraInfo
+    ...    body
+    ...    expiresAt
     ${actual_keys}=    Get Dictionary Keys    ${my_dict}
 
     FOR    ${key}    IN    @{expected_keys}
@@ -818,11 +825,12 @@ Check Message Field Equal
 
 Check Body With Alternatives
     [Arguments]    ${response_body}    ${alternatives}
-	${result}=    Set Variable    ${False}
-	FOR    ${alternative}    IN    @{alternatives}
-        ${result}=	Run Keyword And Return Status    Check Response Body Content    expectation_filename=${alternative}    response_body=${response_body}
-		IF	${result}
-			BREAK
-		END
+    ${result}=    Set Variable    ${False}
+    FOR    ${alternative}    IN    @{alternatives}
+        ${result}=    Run Keyword And Return Status
+        ...    Check Response Body Content
+        ...    expectation_filename=${alternative}
+        ...    response_body=${response_body}
+        IF    ${result}    BREAK
     END
-	Should Be True	${result}
+    Should Be True    ${result}

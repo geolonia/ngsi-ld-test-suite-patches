@@ -55,8 +55,6 @@ Create initial ImplicitlyCreated @context
     Set Suite Variable    ${list_contexts}
     Check Context Response Body Containing numberOfHits value    ${data}    0
 
-
-
 Delete Initial @context Data
     Delete Subscription    ${subscription_id}
     FOR    ${uri}    IN    @{list_contexts}

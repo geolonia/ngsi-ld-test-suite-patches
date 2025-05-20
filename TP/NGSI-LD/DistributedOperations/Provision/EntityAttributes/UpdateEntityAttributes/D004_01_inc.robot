@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation        Verify that, when one has an inclusive registration on a Context Broker with redirectionOps, one is able to update entities on a Context Source
+Documentation       Verify that, when one has an inclusive registration on a Context Broker with redirectionOps, one is able to update entities on a Context Source
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
@@ -19,6 +19,7 @@ ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 ${fragment_filename}                    vehicle-brandname-complete-fragment.jsonld
+
 
 *** Test Cases ***
 D004_01_inc Query The Context Broker With Type

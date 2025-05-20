@@ -60,7 +60,6 @@ Create initial ImplicitlyCreated @context
     ...    ${subscription_payload_file_path}
     ...    ${CONTENT_TYPE_LD_JSON}
 
-
     ${response}=    Retrieve Subscription    ${subscription_id}
     ${data}=    Set Variable    ${response.json()}
     ${implicit_id}=    Get From Dictionary    ${response.json()}    jsonldContext

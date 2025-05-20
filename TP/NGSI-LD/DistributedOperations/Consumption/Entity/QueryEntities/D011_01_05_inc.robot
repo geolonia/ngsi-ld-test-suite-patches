@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation        Verify that, when one has an inclusive registration on a Context Broker, entities with same id on the Context Broker and on a Context Source, if one queries the Context Broker the query gets forwarded to the Context Source correctly
+Documentation       Verify that, when one has an inclusive registration on a Context Broker, entities with same id on the Context Broker and on a Context Source, if one queries the Context Broker the query gets forwarded to the Context Source correctly
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
@@ -19,6 +19,7 @@ ${entity_payload_filename2}             vehicle-simple-different-attributes.json
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 
+
 *** Test Cases ***
 D011_01_05_inc Query The Context Broker With Type
     [Documentation]    Check that entities on the Context Broker and Context Source with the same id get merged and returned as one entity
@@ -32,11 +33,10 @@ D011_01_05_inc Query The Context Broker With Type
     ${response}=    Query Entities    entity_types=Vehicle    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Entities URIS set to    ${entities_id}    ${response.json()}
-    Should Have Value In Json	${response.json()[0]}    $.brandName
-    Should Have Value In Json	${response.json()[0]}    $.speed
-    Should Have Value In Json	${response.json()[0]}    $.isParked
-    Should Have Value In Json	${response.json()[0]}    $.isParked2
-
+    Should Have Value In Json    ${response.json()[0]}    $.brandName
+    Should Have Value In Json    ${response.json()[0]}    $.speed
+    Should Have Value In Json    ${response.json()[0]}    $.isParked
+    Should Have Value In Json    ${response.json()[0]}    $.isParked2
 
 
 *** Keywords ***
@@ -49,7 +49,7 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
 
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}
-    ${registration_payload}=    Prepare Context Source Registration From File   
+    ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}

@@ -211,7 +211,12 @@ Retrieve Attributes
     RETURN    ${response}
 
 Retrieve Entity by Id
-    [Arguments]    ${id}    ${accept}=${CONTENT_TYPE_LD_JSON}    ${context}=${EMPTY}    ${local}=${EMPTY}    ${base_url}=${url}    ${options}=${EMPTY}
+    [Arguments]
+    ...    ${id}
+    ...    ${accept}=${CONTENT_TYPE_LD_JSON}
+    ...    ${context}=${EMPTY}
+    ...    ${local}=${EMPTY}
+    ...    ${options}=${EMPTY}
     ${headers}=    Create Dictionary
     &{params}=    Create Dictionary
     ${options_length}=    Get Length    ${options}
@@ -221,7 +226,7 @@ Retrieve Entity by Id
         ...    ${headers}
         ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
     END
-    IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}    
+    IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
     IF    ${options_length}>0
         Set To Dictionary    ${params}    options=${options}
     END

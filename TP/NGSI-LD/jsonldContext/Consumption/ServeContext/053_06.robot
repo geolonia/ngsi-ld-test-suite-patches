@@ -50,7 +50,7 @@ Create Initial @context condition from an external server
     ${first_existing_entity_id}=    Generate Random Entity Id    ${testing_id_prefix}
     Set Global Variable    ${first_existing_entity_id}
 
-    #${uri}=    Catenate    http://${context_server_host}:${context_server_port}${uri}
+    # ${uri}=    Catenate    http://${context_server_host}:${context_server_port}${uri}
     Set Global Variable    ${uri}
 
     Create Entity selecting @context    ${entityfile}    ${uri}    ${first_existing_entity_id}
