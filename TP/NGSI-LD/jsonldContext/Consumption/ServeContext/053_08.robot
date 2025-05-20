@@ -62,12 +62,10 @@ Create initial ImplicitlyCreated @context
     ${implicit_id_full}=    Get From Dictionary    ${response.json()}    jsonldContext
     ${implicit_id}=    Evaluate    '${implicit_id_full}'.split('/')[-1]
     Set Global Variable    ${implicit_id}
-	Set Global Variable    ${implicit_id_full}
+    Set Global Variable    ${implicit_id_full}
     Set Suite Variable    ${subscription_id}
     Set Suite Variable    ${list_contexts}
     Check Context Response Body Containing numberOfHits value    ${data}    0
-
-
 
 Delete Initial @context Data
     Delete Subscription    ${subscription_id}

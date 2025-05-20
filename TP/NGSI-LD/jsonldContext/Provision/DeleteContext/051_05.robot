@@ -42,7 +42,7 @@ ${uri}                      /api/v1/context.jsonld
 Create Initial @context condition from an external server
     Start @context Local Server
 
-    #${uri}=    Catenate    http://${context_server_host}:${context_server_port}${uri}
+    # ${uri}=    Catenate    http://${context_server_host}:${context_server_port}${uri}
     Set Global Variable    ${uri}
 
     Create Entity selecting @context    ${entityfile}    ${uri}

@@ -22,7 +22,7 @@ ${response}                                     ${EMPTY}
 *** Keywords ***
 Prepare Context Source Registration From File
     [Arguments]    ${id}    ${registration_file}    ${entity_id}=${EMPTY}    ${mode}=${EMPTY}
-    
+
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_file}
     ${registration_payload}=    Update Value To JSON
     ...    ${payload}
@@ -39,7 +39,7 @@ Prepare Context Source Registration From File
         ...    $..entities[*]
         ...    ${dict}
     END
-    IF    '${mode}' != ''    
+    IF    '${mode}' != ''
         ${dict}=    Create Dictionary    mode=${mode}
         ${registration_payload}=    Add Object To JSON
         ...    ${registration_payload}

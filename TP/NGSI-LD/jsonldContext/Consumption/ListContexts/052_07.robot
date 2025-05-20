@@ -12,18 +12,19 @@ Test Template       List @contexts with several previous created @context
 
 
 *** Variables ***
-${entity_filename}=     building-simple-attributes.json
-${contextUri}=    https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite.jsonld
-${reason_200}=          OK
-${reason_204}=          No Content
+${entity_filename}=         building-simple-attributes.json
+${contextUri}=              https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite.jsonld
+${reason_200}=              OK
+${reason_204}=              No Content
 ${building_id_prefix}=      urn:ngsi-ld:Building:
-${content_type}=    application/json
+${content_type}=            application/json
+
 
 *** Test Cases ***    DETAILS    KIND
 052_07_01 List @contexts with details set to true and kind set to cached and with previously several add @contexts
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     true    Cached
-#052_05_04 List @contexts with details set to true and kind set to implicitlycreated and with previously several add @contexts
+# 052_05_04 List @contexts with details set to true and kind set to implicitlycreated and with previously several add @contexts
 #    [Tags]    ctx-list    5_13_3    since_v1.5.1
 #    true    ImplicitlyCreated
 
@@ -37,7 +38,7 @@ Create Initial Cached @context from entity
     ...    ${entity_id}
     ...    ${content_type}
     ...    ${contextUri}
-    
+
     Check Response Status Code    201    ${response.status_code}
 
 List @contexts with several previous created @context

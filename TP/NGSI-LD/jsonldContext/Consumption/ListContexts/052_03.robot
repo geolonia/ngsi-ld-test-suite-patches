@@ -33,7 +33,6 @@ ${reason_204}=          No Content
     false    Hosted
 
 
-
 *** Keywords ***
 Create Initial set of @contexts
     ${response}=    Add a new @context    ${first_filename}
