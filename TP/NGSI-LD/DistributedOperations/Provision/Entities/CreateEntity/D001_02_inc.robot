@@ -9,7 +9,7 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup         Setup Initial Context Source Registration And Start Context Source Mock Server
+Test Setup         Setup Registration And Start Context Source Mock Server
 Test Teardown      Delete Created Registration And Stop Context Source Mock Server
 
 
@@ -33,7 +33,7 @@ D001_02_inc Request to create an entity with a malformed id on both Context Brok
     Should Be Empty    ${response_query.json()}
 
 *** Keywords ***
-Setup Initial Context Source Registration And Start Context Source Mock Server
+Setup Registration And Start Context Source Mock Server
     ${context_source_registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${context_source_registration_id}
     ${registration_payload}=    Prepare Context Source Registration From File   
