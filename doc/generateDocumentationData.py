@@ -5,16 +5,19 @@ from os.path import dirname, exists
 from os import makedirs, walk
 
 
-def create_json_of_robotfile(robot_file_to_be_processed: str, computestatistics: bool=False):
+def create_json_of_robotfile(
+    robot_file_to_be_processed: str, computestatistics: bool = False
+):
     # TODO: ApiUtils.resource -> 'Delete Context Source Registration Subscription' added 'url=' as parameter
-    folder_test_suites = dirname(dirname(__file__)).replace('\\', "/")
-    folder_result_path = f'{folder_test_suites}/doc/results'
-    result_file = f'{folder_result_path}/{robot_file_to_be_processed}.json'
-    robot_path_to_be_processed, robot_file = find_robot_file(basedir=folder_test_suites,
-                                                             filename=robot_file_to_be_processed)
+    folder_test_suites = dirname(dirname(__file__)).replace("\\", "/")
+    folder_result_path = f"{folder_test_suites}/doc/results"
+    result_file = f"{folder_result_path}/{robot_file_to_be_processed}.json"
+    robot_path_to_be_processed, robot_file = find_robot_file(
+        basedir=folder_test_suites, filename=robot_file_to_be_processed
+    )
 
     if robot_path_to_be_processed is None and robot_file is None:
-        print(f'No robot file found with name: {robot_file_to_be_processed}')
+        print(f"No robot file found with name: {robot_file_to_be_processed}")
         exit(1)
 
     # Check that the folder '/results' exists and if not, create it
@@ -33,7 +36,7 @@ def create_json_of_robotfile(robot_file_to_be_processed: str, computestatistics:
             info["error_while_parsing"] = True
             info["error_while_autogenerating"] = str(e)
             info["robotfile"] = robot_file_to_be_processed
-            if(robot_path_to_be_processed.startswith("/")):
+            if robot_path_to_be_processed.startswith("/"):
                 robot_path_to_be_processed = robot_path_to_be_processed[1:]
             info["robotpath"] = robot_path_to_be_processed
     else:
@@ -41,17 +44,17 @@ def create_json_of_robotfile(robot_file_to_be_processed: str, computestatistics:
         data.parse_robot()
         info = data.get_info()
 
-    with open(result_file, 'w') as fp:
+    with open(result_file, "w") as fp:
         dump(obj=info, indent=2, fp=fp)
 
     return info
 
 
 def find_robot_file(basedir: str, filename: str):
-    filename = f'{filename}.robot'
+    filename = f"{filename}.robot"
     for root, dirs, files in walk(basedir):
         if filename in files:
-            return root.replace(f'{basedir}/TP/NGSI-LD', ''), f'{root}/{filename}'
+            return root.replace(f"{basedir}/TP/NGSI-LD", ""), f"{root}/{filename}"
 
     return None, None
 
@@ -59,7 +62,18 @@ def find_robot_file(basedir: str, filename: str):
 if __name__ == "__main__":
     # Call with the folder below /TP/NGSI-LD which contains the robot file with name args[0]
     args = argv[1:]
-    robot_file_tbp = args[0]
-    resulting_json = create_json_of_robotfile(robot_file_tbp)
+    if len(args) == 0:
+        tp_root_name = dirname(dirname(__file__)).replace("\\", "/")
+        robot_file_tbp = f"{tp_root_name}/TP/NGSI-LD/"
+        robot_file_tbp = robot_file_tbp.replace("\\", "/")
+        for root, dirs, files in walk(robot_file_tbp):
+            for file in files:
+                if file.endswith(".robot"):
+                    filename = file.replace(".robot", "")
+                    print(f"Generating json for {filename}")
+                    create_json_of_robotfile(filename, computestatistics=True)
+    else:
+        robot_file_tbp = args[0]
+        resulting_json = create_json_of_robotfile(robot_file_tbp)
 
     print("\nCorrectly exiting")
