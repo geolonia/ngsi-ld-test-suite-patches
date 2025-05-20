@@ -33,7 +33,6 @@ D002_02_02_inc Delete Entity On a Context Source
     Should Be Equal As Integers    ${length}    1
 
 
-
 *** Keywords ***
 Setup Registration And Start Context Source Mock Server
     ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}

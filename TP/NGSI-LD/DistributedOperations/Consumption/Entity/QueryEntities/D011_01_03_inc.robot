@@ -20,7 +20,6 @@ ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-entities.jsonld
 
 
-
 *** Test Cases ***
 D011_01_03_inc Query The Context Broker With Type and Attribute
     [Documentation]    Check that if one queries for attribute present in an entity on a Context Source, only that entity gets returned

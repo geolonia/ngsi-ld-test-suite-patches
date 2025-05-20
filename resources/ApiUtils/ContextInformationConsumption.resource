@@ -210,7 +210,12 @@ Retrieve Attributes
     RETURN    ${response}
 
 Retrieve Entity by Id
-    [Arguments]    ${id}    ${accept}=${CONTENT_TYPE_LD_JSON}    ${context}=${EMPTY}    ${local}=${EMPTY}    ${options}=${EMPTY}
+    [Arguments]
+    ...    ${id}
+    ...    ${accept}=${CONTENT_TYPE_LD_JSON}
+    ...    ${context}=${EMPTY}
+    ...    ${local}=${EMPTY}
+    ...    ${options}=${EMPTY}
     ${headers}=    Create Dictionary
     &{params}=    Create Dictionary
     ${options_length}=    Get Length    ${options}
