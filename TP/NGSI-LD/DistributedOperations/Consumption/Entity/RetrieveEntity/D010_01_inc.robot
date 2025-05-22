@@ -29,6 +29,7 @@ D010_01_inc Retrieve entity on a Context Source from the Context Broker
     Check Response Status Code    200    ${response.status_code}
 
 
+
 *** Keywords ***
 Setup Registration And Start Context Source Mock Server
     ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}

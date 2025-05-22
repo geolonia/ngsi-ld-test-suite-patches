@@ -21,6 +21,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 ${fragment_filename}                    vehicle-brandname-complete-fragment.jsonld
 
 
+
 *** Test Cases ***
 D004_01_inc Query The Context Broker With Type
     [Documentation]    Check that if one request the Context Broker to update an entity that matches an inclusive registration, this is updated on the Context Source too

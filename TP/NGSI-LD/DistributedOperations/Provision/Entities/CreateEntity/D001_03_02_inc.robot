@@ -32,6 +32,7 @@ D001_03_02_inc Create entity already existing on both Context Broker and Context
     Check JSON Value In Response Body    ['status']    409    ${response.json()['errors'][1]['error']}
 
 
+
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
     ${entity_id}=    Generate Random Entity Id   ${entity_id_prefix}
