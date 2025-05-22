@@ -26,7 +26,6 @@ ${response}                                 ${EMPTY}
 *** Keywords ***
 Query Entities
     [Arguments]
-    ...    ${base_url}=${url}
     ...    ${entity_ids}=${EMPTY}
     ...    ${entity_types}=${EMPTY}
     ...    ${accept}=${EMPTY}
@@ -87,7 +86,7 @@ Query Entities
     IF    '${q}'!=''    Set To Dictionary    ${params}    q=${q}
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
     ${response}=    GET
-    ...    url=${base_url}/${ENTITIES_ENDPOINT_PATH}
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
@@ -211,7 +210,7 @@ Retrieve Attributes
     RETURN    ${response}
 
 Retrieve Entity by Id
-    [Arguments]    ${id}    ${accept}=${CONTENT_TYPE_LD_JSON}    ${context}=${EMPTY}    ${local}=${EMPTY}    ${base_url}=${url}    ${options}=${EMPTY}
+    [Arguments]    ${id}    ${accept}=${CONTENT_TYPE_LD_JSON}    ${context}=${EMPTY}    ${local}=${EMPTY}    ${options}=${EMPTY}
     ${headers}=    Create Dictionary
     &{params}=    Create Dictionary
     ${options_length}=    Get Length    ${options}
@@ -226,7 +225,7 @@ Retrieve Entity by Id
         Set To Dictionary    ${params}    options=${options}
     END
     ${response}=    GET
-    ...    url=${base_url}/${ENTITIES_ENDPOINT_PATH}${id}
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any

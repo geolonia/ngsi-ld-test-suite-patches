@@ -39,8 +39,6 @@ D004_01_inc Query The Context Broker With Type
     Should Be True    ${stub_count} > 0
 
     @{entities_id}=    Create List    ${entity_id}
-    # ${response_query_remote}=    Query Entities    entity_types=Vehicle    base_url=${remote_url}
-    # Check Response Status Code    200    ${response_query_remote.status_code}
     ${payload_list}    Evaluate    [$payload]
     Check Response Body Containing Entities URIS set to    ${entities_id}    ${payload_list}
 

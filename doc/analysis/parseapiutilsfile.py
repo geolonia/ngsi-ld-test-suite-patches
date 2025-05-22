@@ -44,10 +44,7 @@ class ParseApiUtilsFile:
         if 'response' in url:
             url = [x for x in url.split('    ') if 'url' in x][0]
 
-        if 'base_url' not in url:
-            regex = r"\s*\.*\s*url=\$\{url\}\/(.*)"
-        else:
-            regex = r"\s*\.*\s*url=\$\{base_url\}\/(.*)"
+        regex = r"\s*\.*\s*url=\$\{url\}\/(.*)"
 
         match = re.match(pattern=regex, string=url)
         if match:
