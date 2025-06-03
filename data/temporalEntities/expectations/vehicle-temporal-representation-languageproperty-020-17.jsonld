@@ -8,7 +8,5 @@
       "@none": "urn:ngsi-ld:null"
     },
     "deletedAt": "2024-12-11T15:01:49.723294Z"
-  },
-  "isParkedIn": [],
-  "fuelLevel": []
+  }
 }

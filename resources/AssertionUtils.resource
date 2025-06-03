@@ -232,17 +232,9 @@ Check Response Body Containing EntityTemporal element
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing List Containing EntityTemporal elements
-    [Arguments]    ${filename}    ${temporal_entities_representation_ids}    ${response_body}
+    [Arguments]    ${filename}    ${response_body}
     ${temporal_entities_representation_payload}=    Load JSON From File
     ...    ${EXECDIR}/data/temporalEntities/expectations/${filename}
-    ${index}=    Set Variable    0
-    FOR    ${temporal_entity_representation_id}    IN    @{temporal_entities_representation_ids}
-        ${temporal_entities_representation_payload}=    Update Value To JSON
-        ...    ${temporal_entities_representation_payload}
-        ...    $.[${index}]..id
-        ...    ${temporal_entity_representation_id}
-        ${index}=    Evaluate    ${index} + 1
-    END
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${temporal_entities_representation_payload}
     ...    ${response_body}

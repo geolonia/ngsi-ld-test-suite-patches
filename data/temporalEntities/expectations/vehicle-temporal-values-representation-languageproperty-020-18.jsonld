@@ -13,13 +13,5 @@
         "2024-12-11T16:21:08.388531Z"
       ]
     ]
-  },
-  "fuelLevel": {
-    "type": "Property",
-    "values": []
-  },
-  "isParkedIn": {
-    "type": "Relationship",
-    "objects": []
   }
 }

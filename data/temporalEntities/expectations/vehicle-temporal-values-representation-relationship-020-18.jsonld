@@ -9,13 +9,5 @@
         "2024-12-11T15:19:24.696152Z"
       ]
     ]
-  },
-  "name": {
-    "type": "LanguageProperty",
-    "languageMaps": []
-  },
-  "fuelLevel": {
-    "type": "Property",
-    "values": []
   }
 }

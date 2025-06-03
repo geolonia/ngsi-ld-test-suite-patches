@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CI/Cons/TE/021_11",
-  "test_objective": "Check that you can query the temporal evolution of entities with a limit to the number of entities to be retrieved",
+  "test_objective": "Check that one can query the temporal evolution of entities with a limit to the number of entities to be retrieved",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.4",
   "config_id": "",
   "parent_release": "v1.3.1",
@@ -19,7 +19,7 @@
     {
       "name": "021_11_01 Query Some entities",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_11_01",
-      "doc": "Check that you can query the temporal evolution of entities with a limit to the number of entities to be retrieved",
+      "doc": "Check that one can query the temporal evolution of entities with a limit to the number of entities to be retrieved",
       "tags": [
         "5_7_4",
         "te-query"
@@ -35,7 +35,7 @@
     {
       "name": "021_11_02 Query All entities",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_11_02",
-      "doc": "Check that you can query the temporal evolution of entities with a limit to the number of entities to be retrieved",
+      "doc": "Check that one can query the temporal evolution of entities with a limit to the number of entities to be retrieved",
       "tags": [
         "5_7_4",
         "te-query"
