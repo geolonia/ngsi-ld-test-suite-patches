@@ -22,7 +22,7 @@ ${context_source_url}                           http://${context_source_host}:${
 
 *** Keywords ***
 Prepare Context Source Registration From File
-    [Arguments]    ${id}    ${registration_file}    ${entity_id}=${EMPTY}    ${mode}=${EMPTY}    ${endpoint}=${EMPTY}
+    [Arguments]    ${id}    ${registration_file}    ${entity_id}=${EMPTY}    ${mode}=${EMPTY}    ${endpoint}=${EMPTY}    ${operations}=[]
 
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_file}
     ${registration_payload}=    Update Value To JSON
@@ -42,6 +42,13 @@ Prepare Context Source Registration From File
     END
     IF    '${mode}' != ''
         ${dict}=    Create Dictionary    mode=${mode}
+        ${registration_payload}=    Add Object To JSON
+        ...    ${registration_payload}
+        ...    $
+        ...    ${dict}
+    END
+    IF    ${operations}
+        ${dict}=    Create Dictionary    operations=${operations}
         ${registration_payload}=    Add Object To JSON
         ...    ${registration_payload}
         ...    $
