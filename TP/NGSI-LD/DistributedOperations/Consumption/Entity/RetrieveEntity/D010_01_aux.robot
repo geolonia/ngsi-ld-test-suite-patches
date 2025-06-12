@@ -17,7 +17,7 @@ ${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.json
 ${entity_payload_filename2}             vehicle-simple-attributes-second.jsonld
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
-${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete-auxiliary.jsonld
+${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 ${fragment_filename}                    vehicle-brandname-fragment.json
 ${expected_attribute}                   brandName
 
@@ -49,6 +49,7 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
     ${registration_payload}=    Prepare Context Source Registration From File   
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
+    ...    mode=auxiliary
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response1.status_code}
     Start Context Source Mock Server

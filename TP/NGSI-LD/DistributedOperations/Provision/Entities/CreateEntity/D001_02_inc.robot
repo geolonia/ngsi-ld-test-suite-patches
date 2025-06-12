@@ -28,7 +28,7 @@ D001_02_inc Request to create an entity with a malformed id on both Context Brok
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Check Response Status Code    400    ${response.status_code}
 
-    Wait For No Request    timeout=5
+    Wait For No Request
     ${response_query}=    Query Entities    entity_types=Vehicle    local=true    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response_query.status_code}
     Should Be Empty    ${response_query.json()}
