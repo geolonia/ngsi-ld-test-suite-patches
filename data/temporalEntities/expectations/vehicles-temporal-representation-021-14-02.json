@@ -1,6 +1,6 @@
 [
   {
-    "id": "urn:ngsi-ld:Vehicle:randomUUID",
+    "id": "urn:ngsi-ld:Vehicle:021-14-A",
     "type": "Vehicle",
     "speed": {
       "type": "Property",
@@ -38,7 +38,7 @@
     }
   },
   {
-    "id": "urn:ngsi-ld:Vehicle:randomUUID",
+    "id": "urn:ngsi-ld:Vehicle:021-14-B",
     "type": "Vehicle",
     "speed": {
       "type": "Property",

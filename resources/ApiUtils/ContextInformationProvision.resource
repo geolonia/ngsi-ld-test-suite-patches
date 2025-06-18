@@ -24,8 +24,6 @@ ${BATCH_MERGE_ENDPOINT_PATH}                entityOperations/merge
 
 ${ENTITIES_ENDPOINT_PATH}                   entities/
 
-${BUILDING_ID_PREFIX}                       urn:ngsi-ld:Building:
-
 ${CONTENT_TYPE_JSON}                        application/json
 ${CONTENT_TYPE_LD_JSON}                     application/ld+json
 ${CONTENT_TYPE_MERGE_PATCH_JSON}            application/merge-patch+json

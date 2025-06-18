@@ -1,6 +1,6 @@
 [
    {
-      "id":"urn:ngsi-ld:Vehicle:randomUUID",
+      "id":"urn:ngsi-ld:Vehicle:021-04-A",
       "type":"Vehicle",
       "fuelLevel":[
          {
@@ -38,7 +38,7 @@
       ]
    },
    {
-      "id":"urn:ngsi-ld:Vehicle:randomUUID",
+      "id":"urn:ngsi-ld:Vehicle:021-04-B",
       "type":"Vehicle",
       "fuelLevel":[
          {

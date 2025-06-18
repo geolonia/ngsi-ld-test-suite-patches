@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can query the temporal evolution of entities with the simplified representation
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -12,8 +13,6 @@ Test Template       Query the temporal evolution of entities
 
 
 *** Variables ***
-${vehicle_id_prefix}=               urn:ngsi-ld:Vehicle:
-${bus_id_prefix}=                   urn:ngsi-ld:Bus:
 ${first_vehicle_payload_file}=      2020-08-vehicle-temporal-representation.jsonld
 ${second_vehicle_payload_file}=     2020-09-vehicle-temporal-representation.jsonld
 ${bus_payload_file}=                2020-08-bus-temporal-representation.jsonld
@@ -43,29 +42,25 @@ Query the temporal evolution of entities
     ...    endTimeAt=${endTimeAt}
     ...    context=${ngsild_test_suite_context}
     ...    options=temporalValues
-    @{temporal_entities_representation_ids}=    Create List
-    ...    ${first_temporal_entity_representation_id}
-    ...    ${second_temporal_entity_representation_id}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing EntityTemporal elements
     ...    ${expectation_file}
-    ...    ${temporal_entities_representation_ids}
     ...    ${response.json()}
 
 Setup Initial Entities
-    ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${first_temporal_entity_representation_id}=    Catenate    ${VEHICLE_ID_PREFIX}021-14-A
     ${create_response1}=    Create Temporal Representation Of Entity
     ...    ${first_vehicle_payload_file}
     ...    ${first_temporal_entity_representation_id}
     Check Response Status Code    201    ${create_response1.status_code}
     Set Test Variable    ${first_temporal_entity_representation_id}
-    ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${second_temporal_entity_representation_id}=    Catenate    ${VEHICLE_ID_PREFIX}021-14-B
     ${create_response2}=    Create Temporal Representation Of Entity
     ...    ${second_vehicle_payload_file}
     ...    ${second_temporal_entity_representation_id}
     Check Response Status Code    201    ${create_response2.status_code}
     Set Test Variable    ${second_temporal_entity_representation_id}
-    ${third_temporal_entity_representation_id}=    Generate Random Entity Id    ${bus_id_prefix}
+    ${third_temporal_entity_representation_id}=    Catenate    ${BUS_ID_PREFIX}021-14-A
     ${create_response3}=    Create Temporal Representation Of Entity
     ...    ${bus_payload_file}
     ...    ${third_temporal_entity_representation_id}

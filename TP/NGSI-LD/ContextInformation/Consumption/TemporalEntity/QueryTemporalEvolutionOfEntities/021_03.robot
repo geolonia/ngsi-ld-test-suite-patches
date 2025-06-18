@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can query the temporal evolution of the last N instances of entities attributes
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -11,7 +12,6 @@ Suite Teardown      Delete Initial Temporal Entities
 
 
 *** Variables ***
-${vehicle_id_prefix}=               urn:ngsi-ld:Vehicle:
 ${first_vehicle_payload_file}=      2020-08-vehicle-temporal-representation-multiple-instances.jsonld
 ${second_vehicle_payload_file}=     2020-09-vehicle-temporal-representation.jsonld
 ${expectation_file}=                vehicles-temporal-representation-021-03.jsonld
@@ -30,25 +30,21 @@ ${expectation_file}=                vehicles-temporal-representation-021-03.json
     ...    lastN=${4}
     ...    context=${ngsild_test_suite_context}
 
-    @{temporal_entities_representation_ids}=    Create List
-    ...    ${first_temporal_entity_representation_id}
-    ...    ${second_temporal_entity_representation_id}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing List Containing EntityTemporal elements
     ...    ${expectation_file}
-    ...    ${temporal_entities_representation_ids}
     ...    ${response.json()}
 
 
 *** Keywords ***
 Setup Initial Temporal Entities
-    ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${first_temporal_entity_representation_id}=    Catenate    ${VEHICLE_ID_PREFIX}021-03-A
     ${create_response1}=    Create Temporal Representation Of Entity
     ...    ${first_vehicle_payload_file}
     ...    ${first_temporal_entity_representation_id}
     Check Response Status Code    201    ${create_response1.status_code}
     Set Suite Variable    ${first_temporal_entity_representation_id}
-    ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${second_temporal_entity_representation_id}=    Catenate    ${VEHICLE_ID_PREFIX}021-03-B
     ${create_response2}=    Create Temporal Representation Of Entity
     ...    ${second_vehicle_payload_file}
     ...    ${second_temporal_entity_representation_id}
