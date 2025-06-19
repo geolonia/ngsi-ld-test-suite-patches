@@ -4,6 +4,7 @@ Library         ${EXECDIR}/libraries/logUtils.py
 Library         Collections
 Library         OperatingSystem
 Library         RequestsLibrary
+Resource        ${EXECDIR}/resources/ApiUtils/Common.resource
 
 
 *** Variables ***
@@ -54,9 +55,10 @@ Query Entities
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     IF    ${attrs_length}>0    Set To Dictionary    ${params}    attrs=${attrs}
     IF    '${geoproperty}'!=''
@@ -106,9 +108,10 @@ Query Entities Via POST
     Set To Dictionary    ${headers}    Content-Type    ${content_type}
     Set To Dictionary    ${headers}    Accept    ${accept}
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     &{body}=    Create Dictionary
     Set To Dictionary    ${body}    type=Query
@@ -148,9 +151,10 @@ Query Entity
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     IF    ${attrs_length}>0    Set To Dictionary    ${params}    attrs=${attrs}
     IF    '${geometryProperty}'!=''
@@ -177,9 +181,10 @@ Retrieve Attribute
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${response}=    GET
     ...    url=${url}/${ATTRIBUTES_ENDPOINT_PATH}/${attribute_name}
@@ -197,9 +202,10 @@ Retrieve Attributes
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     Set To Dictionary    ${params}    details=${details}
     ${response}=    GET
@@ -222,9 +228,10 @@ Retrieve Entity by Id
     ${options_length}=    Get Length    ${options}
     Set To Dictionary    ${headers}    Accept    ${accept}
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
     IF    ${options_length}>0
@@ -246,9 +253,10 @@ Retrieve Entity Type
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${response}=    GET
     ...    url=${url}/${ENTITIES_TYPES_ENDPOINT_PATH}/${type}
@@ -266,9 +274,10 @@ Retrieve Entity Types
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     Set To Dictionary    ${params}    details=${details}
     ${response}=    GET

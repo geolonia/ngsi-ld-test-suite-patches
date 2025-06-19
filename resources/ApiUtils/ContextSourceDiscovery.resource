@@ -3,6 +3,7 @@ Variables       ${EXECDIR}/resources/variables.py
 Library         ${EXECDIR}/libraries/logUtils.py
 Library         Collections
 Library         RequestsLibrary
+Resource        ${EXECDIR}/resources/ApiUtils/Common.resource
 
 
 *** Variables ***
@@ -38,9 +39,10 @@ Query Context Source Registrations
     &{headers}=    Create Dictionary
     &{params}=    Create Dictionary
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     IF    '${accept}'!=''    Set To Dictionary    ${headers}    Accept=${accept}
     IF    '${id}'!=''    Set To Dictionary    ${params}    id=${id}
@@ -100,9 +102,10 @@ Query Context Source Registrations With Return
     &{headers}=    Create Dictionary
     &{params}=    Create Dictionary
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     IF    '${accept}'!=''
         Set To Dictionary    ${headers}    Accept    ${accept}
@@ -145,9 +148,10 @@ Retrieve Context Source Registration
     &{headers}=    Create Dictionary
     IF    '${accept}'!=''    Set To Dictionary    ${headers}    Accept=${accept}
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${response}=    GET
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}

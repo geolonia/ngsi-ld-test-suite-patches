@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can retrieve a context source registration subscription
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -23,11 +24,7 @@ ${expectation_file_path}=               csourceSubscriptions/expectations/subscr
     ...    subscription_id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
 
-    ${expected_link_header}=    CATENATE
-    ...    SEPARATOR=
-    ...    <
-    ...    ${ngsild_test_suite_context}
-    ...    >; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
+    ${expected_link_header}=    Build Context Link    ${ngsild_test_suite_context}
 
     Check Response Status Code    200    ${response.status_code}
     Check Response Reason set to    ${response.reason}    OK
