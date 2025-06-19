@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can delete an attribute of a temporal representation of an entity with simple temporal properties
 
-Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,10 +13,9 @@ Test Template       Delete Attribute From A Temporal Entity
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-temporal-representation.jsonld
-${status_code}=             204
-${attribute_id}=            fuelLevel
+${filename}=        vehicle-temporal-representation.jsonld
+${status_code}=     204
+${attribute_id}=    fuelLevel
 
 
 *** Test Cases ***    DELETE_ALL    DATASET_ID    EXPECTATION_FILE
@@ -55,7 +55,7 @@ Delete Attribute From A Temporal Entity
     ...    ignored_keys=${ignored_attributes}
 
 Initialize Setup
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${temporal_entity_representation_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${temporal_entity_representation_id}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}

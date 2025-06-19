@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot update entity attributes with invalid/missing id or invalid request body
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -8,10 +9,6 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 Test Setup          Initialize Environment
 Test Teardown       Delete Entity
 Test Template       Update Attributes
-
-
-*** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 
 
 *** Test Cases ***    ENTITY_INVALID_ID    FRAGMENT_FILENAME
@@ -34,7 +31,7 @@ Update Attributes
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 Initialize Environment
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    vehicle-two-datasetid-attributes.jsonld

@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can query several entities based on attribute names
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +12,6 @@ Suite Teardown      Delete Entities
 
 
 *** Variables ***
-${building_id_prefix}=              urn:ngsi-ld:Building:
 ${filename}=                        building-simple-attributes.jsonld
 ${filename2}=                       building-minimal.jsonld
 ${expectation_filename}=            building-attributes-query.json
@@ -41,14 +41,14 @@ ${attribute_subcategory}=           https://ngsi-ld-test-suite/context#subCatego
 
 *** Keywords ***
 Setup Initial Entities
-    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${first_entity_id}
     ${create_response1}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${first_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${create_response1.status_code}
-    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${second_entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${second_entity_id}
     ${create_response2}=    Create Entity Selecting Content Type
     ...    ${filename2}

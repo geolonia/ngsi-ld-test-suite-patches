@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can create a batch of entities where some will succeed and others will fail
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -10,17 +11,13 @@ Suite Setup         Setup Initial Entity
 Suite Teardown      Delete Initial Entities
 
 
-*** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
-
-
 *** Test Cases ***
 003_02_01 Create a batch of two valid entities and one invalid entity
     [Documentation]    Check that one can create a batch of two valid entities and one invalid entity
     [Tags]    be-create    5_6_7
-    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${first_entity_id}
-    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${second_entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${second_entity_id}
     # TODO: Use Load Test Sample keyword instead
     ${first_entity}=    Load Entity    building-minimal.jsonld    ${first_entity_id}
@@ -50,7 +47,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 *** Keywords ***
 Setup Initial Entity
-    ${existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${existing_entity_id}=    Generate Random Building Entity Id
     ${create_response}=    Create Entity    building-minimal.jsonld    ${existing_entity_id}
     Check Response Status Code    201    ${create_response.status_code}
     Set Suite Variable    ${existing_entity_id}

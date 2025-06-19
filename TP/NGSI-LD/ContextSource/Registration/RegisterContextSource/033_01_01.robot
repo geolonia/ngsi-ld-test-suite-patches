@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can create a context source registration with specific ID and expiration date
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -10,7 +11,6 @@ Suite Teardown      Delete Created Context Source Registrations
 
 
 *** Variables ***
-${registration_id_prefix}=              urn:ngsi-ld:Registration:
 ${registration_payload_file_path}=      csourceRegistrations/context-source-registration-with-expiration.jsonld
 
 
@@ -18,7 +18,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
 033_01_01 Create Context Source Registration With Specific Date Expiration Date
     [Documentation]    Check that one can create a context source registration with specific ID and expiration date
     [Tags]    csr-create    5_9_2
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
     ${registration_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}

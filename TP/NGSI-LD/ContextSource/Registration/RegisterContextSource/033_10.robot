@@ -1,15 +1,12 @@
 *** Settings ***
 Documentation       Check that one cannot create a context source with invalid content
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Template       Create Context Source With Invalid Content
-
-
-*** Variables ***
-${registration_id_prefix}=      urn:ngsi-ld:Registration:
 
 
 *** Test Cases ***
@@ -24,7 +21,7 @@ Create Context Source With Invalid Content
     [Documentation]    Check that one cannot create a context source with invalid content
     [Tags]    csr-create    6_3_5
     [Arguments]    ${filename}
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=    Generate Random CSR Id
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${filename}
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
     ${response}=    Create Context Source Registration With Return    ${updated_payload}

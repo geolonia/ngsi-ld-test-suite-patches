@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can append entity attributes with noOverwrite option
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -12,7 +13,6 @@ Test Template       Append Attributes With Params
 
 
 *** Variables ***
-${vehicle_id_prefix}=               urn:ngsi-ld:Vehicle:
 ${filename}=                        vehicle-speed-two-datasetid.jsonld
 ${existing_attribute_name}=         https://ngsi-ld-test-suite/context#speed
 ${non_existing_attribute_name}=     https://uri.etsi.org/ngsi-ld/default-context/attribute_to_be_added
@@ -57,7 +57,7 @@ Append Attributes With Params
     ...    ignored_keys=${ignored_attributes}
 
 Create Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}

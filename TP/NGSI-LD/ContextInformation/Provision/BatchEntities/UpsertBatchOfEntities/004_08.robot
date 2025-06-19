@@ -1,18 +1,15 @@
 *** Settings ***
 Documentation       Check that you can upsert a batch of existing entities with new types and they will be replaced
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Setup Initial Entities
 Test Teardown       Delete Initial Entities
 Test Template       Batch Upsert Existing Entities Scenarios
-
-
-*** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***    FILENAME
@@ -40,8 +37,8 @@ Batch Upsert Existing Entities Scenarios
     Check Updated Resources Set To    ${entities_to_be_upserted}    ${response1.json()}
 
 Setup Initial Entities
-    ${first_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${second_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_existing_entity_id}=    Generate Random Building Entity Id
+    ${second_existing_entity_id}=    Generate Random Building Entity Id
     Create Entity    building-minimal.jsonld    ${first_existing_entity_id}
     Create Entity    building-minimal.jsonld    ${second_existing_entity_id}
     Set Test Variable    ${first_existing_entity_id}

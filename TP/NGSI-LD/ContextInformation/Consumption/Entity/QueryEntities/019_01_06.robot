@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can query several entities based on scopes
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,6 @@ Test Template       Query several entities based on scopes
 
 
 *** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
 ${entity_one_scope}=        building-minimal-with-one-scope.json
 ${entity_many_scopes}=      building-minimal-with-many-scopes.json
 ${entity_type}=             https://ngsi-ld-test-suite/context#Building
@@ -50,7 +50,7 @@ Query several entities based on scopes
     Check Response Body Containing Number Of Entities    ${entity_type}    ${expected_count}    ${response.json()}
 
 Setup Initial Entities
-    ${entity_one_scope_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_one_scope_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${entity_one_scope_id}
     ${create_response1}=    Create Entity Selecting Content Type
     ...    ${entity_one_scope}
@@ -58,7 +58,7 @@ Setup Initial Entities
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
     Check Response Status Code    201    ${create_response1.status_code}
-    ${entity_many_scopes_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_many_scopes_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${entity_many_scopes_id}
     ${create_response2}=    Create Entity Selecting Content Type
     ...    ${entity_many_scopes}

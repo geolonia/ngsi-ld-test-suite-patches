@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot create a context source registration subscription where another context source registration subscription whose id is equivalent exists
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -10,7 +11,6 @@ Test Teardown       Delete Initial Context Source Registration Subscription
 
 
 *** Variables ***
-${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=      csourceSubscriptions/subscription.jsonld
 
 
@@ -28,7 +28,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription.jsonld
 
 *** Keywords ***
 Setup Initial Context Source Registration Subscription
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
     ${create_csrsub_response}=    Create Context Source Registration Subscription    ${subscription_payload}
     Check Response Status Code    201    ${create_csrsub_response.status_code}

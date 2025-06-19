@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that a notification is only sent if and only if the status is active
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
@@ -13,11 +14,9 @@ Test Teardown       After Test
 
 
 *** Variables ***
-${subscription_id_prefix}                                   urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}                           subscriptions/subscription-building-entities-active.jsonld
 ${subscription_payload_file_path_notificationAttributes}    subscriptions/subscription-building-entities-active-notificationAttributes.jsonld
 ${subscription_payload_file_path_default_context}           subscriptions/subscription-building-entities-active-default-context.jsonld
-${building_id_prefix}                                       urn:ngsi-ld:Building:
 ${notification_server_send_url}                             http://${notification_server_host}:${notification_server_port}/notify
 ${entity_building_filepath}                                 building-simple-attributes.jsonld
 ${fragment_filename}                                        airQualityLevel-fragment.jsonld
@@ -75,8 +74,8 @@ Before Suite
 
 Setup Initial Subscriptions
     [Arguments]    ${subscription_payload_path}
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
+    ${entity_id}=    Generate Random Building Entity Id
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
     ...    ${subscription_payload_path}
     ...    ${subscription_id}

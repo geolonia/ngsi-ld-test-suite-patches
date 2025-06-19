@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot update a context source registration subscription with a fragment that does not meet the data types and restrictions expressed by clause 5.2.12
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -11,7 +12,6 @@ Test Template       Update Context Source Registration Subscription With Invalid
 
 
 *** Variables ***
-${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=      csourceSubscriptions/subscription.jsonld
 
 
@@ -38,7 +38,7 @@ Update Context Source Registration Subscription With Invalid Fragment
     ...    problem_type=${ERROR_TYPE_BAD_REQUEST_DATA}
 
 Setup Initial Context Source Registration Subscriptions
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
     ${create_csrsub_response}=    Create Context Source Registration Subscription    ${subscription_payload}
     Check Response Status Code    201    ${create_csrsub_response.status_code}

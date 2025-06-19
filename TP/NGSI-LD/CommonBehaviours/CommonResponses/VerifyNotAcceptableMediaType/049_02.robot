@@ -1,24 +1,24 @@
 *** Settings ***
 Documentation       Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity"
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
-Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 
 *** Variables ***
-${accept}=                      application/geo+json
-${status_code}=                 406
-${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
+${accept}=          application/geo+json
+${status_code}=     406
 
 
 *** Test Cases ***
 049_02_01 Retrieve subscription by id
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header is "application/geo+json" for operations different than "Retrieve Entity" and "Query Entity" (get /subscriptions/{subscriptionId})
     [Tags]    sub-retrieve    cb-noacceptable-medtype    6_3_4
-    ${id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${id}=    Generate Random Subscription Id
     ${response}=    Retrieve Subscription
     ...    id=${id}
     ...    accept=${accept}

@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot perform a partial update on an entity attribute if the entity id or attribute is not known to the system
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -11,10 +12,9 @@ Test Template       Partial Update Attributes
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-speed-two-datasetid.jsonld
-${status_code}=             404
-${default_attr_id}=         speed
+${filename}=            vehicle-speed-two-datasetid.jsonld
+${status_code}=         404
+${default_attr_id}=     speed
 
 
 *** Test Cases ***    ENTITY_ID    ATTR_ID    FRAGMENT_FILENAME
@@ -45,9 +45,9 @@ Partial Update Attributes
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 Create Initial Entity
-    ${valid_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${valid_entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${valid_entity_id}
-    ${not_found_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${not_found_entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${not_found_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}

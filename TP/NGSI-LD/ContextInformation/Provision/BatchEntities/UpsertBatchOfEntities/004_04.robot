@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can upsert a batch of entities with update option
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,6 @@ Test Template       Batch Upsert Entities With Update Option Scenarios
 
 
 *** Variables ***
-${building_id_prefix}=                  urn:ngsi-ld:Building:
 ${existing_entity_payload_filename}=    building-minimal.jsonld
 
 
@@ -32,7 +32,7 @@ ${existing_entity_payload_filename}=    building-minimal.jsonld
 Batch Upsert Entities With Update Option Scenarios
     [Documentation]    Check that one can upsert a batch of entities with update option
     [Arguments]    ${filename}    ${update_fragment_filename}
-    ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${new_entity_id}=    Generate Random Building Entity Id
     Set Test Variable    ${new_entity_id}
     ${new_entity}=    Load Entity    ${filename}    ${new_entity_id}
     ${existing_entity}=    Load Entity    ${filename}    ${existing_entity_id}
@@ -57,7 +57,7 @@ Batch Upsert Entities With Update Option Scenarios
     Check Updated Resources Set To    ${updated_entities}    ${response1.json()}
 
 Setup Initial Entity
-    ${existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${existing_entity_id}=    Generate Random Building Entity Id
     ${create_response}=    Create Entity    ${existing_entity_payload_filename}    ${existing_entity_id}
     Check Response Status Code    201    ${create_response.status_code}
     Set Test Variable    ${existing_entity_id}

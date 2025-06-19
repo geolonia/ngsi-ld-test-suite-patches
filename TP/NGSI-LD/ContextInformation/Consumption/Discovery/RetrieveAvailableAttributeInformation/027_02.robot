@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can retrieve a list with a detailed representation of NGSI-LD attributes
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -12,9 +13,8 @@ Test Template       Retrieve Detailed Representation Of Available Attribute
 
 
 *** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-simple-attributes.json
-${expectation_file}=        types/expectations/attribute-027-01.json
+${filename}=            building-simple-attributes.json
+${expectation_file}=    types/expectations/attribute-027-01.json
 
 
 *** Test Cases ***    ATTR_NAME
@@ -35,7 +35,7 @@ Retrieve Detailed Representation Of Available Attribute
     Check Response Body Containing Attribute element    ${expectation_file}    ${response.json()}
 
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}

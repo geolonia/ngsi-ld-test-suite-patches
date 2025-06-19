@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -11,7 +12,6 @@ Test Teardown       Delete Initial Subscription
 
 
 *** Variables ***
-${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
 ${subscription_filename}=       subscriptions/subscription.jsonld
 ${subscription_fragment}=       subscriptions/fragments/subscription-update.json
 
@@ -30,7 +30,7 @@ ${subscription_fragment}=       subscriptions/fragments/subscription-update.json
 
 *** Keywords ***
 Create Initial Subscription
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${response}=    Create Subscription    ${subscription_id}    ${subscription_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
     Set Test Variable    ${subscription_id}

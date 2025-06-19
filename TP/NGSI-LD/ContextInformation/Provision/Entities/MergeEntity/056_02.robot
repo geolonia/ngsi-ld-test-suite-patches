@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that if the target entity ID is faulty an error is raised
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,6 @@ Test Template       Merge an existing entity with a faulty ID
 
 
 *** Variables ***
-${building_id_prefix}               urn:ngsi-ld:Building:
 ${entity_filename}                  building-simple-attributes.json
 ${entity_replacement_filename}      building-locatedAt-and-name.json
 
@@ -43,7 +43,7 @@ Merge an existing entity with a faulty ID
     Check Response Status Code    ${expected_status_code}    ${response.status_code}
 
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${entity_filename}

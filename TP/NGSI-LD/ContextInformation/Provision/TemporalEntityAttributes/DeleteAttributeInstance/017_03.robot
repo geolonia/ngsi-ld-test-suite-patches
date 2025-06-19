@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one cannot delete an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right
 
-Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,9 +13,8 @@ Test Template       Delete An Attribute Instance
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-temporal-representation.jsonld
-${status_code}=             404
+${filename}=        vehicle-temporal-representation.jsonld
+${status_code}=     404
 
 
 *** Test Cases ***    TEMPORAL_ENTITY_ID    ATTRIBUTE_ID    INSTANCE_ID
@@ -40,7 +40,7 @@ Delete An Attribute Instance
     Check Response Status Code    ${status_code}    ${response.status_code}
 
 Create Id
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${temporal_entity_representation_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${temporal_entity_representation_id}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
@@ -54,7 +54,7 @@ Create Id
     ...    context=${ngsild_test_suite_context}
     ${valid_instanceId}=    Set Variable    ${response.json()['speed'][0]['instanceId']}
     Set Test Variable    ${valid_instanceId}
-    ${unknown_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${unknown_temporal_entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${unknown_temporal_entity_id}
 
 Delete Initial Temporal Representation Of Entity

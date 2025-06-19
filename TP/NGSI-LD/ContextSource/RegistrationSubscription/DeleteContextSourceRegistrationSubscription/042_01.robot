@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can delete a context source registration subscription
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -9,7 +10,6 @@ Test Setup          Setup Initial Context Source Registration Subscription
 
 
 *** Variables ***
-${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=      csourceSubscriptions/subscription.jsonld
 
 
@@ -27,7 +27,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription.jsonld
 
 *** Keywords ***
 Setup Initial Context Source Registration Subscription
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
     ${create_csrsub_response}=    Create Context Source Registration Subscription    ${subscription_payload}
     Check Response Status Code    201    ${create_csrsub_response.status_code}

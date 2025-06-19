@@ -1,17 +1,14 @@
 *** Settings ***
 Documentation       Check that one can create a temporal representation of an entity
 
-Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Teardown       Delete Temporal Entity
 Test Template       Create Temporal Entity
-
-
-*** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 
 
 *** Test Cases ***    FILENAME    EXPECTATION_FILENAME    CONTENT_TYPE
@@ -26,7 +23,7 @@ Create Temporal Entity
     [Documentation]    Check that one can create a temporal representation of an entity
     [Tags]    te-create    5_6_11
     [Arguments]    ${filename}    ${expectation_filename}    ${content_type}
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${temporal_entity_representation_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${temporal_entity_representation_id}
 
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type

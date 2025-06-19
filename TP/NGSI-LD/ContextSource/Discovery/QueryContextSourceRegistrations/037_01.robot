@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can query context source registrations if at least one of list of Entity Types or list of Attribute names is present
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -12,7 +13,6 @@ Test Template       Query A Context Source Registration
 
 
 *** Variables ***
-${context_source_registration_id_prefix}=                   urn:ngsi-ld:ContextSourceRegistration:
 ${first_context_source_registration_payload_file_path}=     csourceRegistrations/context-source-registration.jsonld
 ${second_context_source_registration_payload_file_path}=    csourceRegistrations/context-source-registration-detailed-information.jsonld
 
@@ -44,8 +44,8 @@ Query A Context Source Registration
     ...    ${response.json()}
 
 Setup Initial Context Source Registrations
-    ${first_context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
-    ${second_context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
+    ${first_context_source_registration_id}=    Generate Random CSR Id
+    ${second_context_source_registration_id}=    Generate Random CSR Id
     ${first_context_source_registration_payload}=    Load Test Sample
     ...    ${first_context_source_registration_payload_file_path}
     ...    ${first_context_source_registration_id}

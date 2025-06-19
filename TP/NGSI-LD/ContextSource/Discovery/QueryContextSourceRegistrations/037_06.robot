@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can query context source registrations matching property and relationship names of RegistrationInfo
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -12,7 +13,6 @@ Test Template       Query Context Source Registration Matching Properties And Re
 
 
 *** Variables ***
-${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
 ${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-detailed-information.jsonld
 
 
@@ -41,7 +41,7 @@ Query Context Source Registration Matching Properties And Relationships Of Regis
     ...    ${response.json()}
 
 Setup Initial Context Source Registration
-    ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
+    ${context_source_registration_id}=    Generate Random CSR Id
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}

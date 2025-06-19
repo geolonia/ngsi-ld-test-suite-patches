@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can update a batch of entities where some will succeed and others will fail
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +12,6 @@ Suite Teardown      Delete Initial Entities
 
 
 *** Variables ***
-${building_id_prefix}=          urn:ngsi-ld:Building:
 ${entity_payload_filename}=     building-simple-attributes.jsonld
 ${update_fragment_filename}=    fragmentEntities/simple-attributes-relationship-of-property-fragment.json
 
@@ -26,7 +26,7 @@ ${update_fragment_filename}=    fragmentEntities/simple-attributes-relationship-
     ${second_existing_entity}=    Load Entity
     ...    building-relationship-of-property.jsonld
     ...    ${second_existing_entity_id}
-    ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${new_entity_id}=    Generate Random Building Entity Id
     ${new_entity}=    Load Entity    building-relationship-of-property.jsonld    ${new_entity_id}
     @{entities_to_be_updated}=    Create List    ${first_existing_entity}    ${second_existing_entity}    ${new_entity}
 
@@ -61,11 +61,11 @@ ${update_fragment_filename}=    fragmentEntities/simple-attributes-relationship-
 
 *** Keywords ***
 Setup Initial Entities
-    ${first_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_existing_entity_id}=    Generate Random Building Entity Id
     ${create_response1}=    Create Entity    ${entity_payload_filename}    ${first_existing_entity_id}
     Check Response Status Code    201    ${create_response1.status_code}
     Set Suite Variable    ${first_existing_entity_id}
-    ${second_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${second_existing_entity_id}=    Generate Random Building Entity Id
     ${create_response2}=    Create Entity    ${entity_payload_filename}    ${second_existing_entity_id}
     Check Response Status Code    201    ${create_response2.status_code}
     Set Suite Variable    ${second_existing_entity_id}

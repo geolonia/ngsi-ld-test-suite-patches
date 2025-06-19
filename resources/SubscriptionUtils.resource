@@ -12,7 +12,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 Create Subscription And Entity
     [Arguments]    ${subscription_payload_file_path}    ${building_filename}
 
-    ${entity_id}=    Generate Random Entity Id    ${BUILDING_ID_PREFIX}
+    ${entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${entity_id}
     ${create_entity_response}=    Create Entity Selecting Content Type
     ...    ${building_filename}
@@ -20,7 +20,7 @@ Create Subscription And Entity
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${create_entity_response.status_code}
 
-    ${subscription_id}=    Generate Random Entity Id    ${SUBSCRIPTION_ID_PREFIX}
+    ${subscription_id}=    Generate Random Subscription Id
     Set Suite Variable    ${subscription_id}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
     ...    ${subscription_payload_file_path}

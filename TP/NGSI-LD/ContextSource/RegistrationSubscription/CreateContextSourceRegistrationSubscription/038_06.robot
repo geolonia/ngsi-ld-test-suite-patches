@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can create a context source registration subscription without an expiresAt member and it will be considered as perpetual
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -10,7 +11,6 @@ Suite Teardown      Delete Created Context Source Registration Subscriptions
 
 
 *** Variables ***
-${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=      csourceSubscriptions/subscription.jsonld
 
 
@@ -34,7 +34,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription.jsonld
 
 *** Keywords ***
 Generate Random Ids For Context Source Registration Subscriptions
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     Set Suite Variable    ${subscription_id}
 
 Delete Created Context Source Registration Subscriptions

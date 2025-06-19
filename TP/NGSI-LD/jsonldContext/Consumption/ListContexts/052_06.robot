@@ -1,9 +1,9 @@
 *** Settings ***
 Documentation       Check that one can list all the @context available in the broker with no previous add @context
 
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 
 Test Setup          Create initial ImplicitlyCreated @context
 Test Teardown       Delete Initial @context Data

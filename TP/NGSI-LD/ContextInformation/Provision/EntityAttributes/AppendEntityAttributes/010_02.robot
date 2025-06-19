@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot append entity attributes with invalid/missing id or invalid request body
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -11,7 +12,6 @@ Test Template       Append Attributes
 
 
 *** Variables ***
-${vehicle_id_prefix}=               urn:ngsi-ld:Vehicle:
 ${filename}=                        vehicle-speed-two-datasetid.jsonld
 ${fragment_filename}=               vehicle-attribute-to-add-fragment.jsonld
 ${status_code}=                     400
@@ -39,7 +39,7 @@ Append Attributes
     [Teardown]    Delete Entity by Id    ${entity_id}
 
 Create Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}

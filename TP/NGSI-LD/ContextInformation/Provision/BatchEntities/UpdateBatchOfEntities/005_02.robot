@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can update a batch of entities with noOverwrite option
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,6 @@ Test Template       Batch Update Entity With NoOverwrite Option Scenarios
 
 
 *** Variables ***
-${building_id_prefix}=          urn:ngsi-ld:Building:
 ${entity_payload_filename}=     building-simple-attributes.jsonld
 
 
@@ -55,11 +55,11 @@ Batch Update Entity With NoOverwrite Option Scenarios
     Check Updated Resources Set To    ${updated_entities}    ${response1.json()}
 
 Setup Initial Entities
-    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_entity_id}=    Generate Random Building Entity Id
     ${create_response1}=    Create Entity    ${entity_payload_filename}    ${first_entity_id}
     Check Response Status Code    201    ${create_response1.status_code}
     Set Test Variable    ${first_entity_id}
-    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${second_entity_id}=    Generate Random Building Entity Id
     ${create_response2}=    Create Entity    ${entity_payload_filename}    ${second_entity_id}
     Check Response Status Code    201    ${create_response2.status_code}
     Set Test Variable    ${second_entity_id}

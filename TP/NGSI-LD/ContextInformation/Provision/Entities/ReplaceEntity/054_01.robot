@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can replace an existing entity and that its createdAt Temporal Property remains unchanged
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +12,6 @@ Test Teardown       Delete Initial Entity
 
 
 *** Variables ***
-${building_id_prefix}               urn:ngsi-ld:Building:
 ${entity_filename}                  building-simple-attributes.json
 ${entity_replacement_filename}      building-locatedAt-and-name.json
 ${expectation_filename}             building-locatedAt-and-name-normalized.jsonld
@@ -50,7 +50,7 @@ ${expectation_filename}             building-locatedAt-and-name-normalized.jsonl
 
 *** Keywords ***
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${entity_filename}

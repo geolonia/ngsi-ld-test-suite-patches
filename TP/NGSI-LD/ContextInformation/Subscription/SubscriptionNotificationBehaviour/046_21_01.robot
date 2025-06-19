@@ -2,8 +2,8 @@
 Documentation       Check that a notification is sent when an entity is deleted
 ...                 and entityDeleted notification trigger is configured
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
 Resource            ${EXECDIR}/resources/SubscriptionUtils.resource

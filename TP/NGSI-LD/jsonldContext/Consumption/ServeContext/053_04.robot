@@ -1,9 +1,9 @@
 *** Settings ***
 Documentation       Check that one can get an increase numberOfHits after creation of a Hosted @context and using it
 
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/HttpUtils.resource
 
 Test Setup          Create Initial @context condition from an external server

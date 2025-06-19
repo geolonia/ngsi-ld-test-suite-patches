@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can replace an existing entity and that scopes are replaced
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 
 Test Setup          Setup Initial Entity
@@ -10,7 +11,6 @@ Test Teardown       Delete Initial Entity
 
 
 *** Variables ***
-${building_id_prefix}               urn:ngsi-ld:Building:
 ${entity_filename}                  building-minimal-with-one-scope.json
 ${entity_replacement_filename}      building-minimal-with-many-scopes.json
 ${expectation_filename}             building-minimal-with-two-scopes.json
@@ -39,7 +39,7 @@ ${expectation_filename}             building-minimal-with-two-scopes.json
 
 *** Keywords ***
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${entity_filename}

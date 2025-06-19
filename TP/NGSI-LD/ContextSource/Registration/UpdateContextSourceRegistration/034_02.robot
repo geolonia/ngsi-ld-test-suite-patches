@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot update a context source registration under some conditions
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -11,7 +12,6 @@ Test Template       Update A Context Source
 
 
 *** Variables ***
-${registration_id_prefix}=              urn:ngsi-ld:Registration:
 ${filename}=                            context-source-registration.jsonld
 ${registration_payload_file_path}=      context-source-registration-invalid.jsonld
 ${reason_400}=                          Bad Request
@@ -42,7 +42,7 @@ Update A Context Source
     Check Response Body Containing ProblemDetails Element    ${response.json()}    ${problem_type}
 
 Create Initial Context Source Registration
-    ${valid_registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${valid_registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${valid_registration_id}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${updated_payload}=    Update Value To JSON    ${payload}    $.id    ${valid_registration_id}

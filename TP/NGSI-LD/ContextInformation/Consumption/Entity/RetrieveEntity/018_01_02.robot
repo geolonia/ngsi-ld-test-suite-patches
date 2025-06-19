@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can query some attributes from an entity
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +12,6 @@ Suite Teardown      Delete Created Entity
 
 
 *** Variables ***
-${building_id_prefix}=              urn:ngsi-ld:Building:
 ${filename}=                        building-simple-attributes.jsonld
 ${expectation_filename}=            building-simple-attributes-query.jsonld
 ${attribute_airqualitylevel}=       https://ngsi-ld-test-suite/context#airQualityLevel
@@ -42,7 +42,7 @@ ${attribute_subcategory}=           https://ngsi-ld-test-suite/context#subCatego
 
 *** Keywords ***
 Create Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${entity_id}
     ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}

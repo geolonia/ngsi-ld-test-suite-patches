@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can list all the cached @context entries
 
-Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/HttpUtils.resource
 
@@ -12,12 +13,11 @@ Test Template       List @contexts with several previous created @context
 
 
 *** Variables ***
-${entity_filename}=         building-simple-attributes.json
-${contextUri}=              https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite.jsonld
-${reason_200}=              OK
-${reason_204}=              No Content
-${building_id_prefix}=      urn:ngsi-ld:Building:
-${content_type}=            application/json
+${entity_filename}=     building-simple-attributes.json
+${contextUri}=          https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite.jsonld
+${reason_200}=          OK
+${reason_204}=          No Content
+${content_type}=        application/json
 
 
 *** Test Cases ***    DETAILS    KIND
@@ -31,7 +31,7 @@ ${content_type}=            application/json
 
 *** Keywords ***
 Create Initial Cached @context from entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${entity_filename}

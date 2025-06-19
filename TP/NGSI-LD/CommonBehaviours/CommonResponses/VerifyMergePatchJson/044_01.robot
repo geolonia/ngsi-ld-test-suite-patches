@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -10,10 +11,9 @@ Test Teardown       Delete Initial Entity
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${vehicle_filename}=        vehicle-simple-attributes.jsonld
-${vehicle_fragment}=        vehicle-brandname-fragment.json
-${attribute_id}=            brandName
+${vehicle_filename}=    vehicle-simple-attributes.jsonld
+${vehicle_fragment}=    vehicle-brandname-fragment.json
+${attribute_id}=        brandName
 
 
 *** Test Cases ***
@@ -31,7 +31,7 @@ ${attribute_id}=            brandName
 
 *** Keywords ***
 Create Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     ${response}=    Create Entity Selecting Content Type
     ...    ${vehicle_filename}
     ...    ${entity_id}

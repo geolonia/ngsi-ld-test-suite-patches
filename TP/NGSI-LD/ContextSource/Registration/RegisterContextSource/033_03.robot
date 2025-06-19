@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot create a context source registration that already exists
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -10,8 +11,7 @@ Test Teardown       Delete Created Context Source Registrations
 
 
 *** Variables ***
-${registration_id_prefix}=      urn:ngsi-ld:Registration:
-${filename}=                    csourceRegistrations/context-source-registration.jsonld
+${filename}=    csourceRegistrations/context-source-registration.jsonld
 
 
 *** Test Cases ***
@@ -28,7 +28,7 @@ Delete Created Context Source Registrations
     Delete Context Source Registration    ${registration_id}
 
 Create New Context Source Registration
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=    Generate Random CSR Id
     Set Test Variable    ${registration_id}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${filename}
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}

@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can retrieve the temporal evolution of entities with the aggregated temporal representation
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -12,7 +13,6 @@ Test Template       Retrieve the temporal evolution of entities with the aggrega
 
 
 *** Variables ***
-${vehicle_id_prefix}=               urn:ngsi-ld:Vehicle:
 ${first_vehicle_payload_file}=      2020-08-vehicle-temporal-representation.jsonld
 ${second_vehicle_payload_file}=     2020-08-vehicle-temporal-representation.jsonld
 
@@ -56,7 +56,7 @@ Retrieve the temporal evolution of entities with the aggregated temporal represe
     ...    ${response.json()[0]}
 
 Setup Initial Entities
-    ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${first_temporal_entity_representation_id}=    Generate Random Vehicle Entity Id
     ${response}=    Create Temporal Representation Of Entity
     ...    ${first_vehicle_payload_file}
     ...    ${first_temporal_entity_representation_id}

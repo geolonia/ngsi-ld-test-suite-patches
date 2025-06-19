@@ -1,16 +1,13 @@
 *** Settings ***
 Documentation       Check that one can delete an entity by id
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Setup Initial Entity
-
-
-*** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***
@@ -25,7 +22,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 *** Keywords ***
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     ${response}=    Create Entity Selecting Content Type
     ...    building-simple-attributes.jsonld
     ...    ${entity_id}

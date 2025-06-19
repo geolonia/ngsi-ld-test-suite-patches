@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can merge an entity
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,6 @@ Test Template       Merge Entity Scenarios
 
 
 *** Variables ***
-${building_id_prefix}=          urn:ngsi-ld:Building:
 ${entity_payload_filename}=     merge/building-merge-data.jsonld
 
 
@@ -51,7 +51,7 @@ Merge Entity Scenarios
     ...    response_body=${response1.json()}
 
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Set Test Variable    ${entity_id}
     Check Response Status Code    201    ${response.status_code}

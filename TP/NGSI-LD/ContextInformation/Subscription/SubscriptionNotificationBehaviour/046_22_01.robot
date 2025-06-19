@@ -2,8 +2,8 @@
 Documentation       Check that a notification is sent with keyValues when an attribute is deleted
 ...                 and attributeDeleted notification trigger is configured
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
 Resource            ${EXECDIR}/resources/SubscriptionUtils.resource

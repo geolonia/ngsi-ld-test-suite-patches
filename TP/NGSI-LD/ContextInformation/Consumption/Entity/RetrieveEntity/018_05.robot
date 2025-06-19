@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that the queried entity by id can be returned in a GeoJSON format
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,8 +13,7 @@ Test Template       Retrieve Entity In GeoJSON Representation
 
 
 *** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-two-geometry-attributes.jsonld
+${filename}=    building-two-geometry-attributes.jsonld
 
 
 *** Test Cases ***    OPTIONS    EXPECTATION_FILENAME
@@ -48,7 +48,7 @@ Retrieve Entity In GeoJSON Representation
     ...    response_body=${response.json()}
 
 Create Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}

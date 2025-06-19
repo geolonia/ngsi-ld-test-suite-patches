@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that the JSON-LD @context is obtained from a Link header if present and that the default JSON-LD @context is used if not present
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,6 @@ Test Template       Review JSON-LD Resolution When retrieving an entity
 
 
 *** Variables ***
-${building_id_prefix}=                      urn:ngsi-ld:Building:
 ${filename}=                                building-simple-attributes.json
 ${empty_jsonld_expectation_filename}=       building-simple-attributes-expanded.json
 ${creation_jsonld_expectation_filename}=    building-simple-attributes-compacted.json
@@ -39,7 +39,7 @@ Review JSON-LD Resolution When retrieving an entity
     Check Response Body Containing Entity element    ${expected_payload}    ${entity_id}    ${response.json()}
 
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}

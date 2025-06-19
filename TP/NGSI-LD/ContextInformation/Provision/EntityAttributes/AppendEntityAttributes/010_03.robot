@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot append entity attributes if the entity id is not known to the system
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -9,7 +10,6 @@ Suite Teardown      Delete Initial Entities
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${fragment_filename}=       vehicle-attribute-to-add-fragment.jsonld
 
 
@@ -17,7 +17,7 @@ ${fragment_filename}=       vehicle-attribute-to-add-fragment.jsonld
 010_03_01 Append entity attributes when the entity id is not known to the system
     [Documentation]    Check that one cannot append entity attributes if the entity id is not known to the system
     [Tags]    ea-append    5_6_3
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
     ${response}=    Append Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    404    ${response.status_code}

@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can update a scope in an entity
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -10,7 +11,6 @@ Test Teardown       Delete Initial Entity
 
 
 *** Variables ***
-${vehicle_id_prefix}=           urn:ngsi-ld:Vehicle:
 ${scope_fragment_filename}=     one-scope-fragment.json
 
 
@@ -53,7 +53,7 @@ ${scope_fragment_filename}=     one-scope-fragment.json
 *** Keywords ***
 Create Initial Entity
     [Arguments]    ${filename}
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}

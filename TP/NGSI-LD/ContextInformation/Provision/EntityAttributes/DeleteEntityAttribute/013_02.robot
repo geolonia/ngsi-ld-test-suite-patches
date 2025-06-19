@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot delete an attribute from an entity with invalid/missing ids
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -11,8 +12,7 @@ Test Template       Delete Attributes
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-two-datasetid-attributes.jsonld
+${filename}=    vehicle-two-datasetid-attributes.jsonld
 
 
 *** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID    EXPECTED_STATUS_CODE
@@ -37,7 +37,7 @@ Delete Attributes
     Check Response Status Code    ${expected_status_code}    ${response.status_code}
 
 Create Initial Entity
-    ${valid_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${valid_entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${valid_entity_id}
     ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}

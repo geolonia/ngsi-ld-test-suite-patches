@@ -1,13 +1,13 @@
 *** Settings ***
 Documentation       Check that an error is raised if one adds an attribute to a non-existent entity
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${filename}=                vehicle-temporal-representation.jsonld
 ${fragment_filename}=       vehicle-temporal-representation-fragment.jsonld
 ${status_code}=             404
@@ -17,7 +17,7 @@ ${status_code}=             404
 014_03_01 Add Attribute To Temporal Entity
     [Documentation]    Check that an error is raised if one adds an attribute to a non-existent entity
     [Tags]    tea-append    5_6_12
-    ${not_found_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${not_found_temporal_entity_representation_id}=    Generate Random Vehicle Entity Id
     ${response}=    Append Attribute To Temporal Entity
     ...    ${not_found_temporal_entity_representation_id}
     ...    ${fragment_filename}

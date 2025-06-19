@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can update a subcription: Term to URI expansion of Attribute names shall be observed
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -10,7 +11,6 @@ Suite Teardown      Delete Initial Subscriptions
 
 
 *** Variables ***
-${subscription_id_prefix}=                              urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=                      subscriptions/subscription.jsonld
 ${subscription_update_fragment_file_path}=              subscriptions/fragments/subscription-vehicle-entities.json
 ${expected_subscription_payload_file_path}=             subscriptions/expectations/subscription-vehicle.jsonld
@@ -54,7 +54,7 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
 
 *** Keywords ***
 Setup Initial Subscriptions
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${initial_response}=    Create Subscription
     ...    ${subscription_id}
     ...    ${subscription_payload_file_path}

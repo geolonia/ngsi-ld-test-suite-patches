@@ -1,8 +1,8 @@
 *** Settings ***
 Documentation       Check that one can create a context source registration without specifying an ID
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -10,7 +10,6 @@ Suite Teardown      Delete Created Context Source Registrations
 
 
 *** Variables ***
-${registration_id_prefix}=              urn:ngsi-ld:Registration:
 ${registration_payload_file_path}=      csourceRegistrations/context-source-registration-no-id.jsonld
 
 
