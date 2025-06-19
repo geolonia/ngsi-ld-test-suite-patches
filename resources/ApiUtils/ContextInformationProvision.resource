@@ -151,13 +151,16 @@ Batch Upsert Entities
     RETURN    ${response}
 
 Create Entity
-    [Arguments]    ${filename}    ${entity_id}
+    [Arguments]    ${filename}    ${entity_id}    ${local}=${EMPTY}
+    &{params}=    Create Dictionary
+    IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
     ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/${filename}
     ${entity}=    Update Value To JSON    ${entity_payload}    $..id    ${entity_id}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
     ...    json=${entity}
+    ...    params=${params}
     ...    headers=${headers}
     ...    expected_status=any
     Output    ${response}    Create Entity
@@ -238,9 +241,12 @@ Delete Entity Attributes
     RETURN    ${response}
 
 Delete Entity by Id
-    [Arguments]    ${id}
+    [Arguments]    ${id}    ${local}=${EMPTY}
+    &{params}=    Create Dictionary
+    IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
     ${response}=    DELETE
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}
+    ...    params=${params}
     ...    expected_status=any
     IF    ${delete_temporal_on_core_delete}
         Delete Temporal Representation Of Entity    ${id}
