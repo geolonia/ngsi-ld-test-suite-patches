@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that the queried entity by Id can be returned in a simplified representation
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +12,6 @@ Test Teardown       Delete Created Entity
 
 
 *** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
 ${filename}=                building-simple-attributes.jsonld
 ${expectation_filename}=    building-simple-attributes-simplified.jsonld
 ${options_parameter}=       keyValues
@@ -36,7 +36,7 @@ ${options_parameter}=       keyValues
 
 *** Keywords ***
 Create Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     Set Test Variable    ${entity_id}
     ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}

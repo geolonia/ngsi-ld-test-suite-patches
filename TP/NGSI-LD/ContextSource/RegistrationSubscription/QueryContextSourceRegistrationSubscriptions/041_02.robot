@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can query context source registration subscriptions with a limit parameter and it will be the maximum number of subscriptions to be retrieved
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -11,7 +12,6 @@ Test Template       Query Context Source Registration Subscriptions With Limit P
 
 
 *** Variables ***
-${subscription_id_prefix}=                      urn:ngsi-ld:Subscription:
 ${first_subscription_payload_file_path}=        csourceSubscriptions/subscription.jsonld
 ${second_subscription_payload_file_path}=       csourceSubscriptions/subscription-watchedAttributes.jsonld
 ${third_subscription_payload_file_path}=        csourceSubscriptions/subscription-geoQ.jsonld
@@ -44,9 +44,9 @@ Query Context Source Registration Subscriptions With Limit Parameter
     ...    ${response.json()}
 
 Setup Initial Context Source Registration Subscriptions
-    ${first_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${second_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${third_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${first_subscription_id}=    Generate Random Subscription Id
+    ${second_subscription_id}=    Generate Random Subscription Id
+    ${third_subscription_id}=    Generate Random Subscription Id
     ${first_subscription_payload}=    Load Test Sample
     ...    ${first_subscription_payload_file_path}
     ...    ${first_subscription_id}

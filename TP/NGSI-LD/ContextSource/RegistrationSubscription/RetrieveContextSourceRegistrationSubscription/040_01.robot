@@ -11,7 +11,6 @@ Test Teardown       Delete Created Context Source Registration Subscription
 
 
 *** Variables ***
-${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=      csourceSubscriptions/subscription.jsonld
 ${expectation_file_path}=               csourceSubscriptions/expectations/subscriptions-040-01.json
 
@@ -58,7 +57,7 @@ ${expectation_file_path}=               csourceSubscriptions/expectations/subscr
 
 *** Keywords ***
 Setup Initial Context Source Registration Subscription
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
     ${create_csrsub_response}=    Create Context Source Registration Subscription    ${subscription_payload}
     Check Response Status Code    201    ${create_csrsub_response.status_code}

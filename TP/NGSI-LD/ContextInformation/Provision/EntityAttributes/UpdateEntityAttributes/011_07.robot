@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can delete an attribute using NGSI-LD Null in an Update Attributes operation
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,8 +13,7 @@ Test Template       Update Attributes
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                building-different-attributes-types.jsonld
+${filename}=    building-different-attributes-types.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_FILENAME
@@ -57,7 +57,7 @@ Delete Initial Entity
     Delete Entity by Id    ${entity_id}
 
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}

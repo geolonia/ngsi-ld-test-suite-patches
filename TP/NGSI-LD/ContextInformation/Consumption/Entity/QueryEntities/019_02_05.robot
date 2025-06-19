@@ -1,8 +1,8 @@
 *** Settings ***
 Documentation       Check that one can query entitites via POST Interaction asking for a GeoJSON representation
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,8 +11,6 @@ Suite Teardown      Delete Entities
 
 
 *** Variables ***
-${vehicle_id_prefix}=               urn:ngsi-ld:Vehicle:
-${parking_id_prefix}=               urn:ngsi-ld:OffStreetParking:
 ${vehicle_filename}=                vehicle-simple-attributes.jsonld
 ${parking_filename}=                parking-simple-attributes.jsonld
 ${expectation_filename_alt2}=       vehicle-parking-019-02-05.alternative2.geojson

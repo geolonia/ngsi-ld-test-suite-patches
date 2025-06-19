@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can query context source registrations matching EntityInfo of RegistrationInfo
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -8,10 +9,6 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Teardown       Delete Created Context Source Registration
 Test Template       Query Context Source Registration Matching EntityInfo of RegistrationInfo
-
-
-*** Variables ***
-${context_source_registration_id_prefix}=       urn:ngsi-ld:ContextSourceRegistration:
 
 
 *** Test Cases ***    REGISTRATION_FILE_PATH    EXPECTATION_FILE_PATH
@@ -43,7 +40,7 @@ Query Context Source Registration Matching EntityInfo of RegistrationInfo
 
 Setup Initial Context Source Registrations
     [Arguments]    ${registration_file_path}
-    ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
+    ${context_source_registration_id}=    Generate Random CSR Id
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${registration_file_path}
     ...    ${context_source_registration_id}

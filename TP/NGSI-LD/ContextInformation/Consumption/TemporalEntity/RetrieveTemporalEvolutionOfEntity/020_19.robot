@@ -1,9 +1,10 @@
 *** Settings ***
 Documentation       Check that one can retrieve the temporal evolution of a scope following the deletedAt temporal property
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -13,7 +14,6 @@ Test Template       Delete Temporal Attribute and Retrieve Temporal Evolution of
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${vehicle_payload_file}=    vehicle-temporal-representation-scope.jsonld
 
 
@@ -49,7 +49,7 @@ Delete Temporal Attribute and Retrieve Temporal Evolution of Attribute
     ...    json_path=['scope']['deletedAt']
 
 Create Temporal Entity
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${temporal_entity_representation_id}=    Generate Random Vehicle Entity Id
     ${create_response}=    Create Temporal Representation Of Entity
     ...    ${vehicle_payload_file}
     ...    ${temporal_entity_representation_id}

@@ -1,10 +1,11 @@
 *** Settings ***
 Documentation       Verify that, when one has an entity on a Context Broker and on a Context Source and an inclusive registration on the Context Broker, one is not able to create that entity on the Context Source from the Context Broker
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -13,9 +14,7 @@ Test Teardown       Delete Created Entities And Registration
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
-${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 
 
@@ -33,14 +32,14 @@ D001_03_02_inc Create entity already existing on both Context Broker and Context
 
 *** Keywords ***
 Setup Entities And Registration
-    ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Check Response Status Code    201    ${response.status_code}
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    base_url=${remote_url}
     Check Response Status Code    201    ${response.status_code}
 
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
     ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}

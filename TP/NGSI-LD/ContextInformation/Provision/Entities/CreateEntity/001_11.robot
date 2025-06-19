@@ -1,17 +1,14 @@
 *** Settings ***
 Documentation       Check that one can create an entity with one or more scopes
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Teardown       Delete Initial Entity
 Test Template       Create Entity Scenarios
-
-
-*** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***    FILENAME    CONTENT_TYPE
@@ -27,7 +24,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 Create Entity Scenarios
     [Documentation]    Check that one can create an entity with one or more scopes
     [Arguments]    ${filename}    ${content_type}
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     Set Test Variable    ${entity_id}
 
     ${response}=    Create Entity Selecting Content Type

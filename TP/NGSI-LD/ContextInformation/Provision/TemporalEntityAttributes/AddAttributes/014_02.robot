@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that an error is raised if one adds an attribute to a temporal entity with invalid content
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -11,7 +12,6 @@ Test Template       Add Attribute To Temporal Entity
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${filename}=                vehicle-temporal-representation.jsonld
 ${fragment_filename}=       vehicle-temporal-representation-fragment.jsonld
 ${status_code}=             400
@@ -33,7 +33,7 @@ Add Attribute To Temporal Entity
     Check Response Status Code    ${status_code}    ${response.status_code}
 
 Create Temporal Entity
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${temporal_entity_representation_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${temporal_entity_representation_id}
     ${create_response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}

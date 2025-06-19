@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that the numberOfHits is increased after using a ImplicitlyCreated context
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -22,7 +23,7 @@ ${entityfile}=                          minimal-entity-using-@context.jsonld
     [Documentation]    Check that the numberOfHits is increased after using a ImplicitlyCreated context
     [Tags]    ctx-serve    5_13_4    since_v1.5.1
 
-    ${entity_id}=    Generate Random Entity Id    ${testing_id_prefix}
+    ${entity_id}=    Generate Random Id    ${testing_id_prefix}
     Set Global Variable    ${entity_id}
 
     Create Entity selecting @context    ${entityfile}    ${implicit_id_full}    ${entity_id}

@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check if a context source registration subscription defines an "entities" member, a CsourceNotification will be triggered from context source registrations with information member matching the described "entities"
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
@@ -12,8 +13,6 @@ Suite Teardown      Delete Created Context Source Registration And Context Sourc
 
 
 *** Variables ***
-${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
-${subscription_id_prefix}=                              urn:ngsi-ld:Subscription:
 ${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration.jsonld
 ${subscription_payload_file_path}=                      csourceSubscriptions/subscription.jsonld
 ${update_fragment_file_path}=                           csourceRegistrations/fragments/context-source-registration-update-information.json
@@ -35,8 +34,8 @@ ${update_fragment_file_path}=                           csourceRegistrations/fra
 *** Keywords ***
 Create Initial Context Source Registration And Context Source Registration Subscription
     Start Local Server
-    ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${context_source_registration_id}=    Generate Random CSR Id
+    ${subscription_id}=    Generate Random Subscription Id
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}

@@ -1,9 +1,9 @@
 *** Settings ***
 Documentation       Delete a @context whose kind is ImplicitlyCreated without reload param
 
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/HttpUtils.resource
 
 Test Setup          Create initial ImplicitlyCreated @context

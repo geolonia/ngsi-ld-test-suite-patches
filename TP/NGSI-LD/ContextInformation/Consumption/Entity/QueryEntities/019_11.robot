@@ -1,18 +1,15 @@
 *** Settings ***
 Documentation       Check that one can query several entities based on complex geoqueries with Polygon target geometries
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Suite Setup         Setup Initial Entities
 Suite Teardown      Delete Entities
 Test Template       Query several entities based on complex geoqueries
-
-
-*** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***    GEOREL    GEOMETRY    COORDINATES    EXPECTED_COUNT
@@ -67,7 +64,7 @@ Query several entities based on complex geoqueries
     Check Response Headers Containing NGSILD-Results-Count Equals To    ${expected_count}    ${response.headers}
 
 Setup Initial Entities
-    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${first_entity_id}
     ${create_response1}=    Create Entity Selecting Content Type
     ...    building-location-polygon.jsonld
@@ -75,7 +72,7 @@ Setup Initial Entities
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${create_response1.status_code}
 
-    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${second_entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${second_entity_id}
     ${create_response2}=    Create Entity Selecting Content Type
     ...    building-location-polygon-second.jsonld

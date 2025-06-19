@@ -1,21 +1,20 @@
 *** Settings ***
 Documentation       If the response to the notification request is different than 200 OK then implementations shall: Update notification.lastFailure with a timestamp representing the current date and time, update notification.status to "failed"
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
-Resource            ${EXECDIR}/resources/NotificationUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
+Resource            ${EXECDIR}/resources/NotificationUtils.resource
 
 Suite Setup         Before Test
 Suite Teardown      After Test
 
 
 *** Variables ***
-${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=      subscriptions/subscription-building-entities-active.jsonld
-${building_id_prefix}=                  urn:ngsi-ld:Building:
 ${entity_building_filepath}=            building-simple-attributes.jsonld
 ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 
@@ -51,7 +50,7 @@ Before Test
     Add Initial Entity
 
 Setup Initial Subscription
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${create_response}=    Create Subscription
     ...    ${subscription_id}
     ...    ${subscription_payload_file_path}
@@ -60,7 +59,7 @@ Setup Initial Subscription
     Set Suite Variable    ${subscription_id}
 
 Add Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     ${create_response}=    Create Entity    ${entity_building_filepath}    ${entity_id}
     Check Response Status Code    201    ${create_response.status_code}
     Set Suite Variable    ${entity_id}

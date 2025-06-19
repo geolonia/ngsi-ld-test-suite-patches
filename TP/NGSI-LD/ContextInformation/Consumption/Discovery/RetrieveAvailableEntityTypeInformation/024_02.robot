@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can retrieve a detailed representation of a specified NGSI-LD entity type
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -12,9 +13,8 @@ Test Template       Retrieve Detailed Representation Of Available Entity Type
 
 
 *** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-simple-attributes.json
-${expectation_file}=        types/expectations/entity-type-info-024-01.json
+${filename}=            building-simple-attributes.json
+${expectation_file}=    types/expectations/entity-type-info-024-01.json
 
 
 *** Test Cases ***    TYPE
@@ -35,8 +35,8 @@ Retrieve Detailed Representation Of Available Entity Type
     Check Response Body Containing EntityTypeInfo element    ${expectation_file}    ${response.json()}
 
 Setup Initial Entities
-    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_entity_id}=    Generate Random Building Entity Id
+    ${second_entity_id}=    Generate Random Building Entity Id
     ${create_response1}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${first_entity_id}

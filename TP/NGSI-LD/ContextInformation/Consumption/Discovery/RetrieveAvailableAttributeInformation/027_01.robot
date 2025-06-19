@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot retrieve a detailed representation of an unknown NGSI-LD attribute
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -11,8 +12,7 @@ Suite Teardown      Delete Initial Entity
 
 
 *** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-simple-attributes.json
+${filename}=    building-simple-attributes.json
 
 
 *** Test Cases ***
@@ -29,7 +29,7 @@ ${filename}=                building-simple-attributes.json
 
 *** Keywords ***
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}

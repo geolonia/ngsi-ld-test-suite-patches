@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check if a context source registration subscription defines temporalQ member with timeproperty createdAt or modifiedAt, the temporal query is matched against the managementInterval of matching context source registrations
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
@@ -14,8 +15,6 @@ Test Template       Receive cSourceNotification For Matching Context Source Regi
 
 
 *** Variables ***
-${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
-${subscription_id_prefix}=                              urn:ngsi-ld:Subscription:
 ${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-managementInterval.jsonld
 
 
@@ -30,12 +29,12 @@ ${context_source_registration_payload_file_path}=       csourceRegistrations/con
 Receive cSourceNotification For Matching Context Source Registrations On Management Interval
     [Documentation]    Check if a context source registration subscription defines temporalQ member with timeproperty createdAt or modifiedAt, the temporal query is matched against the managementInterval of matching context source registrations
     [Arguments]    ${filepath}
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     Set Suite Variable    ${subscription_id}
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint    ${filepath}    ${subscription_id}
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
     Check Response Status Code    201    ${response.status_code}
-    ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
+    ${context_source_registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${context_source_registration_id}
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${context_source_registration_payload_file_path}

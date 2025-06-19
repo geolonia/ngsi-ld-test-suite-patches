@@ -1,9 +1,9 @@
 *** Settings ***
 Documentation       Check that one cannot delete a ImplicitlyCreated @context with reload set to true
 
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 
 Test Setup          Create initial ImplicitlyCreated @context
 Test Teardown       Delete Initial @context Data

@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one cannot modify an attribute instance in temporal representation of an entity if the EntityId/AttributeId/InstanceId is not right
 
-Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,6 @@ Test Template       Modify Attribute Instance Temporal Entity
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${filename}=                vehicle-temporal-representation.jsonld
 ${fragment_filename}=       vehicle-temporal-modify-attribute-instance-fragment.jsonld
 
@@ -47,7 +47,7 @@ Modify Attribute Instance Temporal Entity
     Check Response Status Code    ${expected_status_code}    ${response.status_code}
 
 Create Id
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${temporal_entity_representation_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${temporal_entity_representation_id}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}

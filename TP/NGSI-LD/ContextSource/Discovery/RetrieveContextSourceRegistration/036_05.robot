@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that the JSON-LD @context is obtained from a Link header if present and that the default JSON-LD @context is used if not present
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -12,7 +13,6 @@ Test Template       Review JSON-LD resolution when retrieving a context source r
 
 
 *** Variables ***
-${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
 ${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration.jsonld
 ${expectation_file_path_compacted}=                     csourceRegistrations/expectations/context-source-registration.json
 ${expectation_file_path_expanded}=                      csourceRegistrations/expectations/context-source-registration-expanded-format.json
@@ -41,7 +41,7 @@ Review JSON-LD resolution when retrieving a context source registration
     ...    ${response.json()}
 
 Setup Initial Context Source Registration
-    ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
+    ${context_source_registration_id}=    Generate Random CSR Id
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}

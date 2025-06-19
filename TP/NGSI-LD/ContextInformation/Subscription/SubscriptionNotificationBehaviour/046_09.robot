@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       A Notification shall be sent (as mandated by each concrete binding and including any optional endpoint.receiverInfo defined by clause 5.2.22) to the endpoint specified by the endpoint.uri member of the notification structure defined by clause 5.2.14
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
@@ -12,9 +13,7 @@ Suite Teardown      After Test
 
 
 *** Variables ***
-${subscription_id_prefix}               urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}       subscriptions/subscription-building-entities-active-endpoint-info.jsonld
-${building_id_prefix}                   urn:ngsi-ld:Building:
 ${entity_building_filepath}             building-simple-attributes.jsonld
 ${fragment_filename}                    airQualityLevel-fragment.jsonld
 ${notification_server_send_url}         http://${notification_server_host}:${notification_server_port}/notify
@@ -37,8 +36,8 @@ Before Test
     Setup Initial Subscriptions
 
 Setup Initial Subscriptions
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
+    ${entity_id}=    Generate Random Building Entity Id
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
     ...    ${subscription_payload_file_path}
     ...    ${subscription_id}

@@ -43,7 +43,7 @@ Setup Initial Temporal Entities
     ...    ${first_temporal_entity_representation_id}
     Check Response Status Code    201    ${create_response1.status_code}
     Set Suite Variable    ${first_temporal_entity_representation_id}
-    ${second_temporal_entity_representation_id}=    Catenate    ${BUS_ID_PREFIX}021-05-A
+    ${second_temporal_entity_representation_id}=    Generate Bus Entity Id    021-05-A
     ${create_response2}=    Create Temporal Representation Of Entity
     ...    ${bus_payload_file}
     ...    ${second_temporal_entity_representation_id}

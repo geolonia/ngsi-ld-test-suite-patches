@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can query context source registration subscriptions with providing page and limit parameters for pagination
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -11,7 +12,6 @@ Test Template       Query Context Source Registration Subscriptions With Limit A
 
 
 *** Variables ***
-${subscription_id_prefix}=                      urn:ngsi-ld:Subscription:
 ${first_subscription_payload_file_path}=        csourceSubscriptions/subscription.jsonld
 ${second_subscription_payload_file_path}=       csourceSubscriptions/subscription-watchedAttributes.jsonld
 ${third_subscription_payload_file_path}=        csourceSubscriptions/subscription-geoQ.jsonld
@@ -45,9 +45,9 @@ Query Context Source Registration Subscriptions With Limit And Page Parameters
     Check Pagination Prev And Next Headers    ${prev_link}    ${next_link}    ${response.headers}
 
 Setup Initial Context Source Registration Subscriptions
-    ${first_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${second_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${third_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${first_subscription_id}=    Generate Random Subscription Id
+    ${second_subscription_id}=    Generate Random Subscription Id
+    ${third_subscription_id}=    Generate Random Subscription Id
     ${first_subscription_payload}=    Load Test Sample
     ...    ${first_subscription_payload_file_path}
     ...    ${first_subscription_id}

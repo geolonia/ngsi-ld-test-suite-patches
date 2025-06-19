@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can replace an existing multi-instance entity attribute and that its createdAt Temporal Property remains unchanged
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,6 @@ Test Template       Replace Multi Instance Entity Attribute
 
 
 *** Variables ***
-${vehicle_id_prefix}    urn:ngsi-ld:Vehicle:
 ${entity_filename}      vehicle-speed-multi-instances.jsonld
 
 
@@ -55,7 +55,7 @@ Replace Multi Instance Entity Attribute
     ...    response_body=${response1.json()}
 
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${entity_filename}

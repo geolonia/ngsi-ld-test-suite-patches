@@ -2,8 +2,8 @@
 Documentation       Check that a notification is sent in normalized format when an entity is deleted
 ...                 and attributeDeleted notification trigger is configured for a matching attribute in deleted entity
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
 Resource            ${EXECDIR}/resources/SubscriptionUtils.resource

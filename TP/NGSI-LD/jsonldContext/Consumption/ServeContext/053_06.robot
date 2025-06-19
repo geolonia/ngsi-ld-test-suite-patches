@@ -1,12 +1,13 @@
 *** Settings ***
 Documentation       Check that the numberOfHits is increased after using a Cached context
 
-Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
-Resource            ${EXECDIR}/resources/JsonUtils.resource
-Resource            ${EXECDIR}/resources/HttpUtils.resource
 Resource            ${EXECDIR}/resources/ContextServerUtils.resource
+Resource            ${EXECDIR}/resources/HttpUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 Library             Collections
 Library             String
 Variables           ${EXECDIR}/resources/variables.py
@@ -30,7 +31,7 @@ ${testing_id_prefix}=       urn:ngsi-ld:Testing:
     [Documentation]    Check that the numberOfHits is increased after using a Cached context
     [Tags]    ctx-serve    5_13_4    since_v1.5.1
 
-    ${second_existing_entity_id}=    Generate Random Entity Id    ${testing_id_prefix}
+    ${second_existing_entity_id}=    Generate Random Id    ${testing_id_prefix}
     Set Global Variable    ${first_existing_entity_id}
 
     Create Entity selecting @context    ${entityfile}    ${uri}    ${second_existing_entity_id}
@@ -47,7 +48,7 @@ ${testing_id_prefix}=       urn:ngsi-ld:Testing:
 Create Initial @context condition from an external server
     Start @context Local Server
 
-    ${first_existing_entity_id}=    Generate Random Entity Id    ${testing_id_prefix}
+    ${first_existing_entity_id}=    Generate Random Id    ${testing_id_prefix}
     Set Global Variable    ${first_existing_entity_id}
 
     # ${uri}=    Catenate    http://${context_server_host}:${context_server_port}${uri}

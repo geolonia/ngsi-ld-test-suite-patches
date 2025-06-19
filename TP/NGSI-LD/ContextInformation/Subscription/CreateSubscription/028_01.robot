@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can create a subscription
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -9,7 +10,6 @@ Suite Teardown      Delete Initial Subscriptions
 
 
 *** Variables ***
-${subscription_id_prefix}=                  urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=          subscriptions/subscription.jsonld
 ${subscription_expectation_file_path}=      subscriptions/expectations/subscription-028-01.jsonld
 
@@ -18,7 +18,7 @@ ${subscription_expectation_file_path}=      subscriptions/expectations/subscript
 028_01_01 Create Subscription
     [Documentation]    Check that one can create a subscription
     [Tags]    sub-create    5_8_1
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     Set Suite Variable    ${subscription_id}
     ${response}=    Create Subscription
     ...    ${subscription_id}

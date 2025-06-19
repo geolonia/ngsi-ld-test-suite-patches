@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one cannot get an entity if an attribute is not known to the system
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +12,6 @@ Suite Teardown      Delete Created Entity
 
 
 *** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
 ${filename}=                building-simple-attributes.jsonld
 ${attribute_not_known}=     property_not_found
 
@@ -36,7 +36,7 @@ ${attribute_not_known}=     property_not_found
 
 *** Keywords ***
 Create Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${entity_id}
     ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}

@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Query entities with Entity Type Selection Language.
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -47,21 +48,21 @@ Query entities using Entity Type Selection Language
     ...    ${response.json()}
 
 Setup Initial Entities
-    ${first_entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
+    ${first_entity_id}=    Generate Random Id    ${entity_id_prefix}
     Set Suite Variable    ${first_entity_id}
     ${create_response1}=    Create Entity Selecting Content Type
     ...    ${first_entity_filename}
     ...    ${first_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${create_response1.status_code}
-    ${second_entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
+    ${second_entity_id}=    Generate Random Id    ${entity_id_prefix}
     Set Suite Variable    ${second_entity_id}
     ${create_response2}=    Create Entity Selecting Content Type
     ...    ${second_entity_filename}
     ...    ${second_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${create_response2.status_code}
-    ${third_entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
+    ${third_entity_id}=    Generate Random Id    ${entity_id_prefix}
     Set Suite Variable    ${third_entity_id}
     ${create_response3}=    Create Entity Selecting Content Type
     ...    ${third_entity_filename}

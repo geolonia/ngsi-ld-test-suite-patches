@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can query context source registrations with providing page and limit parameters, pagination logic shall be in place as mandated by clause 5.5.9.
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -12,7 +13,6 @@ Test Template       Query Context Source Registration With Limit And Offset Para
 
 
 *** Variables ***
-${context_source_registration_id_prefix}=                   urn:ngsi-ld:ContextSourceRegistration:
 ${first_context_source_registration_payload_file_path}=     csourceRegistrations/context-source-registration.jsonld
 ${second_context_source_registration_payload_file_path}=    csourceRegistrations/context-source-registration-location.jsonld
 ${third_context_source_registration_payload_file_path}=     csourceRegistrations/context-source-registration-detailed-information.jsonld
@@ -47,9 +47,9 @@ Query Context Source Registration With Limit And Offset Parameters
     Check Pagination Prev And Next Headers    ${prev_link}    ${next_link}    ${response.json()}
 
 Setup Initial Context Source Registrations
-    ${first_context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
-    ${second_context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
-    ${third_context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
+    ${first_context_source_registration_id}=    Generate Random CSR Id
+    ${second_context_source_registration_id}=    Generate Random CSR Id
+    ${third_context_source_registration_id}=    Generate Random CSR Id
     ${first_context_source_registration_payload}=    Load Test Sample
     ...    ${first_context_source_registration_payload_file_path}
     ...    ${first_context_source_registration_id}

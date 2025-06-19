@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can query context source registrations. If present, the temporal query is matched against the observationInterval or the managementInterval
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -11,7 +12,6 @@ Test Template       Query Context Source Registration Matching Temporal Query
 
 
 *** Variables ***
-${context_source_registration_id_prefix}=                                   urn:ngsi-ld:ContextSourceRegistration:
 ${context_source_registration_observation_interval_payload_file_path}=      csourceRegistrations/context-source-registration-observationInterval.jsonld
 ${context_source_registration_management_interval_payload_file_path}=       csourceRegistrations/context-source-registration-managementInterval.jsonld
 ${observation_interval_expectation_file_path}=                              csourceRegistrations/expectations/context-source-registrations-037-09-01.json
@@ -56,7 +56,7 @@ Query Context Source Registration Matching Temporal Query
 
 Setup Initial Context Source Registrations
     [Arguments]    ${payload_file_path}
-    ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
+    ${context_source_registration_id}=    Generate Random CSR Id
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${payload_file_path}
     ...    ${context_source_registration_id}

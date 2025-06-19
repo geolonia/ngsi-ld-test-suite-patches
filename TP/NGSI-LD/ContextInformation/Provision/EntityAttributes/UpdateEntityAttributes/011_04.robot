@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot update entity attributes with invalid request body
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -10,8 +11,7 @@ Test Template       Update entity attributes with invalid entity fragments
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-speed-two-datasetid.jsonld
+${filename}=    vehicle-speed-two-datasetid.jsonld
 
 
 *** Test Cases ***
@@ -35,7 +35,7 @@ Update entity attributes with invalid entity fragments
 
 Initialize Environment
     [Arguments]    ${filename}
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}

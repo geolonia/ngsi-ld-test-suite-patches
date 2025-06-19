@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can retrieve an entity using Language Filter
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,8 +13,7 @@ Test Template       Retrieve Entity With Language Filter
 
 
 *** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-language-property.jsonld
+${filename}=    building-language-property.jsonld
 
 
 *** Test Cases ***    LANGUAGE_FILTER    OPTIONS    EXPECTATION_FILENAME
@@ -54,7 +54,7 @@ Retrieve Entity With Language Filter
     ...    ${response.json()}
 
 Create Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}

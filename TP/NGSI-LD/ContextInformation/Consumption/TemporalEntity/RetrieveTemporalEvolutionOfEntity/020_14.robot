@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that the time range cut before the second attribute to avoid missing data in content-range
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -12,7 +13,6 @@ Test Template       Retrieve Temporal Entity
 
 
 *** Variables ***
-${vehicule_id_prefix}=      urn:ngsi-ld:Vehicle:
 ${vehicle_payload_file}=    pagination/2020-01-vehicule-temporal-representation-sixty-instances.jsonld
 ${timeBefore}=              2019-01-01T01:01:00Z
 ${timeAfter}=               2021-01-01T01:01:00Z
@@ -44,7 +44,7 @@ Retrieve Temporal Entity
     Check Data Is Empty    ${response.json()}[${emptyAttr}]
 
 Create Temporal Entity
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${temporal_entity_representation_id}=    Generate Random Vehicle Entity Id
     ${response}=    Create Temporal Representation Of Entity
     ...    ${vehicle_payload_file}
     ...    ${temporal_entity_representation_id}

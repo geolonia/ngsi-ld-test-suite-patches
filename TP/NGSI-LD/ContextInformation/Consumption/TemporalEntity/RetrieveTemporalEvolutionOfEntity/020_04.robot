@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can retrieve the temporal evolution of an entity matching the given NGSI-LD temporal query
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -12,7 +13,6 @@ Test Template       Retrieve the temporal evolution of an entity matching the gi
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${vehicle_payload_file}=    2020-08-vehicle-temporal-representation.jsonld
 
 
@@ -45,7 +45,7 @@ Retrieve the temporal evolution of an entity matching the given NGSI-LD temporal
     ...    ${response.json()}
 
 Create Temporal Entity
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${temporal_entity_representation_id}=    Generate Random Vehicle Entity Id
     ${create_response}=    Create Temporal Representation Of Entity
     ...    ${vehicle_payload_file}
     ...    ${temporal_entity_representation_id}

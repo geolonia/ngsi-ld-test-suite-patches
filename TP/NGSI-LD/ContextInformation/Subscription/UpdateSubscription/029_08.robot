@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can update a subscription: If isActive is equal to true and expiresAt corresponds to a DateTime in the future, then status shall be updated to "active"
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -11,7 +12,6 @@ Test Template       Activate Paused Subscription With isActive And ExpiresAt Mem
 
 
 *** Variables ***
-${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=      subscriptions/subscription-inactive.jsonld
 
 
@@ -38,7 +38,7 @@ Activate Paused Subscription With isActive And ExpiresAt Members
     ...    expected_attribute_value=active
 
 Setup Initial Subscriptions
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${initial_response}=    Create Subscription
     ...    ${subscription_id}
     ...    ${subscription_payload_file_path}

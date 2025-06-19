@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can query a list of subscriptions
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -10,7 +11,6 @@ Suite Teardown      Delete Initial Subscriptions
 
 
 *** Variables ***
-${subscription_id_prefix}=                      urn:ngsi-ld:Subscription:
 ${first_subscription_payload_file_path}=        subscriptions/subscription.jsonld
 ${second_subscription_payload_file_path}=       subscriptions/subscription-watchedAttributes.jsonld
 ${third_subscription_payload_file_path}=        subscriptions/subscription-inactive.jsonld
@@ -35,21 +35,21 @@ ${expectation_file_path}=                       subscriptions/expectations/subsc
 
 *** Keywords ***
 Setup Initial Subscriptions
-    ${first_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${first_subscription_id}=    Generate Random Subscription Id
     ${create_response1}=    Create Subscription
     ...    ${first_subscription_id}
     ...    ${first_subscription_payload_file_path}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${create_response1.status_code}
     Set Suite Variable    ${first_subscription_id}
-    ${second_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${second_subscription_id}=    Generate Random Subscription Id
     ${create_response2}=    Create Subscription
     ...    ${second_subscription_id}
     ...    ${second_subscription_payload_file_path}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${create_response2.status_code}
     Set Suite Variable    ${second_subscription_id}
-    ${third_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${third_subscription_id}=    Generate Random Subscription Id
     ${create_response3}=    Create Subscription
     ...    ${third_subscription_id}
     ...    ${third_subscription_payload_file_path}

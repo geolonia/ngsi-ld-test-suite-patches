@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can retrieve a subscription
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -10,7 +11,6 @@ Suite Teardown      Delete Initial Subscriptions
 
 
 *** Variables ***
-${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=      subscriptions/subscription.jsonld
 ${expectation_file_path}=               subscriptions/expectations/subscriptions-030-03.json
 
@@ -31,7 +31,7 @@ ${expectation_file_path}=               subscriptions/expectations/subscriptions
 
 *** Keywords ***
 Setup Initial Subscriptions
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${create_response}=    Create Subscription
     ...    ${subscription_id}
     ...    ${subscription_payload_file_path}

@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that you can merge a batch of entities
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,6 @@ Test Template       Batch Merge Entity Scenarios
 
 
 *** Variables ***
-${building_id_prefix}=          urn:ngsi-ld:Building:
 ${entity_payload_filename}=     merge/building-merge-data.jsonld
 
 
@@ -55,8 +55,8 @@ Batch Merge Entity Scenarios
     ...    ignore_core_context_version=${True}
 
 Setup Initial Entities
-    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_entity_id}=    Generate Random Building Entity Id
+    ${second_entity_id}=    Generate Random Building Entity Id
     Create Entity    ${entity_payload_filename}    ${first_entity_id}
     Create Entity    ${entity_payload_filename}    ${second_entity_id}
     Set Test Variable    ${first_entity_id}

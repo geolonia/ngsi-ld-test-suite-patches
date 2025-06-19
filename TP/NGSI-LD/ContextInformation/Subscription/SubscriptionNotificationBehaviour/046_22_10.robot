@@ -2,8 +2,8 @@
 Documentation       Check that a notification is sent in normalized format when a relationship is deleted via NGSI-LD Null
 ...                 in a Merge Entity operation and attributeDeleted notification trigger is configured for this specific relationship
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
 Resource            ${EXECDIR}/resources/SubscriptionUtils.resource

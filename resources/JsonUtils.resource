@@ -15,19 +15,17 @@ ${context_source_url}=          http://${context_source_host}:${context_source_p
 Load Entity
     [Arguments]    ${entity_file_name}    ${entity_id}
 
-    ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/${entity_file_name}
-    ${entity}=    Update Value To JSON    ${entity_payload}    $.id    ${entity_id}
+    ${entity}=    Load Test Sample    entities/${entity_file_name}    ${entity_id}
     RETURN    ${entity}
 
 Load Test Sample
     [Arguments]    ${test_sample_file_path}    ${test_sample_id}=${EMPTY}
 
-    ${test_sample_payload}=    Load JSON From File    ${EXECDIR}/data/${test_sample_file_path}
-    ${test_sample}=    Update Value To JSON    ${test_sample_payload}    $.id    ${test_sample_id}
-
-    IF    '${test_sample_id}'==''
-        Delete Object From JSON    ${test_sample}    $.id
+    ${test_sample}=    Load JSON From File    ${EXECDIR}/data/${test_sample_file_path}
+    IF    '${test_sample_id}'!=''
+        ${test_sample}=    Update Value To JSON    ${test_sample}    $.id    ${test_sample_id}
     END
+
     RETURN    ${test_sample}
 
 Load Subscription Sample With Reachable Endpoint
@@ -46,7 +44,7 @@ Load Subscription Sample With Reachable Endpoint
 Set Entity Id In Subscription
     [Arguments]    ${subscription_payload}    ${entity_id}
     ${dict}=    Create Dictionary    id=${entity_id}
-    ${subscription}=    Add Object To JSON    ${subscription_payload}    $..entities[0]    ${dict}
+    ${subscription}=    Add Object To JSON    ${subscription_payload}    $.entities[0]    ${dict}
     RETURN    ${subscription}
 
 Load Context Source Registration Sample With Reachable Context Source
@@ -60,22 +58,9 @@ Load Context Source Registration Sample With Reachable Context Source
     ...    ${context_source_registration_id}
     ${context_source_registration}=    Update Value To JSON
     ...    ${context_source_registration_payload}
-    ...    $..endpoint
+    ...    $.endpoint
     ...    ${context_source_endpoint_uri}
     RETURN    ${context_source_registration}
-
-Remove Entity Type
-    [Arguments]    ${entity}
-
-    ${invalid_entity}=    Delete Object From JSON    ${entity}    $..type
-    RETURN    ${invalid_entity}
-
-Generate Random Entity Id
-    [Arguments]    ${id_prefix}
-
-    ${random_id}=    Generate Random String    16    [NUMBERS]
-    ${entity_id}=    Catenate    ${id_prefix}${random_id}
-    RETURN    ${entity_id}
 
 Create Batch Operation Result
     [Arguments]    ${success}    ${errors}

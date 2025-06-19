@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot perform a partial update on an entity attribute with invalid data
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -11,9 +12,8 @@ Test Template       Update Attributes
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-two-datasetid-attributes.jsonld
-${status_code}=             400
+${filename}=        vehicle-two-datasetid-attributes.jsonld
+${status_code}=     400
 
 
 *** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID    FRAGMENT_FILENAME
@@ -48,7 +48,7 @@ Update Attributes
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 Setup Initial Entity
-    ${valid_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${valid_entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${valid_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}

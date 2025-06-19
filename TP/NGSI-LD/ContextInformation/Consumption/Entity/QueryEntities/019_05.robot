@@ -1,8 +1,8 @@
 *** Settings ***
 Documentation       Check that the queried entities by id can be returned in GeoJSON format
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +11,6 @@ Suite Teardown      Delete Entities
 
 
 *** Variables ***
-${building_id_prefix}=              urn:ngsi-ld:Building:
 ${filename}=                        building-location-attribute.jsonld
 ${expectation_filename}=            two-buildings-location-attribute-normalized-019-05.geojson
 ${expectation_filename_alt1}=       two-buildings-location-attribute-normalized-019-05.alternative.geojson
