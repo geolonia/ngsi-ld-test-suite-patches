@@ -40,6 +40,7 @@ Merge Entity Scenarios
     ...    entity_filename=${filename}
     ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
 
     ${response1}=    Query Entity
     ...    id=${entity_id}

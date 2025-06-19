@@ -35,6 +35,7 @@ Update Attributes
     ...    fragment_filename=${fragment_filename}
     ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}

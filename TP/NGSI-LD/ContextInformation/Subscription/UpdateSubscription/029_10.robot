@@ -35,6 +35,7 @@ ${subscription_update_fragment_file_path}       subscriptions/fragments/subscrip
     ...    ${subscription_update_fragment_file_path}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Subscription
     ...    id=${subscription_id}
     Check Response Body Containing an Attribute set to

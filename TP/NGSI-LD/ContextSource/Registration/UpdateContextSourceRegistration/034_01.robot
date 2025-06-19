@@ -30,6 +30,7 @@ Update A Context Source
     ...    ${registration_update_fragment}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${registration_id}
     Check JSON Value In Response Body

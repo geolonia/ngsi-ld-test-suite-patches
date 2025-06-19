@@ -27,6 +27,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
     Check Response Status Code    201    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${registration_id}
     ...    context=${ngsild_test_suite_context}
@@ -47,6 +48,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
     Check Response Status Code    201    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${registration_id}
     Check JSON Value In Response Body

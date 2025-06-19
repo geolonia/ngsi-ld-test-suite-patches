@@ -44,6 +44,7 @@ Update Attributes
     ...    ${CONTENT_TYPE_LD_JSON}
 
     Check Response Status Code    ${status_code}    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}

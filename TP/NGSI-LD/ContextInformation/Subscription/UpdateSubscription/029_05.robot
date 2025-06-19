@@ -27,6 +27,7 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
     ...    ${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Subscription
     ...    id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
@@ -44,6 +45,7 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
     ...    ${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Subscription
     ...    id=${subscription_id}
     Check Response Body Containing Subscription element

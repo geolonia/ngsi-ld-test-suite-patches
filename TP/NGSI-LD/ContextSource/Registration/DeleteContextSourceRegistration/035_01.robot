@@ -23,6 +23,7 @@ ${registration_payload_file_path}=      context-source-registration.jsonld
     ${response}=    Delete Context Source Registration With Return    ${registration_id}
 
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${registration_id}
     ...    context=${ngsild_test_suite_context}

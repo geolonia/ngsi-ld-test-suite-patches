@@ -20,6 +20,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
     ${response}=    Create Context Source Registration With Return    ${payload}
     Check Response Status Code    201    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${registration_id}=    Check Response Headers ID Not Empty    ${response.headers}
     Set Suite Variable    ${registration_id}
     ${id_dict}=    Create Dictionary    id=${registration_id}

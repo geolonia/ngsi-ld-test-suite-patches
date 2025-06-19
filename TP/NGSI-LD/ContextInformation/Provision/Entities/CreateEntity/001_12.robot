@@ -29,6 +29,7 @@ ${content_type}=    application/ld+json
     ...    ${content_type}
 
     Check Response Status Code    201    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     Check Response Headers Containing URI set to    ${entity_id}    ${response.headers}
     ${created_entity}=    Load Test Sample    entities/${filename}    ${entity_id}
     ${response1}=    Retrieve Entity by Id

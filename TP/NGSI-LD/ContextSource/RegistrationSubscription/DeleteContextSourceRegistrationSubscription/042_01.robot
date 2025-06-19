@@ -19,6 +19,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription.jsonld
     [Tags]    csrsub-delete    5_11_6
     ${response}=    Delete Context Source Registration Subscription    ${subscription_id}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Context Source Registration Subscription
     ...    subscription_id=${subscription_id}
     ...    context=${ngsild_test_suite_context}

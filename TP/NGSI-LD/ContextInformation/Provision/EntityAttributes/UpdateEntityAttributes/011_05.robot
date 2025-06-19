@@ -24,6 +24,7 @@ ${scope_fragment_filename}=     one-scope-fragment.json
     ...    ${scope_fragment_filename}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${expectation_filename}=    Set Variable    building-minimal-with-one-scope.json
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response}=    Retrieve Entity by Id

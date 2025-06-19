@@ -32,6 +32,7 @@ Create Temporal Entity
     ...    content_type=${content_type}
 
     Check Response Status Code    201    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${created_temporal_entity}=    Load Test Sample
     ...    temporalEntities/${filename}
     ...    ${temporal_entity_representation_id}

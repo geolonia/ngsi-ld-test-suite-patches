@@ -21,6 +21,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription.jsonld
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
     Check Response Status Code    201    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
     # Let's say if the subscription stills active after 10s it will be considered as perpetual, but this is not enough
     Sleep    10s

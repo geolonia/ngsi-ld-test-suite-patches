@@ -37,6 +37,7 @@ ${attributeId}=             speed
     ...    ${ngsild_test_suite_context}
 
     Check Response Status Code    204    ${response2.status_code}
+    Check Response Body Is Empty    ${response2}
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}

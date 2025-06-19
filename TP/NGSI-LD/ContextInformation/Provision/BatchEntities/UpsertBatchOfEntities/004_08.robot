@@ -27,6 +27,7 @@ Batch Upsert Existing Entities Scenarios
     @{entities_to_be_upserted}=    Create List    ${first_existing_entity}    ${second_existing_entity}
     ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     @{upserted_entities_ids}=    Create List    ${first_existing_entity_id}    ${second_existing_entity_id}
     ${expected_updated_entities_ids}=    Catenate    SEPARATOR=,    @{upserted_entities_ids}
     ${response1}=    Query Entities

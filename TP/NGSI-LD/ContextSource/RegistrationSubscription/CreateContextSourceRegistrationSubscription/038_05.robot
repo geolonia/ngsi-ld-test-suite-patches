@@ -24,6 +24,7 @@ ${subscription_payload_file_path}=      csourceSubscriptions/subscription-expire
     ${subscription_payload}=    Update Value To JSON    ${subscription_payload_sample}    $..expiresAt    ${expiresAt}
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
     Check Response Status Code    201    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     Check Response Headers Containing URI set to    ${subscription_id}    ${response.headers}
     Sleep    15s
 

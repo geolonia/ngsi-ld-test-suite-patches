@@ -24,6 +24,7 @@ ${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/s
     ...    ${subscription_id}
     ...    ${subscription_update_fragment}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     Check Response Does Not Contain Body    ${response}
     Check Response Reason set to    ${response.reason}    No Content
 
