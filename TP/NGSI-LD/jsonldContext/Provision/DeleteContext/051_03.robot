@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can delete a previous created cached @context without reload param
-Variables       ${EXECDIR}/resources/variables.py
+
+Variables           ${EXECDIR}/resources/variables.py
 Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -11,11 +12,11 @@ Test Teardown       Delete Initial @context
 
 
 *** Variables ***
-${filename}=        @context-cached-one-valid.json
-${entity_filename}=     building-simple-attributes.json
+${filename}=                @context-cached-one-valid.json
+${entity_filename}=         building-simple-attributes.json
 ${building_id_prefix}=      urn:ngsi-ld:Building:
-${content_type}=    application/json
-${reason_204}=      No Content
+${content_type}=            application/json
+${reason_204}=              No Content
 
 
 *** Test Cases ***
@@ -45,8 +46,7 @@ Create Initial cached @context
     ...    ${entity_id}
     ...    ${content_type}
     ...    ${url}${uri}
-    
-    
+
     ${response}=    Delete Entity By Id    ${entity_id}
     ${response}=    Serve a @context    ${contextId}    true
     Check Response Kind set to    ${response.json()}    Cached

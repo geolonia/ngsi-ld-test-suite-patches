@@ -52,9 +52,13 @@ List @contexts with no previous created @context
 
     Check Response Status Code    200    ${response.status_code}
     Check Response Reason set to    ${response.reason}    ${reason_200}
-    
+
     IF    '${kind}' == 'Hosted'
-        ${entryFound}=    Run Keyword And Return Status    Check Context Response Body Containing a list of identifiers    ${response.json()}    ${list_contexts}    ${kind}
+        ${entryFound}=    Run Keyword And Return Status
+        ...    Check Context Response Body Containing a list of identifiers
+        ...    ${response.json()}
+        ...    ${list_contexts}
+        ...    ${kind}
         Should Not Be True    ${entryFound}
     ELSE IF    '${kind}' == 'ImplicitlyCreated'
         ${tmp}=    Create List    ${implicit_id}
@@ -68,7 +72,6 @@ List @contexts with no previous created @context
         ...    ${list_contexts}
         ...    ${kind}
     END
-
 
 Create initial ImplicitlyCreated @context
     ${subscription_payload}=    Load JSON From File    ${EXECDIR}/data/${subscription_payload_file_path}
@@ -93,9 +96,9 @@ Create initial ImplicitlyCreated @context
     Set Suite Variable    ${list_contexts}
     ${response}=    Serve a @context    ${implicit_id}
     Check Response Status Code    200    ${response.status_code}
-	
+
     ${data}=    Set Variable    ${response.json()}
-    
+
     Check Context Response Body Containing numberOfHits value    ${data}    1
 
 Delete Initial @context Data

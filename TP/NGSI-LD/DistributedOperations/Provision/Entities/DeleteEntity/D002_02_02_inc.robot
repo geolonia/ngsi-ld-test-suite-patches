@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation        Verify that, when one has an inclusive registration on a Context Broker, one is able to delete entities on a Context Source and should get a BatchOperationResult structure
+Documentation       Verify that, when one has an inclusive registration on a Context Broker, one is able to delete entities on a Context Source and should get a BatchOperationResult structure
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
@@ -19,6 +19,7 @@ ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 
+
 *** Test Cases ***
 D002_02_02_inc Delete Entity On a Context Source 
     [Documentation]    Verify that, when one has an inclusive registration on a Context Broker, one is able to delete entities on a Context Source and should get a BatchOperationResult structure
@@ -31,6 +32,7 @@ D002_02_02_inc Delete Entity On a Context Source
     ${length}=    Get Length    ${response.json()['errors']}
     Should Be Equal As Integers    ${length}    1
 
+
 *** Keywords ***
 Setup Registration And Start Context Source Mock Server
     ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
@@ -38,7 +40,7 @@ Setup Registration And Start Context Source Mock Server
 
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}
-    ${registration_payload}=    Prepare Context Source Registration From File   
+    ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
     ...    entity_id=${entity_id}

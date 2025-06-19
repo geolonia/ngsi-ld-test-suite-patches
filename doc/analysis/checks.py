@@ -166,8 +166,8 @@ class Checks:
                 'position': [0, 1]
             },
             'Check Response Body Containing ProblemDetails Element Containing Type Element set to': {
-                'params': ['type'],
-                'position': [1]
+                'params': ['response_body', 'type'],
+                'position': [0, 1]
             },
             'Check Response Body Containing ProblemDetails Element': {
                 'params': ['problem_type'],

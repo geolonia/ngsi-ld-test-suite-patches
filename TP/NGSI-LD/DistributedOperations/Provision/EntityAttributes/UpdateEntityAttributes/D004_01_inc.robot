@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation        Verify that, when one has an inclusive registration on a Context Broker with redirectionOps, one is able to update entities on a Context Source
+Documentation       Verify that, when one has an inclusive registration on a Context Broker with redirectionOps, one is able to update entities on a Context Source
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
@@ -20,6 +20,7 @@ ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 ${fragment_filename}                    vehicle-brandname-complete-fragment.jsonld
 
+
 *** Test Cases ***
 D004_01_inc Query The Context Broker With Type
     [Documentation]    Check that if one request the Context Broker to update an entity that matches an inclusive registration, this is updated on the Context Source too
@@ -37,8 +38,6 @@ D004_01_inc Query The Context Broker With Type
     Should Be True    ${stub_count} > 0
 
     @{entities_id}=    Create List    ${entity_id}
-    # ${response_query_remote}=    Query Entities    entity_types=Vehicle    base_url=${remote_url}
-    # Check Response Status Code    200    ${response_query_remote.status_code}
     ${payload_list}    Evaluate    [$payload]
     Check Response Body Containing Entities URIS set to    ${entities_id}    ${payload_list}
 

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation        Verify that, when one has an inclusive registration on a Context Broker and an entity only on a Context Source, if one retrieves entity from the Context Broker the request gets forwarded to the Context Source correctly
+Documentation       Verify that, when one has an inclusive registration on a Context Broker and an entity only on a Context Source, if one retrieves entity from the Context Broker the request gets forwarded to the Context Source correctly
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
@@ -28,6 +28,7 @@ D010_01_inc Retrieve entity on a Context Source from the Context Broker
     
     Check Response Status Code    200    ${response.status_code}
 
+
 *** Keywords ***
 Setup Registration And Start Context Source Mock Server
     ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
@@ -35,7 +36,7 @@ Setup Registration And Start Context Source Mock Server
 
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}
-    ${registration_payload}=    Prepare Context Source Registration From File   
+    ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}

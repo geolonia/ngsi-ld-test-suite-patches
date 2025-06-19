@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation        Verify that, when one has an inclusive registration on a Context Broker and an entity only on a Context Source, if one retrieves entity from the Context Broker with local flag entity not found error is raised
+Documentation       Verify that, when one has an inclusive registration on a Context Broker and an entity only on a Context Source, if one retrieves entity from the Context Broker with local flag entity not found error is raised
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
@@ -16,6 +16,7 @@ Test Teardown      Delete Registration And Stop Context Source Mock Server
 ${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
+
 
 *** Test Cases ***
 D010_02_inc Retrieve entity on a Context Source from the Context Broker with local flag
@@ -34,7 +35,7 @@ Setup Registration And Start Context Source Mock Server
 
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}
-    ${registration_payload}=    Prepare Context Source Registration From File   
+    ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}

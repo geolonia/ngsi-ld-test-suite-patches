@@ -24,13 +24,14 @@ Batch Update Entity With Invalid Request Scenarios
     Check Response Status Code    ${expected_status_code}    ${response.status_code}
     IF    '${expected_status_code}'=='400'
         Check Response Body Containing ProblemDetails Element Containing Type Element set to
-        ...    ${response.json()}
-        ...    ${problem_type}
-        Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
+        ...    response_body=${response.json()}
+        ...    type=${problem_type}
+        Check Response Body Containing ProblemDetails Element Containing Title Element
+        ...    response_body=${response.json()}
     ELSE
         Check Response Body Containing ProblemDetails Element Containing Type Element set to
-        ...    ${response.json()['errors'][0]['error']}
-        ...    ${problem_type}
+        ...    response_body=${response.json()['errors'][0]['error']}
+        ...    type=${problem_type}
         Check Response Body Containing ProblemDetails Element Containing Title Element
-        ...    ${response.json()['errors'][0]['error']}
+        ...    response_body=${response.json()['errors'][0]['error']}
     END

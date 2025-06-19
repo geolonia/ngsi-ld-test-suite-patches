@@ -6,7 +6,7 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Setup          Create Entity
+Test Setup          Create Initial Entity
 Test Teardown       Delete Created Entity
 
 
@@ -35,7 +35,7 @@ ${options_parameter}=       keyValues
 
 
 *** Keywords ***
-Create Entity
+Create Initial Entity
     ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
     Set Test Variable    ${entity_id}
     ${create_response}=    Create Entity Selecting Content Type

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation        Verify that, when one has an inclusive registration on a Context Broker and an entity only on a Context Source, if one queries the Context Broker the query gets forwarded to the Context Source correctly
+Documentation       Verify that, when one has an inclusive registration on a Context Broker and an entity only on a Context Source, if one queries the Context Broker the query gets forwarded to the Context Source correctly
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
@@ -19,6 +19,7 @@ ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 
+
 *** Test Cases ***
 D011_01_02_inc Query The Context Broker With Type And Missing Attribute
     [Documentation]    Check that if one queries for type and an attribute that is missing, no entity gets returned
@@ -30,7 +31,7 @@ D011_01_02_inc Query The Context Broker With Type And Missing Attribute
     Check Response Status Code    200    ${response.status_code}
     Should Be Empty    ${response.json()}
 
-    
+
 *** Keywords ***
 Setup Registration And Start Context Source Mock Server
     ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
@@ -38,7 +39,7 @@ Setup Registration And Start Context Source Mock Server
 
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}
-    ${registration_payload}=    Prepare Context Source Registration From File   
+    ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}

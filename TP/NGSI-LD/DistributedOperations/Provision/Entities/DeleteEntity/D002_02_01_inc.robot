@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation        Verify that, when one has an inclusive registration on a Context Broker, one is able to delete entities locally and should get a BatchOperationResult structure
+Documentation       Verify that, when one has an inclusive registration on a Context Broker, one is able to delete entities locally and should get a BatchOperationResult structure
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
@@ -18,6 +18,7 @@ ${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
+
 
 *** Test Cases ***
 D002_02_01_inc Delete Entity On The Context Broker
@@ -40,7 +41,7 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
 
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}
-    ${registration_payload}=    Prepare Context Source Registration From File   
+    ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
     ...    entity_id=${entity_id}

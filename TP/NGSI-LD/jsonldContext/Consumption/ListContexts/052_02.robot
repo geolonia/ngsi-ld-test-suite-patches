@@ -31,7 +31,6 @@ ${reason_204}=          No Content
     false    Hosted
 
 
-
 *** Keywords ***
 Create Initial @context
     ${response}=    Add a new @context    ${first_filename}

@@ -45,7 +45,7 @@ List @contexts with no previous created @context
     [Documentation]    Check that one can list @contexts
     [Arguments]    ${details}    ${kind}
     ${response}=    List @contexts    ${details}    ${kind}
-	${empty_array}=    Create List
+    ${empty_array}=    Create List
     Check Response Status Code    200    ${response.status_code}
     Check Response Reason set to    ${response.reason}    ${reason_200}
     Check Context Response Body Containing a list of identifiers

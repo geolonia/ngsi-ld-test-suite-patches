@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation        Verify that, when one has an entity on a Context Source and an inclusive registration on a Context Broker, one is not able to create that entity on the Context Source from the Context Broker but one is able to create it on the Context Broker
+Documentation       Verify that, when one has an entity on a Context Source and an inclusive registration on a Context Broker, one is not able to create that entity on the Context Source from the Context Broker but one is able to create it on the Context Broker
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
@@ -18,6 +18,7 @@ ${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
+
 
 *** Test Cases ***
 D001_03_03_inc Create entity already existing remotely on the Context Broker 
@@ -40,7 +41,7 @@ Setup Registration And Start Context Source Mock Server
 
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}
-    ${registration_payload}=    Prepare Context Source Registration From File   
+    ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
     ...    entity_id=${entity_id}

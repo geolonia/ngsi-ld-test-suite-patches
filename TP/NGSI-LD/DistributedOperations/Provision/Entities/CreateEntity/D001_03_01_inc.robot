@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation        Verify that, when one has an entity and an inclusive registration on a Context Broker, one is able to create that entity on a Context Source from the Context Broker but gets an error for the Context Broker
+Documentation       Verify that, when one has an entity and an inclusive registration on a Context Broker, one is able to create that entity on a Context Source from the Context Broker but gets an error for the Context Broker
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
@@ -19,6 +19,7 @@ ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 
+
 *** Test Cases ***
 D001_03_01_inc Create entity already existing locally on a Context Source
     [Documentation]    Check that if one requests the Context Broker to create an entity that matches an inclusive registration and already exists locally, this raises an error on the Context Broker but is created correctly on the Context Source
@@ -26,7 +27,7 @@ D001_03_01_inc Create entity already existing locally on a Context Source
     Set Stub Reply    POST    /ngsi-ld/v1/entities    201
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Check Response Status Code    207    ${response.status_code}
-    
+
     Check JSON Value In Response Body    ['status']    409    ${response.json()['errors'][0]['error']}
     ${length}=    Get Length    ${response.json()['errors']}
     Should Be Equal As Integers    ${length}    1
@@ -46,7 +47,7 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
 
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}
-    ${registration_payload}=    Prepare Context Source Registration From File   
+    ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
     ...    entity_id=${entity_id}

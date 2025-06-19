@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation        Check that if one requests the Context Broker to create an entity that matches an inclusive registration but is malformed, this is created neither on the Context Broker nor on the Context Source 
+Documentation       Check that if one requests the Context Broker to create an entity that matches an inclusive registration but is malformed, this is created neither on the Context Broker nor on the Context Source
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
@@ -14,11 +14,12 @@ Test Teardown      Delete Created Registration And Stop Context Source Mock Serv
 
 
 *** Variables ***
-${entity_id}                                            InvalidUriExample
-${entity_id_prefix}                                     urn:ngsi-ld:Vehicle:
-${entity_payload_filename}                              vehicle-simple-attributes.jsonld
-${registration_id_prefix}                               urn:ngsi-ld:Registration:
-${context_source_registration_payload_file_path}        csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
+${entity_id}                                        InvalidUriExample
+${entity_id_prefix}                                 urn:ngsi-ld:Vehicle:
+${entity_payload_filename}                          vehicle-simple-attributes.jsonld
+${registration_id_prefix}                           urn:ngsi-ld:Registration:
+${context_source_registration_payload_file_path}    csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
+
 
 *** Test Cases ***
 D001_02_inc Request to create an entity with a malformed id on both Context Broker and Context Source
@@ -27,7 +28,7 @@ D001_02_inc Request to create an entity with a malformed id on both Context Brok
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Check Response Status Code    400    ${response.status_code}
 
-    Wait For No Request    timeout=5
+    Wait For No Request
     ${response_query}=    Query Entities    entity_types=Vehicle    local=true    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response_query.status_code}
     Should Be Empty    ${response_query.json()}
@@ -36,7 +37,7 @@ D001_02_inc Request to create an entity with a malformed id on both Context Brok
 Setup Registration And Start Context Source Mock Server
     ${context_source_registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${context_source_registration_id}
-    ${registration_payload}=    Prepare Context Source Registration From File   
+    ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${context_source_registration_id}
     ...    ${context_source_registration_payload_file_path}
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}

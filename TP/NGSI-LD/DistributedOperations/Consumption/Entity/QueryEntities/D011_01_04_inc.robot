@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation        Verify that, when one has an inclusive registration on a Context Broker, one entity on it and another on a Context Source, if one queries the Context Broker the query gets forwarded to the Context Source correctly
+Documentation       Verify that, when one has an inclusive registration on a Context Broker, one entity on it and another on a Context Source, if one queries the Context Broker the query gets forwarded to the Context Source correctly
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
@@ -19,6 +19,7 @@ ${entity_payload_filename2}             vehicle-simple-attributes-second.jsonld
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 
+
 *** Test Cases ***
 D011_01_04_inc Query The Context Broker With Type and Attribute In Neither
     [Documentation]    Check that if one queries for attribute present in neither of the entities, neither of them gets returned
@@ -29,6 +30,7 @@ D011_01_04_inc Query The Context Broker With Type and Attribute In Neither
     ${response}=    Query Entities    entity_types=Vehicle    attrs=speed    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
     Should Be Empty    ${response.json()}
+
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
@@ -42,7 +44,7 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
 
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
     Set Suite Variable    ${registration_id}
-    ${registration_payload}=    Prepare Context Source Registration From File   
+    ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
     ${response2}=    Create Context Source Registration With Return    ${registration_payload}
