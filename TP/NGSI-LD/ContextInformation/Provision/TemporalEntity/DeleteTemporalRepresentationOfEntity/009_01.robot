@@ -21,6 +21,7 @@ ${filename}=    vehicle-temporal-representation.jsonld
     ${response}=    Delete Temporal Representation Of Entity With Returning Response
     ...    ${temporal_entity_representation_id}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Temporal Representation Of Entity
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}
     ...    context=${ngsild_test_suite_context}

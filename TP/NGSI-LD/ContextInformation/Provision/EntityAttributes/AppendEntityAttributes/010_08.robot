@@ -26,6 +26,7 @@ ${expectation_filename}=                    building-observation-space-geoproper
     ...    ${observation_space_fragment_filename}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response}=    Retrieve Entity by Id
     ...    ${entity_id}

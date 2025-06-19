@@ -39,6 +39,7 @@ Append Types to an Entity
     ...    ${CONTENT_TYPE_LD_JSON}
 
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response}=    Retrieve Entity by Id
     ...    ${entity_id}
     ...    accept=${CONTENT_TYPE_JSON}

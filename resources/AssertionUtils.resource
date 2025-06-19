@@ -59,6 +59,11 @@ Check Response Body Content
     ...    ${all_ignored_paths}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
+Check Response Body Is Empty
+    [Arguments]    ${response}
+    ${response_text}=    Convert To String    ${response.text}
+    Should Be Empty    ${response_text}
+
 Check Response Headers Containing Content-Type set to
     [Arguments]    ${expected_content_type_content}    ${response_headers}
     Should Be Equal    ${response_headers['Content-Type']}    ${expected_content_type_content}

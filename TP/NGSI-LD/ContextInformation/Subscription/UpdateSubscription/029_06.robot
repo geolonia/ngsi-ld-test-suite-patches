@@ -25,6 +25,7 @@ ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscrip
     ...    ${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${subscription_update_fragment}=    Load Test Sample    ${subscription_update_fragment_file_path}
     ${subscription}=    Upsert Element In Entity    ${subscription_payload}    ${subscription_update_fragment}
     ${response1}=    Retrieve Subscription

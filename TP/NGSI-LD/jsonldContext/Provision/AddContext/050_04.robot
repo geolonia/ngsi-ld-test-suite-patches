@@ -27,6 +27,7 @@ ${content_type}=        application/json
     ${response}=    Add a new @context    ${filename_list}
 
     Check Response Status Code    201    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     Check Response Does Not Contain Body    ${response}
     Check Response Reason set to    ${response.reason}    ${reason_201}
 

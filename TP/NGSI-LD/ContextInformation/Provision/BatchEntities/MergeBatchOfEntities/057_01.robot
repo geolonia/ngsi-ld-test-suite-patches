@@ -41,6 +41,7 @@ Batch Merge Entity Scenarios
     @{entities_to_be_merged}=    Create List    ${first_entity}    ${second_entity}
     ${response}=    Batch Merge Entities    @{entities_to_be_merged}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
 
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{entities_ids_to_be_merged}
     ${response1}=    Query Entities

@@ -17,6 +17,7 @@ Test Setup          Setup Initial Entities
     ${response}=    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}
 
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{entities_ids_to_be_deleted}
     ${response1}=    Query Entities
     ...    entity_ids=${expected_entities_ids}

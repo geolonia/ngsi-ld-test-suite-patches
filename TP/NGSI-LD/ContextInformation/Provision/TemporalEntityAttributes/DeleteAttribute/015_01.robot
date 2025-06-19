@@ -41,6 +41,7 @@ Delete Attribute From A Temporal Entity
     ...    context=${ngsild_test_suite_context}
 
     Check Response Status Code    ${status_code}    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}

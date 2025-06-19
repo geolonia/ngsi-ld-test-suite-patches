@@ -24,6 +24,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ${registration_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
     ${response}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     Check Response Headers Containing URI set to    ${registration_id}    ${response.headers}
     ${response1}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${registration_id}

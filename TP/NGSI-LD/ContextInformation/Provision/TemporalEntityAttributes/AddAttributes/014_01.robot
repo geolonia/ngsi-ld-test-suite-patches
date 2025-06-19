@@ -27,6 +27,7 @@ ${expectation_filename}=    vehicle-temporal-representation-added-attribute.json
     ...    ${CONTENT_TYPE_LD_JSON}
 
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}

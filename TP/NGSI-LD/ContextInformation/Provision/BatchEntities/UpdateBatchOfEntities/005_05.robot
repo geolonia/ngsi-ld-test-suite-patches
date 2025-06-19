@@ -32,6 +32,7 @@ Batch Update Entity Scenarios
     @{entities_to_be_updated}=    Create List    ${first_entity}    ${second_entity}
     ${response}=    Batch Update Entities    @{entities_to_be_updated}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${first_created_entity}=    Load Test Sample    entities/${entity_payload_filename}    ${first_entity_id}
     ${second_created_entity}=    Load Test Sample    entities/${entity_payload_filename}    ${second_entity_id}
     ${update_fragment}=    Load Test Sample    entities/${update_fragment_filename}
