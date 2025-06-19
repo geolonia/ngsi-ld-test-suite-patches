@@ -4,6 +4,7 @@ Library         ${EXECDIR}/libraries/logUtils.py
 Library         Collections
 Library         JSONLibrary
 Library         RequestsLibrary
+Resource        ${EXECDIR}/resources/ApiUtils/Common.resource
 
 
 *** Variables ***
@@ -48,9 +49,10 @@ Query Temporal Representation Of Entities
     &{params}=    Create Dictionary
     IF    $accept!=''    Set To Dictionary    ${headers}    Accept=${accept}
     IF    $context!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     IF    ${entity_types_length}>0
         Set To Dictionary    ${params}    type=${entity_types}
@@ -104,9 +106,10 @@ Query Temporal Representation Of Entities Via Post
     ${headers}=    Create Dictionary
     Set To Dictionary    ${headers}    Content-Type    ${content_type}
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${query_payload}=    Load JSON From File    ${EXECDIR}/data/temporalEntities/${query_file_name}
     ${response}=    POST
@@ -142,9 +145,10 @@ Query Temporal Representation Of Entities With Return
     &{params}=    Create Dictionary
     IF    '${accept}'!=''    Set To Dictionary    ${headers}    Accept=${accept}
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     IF    ${entity_types_length}>0
         Set To Dictionary    ${params}    type=${entity_types}
@@ -206,9 +210,10 @@ Retrieve Temporal Representation Of Entity
 
     IF    '${accept}'!=''    Set To Dictionary    ${headers}    Accept=${accept}
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     IF    ${attrs_length}>0    Set To Dictionary    ${params}    attrs=${attrs}
     IF    ${options_length}>0

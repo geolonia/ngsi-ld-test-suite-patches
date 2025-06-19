@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       The Notification content shall be JSON by default.
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -18,7 +19,6 @@ ${building_id_prefix}                   urn:ngsi-ld:Building:
 ${entity_building_filepath}             building-simple-attributes.jsonld
 ${fragment_filename}                    airQualityLevel-fragment.jsonld
 ${notification_server_send_url}         http://${notification_server_host}:${notification_server_port}/notify
-${expected_header_links}                <${ngsild_test_suite_context}>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
 
 
 *** Test Cases ***
@@ -30,7 +30,8 @@ ${expected_header_links}                <${ngsild_test_suite_context}>; rel="htt
 
     ${notification}    ${headers}=    Wait for notification    timeout=${10}
 
-    Dictionary Should Contain Item    ${headers}    Link    ${expected_header_links}
+    ${expected_header_link}=    Build Context Link    ${ngsild_test_suite_context}
+    Dictionary Should Contain Item    ${headers}    Link    ${expected_header_link}
     Dictionary Should Not Contain Key    ${notification}[data][0]    @context
 
 

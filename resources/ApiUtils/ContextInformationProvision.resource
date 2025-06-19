@@ -5,6 +5,7 @@ Library         RequestsLibrary
 Library         OperatingSystem
 Library         Collections
 Library         JSONLibrary
+Resource        ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource        ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource        ${EXECDIR}/resources/JsonUtils.resource
 
@@ -74,9 +75,10 @@ Batch Create Entities
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${response}=    POST
     ...    url=${url}/${BATCH_CREATE_ENDPOINT_PATH}
@@ -188,9 +190,10 @@ Create Entity Selecting Content Type
         Set To Dictionary    ${headers}    Accept=${accept}
     END
     IF    '${context}'!='${EMPTY}'
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${response}=    POST
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
@@ -216,9 +219,10 @@ Delete Entity Attributes
     [Arguments]    ${entityId}    ${attributeId}    ${datasetId}    ${deleteAll}    ${context}=${EMPTY}
     &{headers}=    Create Dictionary    Content-Type=${CONTENT_TYPE_JSON}
     IF    '${context}'!='${EMPTY}'
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     @{params}=    Create List
     IF    '${datasetId}'!=''
@@ -259,9 +263,10 @@ Partial Update Entity Attributes
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${fragment_payload}=    Load JSON From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
     ${response}=    PATCH
@@ -295,9 +300,10 @@ Replace Entity
     ...    entity_id=${entity_id}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${response}=    PUT
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entity_id}
@@ -315,9 +321,10 @@ Replace Entity Selecting Content Type
     ...    ${context}=${EMPTY}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${response}=    PUT
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entity_id}
@@ -337,9 +344,10 @@ Merge Entity
     ${entity}=    Update Value To JSON    ${entity_payload}    $.id    ${entity_id}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${response}=    PATCH
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entity_id}
@@ -358,9 +366,10 @@ Replace Attribute Selecting Content Type
     ...    ${context}=${EMPTY}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${response}=    PUT
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entity_id}/attrs/${attr_id}

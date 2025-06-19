@@ -5,6 +5,7 @@ Library         Collections
 Library         JSONLibrary
 Library         OperatingSystem
 Library         RequestsLibrary
+Resource        ${EXECDIR}/resources/ApiUtils/Common.resource
 
 
 *** Variables ***
@@ -36,9 +37,10 @@ Create Subscription
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${subscription_payload}=    Load JSON From File    ${EXECDIR}/data/${filename_path}
     ${subscription}=    Update Value To JSON    ${subscription_payload}    $..id    ${subscription_id}
@@ -73,9 +75,10 @@ Create Subscription From Subscription Payload
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${response}=    POST
     ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}
@@ -99,9 +102,10 @@ Query Subscriptions
     &{headers}=    Create Dictionary
     &{params}=    Create Dictionary
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     IF    '${limit}'!=''    Set To Dictionary    ${params}    limit=${limit}
     IF    '${offset}'!=''    Set To Dictionary    ${params}    offset=${offset}
@@ -125,9 +129,10 @@ Retrieve Subscription
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
 
     ${response}=    GET
@@ -149,9 +154,10 @@ Update Subscription
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${subscription_update_fragment}=    Load JSON From File    ${EXECDIR}/data/${fragment_filename}
     ${response}=    PATCH
@@ -169,9 +175,10 @@ Update Subscription With Payload
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${response}=    PATCH
     ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}

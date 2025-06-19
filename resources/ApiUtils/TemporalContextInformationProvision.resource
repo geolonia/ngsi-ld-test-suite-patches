@@ -5,6 +5,7 @@ Library         Collections
 Library         JSONLibrary
 Library         OperatingSystem
 Library         RequestsLibrary
+Resource        ${EXECDIR}/resources/ApiUtils/Common.resource
 
 
 *** Variables ***
@@ -91,9 +92,10 @@ Delete Attribute From Temporal Entity
     ...    ${context}=${EMPTY}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     @{params}=    Create List
     IF    '${datasetId}'!=''
@@ -114,9 +116,10 @@ Delete Attribute Instance From Temporal Entity
     [Arguments]    ${temporal_entity_id}    ${attributeId}    ${instanceId}    ${content_type}    ${context}=${EMPTY}
     &{headers}=    Create Dictionary
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${response}=    DELETE
     ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}
@@ -152,9 +155,10 @@ Modify Attribute Instance From Temporal Entity
     ...    ${context}=${EMPTY}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${fragment_payload}=    Load JSON From File    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
     ${response}=    PATCH
