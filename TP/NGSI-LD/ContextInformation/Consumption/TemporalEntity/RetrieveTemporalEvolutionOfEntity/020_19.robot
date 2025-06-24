@@ -46,7 +46,7 @@ Delete Temporal Attribute and Retrieve Temporal Evolution of Attribute
     ...    excluded_regex=deletedAt
     Should Have Value In Json
     ...    json_object=${response2.json()}
-    ...    json_path=['scope']['deletedAt']
+    ...    json_path=['scope'][0]['deletedAt']
 
 Create Temporal Entity
     ${temporal_entity_representation_id}=    Generate Random Vehicle Entity Id
