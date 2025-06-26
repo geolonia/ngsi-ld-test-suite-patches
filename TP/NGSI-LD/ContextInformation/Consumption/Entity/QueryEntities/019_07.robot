@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       If the count parameter is set to true the special HTTP header NGSILD-Results-Count is set in the response and it must contain the total number of matching results.
+Documentation       If the count parameter is set to true the special HTTP header NGSILD-Results-Count is set in the response and it shall contain the total number of matching results.
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -30,7 +30,7 @@ ${airQualityLevel}=             airQualityLevel==6
 
 *** Keywords ***
 Query Entities With Count
-    [Documentation]    If the count parameter is set to true the special HTTP header NGSILD-Results-Count is set in the response and it must contain the total number of matching results.
+    [Documentation]    If the count parameter is set to true the special HTTP header NGSILD-Results-Count is set in the response and it shall contain the total number of matching results.
     [Arguments]    ${q}    ${expected_status_code}    ${expected_count}
     ${response}=    Query Entities
     ...    entity_types=${entity_type}
