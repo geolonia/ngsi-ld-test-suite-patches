@@ -32,7 +32,7 @@ D011_01_02_inc Query The Context Broker With Type And Missing Attribute
 
 
 *** Keywords ***
-SSetup Registration And Start Context Source Mock Server
+Setup Registration And Start Context Source Mock Server
     ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
 
