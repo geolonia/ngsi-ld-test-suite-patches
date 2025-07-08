@@ -18,11 +18,12 @@ ${ERROR_TYPE_BAD_REQUEST_DATA}                  https://uri.etsi.org/ngsi-ld/err
 ${ERROR_TYPE_RESOURCE_NOT_FOUND}                https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
 
 ${response}                                     ${EMPTY}
+${context_source_url}                           http://${context_source_host}:${context_source_port}
 
 
 *** Keywords ***
 Prepare Context Source Registration From File
-    [Arguments]    ${id}    ${registration_file}    ${entity_id}=${EMPTY}    ${mode}=${EMPTY}
+    [Arguments]    ${id}    ${registration_file}    ${entity_id}=${EMPTY}    ${mode}=${EMPTY}    ${endpoint}=${EMPTY}    ${operations}=[]
 
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_file}
     ${registration_payload}=    Update Value To JSON
@@ -32,7 +33,7 @@ Prepare Context Source Registration From File
     ${registration_payload}=    Update Value To JSON
     ...    ${registration_payload}
     ...    $..endpoint
-    ...    ${context_source_endpoint}
+    ...    ${context_source_url}${endpoint}
     IF    '${entity_id}' != ''
         ${dict}=    Create Dictionary    id=${entity_id}
         ${registration_payload}=    Add Object To JSON
@@ -42,6 +43,13 @@ Prepare Context Source Registration From File
     END
     IF    '${mode}' != ''
         ${dict}=    Create Dictionary    mode=${mode}
+        ${registration_payload}=    Add Object To JSON
+        ...    ${registration_payload}
+        ...    $
+        ...    ${dict}
+    END
+    IF    ${operations}
+        ${dict}=    Create Dictionary    operations=${operations}
         ${registration_payload}=    Add Object To JSON
         ...    ${registration_payload}
         ...    $

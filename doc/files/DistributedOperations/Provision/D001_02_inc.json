@@ -1,0 +1,46 @@
+{
+  "tp_id": "TP/NGSI-LD/DistributedOperations/Prov/E/D001_02_inc",
+  "test_objective": "Check that if one requests the Context Broker to create an entity that matches an inclusive registration but is malformed, this is created neither on the Context Broker nor on the Context Source",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clauses 4.3.3, 4.3.6.2, 5.6.1, 6.3.3",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "4.3.3",
+    "4.3.6.2",
+    "5.6.1",
+    "6.3.3"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Registration And Start Context Source Mock Server",
+    "Delete Created Registration And Stop Context Source Mock Server"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a Context Source Registration \n        with id equal to ${registration_id}\n        and payload set to ${registration_payload_file_path}\n    and the SUT containing a Context Source Mock Server\n}",
+  "test_cases": [
+    {
+      "name": "D001_02_inc Request to create an entity with a malformed id on both Context Broker and Context Source",
+      "permutation_tp_id": "TP/NGSI-LD/DistributedOperations/Prov/E/D001_02_inc",
+      "doc": "Check that if one requests the Context Broker to create an entity that matches an inclusive registration but is malformed, this is created neither on the Context Broker nor on the Context Source",
+      "tags": [
+        "4_3_3",
+        "4_3_6_2",
+        "5_6_1",
+        "6_3_3",
+        "additive-inclusive",
+        "cf_06",
+        "dist-ops",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Registration And Start Context Source Mock Server",
+      "teardown": "Delete Created Registration And Stop Context Source Mock Server",
+      "template": null,
+      "http_verb": "POST",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "DistributedOperations/Provision/Entities/CreateEntity",
+  "robotfile": "D001_02_inc",
+  "error_while_autogenerating": "no error"
+}

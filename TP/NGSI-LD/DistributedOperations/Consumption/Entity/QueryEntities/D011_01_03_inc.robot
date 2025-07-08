@@ -8,29 +8,34 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resourc
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
+Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup          Create Entities With Different Payloads And Registration
-Test Teardown       Delete Created Entities And Registration
+Test Setup          Create Entity And Registration On The Context Broker And Start Context Source Mock Server
+Test Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
-${entity_payload_filename2}             vehicle-simple-attributes-second.jsonld
-${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
+${entity_payload_filename2}             vehicle-simple-attributes-second.json
+${registration_id_prefix}               urn:ngsi-ld:Registration:
+${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-entities.jsonld
 
 
 *** Test Cases ***
 D011_01_03_inc Query The Context Broker With Type and Attribute
     [Documentation]    Check that if one queries for attribute present in an entity on a Context Source, only that entity gets returned
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2
-    @{entities_id}=    Create List    ${second_entity_id}
+    ${entity_body}=    Load Entity    ${entity_payload_filename2}    ${second_entity_id}
+    Set Stub Reply    GET    /ngsi-ld/v1/entities?type=Vehicle    200    ${entity_body}
+
     ${response}=    Query Entities    entity_types=Vehicle    attrs=isParked2    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
+    @{entities_id}=    Create List    ${second_entity_id}
     Check Response Body Containing Entities URIS set to    ${entities_id}    ${response.json()}
 
 
 *** Keywords ***
-Create Entities With Different Payloads And Registration
+Create Entity And Registration On The Context Broker And Start Context Source Mock Server
     ${first_entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${first_entity_id}
     ${response}=    Create Entity    ${entity_payload_filename}    ${first_entity_id}
@@ -38,8 +43,6 @@ Create Entities With Different Payloads And Registration
 
     ${second_entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${second_entity_id}
-    ${response1}=    Create Entity    ${entity_payload_filename2}    ${second_entity_id}    base_url=${remote_url}
-    Check Response Status Code    201    ${response1.status_code}
 
     ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
@@ -48,8 +51,9 @@ Create Entities With Different Payloads And Registration
     ...    ${registration_payload_file_path}
     ${response2}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response2.status_code}
+    Start Context Source Mock Server
 
-Delete Created Entities And Registration
+Delete Created Entity And Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
     Delete Entity By Id    ${first_entity_id}
-    Delete Entity By Id    ${second_entity_id}    base_url=${remote_url}
+    Stop Context Source Mock Server

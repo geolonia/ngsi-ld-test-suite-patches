@@ -8,13 +8,15 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resourc
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
+Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup          Setup Entity On Remote And Registration
-Test Teardown       Delete Created Entity And Registration
+Test Setup          Setup Registration And Start Context Source Mock Server
+Test Teardown       Delete Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
-${entity_payload_filename}              vehicle-simple-attributes.jsonld
+${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
+${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 
 
@@ -23,15 +25,15 @@ D010_02_inc Retrieve entity on a Context Source from the Context Broker with loc
     [Documentation]    Check that if one retrieves entity living on a Context Source from a Context Broker with local flag, entity not found error is raised
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_1    6_3_18
     ${response}=    Retrieve Entity By Id    ${entity_id}    context=${ngsild_test_suite_context}    local=true
+
+    Wait For No Request
     Check Response Status Code    404    ${response.status_code}
 
 
 *** Keywords ***
-Setup Entity On Remote And Registration
+Setup Registration And Start Context Source Mock Server
     ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
-    ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    base_url=${remote_url}
-    Check Response Status Code    201    ${response.status_code}
 
     ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
@@ -40,7 +42,8 @@ Setup Entity On Remote And Registration
     ...    ${registration_payload_file_path}
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response1.status_code}
+    Start Context Source Mock Server
 
-Delete Created Entity And Registration
-    Delete Entity By Id    ${entity_id}    base_url=${remote_url}
+Delete Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
+    Stop Context Source Mock Server

@@ -8,9 +8,10 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resourc
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
+Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup          Setup Entity On Local And Registration
-Test Teardown       Delete Created Entity And Registration
+Test Setup          Create Entity And Registration On The Context Broker And Start Context Source Mock Server
+Test Teardown       Delete Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
@@ -22,13 +23,17 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 D002_02_01_inc Delete Entity On The Context Broker
     [Documentation]    Verify that, when one has an inclusive registration on a Context Broker, one is able to delete entities locally and should get a BatchOperationResult structure
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_6    6_3_3
+    Set Stub Reply    DELETE    /ngsi-ld/v1/entities/${entity_id}    404
     ${response}=    Delete Entity by Id    ${entity_id}
     Check Response Status Code    207    ${response.status_code}
     Check JSON Value In Response Body    ['status']    404    ${response.json()['errors'][0]['error']}
 
+    ${response_retrieve}=    Retrieve Entity by Id    ${entity_id}    local=true
+    Check Response Status Code    404    ${response_retrieve.status_code}
+
 
 *** Keywords ***
-Setup Entity On Local And Registration
+Create Entity And Registration On The Context Broker And Start Context Source Mock Server
     ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
@@ -42,7 +47,9 @@ Setup Entity On Local And Registration
     ...    entity_id=${entity_id}
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response1.status_code}
+    Start Context Source Mock Server
 
-Delete Created Entity And Registration
+Delete Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
     Delete Entity By Id    ${entity_id}
+    Stop Context Source Mock Server

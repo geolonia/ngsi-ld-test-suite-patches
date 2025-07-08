@@ -8,15 +8,16 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resourc
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
+Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup          Setup Entity On Remote And Registration
-Test Teardown       Delete Created Entity And Registration
+Test Setup          Setup Registration And Start Context Source Mock Server
+Test Teardown       Delete Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
-${fragment_filename}                    vehicle-brandname-fragment.jsonld
+${fragment_filename}                    vehicle-brandname-complete-fragment.jsonld
 
 
 *** Test Cases ***
@@ -24,24 +25,26 @@ D004_01_inc Query The Context Broker With Type
     [Documentation]    Check that if one request the Context Broker to update an entity that matches an inclusive registration, this is updated on the Context Source too
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_2
 
+    Set Stub Reply    PATCH    /ngsi-ld/v1/entities/${entity_id}/attrs    204
     ${response}=    Update Entity Attributes
     ...    ${entity_id}
     ...    ${fragment_filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    204    ${response.status_code}
+
+    Wait for redirected request
+    Check Response Status Code    207    ${response.status_code}
+    ${stub_count}=    Get Stub Count    PATCH    /ngsi-ld/v1/entities/${entity_id}/attrs/
+    Should Be True    ${stub_count} > 0
 
     @{entities_id}=    Create List    ${entity_id}
-    ${response_query_remote}=    Query Entities    entity_types=Vehicle    base_url=${remote_url}
-    Check Response Status Code    200    ${response_query_remote.status_code}
-    Check Response Body Containing Entities URIS set to    ${entities_id}    ${response_query_remote.json()}
+    ${payload_list}=    Evaluate    [$payload]
+    Check Response Body Containing Entities URIS set to    ${entities_id}    ${payload_list}
 
 
 *** Keywords ***
-Setup Entity On Remote And Registration
+Setup Registration And Start Context Source Mock Server
     ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
-    ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    base_url=${remote_url}
-    Check Response Status Code    201    ${response.status_code}
 
     ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
@@ -51,7 +54,8 @@ Setup Entity On Remote And Registration
     ...    entity_id=${entity_id}
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response1.status_code}
+    Start Context Source Mock Server
 
-Delete Created Entity And Registration
+Delete Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
-    Delete Entity By Id    ${entity_id}    base_url=${remote_url}
+    Stop Context Source Mock Server

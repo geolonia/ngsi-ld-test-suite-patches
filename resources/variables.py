@@ -14,10 +14,6 @@ core_context = 'https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld
 # whether the Temporal Representation of an Entity should be deleted when an Entity is deleted
 delete_temporal_on_core_delete = True
 
-#DistOps variables
-remote_url = 'http://0.0.0.0:8081/ngsi-ld/v1'
-context_source_endpoint  = 'http://0.0.0.0:8081'
-
 # GitHub repository details
 # github_owner = 'your_github_username'
 # github_broker_repo = 'context_broker_repository'

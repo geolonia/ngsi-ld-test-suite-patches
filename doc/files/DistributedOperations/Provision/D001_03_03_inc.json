@@ -1,0 +1,46 @@
+{
+  "tp_id": "TP/NGSI-LD/DistributedOperations/Prov/E/D001_03_03_inc",
+  "test_objective": "Verify that, when one has an entity on a Context Source and an inclusive registration on a Context Broker, one is not able to create that entity on the Context Source from the Context Broker but one is able to create it on the Context Broker",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clauses 4.3.3, 4.3.6.2, 5.6.1, 6.3.3",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "4.3.3",
+    "4.3.6.2",
+    "5.6.1",
+    "6.3.3"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Registration And Start Context Source Mock Server",
+    "Delete Created Entity And Registration And Stop Context Source Mock Server"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing a Context Source Registration \n        with id equal to ${registration_id}\n        and payload set to ${registration_payload_file_path}\n    and the SUT containing a Context Source Mock Server\n}",
+  "test_cases": [
+    {
+      "name": "D001_03_03_inc Create entity already existing remotely on the Context Broker",
+      "permutation_tp_id": "TP/NGSI-LD/DistributedOperations/Prov/E/D001_03_03_inc",
+      "doc": "Check that if one requests the Context Broker to create an entity that matches an inclusive registration and already exists remotely, this raises an error on the Context Source, but it works just fine on the Context Broker",
+      "tags": [
+        "4_3_3",
+        "4_3_6_2",
+        "5_6_1",
+        "6_3_3",
+        "additive-inclusive",
+        "cf_06",
+        "dist-ops",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Registration And Start Context Source Mock Server",
+      "teardown": "Delete Created Entity And Registration And Stop Context Source Mock Server",
+      "template": null,
+      "http_verb": "POST",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "DistributedOperations/Provision/Entities/CreateEntity",
+  "robotfile": "D001_03_03_inc",
+  "error_while_autogenerating": "no error"
+}

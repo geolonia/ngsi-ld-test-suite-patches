@@ -27,7 +27,6 @@ ${response}                                 ${EMPTY}
 *** Keywords ***
 Query Entities
     [Arguments]
-    ...    ${base_url}=${url}
     ...    ${entity_ids}=${EMPTY}
     ...    ${entity_types}=${EMPTY}
     ...    ${accept}=${EMPTY}
@@ -89,7 +88,7 @@ Query Entities
     IF    '${q}'!=''    Set To Dictionary    ${params}    q=${q}
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
     ${response}=    GET
-    ...    url=${base_url}/${ENTITIES_ENDPOINT_PATH}
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any

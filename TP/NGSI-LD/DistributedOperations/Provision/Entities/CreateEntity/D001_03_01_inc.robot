@@ -8,9 +8,10 @@ Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resourc
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
+Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup          Setup Entity On Local And Registration
-Test Teardown       Delete Created Entities And Registration
+Test Setup          Create Entity And Registration On The Context Broker And Start Context Source Mock Server
+Test Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
@@ -22,18 +23,23 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 D001_03_01_inc Create entity already existing locally on a Context Source
     [Documentation]    Check that if one requests the Context Broker to create an entity that matches an inclusive registration and already exists locally, this raises an error on the Context Broker but is created correctly on the Context Source
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_1    6_3_3
+    Set Stub Reply    POST    /ngsi-ld/v1/entities    201
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Check Response Status Code    207    ${response.status_code}
 
     Check JSON Value In Response Body    ['status']    409    ${response.json()['errors'][0]['error']}
+    ${length}=    Get Length    ${response.json()['errors']}
+    Should Be Equal As Integers    ${length}    1
 
+    Wait for redirected request
+    ${request_payload}=    Get Request Body
+    ${payload_list}=    Evaluate    [json.loads('''${request_payload}''')]    json
     @{entities_id}=    Create List    ${entity_id}
-    ${response_query_remote}=    Query Entities    entity_types=Vehicle    base_url=${remote_url}
-    Check Response Body Containing Entities URIS set to    ${entities_id}    ${response_query_remote.json()}
+    Check Response Body Containing Entities URIS set to    ${entities_id}    ${payload_list}
 
 
 *** Keywords ***
-Setup Entity On Local And Registration
+Create Entity And Registration On The Context Broker And Start Context Source Mock Server
     ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
@@ -47,8 +53,9 @@ Setup Entity On Local And Registration
     ...    entity_id=${entity_id}
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response1.status_code}
+    Start Context Source Mock Server
 
-Delete Created Entities And Registration
+Delete Created Entity And Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
     Delete Entity By Id    ${entity_id}
-    Delete Entity By Id    ${entity_id}    base_url=${remote_url}
+    Stop Context Source Mock Server
