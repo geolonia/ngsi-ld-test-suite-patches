@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that the correct error type is returned when replacing an attribute with faulty data
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,6 @@ Test Template       Replace Entity Attribute With Faulty Data
 
 
 *** Variables ***
-${vehicle_id_prefix}    urn:ngsi-ld:Vehicle:
 ${entity_filename}      vehicle-speed-multi-instances.jsonld
 
 
@@ -50,7 +50,7 @@ Replace Entity Attribute With Faulty Data
     Check Response Status Code    ${expected_status_code}    ${response.status_code}
 
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${entity_filename}

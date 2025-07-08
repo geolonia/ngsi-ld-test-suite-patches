@@ -8,10 +8,6 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 Test Template       Delete Temporal Entity
 
 
-*** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-
-
 *** Test Cases ***    ID    EXPECTED_STATUS_CODE    PROBLEM_TYPE
 009_02_01 Delete a temporal representation of an entity with an empty entity id
     ${EMPTY}    405    ${EMPTY}

@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check temporal pagination is applied when querying the temporal evolution of entities
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -12,7 +13,6 @@ Test Template       Retrieve Temporal Entities
 
 
 *** Variables ***
-${vehicule_id_prefix}=              urn:ngsi-ld:Vehicle:
 ${first_vehicle_payload_file}=      pagination/2020-01-vehicule-temporal-representation-twenty-instances.jsonld
 ${second_vehicle_payload_file}=     2020-09-vehicle-temporal-representation.jsonld
 ${timeBefore}=                      2019-01-01T01:01:00Z
@@ -117,8 +117,8 @@ Retrieve Temporal Entities
     END
 
 Setup Initial Entities
-    ${first_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
-    ${second_temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicule_id_prefix}
+    ${first_temporal_entity_representation_id}=    Generate Random Vehicle Entity Id
+    ${second_temporal_entity_representation_id}=    Generate Random Vehicle Entity Id
     ${response}=    Create Temporal Representation Of Entity
     ...    ${first_vehicle_payload_file}
     ...    ${first_temporal_entity_representation_id}

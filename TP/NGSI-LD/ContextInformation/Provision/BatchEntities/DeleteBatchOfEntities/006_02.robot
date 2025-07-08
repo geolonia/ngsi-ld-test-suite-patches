@@ -1,23 +1,20 @@
 *** Settings ***
 Documentation       Check that one can delete a batch of entities where some will succeed and others will fail
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Setup Initial Entity
 
 
-*** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
-
-
 *** Test Cases ***
 006_02_01 Delete a batch of non-existing and existing entities
     [Documentation]    Check that one can delete a batch of non-existing and existing entities
     [Tags]    be-delete    5_6_10
-    ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${new_entity_id}=    Generate Random Building Entity Id
     @{entities_ids_to_be_deleted}=    Create List    ${existing_entity_id}    ${new_entity_id}
 
     ${response}=    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}
@@ -43,7 +40,7 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 
 *** Keywords ***
 Setup Initial Entity
-    ${existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${existing_entity_id}=    Generate Random Building Entity Id
     ${create_response}=    Create Entity    building-simple-attributes.jsonld    ${existing_entity_id}
     Check Response Status Code    201    ${create_response.status_code}
     Set Test Variable    ${existing_entity_id}

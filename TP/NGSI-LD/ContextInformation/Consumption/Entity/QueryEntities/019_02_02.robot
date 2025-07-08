@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can query several entities via POST Interaction based on the entity type
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,8 +12,6 @@ Suite Teardown      Delete Entities
 
 
 *** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${building_filename}=       building-minimal.jsonld
 ${vehicle_filename}=        vehicle-simple-attributes.jsonld
 ${expectation_filename}=    two-vehicles.jsonld
@@ -40,21 +39,21 @@ ${vehicle_entity_type}=     https://ngsi-ld-test-suite/context#Vehicle
 
 *** Keywords ***
 Create Entities
-    ${building_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${building_entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${building_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${building_filename}
     ...    ${building_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${first_vehicle_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${first_vehicle_entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${first_vehicle_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${vehicle_filename}
     ...    ${first_vehicle_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${second_vehicle_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${second_vehicle_entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${second_vehicle_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${vehicle_filename}

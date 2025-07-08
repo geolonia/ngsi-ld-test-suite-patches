@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can delete a subscription
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -9,7 +10,6 @@ Suite Setup         Setup Initial Subscriptions
 
 
 *** Variables ***
-${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=      subscriptions/subscription.jsonld
 
 
@@ -19,6 +19,7 @@ ${subscription_payload_file_path}=      subscriptions/subscription.jsonld
     [Tags]    sub-delete    5_8_5
     ${response}=    Delete Subscription    ${subscription_id}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Subscription
     ...    id=${subscription_id}
     Check SUT Not Containing Resource    ${response1.status_code}
@@ -26,7 +27,7 @@ ${subscription_payload_file_path}=      subscriptions/subscription.jsonld
 
 *** Keywords ***
 Setup Initial Subscriptions
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${create_response}=    Create Subscription
     ...    ${subscription_id}
     ...    ${subscription_payload_file_path}

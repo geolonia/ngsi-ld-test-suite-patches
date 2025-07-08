@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can update a subscription: If only expiresAt is included and refers to a DateTime in the future, then status shall be updated to "active", if and only if the previous value of status was "expired"
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -10,7 +11,6 @@ Suite Teardown      Delete Initial Subscriptions
 
 
 *** Variables ***
-${subscription_id_prefix}                       urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}               subscriptions/subscription.jsonld
 ${subscription_update_fragment_file_path}       subscriptions/fragments/subscription-expiresAt-future-update.json
 
@@ -35,6 +35,7 @@ ${subscription_update_fragment_file_path}       subscriptions/fragments/subscrip
     ...    ${subscription_update_fragment_file_path}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Subscription
     ...    id=${subscription_id}
     Check Response Body Containing an Attribute set to
@@ -45,7 +46,7 @@ ${subscription_update_fragment_file_path}       subscriptions/fragments/subscrip
 
 *** Keywords ***
 Setup Initial Subscriptions
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${initial_response}=    Create Subscription
     ...    ${subscription_id}
     ...    ${subscription_payload_file_path}

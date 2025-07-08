@@ -5,6 +5,7 @@ Library         Collections
 Library         OperatingSystem
 Library         JSONLibrary
 Library         RequestsLibrary
+Resource        ${EXECDIR}/resources/ApiUtils/Common.resource
 
 
 *** Variables ***
@@ -75,9 +76,10 @@ Create Context Source Registration With Return
         Set To Dictionary    ${headers}    Accept=${context}
     END
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${response}=    POST
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}

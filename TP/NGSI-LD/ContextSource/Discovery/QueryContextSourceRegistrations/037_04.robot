@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can query context source registrations. If a JSON-LD context is not provided, then all the query terms shall be resolved against the default JSON-LD @context
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -11,7 +12,6 @@ Suite Teardown      Delete Created Context Source Registration
 
 
 *** Variables ***
-${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
 ${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration-detailed-information.jsonld
 ${expectation_file_path}=                               csourceRegistrations/expectations/context-source-registrations-037-04.json
 ${entity_type}=                                         https://ngsi-ld-test-suite/context#Building
@@ -32,7 +32,7 @@ ${entity_type}=                                         https://ngsi-ld-test-sui
 
 *** Keywords ***
 Setup Initial Context Source Registration
-    ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
+    ${context_source_registration_id}=    Generate Random CSR Id
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}

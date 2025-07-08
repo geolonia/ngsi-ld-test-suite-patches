@@ -1,22 +1,21 @@
 *** Settings ***
 Documentation       Verify that, when one has an inclusive registration on a Context Broker and an entity only on a Context Source, if one queries the Context Broker with local flag entity not found error is raised
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup         Setup Registration And Start Context Source Mock Server
-Test Teardown      Delete Registration And Stop Context Source Mock Server
+Test Setup          Setup Registration And Start Context Source Mock Server
+Test Teardown       Delete Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
-${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 
 
@@ -25,7 +24,7 @@ D011_02_inc Query The Context Broker With Local Flag
     [Documentation]    Check that if one queries with the local flag, no entity from Context Source gets returned
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2    6_3_18
     ${entity_body}=    Load Entity    ${entity_payload_filename}    ${entity_id}
-    Set Stub Reply    GET   /ngsi-ld/v1/entities?type=Vehicle   200    ${entity_body}
+    Set Stub Reply    GET    /ngsi-ld/v1/entities?type=Vehicle    200    ${entity_body}
     ${response}=    Query Entities    entity_types=Vehicle    context=${ngsild_test_suite_context}    local=true
     Check Response Status Code    200    ${response.status_code}
     Should Be Empty    ${response.json()}
@@ -33,10 +32,10 @@ D011_02_inc Query The Context Broker With Local Flag
 
 *** Keywords ***
 Setup Registration And Start Context Source Mock Server
-    ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
 
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
     ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
@@ -45,9 +44,6 @@ Setup Registration And Start Context Source Mock Server
     Check Response Status Code    201    ${response1.status_code}
     Start Context Source Mock Server
 
-
-
 Delete Registration And Stop Context Source Mock Server
-    Delete Context Source Registration    ${registration_id} 
+    Delete Context Source Registration    ${registration_id}
     Stop Context Source Mock Server
-    

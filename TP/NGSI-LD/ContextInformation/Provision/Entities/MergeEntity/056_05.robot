@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can delete the default attribute instance using NGSI-LD Null in a Merge Entity operation
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,6 @@ Test Template       Merge Entity Scenarios
 
 
 *** Variables ***
-${building_id_prefix}=          urn:ngsi-ld:Building:
 ${entity_payload_filename}=     building-different-default-attributes-instances-and-types.jsonld
 
 
@@ -40,6 +40,7 @@ Merge Entity Scenarios
     ...    entity_filename=${filename}
     ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
 
     ${response1}=    Query Entity
     ...    id=${entity_id}
@@ -51,7 +52,7 @@ Merge Entity Scenarios
     ...    response_body=${response1.json()}
 
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Set Test Variable    ${entity_id}
     Check Response Status Code    201    ${response.status_code}

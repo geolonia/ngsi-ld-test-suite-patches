@@ -1,22 +1,21 @@
 *** Settings ***
 Documentation       Verify that, when one has an inclusive registration on a Context Broker with redirectionOps, one is able to update entities on a Context Source
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup         Setup Registration And Start Context Source Mock Server
-Test Teardown      Delete Registration And Stop Context Source Mock Server
+Test Setup          Setup Registration And Start Context Source Mock Server
+Test Teardown       Delete Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
-${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 ${fragment_filename}                    vehicle-brandname-complete-fragment.jsonld
 
@@ -25,29 +24,29 @@ ${fragment_filename}                    vehicle-brandname-complete-fragment.json
 D004_01_inc Query The Context Broker With Type
     [Documentation]    Check that if one request the Context Broker to update an entity that matches an inclusive registration, this is updated on the Context Source too
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_2
-    
+
     Set Stub Reply    PATCH    /ngsi-ld/v1/entities/${entity_id}/attrs    204
-    ${response}=    Update Entity Attributes    
+    ${response}=    Update Entity Attributes
     ...    ${entity_id}
     ...    ${fragment_filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    
+
     Wait for redirected request
-    Check Response Status Code    207    ${response.status_code}  
+    Check Response Status Code    207    ${response.status_code}
     ${stub_count}=    Get Stub Count    PATCH    /ngsi-ld/v1/entities/${entity_id}/attrs/
     Should Be True    ${stub_count} > 0
 
     @{entities_id}=    Create List    ${entity_id}
-    ${payload_list}    Evaluate    [$payload]
+    ${payload_list}=    Evaluate    [$payload]
     Check Response Body Containing Entities URIS set to    ${entities_id}    ${payload_list}
 
 
 *** Keywords ***
 Setup Registration And Start Context Source Mock Server
-    ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
 
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
     ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
@@ -57,7 +56,6 @@ Setup Registration And Start Context Source Mock Server
     Check Response Status Code    201    ${response1.status_code}
     Start Context Source Mock Server
 
-
 Delete Registration And Stop Context Source Mock Server
-    Delete Context Source Registration    ${registration_id} 
+    Delete Context Source Registration    ${registration_id}
     Stop Context Source Mock Server

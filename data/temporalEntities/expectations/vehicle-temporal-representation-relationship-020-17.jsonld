@@ -6,7 +6,5 @@
     "object": "urn:ngsi-ld:null",
     "instanceId": "urn:ngsi-ld:Instance:5be942ce-3ea5-4701-8d1d-6b29897f246f",
     "deletedAt": "2024-12-11T11:02:49.270530Z"
-  },
-  "fuelLevel": [],
-  "name": []
+  }
 }

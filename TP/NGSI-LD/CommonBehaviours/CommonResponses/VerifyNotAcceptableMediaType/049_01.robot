@@ -1,28 +1,27 @@
 *** Settings ***
 Documentation       Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json"
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 
 *** Variables ***
-${accept}=                      application/xml
-${status_code}=                 406
-${building_id_prefix}=          urn:ngsi-ld:Building:
-${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
+${accept}=          application/xml
+${status_code}=     406
 
 
 *** Test Cases ***
 049_01_01 Endpoint get /entities/{entityId}
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /entities/{entityId})
     [Tags]    e-query    cb-noacceptable-medtype    6_3_4
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     ${response}=    Query Entity
     ...    id=${entity_id}
     ...    accept=${accept}
@@ -32,7 +31,7 @@ ${subscription_id_prefix}=      urn:ngsi-ld:Subscription:
 049_01_02 Endpoint get /subscriptions/{subscriptionId}
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /subscriptions/{subscriptionId})
     [Tags]    sub-retrieve    cb-noacceptable-medtype    6_3_4
-    ${id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${id}=    Generate Random Subscription Id
     ${response}=    Retrieve Subscription
     ...    id=${id}
     ...    accept=${accept}

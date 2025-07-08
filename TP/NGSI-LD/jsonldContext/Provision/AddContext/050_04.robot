@@ -1,22 +1,22 @@
 *** Settings ***
 Documentation       Check that one can add a hosted @context with list of URIs and each of them are cached @coxtexts
 
-Variables           ${EXECDIR}/resources/variables.py
-Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/HttpUtils.resource
+Variables           ${EXECDIR}/resources/variables.py
 
 Test Teardown       Delete Initial @context
 
 
 *** Variables ***
-${filename_list}=           @context-cached-valid.json
-${entity_filename}=         building-simple-attributes.json
-${reason_201}=              Created
-${reason_204}=              No Content
-${building_id_prefix}=      urn:ngsi-ld:Building:
-${content_type}=            application/json
+${filename_list}=       @context-cached-valid.json
+${entity_filename}=     building-simple-attributes.json
+${reason_201}=          Created
+${reason_204}=          No Content
+${content_type}=        application/json
 
 
 *** Test Cases ***
@@ -27,6 +27,7 @@ ${content_type}=            application/json
     ${response}=    Add a new @context    ${filename_list}
 
     Check Response Status Code    201    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     Check Response Does Not Contain Body    ${response}
     Check Response Reason set to    ${response.reason}    ${reason_201}
 
@@ -39,7 +40,7 @@ ${content_type}=            application/json
     # Need to check that the kind value of the created context is "hosted"
     ${response_serve}=    Serve a @context    ${uri}    true
     Check Response Kind set to    ${response_serve.json()}    Hosted
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     Create Entity Selecting Content Type
     ...    ${entity_filename}
     ...    ${entity_id}

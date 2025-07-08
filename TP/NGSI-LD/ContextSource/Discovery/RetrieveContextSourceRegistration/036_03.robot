@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can retrieve a Context Source Registration. Term to URI expansion of Attribute names shall be observed.
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -11,7 +12,6 @@ Suite Teardown      Delete Created Context Source Registration
 
 
 *** Variables ***
-${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
 ${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration.jsonld
 ${expectation_file_path}=                               csourceRegistrations/expectations/context-source-registration-expanded-format.json
 
@@ -31,7 +31,7 @@ ${expectation_file_path}=                               csourceRegistrations/exp
 
 *** Keywords ***
 Setup Initial Context Source Registration
-    ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
+    ${context_source_registration_id}=    Generate Random CSR Id
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}

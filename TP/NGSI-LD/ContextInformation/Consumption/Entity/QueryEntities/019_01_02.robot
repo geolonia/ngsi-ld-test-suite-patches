@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can query several entities based on the entities types
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,9 +12,6 @@ Suite Teardown      Delete Entities
 
 
 *** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${parking_id_prefix}=       urn:ngsi-ld:OffStreetParking:
 ${building_filename}=       building-minimal.jsonld
 ${vehicle_filename}=        vehicle-simple-attributes.jsonld
 ${parking_filename}=        parking-simple-attributes.jsonld
@@ -42,21 +40,21 @@ ${parking_entity_type}=     https://ngsi-ld-test-suite/context#OffStreetParking
 
 *** Keywords ***
 Setup Initial Entities
-    ${building_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${building_entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${building_entity_id}
     ${create_response1}=    Create Entity Selecting Content Type
     ...    ${building_filename}
     ...    ${building_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${create_response1.status_code}
-    ${vehicle_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${vehicle_entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${vehicle_entity_id}
     ${create_response2}=    Create Entity Selecting Content Type
     ...    ${vehicle_filename}
     ...    ${vehicle_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${create_response2.status_code}
-    ${parking_entity_id}=    Generate Random Entity Id    ${parking_id_prefix}
+    ${parking_entity_id}=    Generate Random Parking Entity Id
     Set Suite Variable    ${parking_entity_id}
     ${create_response3}=    Create Entity Selecting Content Type
     ...    ${parking_filename}

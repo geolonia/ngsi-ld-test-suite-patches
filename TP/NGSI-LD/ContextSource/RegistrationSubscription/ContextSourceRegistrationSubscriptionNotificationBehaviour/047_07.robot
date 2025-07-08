@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that a cSourceNotification shall only be sent if and only if the status of the corresponding subscription is active, neither paused or expired
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
@@ -13,8 +14,6 @@ Test Template       Do Not Receive cSourceNotification If Subscription Status Is
 
 
 *** Variables ***
-${context_source_registration_id_prefix}=               urn:ngsi-ld:ContextSourceRegistration:
-${subscription_id_prefix}=                              urn:ngsi-ld:Subscription:
 ${context_source_registration_payload_file_path}=       csourceRegistrations/context-source-registration.jsonld
 ${subscription_payload_file_path}=                      csourceSubscriptions/subscription.jsonld
 
@@ -37,7 +36,7 @@ Do Not Receive cSourceNotification If Subscription Status Is Not Active
     ...    ${subscription_id}
     ...    ${subscription_update_fragment}
 
-    ${context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
+    ${context_source_registration_id}=    Generate Random CSR Id
     ${context_source_registration_payload}=    Load Test Sample
     ...    ${context_source_registration_payload_file_path}
     ...    ${context_source_registration_id}
@@ -47,7 +46,7 @@ Do Not Receive cSourceNotification If Subscription Status Is Not Active
 
 Setup Initial Context Source Registration Subscription
     Start Local Server
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
     ...    ${subscription_payload_file_path}
     ...    ${subscription_id}

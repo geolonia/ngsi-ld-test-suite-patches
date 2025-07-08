@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can delete an attribute from an entity
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,10 +13,9 @@ Test Template       Delete Attributes
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${status_code}=             204
-${filename}=                vehicle-two-datasetid-attributes.jsonld
-${attribute_id}=            speed
+${status_code}=     204
+${filename}=        vehicle-two-datasetid-attributes.jsonld
+${attribute_id}=    speed
 
 
 *** Test Cases ***    DATASETID    DELETEALL    EXPECTATION_FILENAME
@@ -40,6 +40,7 @@ Delete Attributes
     ...    context=${ngsild_test_suite_context}
 
     Check Response Status Code    ${status_code}    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response2}=    Retrieve Entity by Id
     ...    id=${entity_id}
@@ -52,7 +53,7 @@ Delete Attributes
     ...    ignored_keys=${ignored_attributes}
 
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${entity_id}
     ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}

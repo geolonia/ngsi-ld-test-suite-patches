@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can delete a specific attribute instance using NGSI-LD Null in an Partial Attribute Update operation
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,8 +13,7 @@ Test Template       Update Attributes
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                building-different-attributes-instances-and-types.jsonld
+${filename}=    building-different-attributes-instances-and-types.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    ATTR_NAME    FRAGMENT_FILENAME    EXPECTATION_FILENAME
@@ -46,6 +46,7 @@ Update Attributes
     ...    content_type=${CONTENT_TYPE_LD_JSON}
 
     Check Response Status Code    ${status_code}    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
@@ -59,7 +60,7 @@ Delete Initial Entity
     Delete Entity by Id    ${entity_id}
 
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}

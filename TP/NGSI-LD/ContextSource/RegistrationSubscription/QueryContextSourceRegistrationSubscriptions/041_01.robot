@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can query context source registration subscriptions
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -10,7 +11,6 @@ Test Teardown       Delete Created Context Source Registration Subscriptions
 
 
 *** Variables ***
-${subscription_id_prefix}=                      urn:ngsi-ld:Subscription:
 ${first_subscription_payload_file_path}=        csourceSubscriptions/subscription.jsonld
 ${second_subscription_payload_file_path}=       csourceSubscriptions/subscription-watchedAttributes.jsonld
 ${expectation_file_path}=                       csourceSubscriptions/expectations/subscriptions-035-01.json
@@ -31,8 +31,8 @@ ${expectation_file_path}=                       csourceSubscriptions/expectation
 
 *** Keywords ***
 Setup Initial Context Source Registration Subscriptions
-    ${first_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${second_subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${first_subscription_id}=    Generate Random Subscription Id
+    ${second_subscription_id}=    Generate Random Subscription Id
     ${first_subscription_payload}=    Load Test Sample
     ...    ${first_subscription_payload_file_path}
     ...    ${first_subscription_id}

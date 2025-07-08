@@ -1,12 +1,12 @@
 *** Settings ***
 Documentation       Check that the context served by a context server is still in the broker after a ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE with details=true
 
-Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
-Resource            ${EXECDIR}/resources/JsonUtils.resource
-Resource            ${EXECDIR}/resources/HttpUtils.resource
 Resource            ${EXECDIR}/resources/ContextServerUtils.resource
+Resource            ${EXECDIR}/resources/HttpUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 Library             Collections
 Library             String
 Variables           ${EXECDIR}/resources/variables.py

@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that an entity with observationSpace geospatial Property can be retrieved
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,8 +13,7 @@ Test Template       Retrieve Entity With observationSpace Geospatial Property
 
 
 *** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-observation-space-geoproperty.jsonld
+${filename}=    building-observation-space-geoproperty.jsonld
 
 
 *** Test Cases ***    OPTIONS    EXPECTATION_FILENAME
@@ -37,7 +37,7 @@ Retrieve Entity With observationSpace Geospatial Property
     Check Response Body Containing Entity element    ${expectation_filename}    ${entity_id}    ${response.json()}
 
 Create Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}

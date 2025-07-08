@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot create a context source registration subscription If the data types, cardinalities and restrictions expressed by clause 5.2.12 are not met
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -9,7 +10,6 @@ Test Template       Create Invalid Context Source Registration Subscription
 
 
 *** Variables ***
-${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=      ${EMPTY}
 
 
@@ -32,7 +32,7 @@ ${subscription_payload_file_path}=      ${EMPTY}
 Create Invalid Context Source Registration Subscription
     [Documentation]    Check that one cannot create a context source registration subscription If the data types, cardinalities and restrictions expressed by clause 5.2.12 are not met
     [Arguments]    ${filepath}
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${subscription_payload}=    Load Test Sample    ${filepath}    ${subscription_id}
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
     Check Response Status Code    400    ${response.status_code}

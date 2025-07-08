@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one cannot query entities if the request has a wrong geometryProperty
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,13 +12,12 @@ Suite Teardown      Delete Entities
 
 
 *** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-location-attribute.jsonld
-${entity_type}=             Building
-${georel}=                  invalid
-${geometry}=                Point
-${coordinates}=             [-8.503,41.202]
-${geoproperty}=             location
+${filename}=        building-location-attribute.jsonld
+${entity_type}=     Building
+${georel}=          invalid
+${geometry}=        Point
+${coordinates}=     [-8.503,41.202]
+${geoproperty}=     location
 
 
 *** Test Cases ***
@@ -43,14 +43,14 @@ ${geoproperty}=             location
 
 *** Keywords ***
 Create Entities
-    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${first_entity_id}
     ${create_response1}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${first_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${create_response1.status_code}
-    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${second_entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${second_entity_id}
     ${create_response2}=    Create Entity Selecting Content Type
     ...    ${filename}

@@ -1,8 +1,8 @@
 *** Settings ***
 Documentation       Check that one can create a context source registration without specifying an ID
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -10,7 +10,6 @@ Suite Teardown      Delete Created Context Source Registrations
 
 
 *** Variables ***
-${registration_id_prefix}=              urn:ngsi-ld:Registration:
 ${registration_payload_file_path}=      csourceRegistrations/context-source-registration-no-id.jsonld
 
 
@@ -21,6 +20,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
     ${response}=    Create Context Source Registration With Return    ${payload}
     Check Response Status Code    201    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${registration_id}=    Check Response Headers ID Not Empty    ${response.headers}
     Set Suite Variable    ${registration_id}
     ${id_dict}=    Create Dictionary    id=${registration_id}

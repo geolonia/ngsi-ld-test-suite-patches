@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can update a subscription: If isActive is equal to true and expiresAt is not present, then status shall be updated to "active", if and only if, the previous value of status was different than "expired"
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -11,7 +12,6 @@ Test Template       Activate Paused Subscription With isActive Member
 
 
 *** Variables ***
-${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=      subscriptions/subscription-inactive.jsonld
 
 
@@ -30,6 +30,7 @@ Activate Paused Subscription With isActive Member
     ...    ${subscription_update_fragment_file_path}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Subscription
     ...    id=${subscription_id}
     Check Response Body Containing an Attribute set to
@@ -38,7 +39,7 @@ Activate Paused Subscription With isActive Member
     ...    expected_attribute_value=active
 
 Setup Initial Subscriptions
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${initial_response}=    Create Subscription
     ...    ${subscription_id}
     ...    ${subscription_payload_file_path}

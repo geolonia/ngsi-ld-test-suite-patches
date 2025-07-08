@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can update a context source registration subscription
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -10,7 +11,6 @@ Test Teardown       Delete Initial Context Source Registration Subscriptions
 
 
 *** Variables ***
-${subscription_id_prefix}=                      urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=              csourceSubscriptions/subscription.jsonld
 ${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/subscription-update.json
 
@@ -24,6 +24,7 @@ ${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/s
     ...    ${subscription_id}
     ...    ${subscription_update_fragment}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     Check Response Does Not Contain Body    ${response}
     Check Response Reason set to    ${response.reason}    No Content
 
@@ -39,7 +40,7 @@ ${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/s
 
 *** Keywords ***
 Setup Initial Context Source Registration Subscriptions
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${subscription_payload}=    Load Test Sample    ${subscription_payload_file_path}    ${subscription_id}
     ${create_csrsub_response}=    Create Context Source Registration Subscription    ${subscription_payload}
     Check Response Status Code    201    ${create_csrsub_response.status_code}

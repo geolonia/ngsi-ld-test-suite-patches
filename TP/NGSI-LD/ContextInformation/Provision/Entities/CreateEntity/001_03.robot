@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot create an entity with an existing id
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -10,9 +11,8 @@ Suite Teardown      Delete Initial Entity
 
 
 *** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
-${filename}=                building-minimal.jsonld
-${content_type}=            application/ld+json
+${filename}=        building-minimal.jsonld
+${content_type}=    application/ld+json
 
 
 *** Test Cases ***
@@ -33,7 +33,7 @@ ${content_type}=            application/ld+json
 
 *** Keywords ***
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${entity_id}
     ${create_response}=    Create Entity Selecting Content Type
     ...    ${filename}

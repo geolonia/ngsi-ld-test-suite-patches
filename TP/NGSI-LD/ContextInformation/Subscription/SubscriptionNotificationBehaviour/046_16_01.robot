@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       If a subscription defines an entity type selection query, a notification shall be sent whenever an entity matches the query.
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
@@ -12,9 +13,7 @@ Suite Teardown      After Test
 
 
 *** Variables ***
-${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=      subscriptions/subscription-building-entities-type-selection.jsonld
-${building_id_prefix}=                  urn:ngsi-ld:Building:
 ${notification_server_send_url}=        http://${notification_server_host}:${notification_server_port}/notify
 ${entity_building_filepath}=            building-simple-attributes.jsonld
 ${content_type}=                        application/ld+json
@@ -25,7 +24,7 @@ ${content_type}=                        application/ld+json
     [Documentation]    If a subscription defines an entity type selection query, a notification shall be sent whenever an entity matches the query.
     [Tags]    sub-notification    5_8_6    since_v1.5.1
 
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     ${response}=    Create Entity Selecting Content Type
     ...    ${entity_building_filepath}
     ...    ${entity_id}
@@ -42,7 +41,7 @@ ${content_type}=                        application/ld+json
 
 *** Keywords ***
 Setup Initial Subscription
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
     ...    ${subscription_payload_file_path}
     ...    ${subscription_id}

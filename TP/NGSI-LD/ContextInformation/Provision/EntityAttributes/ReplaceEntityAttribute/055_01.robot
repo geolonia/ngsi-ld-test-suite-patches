@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can replace an existing entity attribute and that its createdAt Temporal Property remains unchanged
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,6 @@ Test Template       Replace Entity Attribute
 
 
 *** Variables ***
-${vehicle_id_prefix}    urn:ngsi-ld:Vehicle:
 ${entity_filename}      vehicle-speed-multi-instances.jsonld
 
 
@@ -39,6 +39,7 @@ Replace Entity Attribute
     ...    content_type=${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
@@ -55,7 +56,7 @@ Replace Entity Attribute
     ...    response_body=${response1.json()}
 
 Setup Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${entity_filename}

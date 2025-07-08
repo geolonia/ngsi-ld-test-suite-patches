@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can update entity attributes
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,8 +13,7 @@ Test Template       Update Attributes
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-two-datasetid-attributes.jsonld
+${filename}=    vehicle-two-datasetid-attributes.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_FILENAME
@@ -40,6 +40,7 @@ Update Attributes
     ...    ${fragment_filename}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${entity_expectation_payload}=    Load Test Sample    entities/${expectation_filename}    ${entity_id}
     ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}
@@ -55,7 +56,7 @@ Delete Initial Entities
     Delete Entity by Id    ${entity_id}
 
 Initialize Test
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}

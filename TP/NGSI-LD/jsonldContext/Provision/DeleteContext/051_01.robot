@@ -21,6 +21,7 @@ ${reason_204}=      No Content
     ${response}=    Delete a @context    ${uri}
 
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     Check Response Reason set to    ${response.reason}    ${reason_204}
     Check Response Does Not Contain Body    ${response}
 

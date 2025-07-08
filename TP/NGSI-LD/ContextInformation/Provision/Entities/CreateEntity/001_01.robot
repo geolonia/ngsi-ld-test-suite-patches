@@ -1,17 +1,14 @@
 *** Settings ***
 Documentation       Check that one can create an entity
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Teardown       Delete Initial Entity
 Test Template       Create Entity Scenarios
-
-
-*** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***    FILENAME    CONTENT_TYPE
@@ -36,13 +33,14 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 Create Entity Scenarios
     [Documentation]    Check that one can create an entity
     [Arguments]    ${filename}    ${content_type}
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
     ...    ${content_type}
     Check Response Status Code    201    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     Check Response Headers Containing URI set to    ${entity_id}    ${response.headers}
     ${created_entity}=    Load Test Sample    entities/${filename}    ${entity_id}
     IF    '${content_type}' == 'application/json'

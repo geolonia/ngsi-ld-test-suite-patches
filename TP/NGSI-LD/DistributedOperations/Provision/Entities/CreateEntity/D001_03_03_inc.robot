@@ -1,27 +1,26 @@
 *** Settings ***
 Documentation       Verify that, when one has an entity on a Context Source and an inclusive registration on a Context Broker, one is not able to create that entity on the Context Source from the Context Broker but one is able to create it on the Context Broker
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup         Setup Registration And Start Context Source Mock Server
-Test Teardown      Delete Created Entity And Registration And Stop Context Source Mock Server
+Test Setup          Setup Registration And Start Context Source Mock Server
+Test Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
-${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 
 
 *** Test Cases ***
-D001_03_03_inc Create entity already existing remotely on the Context Broker 
+D001_03_03_inc Create entity already existing remotely on the Context Broker
     [Documentation]    Check that if one requests the Context Broker to create an entity that matches an inclusive registration and already exists remotely, this raises an error on the Context Source, but it works just fine on the Context Broker
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_1    6_3_3
     Set Stub Reply    POST    /ngsi-ld/v1/entities    409
@@ -36,10 +35,10 @@ D001_03_03_inc Create entity already existing remotely on the Context Broker
 
 *** Keywords ***
 Setup Registration And Start Context Source Mock Server
-    ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
 
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
     ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}

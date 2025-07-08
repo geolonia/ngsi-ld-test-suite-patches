@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can delete a scope from an entity
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +12,6 @@ Test Teardown       Delete Initial Entity
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${filename}=                building-minimal-with-one-scope.json
 ${expectation_filename}=    building-minimal-compacted.json
 
@@ -26,6 +26,7 @@ ${expectation_filename}=    building-minimal-compacted.json
     ...    ${EMPTY}
     ...    false
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response}=    Retrieve Entity by Id
     ...    ${entity_id}
@@ -35,7 +36,7 @@ ${expectation_filename}=    building-minimal-compacted.json
 
 *** Keywords ***
 Create Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}

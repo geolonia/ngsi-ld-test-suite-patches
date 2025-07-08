@@ -1,16 +1,18 @@
 *** Settings ***
 Documentation       Verify that, when one has an inclusive registration on a Context Broker and an entity only on a Context Source, if one retrieves entity from the Context Broker with local flag entity not found error is raised
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup         Setup Registration And Start Context Source Mock Server
-Test Teardown      Delete Registration And Stop Context Source Mock Server
+Test Setup          Setup Registration And Start Context Source Mock Server
+Test Teardown       Delete Registration And Stop Context Source Mock Server
+
 
 *** Variables ***
 ${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
@@ -30,10 +32,10 @@ D010_02_inc Retrieve entity on a Context Source from the Context Broker with loc
 
 *** Keywords ***
 Setup Registration And Start Context Source Mock Server
-    ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
 
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
     ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
@@ -41,8 +43,6 @@ Setup Registration And Start Context Source Mock Server
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response1.status_code}
     Start Context Source Mock Server
-
-
 
 Delete Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}

@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that an error is raised if one deletes a temporal entity with an unknown EntityId/Attribute Id
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -11,9 +12,8 @@ Test Template       Delete An Attribute
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-temporal-representation.jsonld
-${status_code}=             404
+${filename}=        vehicle-temporal-representation.jsonld
+${status_code}=     404
 
 
 *** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID
@@ -42,8 +42,8 @@ Delete An Attribute
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 Create Id
-    ${valid_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
-    ${unknown_temporal_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${valid_temporal_entity_id}=    Generate Random Vehicle Entity Id
+    ${unknown_temporal_entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${valid_temporal_entity_id}
     Set Test Variable    ${unknown_temporal_entity_id}
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type

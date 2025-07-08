@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CI/Cons/TE/021_12",
-  "test_objective": "Check that you cannot query the temporal evolution of entities with an invalid request or invalid request content",
+  "test_objective": "Check that one cannot query the temporal evolution of entities with an invalid request or invalid request content",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.4",
   "config_id": "",
   "parent_release": "v1.3.1",
@@ -18,7 +18,7 @@
     {
       "name": "021_12_01 Query the temporal evolution of entities with an invalid request",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/TE/021_12_01",
-      "doc": "Check that you cannot query the temporal evolution of entities with an invalid request",
+      "doc": "Check that one cannot query the temporal evolution of entities with an invalid request",
       "tags": [
         "5_7_4",
         "te-query"

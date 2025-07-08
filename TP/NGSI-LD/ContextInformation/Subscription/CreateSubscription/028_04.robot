@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot create a subscription with an existing id
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -10,7 +11,6 @@ Suite Teardown      Delete Initial Subscriptions
 
 
 *** Variables ***
-${subscription_id_prefix}=              urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=      subscriptions/subscription.jsonld
 
 
@@ -32,7 +32,7 @@ ${subscription_payload_file_path}=      subscriptions/subscription.jsonld
 
 *** Keywords ***
 Create Initial Subscription
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     Set Suite Variable    ${subscription_id}
     ${initial_response}=    Create Subscription
     ...    ${subscription_id}

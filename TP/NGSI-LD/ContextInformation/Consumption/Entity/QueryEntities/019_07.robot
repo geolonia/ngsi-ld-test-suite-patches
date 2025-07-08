@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       If the count parameter is set to true the special HTTP header NGSILD-Results-Count is set in the response and it shall contain the total number of matching results.
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,6 @@ Test Template       Query Entities With Count
 
 
 *** Variables ***
-${building_id_prefix}=          urn:ngsi-ld:Building:
 ${first_entity_filename}=       building-simple-attributes.jsonld
 ${second_entity_filename}=      building-simple-attributes-second.jsonld
 ${entity_type}=                 Building
@@ -42,14 +42,14 @@ Query Entities With Count
     Check Response Headers Containing NGSILD-Results-Count Equals To    ${expected_count}    ${response.headers}
 
 Setup Initial Entities
-    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${first_entity_id}
     ${create_response1}=    Create Entity Selecting Content Type
     ...    ${first_entity_filename}
     ...    ${first_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${create_response1.status_code}
-    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${second_entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${second_entity_id}
     ${create_response2}=    Create Entity Selecting Content Type
     ...    ${second_entity_filename}

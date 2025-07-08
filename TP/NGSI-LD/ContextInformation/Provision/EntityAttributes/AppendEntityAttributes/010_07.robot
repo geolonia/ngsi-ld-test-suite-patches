@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can append a scope to an entity
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +12,6 @@ Test Teardown       Delete Initial Entity
 
 
 *** Variables ***
-${vehicle_id_prefix}=           urn:ngsi-ld:Vehicle:
 ${filename}=                    building-minimal-with-one-scope.json
 ${scope_fragment_filename}=     one-scope-fragment.json
 
@@ -25,6 +25,7 @@ ${scope_fragment_filename}=     one-scope-fragment.json
     ...    ${scope_fragment_filename}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${expectation_filename}=    Set Variable    building-minimal-with-one-scope.json
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response}=    Retrieve Entity by Id
@@ -42,6 +43,7 @@ ${scope_fragment_filename}=     one-scope-fragment.json
     ...    ${CONTENT_TYPE_JSON}
     ...    noOverwrite
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${expectation_filename}=    Set Variable    building-minimal-with-two-scopes.json
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response}=    Retrieve Entity by Id
@@ -53,7 +55,7 @@ ${scope_fragment_filename}=     one-scope-fragment.json
 
 *** Keywords ***
 Create Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}

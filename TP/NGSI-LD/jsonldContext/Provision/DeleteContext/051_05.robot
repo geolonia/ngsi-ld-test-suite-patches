@@ -1,12 +1,12 @@
 *** Settings ***
 Documentation       Check that one gets an error if one created an entity with a context (Cached context) and one tries to delete it with reload=true
 
-Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
-Resource            ${EXECDIR}/resources/JsonUtils.resource
-Resource            ${EXECDIR}/resources/HttpUtils.resource
 Resource            ${EXECDIR}/resources/ContextServerUtils.resource
+Resource            ${EXECDIR}/resources/HttpUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
 Library             Collections
 Library             String
 Variables           ${EXECDIR}/resources/variables.py

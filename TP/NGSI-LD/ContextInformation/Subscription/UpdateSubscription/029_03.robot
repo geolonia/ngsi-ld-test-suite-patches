@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one cannot update a subscription: If the data types and restriction are not met by the Subscription Fragment, then an error of type BadRequestData shall be raised
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
@@ -10,7 +11,6 @@ Suite Teardown      Delete Initial Subscriptions
 
 
 *** Variables ***
-${subscription_id_prefix}=                      urn:ngsi-ld:Subscription:
 ${subscription_payload_file_path}=              subscriptions/subscription.jsonld
 ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscription-invalid-update.json
 
@@ -32,7 +32,7 @@ ${subscription_update_fragment_file_path}=      subscriptions/fragments/subscrip
 
 *** Keywords ***
 Setup Initial Subscriptions
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
     ${initial_response}=    Create Subscription
     ...    ${subscription_id}
     ...    ${subscription_payload_file_path}

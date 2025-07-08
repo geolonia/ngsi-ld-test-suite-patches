@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can append entity attributes
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,8 +13,7 @@ Test Template       Append Attributes Without Params
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${filename}=                vehicle-speed-two-datasetid.jsonld
+${filename}=    vehicle-speed-two-datasetid.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_FILENAME
@@ -31,6 +31,7 @@ Append Attributes Without Params
     [Arguments]    ${status_code}    ${fragment_filename}    ${expectation_filename}
     ${response}=    Append Entity Attributes    ${entity_id}    ${fragment_filename}    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}
@@ -41,7 +42,7 @@ Append Attributes Without Params
     ...    response_body=${response1.json()}
 
 Create Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}

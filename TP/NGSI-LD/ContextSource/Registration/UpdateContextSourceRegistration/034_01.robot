@@ -1,18 +1,15 @@
 *** Settings ***
 Documentation       Check that one can update a context source registration by id
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Initialize the Test Case
 Test Teardown       Delete Updated Context Source Registration
 Test Template       Update A Context Source
-
-
-*** Variables ***
-${registration_id_prefix}=      urn:ngsi-ld:Registration:
 
 
 *** Test Cases ***    FILENAME    UPDATE_FILENAME
@@ -33,6 +30,7 @@ Update A Context Source
     ...    ${registration_update_fragment}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${registration_id}
     Check JSON Value In Response Body
@@ -44,7 +42,7 @@ Delete Updated Context Source Registration
     Delete Context Source Registration    ${registration_id}
 
 Initialize the Test Case
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=    Generate Random CSR Id
     Set Test Variable    ${registration_id}
     ${payload}=    Load JSON From File
     ...    ${EXECDIR}/data/csourceRegistrations/context-source-registration.jsonld

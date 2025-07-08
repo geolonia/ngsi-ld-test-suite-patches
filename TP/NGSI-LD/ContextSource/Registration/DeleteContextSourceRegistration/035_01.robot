@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can delete a context source registration by id
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -10,7 +11,6 @@ Test Setup          Setup Initial Context Source Registrations
 
 
 *** Variables ***
-${registration_id_prefix}=              urn:ngsi-ld:Registration:
 ${registration_payload_file_path}=      context-source-registration.jsonld
 
 
@@ -22,6 +22,7 @@ ${registration_payload_file_path}=      context-source-registration.jsonld
     ${response}=    Delete Context Source Registration With Return    ${registration_id}
 
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Context Source Registration
     ...    context_source_registration_id=${registration_id}
     ...    context=${ngsild_test_suite_context}
@@ -30,7 +31,7 @@ ${registration_payload_file_path}=      context-source-registration.jsonld
 
 *** Keywords ***
 Setup Initial Context Source Registrations
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=    Generate Random CSR Id
     ${payload}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${registration_payload_file_path}
     ${updated_payload}=    Update Value To JSON    ${payload}    $..id    ${registration_id}
     ${create_response}=    Create Context Source Registration With Return    ${updated_payload}

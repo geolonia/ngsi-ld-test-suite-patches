@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can append an operationSpace geospatial Property to an entity
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +12,6 @@ Test Teardown       Delete Initial Entity
 
 
 *** Variables ***
-${building_id_prefix}=                      urn:ngsi-ld:Building:
 ${filename}=                                building-minimal.jsonld
 ${operation_space_fragment_filename}=       operation-space-fragment.json
 ${expectation_filename}=                    building-operation-space-geoproperty-normalized.jsonld
@@ -26,6 +26,7 @@ ${expectation_filename}=                    building-operation-space-geoproperty
     ...    ${operation_space_fragment_filename}
     ...    ${CONTENT_TYPE_JSON}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response}=    Retrieve Entity by Id
     ...    ${entity_id}
@@ -36,7 +37,7 @@ ${expectation_filename}=                    building-operation-space-geoproperty
 
 *** Keywords ***
 Create Initial Entity
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity
     ...    ${filename}

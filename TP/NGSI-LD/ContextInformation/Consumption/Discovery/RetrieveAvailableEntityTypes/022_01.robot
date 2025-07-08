@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check that one can retrieve a list of NGSI-LD entity types
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
@@ -12,10 +13,8 @@ Test Template       Retrieve Available Entity Types
 
 
 *** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
-${first_filename}=          building-simple-attributes.json
-${second_filename}=         vehicle-simple-attributes.json
+${first_filename}=      building-simple-attributes.json
+${second_filename}=     vehicle-simple-attributes.json
 
 
 *** Test Cases ***    CONTEXT    EXPECTATION_FILE
@@ -37,8 +36,8 @@ Retrieve Available Entity Types
     Check Response Body Containing EntityTypeList element    ${expectation_file}    ${response.json()}
 
 Setup Initial Entities
-    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${second_entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${first_entity_id}=    Generate Random Building Entity Id
+    ${second_entity_id}=    Generate Random Vehicle Entity Id
     ${create_response1}=    Create Entity Selecting Content Type
     ...    ${first_filename}
     ...    ${first_entity_id}

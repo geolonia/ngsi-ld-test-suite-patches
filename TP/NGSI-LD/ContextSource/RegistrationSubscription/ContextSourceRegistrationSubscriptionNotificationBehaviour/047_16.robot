@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check if one updates a context source registration subscription, a CsourceNotification will be sent with all currently matching context source registrations
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/NotificationUtils.resource
@@ -13,8 +14,6 @@ Test Template       Receive cSourceNotification For Newly Matching Context Sourc
 
 
 *** Variables ***
-${context_source_registration_id_prefix}=                   urn:ngsi-ld:ContextSourceRegistration:
-${subscription_id_prefix}=                                  urn:ngsi-ld:Subscription:
 ${first_context_source_registration_payload_file_path}=     csourceRegistrations/context-source-registration-vehicle-entities.jsonld
 ${second_context_source_registration_payload_file_path}=    csourceRegistrations/context-source-registration-bus-entities.jsonld
 ${subscription_payload_file_path}=                          csourceSubscriptions/subscription.jsonld
@@ -47,9 +46,9 @@ Receive cSourceNotification For Newly Matching Context Source Registrations
 
 Create Initial Context Source Registrations And Context Source Registration Subscription
     Start Local Server
-    ${subscription_id}=    Generate Random Entity Id    ${subscription_id_prefix}
-    ${first_context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
-    ${second_context_source_registration_id}=    Generate Random Entity Id    ${context_source_registration_id_prefix}
+    ${subscription_id}=    Generate Random Subscription Id
+    ${first_context_source_registration_id}=    Generate Random CSR Id
+    ${second_context_source_registration_id}=    Generate Random CSR Id
     ${subscription_payload}=    Load Subscription Sample With Reachable Endpoint
     ...    ${subscription_payload_file_path}
     ...    ${subscription_id}

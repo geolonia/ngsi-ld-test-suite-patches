@@ -1,20 +1,17 @@
 *** Settings ***
 Documentation       Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is "application/json" and the request payload body (as JSON) contains a "@context" term
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
-
-
-*** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***
 003_06_01 Create a batch of one entity containing a JSON-LD @context with a JSON content type
     [Documentation]    Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is "application/json" and the request payload body (as JSON) contains a "@context" term
     [Tags]    be-create    6_3_5
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     ${entity}=    Load Entity    building-simple-attributes.jsonld    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
 

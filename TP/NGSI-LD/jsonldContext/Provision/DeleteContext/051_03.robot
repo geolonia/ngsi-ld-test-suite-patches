@@ -1,22 +1,22 @@
 *** Settings ***
 Documentation       Check that one can delete a previous created cached @context without reload param
 
-Variables           ${EXECDIR}/resources/variables.py
-Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/HttpUtils.resource
+Variables           ${EXECDIR}/resources/variables.py
 
 Test Setup          Create Initial cached @context
 Test Teardown       Delete Initial @context
 
 
 *** Variables ***
-${filename}=                @context-cached-one-valid.json
-${entity_filename}=         building-simple-attributes.json
-${building_id_prefix}=      urn:ngsi-ld:Building:
-${content_type}=            application/json
-${reason_204}=              No Content
+${filename}=            @context-cached-one-valid.json
+${entity_filename}=     building-simple-attributes.json
+${content_type}=        application/json
+${reason_204}=          No Content
 
 
 *** Test Cases ***
@@ -27,6 +27,7 @@ ${reason_204}=              No Content
     ${response}=    Delete a @context    ${contextId}
 
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     Check Response Reason set to    ${response.reason}    ${reason_204}
     Check Response Does Not Contain Body    ${response}
 
@@ -40,7 +41,7 @@ Create Initial cached @context
     ${response}=    Add a new @context    ${filename}
     Check Response Status Code    201    ${response.status_code}
     ${uri}=    Fetch Id From Response Location Header    ${response.headers}
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     ${response}=    Create Entity Selecting Content Type
     ...    ${entity_filename}
     ...    ${entity_id}

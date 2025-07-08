@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that you can merge a batch of entities where some will succeed and others will fail
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +12,6 @@ Suite Teardown      Delete Initial Entities
 
 
 *** Variables ***
-${building_id_prefix}=          urn:ngsi-ld:Building:
 ${entity_payload_filename}=     building-simple-attributes.jsonld
 ${merge_fragment_filename}=     fragmentEntities/simple-attributes-relationship-of-property-fragment.json
 ${entity_filename}=             building-relationship-of-property.jsonld
@@ -27,7 +27,7 @@ ${entity_filename}=             building-relationship-of-property.jsonld
     ${second_existing_entity}=    Load Entity
     ...    ${entity_filename}
     ...    ${second_existing_entity_id}
-    ${new_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${new_entity_id}=    Generate Random Building Entity Id
     ${new_entity}=    Load Entity    ${entity_filename}    ${new_entity_id}
     @{entities_to_be_merged}=    Create List    ${first_existing_entity}    ${second_existing_entity}    ${new_entity}
 
@@ -61,8 +61,8 @@ ${entity_filename}=             building-relationship-of-property.jsonld
 
 *** Keywords ***
 Setup Initial Entities
-    ${first_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${second_existing_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_existing_entity_id}=    Generate Random Building Entity Id
+    ${second_existing_entity_id}=    Generate Random Building Entity Id
     Create Entity    ${entity_payload_filename}    ${first_existing_entity_id}
     Create Entity    ${entity_payload_filename}    ${second_existing_entity_id}
     Set Suite Variable    ${first_existing_entity_id}

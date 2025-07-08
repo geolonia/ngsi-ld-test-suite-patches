@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can query two entities via POST Interaction based on ids
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +12,6 @@ Suite Teardown      Delete Entities
 
 
 *** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
 ${filename}=                building-minimal.jsonld
 ${expectation_filename}=    building-minimal.json
 ${entity_type}=             https://ngsi-ld-test-suite/context#Building
@@ -36,21 +36,21 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 
 *** Keywords ***
 Create Entities
-    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${first_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${first_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${second_entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${second_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${second_entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${third_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${third_entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${third_entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}

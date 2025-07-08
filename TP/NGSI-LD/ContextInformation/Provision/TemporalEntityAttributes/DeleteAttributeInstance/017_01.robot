@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can delete an attribute instance in temporal representation of an entity
 
-Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -11,7 +12,6 @@ Suite Teardown      Delete Temporal Entity
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Vehicle:
 ${filename}=                vehicle-temporal-representation.jsonld
 ${attributeId}=             speed
 ${expectation_filename}=    vehicle-temporal-representation-delete-speed-instanceid.jsonld
@@ -35,6 +35,7 @@ ${expectation_filename}=    vehicle-temporal-representation-delete-speed-instanc
     ...    ${ngsild_test_suite_context}
 
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${temporal_entity_expectation_payload}=    Load Test Sample
     ...    temporalEntities/expectations/${expectation_filename}
     ...    ${temporal_entity_representation_id}
@@ -51,7 +52,7 @@ ${expectation_filename}=    vehicle-temporal-representation-delete-speed-instanc
 
 *** Keywords ***
 Create Temporal Entity
-    ${temporal_entity_representation_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${temporal_entity_representation_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${temporal_entity_representation_id}
     ${create_response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type
     ...    temporal_entity_representation_id=${temporal_entity_representation_id}

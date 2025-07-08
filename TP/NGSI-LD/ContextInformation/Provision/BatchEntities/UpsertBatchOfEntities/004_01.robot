@@ -1,17 +1,14 @@
 *** Settings ***
 Documentation       Check that one can upsert a batch of non-existing entities and they will be created
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Teardown       Delete Initial Entities
 Test Template       Batch Upsert Entity Scenarios
-
-
-*** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***    FILENAME
@@ -30,8 +27,8 @@ ${building_id_prefix}=      urn:ngsi-ld:Building:
 Batch Upsert Entity Scenarios
     [Documentation]    Check that one can upsert a batch of non-existing entities
     [Arguments]    ${filename}
-    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_entity_id}=    Generate Random Building Entity Id
+    ${second_entity_id}=    Generate Random Building Entity Id
     ${first_entity}=    Load Entity    ${filename}    ${first_entity_id}
     ${second_entity}=    Load Entity    ${filename}    ${second_entity_id}
     @{entities_to_be_upserted}=    Create List    ${first_entity}    ${second_entity}

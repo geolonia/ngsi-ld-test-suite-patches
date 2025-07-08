@@ -1,20 +1,17 @@
 *** Settings ***
 Documentation       Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is "application/ld+json" and a JSON-LD Link header is present in the incoming HTTP request
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
-
-
-*** Variables ***
-${building_id_prefix}=      urn:ngsi-ld:Building:
 
 
 *** Test Cases ***
 003_09_01 Create a batch of one entity with a Link header and a JSON-LD content type
     [Documentation]    Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is "application/ld+json" and a JSON-LD Link header is present in the incoming HTTP request
     [Tags]    be-create    6_3_5
-    ${entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${entity_id}=    Generate Random Building Entity Id
     ${entity}=    Load Entity    building-simple-attributes.jsonld    ${entity_id}
     @{entities_to_be_created}=    Create List    ${entity}
 

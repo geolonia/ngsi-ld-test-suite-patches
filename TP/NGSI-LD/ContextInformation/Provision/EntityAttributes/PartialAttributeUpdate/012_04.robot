@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that one can perform a partial update on a LanguageProperty property
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,9 +13,8 @@ Test Template       Update Attributes
 
 
 *** Variables ***
-${vehicle_id_prefix}=       urn:ngsi-ld:Building:
-${filename}=                building-language-property-sub-property.jsonld
-${status_code}=             204
+${filename}=        building-language-property-sub-property.jsonld
+${status_code}=     204
 
 
 *** Test Cases ***    FRAGMENT_FILENAME    ATTRIBUTE_ID    EXPECTATION_FILENAME
@@ -33,6 +33,7 @@ Update Attributes
     ...    fragment_filename=${fragment_filename}
     ...    content_type=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
     ${response1}=    Retrieve Entity by Id
     ...    id=${entity_id}
@@ -42,7 +43,7 @@ Update Attributes
     Check Updated Resource Set To    ${entity_expectation_payload}    ${response1.json()}    ${ignored_attributes}
 
 Initiate Test Case
-    ${entity_id}=    Generate Random Entity Id    ${vehicle_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Test Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}

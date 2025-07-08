@@ -1,27 +1,26 @@
 *** Settings ***
 Documentation       Verify that, when one has an inclusive registration on a Context Broker, one is able to delete entities on a Context Source and should get a BatchOperationResult structure
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup         Setup Registration And Start Context Source Mock Server
-Test Teardown      Delete Registration And Stop Context Source Mock Server
+Test Setup          Setup Registration And Start Context Source Mock Server
+Test Teardown       Delete Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
-${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 
 
 *** Test Cases ***
-D002_02_02_inc Delete Entity On a Context Source 
+D002_02_02_inc Delete Entity On a Context Source
     [Documentation]    Verify that, when one has an inclusive registration on a Context Broker, one is able to delete entities on a Context Source and should get a BatchOperationResult structure
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_6    6_3_3
     Set Stub Reply    DELETE    /ngsi-ld/v1/entities/${entity_id}    204
@@ -35,10 +34,10 @@ D002_02_02_inc Delete Entity On a Context Source
 
 *** Keywords ***
 Setup Registration And Start Context Source Mock Server
-    ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
 
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
     ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}

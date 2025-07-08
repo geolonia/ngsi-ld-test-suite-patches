@@ -26,6 +26,7 @@ ${subscription_id}=                     ${EMPTY}
     Set Suite Variable    ${subscription_id}
 
     Check Response Status Code    201    ${response.status_code}
+    Check Response Body Is Empty    ${response}
 
     ${response1}=    Retrieve Context Source Registration Subscription
     ...    subscription_id=${subscription_id}

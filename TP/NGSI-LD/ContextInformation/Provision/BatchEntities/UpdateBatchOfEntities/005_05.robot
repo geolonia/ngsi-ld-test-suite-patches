@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation       Check that you can update types of entities in a batch update operation
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
@@ -12,7 +13,6 @@ Test Template       Batch Update Entity Scenarios
 
 
 *** Variables ***
-${building_id_prefix}=          urn:ngsi-ld:Building:
 ${entity_payload_filename}=     building-minimal.jsonld
 
 
@@ -32,6 +32,7 @@ Batch Update Entity Scenarios
     @{entities_to_be_updated}=    Create List    ${first_entity}    ${second_entity}
     ${response}=    Batch Update Entities    @{entities_to_be_updated}
     Check Response Status Code    204    ${response.status_code}
+    Check Response Body Is Empty    ${response}
     ${first_created_entity}=    Load Test Sample    entities/${entity_payload_filename}    ${first_entity_id}
     ${second_created_entity}=    Load Test Sample    entities/${entity_payload_filename}    ${second_entity_id}
     ${update_fragment}=    Load Test Sample    entities/${update_fragment_filename}
@@ -47,8 +48,8 @@ Batch Update Entity Scenarios
     Check Updated Resources Set To    ${updated_entities}    ${response1.json()}
 
 Setup Initial Entities
-    ${first_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
-    ${second_entity_id}=    Generate Random Entity Id    ${building_id_prefix}
+    ${first_entity_id}=    Generate Random Building Entity Id
+    ${second_entity_id}=    Generate Random Building Entity Id
     Create Entity    ${entity_payload_filename}    ${first_entity_id}
     Create Entity    ${entity_payload_filename}    ${second_entity_id}
     Set Test Variable    ${first_entity_id}

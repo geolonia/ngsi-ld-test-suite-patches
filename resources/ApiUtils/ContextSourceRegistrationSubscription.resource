@@ -4,6 +4,7 @@ Library         ${EXECDIR}/libraries/logUtils.py
 Library         Collections
 Library         OperatingSystem
 Library         RequestsLibrary
+Resource        ${EXECDIR}/resources/ApiUtils/Common.resource
 
 
 *** Variables ***
@@ -51,9 +52,10 @@ Query Context Source Registration Subscriptions
     &{params}=    Create Dictionary
     IF    '${accept}'!=''    Set To Dictionary    ${headers}    Accept=${accept}
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     IF    '${limit}'!=''    Set To Dictionary    ${params}    limit=${limit}
     IF    '${page}'!=''    Set To Dictionary    ${params}    page=${page}
@@ -72,9 +74,10 @@ Retrieve Context Source Registration Subscription
     &{headers}=    Create Dictionary
     Set To Dictionary    ${headers}    Accept    ${accept}
     IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
         Set To Dictionary
         ...    ${headers}
-        ...    Link=<${context}>; rel="http://www.w3.org/ns/json-ld#context";type="application/ld+json"
+        ...    Link=${context_link}
     END
     ${response}=    GET
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
