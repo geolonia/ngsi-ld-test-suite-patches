@@ -37,11 +37,11 @@ Generate Bus Entity Id
     RETURN    ${entity_id}
 
 Generate Random Parking Entity Id
-    ${entity_id}=    Generate Random Id    ${VEHICLE_ID_PREFIX}
+    ${entity_id}=    Generate Random Id    ${PARKING_ID_PREFIX}
     RETURN    ${entity_id}
 
 Generate Random Vehicle Entity Id
-    ${entity_id}=    Generate Random Id    ${PARKING_ID_PREFIX}
+    ${entity_id}=    Generate Random Id    ${VEHICLE_ID_PREFIX}
     RETURN    ${entity_id}
 
 Generate Random Subscription Id
