@@ -31,7 +31,7 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
     ${response1}=    Retrieve Subscription
     ...    id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
-    ${ignore_keys}=    Create List    "jsonldContext"    "timesFailed"    "timesSent"    "notificationTrigger"
+    ${ignore_keys}=    Create List    jsonldContext    timesFailed    timesSent    notificationTrigger
     Check Response Body Containing Subscription element
     ...    ${expected_subscription_payload_file_path}
     ...    ${subscription_id}

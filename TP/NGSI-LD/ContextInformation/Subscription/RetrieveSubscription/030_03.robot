@@ -23,7 +23,7 @@ ${expectation_file_path}=               subscriptions/expectations/subscriptions
     ...    id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
-    ${ignore_keys}=    Create List    "jsonldContext"    "timesFailed"    "timesSent"    "notificationTrigger"
+    ${ignore_keys}=    Create List    jsonldContext    timesFailed    timesSent    notificationTrigger
     Check Response Body Containing Subscription element
     ...    ${expectation_file_path}
     ...    ${subscription_id}

@@ -254,7 +254,7 @@ Check Response Body Containing Subscription element
     ${subscription}=    Update Value To JSON    ${subscription_payload}    $..id    ${subscription_id}
     ${ignored_keys}=    Create List    ${context_regex_expr}
     IF    ${additional_ignored_keys} != None
-        Extend List    ${ignored_keys}    ${additional_ignored_keys}
+        ${ignored_keys}=    Combine Lists    ${ignored_keys}    ${additional_ignored_keys}
     END
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${subscription}
