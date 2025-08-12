@@ -114,7 +114,7 @@ Check Response Headers ID Not Empty
 Check Response Body Containing an Attribute set to
     [Arguments]    ${expected_attribute_name}    ${response_body}    ${expected_attribute_value}=${EMPTY}
     Should Not Be Empty    ${response_body['${expected_attribute_name}']}
-    IF    ${expected_attribute_value}!=''
+    IF    '${expected_attribute_value}'!=''
         Should Be Equal    ${response_body['${expected_attribute_name}']}    ${expected_attribute_value}
     END
 
@@ -273,7 +273,12 @@ Check Response Body Containing List Containing Subscription elements
         ...    ${subscription_id}
         ${index}=    Evaluate    ${index} + 1
     END
-    ${ignored_keys}=    Create List    ${context_regex_expr}    "jsonldContext"    "timesFailed"    "timesSent"    "notificationTrigger"
+    ${ignored_keys}=    Create List
+    ...    ${context_regex_expr}
+    ...    "jsonldContext"
+    ...    "timesFailed"
+    ...    "timesSent"
+    ...    "notificationTrigger"
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${subscription_payload}
     ...    ${response_body}
