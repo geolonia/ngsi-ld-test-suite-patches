@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that one cannot query entities if the requested attribute names are incorrect
+Documentation       Check that one cannot query entities if the request has a wrong geometryProperty
 
 Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -12,19 +12,27 @@ Suite Teardown      Delete Entities
 
 
 *** Variables ***
-${filename}=                    building-minimal.jsonld
-${entity_type}=                 https://ngsi-ld-test-suite/context#Building
-${invalid_attribute_one}=       id
-${invalid_attribute_two}=       type
+${filename}=        building-location-attribute.jsonld
+${entity_type}=     Building
+${georel}=          invalid
+${geometry}=        Point
+${coordinates}=     [-8.503,41.202]
+${geoproperty}=     location
 
 
 *** Test Cases ***
-019_03_04 Query several entities based on incorrect attribute names
-    [Documentation]    Check that one cannot query entities if the requested attribute names are incorrect
+019_03_04 Query entities when the request has a wrong geometryProperty
+    [Documentation]    Check that one cannot query entities if the request has a wrong geometryProperty
     [Tags]    e-query    5_7_2
-    ${attributes_to_be_retrieved}=    Catenate    SEPARATOR=,    ${invalid_attribute_one}    ${invalid_attribute_two}
+    ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${entity_type}
 
-    ${response}=    Query Entities    attrs=${attributes_to_be_retrieved}
+    ${response}=    Query Entities
+    ...    entity_types=${entity_types_to_be_retrieved}
+    ...    geoproperty=${geoproperty}
+    ...    georel=${georel}
+    ...    geometry=${geometry}
+    ...    coordinates=${coordinates}
+    ...    context=${ngsild_test_suite_context}
 
     Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
