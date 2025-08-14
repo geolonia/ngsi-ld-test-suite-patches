@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that one cannot query entities if the requested id pattern is incorrect
+Documentation       Check that one cannot query entities if the requested attribute names are incorrect
 
 Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -12,20 +12,19 @@ Suite Teardown      Delete Entities
 
 
 *** Variables ***
-${filename}=                        building-minimal.jsonld
-${entity_type}=                     https://ngsi-ld-test-suite/context#Building
-${invalid_entity_id_pattern}=       invalid_entity_id_pattern**
+${filename}=                    building-minimal.jsonld
+${entity_type}=                 https://ngsi-ld-test-suite/context#Building
+${invalid_attribute_one}=       id
+${invalid_attribute_two}=       type
 
 
 *** Test Cases ***
-019_03_03 Query several entities based on incorrect id pattern
-    [Documentation]    Check that one cannot query entities if the requested id pattern is incorrect
+019_03_03 Query several entities based on incorrect attribute names
+    [Documentation]    Check that one cannot query entities if the requested attribute names are incorrect
     [Tags]    e-query    5_7_2
-    ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${entity_type}
+    ${attributes_to_be_retrieved}=    Catenate    SEPARATOR=,    ${invalid_attribute_one}    ${invalid_attribute_two}
 
-    ${response}=    Query Entities
-    ...    entity_id_pattern=${invalid_entity_id_pattern}
-    ...    entity_types=${entity_types_to_be_retrieved}
+    ${response}=    Query Entities    attrs=${attributes_to_be_retrieved}
 
     Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to

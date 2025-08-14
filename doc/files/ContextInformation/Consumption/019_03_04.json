@@ -1,6 +1,6 @@
 {
   "tp_id": "TP/NGSI-LD/CI/Cons/E/019_03_04",
-  "test_objective": "Check that you cannot query entities if the requested attribute names are incorrect",
+  "test_objective": "Check that you cannot query entities if the request has a wrong geometryProperty",
   "reference": "ETSI GS CIM 009 V1.3.1 [], clause 5.7.2",
   "config_id": "",
   "parent_release": "v1.3.1",
@@ -15,9 +15,9 @@
   "initial_condition": "with {\n   the SUT containing an initial state\n}",
   "test_cases": [
     {
-      "name": "019_03_04 Query several entities based on incorrect attribute names",
+      "name": "019_03_04 Query entities when the request has a wrong geometryProperty",
       "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_03_04",
-      "doc": "Check that you cannot query entities if the requested attribute names are incorrect",
+      "doc": "Check that you cannot query entities if the request has a wrong geometryProperty",
       "tags": [
         "5_7_2",
         "e-query"
@@ -26,7 +26,7 @@
       "teardown": null,
       "template": null,
       "then": "then {\n    the SUT sends a valid Response for the operations:\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Create Entity Selecting Content Type with Response Status Code set to 201     and\n        Query Entities with Response Status Code set to 400     and\n        Query Entities with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/BadRequestData'     and\n        Query Entities with Response body containing 'title' element\n}",
-      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: attrs set to '${attributes_to_be_retrieved}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to '${entity_types_to_be_retrieved}' and\n    Query Parameter: geoproperty set to 'location' and\n    Query Parameter: georel set to 'invalid' and\n    Query Parameter: geometry set to 'Point' and\n    Query Parameter: coordinates set to '[-8.503,41.202]' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
       "http_verb": "GET",
       "endpoint": "entities/"
     }
