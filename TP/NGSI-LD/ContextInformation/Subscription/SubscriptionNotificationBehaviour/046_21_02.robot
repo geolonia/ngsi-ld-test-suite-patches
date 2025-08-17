@@ -31,7 +31,7 @@ ${building_filename}=                   building-location-attribute.jsonld
     Should be Equal    ${subscription_id}    ${notification}[subscriptionId]
     Length Should Be    ${notification}[data]    ${1}
     ${notified_entity}=    Set Variable    ${notification}[data][0]
-    Length Should Be    ${notified_entity}    ${4}
+    Length Should Be    ${notified_entity}    ${5}
     Should be Equal    ${entity_id}    ${notified_entity}[id]
     Should Have Value In Json
     ...    json_object=${notified_entity}
