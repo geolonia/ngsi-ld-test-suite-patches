@@ -29,7 +29,7 @@ D002_01_inc Delete Entities On Both Context Broker And Context Source
 
     ${stub_count}=    Get Stub Count    DELETE    /ngsi-ld/v1/entities/${entity_id}
     Should Be True    ${stub_count} > 0
-    ${response_retrieve}=    Retrieve Entity by Id    ${entity_id}    local=true
+    ${response_retrieve}=    Retrieve Entity    ${entity_id}    local=true
     Check Response Status Code    404    ${response_retrieve.status_code}
 
 

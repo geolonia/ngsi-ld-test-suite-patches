@@ -142,7 +142,7 @@ Query Entities Via POST
     Output    ${response}    Query Entities Via POST
     RETURN    ${response}
 
-Query Entity
+Retrieve Entity
     [Arguments]
     ...    ${id}
     ...    ${accept}=${EMPTY}
@@ -154,6 +154,7 @@ Query Entity
     ...    ${lang}=${EMPTY}
     ...    ${join}=${EMPTY}
     ...    ${joinLevel}=${EMPTY}
+    ...    ${local}=${EMPTY}
     ${attrs_length}=    Get Length    ${attrs}
     ${accept_length}=    Get Length    ${accept}
     ${options_length}=    Get Length    ${options}
@@ -185,13 +186,14 @@ Query Entity
     IF    '${join_level}'!=''
         Set To Dictionary    ${params}    joinLevel=${joinLevel}
     END
+    IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
 
     ${response}=    GET
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
-    Output    ${response}    Query Entity
+    Output    ${response}    Retrieve Entity
     RETURN    ${response}
 
 Retrieve Attribute
@@ -235,35 +237,6 @@ Retrieve Attributes
     ...    params=${params}
     ...    expected_status=any
     Output    ${response}    Retrieve Attributes
-    RETURN    ${response}
-
-Retrieve Entity by Id
-    [Arguments]
-    ...    ${id}
-    ...    ${accept}=${CONTENT_TYPE_LD_JSON}
-    ...    ${context}=${EMPTY}
-    ...    ${local}=${EMPTY}
-    ...    ${options}=${EMPTY}
-    ${headers}=    Create Dictionary
-    &{params}=    Create Dictionary
-    ${options_length}=    Get Length    ${options}
-    Set To Dictionary    ${headers}    Accept    ${accept}
-    IF    '${context}'!=''
-        ${context_link}=    Build Context Link    ${context}
-        Set To Dictionary
-        ...    ${headers}
-        ...    Link=${context_link}
-    END
-    IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
-    IF    ${options_length}>0
-        Set To Dictionary    ${params}    options=${options}
-    END
-    ${response}=    GET
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}
-    ...    headers=${headers}
-    ...    params=${params}
-    ...    expected_status=any
-    Output    ${response}    Retrieve Entity by Id
     RETURN    ${response}
 
 Retrieve Entity Type

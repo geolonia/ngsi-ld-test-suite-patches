@@ -17,7 +17,7 @@ Test Setup          Setup Initial Entity
     ${response}=    Delete Entity by Id    ${entity_id}
     Check Response Status Code    204    ${response.status_code}
     Check Response Body Is Empty    ${response}
-    ${response2}=    Retrieve Entity by Id    id=${entity_id}    context=${ngsild_test_suite_context}
+    ${response2}=    Retrieve Entity    id=${entity_id}    context=${ngsild_test_suite_context}
     Check SUT Not Containing Resource    ${response2.status_code}
 
 

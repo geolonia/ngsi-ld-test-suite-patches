@@ -46,7 +46,7 @@ Append Attributes With Params
     END
 
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
-    ${response1}=    Retrieve Entity by Id
+    ${response1}=    Retrieve Entity
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}

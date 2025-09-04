@@ -22,7 +22,7 @@ ${status_code}=     406
     [Documentation]    Verify throwing 406 HTTP status code (Not Acceptable Media Type) if the "Accept" header does not imply "application/json" nor "application/ld+json" (get /entities/{entityId})
     [Tags]    e-query    cb-noacceptable-medtype    6_3_4
     ${entity_id}=    Generate Random Building Entity Id
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${entity_id}
     ...    accept=${accept}
     Check Response Status Code    ${status_code}    ${response.status_code}

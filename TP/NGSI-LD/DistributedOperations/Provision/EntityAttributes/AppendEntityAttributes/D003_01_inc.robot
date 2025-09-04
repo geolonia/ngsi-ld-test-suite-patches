@@ -24,7 +24,7 @@ D003_01_inc Append Entity Attribute
     [Documentation]    Check that, given an inclusive registration, appending entity attributes updates the Context Source accordingly.
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_3
 
-    ${response}=    Retrieve Entity by Id    ${entity_id}
+    ${response}=    Retrieve Entity    ${entity_id}
     ${old_body}=    Get From Dictionary    ${response.json()}    isParked
 
     Set Stub Reply    POST    /ngsi-ld/v1/entities/${entity_id}/attrs/    204
@@ -37,7 +37,7 @@ D003_01_inc Append Entity Attribute
     ${stub_count}=    Get Stub Count    POST    /ngsi-ld/v1/entities/${entity_id}/attrs/
     Should Be Equal    ${stub_count}    1
 
-    ${response}=    Retrieve Entity by Id    ${entity_id}
+    ${response}=    Retrieve Entity    ${entity_id}
     ${new_body}=    Get From Dictionary    ${response.json()}    isParked
 
     Should Have Value In Json    ${response.json()}    $.speed

@@ -40,9 +40,10 @@ class Requests:
                 'positions': [0],
                 'params': ['filename']
             },
-            'Query Entity': {
+            'Retrieve Entity': {
                 'positions': [],
-                'params': ['id', 'accept', 'attrs', 'context', 'geometryProperty', 'options', 'format', 'lang', 'join', 'joinLevel']
+                'params': ['id', 'accept', 'attrs', 'context', 'geometryProperty', 'options', 'format', 'lang',
+                           'join', 'joinLevel', 'local']
             },
             'Retrieve Subscription': {
                 'positions': [],
@@ -88,10 +89,6 @@ class Requests:
             'Retrieve Entity Type': {
                 'positions': [0, 1],
                 'params': ['type', 'context']
-            },
-            'Retrieve Entity by Id': {
-                'positions': [],
-                'params': ['id', 'accept', 'context', 'options']
             },
             'Query Entities': {
                 'positions': [],
@@ -316,8 +313,8 @@ class Requests:
                 Requests.batch_create_entities,
             'Create Context Source Registration With Return':
                 Requests.create_context_source_registration_with_return,
-            'Query Entity':
-                Requests.query_entity,
+            'Retrieve Entity':
+                Requests.retrieve_entity,
             'Retrieve Subscription':
                 Requests.retrieve_subscription,
             'Query Context Source Registrations With Return':
@@ -338,8 +335,6 @@ class Requests:
                 Requests.retrieve_attribute,
             'Retrieve Entity Type':
                 Requests.retrieve_entity_type,
-            'Retrieve Entity by Id':
-                Requests.retrieve_entity_by_id,
             'Query Entities':
                 Requests.query_entities,
             'Delete Entity by Id':
@@ -827,11 +822,12 @@ class Requests:
             raise Exception(f"ERROR: expected filename attribute, but received {kwargs}")
 
     @staticmethod
-    def query_entity(kwargs) -> str:
-        expected_parameters = ['id', 'accept', 'attrs', 'context', 'geometry_property', 'options', 'format', 'lang', 'join', 'joinLevel']
+    def retrieve_entity(kwargs) -> str:
+        expected_parameters = ['id', 'accept', 'attrs', 'context', 'geometry_property', 'options', 'format', 'lang',
+                               'join', 'joinLevel', 'local']
 
         result = [x for x in kwargs if x not in expected_parameters]
-        response = "Get Entity Request:"
+        response = "Retrieve Entity Request:"
         for key, value in kwargs.items():
             match key:
                 case 'id':
@@ -855,6 +851,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: join set to '{value}'"
                 case 'joinLevel':
                     response = f"{response} and\n    Query Parameter: joinLevel set to '{value}'"
+                case 'local':
+                    response = f"{response} and\n    Query Parameter: local set to '{value}'"
                 case _:
                     raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
                                     f"{expected_parameters}, but received: {kwargs}")
@@ -1410,29 +1408,6 @@ class Requests:
                 case 'context':
                     response = (f"{response} and\n    Query Parameter: Link set to "
                                 f"'<${value}>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'")
-                case _:
-                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
-                                    f"{expected_parameters}, but received: {kwargs}")
-
-        return response
-
-    @staticmethod
-    def retrieve_entity_by_id(kwargs) -> str:
-        expected_parameters = ['id', 'accept', 'context', 'options']
-
-        result = [x for x in kwargs if x not in expected_parameters]
-        response = 'Request Retrieve Entity by Id'
-        for key, value in kwargs.items():
-            match key:
-                case 'id':
-                    response = f"{response} and\n    Query Parameter: id set to '{value}'"
-                case 'accept':
-                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
-                case 'context':
-                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
-                case 'options':
-                    response = f"{response} and\n    Query Parameter: options set to '{value}'"
-                # If an exact match is not confirmed, this last case will be used if provided
                 case _:
                     raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
                                     f"{expected_parameters}, but received: {kwargs}")

@@ -33,7 +33,7 @@ D001_01_exc Create Entity With Exclusive Registration
     ${stub_count}=    Get Stub Count    POST    /broker1/ngsi-ld/v1/entities
     Should Be True    ${stub_count} > 0
 
-    ${response}=    Retrieve Entity By Id    ${entity_id}    context=${ngsild_test_suite_context}    local=true
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
     ${body}=    Set To Dictionary    ${response.json()}
     Should Not Contain    ${body}    speed
 

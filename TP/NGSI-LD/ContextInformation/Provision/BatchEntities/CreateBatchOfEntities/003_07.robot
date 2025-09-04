@@ -22,7 +22,7 @@ Test Teardown       Delete Initial Entities
     ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_LD_JSON}
 
     Check Response Status Code    201    ${response.status_code}
-    ${response1}=    Retrieve Entity by Id
+    ${response1}=    Retrieve Entity
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
     # Attribute should be compacted as one used the same context as provided when creating the entity
@@ -41,7 +41,7 @@ Test Teardown       Delete Initial Entities
     ${response}=    Batch Create Entities    @{entities_to_be_created}    content_type=${CONTENT_TYPE_LD_JSON}
 
     Check Response Status Code    201    ${response.status_code}
-    ${response1}=    Retrieve Entity by Id
+    ${response1}=    Retrieve Entity
     ...    id=${entity_id}
     # Attribute should not be compacted as one did not provide a context containing this term
     Check Response Body Containing an Attribute set to

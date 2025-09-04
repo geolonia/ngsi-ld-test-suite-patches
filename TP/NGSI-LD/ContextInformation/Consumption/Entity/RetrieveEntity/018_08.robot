@@ -29,7 +29,7 @@ ${filename}=    building-observation-space-geoproperty.jsonld
 Retrieve Entity With observationSpace Geospatial Property
     [Documentation]    Check that an entity with observationSpace geospatial Property can be retrieved
     [Arguments]    ${options}    ${expectation_filename}
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${entity_id}
     ...    options=${options}
     ...    context=${ngsild_test_suite_context}

@@ -21,7 +21,7 @@ ${filename}=    building-simple-attributes.json
     ${entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type    ${filename}    ${entity_id}    ${CONTENT_TYPE_JSON}
-    ${response1}=    Retrieve Entity by Id    id=${entity_id}
+    ${response1}=    Retrieve Entity    id=${entity_id}
     # Attribute should be compacted as one used the same default context as provided when creating the entity
     Check Response Body Containing an Attribute set to
     ...    expected_attribute_name=almostFull
@@ -33,7 +33,7 @@ ${filename}=    building-simple-attributes.json
     ${entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${entity_id}
     ${response}=    Create Entity Selecting Content Type    ${filename}    ${entity_id}    ${CONTENT_TYPE_JSON}
-    ${response1}=    Retrieve Entity by Id
+    ${response1}=    Retrieve Entity
     ...    id=${entity_id}
     ...    accept=${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}

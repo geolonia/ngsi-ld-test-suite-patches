@@ -21,7 +21,7 @@ ${options_parameter}=       keyValues
 018_04_01 Get An Entity In A Simplified Representation
     [Documentation]    Check that the queried entity by Id can be returned in a simplified representation
     [Tags]    e-retrieve    6_3_7
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${entity_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    options=${options_parameter}

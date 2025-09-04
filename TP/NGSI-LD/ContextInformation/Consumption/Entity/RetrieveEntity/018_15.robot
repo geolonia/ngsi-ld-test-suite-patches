@@ -50,7 +50,7 @@ ${filename}=    building-simple-attributes.jsonld
 Retrieve Entity With Format Or Options Query Params
     [Documentation]    Retrieve an entity giving format or options query params different values
     [Arguments]    ${format_value}    ${options_value}    ${expectation_filename}
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${entity_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    format=${format_value}

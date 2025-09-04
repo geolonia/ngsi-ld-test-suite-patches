@@ -37,7 +37,7 @@ ${linked_entity_filename}=      city-minimal.jsonld
 Retrieve Entity With Linked Entity
     [Documentation]    Check that an entity can be retrieved with a linked entity in different join types and representations
     [Arguments]    ${join}    ${options}    ${expectation_filename}
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${linking_entity_id}
     ...    join=${join}
     ...    joinLevel=1

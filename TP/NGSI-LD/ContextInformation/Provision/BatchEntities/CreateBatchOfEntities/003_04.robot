@@ -26,7 +26,7 @@ Test Teardown       Delete Initial Entities
     ...    context=${ngsild_test_suite_context}
 
     Check Response Status Code    201    ${response.status_code}
-    ${response1}=    Retrieve Entity by Id
+    ${response1}=    Retrieve Entity
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
     # Attribute should be compacted as one used the same context as provided when creating the entity
@@ -49,7 +49,7 @@ Test Teardown       Delete Initial Entities
     ...    context=${ngsild_test_suite_context}
 
     Check Response Status Code    201    ${response.status_code}
-    ${response1}=    Retrieve Entity by Id
+    ${response1}=    Retrieve Entity
     ...    id=${entity_id}
     # Attribute should not be compacted as one did not provide a context containing this attribute
     Check Response Body Containing an Attribute set to

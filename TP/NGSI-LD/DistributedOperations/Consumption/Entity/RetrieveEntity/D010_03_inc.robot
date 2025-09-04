@@ -57,7 +57,7 @@ Setup Registration And Context Source Mock Server And Retrieve Entity
 
     ${entity_body}=    Load Entity    ${entity_payload_filename}    ${entity_id}
     Set Stub Reply    ${method}    ${url}    200    ${entity_body}
-    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
 
     Check Response Status Code    200    ${response.status_code}
 

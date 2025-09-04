@@ -28,7 +28,7 @@ ${scope_fragment_filename}=     one-scope-fragment.json
     Check Response Body Is Empty    ${response}
     ${expectation_filename}=    Set Variable    building-minimal-with-one-scope.json
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
-    ${response}=    Retrieve Entity by Id
+    ${response}=    Retrieve Entity
     ...    ${entity_id}
     ...    accept=${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
@@ -46,7 +46,7 @@ ${scope_fragment_filename}=     one-scope-fragment.json
     Check Response Body Is Empty    ${response}
     ${expectation_filename}=    Set Variable    building-minimal-with-two-scopes.json
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
-    ${response}=    Retrieve Entity by Id
+    ${response}=    Retrieve Entity
     ...    ${entity_id}
     ...    accept=${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}

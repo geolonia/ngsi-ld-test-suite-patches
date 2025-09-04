@@ -27,7 +27,7 @@ ${attribute_subcategory}=           https://ngsi-ld-test-suite/context#subCatego
     ...    ${attribute_airqualitylevel}
     ...    ${attribute_subcategory}
 
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${entity_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    attrs=${attributes_to_be_retrieved}

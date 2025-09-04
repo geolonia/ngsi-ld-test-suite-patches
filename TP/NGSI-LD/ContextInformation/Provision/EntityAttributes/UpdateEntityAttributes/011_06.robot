@@ -40,7 +40,7 @@ Append Types to an Entity
 
     Check Response Status Code    204    ${response.status_code}
     Check Response Body Is Empty    ${response}
-    ${response}=    Retrieve Entity by Id
+    ${response}=    Retrieve Entity
     ...    ${entity_id}
     ...    accept=${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}

@@ -42,7 +42,7 @@ Merge Entity Scenarios
     Check Response Status Code    204    ${response.status_code}
     Check Response Body Is Empty    ${response}
 
-    ${response1}=    Query Entity
+    ${response1}=    Retrieve Entity
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}

@@ -33,7 +33,7 @@ Create Entity Scenarios
     Check Response Body Is Empty    ${response}
     Check Response Headers Containing URI set to    ${entity_id}    ${response.headers}
     ${created_entity}=    Load Test Sample    entities/${filename}    ${entity_id}
-    ${response1}=    Retrieve Entity by Id
+    ${response1}=    Retrieve Entity
     ...    id=${entity_id}
     ...    accept=${content_type}
     ...    context=${ngsild_test_suite_context}

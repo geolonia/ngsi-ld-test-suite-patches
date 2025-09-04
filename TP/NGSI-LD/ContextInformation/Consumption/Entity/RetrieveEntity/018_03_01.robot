@@ -12,7 +12,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
     [Documentation]    Check that one cannot get an entity if the entity id is not known to the system
     [Tags]    e-retrieve    5_7_1
     ${entity_id}=    Generate Random Building Entity Id
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${entity_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    404    ${response.status_code}

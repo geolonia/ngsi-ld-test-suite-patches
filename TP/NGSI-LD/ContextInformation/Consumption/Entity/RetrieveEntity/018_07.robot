@@ -41,7 +41,7 @@ ${filename}=    building-language-property.jsonld
 Retrieve Entity With Language Filter
     [Documentation]    Check that one can retrieve an entity using Language Filter
     [Arguments]    ${language_filter}    ${options}    ${expectation_filename}
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${entity_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    context=${ngsild_test_suite_context}

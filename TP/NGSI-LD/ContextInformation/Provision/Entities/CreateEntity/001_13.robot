@@ -11,8 +11,7 @@ Test Teardown       Delete Initial Entity
 
 
 *** Variables ***
-${filename}=        building-operation-space-geoproperty.jsonld
-${content_type}=    application/ld+json
+${filename}=    building-operation-space-geoproperty.jsonld
 
 
 *** Test Cases ***
@@ -26,15 +25,17 @@ ${content_type}=    application/ld+json
     ${response}=    Create Entity Selecting Content Type
     ...    ${filename}
     ...    ${entity_id}
-    ...    ${content_type}
+    ...    ${CONTENT_TYPE_LD_JSON}
 
     Check Response Status Code    201    ${response.status_code}
     Check Response Body Is Empty    ${response}
     Check Response Headers Containing URI set to    ${entity_id}    ${response.headers}
     ${created_entity}=    Load Test Sample    entities/${filename}    ${entity_id}
-    ${response1}=    Retrieve Entity by Id
+    ${response1}=    Retrieve Entity
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
+    ...    accept=${CONTENT_TYPE_LD_JSON}
+
     Check Created Resource Set To
     ...    created_resource=${created_entity}
     ...    response_body=${response1.json()}

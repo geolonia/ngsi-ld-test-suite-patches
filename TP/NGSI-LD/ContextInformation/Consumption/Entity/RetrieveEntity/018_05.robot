@@ -35,7 +35,7 @@ ${filename}=    building-two-geometry-attributes.jsonld
 Retrieve Entity In GeoJSON Representation
     [Documentation]    Check that the queried entity by id can be returned in a GeoJSON format
     [Arguments]    ${options}    ${geometry_property}    ${expectation_filename}
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${entity_id}
     ...    accept=${CONTENT_TYPE_GEOJSON}
     ...    options=${options}

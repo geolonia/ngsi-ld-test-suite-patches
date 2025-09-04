@@ -28,7 +28,7 @@ D002_02_01_inc Delete Entity On The Context Broker
     Check Response Status Code    207    ${response.status_code}
     Check JSON Value In Response Body    ['status']    404    ${response.json()['errors'][0]['error']}
 
-    ${response_retrieve}=    Retrieve Entity by Id    ${entity_id}    local=true
+    ${response_retrieve}=    Retrieve Entity    ${entity_id}    local=true
     Check Response Status Code    404    ${response_retrieve.status_code}
 
 

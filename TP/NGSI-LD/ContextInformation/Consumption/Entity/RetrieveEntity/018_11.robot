@@ -21,7 +21,7 @@ ${linked_entity_filename}=      city-minimal.jsonld
 018_11_01 Retrieve Entity With Inline Linked Entity And SysAttrs
     [Documentation]    Check that an entity can be retrieved with an inline linked entity with sysAttrs
     [Tags]    e-retrieve    5_7_1    4_5_23    since_v1.8.1
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${linking_entity_id}
     ...    join=inline
     ...    joinLevel=1

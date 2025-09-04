@@ -31,7 +31,7 @@ ${expectation_filename}             building-locatedAt-and-name-normalized.jsonl
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
     Check Response Body Is Empty    ${response}
-    ${response1}=    Retrieve Entity by Id
+    ${response1}=    Retrieve Entity
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
     ...    options=sysAttrs
@@ -59,7 +59,7 @@ Setup Initial Entity
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Retrieve Entity by Id
+    ${response}=    Retrieve Entity
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
     ...    options=sysAttrs

@@ -28,7 +28,7 @@ ${expectation_filename}             building-minimal-with-two-scopes.json
     Check Response Status Code    204    ${response.status_code}
     Check Response Body Is Empty    ${response}
 
-    ${response1}=    Retrieve Entity by Id
+    ${response1}=    Retrieve Entity
     ...    id=${entity_id}
     ...    accept=${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}

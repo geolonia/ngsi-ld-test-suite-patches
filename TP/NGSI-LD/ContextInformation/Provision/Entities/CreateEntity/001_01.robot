@@ -44,12 +44,12 @@ Create Entity Scenarios
     Check Response Headers Containing URI set to    ${entity_id}    ${response.headers}
     ${created_entity}=    Load Test Sample    entities/${filename}    ${entity_id}
     IF    '${content_type}' == 'application/json'
-        ${response1}=    Retrieve Entity by Id
+        ${response1}=    Retrieve Entity
         ...    id=${entity_id}
         ...    accept=${content_type}
     END
     IF    '${content_type}' == 'application/ld+json'
-        ${response1}=    Retrieve Entity by Id
+        ${response1}=    Retrieve Entity
         ...    id=${entity_id}
         ...    accept=${content_type}
         ...    context=${ngsild_test_suite_context}

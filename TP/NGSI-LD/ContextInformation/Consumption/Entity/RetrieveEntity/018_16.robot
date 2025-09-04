@@ -38,7 +38,7 @@ Retrieve Entity With Faulty Format Or Options Query Params
     [Arguments]    ${format_value}    ${options_value}
     ${entity_id}=    Generate Random Building Entity Id
     Set Suite Variable    ${entity_id}
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${entity_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    format=${format_value}

@@ -29,7 +29,7 @@ D010_01_aux Retrieve Entity That Exists On Both The Context Source And The Conte
     ${entity_body}=    Load Entity    ${entity_payload_filename}    ${entity_id}
     ${entity_fragment}=    Load JSON From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
     Set Stub Reply    GET    /ngsi-ld/v1/entities/${entity_id}    200    ${entity_body}
-    ${response}=    Retrieve Entity By Id    ${entity_id}    context=${ngsild_test_suite_context}
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
 
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing an Attribute set to

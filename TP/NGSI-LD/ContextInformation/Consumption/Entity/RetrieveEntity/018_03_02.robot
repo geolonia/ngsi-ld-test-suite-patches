@@ -22,7 +22,7 @@ ${attribute_not_known}=     property_not_found
     [Tags]    e-retrieve    5_7_1
     ${attributes_to_be_retrieved}=    Catenate    SEPARATOR=,    ${attribute_not_known}
 
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${entity_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     ...    attrs=${attributes_to_be_retrieved}

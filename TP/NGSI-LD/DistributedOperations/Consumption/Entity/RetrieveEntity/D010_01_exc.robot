@@ -28,7 +28,7 @@ D010_01_exc Query Context Broker And Retrieve Entity By Id
     ${entity_speed}=    Load Entity    ${entity_speed_filename}    ${entity_id}
     Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities/${entity_id}    200    ${entity_speed}
 
-    ${response}=    Retrieve Entity By Id    ${entity_id}    context=${ngsild_test_suite_context}
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    GET    /broker1/ngsi-ld/v1/entities?type=Vehicle

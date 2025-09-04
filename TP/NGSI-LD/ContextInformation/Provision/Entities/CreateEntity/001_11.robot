@@ -36,7 +36,7 @@ Create Entity Scenarios
     Check Response Body Is Empty    ${response}
     Check Response Headers Containing URI set to    ${entity_id}    ${response.headers}
     ${created_entity}=    Load Test Sample    entities/${filename}    ${entity_id}
-    ${response1}=    Retrieve Entity by Id    ${entity_id}    ${content_type}
+    ${response1}=    Retrieve Entity    ${entity_id}    ${content_type}
     Check Created Resource Set To    ${created_entity}    ${response1.json()}
 
 Delete Initial Entity

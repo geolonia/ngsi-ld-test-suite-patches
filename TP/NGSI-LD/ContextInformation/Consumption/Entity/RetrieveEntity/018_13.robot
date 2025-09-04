@@ -39,7 +39,7 @@ ${level_2_linked_entity_filename}=      country-minimal.jsonld
 Retrieve Entity With Linked Entity
     [Documentation]    Check that an entity can be retrieved with two levels linked entities in different join types and representations
     [Arguments]    ${join}    ${options}    ${expectation_filename}
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${linking_entity_id}
     ...    join=${join}
     ...    joinLevel=2

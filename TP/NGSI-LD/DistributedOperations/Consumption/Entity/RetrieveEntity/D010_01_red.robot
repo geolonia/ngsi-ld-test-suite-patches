@@ -30,7 +30,7 @@ D010_01_red Query Context Broker And Retrieve Entity By Id
     Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities/${entity_id}    200    ${entity_body}
     Set Stub Reply    GET    /broker2/ngsi-ld/v1/entities/${entity_id}    200    ${entity_body2}
 
-    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    GET    /broker1/ngsi-ld/v1/entities/${entity_id}

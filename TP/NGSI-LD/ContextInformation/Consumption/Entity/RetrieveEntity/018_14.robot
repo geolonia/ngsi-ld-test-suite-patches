@@ -29,7 +29,7 @@ ${linking_entity_filename}=     building-relationship.jsonld
 Retrieve Entity With Non Existent Linked Entity
     [Documentation]    Check that an entity can be retrieved asking for a non-existent linked entity
     [Arguments]    ${join}    ${expectation_filename}
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${linking_entity_id}
     ...    join=${join}
     ...    joinLevel=1

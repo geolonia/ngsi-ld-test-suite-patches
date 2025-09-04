@@ -40,7 +40,7 @@ Replace Entity Attribute
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
     Check Response Body Is Empty    ${response}
-    ${response1}=    Retrieve Entity by Id
+    ${response1}=    Retrieve Entity
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
     ...    options=sysAttrs
@@ -63,7 +63,7 @@ Setup Initial Entity
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Retrieve Entity by Id
+    ${response}=    Retrieve Entity
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
     ...    options=sysAttrs

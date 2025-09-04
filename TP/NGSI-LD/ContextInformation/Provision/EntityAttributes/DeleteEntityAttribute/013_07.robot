@@ -26,7 +26,7 @@ ${expectation_filename}=    building-minimal.json
     ...    false
     Check Response Status Code    204    ${response.status_code}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
-    ${response}=    Retrieve Entity by Id
+    ${response}=    Retrieve Entity
     ...    ${entity_id}
     ...    accept=${CONTENT_TYPE_JSON}
     Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}

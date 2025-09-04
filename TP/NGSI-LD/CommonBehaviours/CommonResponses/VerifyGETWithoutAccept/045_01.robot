@@ -33,7 +33,7 @@ ${content_type}=                application/json
     ...    ${id}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=*/*

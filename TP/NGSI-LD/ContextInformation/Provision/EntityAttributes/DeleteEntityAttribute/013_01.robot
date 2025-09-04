@@ -44,7 +44,7 @@ Delete Attributes
     Check Response Status Code    ${status_code}    ${response.status_code}
     Check Response Body Is Empty    ${response}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
-    ${response2}=    Retrieve Entity by Id
+    ${response2}=    Retrieve Entity
     ...    id=${entity_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}

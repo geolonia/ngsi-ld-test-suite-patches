@@ -20,7 +20,7 @@ ${expectation_filename}=    building-simple-attributes.jsonld
 018_01_01 Get An Entity By Id
     [Documentation]    Check that one can get an entity by id
     [Tags]    e-retrieve    5_7_1
-    ${response}=    Query Entity
+    ${response}=    Retrieve Entity
     ...    id=${entity_id}
     ...    accept=${CONTENT_TYPE_LD_JSON}
 

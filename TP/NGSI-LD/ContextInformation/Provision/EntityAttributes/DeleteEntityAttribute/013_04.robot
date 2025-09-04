@@ -28,7 +28,7 @@ ${expectation_filename}=    building-minimal-compacted.json
     Check Response Status Code    204    ${response.status_code}
     Check Response Body Is Empty    ${response}
     ${entity_expectation_payload}=    Load Test Sample    entities/expectations/${expectation_filename}    ${entity_id}
-    ${response}=    Retrieve Entity by Id
+    ${response}=    Retrieve Entity
     ...    ${entity_id}
     ...    accept=${CONTENT_TYPE_JSON}
     Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}
