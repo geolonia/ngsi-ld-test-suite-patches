@@ -36,9 +36,9 @@ D002_01_red Delete Entities On Both Context Sources
     Set Stub Reply  DELETE    /broker1/ngsi-ld/v1/entities/${entity_id}    204
     Set Stub Reply  DELETE    /broker2/ngsi-ld/v1/entities/${entity_id2}    204
     
-    ${response}=    Delete Entity by Id    ${entity_id}
+    ${response}=    Delete Entity    ${entity_id}
     Check Response Status Code    204    ${response.status_code}  
-    ${response}=    Delete Entity by Id    ${entity_id2}
+    ${response}=    Delete Entity    ${entity_id2}
     Check Response Status Code    204    ${response.status_code}
     
     ${stub_count}=    Get Stub Count    DELETE    /broker1/ngsi-ld/v1/entities/${entity_id}

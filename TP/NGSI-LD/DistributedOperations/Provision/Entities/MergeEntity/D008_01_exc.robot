@@ -58,5 +58,5 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
     Start Context Source Mock Server
 
 Delete Created Entity And Registration And Stop Context Source Mock Server
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}
     Delete Context Source Registration    ${registration_id}

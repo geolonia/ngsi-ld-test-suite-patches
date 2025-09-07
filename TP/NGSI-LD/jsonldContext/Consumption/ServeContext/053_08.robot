@@ -75,4 +75,4 @@ Delete Initial @context Data
         Delete a @context    ${uri}
     END
     Delete a @context    ${implicit_id}
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}

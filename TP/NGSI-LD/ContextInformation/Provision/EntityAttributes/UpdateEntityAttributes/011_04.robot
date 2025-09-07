@@ -33,7 +33,7 @@ Update entity attributes with invalid entity fragments
     ...    ${response.json()}
     ...    ${ERROR_TYPE_INVALID_REQUEST}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Delete Entity by Id    ${entity_id}
+    [Teardown]    Delete Entity    ${entity_id}
 
 Initialize Environment
     [Arguments]    ${filename}

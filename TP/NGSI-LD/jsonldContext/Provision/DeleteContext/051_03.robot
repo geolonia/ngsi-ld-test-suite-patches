@@ -48,7 +48,7 @@ Create Initial cached @context
     ...    ${content_type}
     ...    ${url}${uri}
 
-    ${response}=    Delete Entity By Id    ${entity_id}
+    ${response}=    Delete Entity    ${entity_id}
     ${response}=    Serve a @context    ${contextId}    true
     Check Response Kind set to    ${response.json()}    Cached
 

@@ -51,5 +51,5 @@ Create Entities
     Check Response Status Code    201    ${response.status_code}
 
 Delete Entities
-    Delete Entity by Id    ${building_entity_id}
-    Delete Entity by Id    ${vehicle_entity_id}
+    Delete Entity    ${building_entity_id}
+    Delete Entity    ${vehicle_entity_id}

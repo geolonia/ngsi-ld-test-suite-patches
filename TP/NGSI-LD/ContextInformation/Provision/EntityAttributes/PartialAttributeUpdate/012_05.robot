@@ -57,7 +57,7 @@ Update Attributes
     ...    response_body=${response1.json()}
 
 Delete Initial Entity
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}
 
 Setup Initial Entity
     ${entity_id}=    Generate Random Vehicle Entity Id

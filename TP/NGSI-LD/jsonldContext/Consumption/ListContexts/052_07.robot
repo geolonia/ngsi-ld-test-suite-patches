@@ -59,4 +59,4 @@ List @contexts with several previous created @context
 
 Delete Initial @context and entity
     Delete a @context    ${contextUri}
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}

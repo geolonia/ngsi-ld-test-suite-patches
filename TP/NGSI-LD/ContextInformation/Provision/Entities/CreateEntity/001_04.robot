@@ -50,4 +50,4 @@ ${filename}=    building-simple-attributes.json
 
 *** Keywords ***
 Delete Initial Entity
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}

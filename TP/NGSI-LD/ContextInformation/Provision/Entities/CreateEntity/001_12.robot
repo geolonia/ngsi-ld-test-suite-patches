@@ -42,4 +42,4 @@ ${filename}=    building-observation-space-geoproperty.jsonld
 
 *** Keywords ***
 Delete Initial Entity
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}

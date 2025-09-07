@@ -53,5 +53,5 @@ Setup Initial Entities
     Set Suite Variable    ${second_entity_id}
 
 Delete Initial Entities
-    Delete Entity by Id    ${first_entity_id}
-    Delete Entity by Id    ${second_entity_id}
+    Delete Entity    ${first_entity_id}
+    Delete Entity    ${second_entity_id}

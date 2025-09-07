@@ -91,7 +91,7 @@ Setup Initial Subscriptions
 
 After Test
     Delete Subscription    ${subscription_id}
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}
 
 After Suite
     Stop Local Server

@@ -32,7 +32,7 @@ ${registration_filename}=       csourceRegistrations/context-source-registration
     ...    ${response.json()}
     ...    ${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Delete Entity by Id    ${entity_id}
+    [Teardown]    Delete Entity    ${entity_id}
 
 043_01_02 Create Subscription
     [Documentation]    Verify receiving 503 – LdContextNotAvailable error if remote JSON-LD @context cannot be retrieved (Create subscription)

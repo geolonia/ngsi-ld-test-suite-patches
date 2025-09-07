@@ -109,7 +109,7 @@ class Requests:
                            'context', 'timerel', 'timeAt', 'endTimeAt', 'lastN', 'accept',
                            'aggrMethods', 'aggrPeriodDuration', 'timeproperty']
             },
-            'Delete Entity by Id': {
+            'Delete Entity': {
                 'positions': [0],
                 'params': ['id']
             },
@@ -337,7 +337,7 @@ class Requests:
                 Requests.retrieve_entity_type,
             'Query Entities':
                 Requests.query_entities,
-            'Delete Entity by Id':
+            'Delete Entity':
                 Requests.delete_entity_by_id,
             'Replace Entity':
                 Requests.replace_entity,

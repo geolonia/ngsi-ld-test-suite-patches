@@ -40,7 +40,7 @@ ${content_type}=                application/json
     Check Response Status Code    200    ${response.status_code}
     Check Response Headers Containing Content-Type set to    ${content_type}    ${response.headers}
     Check Response Headers Link Not Empty    ${response.headers}
-    [Teardown]    Delete Entity by Id    ${id}
+    [Teardown]    Delete Entity    ${id}
 
 045_01_02 Endpoint /subscriptions/{subscriptionId}
     [Documentation]    Verify that on a GET HTTP request if nothing is specified on the Accept header, "application/json" is assumed (/subscriptions/{subscriptionId})

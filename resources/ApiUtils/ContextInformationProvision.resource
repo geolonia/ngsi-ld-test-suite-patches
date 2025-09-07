@@ -253,7 +253,7 @@ Delete Entity Attributes
     Output    ${response}    Delete Entity Attributes
     RETURN    ${response}
 
-Delete Entity by Id
+Delete Entity
     [Arguments]    ${id}    ${local}=${EMPTY}
     &{params}=    Create Dictionary
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
@@ -264,7 +264,7 @@ Delete Entity by Id
     IF    ${delete_temporal_on_core_delete}
         Delete Temporal Representation Of Entity    ${id}
     END
-    Output    ${response}    Delete Entity by Id
+    Output    ${response}    Delete Entity
     RETURN    ${response}
 
 Partial Update Entity Attributes

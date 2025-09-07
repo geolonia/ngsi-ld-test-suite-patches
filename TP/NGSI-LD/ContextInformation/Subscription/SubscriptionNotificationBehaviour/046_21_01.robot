@@ -22,7 +22,7 @@ ${building_filename}=                   building-location-attribute.jsonld
     [Documentation]    Delete an entity and check the received notification
     [Tags]    sub-notification    5_8_6    since_v1.6.1
 
-    ${response}=    Delete Entity by Id
+    ${response}=    Delete Entity
     ...    id=${entity_id}
     Check Response Status Code    204    ${response.status_code}
 

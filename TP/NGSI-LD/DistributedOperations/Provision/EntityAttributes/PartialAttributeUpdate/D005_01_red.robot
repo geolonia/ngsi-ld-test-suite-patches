@@ -13,11 +13,13 @@ Resource            ${EXECDIR}/resources/MockServerUtils.resource
 Test Setup          Setup Entity Id And Registration And Start Context Source Mock Server
 Test Teardown       Delete Registration And Stop Context Source Mock Server
 
+
 *** Variables ***
 ${entity_payload_filename}              vehicle-simple-different-attributes.jsonld
 ${fragment_filename}                    vehicle-speed-two-datasetid-01-fragment.jsonld
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 ${attribute_id}                         speed
+
 
 *** Test Cases ***
 D005_01_red Partial Partial Attribute Update
@@ -36,15 +38,16 @@ D005_01_red Partial Partial Attribute Update
 
     ${stub_count}=    Get Stub Count    PATCH    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/${attribute_id}
     Should Be True    ${stub_count} > 0
-    ${request_payload}=    Get Request Body  
+    ${request_payload}=    Get Request Body
     ${payload}=    Evaluate    json.loads('''${request_payload}''')    json
     Should Contain    ${payload}    speed
 
     ${stub_count}=    Get Stub Count    PATCH    /broker2/ngsi-ld/v1/entities/${entity_id}/attrs/${attribute_id}
     Should Be True    ${stub_count} > 0
-    ${request_payload}=    Get Request Body  
+    ${request_payload}=    Get Request Body
     ${payload}=    Evaluate    json.loads('''${request_payload}''')    json
     Should Contain    ${payload}    speed
+
 
 *** Keywords ***
 Setup Entity Id And Registration And Start Context Source Mock Server
@@ -77,5 +80,5 @@ Setup Entity Id And Registration And Start Context Source Mock Server
 Delete Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
     Delete Context Source Registration    ${registration_id2}
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}
     Stop Context Source Mock Server

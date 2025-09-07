@@ -40,4 +40,4 @@ Create Entity Scenarios
     Check Created Resource Set To    ${created_entity}    ${response1.json()}
 
 Delete Initial Entity
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}

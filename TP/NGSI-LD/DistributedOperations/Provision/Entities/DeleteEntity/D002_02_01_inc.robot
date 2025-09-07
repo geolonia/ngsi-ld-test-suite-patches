@@ -24,7 +24,7 @@ D002_02_01_inc Delete Entity On The Context Broker
     [Documentation]    Verify that, when one has an inclusive registration on a Context Broker, one is able to delete entities locally and should get a BatchOperationResult structure
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_6    6_3_3
     Set Stub Reply    DELETE    /ngsi-ld/v1/entities/${entity_id}    404
-    ${response}=    Delete Entity by Id    ${entity_id}
+    ${response}=    Delete Entity    ${entity_id}
     Check Response Status Code    207    ${response.status_code}
     Check JSON Value In Response Body    ['status']    404    ${response.json()['errors'][0]['error']}
 
@@ -51,5 +51,5 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
 
 Delete Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
-    Delete Entity By Id    ${entity_id}
+    Delete Entity    ${entity_id}
     Stop Context Source Mock Server

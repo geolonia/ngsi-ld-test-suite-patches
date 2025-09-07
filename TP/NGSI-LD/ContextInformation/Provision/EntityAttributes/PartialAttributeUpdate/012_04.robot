@@ -52,4 +52,4 @@ Initiate Test Case
     Check Response Status Code    201    ${response.status_code}
 
 Delete Initial Entities
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}

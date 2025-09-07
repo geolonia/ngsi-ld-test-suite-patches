@@ -79,7 +79,7 @@ After Test
     Stop Local Server
 
 Delete Initial Entity
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}
 
 Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}

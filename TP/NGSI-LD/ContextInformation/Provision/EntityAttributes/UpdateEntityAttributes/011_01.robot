@@ -53,7 +53,7 @@ Update Attributes
     ...    ignored_keys=${ignored_attributes}
 
 Delete Initial Entities
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}
 
 Initialize Test
     ${entity_id}=    Generate Random Vehicle Entity Id

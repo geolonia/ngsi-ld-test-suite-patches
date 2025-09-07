@@ -45,4 +45,4 @@ Create Entity
     Check Response Status Code    201    ${create_response.status_code}
 
 Delete Created Entity
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}

@@ -68,4 +68,4 @@ Delete Initial Subscriptions
     Delete Subscription    ${subscription_id}
 
 Delete Initial Entity
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}

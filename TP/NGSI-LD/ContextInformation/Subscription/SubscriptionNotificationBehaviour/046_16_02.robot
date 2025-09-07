@@ -54,5 +54,5 @@ Before Test
 
 After Test
     Delete Subscription    ${subscription_id}
-    Delete Entity by Id    ${vehicle_id}
+    Delete Entity    ${vehicle_id}
     Stop Local Server

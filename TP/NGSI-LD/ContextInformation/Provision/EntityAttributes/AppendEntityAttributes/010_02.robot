@@ -36,7 +36,7 @@ Append Attributes
     ...    ${response.json()}
     ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
-    [Teardown]    Delete Entity by Id    ${entity_id}
+    [Teardown]    Delete Entity    ${entity_id}
 
 Create Initial Entity
     ${entity_id}=    Generate Random Vehicle Entity Id
@@ -48,4 +48,4 @@ Create Initial Entity
     Set Test Variable    ${entity_id}
 
 Delete Initial Entity
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}

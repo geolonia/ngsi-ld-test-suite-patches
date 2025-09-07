@@ -13,11 +13,13 @@ Resource            ${EXECDIR}/resources/MockServerUtils.resource
 Test Setup          Create Entity And Registration On The Context Broker And Start Context Source Mock Server
 Test Teardown       Delete Registration And Stop Context Source Mock Server
 
+
 *** Variables ***
 ${entity_payload_filename}              vehicle-simple-different-attributes.jsonld
 ${fragment_filename}                    vehicle-speed-two-datasetid-01-fragment.jsonld
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 ${attribute_id}                         speed
+
 
 *** Test Cases ***
 D005_01_inc Partial Partial Attribute Update
@@ -39,13 +41,14 @@ D005_01_inc Partial Partial Attribute Update
     ${stub_count}=    Get Stub Count    PATCH    /ngsi-ld/v1/entities/${entity_id}/attrs/${attribute_id}
     Should Be True    ${stub_count} > 0
 
-    ${request_payload}=    Get Request Body  
+    ${request_payload}=    Get Request Body
     ${payload}=    Evaluate    json.loads('''${request_payload}''')    json
     Should Contain    ${payload}    speed
 
     ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
     Should Contain    ${response.json()}    isParked2
     Should Contain    ${response.json()}    speed
+
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
@@ -68,5 +71,5 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
 
 Delete Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}
     Stop Context Source Mock Server

@@ -29,4 +29,4 @@ ${fragment_filename}=       vehicle-speed-two-datasetid-01-fragment.jsonld
 
 *** Keywords ***
 Delete Initial Entities
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}

@@ -64,6 +64,6 @@ Create Initial @context condition from an external server
 
 Delete Initial @context condition from an external server
     Log    Delete initial contidions
-    Delete Entity by Id    ${first_existing_entity_id}
+    Delete Entity    ${first_existing_entity_id}
     Delete a @context    ${uri}
     Stop @context Local Server

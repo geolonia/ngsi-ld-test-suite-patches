@@ -27,7 +27,7 @@ D002_02_exc Delete Entity Without Redirection Operations
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_6_6
 
     Set Stub Reply    DELETE    /broker1/ngsi-ld/v1/entities/${entity_id}    207
-    ${response}=    Delete Entity by Id    ${entity_id}
+    ${response}=    Delete Entity    ${entity_id}
     Check Response Status Code    207    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    DELETE    /broker1/ngsi-ld/v1/entities/${entity_id}
@@ -57,5 +57,5 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
 
 Delete Created Entity And Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
-    Delete Entity By Id    ${entity_id}
+    Delete Entity    ${entity_id}
     Stop Context Source Mock Server

@@ -45,4 +45,4 @@ Setup Initial Entity
     Set Test Variable    ${entity_id}
 
 Delete Initial Entity
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}

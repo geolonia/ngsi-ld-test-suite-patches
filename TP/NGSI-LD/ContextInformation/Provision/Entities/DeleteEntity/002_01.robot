@@ -14,7 +14,7 @@ Test Setup          Setup Initial Entity
 002_01_01 Delete An Entity
     [Documentation]    Check that one can delete an entity by id
     [Tags]    e-delete    5_6_6
-    ${response}=    Delete Entity by Id    ${entity_id}
+    ${response}=    Delete Entity    ${entity_id}
     Check Response Status Code    204    ${response.status_code}
     Check Response Body Is Empty    ${response}
     ${response2}=    Retrieve Entity    id=${entity_id}    context=${ngsild_test_suite_context}

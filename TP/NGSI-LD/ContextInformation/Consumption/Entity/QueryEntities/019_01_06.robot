@@ -68,5 +68,5 @@ Setup Initial Entities
     Check Response Status Code    201    ${create_response2.status_code}
 
 Delete Entities
-    Delete Entity by Id    ${entity_one_scope_id}
-    Delete Entity by Id    ${entity_many_scopes_id}
+    Delete Entity    ${entity_one_scope_id}
+    Delete Entity    ${entity_many_scopes_id}

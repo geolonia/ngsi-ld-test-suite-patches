@@ -52,5 +52,5 @@ Setup Registration And Start Context Source Mock Server
 
 Delete Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}
     Stop Context Source Mock Server

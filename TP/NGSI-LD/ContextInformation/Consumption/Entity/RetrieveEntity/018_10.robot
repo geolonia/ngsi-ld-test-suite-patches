@@ -65,5 +65,5 @@ Create Initial Entity And Linked Entity
     Check Response Status Code    201    ${response.status_code}
 
 Delete Created Entity And Linked Entity
-    Delete Entity by Id    ${linking_entity_id}
-    Delete Entity by Id    ${linked_entity_id}
+    Delete Entity    ${linking_entity_id}
+    Delete Entity    ${linked_entity_id}

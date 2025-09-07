@@ -7,7 +7,7 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Initialize Environment
-Test Teardown       Delete Entity
+Test Teardown       Delete Initial Entity
 Test Template       Update Attributes
 
 
@@ -39,5 +39,5 @@ Initialize Environment
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${response.status_code}
 
-Delete Entity
-    Delete Entity by Id    ${entity_id}
+Delete Initial Entity
+    Delete Entity    ${entity_id}

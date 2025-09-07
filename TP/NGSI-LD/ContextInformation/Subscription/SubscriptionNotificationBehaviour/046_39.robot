@@ -23,7 +23,7 @@ ${expectation_filename}=                building-deleted-vocab-property-deleted-
     [Documentation]    Delete an entity and check the notification contains the previous values for a VocabProperty
     [Tags]    sub-notification    5_8_6    4_5_18    4_5_20    show_changes    since_v1.6.1
 
-    ${response}=    Delete Entity by Id    ${entity_id}
+    ${response}=    Delete Entity    ${entity_id}
     Check Response Status Code    204    ${response.status_code}
 
     ${notification}    ${headers}=    Wait for notification    timeout=${10}

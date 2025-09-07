@@ -63,6 +63,6 @@ Setup Initial Entities
     Check Response Status Code    201    ${create_response3.status_code}
 
 Delete Entities
-    Delete Entity by Id    ${building_entity_id}
-    Delete Entity by Id    ${vehicle_entity_id}
-    Delete Entity by Id    ${parking_entity_id}
+    Delete Entity    ${building_entity_id}
+    Delete Entity    ${vehicle_entity_id}
+    Delete Entity    ${parking_entity_id}

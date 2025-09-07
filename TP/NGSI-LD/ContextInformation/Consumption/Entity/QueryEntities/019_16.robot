@@ -96,12 +96,12 @@ Create Initial Entities And Linked Entities
     Check Response Status Code    201    ${create_response3.status_code}
 
 Delete Created Entities And Linked Entities
-    Delete Entity by Id    ${entity_1_id}
-    Delete Entity by Id    ${linked_entity_1_level_1_id}
-    Delete Entity by Id    ${linked_entity_1_level_2_id}
-    Delete Entity by Id    ${entity_2_id}
-    Delete Entity by Id    ${linked_entity_2_level_1_id}
-    Delete Entity by Id    ${linked_entity_2_level_2_id}
+    Delete Entity    ${entity_1_id}
+    Delete Entity    ${linked_entity_1_level_1_id}
+    Delete Entity    ${linked_entity_1_level_2_id}
+    Delete Entity    ${entity_2_id}
+    Delete Entity    ${linked_entity_2_level_1_id}
+    Delete Entity    ${linked_entity_2_level_2_id}
 
 Create Linking Entity
     [Arguments]    ${entity_filename}    ${entity_id}    ${linked_entity_id}

@@ -7,7 +7,7 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Suite Setup         Setup Initial Entity
-Suite Teardown      Delete Entity
+Suite Teardown      Delete Initial Entity
 Test Template       Filter attribute instances based on datasetId
 
 
@@ -70,5 +70,5 @@ Setup Initial Entity
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    201    ${create_response.status_code}
 
-Delete Entity
-    Delete Entity by Id    ${entity_id}
+Delete Initial Entity
+    Delete Entity    ${entity_id}

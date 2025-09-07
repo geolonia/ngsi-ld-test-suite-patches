@@ -23,7 +23,7 @@ ${entity_expectation_file_path}=        entity-deleted-name-attribute-on-entity-
     [Documentation]    Delete an entity with a matching attribute and check the received notification
     [Tags]    sub-notification    5_8_6    since_v1.6.1
 
-    ${response}=    Delete Entity by Id    ${entity_id}
+    ${response}=    Delete Entity    ${entity_id}
     Check Response Status Code    204    ${response.status_code}
 
     ${notification}    ${headers}=    Wait for notification    timeout=${10}
@@ -43,5 +43,5 @@ Create Initial Subscription And Entity
 
 Delete Initial Subscription And Entity
     Delete Subscription    ${subscription_id}
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}
     Stop Local Server

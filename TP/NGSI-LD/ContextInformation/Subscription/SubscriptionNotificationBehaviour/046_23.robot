@@ -47,6 +47,6 @@ Create Initial Subscription And Entity With Linked Entity
 
 Delete Initial Subscription And Entity With Linked Entity
     Delete Subscription    ${subscription_id}
-    Delete Entity by Id    ${linking_entity_id}
-    Delete Entity by Id    ${linked_entity_id}
+    Delete Entity    ${linking_entity_id}
+    Delete Entity    ${linked_entity_id}
     Stop Local Server

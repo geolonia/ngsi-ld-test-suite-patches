@@ -13,6 +13,7 @@ Resource            ${EXECDIR}/resources/MockServerUtils.resource
 Test Setup          Create Entity And Registration On The Context Broker And Start Context Source Mock Server
 Test Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
 
+
 *** Variables ***
 ${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-different-attributes.jsonld
@@ -20,11 +21,12 @@ ${entity_attribute_filename}            fragmentEntities/vehicle-speed-two-datas
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 
+
 *** Test Cases ***
 D009_01_inc Replace Entity Attribute
     [Documentation]    Check that one can replace an existing entity attribute, the changes will be forwarded to the Context Source thanks to an inclusive registration
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_19    6_3_18
-    
+
     ${attribute_payload}=    Load Entity    ${entity_attribute_filename}    ${entity_id}
     Set Stub Reply    PUT    /ngsi-ld/v1/entities/${entity_id}/attrs/speed    204
 
@@ -37,9 +39,10 @@ D009_01_inc Replace Entity Attribute
     Check Response Status Code    204    ${response.status_code}
 
     Set Stub Reply    GET    /ngsi-ld/v1/entities/${entity_id}    200    ${entity_id}
-    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}    
+    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}
     ${new_attribute}=    Get From Dictionary    ${response.json()}    speed
     Should Be Equal    ${attribute_payload}[speed][value]    ${new_attribute}[value]
+
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
@@ -62,4 +65,4 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
 
 Delete Created Entity And Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}

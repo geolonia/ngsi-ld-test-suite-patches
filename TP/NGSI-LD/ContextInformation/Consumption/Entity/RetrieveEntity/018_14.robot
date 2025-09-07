@@ -49,4 +49,4 @@ Create Initial Entity
     Check Response Status Code    201    ${response.status_code}
 
 Delete Created Entity
-    Delete Entity by Id    ${linking_entity_id}
+    Delete Entity    ${linking_entity_id}

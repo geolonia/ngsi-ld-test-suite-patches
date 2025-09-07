@@ -20,6 +20,7 @@ ${fragment_filename}                    vehicle-speed-two-datasetid-01-fragment.
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-speed-with-redirection-ops.jsonld
 ${attribute_id}                         speed
 
+
 *** Test Cases ***
 D005_01_exc Partial Partial Attribute Update
     [Documentation]    Check that if one request the Context Broker to partially update an attribute whose id matches an exclusive registration, this is updated on the Context Source
@@ -39,7 +40,7 @@ D005_01_exc Partial Partial Attribute Update
 
     ${stub_count}=    Get Stub Count    PATCH    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/${attribute_id}
     Should Be True    ${stub_count} > 0
-    ${request_payload}=    Get Request Body  
+    ${request_payload}=    Get Request Body
     ${payload}=    Evaluate    json.loads('''${request_payload}''')    json
     Should Contain    ${payload}    speed
 
@@ -47,6 +48,7 @@ D005_01_exc Partial Partial Attribute Update
     ${new_isparked}=    Get Value From Json    ${response.json()}    $.isParked2
     Should Be Equal    ${new_isparked}    ${old_isparked}
     Should Not Contain    ${response.json()}    speed
+
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
@@ -70,5 +72,5 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
 
 Delete Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}
     Stop Context Source Mock Server

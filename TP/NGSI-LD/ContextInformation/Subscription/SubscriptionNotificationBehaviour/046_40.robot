@@ -50,5 +50,5 @@ Create Initial Subscription
 
 Delete Initial Subscription
     Delete Subscription    ${subscription_id}
-    Delete Entity by Id    ${entity_id}
+    Delete Entity    ${entity_id}
     Stop Local Server

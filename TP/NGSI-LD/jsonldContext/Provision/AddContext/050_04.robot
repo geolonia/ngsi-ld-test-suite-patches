@@ -47,7 +47,7 @@ ${content_type}=        application/json
     ...    ${content_type}
     ...    ${url}${uri}
 
-    Delete Entity By Id    ${entity_id}
+    Delete Entity    ${entity_id}
     # Need to check that each of the URIs are Cached @contexts
     Check Cached @Contexts    ${filename_list}
 

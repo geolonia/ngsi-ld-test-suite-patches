@@ -31,7 +31,7 @@ ${content_type}=                application/xml
     ...    fragment_filename=${vehicle_fragment}
     ...    content_type=${content_type}
     Check Response Status Code    415    ${response.status_code}
-    [Teardown]    Delete Entity by Id    ${entity_id}
+    [Teardown]    Delete Entity    ${entity_id}
 
 048_01_02 Endpoint Patch /subscriptions/{subscriptionId}
     [Documentation]    Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json" (patch /subscriptions/{subscriptionId})
@@ -50,7 +50,7 @@ ${content_type}=                application/xml
     ...    ${entity_id}
     ...    ${content_type}
     Check Response Status Code    415    ${response.status_code}
-    [Teardown]    Delete Entity by Id    ${entity_id}
+    [Teardown]    Delete Entity    ${entity_id}
 
 048_01_04 Endpoint Post /subscriptions/
     [Documentation]    Verify throwing 415 HTTP status code (Unsupported Media Type) if "Content-Type" header is not "application/json" or "application/ld+json" (post /subscriptions/)

@@ -46,5 +46,5 @@ Create Initial @context condition from an external server
     Check Context Response Body Containing numberOfHits value    ${response.json()}    0
 
 Delete Initial @context condition from an external server
-    Delete Entity by Id    ${entity_context_id}
+    Delete Entity    ${entity_context_id}
     Delete a @context    ${uri}
