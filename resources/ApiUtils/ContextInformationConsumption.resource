@@ -47,11 +47,15 @@ Query Entities
     ...    ${datasetId}=${EMPTY}
     ...    ${join}=${EMPTY}
     ...    ${joinLevel}=${EMPTY}
+    ...    ${pick}=${EMPTY}
+    ...    ${omit}=${EMPTY}
     ${attrs_length}=    Get Length    ${attrs}
     ${accept_length}=    Get Length    ${accept}
     ${options_length}=    Get Length    ${options}
     ${entity_ids_length}=    Get Length    ${entity_ids}
     ${entity_types_length}=    Get Length    ${entity_types}
+    ${pick_length}=    Get Length    ${pick}
+    ${omit_length}=    Get Length    ${omit}
     &{headers}=    Create Dictionary
     &{params}=    Create Dictionary
     IF    ${accept_length}>0
@@ -98,6 +102,8 @@ Query Entities
     IF    '${join_level}'!=''
         Set To Dictionary    ${params}    joinLevel=${joinLevel}
     END
+    IF    ${pick_length}>0    Set To Dictionary    ${params}    pick=${pick}
+    IF    ${omit_length}>0    Set To Dictionary    ${params}    omit=${omit}
 
     ${response}=    GET
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}

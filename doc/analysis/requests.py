@@ -96,7 +96,7 @@ class Requests:
                            'attrs', 'context', 'geoproperty',
                            'options', 'limit', 'entity_id_pattern',
                            'scopeq', 'georel', 'coordinates', 'geometry', 'count', 'q', 'datasetId',
-                           'join', 'joinLevel']
+                           'join', 'joinLevel', 'pick', 'omit']
             },
             'Query Entities Via POST': {
                 'positions': [],
@@ -1341,7 +1341,7 @@ class Requests:
                                'attrs', 'context', 'geoproperty',
                                'options', 'limit', 'entity_id_pattern',
                                'scopeq', 'georel', 'coordinates', 'geometry', 'count' , 'q' , 'datasetId',
-                               'join', 'joinLevel', 'local']
+                               'join', 'joinLevel', 'pick', 'omit', 'local']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Get Entities Request:"
@@ -1384,6 +1384,10 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: join set to '{value}'"
                 case 'joinLevel':
                     response = f"{response} and\n    Query Parameter: joinLevel set to '{value}'"
+                case 'pick':
+                    response = f"{response} and\n    Query Parameter: pick set to '{value}'"
+                case 'omit':
+                    response = f"{response} and\n    Query Parameter: omit set to '{value}'"
                 case 'local':
                     response = f"{response} and\n    Query Parameter: local set to '{value}'"
                 case _:
