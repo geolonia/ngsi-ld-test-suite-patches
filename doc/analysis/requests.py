@@ -107,7 +107,7 @@ class Requests:
                 'positions': [],
                 'params': ['temporal_entity_representation_id', 'attrs', 'options',
                            'context', 'timerel', 'timeAt', 'endTimeAt', 'lastN', 'accept',
-                           'aggrMethods', 'aggrPeriodDuration', 'timeproperty']
+                           'aggrMethods', 'aggrPeriodDuration', 'timeproperty', 'pick', 'omit']
             },
             'Delete Entity': {
                 'positions': [0],
@@ -1274,7 +1274,7 @@ class Requests:
     def retrieve_temporal_representation_of_entity(kwargs) -> str:
         expected_parameters = ['temporal_entity_representation_id', 'attrs', 'options',
                                'context', 'timerel', 'timeAt', 'endTimeAt', 'lastN', 'accept',
-                               'aggrMethods', 'aggrPeriodDuration', 'timeproperty']
+                               'aggrMethods', 'aggrPeriodDuration', 'timeproperty', 'pick', 'omit']
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Retrieve Temporal Representation of Entity"
         for key, value in kwargs.items():
@@ -1305,6 +1305,10 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: aggrPeriodDuration set to '{value}'"
                 case 'timeproperty':
                     response = f"{response} and\n    Query Parameter: timeproperty set to '{value}'"
+                case 'pick':
+                    response = f"{response} and\n    Query Parameter: pick set to '{value}'"
+                case 'omit':
+                    response = f"{response} and\n    Query Parameter: omit set to '{value}'"
                 # If an exact match is not confirmed, this last case will be used if provided
                 case _:
                     raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "

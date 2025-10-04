@@ -209,8 +209,12 @@ Retrieve Temporal Representation Of Entity
     ...    ${aggrMethods}=${EMPTY}
     ...    ${aggrPeriodDuration}=${EMPTY}
     ...    ${timeproperty}=${EMPTY}
+    ...    ${pick}=${EMPTY}
+    ...    ${omit}=${EMPTY}
     ${attrs_length}=    Get Length    ${attrs}
     ${options_length}=    Get Length    ${options}
+    ${pick_length}=    Get Length    ${pick}
+    ${omit_length}=    Get Length    ${omit}
     &{headers}=    Create Dictionary
     &{params}=    Create Dictionary
 
@@ -242,6 +246,8 @@ Retrieve Temporal Representation Of Entity
     IF    '${timeproperty}'!=''
         Set To Dictionary    ${params}    timeproperty=${timeproperty}
     END
+    IF    ${pick_length}>0    Set To Dictionary    ${params}    pick=${pick}
+    IF    ${omit_length}>0    Set To Dictionary    ${params}    omit=${omit}
 
     ${response}=    GET
     ...    url=${temporal_api_url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
