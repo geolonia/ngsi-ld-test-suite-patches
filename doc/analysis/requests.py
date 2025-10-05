@@ -76,7 +76,7 @@ class Requests:
                            'ngsild_query', 'csf', 'georel', 'geometry',
                            'coordinates', 'geoproperty', 'timerel', 'timeAt', 'endTimeAt',
                            'attrs', 'limit', 'lastN', 'accept', 'options', 'format', 'datasetId',
-                           'aggrMethods', 'aggrPeriodDuration']
+                           'aggrMethods', 'aggrPeriodDuration', 'pick', 'omit']
             },
             'Query Temporal Representation Of Entities Via Post': {
                 'positions': [],
@@ -1210,7 +1210,8 @@ class Requests:
         expected_parameters = ['context', 'entity_types', 'entity_ids', 'entity_id_pattern',
                                'ngsild_query', 'csf', 'georel', 'geometry',
                                'coordinates', 'geoproperty', 'timerel', 'timeAt','endTimeAt',
-                               'attrs', 'limit', 'lastN', 'accept', 'options', 'format', 'datasetId', 'aggrMethods','aggrPeriodDuration']
+                               'attrs', 'limit', 'lastN', 'accept', 'options', 'format', 'datasetId', 'aggrMethods',
+                               'aggrPeriodDuration', 'pick', 'omit']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Query Temporal Representation of Entities"
@@ -1262,6 +1263,10 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: aggrPeriodDuration set to '{value}'"
                 case 'datasetId':
                     response = f"{response} and\n    Query Parameter: datasetId set to '{value}'"
+                case 'pick':
+                    response = f"{response} and\n    Query Parameter: pick set to '{value}'"
+                case 'omit':
+                    response = f"{response} and\n    Query Parameter: omit set to '{value}'"
 
             # If an exact match is not confirmed, this last case will be used if provided
                 case _:

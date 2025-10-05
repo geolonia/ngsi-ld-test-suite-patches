@@ -45,9 +45,13 @@ Query Temporal Representation Of Entities
     ...    ${aggrMethods}=${EMPTY}
     ...    ${aggrPeriodDuration}=${EMPTY}
     ...    ${datasetId}=${EMPTY}
+    ...    ${pick}=${EMPTY}
+    ...    ${omit}=${EMPTY}
     ${entity_types_length}=    Get Length    ${entity_types}
     ${entity_ids_length}=    Get Length    ${entity_ids}
     ${attrs_length}=    Get Length    ${attrs}
+    ${pick_length}=    Get Length    ${pick}
+    ${omit_length}=    Get Length    ${omit}
     &{headers}=    Create Dictionary
     &{params}=    Create Dictionary
     IF    $accept!=''    Set To Dictionary    ${headers}    Accept=${accept}
@@ -99,6 +103,8 @@ Query Temporal Representation Of Entities
     IF    $datasetId!=''
         Set To Dictionary    ${params}    datasetId=${datasetId}
     END
+    IF    ${pick_length}>0    Set To Dictionary    ${params}    pick=${pick}
+    IF    ${omit_length}>0    Set To Dictionary    ${params}    omit=${omit}
 
     ${response}=    GET
     ...    url=${temporal_api_url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
