@@ -558,3 +558,31 @@ class TestCIConsumptions(TestCase):
         difference_file = f'{self.folder_test_suites}/doc/results/out_020_15.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_020_17(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_17.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/020_17.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_020_17.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_020_18(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_18.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/020_18.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_020_18.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_020_19(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_19.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/020_19.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_020_19.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_020_20(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/TemporalEntity/RetrieveTemporalEvolutionOfEntity/020_20.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/020_20.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_020_20.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
