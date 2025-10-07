@@ -34,7 +34,6 @@ class InitialSetup:
             'Setup Initial Context Source Registrations': InitialSetup.init_csrs(),
             'Setup Initial Context Source Registration Subscription': InitialSetup.init_csr_sub(),
             'Setup Initial Context Source Registration Subscriptions': InitialSetup.init_csr_subs(),
-            'Create Initial Context Source Registration and Mock Server': InitialSetup.init_csr_and_server(),
             'Create Initial set of @contexts': InitialSetup.create_set_contexts(),
             'Create Initial @context': InitialSetup.create_context(),
             'Create Initial cached @context': InitialSetup.created_cached_context(),
