@@ -91,6 +91,13 @@ class TestCISubscription(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
+    def test_028_08(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/CreateSubscription/028_08.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/028_08.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_028_08.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
     def test_032_01(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/DeleteSubscription/032_01.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/032_01.json'
@@ -492,6 +499,20 @@ class TestCISubscription(TestCase):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_41.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_41.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_046_41.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_046_42(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_42.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_42.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_046_42.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_046_43(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_43.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_43.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_046_43.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 

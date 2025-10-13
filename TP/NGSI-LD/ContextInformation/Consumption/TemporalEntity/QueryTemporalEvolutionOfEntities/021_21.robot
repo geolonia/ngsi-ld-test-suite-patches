@@ -51,7 +51,7 @@ Query Temporal Evolution Of Entities With Pick Or Omit Query Params
     [Arguments]    ${pick}    ${omit}    ${expected_filename}    ${group_by}=id
 
     ${response}=    Query Temporal Representation Of Entities
-    ...    entity_types=Building,Vehicle
+    ...    entity_types=Bus,Vehicle
     ...    timerel=after
     ...    timeAt=1970-01-01T00:00:00Z
     ...    pick=${pick}

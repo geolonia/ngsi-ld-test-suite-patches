@@ -51,7 +51,8 @@ Query Entities With Pick Or Omit Query Params
     ...    context=${ngsild_test_suite_context}
 
     Check Response Status Code    200    ${response.status_code}
-    Check Response Body Content    ${expectation_filename}    ${response.json()}
+    # ignore order since responses do not all have an id member
+    Check Response Body Content    ${expectation_filename}    ${response.json()}    ignore_order=True
 
 Setup Initial Entities
     ${first_entity_id}=    Catenate    ${BUILDING_ID_PREFIX}019-17-1
