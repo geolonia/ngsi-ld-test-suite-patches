@@ -77,6 +77,13 @@ class TestCISubscription(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
+    def test_028_06(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/CreateSubscription/028_06.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/028_06.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_028_06.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
     def test_032_01(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/DeleteSubscription/032_01.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/032_01.json'
@@ -226,6 +233,13 @@ class TestCISubscription(TestCase):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_18.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_18.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_046_18.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_046_19(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_19.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Subscription/046_19.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_046_19.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 

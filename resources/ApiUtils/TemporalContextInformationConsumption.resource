@@ -42,6 +42,7 @@ Query Temporal Representation Of Entities
     ...    ${options}=${EMPTY}
     ...    ${aggrMethods}=${EMPTY}
     ...    ${aggrPeriodDuration}=${EMPTY}
+    ...    ${datasetId}=${EMPTY}
     ${entity_types_length}=    Get Length    ${entity_types}
     ${entity_ids_length}=    Get Length    ${entity_ids}
     ${attrs_length}=    Get Length    ${attrs}
@@ -91,6 +92,9 @@ Query Temporal Representation Of Entities
     END
     IF    $aggrPeriodDuration!=''
         Set To Dictionary    ${params}    aggrPeriodDuration=${aggrPeriodDuration}
+    END
+    IF    $datasetId!=''
+        Set To Dictionary    ${params}    datasetId=${datasetId}
     END
 
     ${response}=    GET

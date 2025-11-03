@@ -43,6 +43,7 @@ Query Entities
     ...    ${count}=${EMPTY}
     ...    ${q}=${EMPTY}
     ...    ${local}=${EMPTY}
+    ...    ${datasetId}=${EMPTY}
     ${attrs_length}=    Get Length    ${attrs}
     ${accept_length}=    Get Length    ${accept}
     ${options_length}=    Get Length    ${options}
@@ -87,6 +88,10 @@ Query Entities
     IF    '${count}'!=''    Set To Dictionary    ${params}    count=${count}
     IF    '${q}'!=''    Set To Dictionary    ${params}    q=${q}
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
+    IF    '${datasetId}'!=''
+        Set To Dictionary    ${params}    datasetId=${datasetId}
+    END
+
     ${response}=    GET
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
     ...    headers=${headers}
