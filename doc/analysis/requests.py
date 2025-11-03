@@ -62,7 +62,8 @@ class Requests:
                 'params': ['context', 'entity_types', 'entity_ids', 'entity_id_pattern',
                            'ngsild_query', 'csf', 'georel', 'geometry',
                            'coordinates', 'geoproperty', 'timerel', 'timeAt', 'endTimeAt',
-                           'attrs', 'limit', 'lastN', 'accept', 'options', 'aggrMethods', 'aggrPeriodDuration']
+                           'attrs', 'limit', 'lastN', 'accept', 'options', 'datasetId',
+                           'aggrMethods', 'aggrPeriodDuration']
             },
             'Query Temporal Representation Of Entities Via Post': {
                 'positions': [],
@@ -85,7 +86,7 @@ class Requests:
                 'params': ['entity_ids', 'entity_types', 'accept',
                            'attrs', 'context', 'geoproperty',
                            'options', 'limit', 'entity_id_pattern',
-                           'scopeq', 'georel', 'coordinates', 'geometry', 'count', 'q']
+                           'scopeq', 'georel', 'coordinates', 'geometry', 'count', 'q', 'datasetId']
             },
             'Query Entities Via POST': {
                 'positions': [],
@@ -1132,7 +1133,7 @@ class Requests:
         expected_parameters = ['context', 'entity_types', 'entity_ids', 'entity_id_pattern',
                                'ngsild_query', 'csf', 'georel', 'geometry',
                                'coordinates', 'geoproperty', 'timerel', 'timeAt','endTimeAt',
-                               'attrs', 'limit', 'lastN', 'accept', 'options','aggrMethods','aggrPeriodDuration']
+                               'attrs', 'limit', 'lastN', 'accept', 'options', 'datasetId', 'aggrMethods','aggrPeriodDuration']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Query Temporal Representation of Entities"
@@ -1180,6 +1181,9 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: aggrMethods set to '{value}'"
                 case 'aggrPeriodDuration':
                     response = f"{response} and\n    Query Parameter: aggrPeriodDuration set to '{value}'"
+                case 'datasetId':
+                    response = f"{response} and\n    Query Parameter: datasetId set to '{value}'"
+
             # If an exact match is not confirmed, this last case will be used if provided
                 case _:
                     raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
@@ -1253,7 +1257,7 @@ class Requests:
         expected_parameters = ['entity_ids', 'entity_types', 'accept',
                                'attrs', 'context', 'geoproperty',
                                'options', 'limit', 'entity_id_pattern',
-                               'scopeq', 'georel', 'coordinates', 'geometry', 'count' , 'q']
+                               'scopeq', 'georel', 'coordinates', 'geometry', 'count' , 'q' , 'datasetId']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Get Entities Request:"
@@ -1290,6 +1294,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: count set to '{value}'"
                 case 'q':
                     response = f"{response} and\n    Query Parameter: q set to '{value}'"
+                case 'datasetId':
+                    response = f"{response} and\n    Query Parameter: datasetId set to '{value}'"
                 case _:
                     raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
                                     f"{expected_parameters}, but received: {kwargs}")

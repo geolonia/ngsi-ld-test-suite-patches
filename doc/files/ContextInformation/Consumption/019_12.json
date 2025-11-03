@@ -1,0 +1,152 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/019_12",
+  "test_objective": "Check that one can filter attribute instances based on datasetId.",
+  "reference": "ETSI GS CIM 009 V1.8.1 [], clauses 4.5.5, 5.7.2",
+  "config_id": "",
+  "parent_release": "v1.8.1",
+  "clauses": [
+    "4.5.5",
+    "5.7.2"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Filter attribute instances based on datasetId",
+    "Setup Initial Entity",
+    "Delete Entity"
+  ],
+  "teardown": "Delete Entity",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "019_12_01 filter based on attrs only",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_12_01",
+      "doc": "Check that one can filter attribute instances based on datasetId.",
+      "tags": [
+        "4_5_5",
+        "5_7_2",
+        "e-query",
+        "since_v1.8.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Filter attribute instances based on datasetId",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body containing en entity element with id set to 'entity_id=${entity_id}' and body content set to 'building-name-attribute.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: attrs set to '${attrsToMatch}' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_12_02 filter based on datasetId only",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_12_02",
+      "doc": "Check that one can filter attribute instances based on datasetId.",
+      "tags": [
+        "4_5_5",
+        "5_7_2",
+        "e-query",
+        "since_v1.8.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Filter attribute instances based on datasetId",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body containing en entity element with id set to 'entity_id=${entity_id}' and body content set to 'building-french-datasetid-only.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: attrs set to '${attrsToMatch}' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_12_03 filter based on two datasetIds",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_12_03",
+      "doc": "Check that one can filter attribute instances based on datasetId.",
+      "tags": [
+        "4_5_5",
+        "5_7_2",
+        "e-query",
+        "since_v1.8.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Filter attribute instances based on datasetId",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body containing en entity element with id set to 'entity_id=${entity_id}' and body content set to 'building-two-datasetids.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: attrs set to '${attrsToMatch}' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_12_04 filter based on default instance",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_12_04",
+      "doc": "Check that one can filter attribute instances based on datasetId.",
+      "tags": [
+        "4_5_5",
+        "5_7_2",
+        "e-query",
+        "since_v1.8.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Filter attribute instances based on datasetId",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body containing en entity element with id set to 'entity_id=${entity_id}' and body content set to 'building-default-instances.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: attrs set to '${attrsToMatch}' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_12_05 filter based on attrs and default instance",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_12_05",
+      "doc": "Check that one can filter attribute instances based on datasetId.",
+      "tags": [
+        "4_5_5",
+        "5_7_2",
+        "e-query",
+        "since_v1.8.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Filter attribute instances based on datasetId",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body containing en entity element with id set to 'entity_id=${entity_id}' and body content set to 'building-name-attribute-default-instance.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: attrs set to '${attrsToMatch}' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_12_06 filter based on attrs and datasetId",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_12_06",
+      "doc": "Check that one can filter attribute instances based on datasetId.",
+      "tags": [
+        "4_5_5",
+        "5_7_2",
+        "e-query",
+        "since_v1.8.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Filter attribute instances based on datasetId",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body containing en entity element with id set to 'entity_id=${entity_id}' and body content set to 'building-name-attribute-german-instance.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: attrs set to '${attrsToMatch}' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_12_07 filter based on attrs and datasetId with no match",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_12_07",
+      "doc": "Check that one can filter attribute instances based on datasetId.",
+      "tags": [
+        "4_5_5",
+        "5_7_2",
+        "e-query",
+        "since_v1.8.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Filter attribute instances based on datasetId",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Response Body containing en entity element with id set to 'entity_id=${entity_id}' and body content set to 'building-no-attributes.jsonld'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: attrs set to '${attrsToMatch}' and\n    Query Parameter: datasetId set to '${datasetId}' and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: Link set to '<$https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"' and\n    Query Parameter: accept set to 'application/ld+json'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [
+    "then"
+  ],
+  "robotpath": "ContextInformation/Consumption/Entity/QueryEntities",
+  "robotfile": "019_12"
+}
