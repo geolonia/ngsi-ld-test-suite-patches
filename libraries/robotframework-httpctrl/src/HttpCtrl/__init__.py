@@ -13,6 +13,8 @@ import http.client
 import json
 import threading
 
+from urllib.parse import urlparse, parse_qs
+
 from robot.api import logger
 
 from HttpCtrl.utils.logger import LoggerAssistant
@@ -1119,6 +1121,43 @@ class Server:
         response = Response(int(status), None, json.dumps(body), None, None)
         HttpStubContainer().add(criteria, response)
 
+    def get_stub(self, method, url):
+        """
+
+        Returns server stub that is used by server to reply.
+
+        `method` [in] (string): Request method that is used to handle by server stub (GET, POST, DELETE, etc., see: RFC 7231, RFC 5789).
+
+        `url` [in] (string): Path to the resource that is used by server stub, for example, in case address www.httpbin.org/ip - '/ip' is an path.
+
+        Example how to get server stub for request with `POST` method and URL `/api/v2/request`.
+
+        +----------------+------+-----------------+
+        | Get Stub       | POST | /api/v2/request |
+        +----------------+------+-----------------+
+
+        .. code:: text
+
+            Get Stub   POST   /api/v2/request
+
+        Example how to get server stub for request with `GET` method and URL `/get`
+
+        +----------------+------+-----+
+        | Get Stub       | GET | /get |
+        +----------------+------+-----+
+
+        .. code:: text
+
+            Get Stub   GET   /get
+
+        """
+        if self.__server is None:
+            message_error = "Impossible to get server stub (reason: 'server is not created')."
+            raise AssertionError(message_error)
+
+        criteria = HttpStubCriteria(method=method, url=url)
+        result = HttpStubContainer().get(criteria, None)
+        return result
 
     def get_stub_count(self, method, url):
         """
@@ -1296,6 +1335,30 @@ class Server:
 
         """
         return self.__request.get_url()
+    
+    def get_request_url_params(self, param_name):
+        """
+
+        Returns URL parameters of received request as a dictionary. This function should be called after \`Wait For Request\`,
+        otherwise None is returned.
+
+        Example how to obtain URL parameters of incoming request:
+
+        +-----------------------+
+        | Get Request Url Params |
+        +-----------------------+
+
+        .. code:: text
+
+            Get Request Url Params
+
+        """
+        url = self.__request.get_url()
+        parsed_url = urlparse(url)
+        params = parse_qs(parsed_url.query)
+        
+        param_value = params[param_name]
+        return param_value[0] if len(param_value) == 1 else param_value
 
 
     def set_reply_header(self, key, value):
