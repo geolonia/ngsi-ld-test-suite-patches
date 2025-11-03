@@ -1,0 +1,43 @@
+{
+  "tp_id": "TP/NGSI-LD/DistributedOperations/Prov/EA/D003_02_exc",
+  "test_objective": "Check that if one request the Context Broker to append an attribute whose id matches an exclusive registration with noOverwrite flag, the entity is updated on the Context Broker and the update is forwarded to the Context Source but existing attributes are not overwritten",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clauses 4.3.3, 4.3.6.3, 5.6.3",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "4.3.3",
+    "4.3.6.3",
+    "5.6.3"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Entity And Registration On The Context Broker And Start Context Source Mock Server",
+    "Delete Registration And Stop Context Source Mock Server"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} on the Context Broker\n        with an id set to ${entity_id}\n        and payload set to ${entity_payload_filename}\n    and the SUT containing a Context Source Registration \n        with id equal to ${registration_id}\n        and payload set to ${registration_payload_file_path}\n    and the SUT containing a Context Source Mock Server\n}",
+  "test_cases": [
+    {
+      "name": "D003_02_exc Append Entity Attribute",
+      "permutation_tp_id": "TP/NGSI-LD/DistributedOperations/Prov/EA/D003_02_exc",
+      "doc": "Check that an entity attribute is appended and the exclusive registration forwards the request to the Context Source with the noOverwrite flag",
+      "tags": [
+        "4_3_3",
+        "4_3_6_3",
+        "5_6_3",
+        "cf_06",
+        "dist-ops",
+        "proxy-exclusive",
+        "since_v1.6.1"
+      ],
+      "setup": "Create Entity And Registration On The Context Broker And Start Context Source Mock Server",
+      "teardown": "Delete Registration And Stop Context Source Mock Server",
+      "template": null,
+      "http_verb": "POST",
+      "endpoint": "entities/{id}/attrs?options=${options}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "DistributedOperations/Provision/EntityAttributes/AppendEntityAttributes",
+  "robotfile": "D003_02_exc"
+}
