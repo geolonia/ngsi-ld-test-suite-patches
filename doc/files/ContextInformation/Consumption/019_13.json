@@ -1,0 +1,100 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/019_13",
+  "test_objective": "Check that entities can be queried with a linked entity in different join types and representations",
+  "reference": "ETSI GS CIM 009 V1.8.1 [], clauses 4.5.23, 5.7.2",
+  "config_id": "",
+  "parent_release": "v1.8.1",
+  "clauses": [
+    "4.5.23",
+    "5.7.2"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Query Entities With Joins And Representations",
+    "Create Initial Entities And Linked Entities",
+    "Delete Created Entities And Linked Entities",
+    "Create Linking Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing initial Entities ${first_entity_id} and ${second_entity_id}\n        each one having a linked entity with an id respectively set to ${first_linked_entity_id} and ${second_linked_entity_id}\n    }",
+  "test_cases": [
+    {
+      "name": "019_13_01 Query Inline Normalized",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_13_01",
+      "doc": "Check that entities can be queried with a linked entity in different join types and representations",
+      "tags": [
+        "4_5_23",
+        "5_7_2",
+        "e-query",
+        "since_v1.8.1"
+      ],
+      "setup": "Create Initial Entities And Linked Entities",
+      "teardown": "Delete Created Entities And Linked Entities",
+      "template": "Query Entities With Joins And Representations",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Check Response Body Content and\n            Query Parameter: expectation_filename set to 'linked-entity-retrieval/buildings-one-level-inline-019-13.json' and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: additional_ignored_path set to '${EMPTY}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: options set to '${EMPTY}' and\n    Query Parameter: join set to 'inline' and\n    Query Parameter: joinLevel set to '1' and\n    Query Parameter: Link set to '<$https://easy-global-market.github.io/ngsild-api-data-models/ngsildTestSuite/ngsildTestSuiteV1.8-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_13_02 Query Flat Normalized",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_13_02",
+      "doc": "Check that entities can be queried with a linked entity in different join types and representations",
+      "tags": [
+        "4_5_23",
+        "5_7_2",
+        "e-query",
+        "since_v1.8.1"
+      ],
+      "setup": "Create Initial Entities And Linked Entities",
+      "teardown": "Delete Created Entities And Linked Entities",
+      "template": "Query Entities With Joins And Representations",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Check Response Body Content and\n            Query Parameter: expectation_filename set to 'linked-entity-retrieval/buildings-one-level-flat-019-13.json' and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: additional_ignored_path set to '${EMPTY}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: options set to '${EMPTY}' and\n    Query Parameter: join set to 'flat' and\n    Query Parameter: joinLevel set to '1' and\n    Query Parameter: Link set to '<$https://easy-global-market.github.io/ngsild-api-data-models/ngsildTestSuite/ngsildTestSuiteV1.8-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_13_03 Query Inline Simplified",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_13_03",
+      "doc": "Check that entities can be queried with a linked entity in different join types and representations",
+      "tags": [
+        "4_5_23",
+        "5_7_2",
+        "e-query",
+        "since_v1.8.1"
+      ],
+      "setup": "Create Initial Entities And Linked Entities",
+      "teardown": "Delete Created Entities And Linked Entities",
+      "template": "Query Entities With Joins And Representations",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Check Response Body Content and\n            Query Parameter: expectation_filename set to 'linked-entity-retrieval/buildings-one-level-inline-simplified-019-13.json' and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: additional_ignored_path set to '${EMPTY}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: options set to 'keyValues' and\n    Query Parameter: join set to 'inline' and\n    Query Parameter: joinLevel set to '1' and\n    Query Parameter: Link set to '<$https://easy-global-market.github.io/ngsild-api-data-models/ngsildTestSuite/ngsildTestSuiteV1.8-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    },
+    {
+      "name": "019_13_04 Query Flat Simplified",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_13_04",
+      "doc": "Check that entities can be queried with a linked entity in different join types and representations",
+      "tags": [
+        "4_5_23",
+        "5_7_2",
+        "e-query",
+        "since_v1.8.1"
+      ],
+      "setup": "Create Initial Entities And Linked Entities",
+      "teardown": "Delete Created Entities And Linked Entities",
+      "template": "Query Entities With Joins And Representations",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Query Entities with Response Status Code set to 200     and\n        Query Entities with Check Response Body Content and\n            Query Parameter: expectation_filename set to 'linked-entity-retrieval/buildings-one-level-flat-simplified-019-13.json' and\n            Query Parameter: response_body set to 'response.json()' and\n            Query Parameter: additional_ignored_path set to '${EMPTY}'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: options set to 'keyValues' and\n    Query Parameter: join set to 'flat' and\n    Query Parameter: joinLevel set to '1' and\n    Query Parameter: Link set to '<$https://easy-global-market.github.io/ngsild-api-data-models/ngsildTestSuite/ngsildTestSuiteV1.8-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [
+    "then",
+    "when"
+  ],
+  "robotpath": "ContextInformation/Consumption/Entity/QueryEntities",
+  "robotfile": "019_13"
+}

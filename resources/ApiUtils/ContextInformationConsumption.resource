@@ -44,6 +44,8 @@ Query Entities
     ...    ${q}=${EMPTY}
     ...    ${local}=${EMPTY}
     ...    ${datasetId}=${EMPTY}
+    ...    ${join}=${EMPTY}
+    ...    ${joinLevel}=${EMPTY}
     ${attrs_length}=    Get Length    ${attrs}
     ${accept_length}=    Get Length    ${accept}
     ${options_length}=    Get Length    ${options}
@@ -90,6 +92,10 @@ Query Entities
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
     IF    '${datasetId}'!=''
         Set To Dictionary    ${params}    datasetId=${datasetId}
+    END
+    IF    '${join}'!=''    Set To Dictionary    ${params}    join=${join}
+    IF    '${join_level}'!=''
+        Set To Dictionary    ${params}    joinLevel=${joinLevel}
     END
 
     ${response}=    GET
@@ -145,6 +151,8 @@ Query Entity
     ...    ${geometryProperty}=${EMPTY}
     ...    ${options}=${EMPTY}
     ...    ${lang}=${EMPTY}
+    ...    ${join}=${EMPTY}
+    ...    ${joinLevel}=${EMPTY}
     ${attrs_length}=    Get Length    ${attrs}
     ${accept_length}=    Get Length    ${accept}
     ${options_length}=    Get Length    ${options}
@@ -168,6 +176,10 @@ Query Entity
         Set To Dictionary    ${params}    options=${options}
     END
     IF    ${lang_length}>0    Set To Dictionary    ${params}    lang=${lang}
+    IF    '${join}'!=''    Set To Dictionary    ${params}    join=${join}
+    IF    '${join_level}'!=''
+        Set To Dictionary    ${params}    joinLevel=${joinLevel}
+    END
 
     ${response}=    GET
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}

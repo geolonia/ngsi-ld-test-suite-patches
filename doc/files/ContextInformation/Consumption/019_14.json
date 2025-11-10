@@ -1,0 +1,42 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/019_14",
+  "test_objective": "Check that entities can be queried with an inline linked entity with sysAttrs",
+  "reference": "ETSI GS CIM 009 V1.8.1 [], clauses 4.5.23, 5.7.2",
+  "config_id": "",
+  "parent_release": "v1.8.1",
+  "clauses": [
+    "4.5.23",
+    "5.7.2"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Initial Entities And Linked Entities",
+    "Delete Created Entities And Linked Entities",
+    "Create Linking Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing initial Entities ${first_entity_id} and ${second_entity_id}\n        each one having a linked entity with an id respectively set to ${first_linked_entity_id} and ${second_linked_entity_id}\n    }",
+  "test_cases": [
+    {
+      "name": "019_14_01 Query Entities With Inline Linked Entities And SysAttrs",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/019_14_01",
+      "doc": "Check that entities can be queried with an inline linked entity with sysAttrs",
+      "tags": [
+        "4_5_23",
+        "5_7_2",
+        "e-query",
+        "since_v1.8.1"
+      ],
+      "setup": "Create Initial Entities And Linked Entities",
+      "teardown": "Delete Created Entities And Linked Entities",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Query Entities with Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/'\n        method set to 'GET'\n        Get Entities Request: and\n    Query Parameter: entity_types set to 'Building' and\n    Query Parameter: options set to 'sysAttrs' and\n    Query Parameter: join set to 'inline' and\n    Query Parameter: joinLevel set to '1' and\n    Query Parameter: Link set to '<$https://easy-global-market.github.io/ngsild-api-data-models/ngsildTestSuite/ngsildTestSuiteV1.8-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Consumption/Entity/QueryEntities",
+  "robotfile": "019_14"
+}

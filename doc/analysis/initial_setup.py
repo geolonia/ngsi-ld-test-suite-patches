@@ -14,6 +14,9 @@ class InitialSetup:
             'Initiate Test Case': InitialSetup.init_entity(),
             'Create Initial Entity': InitialSetup.init_entity2(),
             'Setup Initial Entity': InitialSetup.init_entity2(),
+            'Create Initial Entity And Linked Entity': InitialSetup.init_entity_with_linked_entity(),
+            'Create Initial Entity And Linked Entities': InitialSetup.init_entity_with_linked_entities(),
+            'Create Initial Entities And Linked Entities': InitialSetup.init_entities_with_linked_entities(),
             'Initialize Environment': InitialSetup.init_entity2(),
             'Initialize Test': InitialSetup.init_entity2(),
             'Create Temporal Entity': InitialSetup.init_temporal_entity(),
@@ -87,6 +90,36 @@ class InitialSetup:
     the SUT containing an initial Entity ${entity} 
         with an id set to ${entityId} 
 }'''
+        return data
+
+    @staticmethod
+    def init_entity_with_linked_entity() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing an initial Entity ${entity} 
+        with an id set to ${linking_entity_id}
+        and a linked entity with an id set to ${linked_entity_id}
+}'''
+        return data
+
+    @staticmethod
+    def init_entity_with_linked_entities() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing an initial Entity ${entity} 
+        with an id set to ${linking_entity_id}
+        and a linked entity with an id set to ${level_1_linked_entity_id}
+        containing itself a linked entity with an id set to ${level_2_linked_entity_id}
+}'''
+        return data
+
+    @staticmethod
+    def init_entities_with_linked_entities() -> str:
+        data = '''with {
+    the SUT being in the "initial state" and
+    the SUT containing initial Entities ${first_entity_id} and ${second_entity_id}
+        each one having a linked entity with an id respectively set to ${first_linked_entity_id} and ${second_linked_entity_id}
+    }'''
         return data
 
     @staticmethod

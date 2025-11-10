@@ -20,6 +20,10 @@ class Requests:
                 'positions': [0],
                 'params': ['filename']
             },
+            'Create Entity From JSON-LD Content': {
+                'positions': [0],
+                'params': ['content']
+            },
             'Batch Create Entities': {
                 'positions': [1],
                 'params': ['content_type']
@@ -30,7 +34,7 @@ class Requests:
             },
             'Query Entity': {
                 'positions': [],
-                'params': ['id', 'accept', 'attrs', 'context', 'geometryProperty', 'options', 'lang']
+                'params': ['id', 'accept', 'attrs', 'context', 'geometryProperty', 'options', 'lang', 'join', 'joinLevel']
             },
             'Retrieve Subscription': {
                 'positions': [],
@@ -86,7 +90,8 @@ class Requests:
                 'params': ['entity_ids', 'entity_types', 'accept',
                            'attrs', 'context', 'geoproperty',
                            'options', 'limit', 'entity_id_pattern',
-                           'scopeq', 'georel', 'coordinates', 'geometry', 'count', 'q', 'datasetId']
+                           'scopeq', 'georel', 'coordinates', 'geometry', 'count', 'q', 'datasetId',
+                           'join', 'joinLevel']
             },
             'Query Entities Via POST': {
                 'positions': [],
@@ -781,7 +786,7 @@ class Requests:
 
     @staticmethod
     def query_entity(kwargs) -> str:
-        expected_parameters = ['id', 'accept', 'attrs', 'context', 'geometry_property', 'options', 'lang']
+        expected_parameters = ['id', 'accept', 'attrs', 'context', 'geometry_property', 'options', 'lang', 'join', 'joinLevel']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Get Entity Request:"
@@ -802,6 +807,10 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: options set to '{value}'"
                 case 'lang':
                     response = f"{response} and\n    Query Parameter: lang set to '{value}'"
+                case 'join':
+                    response = f"{response} and\n    Query Parameter: join set to '{value}'"
+                case 'joinLevel':
+                    response = f"{response} and\n    Query Parameter: joinLevel set to '{value}'"
                 case _:
                     raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
                                     f"{expected_parameters}, but received: {kwargs}")
@@ -1257,7 +1266,8 @@ class Requests:
         expected_parameters = ['entity_ids', 'entity_types', 'accept',
                                'attrs', 'context', 'geoproperty',
                                'options', 'limit', 'entity_id_pattern',
-                               'scopeq', 'georel', 'coordinates', 'geometry', 'count' , 'q' , 'datasetId']
+                               'scopeq', 'georel', 'coordinates', 'geometry', 'count' , 'q' , 'datasetId',
+                               'join', 'joinLevel']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Get Entities Request:"
@@ -1296,6 +1306,10 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: q set to '{value}'"
                 case 'datasetId':
                     response = f"{response} and\n    Query Parameter: datasetId set to '{value}'"
+                case 'join':
+                    response = f"{response} and\n    Query Parameter: join set to '{value}'"
+                case 'joinLevel':
+                    response = f"{response} and\n    Query Parameter: joinLevel set to '{value}'"
                 case _:
                     raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
                                     f"{expected_parameters}, but received: {kwargs}")

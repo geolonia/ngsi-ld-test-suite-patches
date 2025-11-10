@@ -218,6 +218,17 @@ Create Entity From File
     Output    ${response}    Create Entity From File
     RETURN    ${response}
 
+Create Entity From JSON-LD Content
+    [Arguments]    ${content}
+    &{headers}=    Create Dictionary    Content-Type=application/ld+json
+    ${response}=    POST
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    json=${content}
+    ...    headers=${headers}
+    ...    expected_status=any
+    Output    ${response}    Create Entity From JSON-LD Content
+    RETURN    ${response}
+
 Delete Entity Attributes
     [Arguments]    ${entityId}    ${attributeId}    ${datasetId}    ${deleteAll}    ${context}=${EMPTY}
     &{headers}=    Create Dictionary    Content-Type=${CONTENT_TYPE_JSON}

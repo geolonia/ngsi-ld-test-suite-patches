@@ -1,0 +1,41 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/Cons/E/018_12",
+  "test_objective": "Check that an entity can be retrieved with a flat linked entity with sysAttrs",
+  "reference": "ETSI GS CIM 009 V1.8.1 [], clauses 4.5.23, 5.7.1",
+  "config_id": "",
+  "parent_release": "v1.8.1",
+  "clauses": [
+    "4.5.23",
+    "5.7.1"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Initial Entity And Linked Entity",
+    "Delete Created Entity And Linked Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} \n        with an id set to ${linking_entity_id}\n        and a linked entity with an id set to ${linked_entity_id}\n}",
+  "test_cases": [
+    {
+      "name": "018_12_01 Retrieve Entity With Flat Linked Entity And SysAttrs",
+      "permutation_tp_id": "TP/NGSI-LD/CI/Cons/E/018_12_01",
+      "doc": "Check that an entity can be retrieved with a flat linked entity with sysAttrs",
+      "tags": [
+        "4_5_23",
+        "5_7_1",
+        "e-retrieve",
+        "since_v1.8.1"
+      ],
+      "setup": "Create Initial Entity And Linked Entity",
+      "teardown": "Delete Created Entity And Linked Entity",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operation:\n        Retrieve Entity with Response Status Code set to 200\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{id}'\n        method set to 'GET'\n        Retrieve Entity Request: and\n    Query Parameter: id set to '${linking_entity_id}' and\n    Query Parameter: join set to 'flat' and\n    Query Parameter: joinLevel set to '1' and\n    Query Parameter: options set to 'sysAttrs' and\n    Query Parameter: Link set to '<$https://easy-global-market.github.io/ngsild-api-data-models/ngsildTestSuite/ngsildTestSuiteV1.8-compound.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\";type=\"application/ld+json\"'\n}",
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Consumption/Entity/RetrieveEntity",
+  "robotfile": "018_12"
+}

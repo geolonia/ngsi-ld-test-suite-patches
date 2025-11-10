@@ -273,6 +273,34 @@ class TestCIConsumptions(TestCase):
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
+    def test_019_13(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Entity/QueryEntities/019_13.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/019_13.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_019_13.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_019_14(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Entity/QueryEntities/019_14.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/019_14.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_019_14.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_019_15(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Entity/QueryEntities/019_15.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/019_15.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_019_15.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_019_16(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Entity/QueryEntities/019_16.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/019_16.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_019_16.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
     def test_018_01_01(self):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Entity/RetrieveEntity/018_01_01.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/018_01_01.json'
@@ -354,6 +382,41 @@ class TestCIConsumptions(TestCase):
         robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Entity/RetrieveEntity/018_09.robot'
         expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/018_09.json'
         difference_file = f'{self.folder_test_suites}/doc/results/out_018_09.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_018_10(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Entity/RetrieveEntity/018_10.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/018_10.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_018_10.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_018_11(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Entity/RetrieveEntity/018_11.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/018_11.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_018_11.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_018_12(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Entity/RetrieveEntity/018_12.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/018_12.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_018_12.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_018_13(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Entity/RetrieveEntity/018_13.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/018_13.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_018_13.json'
+
+        self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
+
+    def test_018_14(self):
+        robot_file = f'{self.folder_test_suites}/TP/NGSI-LD/ContextInformation/Consumption/Entity/RetrieveEntity/018_14.robot'
+        expected_value = f'{self.folder_test_suites}/doc/files/ContextInformation/Consumption/018_14.json'
+        difference_file = f'{self.folder_test_suites}/doc/results/out_018_14.json'
 
         self.common_function(robot_file=robot_file, expected_value=expected_value, difference_file=difference_file)
 
