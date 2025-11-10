@@ -8,7 +8,7 @@ Test Template       Get Entity With Invalid Id
 
 
 *** Test Cases ***    ENTITY_ID    EXPECTED_STATUS_CODE    PROBLEM_TYPE
-018_02_01 Get an entity if the Entity Id is not a valid URI
+018_02_01 Get An Entity If The Entity Id Is Not A Valid URI
     thisisaninvaliduri    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 

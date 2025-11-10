@@ -17,10 +17,10 @@ ${reason_204}=      No Content
 
 
 *** Test Cases ***    DETAILS
-053_01_01 Serve a @context without details
+053_01_01 Serve A @context Without Details
     [Tags]    ctx-serve    5_13_4    since_v1.5.1
     ${EMPTY}
-053_01_02 Serve a @context with details equal to false
+053_01_02 Serve A @context With Details Equal To False
     [Tags]    ctx-serve    5_13_4    since_v1.5.1
     false
 

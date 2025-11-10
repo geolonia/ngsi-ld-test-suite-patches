@@ -20,7 +20,7 @@ ${entity_expectation_file_path}         entity-with-datasetid-046-19.jsonld
 
 
 *** Test Cases ***
-046_19 Check that only the attribute instances that match the datasetId member are included in the entity in the notification
+046_19 Check That Only The Attribute Instances That Match The datasetId Member Are Included In The Entity In The Notification
     [Documentation]    If a subscription has a datasetId member instances should be filtered based on that datasetId.
     [Tags]    sub-notification    4_5_5    5_8_6    since_v1.8.1
 

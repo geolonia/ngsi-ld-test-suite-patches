@@ -27,7 +27,7 @@ ${testing_id_prefix}=       urn:ngsi-ld:Testing:
 
 
 *** Test Cases ***
-053_06_01 Check that the numberOfHits is increased after using a Cached context
+053_06_01 Check That The numberOfHits Is Increased After Using A Cached Context
     [Documentation]    Check that the numberOfHits is increased after using a Cached context
     [Tags]    ctx-serve    5_13_4    since_v1.5.1
 

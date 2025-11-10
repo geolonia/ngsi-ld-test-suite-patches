@@ -18,7 +18,7 @@ ${expectation_filename}=    vehicle-temporal-representation-update.jsonld
 
 
 *** Test Cases ***
-008_01_01 Update a temporal representation of an entity with simple temporal properties
+008_01_01 Update A Temporal Representation Of An Entity With Simple Temporal Properties
     [Documentation]    Check that one can update a temporal representation of an entity with simple temporal properties
     [Tags]    te-update    5_6_11
     ${response}=    Create Or Update Temporal Representation Of Entity Selecting Content Type

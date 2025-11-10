@@ -24,7 +24,7 @@ ${expected_attribute}                   brandName
 
 
 *** Test Cases ***
-D010_01_aux Retrieve entity that exists on both the Context Source and the Context Broker from the Context Broker
+D010_01_aux Retrieve Entity That Exists On Both The Context Source And The Context Broker From The Context Broker
     [Documentation]    Check that if one retrieves entity living on on both the Context Broker and a Context Source, entities get merged correctly
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-auxiliary    4_3_6_2    5_7_1
     ${entity_body}=    Load Entity    ${entity_payload_filename}    ${entity_id}

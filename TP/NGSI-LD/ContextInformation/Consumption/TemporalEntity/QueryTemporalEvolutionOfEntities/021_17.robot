@@ -18,16 +18,16 @@ ${second_vehicle_payload_file}=     2020-08-vehicle-temporal-representation.json
 
 
 *** Test Cases ***    AGGRMETHODS    AGGRPERIODDURATION    ATTRS    VEHICLE_EXPECTATION_FILE
-021_17_01 One aggregate method aggregated by one hour duration
+021_17_01 One Aggregate Method Aggregated By One Hour Duration
     [Tags]    te-retrieve    5_7_3    4_5_19    since_v1.4.1
     avg    PT1H    ${EMPTY}    vehicle-temporal-representation-aggregated-avg-PT1H.json
-021_17_02 One aggregate method aggregated by one hour duration asking for one attribute
+021_17_02 One Aggregate Method Aggregated By One Hour Duration Asking For One Attribute
     [Tags]    te-retrieve    5_7_3    4_5_19    since_v1.4.1
     avg    PT1H    fuelLevel    vehicle-temporal-representation-aggregated-avg-PT1H-fuelLevel.json
-021_17_03 Multiple aggregate methods aggregated by one hour duration
+021_17_03 Multiple Aggregate Methods Aggregated By One Hour Duration
     [Tags]    te-retrieve    5_7_3    4_5_19    since_v1.4.1
     avg,max    PT1H    ${EMPTY}    vehicle-temporal-representation-aggregated-avg-max-PT1H.json
-021_17_04 Multiple aggregate methods aggregated by one day duration
+021_17_04 Multiple Aggregate Methods Aggregated By One Day Duration
     [Tags]    te-retrieve    5_7_3    4_5_19    since_v1.4.1
     min,max    P1D    ${EMPTY}    vehicle-temporal-representation-aggregated-min-max-P1D.json
 

@@ -23,7 +23,13 @@ ${context_source_url}                           http://${context_source_host}:${
 
 *** Keywords ***
 Prepare Context Source Registration From File
-    [Arguments]    ${id}    ${registration_file}    ${entity_id}=${EMPTY}    ${mode}=${EMPTY}    ${endpoint}=${EMPTY}    ${operations}=[]
+    [Arguments]
+    ...    ${id}
+    ...    ${registration_file}
+    ...    ${entity_id}=${EMPTY}
+    ...    ${mode}=${EMPTY}
+    ...    ${endpoint}=${EMPTY}
+    ...    ${operations}=[]
 
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_file}
     ${registration_payload}=    Update Value To JSON

@@ -13,9 +13,9 @@ ${status_code}=     400
 
 
 *** Test Cases ***    FILENAME
-007_02_01 Create a temporal entity with an invalid json
+007_02_01 Create A Temporal Entity With An Invalid Json
     vehicle-temporal-representation-invalid-json.jsonld
-007_02_02 Create a temporal entity with an empty json
+007_02_02 Create A Temporal Entity With An Empty Json
     vehicle-temporal-representation-empty-json.jsonld
 
 

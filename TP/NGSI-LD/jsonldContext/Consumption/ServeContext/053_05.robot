@@ -26,7 +26,7 @@ ${reason_200}=              OK
 
 
 *** Test Cases ***
-053_05_01 Check that the context served by a context server is still in the broker after a ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE with details=true
+053_05_01 Check That The Context Served By A Context Server Is Still In The Broker After A ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE With Details=true
     [Documentation]    Check that the context served by a context server is still in the broker after a ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE with details=true
     [Tags]    ctx-serve    5_13_4    since_v1.5.1
     ${response}=    List @contexts    ${TRUE}

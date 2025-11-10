@@ -14,19 +14,19 @@ ${reason_204}=      No Content
 
 
 *** Test Cases ***    DETAILS    KIND
-052_04_01 List @contexts with no details and kind set to other and not previously created @context
+052_04_01 List @contexts With No Details And Kind Set To Other And Not Previously Created @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     ${EMPTY}    other
-052_04_02 List @contexts with details set to other and no kind and not previously created @context
+052_04_02 List @contexts With Details Set To Other And No Kind And Not Previously Created @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     other    ${EMPTY}
-052_04_03 List @contexts with details set to other and kind set to other and not previously created @context
+052_04_03 List @contexts With Details Set To Other And Kind Set To Other And Not Previously Created @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     other    other
-052_04_04 List @contexts with details set to true and kind set to other and not previously created @context
+052_04_04 List @contexts With Details Set To True And Kind Set To Other And Not Previously Created @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     true    other
-052_04_05 List @contexts with details set to other and kind set to Hosted and not previously created @context
+052_04_05 List @contexts With Details Set To Other And Kind Set To Hosted And Not Previously Created @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     other    Hosted
 

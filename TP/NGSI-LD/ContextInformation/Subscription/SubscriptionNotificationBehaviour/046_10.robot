@@ -20,7 +20,7 @@ ${notification_server_send_url}         http://${notification_server_host}:${not
 
 
 *** Test Cases ***
-046_10_01 Check that the notification is sent as JSON
+046_10_01 Check That The Notification Is Sent As JSON
     [Documentation]    The Notification shall be sent as JSON
     [Tags]    sub-notification    5_8_6
 

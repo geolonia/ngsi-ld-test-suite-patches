@@ -17,10 +17,10 @@ ${entity_filename}      vehicle-speed-multi-instances.jsonld
 
 
 *** Test Cases ***    ATTRIBUTE_FILE_NAME    EXPECTATION_FILE_NAME
-055_01_01 Replace entity attribute
+055_01_01 Replace Entity Attribute
     [Tags]    ea-replace    5_6_19    6_7_3_3    since_v1.6.1
     vehicle-isParked-attribute.json    vehicle-replace-isParked-attribute.jsonld
-055_01_02 Replace entity attribute giving a new attribute type
+055_01_02 Replace Entity Attribute Giving A New Attribute Type
     [Tags]    ea-replace    5_6_19    6_7_3_3    since_v1.6.1
     vehicle-isParked-new-type-attribute.json    vehicle-replace-isParked-new-type-attribute.jsonld
 

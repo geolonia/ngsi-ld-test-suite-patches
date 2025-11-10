@@ -17,19 +17,19 @@ ${entity_filename}      vehicle-speed-multi-instances.jsonld
 
 
 *** Test Cases ***    ENTITY_ID    ATTR_ID    ATTRIBUTE_FILE_NAME    EXPECTED_STATUS_CODE
-055_03_01 Replace entity attribute giving an invalid entity ID
+055_03_01 Replace Entity Attribute Giving An Invalid Entity ID
     [Tags]    ea-replace    5_6_19    6_7_3_3    since_v1.6.1
     invalidUri    isParked    vehicle-isParked-attribute.json    400
-055_03_02 Replace entity attribute giving a nonexistent entity ID
+055_03_02 Replace Entity Attribute Giving A Nonexistent Entity ID
     [Tags]    ea-replace    5_6_19    6_7_3_3    since_v1.6.1
     urn:ngsi-ld:Vehicle:Nonexistent    isParked    vehicle-isParked-attribute.json    404
-055_03_03 Replace entity attribute giving an invalid attribute name
+055_03_03 Replace Entity Attribute Giving An Invalid Attribute Name
     [Tags]    ea-replace    5_6_19    6_7_3_3    since_v1.6.1
     ${entity_id}    @invalid    vehicle-isParked-attribute.json    400
-055_03_04 Replace entity attribute giving a nonexistent attribute name
+055_03_04 Replace Entity Attribute Giving A Nonexistent Attribute Name
     [Tags]    ea-replace    5_6_19    6_7_3_3    since_v1.6.1
     ${entity_id}    brandName    vehicle-isParked-attribute.json    404
-055_03_05 Replace entity attribute giving a scope attribute
+055_03_05 Replace Entity Attribute Giving A Scope Attribute
     [Tags]    ea-replace    5_6_19    6_7_3_3    since_v1.6.1
     ${entity_id}    scope    vehicle-scope-attribute.json    400
 

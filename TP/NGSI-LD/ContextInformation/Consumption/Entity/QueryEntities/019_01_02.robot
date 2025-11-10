@@ -22,7 +22,7 @@ ${parking_entity_type}=     https://ngsi-ld-test-suite/context#OffStreetParking
 
 
 *** Test Cases ***
-019_01_02 Query several entities based on the entities types
+019_01_02 Query Several Entities Based On The Entities Types
     [Documentation]    Check that one can query several entities based on the entities types
     [Tags]    e-query    5_7_2
     @{entities_ids_to_be_compared}=    Create List    ${vehicle_entity_id}    ${parking_entity_id}

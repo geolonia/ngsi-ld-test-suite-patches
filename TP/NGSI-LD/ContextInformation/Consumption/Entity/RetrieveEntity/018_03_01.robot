@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 
 *** Test Cases ***
-018_03_01 Get an entity if the Entity Id is not known to the system
+018_03_01 Get An Entity If The Entity Id Is Not Known To The System
     [Documentation]    Check that one cannot get an entity if the entity id is not known to the system
     [Tags]    e-retrieve    5_7_1
     ${entity_id}=    Generate Random Building Entity Id

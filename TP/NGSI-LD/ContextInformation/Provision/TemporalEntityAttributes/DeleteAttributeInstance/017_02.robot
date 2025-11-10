@@ -18,15 +18,15 @@ ${status_code}=     400
 
 
 *** Test Cases ***    TEMPORAL_ENTITY_ID    ATTRIBUTE_ID    INSTANCE_ID
-017_02_01 Delete an attribute instance in temporal representation of an entity if the entity id is not valid
+017_02_01 Delete An Attribute Instance In Temporal Representation Of An Entity If The Entity Id Is Not Valid
     invalidId    speed    ${valid_instanceId}
-017_02_02 Delete an attribute instance in temporal representation of an entity if the entity id is not present
+017_02_02 Delete An Attribute Instance In Temporal Representation Of An Entity If The Entity Id Is Not Present
     ${EMPTY}    speed    ${valid_instanceId}
-017_02_03 Delete an attribute instance in temporal representation of an entity if the instance id is not valid
+017_02_03 Delete An Attribute Instance In Temporal Representation Of An Entity If The Instance Id Is Not Valid
     ${temporal_entity_representation_id}    speed    invalidId
-017_02_04 Delete an attribute instance in temporal representation of an entity if the attribute name is not a valid name
+017_02_04 Delete An Attribute Instance In Temporal Representation Of An Entity If The Attribute Name Is Not A Valid Name
     ${temporal_entity_representation_id}    invalid(Name    ${valid_instanceId}
-017_02_05 Delete an attribute instance in temporal representation of an entity if the attribute name is not present
+017_02_05 Delete An Attribute Instance In Temporal Representation Of An Entity If The Attribute Name Is Not Present
     ${temporal_entity_representation_id}    ${EMPTY}    ${valid_instanceId}
 
 

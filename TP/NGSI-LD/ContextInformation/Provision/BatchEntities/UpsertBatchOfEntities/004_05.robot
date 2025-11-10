@@ -11,7 +11,7 @@ Test Teardown       Delete Entities
 
 
 *** Test Cases ***
-004_05_01 Upsert a batch of two valid entities and one invalid entity
+004_05_01 Upsert A Batch Of Two Valid Entities And One Invalid Entity
     [Documentation]    Check that one can upsert a batch of two valid entities and one invalid entity
     [Tags]    be-upsert    5_6_8
     ${first_entity_id}=    Generate Random Building Entity Id

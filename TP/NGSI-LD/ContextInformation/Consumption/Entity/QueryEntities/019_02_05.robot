@@ -21,7 +21,7 @@ ${parking_entity_type}=             https://ngsi-ld-test-suite/context#OffStreet
 
 
 *** Test Cases ***
-019_02_05 Query several entities via POST Interaction asking for a GeoJSON representation
+019_02_05 Query Several Entities Via POST Interaction Asking For A GeoJSON Representation
     [Documentation]    Check that one can query entities via POST Interaction asking for a GeoJSON representation
     [Tags]    e-query    5_7_2
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${vehicle_entity_type}    ${parking_entity_type}

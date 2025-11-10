@@ -18,17 +18,17 @@ ${fragment_filename}=       vehicle-temporal-modify-attribute-instance-fragment.
 
 
 *** Test Cases ***    TEMPORAL_ENTITY_ID    ATTRIBUTE_ID    INSTANCE_ID    EXPECTED_STATUS_CODE
-016_02_01 Modify attribute instance in temporal representation of an entity if the entity id is not valid
+016_02_01 Modify Attribute Instance In Temporal Representation Of An Entity If The Entity Id Is Not Valid
     invalidId    speed    ${valid_instanceId}    400
-016_02_02 Modify attribute instance in temporal representation of an entity if the entity id is not present
+016_02_02 Modify Attribute Instance In Temporal Representation Of An Entity If The Entity Id Is Not Present
     ${EMPTY}    speed    ${valid_instanceId}    400
-016_02_03 Modify attribute instance in temporal representation of an entity if the instance id is not valid
+016_02_03 Modify Attribute Instance In Temporal Representation Of An Entity If The Instance Id Is Not Valid
     ${temporal_entity_representation_id}    speed    invalidId    400
-016_02_04 Modify attribute instance in temporal representation of an entity if the instance id is not present
+016_02_04 Modify Attribute Instance In Temporal Representation Of An Entity If The Instance Id Is Not Present
     ${temporal_entity_representation_id}    speed    ${EMPTY}    405
-016_02_05 Modify attribute instance in temporal representation of an entity if the attribute name is not a valid name
+016_02_05 Modify Attribute Instance In Temporal Representation Of An Entity If The Attribute Name Is Not A Valid Name
     ${temporal_entity_representation_id}    invalid(Id    ${valid_instanceId}    400
-016_02_06 Modify attribute instance in temporal representation of an entity if the attribute name is not present
+016_02_06 Modify Attribute Instance In Temporal Representation Of An Entity If The Attribute Name Is Not Present
     ${temporal_entity_representation_id}    ${EMPTY}    ${valid_instanceId}    405
 
 

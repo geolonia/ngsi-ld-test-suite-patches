@@ -19,7 +19,7 @@ ${third_context_source_registration_payload_file_path}=     csourceRegistrations
 
 
 *** Test Cases ***    QUERY_PARAM_NAME    QUERY_PARAM_VALUE    EXPECTATION_FILE_PATH    EXPECTED_CONTEXT_SOURCE_REGISTRATION_IDS
-037_10_01 With list of Entity Ids
+037_10_01 With List Of Entity Ids
     [Tags]    csr-query    5_10_2
     id    ${first_context_source_registration_id},${third_context_source_registration_id}    csourceRegistrations/expectations/context-source-registrations-037-10-01.json    ${first_context_source_registration_id},${third_context_source_registration_id}
 037_10_02 With NGSI-LD Query

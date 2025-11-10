@@ -10,7 +10,7 @@ ${reason_404}=      Not Found
 
 
 *** Test Cases ***
-051_02_01 Delete a @context with unknown @context identifier
+051_02_01 Delete A @context With Unknown @context Identifier
     [Documentation]    Check that an error message is obtained in the response when one tries to delete a @context with unknonwn id
     [Tags]    ctx-serve    5_13_5    since_v1.5.1
 

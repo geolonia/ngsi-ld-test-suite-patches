@@ -19,10 +19,10 @@ ${reason_204}=          No Content
 
 
 *** Test Cases ***    DETAILS    KIND
-052_05_01 List @contexts with details set to true and no kind and with previously several add @contexts
+052_05_01 List @contexts With Details Set To True And No Kind And With Previously Several Add @contexts
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     true    ${EMPTY}
-052_05_02 List @contexts with details set to true and kind set to hosted and with previously several add @contexts
+052_05_02 List @contexts With Details Set To True And Kind Set To Hosted And With Previously Several Add @contexts
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     true    Hosted
 # move to new tests this doesn't work like this. cached need to run differently

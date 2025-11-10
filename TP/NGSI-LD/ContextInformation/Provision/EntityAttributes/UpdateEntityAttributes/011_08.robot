@@ -17,16 +17,16 @@ ${filename}=    building-different-attributes-instances-and-types.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_FILENAME
-011_08_01 Delete a Property
+011_08_01 Delete A Property
     [Tags]    ea-update    5_6_2    6_6_3_2    since_v1.6.1
     204    ngsild-null/null-property-instance.jsonld    ngsild-null/building-deleted-property-instance.jsonld
-011_08_02 Delete a Relationship
+011_08_02 Delete A Relationship
     [Tags]    ea-update    5_6_2    6_6_3_2    since_v1.6.1
     204    ngsild-null/null-relationship-instance.jsonld    ngsild-null/building-deleted-relationship-instance.jsonld
-011_08_03 Delete a GeoProperty
+011_08_03 Delete A GeoProperty
     [Tags]    ea-update    5_6_2    6_6_3_2    since_v1.6.1
     204    ngsild-null/null-geoproperty-instance.jsonld    ngsild-null/building-deleted-geoproperty-instance.jsonld
-011_08_04 Delete a LanguageProperty
+011_08_04 Delete A LanguageProperty
     [Tags]    ea-update    5_6_2    6_6_3_2    4_5_18    since_v1.6.1
     204    ngsild-null/null-languageproperty-instance.jsonld    ngsild-null/building-deleted-languageproperty-instance.jsonld
 

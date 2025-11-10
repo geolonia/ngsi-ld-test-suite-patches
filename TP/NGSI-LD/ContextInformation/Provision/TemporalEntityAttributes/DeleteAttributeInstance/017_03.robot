@@ -18,11 +18,11 @@ ${status_code}=     404
 
 
 *** Test Cases ***    TEMPORAL_ENTITY_ID    ATTRIBUTE_ID    INSTANCE_ID
-017_03_01 Delete an attribute instance in temporal representation of an entity if the entity with given id is not found
+017_03_01 Delete An Attribute Instance In Temporal Representation Of An Entity If The Entity With Given Id Is Not Found
     ${unknown_temporal_entity_id}    speed    ${valid_instanceId}
-017_03_02 Delete an attribute instance in temporal representation of an entity if the target attribute is not found
+017_03_02 Delete An Attribute Instance In Temporal Representation Of An Entity If The Target Attribute Is Not Found
     ${temporal_entity_representation_id}    speed2    ${valid_instanceId}
-017_03_03 Delete an attribute instance in temporal representation of an entity if the target attribute instance is not found
+017_03_03 Delete An Attribute Instance In Temporal Representation Of An Entity If The Target Attribute Instance Is Not Found
     ${temporal_entity_representation_id}    speed    urn:ngsi-ld:01234567890123456789
 
 

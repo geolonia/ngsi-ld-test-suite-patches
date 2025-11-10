@@ -18,10 +18,10 @@ ${second_vehicle_payload_file}=     2020-09-vehicle-temporal-representation.json
 
 
 *** Test Cases ***    LIMIT
-021_11_01 Query Some entities
+021_11_01 Query Some Entities
     [Tags]    te-query    5_7_4
     ${2}
-021_11_02 Query All entities
+021_11_02 Query All Entities
     [Tags]    te-query    5_7_4
     ${3}
 

@@ -7,7 +7,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 
 *** Test Cases ***
-020_06_01 Retrieve the temporal evolution of an entity with an invalid id
+020_06_01 Retrieve The Temporal Evolution Of An Entity With An Invalid Id
     [Documentation]    Check that one cannot retrieve the temporal evolution of an entity with an invalid id (invalid URI)
     [Tags]    te-retrieve    5_7_3
     ${response}=    Retrieve Temporal Representation Of Entity

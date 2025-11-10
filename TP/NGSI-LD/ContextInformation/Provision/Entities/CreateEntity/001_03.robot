@@ -16,7 +16,7 @@ ${content_type}=    application/ld+json
 
 
 *** Test Cases ***
-001_03_01 Create one valid entity and one invalid entity
+001_03_01 Create One Valid Entity And One Invalid Entity
     [Documentation]    Check that one cannot create an entity with an existing id
     [Tags]    e-create    5_6_1
     ${response}=    Create Entity Selecting Content Type

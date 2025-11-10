@@ -9,10 +9,10 @@ Test Template       Delete Entity Scenarios
 
 
 *** Test Cases ***    ENTITY_ID    EXPECTED_STATUS_CODE    PROBLEM_TYPE
-002_02_01 Delete an entity if the Entity Id is not present
+002_02_01 Delete An Entity If The Entity Id Is Not Present
     [Tags]    e-delete    5_6_6
     ${EMPTY}    405    ${EMPTY}
-002_02_02 Delete an entity if the Entity Id is not a valid URI
+002_02_02 Delete An Entity If The Entity Id Is Not A Valid URI
     [Tags]    e-delete    5_6_6
     thisisaninvaliduri    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 

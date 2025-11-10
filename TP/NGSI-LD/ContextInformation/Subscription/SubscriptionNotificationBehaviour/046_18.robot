@@ -20,7 +20,7 @@ ${notification_server_send_url}         http://${notification_server_host}:${not
 
 
 *** Test Cases ***
-046_18_01 Check that the response payload body does not contain the system generated attributes if sysAttrs parameter is set to false
+046_18_01 Check That The Response Payload Body Does Not Contain The System Generated Attributes If sysAttrs Parameter Is Set To False
     [Documentation]    The system generated attributes are not included in the response payload body of a notification if sysAttrs parameter is set to false.
     [Tags]    sub-notification    5_8_6    since_v1.6.1
 

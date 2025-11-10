@@ -17,7 +17,7 @@ ${expectation_filename}             building-minimal-with-two-scopes.json
 
 
 *** Test Cases ***
-054_03_01 Replace an existing entity having scopes
+054_03_01 Replace An Existing Entity Having Scopes
     [Documentation]    Check that one can replace an existing entity and that scopes are replaced
     [Tags]    e-replace    4_18    5_6_18    6_5_3_3    since_v1.6.1
     ${response}=    Replace Entity

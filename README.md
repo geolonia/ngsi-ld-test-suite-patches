@@ -401,9 +401,9 @@ To launch a run configuration, choose one of the two configurations from the Run
 ### Pre commit
 
 Before each commit, a formatting according to the rules of 
-[Robotidy](https://github.com/MarketSquare/robotframework-tidy) is done for files with the `.robot` or `.resource` 
+[Robocop](https://robocop.readthedocs.io/en/stable/index.html) is done for files with the `.robot` or `.resource` 
 extension. If nothing has been modified, the commit is done normally. Otherwise, the commit displays an error message 
-with all the modifications made by Robotidy to format the file. Modified files can then be added to the commit.
+with all the modifications made by Robocop to format the file. Modified files can then be added to the commit.
 
 To use it, install `pre-commit` with the following commands (using pip):
 
@@ -417,7 +417,7 @@ Now, it will run automatically on every commit.
 
 To manually launch the tool, the following command can be used:
 
-```$ python -m robotidy .```
+```$ robocop format```
 
 Further details can be found on the [pre-commit](https://pre-commit.com) site.
 

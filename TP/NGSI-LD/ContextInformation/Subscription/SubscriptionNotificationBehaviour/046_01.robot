@@ -20,7 +20,7 @@ ${notification_server_send_url}=        http://${notification_server_host}:${not
 
 
 *** Test Cases ***
-046_01_01 Check that a notification is only sent if status is active
+046_01_01 Check That A Notification Is Only Sent If Status Is Active
     [Documentation]    Check that a notification is only sent if and only if the status is active
     [Tags]    sub-notification    5_8_6
 

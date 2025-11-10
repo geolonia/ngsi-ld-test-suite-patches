@@ -17,7 +17,7 @@ ${entity_context_id}=       urn:ngsi-ld:Building:randomUUID
 
 
 *** Test Cases ***
-053_04_01 Check that the numberOfHits is increased after using a Hosted context
+053_04_01 Check That The numberOfHits Is Increased After Using A Hosted Context
     [Documentation]    Check that the numberOfHits is increased after using a Hosted context
     [Tags]    ctx-serve    5_13_4    since_v1.5.1
 

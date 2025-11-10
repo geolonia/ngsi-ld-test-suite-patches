@@ -13,9 +13,9 @@ ${status_code}=     400
 
 
 *** Test Cases ***    ENTITY_ID    FILENAME
-007_03_01 Create a temporal entity with missing id
+007_03_01 Create A Temporal Entity With Missing Id
     ${EMPTY}    vehicle-temporal-representation-without-id.jsonld
-007_03_02 Create a temporal invalid URI
+007_03_02 Create A Temporal Invalid URI
     invalidId    vehicle-temporal-representation.jsonld
 
 

@@ -19,7 +19,7 @@ ${invalid_attribute_two}=       type
 
 
 *** Test Cases ***
-019_03_03 Query several entities based on incorrect attribute names
+019_03_03 Query Several Entities Based On Incorrect Attribute Names
     [Documentation]    Check that one cannot query entities if the requested attribute names are incorrect
     [Tags]    e-query    5_7_2
     ${attributes_to_be_retrieved}=    Catenate    SEPARATOR=,    ${invalid_attribute_one}    ${invalid_attribute_two}

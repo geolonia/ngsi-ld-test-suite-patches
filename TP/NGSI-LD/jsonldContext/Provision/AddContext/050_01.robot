@@ -18,10 +18,10 @@ ${reason_204}=              No Content
 
 
 *** Test Cases ***    FILENAME    CONTEXT_TYPE
-050_01_01 Add a valid hosted @context from key=value
+050_01_01 Add A Valid Hosted @context From Key=value
     [Tags]    ctx-add    5_13_2    since_v1.5.1
     ${filename_dictionary}    Hosted
-050_01_02 Add a valid cached @context from URI
+050_01_02 Add A Valid Cached @context From URI
     [Tags]    ctx-add    5_13_2    since_v1.5.1
     ${filename_list}    Hosted
 

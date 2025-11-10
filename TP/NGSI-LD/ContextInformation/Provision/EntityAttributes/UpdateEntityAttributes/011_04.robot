@@ -15,7 +15,7 @@ ${filename}=    vehicle-speed-two-datasetid.jsonld
 
 
 *** Test Cases ***
-011_04_01 Update entity attributes with invalid entity fragments
+011_04_01 Update Entity Attributes With Invalid Entity Fragments
     vehicle-speed-two-datasetid.jsonld    invalid-fragment.jsonld
 
 

@@ -19,7 +19,7 @@ ${entity_invalid_id_two}=       thisisaninvaliduri2
 
 
 *** Test Cases ***
-019_03_01 Query entities based on incorrect ids
+019_03_01 Query Entities Based On Incorrect Ids
     [Documentation]    Check that one cannot query entities if the requested ids are incorrect
     [Tags]    e-query    5_7_2
     ${entities_ids_to_be_retrieved}=    Catenate    SEPARATOR=,    ${entity_invalid_id_one}    ${entity_invalid_id_two}

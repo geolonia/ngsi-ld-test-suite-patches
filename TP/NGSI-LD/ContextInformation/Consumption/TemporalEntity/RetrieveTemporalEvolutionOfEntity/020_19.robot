@@ -18,7 +18,7 @@ ${vehicle_payload_file}=    vehicle-temporal-representation-scope.jsonld
 
 
 *** Test Cases ***    EXPECTATION_FILENAME
-020_19_01 With a Scope
+020_19_01 With A Scope
     [Tags]    te-retrieve    4_18    5_7_3    6_19_3_1    since_v1.6.1
     vehicle-temporal-representation-property-020-19.jsonld
 

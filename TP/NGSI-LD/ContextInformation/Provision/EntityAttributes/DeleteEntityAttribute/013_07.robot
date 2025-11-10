@@ -16,7 +16,7 @@ ${expectation_filename}=    building-minimal.json
 
 
 *** Test Cases ***
-013_07_01 Delete a VocabProperty property from an entity
+013_07_01 Delete A VocabProperty Property From An Entity
     [Documentation]    Check that you can delete a VocabProperty property from an entity
     [Tags]    ea-delete    5_6_5    4_5_20    since_v1.7.1
     ${response}=    Delete Entity Attributes

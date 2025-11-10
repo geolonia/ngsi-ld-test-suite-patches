@@ -1,7 +1,6 @@
 *** Settings ***
 Documentation       Verify that when an entity creation request is made to the Context Broker with the local parameter, the request is not forwarded to the Context Source, and the entity is created only on the Context Broker
 
-
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
@@ -20,6 +19,7 @@ ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 
+
 *** Test Cases ***
 D001_04_inc Create Entity With Local Flag
     [Documentation]    Verify that, when one has an inclusive registration on a Context Broker, one is able to create an entity with local flag and the operation should not be forwarded to the Context Source
@@ -28,6 +28,7 @@ D001_04_inc Create Entity With Local Flag
     Check Response Status Code    201    ${response.status_code}
 
     Wait For No Request
+
 
 *** Keywords ***
 Setup Entity Id And Registration And Start Context Source Mock Server

@@ -19,7 +19,7 @@ ${entity_expectation_file_path}=        entity-deleted-name-attribute-instance-k
 
 
 *** Test Cases ***
-046_22_07 Check that a notification is sent with matching entity
+046_22_07 Check That A Notification Is Sent With Matching Entity
     [Documentation]    Delete an attribute with a specific datasetId and check the received notification
     [Tags]    sub-notification    5_8_6    4_5_5    since_v1.6.1
 

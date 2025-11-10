@@ -17,7 +17,7 @@ ${attribute_id}=        brandName
 
 
 *** Test Cases ***
-044_01_01 endpoint /entities/{entityId}/attrs/{attrId}
+044_01_01 Endpoint /entities/{entityId}/attrs/{attrId}
     [Documentation]    Verify that PATCH HTTP requests can be done with "application/merge-patch+json" as Content-Type
     [Tags]    ea-partial-update    cb-mergepatch    6_3_4
     ${response}=    Partial Update Entity Attributes

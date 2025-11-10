@@ -19,16 +19,16 @@ ${reason_204}=          No Content
 
 
 *** Test Cases ***    DETAILS    KIND
-052_03_01 List @contexts with neither details or kind and with previously several add @context
+052_03_01 List @contexts With Neither Details Or Kind And With Previously Several Add @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     ${EMPTY}    ${EMPTY}
-052_03_02 List @contexts with no details and kind equal to hosted and with previously several add @context
+052_03_02 List @contexts With No Details And Kind Equal To Hosted And With Previously Several Add @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     ${EMPTY}    Hosted
-052_03_03 List @contexts with details equal to false and no kind and with previously several add @context
+052_03_03 List @contexts With Details Equal To False And No Kind And With Previously Several Add @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     false    ${EMPTY}
-052_03_04 List @contexts with details equal to false and kind equal to hosted and with previously several add @context
+052_03_04 List @contexts With Details Equal To False And Kind Equal To Hosted And With Previously Several Add @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     false    Hosted
 

@@ -16,10 +16,10 @@ ${filename}=    context-source-registration.jsonld
 
 
 *** Test Cases ***    INVALID_REGISTRATION_ID    EXPECTED_STATUS_CODE    PROBLEM_TYPE
-035_02_01 Delete a Context Source Registration if the Id is not present
+035_02_01 Delete A Context Source Registration If The Id Is Not Present
     [Tags]    csr-delete    5_9_4
     ${EMPTY}    405    ${EMPTY}
-035_02_02 Delete a Context Source Registration if the Id is not a valid URI
+035_02_02 Delete A Context Source Registration If The Id Is Not A Valid URI
     [Tags]    csr-delete    5_9_4
     invalidURI    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 

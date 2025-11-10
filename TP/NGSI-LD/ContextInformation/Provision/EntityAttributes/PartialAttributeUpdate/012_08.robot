@@ -17,7 +17,7 @@ ${status_code}=     204
 
 
 *** Test Cases ***    FRAGMENT_FILENAME    ATTRIBUTE_ID    EXPECTATION_FILENAME
-012_08_01 Check that you can partially update a JSON property
+012_08_01 Check That You Can Partially Update A JSON Property
     [Tags]    ea-partial-update    5_6_4    4_5_24    since_v1.8.1
     building-json-property-fragment.jsonld    jsonProperty    building-json-property-update.jsonld
 

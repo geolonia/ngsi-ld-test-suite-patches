@@ -14,10 +14,10 @@ ${type}=            https://uri.etsi.org/ngsi-ld/errors/BadRequestData
 
 
 *** Test Cases ***    RELOAD
-051_08_01 Delete a core @contexts and return an error with no reload
+051_08_01 Delete A Core @contexts And Return An Error With No Reload
     [Tags]    ctx-delete    5_13_5    since_v1.5.1
     ${EMPTY}
-051_08_02 Delete a core @contexts and return an error with reload set to false
+051_08_02 Delete A Core @contexts And Return An Error With Reload Set To False
     [Tags]    ctx-delete    5_13_5    since_v1.5.1
     false
 

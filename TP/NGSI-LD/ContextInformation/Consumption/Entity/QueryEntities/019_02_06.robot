@@ -18,7 +18,7 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 
 
 *** Test Cases ***
-019_02_06 Query two entities via POST Interaction based on ids
+019_02_06 Query Two Entities Via POST Interaction Based On Ids
     [Documentation]    Check that one can query two entities via POST Interaction based on ids
     [Tags]    e-query    5_7_2
     @{entities_ids_to_be_compared}=    Create List    ${first_entity_id}    ${second_entity_id}

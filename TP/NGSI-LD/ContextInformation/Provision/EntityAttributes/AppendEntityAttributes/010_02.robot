@@ -19,9 +19,9 @@ ${invalid_fragment_filename}=       invalid-fragment.jsonld
 
 
 *** Test Cases ***    ENTITY_INVALID_ID
-010_02_01 Append entity attributes if the entity Id is not present
+010_02_01 Append Entity Attributes If The Entity Id Is Not Present
     ${EMPTY}
-010_02_02 Append entity attributes if the Entity Id is not a valid URI
+010_02_02 Append Entity Attributes If The Entity Id Is Not A Valid URI
     thisisaninvaliduri
 
 

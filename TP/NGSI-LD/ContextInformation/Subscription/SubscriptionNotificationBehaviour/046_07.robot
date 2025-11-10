@@ -25,7 +25,7 @@ ${date_format_with_millis}                                  %Y-%m-%dT%H:%M:%S.%f
 
 
 *** Test Cases ***
-046_07_01 Check notification structure
+046_07_01 Check Notification Structure
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3. Valid notification with attributes as stated above
     [Tags]    sub-notification    5_8_6
     [Setup]    Setup Initial Subscriptions    ${subscription_payload_file_path}
@@ -38,7 +38,7 @@ ${date_format_with_millis}                                  %Y-%m-%dT%H:%M:%S.%f
     ${notified_at_date}=    Parse Ngsild Date    ${notification}[notifiedAt]
     Should Not Be Equal    ${notified_at_date}    ${None}
 
-046_07_02 Check correct attributes are included
+046_07_02 Check Correct Attributes Are Included
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3.    The Entity Attributes included (Properties or Relationships) shall be those specified by the notification.attributes member in the Subscription data type (clause 5.2.12).
     [Tags]    sub-notification    5_8_6
     [Setup]    Setup Initial Subscriptions    ${subscription_payload_file_path_notificationAttributes}
@@ -53,7 +53,7 @@ ${date_format_with_millis}                                  %Y-%m-%dT%H:%M:%S.%f
     Dictionary Should Not Contain Key    ${notification}[data][0]    name
     Dictionary Should Contain Key    ${notification}[data][0]    airQualityLevel
 
-046_07_03 Check URI expansion is observed
+046_07_03 Check URI Expansion Is Observed
     [Documentation]    The structure of the notification message shall be as mandated by clause 5.3.    URI expansion shall be observed (clause 5.5.7).
     [Tags]    sub-notification    5_8_6
     [Setup]    Setup Initial Subscriptions    ${subscription_payload_file_path_default_context}

@@ -11,7 +11,7 @@ Test Teardown       Delete Initial Entities
 
 
 *** Test Cases ***
-003_04_01 Create a batch of one entity using a provided Link header with JSON content type and retrieve the entity with context detail
+003_04_01 Create A Batch Of One Entity Using A Provided Link Header With JSON Content Type And Retrieve The Entity With Context Detail
     [Documentation]    Check that the @context is obtained from a Link Header if the Content-Type header is "application/json"
     [Tags]    be-create    6_3_5
 
@@ -34,7 +34,7 @@ Test Teardown       Delete Initial Entities
     ...    expected_attribute_name=almostFull
     ...    response_body=${response1.json()}
 
-003_04_02 Create a batch of one entity using a provided Link header with JSON content type and retrieve the entity without context detail
+003_04_02 Create A Batch Of One Entity Using A Provided Link Header With JSON Content Type And Retrieve The Entity Without Context Detail
     [Documentation]    Check that the @context is obtained from a Link Header if the Content-Type header is "application/json"
     [Tags]    be-create    6_3_5
 

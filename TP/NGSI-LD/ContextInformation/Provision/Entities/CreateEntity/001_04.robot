@@ -15,7 +15,7 @@ ${filename}=    building-simple-attributes.json
 
 
 *** Test Cases ***
-001_04_01 Create one entity using a provided Link header with JSON content type and NGSILD context
+001_04_01 Create One Entity Using A Provided Link Header With JSON Content Type And NGSILD Context
     [Documentation]    Check that the @context is obtained from a Link Header if the Content-Type header is "application/json"
     [Tags]    e-create    6_3_5
     ${entity_id}=    Generate Random Building Entity Id
@@ -31,7 +31,7 @@ ${filename}=    building-simple-attributes.json
     ...    expected_attribute_name=almostFull
     ...    response_body=${response1.json()}
 
-001_04_02 Create one entity using a provided Link header with JSON content type and no context
+001_04_02 Create One Entity Using A Provided Link Header With JSON Content Type And No Context
     [Documentation]    Check that the @context is obtained from a Link Header if the Content-Type header is "application/json"
     [Tags]    e-create    6_3_5
     ${entity_id}=    Generate Random Building Entity Id

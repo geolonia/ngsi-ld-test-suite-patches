@@ -18,7 +18,7 @@ ${entity_filename}=             building-relationship-of-property.jsonld
 
 
 *** Test Cases ***
-057_02_01 Merge a batch should succeed for existing entities and fail for non existing one by returning 207 status
+057_02_01 Merge A Batch Should Succeed For Existing Entities And Fail For Non Existing One By Returning 207 Status
     [Documentation]    Check that you can merge a batch of non-existing and existing entities
     [Tags]    be-merge    5_6_17    since_v1.6.1
     ${first_existing_entity}=    Load Entity

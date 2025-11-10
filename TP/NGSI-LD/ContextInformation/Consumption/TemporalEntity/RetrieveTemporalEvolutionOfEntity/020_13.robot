@@ -21,34 +21,34 @@ ${mrt}=                     most recent timestamp
 
 
 *** Test Cases ***
-020_13_01 retrieve an entity with 20 instances on two attributes
+020_13_01 Retrieve An Entity With 20 Instances On Two Attributes
     [Tags]    te-retrieve    5_7_3    6_3_10    since_v1.5.1
     ${EMPTY}    expectedSize=*    expectedRangeStart=${lrt}    expectedRangeEnd=${mrt}
-020_13_02 retrieve the entity with lastN
+020_13_02 Retrieve The Entity With lastN
     [Tags]    te-retrieve    5_7_3    6_3_10    since_v1.5.1
     lastN=${20}    expectedSize=20    expectedRangeStart=${mrt}    expectedRangeEnd=${lrt}
-020_13_03 retrieve the entity with lastN and timerel before
+020_13_03 Retrieve The Entity With lastN And Timerel Before
     [Tags]    te-retrieve    5_7_3    6_3_10    since_v1.5.1
     lastN=${20}    expectedSize=20    timerel=before    timeAt=${timeAfter}    expectedRangeStart=${timeAfter}    expectedRangeEnd=${lrt}
-020_13_04 retrieve the entity with lastN and timerel between
+020_13_04 Retrieve The Entity With lastN And Timerel Between
     [Tags]    te-retrieve    5_7_3    6_3_10    since_v1.5.1
     lastN=${20}    timerel=between    timeAt=${timeBefore}    endTimeAt=${timeAfter}    expectedRangeStart=${timeAfter}    expectedRangeEnd=${lrt}
-020_13_05 retrieve the entity with lastN and timerel after
+020_13_05 Retrieve The Entity With lastN And Timerel After
     [Tags]    te-retrieve    5_7_3    6_3_10    since_v1.5.1
     lastN=${20}    expectedSize=20    timerel=after    timeAt=${timeBefore}    expectedRangeStart=${mrt}    expectedRangeEnd=${lrt}
-020_13_06 retrieve the entity with timerel before
+020_13_06 Retrieve The Entity With Timerel Before
     [Tags]    te-retrieve    5_7_3    6_3_10    since_v1.5.1
     timerel=before    expectedSize=*    timeAt=${timeAfter}    expectedRangeEnd=${mrt}
-020_13_07 retrieve the entity with timerel between
+020_13_07 Retrieve The Entity With Timerel Between
     [Tags]    te-retrieve    5_7_3    6_3_10    since_v1.5.1
     timerel=between    timeAt=${timeBefore}    endTimeAt=${timeAfter}    expectedRangeStart=${timeBefore}    expectedRangeEnd=${mrt}
-020_13_08 retrieve the entity with timerel after
+020_13_08 Retrieve The Entity With Timerel After
     [Tags]    te-retrieve    5_7_3    6_3_10    since_v1.5.1
     timerel=after    timeAt=${timeBefore}    expectedRangeStart=${timeBefore}    expectedRangeEnd=${mrt}
-020_13_09 retrieve the entity with temporalValues and timerel after
+020_13_09 Retrieve The Entity With temporalValues And Timerel After
     [Tags]    te-retrieve    5_7_3    6_3_10    since_v1.5.1
     representation=temporalValues    timerel=after    timeAt=${timeBefore}    expectedRangeStart=${timeBefore}    expectedRangeEnd=${mrt}
-020_13_10 retrieve the entity with temporalValues, lastN and timerel between
+020_13_10 Retrieve The Entity With temporalValues, lastN And Timerel Between
     [Tags]    te-retrieve    5_7_3    6_3_10    since_v1.5.1
     representation=temporalValues    lastN=${20}    timerel=between    timeAt=${timeBefore}    endTimeAt=${timeAfter}    expectedRangeStart=${timeAfter}    expectedRangeEnd=${lrt}
 

@@ -18,7 +18,7 @@ ${building_filename}=                   building-simple-attributes.jsonld
 
 
 *** Test Cases ***
-046_22_03 Check that a notification is not sent with updated entity
+046_22_03 Check That A Notification Is Not Sent With Updated Entity
     [Documentation]    Delete a not watched attribute and check no notification is received
     [Tags]    sub-notification    5_8_6    since_v1.6.1
 

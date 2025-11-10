@@ -17,10 +17,10 @@ ${filename}=    vehicle-speed-two-datasetid.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_FILENAME
-010_01_01 Append entity attributes
+010_01_01 Append Entity Attributes
     [Tags]    ea-append    5_6_3
     204    vehicle-new-attribute-fragment.jsonld    vehicle-speed-appended.jsonld
-010_01_02 Append entity attributes with different datasetid
+010_01_02 Append Entity Attributes With Different Datasetid
     [Tags]    ea-append    5_6_3
     204    vehicle-speed-different-datasetid-fragment.jsonld    vehicle-speed-different-datasetid.jsonld
 

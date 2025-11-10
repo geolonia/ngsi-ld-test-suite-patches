@@ -11,7 +11,7 @@ Test Setup          Setup Initial Entity
 
 
 *** Test Cases ***
-006_02_01 Delete a batch of non-existing and existing entities
+006_02_01 Delete A Batch Of Non-existing And Existing Entities
     [Documentation]    Check that one can delete a batch of non-existing and existing entities
     [Tags]    be-delete    5_6_10
     ${new_entity_id}=    Generate Random Building Entity Id

@@ -12,7 +12,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***
-033_02_01 Create a context source registration with invalid content
+033_02_01 Create A Context Source Registration With Invalid Content
     [Documentation]    Check that one cannot create a context source with invalid content
     [Tags]    csr-create    5_9_2
     ${csr_payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}

@@ -15,7 +15,7 @@ ${filename}=    building-simple-attributes.json
 
 
 *** Test Cases ***
-001_05_01 Create one entity using the default context with JSON content type and request without context
+001_05_01 Create One Entity Using The Default Context With JSON Content Type And Request Without Context
     [Documentation]    Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context, requesting without context
     [Tags]    e-create    6_3_5
     ${entity_id}=    Generate Random Building Entity Id
@@ -27,7 +27,7 @@ ${filename}=    building-simple-attributes.json
     ...    expected_attribute_name=almostFull
     ...    response_body=${response1.json()}
 
-001_05_02 Create one entity using the default context with JSON content type and request with context
+001_05_02 Create One Entity Using The Default Context With JSON Content Type And Request With Context
     [Documentation]    Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context, requesting with context
     [Tags]    e-create    6_3_5
     ${entity_id}=    Generate Random Building Entity Id

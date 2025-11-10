@@ -17,7 +17,7 @@ ${vehicle_expectation_file}=    vehicle-temporal-representation-020-02.jsonld
 
 
 *** Test Cases ***
-020_02_01 Retrieve the temporal evolution of an entity using a context
+020_02_01 Retrieve The Temporal Evolution Of An Entity Using A Context
     [Documentation]    Check that one can retrieve the temporal evolution of an entity using a context
     [Tags]    te-retrieve    5_7_3
     ${response}=    Retrieve Temporal Representation Of Entity

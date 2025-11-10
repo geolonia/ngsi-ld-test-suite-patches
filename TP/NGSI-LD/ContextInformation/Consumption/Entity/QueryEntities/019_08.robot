@@ -23,11 +23,11 @@ ${tourist_destination_entity_type}      TouristDestination
 
 
 *** Test Cases ***    ENTITY_TYPES_SELECTION    EXPECTED_ENTITIES_IDS
-019_08_01 query with one type    ${building_entity_type}    ${first_entity_id},${third_entity_id}
-019_08_02 query with the AND operator    (${building_entity_type};${tourist_destination_entity_type})    ${third_entity_id}
-019_08_03 query with the OR operator    ${building_entity_type},${parking_entity_type}    ${first_entity_id},${second_entity_id},${third_entity_id}
-019_08_04 different query with the OR operator    ${parking_entity_type},${tourist_destination_entity_type}    ${second_entity_id},${third_entity_id}
-019_08_05 query with two operators    (${building_entity_type};${parking_entity_type}),${tourist_destination_entity_type}    ${third_entity_id}
+019_08_01 Query With One Type    ${building_entity_type}    ${first_entity_id},${third_entity_id}
+019_08_02 Query With The AND Operator    (${building_entity_type};${tourist_destination_entity_type})    ${third_entity_id}
+019_08_03 Query With The OR Operator    ${building_entity_type},${parking_entity_type}    ${first_entity_id},${second_entity_id},${third_entity_id}
+019_08_04 Different Query With The OR Operator    ${parking_entity_type},${tourist_destination_entity_type}    ${second_entity_id},${third_entity_id}
+019_08_05 Query With Two Operators    (${building_entity_type};${parking_entity_type}),${tourist_destination_entity_type}    ${third_entity_id}
 
 
 *** Keywords ***

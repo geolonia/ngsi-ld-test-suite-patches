@@ -18,7 +18,7 @@ ${status_code}=     204
 
 
 *** Test Cases ***    FRAGMENT_FILENAME    ATTRIBUTE_ID    EXPECTATION_FILENAME
-012_04_01 Check that one can partially update a LanguageProperty property
+012_04_01 Check That One Can Partially Update A LanguageProperty Property
     [Tags]    ea-partial-update    5_6_4    4_5_18    since_v1.4.1
     building-language-property-fragment.jsonld    street    building-language-property-update.jsonld
 

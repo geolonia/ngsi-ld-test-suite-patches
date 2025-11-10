@@ -18,9 +18,9 @@ ${status_code}=             400
 
 
 *** Test Cases ***    UPDATE_FILENAME
-014_04_01 Add an attribute to a temporal representation of an entity with invalid content
+014_04_01 Add An Attribute To A Temporal Representation Of An Entity With Invalid Content
     vehicle-temporal-representation-invalid-json-fragment.jsonld
-014_04_02 Add an attribute to a temporal representation of an entity with empty content
+014_04_02 Add An Attribute To A Temporal Representation Of An Entity With Empty Content
     vehicle-temporal-representation-empty-json-fragment.jsonld
 
 

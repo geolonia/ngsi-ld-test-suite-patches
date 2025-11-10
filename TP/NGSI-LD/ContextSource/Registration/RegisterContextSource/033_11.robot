@@ -14,7 +14,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***
-033_11 Create Context Source Registration Without Specifying an ID
+033_11 Create Context Source Registration Without Specifying An ID
     [Documentation]    Check that one can create a context source registration without specifying an ID
     [Tags]    csr-create    5_9_2
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}

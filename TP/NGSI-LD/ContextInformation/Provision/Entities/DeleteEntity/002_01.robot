@@ -11,7 +11,7 @@ Test Setup          Setup Initial Entity
 
 
 *** Test Cases ***
-002_01_01 Delete an entity
+002_01_01 Delete An Entity
     [Documentation]    Check that one can delete an entity by id
     [Tags]    e-delete    5_6_6
     ${response}=    Delete Entity by Id    ${entity_id}

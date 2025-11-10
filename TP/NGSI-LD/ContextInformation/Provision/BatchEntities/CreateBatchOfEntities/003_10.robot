@@ -11,7 +11,7 @@ Test Teardown       Delete Entities
 
 
 *** Test Cases ***
-003_10_01 Create a batch of three valid entities where two have the same id
+003_10_01 Create A Batch Of Three Valid Entities Where Two Have The Same Id
     [Documentation]    Check that one can create a batch of entities where two have the same id
     [Tags]    be-create    5_6_7    5_5_11    since_v1.5.1
     ${first_entity_id}=    Generate Random Building Entity Id

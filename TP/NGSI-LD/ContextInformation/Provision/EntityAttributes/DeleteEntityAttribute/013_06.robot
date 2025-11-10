@@ -17,7 +17,7 @@ ${expectation_filename}=    building-minimal-compacted.json
 
 
 *** Test Cases ***
-013_06 Delete an operationSpace geospatial Property from an entity
+013_06 Delete An operationSpace Geospatial Property From An Entity
     [Documentation]    Check that one can delete an operationSpace geospatial Property from an entity
     [Tags]    ea-delete    5_6_5    4_7
     ${response}=    Delete Entity Attributes

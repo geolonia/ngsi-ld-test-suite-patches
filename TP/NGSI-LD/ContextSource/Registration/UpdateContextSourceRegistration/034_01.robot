@@ -13,7 +13,7 @@ Test Template       Update A Context Source
 
 
 *** Test Cases ***    FILENAME    UPDATE_FILENAME
-034_01_01 Update a context source registration by id
+034_01_01 Update A Context Source Registration By Id
     [Tags]    csr-update    5_9_3
     context-source-registration.jsonld    context-source-registration-update.json
 

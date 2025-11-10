@@ -17,10 +17,10 @@ ${entity_filename}      vehicle-speed-multi-instances.jsonld
 
 
 *** Test Cases ***    ATTRIBUTE_FILE_NAME    EXPECTATION_FILE_NAME
-055_02_01 Replace entity attribute giving no datasetId
+055_02_01 Replace Entity Attribute Giving No datasetId
     [Tags]    ea-replace    5_6_19    6_7_3_3    since_v1.6.1
     vehicle-speed-default-instance.json    vehicle-replace-speed-default-instance.jsonld
-055_02_02 Replace entity attribute giving a datasetId
+055_02_02 Replace Entity Attribute Giving A datasetId
     [Tags]    ea-replace    5_6_19    6_7_3_3    since_v1.6.1
     vehicle-speed-datasetid-instance.json    vehicle-replace-speed-datasetid-instance.jsonld
 

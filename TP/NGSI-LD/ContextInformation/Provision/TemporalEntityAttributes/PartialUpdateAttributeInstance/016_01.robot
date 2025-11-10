@@ -19,7 +19,7 @@ ${attributeId}=             speed
 
 
 *** Test Cases ***
-016_01_01 Modify attribute instance in temporal representation of an entity
+016_01_01 Modify Attribute Instance In Temporal Representation Of An Entity
     [Documentation]    Check that one can partially update an attribute instance of a temporal representation of an entity
     [Tags]    tea-partial-update    5_6_14
     ${response}=    Retrieve Temporal Representation Of Entity

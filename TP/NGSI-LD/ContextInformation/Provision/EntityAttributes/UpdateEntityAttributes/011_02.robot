@@ -12,9 +12,9 @@ Test Template       Update Attributes
 
 
 *** Test Cases ***    ENTITY_INVALID_ID    FRAGMENT_FILENAME
-011_02_01 Update an attribute if the Entity Id is not present
+011_02_01 Update An Attribute If The Entity Id Is Not Present
     ${EMPTY}    vehicle-speed-two-datasetid-01-fragment.jsonld
-011_02_02 Update an attribute if the Entity Id is not a valid URI
+011_02_02 Update An Attribute If The Entity Id Is Not A Valid URI
     thisisaninvaliduri    vehicle-speed-two-datasetid-01-fragment.jsonld
 
 

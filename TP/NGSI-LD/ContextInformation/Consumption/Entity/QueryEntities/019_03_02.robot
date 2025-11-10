@@ -18,7 +18,7 @@ ${invalid_entity_id_pattern}=       invalid_entity_id_pattern**
 
 
 *** Test Cases ***
-019_03_02 Query several entities based on incorrect id pattern
+019_03_02 Query Several Entities Based On Incorrect Id Pattern
     [Documentation]    Check that one cannot query entities if the requested id pattern is incorrect
     [Tags]    e-query    5_7_2
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${entity_type}

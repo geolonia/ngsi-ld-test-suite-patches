@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 
 *** Test Cases ***
-003_06_01 Create a batch of one entity containing a JSON-LD @context with a JSON content type
+003_06_01 Create A Batch Of One Entity Containing A JSON-LD @context With A JSON Content Type
     [Documentation]    Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is "application/json" and the request payload body (as JSON) contains a "@context" term
     [Tags]    be-create    6_3_5
     ${entity_id}=    Generate Random Building Entity Id

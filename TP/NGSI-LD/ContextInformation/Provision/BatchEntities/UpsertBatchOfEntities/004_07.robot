@@ -11,7 +11,7 @@ Test Teardown       Delete Entities
 
 
 *** Test Cases ***
-004_07_01 Upsert a batch of three valid entities where two have the same id
+004_07_01 Upsert A Batch Of Three Valid Entities Where Two Have The Same Id
     [Documentation]    Check that one can upsert a batch of where two have the same id
     [Tags]    be-upsert    5_6_8    5_5_11    since_v1.5.1
     ${first_entity_id}=    Generate Random Building Entity Id

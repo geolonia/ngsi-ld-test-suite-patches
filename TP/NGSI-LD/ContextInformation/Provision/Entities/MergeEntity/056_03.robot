@@ -17,16 +17,16 @@ ${entity_payload_filename}=     building-different-attributes-types.jsonld
 
 
 *** Test Cases ***    FILENAME    EXPECTATION_FILENAME
-056_03_01 Delete a Property
+056_03_01 Delete A Property
     [Tags]    e-merge    5_6_17    6_5_3_4    4_5_5    since_v1.6.1
     fragmentEntities/ngsild-null/building-null-property.jsonld    ngsild-null/building-deleted-property.jsonld
-056_03_02 Delete a Relationship
+056_03_02 Delete A Relationship
     [Tags]    e-merge    5_6_17    6_5_3_4    since_v1.6.1
     fragmentEntities/ngsild-null/building-null-relationship.jsonld    ngsild-null/building-deleted-relationship.jsonld
-056_03_03 Delete a GeoProperty
+056_03_03 Delete A GeoProperty
     [Tags]    e-merge    5_6_17    6_5_3_4    since_v1.6.1
     fragmentEntities/ngsild-null/building-null-geoproperty.jsonld    ngsild-null/building-deleted-geoproperty.jsonld
-056_03_04 Delete a LanguageProperty
+056_03_04 Delete A LanguageProperty
     [Tags]    e-merge    5_6_17    6_5_3_4    4_5_18    since_v1.6.1
     fragmentEntities/ngsild-null/building-null-languageproperty.jsonld    ngsild-null/building-deleted-languageproperty.jsonld
 

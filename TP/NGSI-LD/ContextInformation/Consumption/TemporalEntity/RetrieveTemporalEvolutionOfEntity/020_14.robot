@@ -19,10 +19,10 @@ ${timeAfter}=               2021-01-01T01:01:00Z
 
 
 *** Test Cases ***
-020_14_01 retrieve an entity with 60 instances of unsynchronized attributes
+020_14_01 Retrieve An Entity With 60 Instances Of Unsynchronized Attributes
     [Tags]    te-retrieve    5_7_3    6_3_10    since_v1.5.1
     timerel=after    timeAt=${timeBefore}    emptyAttr=fuelLevel
-020_14_02 retrieve the entity with lastN
+020_14_02 Retrieve The Entity With lastN
     [Tags]    te-retrieve    5_7_3    6_3_10    since_v1.5.1
     lastN=${100}    timerel=before    timeAt=${timeAfter}    emptyAttr=speed
 

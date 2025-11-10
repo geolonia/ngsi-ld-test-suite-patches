@@ -5,6 +5,6 @@ robotframework-requests==0.9.6
 deepdiff==6.7.1
 prettydiff==0.1.0
 robotframework-httpctrl==0.3.1
-robotframework-tidy==4.11.0
+robotframework-robocop==6.9.2
 paho-mqtt==1.6.1
 robotframework-mqttlibrary==0.7.1.post3

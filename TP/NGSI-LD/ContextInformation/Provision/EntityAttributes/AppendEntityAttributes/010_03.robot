@@ -14,7 +14,7 @@ ${fragment_filename}=       vehicle-attribute-to-add-fragment.jsonld
 
 
 *** Test Cases ***
-010_03_01 Append entity attributes when the entity id is not known to the system
+010_03_01 Append Entity Attributes When The Entity Id Is Not Known To The System
     [Documentation]    Check that one cannot append entity attributes if the entity id is not known to the system
     [Tags]    ea-append    5_6_3
     ${entity_id}=    Generate Random Vehicle Entity Id

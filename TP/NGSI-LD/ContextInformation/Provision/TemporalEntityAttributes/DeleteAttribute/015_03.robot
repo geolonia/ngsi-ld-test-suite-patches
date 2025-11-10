@@ -17,9 +17,9 @@ ${status_code}=     404
 
 
 *** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID
-015_03_01 Delete an attribute to a temporal entity if the entity id does not exist
+015_03_01 Delete An Attribute To A Temporal Entity If The Entity Id Does Not Exist
     ${unknown_temporal_entity_id}    fuelLevel
-015_03_02 Delete an attribute to a temporal entity if the entity does not contain the target attribute
+015_03_02 Delete An Attribute To A Temporal Entity If The Entity Does Not Contain The Target Attribute
     ${valid_temporal_entity_id}    notExistingAttribute
 
 

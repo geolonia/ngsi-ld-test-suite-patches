@@ -16,7 +16,7 @@ ${filename}=    vehicle-minimal.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_FILENAME
-010_11_01 Append a VocabProperty property
+010_11_01 Append A VocabProperty Property
     [Tags]    ea-append    5_6_3    4_5_20    since_v1.7.1
     204    vehicle-new-vocab-property-fragment.jsonld    vehicle-vocab-property-appended.jsonld
 

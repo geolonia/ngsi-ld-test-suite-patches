@@ -19,7 +19,7 @@ ${entity_id_pattern}=       urn:ngsi-ld:Building:.*
 
 
 *** Test Cases ***
-019_01_03 Query several entities based on the given id pattern
+019_01_03 Query Several Entities Based On The Given Id Pattern
     [Documentation]    Check that one can query several entities based on the given id pattern
     [Tags]    e-query    5_7_2
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${entity_type}

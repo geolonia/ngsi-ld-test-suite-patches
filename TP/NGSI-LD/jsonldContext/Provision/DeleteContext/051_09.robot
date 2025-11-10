@@ -17,7 +17,7 @@ ${type}=            https://uri.etsi.org/ngsi-ld/errors/BadRequestData
 
 
 *** Test Cases ***
-051_09_01 Delete a core @contexts with reload set to true and check if the context has been download again by the broker
+051_09_01 Delete A Core @contexts With Reload Set To True And Check If The Context Has Been Download Again By The Broker
     [Documentation]    Delete a core @contexts with reload set to true and check downloaded core context
     [Tags]    ctx-delete    5_13_5    since_v1.5.1
     # TODO: There is something to change in the spec to faciliate checking if the core context was really updated

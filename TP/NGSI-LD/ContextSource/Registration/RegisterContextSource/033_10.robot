@@ -10,9 +10,9 @@ Test Template       Create Context Source With Invalid Content
 
 
 *** Test Cases ***
-033_10_01 Create a context source registration with a different data structure than CSourceRegistration data type
+033_10_01 Create A Context Source Registration With A Different Data Structure Than CSourceRegistration Data Type
     csourceRegistrations/context-source-registration-invalid-structure.jsonld
-033_10_02 Create a context source registration with a date in the past
+033_10_02 Create A Context Source Registration With A Date In The Past
     csourceRegistrations/context-source-registration-past-expiration.jsonld
 
 

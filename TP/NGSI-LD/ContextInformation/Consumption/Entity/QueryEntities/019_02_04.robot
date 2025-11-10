@@ -20,7 +20,7 @@ ${attribute_isparked}=      https://uri.etsi.org/ngsi-ld/default-context/isParke
 
 
 *** Test Cases ***
-019_02_04 Query several entities via POST Interaction based on attribute names
+019_02_04 Query Several Entities Via POST Interaction Based On Attribute Names
     [Documentation]    Check that one can query several entities via POST Interaction based on attribute names
     [Tags]    e-query    5_7_2
     @{attributes_to_be_retrieved}=    Create List    ${attribute_brandname}    ${attribute_isparked}

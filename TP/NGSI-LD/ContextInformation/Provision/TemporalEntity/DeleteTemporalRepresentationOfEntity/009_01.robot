@@ -15,7 +15,7 @@ ${filename}=    vehicle-temporal-representation.jsonld
 
 
 *** Test Cases ***
-009_01_01 Delete a temporal representation of an entity with simple temporal properties
+009_01_01 Delete A Temporal Representation Of An Entity With Simple Temporal Properties
     [Documentation]    Check that one can delete a temporal representation of an entity with simple temporal properties
     [Tags]    te-delete    5_6_16
     ${response}=    Delete Temporal Representation Of Entity With Returning Response

@@ -7,7 +7,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 
 *** Test Cases ***
-020_07_01 Retrieve the temporal evolution of a non-existing entity
+020_07_01 Retrieve The Temporal Evolution Of A Non-existing Entity
     [Documentation]    Check that one cannot retrieve the temporal evolution of a non-existing entity
     [Tags]    te-retrieve    5_7_3
     ${response}=    Retrieve Temporal Representation Of Entity

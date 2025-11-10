@@ -19,25 +19,25 @@ ${timeat}       2020-08-01T12:04:00Z
 
 
 *** Test Cases ***    ATTRS    DATASET_ID    EXPECTATION_FILENAME
-021_18_01 filter based on attrs only
+021_18_01 Filter Based On Attrs Only
     [Tags]    te-query    4_5_5    5_7_4    since_v1.8.1
     speed    ${EMPTY}    vehicle-temporal-representation-speed-attribute.json
-021_18_02 filter based on datasetId only
+021_18_02 Filter Based On datasetId Only
     [Tags]    te-query    4_5_5    5_7_4    since_v1.8.1
     ${EMPTY}    urn:ngsi-ld:Dataset:Common    vehicle-temporal-representation-common-datasetid.json
-021_18_03 filter based on two datasetIds
+021_18_03 Filter Based On Two datasetIds
     [Tags]    te-query    4_5_5    5_7_4    since_v1.8.1
     ${EMPTY}    urn:ngsi-ld:Dataset:Common,urn:ngsi-ld:Dataset:Speed    vehicle-temporal-representation-two-datasetids.json
-021_18_04 filter based on default instance
+021_18_04 Filter Based On Default Instance
     [Tags]    te-query    4_5_5    5_7_4    since_v1.8.1
     ${EMPTY}    @none    vehicle-temporal-representation-default-instances.json
-021_18_05 filter based on attrs and default instance
+021_18_05 Filter Based On Attrs And Default Instance
     [Tags]    te-query    4_5_5    5_7_4    since_v1.8.1
     speed    @none    vehicle-temporal-representation-speed-default-instance.json
-021_18_06 filter based on attrs and datasetId
+021_18_06 Filter Based On Attrs And datasetId
     [Tags]    te-query    4_5_5    5_7_4    since_v1.8.1
     fuelLevel    urn:ngsi-ld:Dataset:fuel    vehicle-temporal-representation-fuellevel-attribute-fuel-datasetid.json
-021_18_07 filter based on attrs and datasetId with no match
+021_18_07 Filter Based On Attrs And datasetId With No Match
     [Tags]    te-query    4_5_5    5_7_4    since_v1.8.1
     speed    urn:ngsi-ld:Dataset:fuel    empty.json
 

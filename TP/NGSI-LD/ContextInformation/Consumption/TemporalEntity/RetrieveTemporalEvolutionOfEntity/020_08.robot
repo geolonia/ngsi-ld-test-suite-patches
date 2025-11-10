@@ -16,7 +16,7 @@ ${vehicle_payload_file}=    2020-08-vehicle-temporal-representation.jsonld
 
 
 *** Test Cases ***
-020_08_01 Retrieve the temporal evolution of non-existing entity attributes
+020_08_01 Retrieve The Temporal Evolution Of Non-existing Entity Attributes
     [Documentation]    Check that one cannot retrieve the temporal evolution of non-existing entity attributes
     [Tags]    te-retrieve    5_7_3
     @{temporal_attributes_to_be_retrieved}=    Create List    unknownAttribute

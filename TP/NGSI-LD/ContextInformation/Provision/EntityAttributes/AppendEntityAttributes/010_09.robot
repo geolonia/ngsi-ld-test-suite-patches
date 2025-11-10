@@ -18,7 +18,7 @@ ${expectation_filename}=                    building-operation-space-geoproperty
 
 
 *** Test Cases ***
-010_09 Append operationSpace geospatial Property to an entity
+010_09 Append operationSpace Geospatial Property To An Entity
     [Documentation]    Check that one can append an operationSpace geospatial Property to an entity
     [Tags]    ea-append    5_6_3    4_7
     ${response}=    Append Entity Attributes

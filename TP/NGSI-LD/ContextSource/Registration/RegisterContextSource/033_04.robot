@@ -15,7 +15,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***
-033_04_01 Create one context source registration using a provided Link header with JSON content type with Context
+033_04_01 Create One Context Source Registration Using A Provided Link Header With JSON Content Type With Context
     [Documentation]    Check that the @context is obtained from a Link Header if the Content-Type header is "application/json"
     [Tags]    csr-create    6_3_5
     ${registration_id}=    Generate Random CSR Id
@@ -36,7 +36,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ...    Building
     ...    ${response1.json()}
 
-033_04_02 Create one context source registration using a provided Link header with JSON content type without Context
+033_04_02 Create One Context Source Registration Using A Provided Link Header With JSON Content Type Without Context
     [Documentation]    Check that the @context is obtained from a Link Header if the Content-Type header is "application/json"
     [Tags]    csr-create    6_3_5
     ${registration_id}=    Generate Random CSR Id

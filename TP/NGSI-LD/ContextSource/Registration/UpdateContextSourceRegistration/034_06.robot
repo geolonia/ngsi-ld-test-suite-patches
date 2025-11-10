@@ -18,7 +18,7 @@ ${reason_405}=                          Method Not Allowed
 
 
 *** Test Cases ***    FRAGMENT_FILENAME    EXPECTED_STATUS_CODE    REASON
-034_06_01 Update a context source registration by id if the Id is not present
+034_06_01 Update A Context Source Registration By Id If The Id Is Not Present
     fragments/context-source-registration-different-type.jsonld    405    ${reason_405}
 
 

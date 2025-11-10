@@ -16,7 +16,7 @@ ${vehicle_payload_file}=    2020-08-vehicle-temporal-representation.jsonld
 
 
 *** Test Cases ***
-021_12_01 Query the temporal evolution of entities with an invalid request
+021_12_01 Query The Temporal Evolution Of Entities With An Invalid Request
     [Documentation]    Check that one cannot query the temporal evolution of entities with an invalid request
     [Tags]    te-query    5_7_4
     ${response}=    Query Temporal Representation Of Entities

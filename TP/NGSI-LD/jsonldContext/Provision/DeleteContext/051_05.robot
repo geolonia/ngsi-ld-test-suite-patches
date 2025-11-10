@@ -25,7 +25,7 @@ ${uri}                      /api/v1/context.jsonld
 
 
 *** Test Cases ***
-051_05_01 Delete and Reload a Cached @context with no communication with the Context Server
+051_05_01 Delete And Reload A Cached @context With No Communication With The Context Server
     [Documentation]    Check that one gets an error if one tries to reload a cached context with no communication with the context server
     [Tags]    ctx-serve    5_13_5    since_v1.5.1
 

@@ -12,7 +12,7 @@ ${filename}=    building-simple-attributes.jsonld
 
 
 *** Test Cases ***
-001_06_01 Create one entity containing a JSON-LD @context with a JSON content type
+001_06_01 Create One Entity Containing A JSON-LD @context With A JSON Content Type
     [Documentation]    Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is "application/json" and the request payload body (as JSON) contains a "@context" term
     [Tags]    e-create    6_3_5
     ${entity_id}=    Generate Random Building Entity Id

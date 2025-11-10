@@ -16,10 +16,10 @@ ${vehicle_payload_file}=    vehicle-json-property-temporal-representation.jsonld
 
 
 *** Test Cases ***    REPRESENTATION    EXPECTATION_FILENAME
-020_15_01 Retrieve the normalized temporal representation of an entity with a JSON property
+020_15_01 Retrieve The Normalized Temporal Representation Of An Entity With A JSON Property
     [Tags]    te-retrieve    5_7_3    4_5_7    since_v1.8.1
     ${EMPTY}    vehicle-json-property-temporal-representation.json
-020_15_02 Retrieve the simplified temporal representation of an entity with a JSON property
+020_15_02 Retrieve The Simplified Temporal Representation Of An Entity With A JSON Property
     [Tags]    te-retrieve    5_7_3    4_5_9    since_v1.8.1
     temporalValues    vehicle-json-property-simplified-temporal-representation.json
 

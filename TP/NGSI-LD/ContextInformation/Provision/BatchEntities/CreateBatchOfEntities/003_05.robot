@@ -11,7 +11,7 @@ Test Teardown       Delete Initial Entities
 
 
 *** Test Cases ***
-003_05_01 Create a batch of one entity using the default context with JSON content type
+003_05_01 Create A Batch Of One Entity Using The Default Context With JSON Content Type
     [Documentation]    Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context and retrieve the entity without context
     [Tags]    be-create    6_3_5
 
@@ -29,7 +29,7 @@ Test Teardown       Delete Initial Entities
     ...    expected_attribute_name=almostFull
     ...    response_body=${response1.json()}
 
-003_05_02 Create a batch of one entity using the default context with JSON content type
+003_05_02 Create A Batch Of One Entity Using The Default Context With JSON Content Type
     [Documentation]    Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context and retrieve the entity with context
     [Tags]    be-create    6_3_5
 

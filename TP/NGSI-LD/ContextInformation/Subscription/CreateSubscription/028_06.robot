@@ -14,7 +14,7 @@ ${subscription_expectation_file_path}       subscriptions/expectations/subscript
 
 
 *** Test Cases ***
-028_06 Create a subscription with a datasetId
+028_06 Create A Subscription With A datasetId
     [Documentation]    Check that one can create a subscription with a datasetId
     [Tags]    sub-create    5_8_1    4_5_5    since_v1.8.1
     ${subscription_id}=    Generate Random Subscription Id

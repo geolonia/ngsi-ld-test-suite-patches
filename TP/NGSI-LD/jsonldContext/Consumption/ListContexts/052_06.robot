@@ -18,28 +18,28 @@ ${reason_204}=                          No Content
 
 
 *** Test Cases ***    DETAILS    KIND
-052_06_01 List @contexts with neither details or kind and a created ImplicitlyCreated @context
+052_06_01 List @contexts With Neither Details Or Kind And A Created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     ${EMPTY}    ${EMPTY}
-052_06_02 List @contexts with no details and kind set to hosted and a created ImplicitlyCreated @context
+052_06_02 List @contexts With No Details And Kind Set To Hosted And A Created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     ${EMPTY}    Hosted
-052_06_03 List @contexts with no details and kind set to cached and a created ImplicitlyCreated @context
+052_06_03 List @contexts With No Details And Kind Set To Cached And A Created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     ${EMPTY}    Cached
-052_06_04 List @contexts with no details and kind set to implicitlycreated and a created ImplicitlyCreated @context
+052_06_04 List @contexts With No Details And Kind Set To Implicitlycreated And A Created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     ${EMPTY}    ImplicitlyCreated
-052_06_05 List @contexts with details set to false and no kind and a created ImplicitlyCreated @context
+052_06_05 List @contexts With Details Set To False And No Kind And A Created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     false    ${EMPTY}
-052_06_06 List @contexts with details set to false and kind equal to hosted and a created ImplicitlyCreated @context
+052_06_06 List @contexts With Details Set To False And Kind Equal To Hosted And A Created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     false    Hosted
-052_06_07 List @contexts with details set to false and kind equal to cached and a created ImplicitlyCreated @context
+052_06_07 List @contexts With Details Set To False And Kind Equal To Cached And A Created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     false    Cached
-052_06_08 List @contexts with details set to false and kind equal to implicitlycreated and a created ImplicitlyCreated @context
+052_06_08 List @contexts With Details Set To False And Kind Equal To Implicitlycreated And A Created ImplicitlyCreated @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     false    ImplicitlyCreated
 
@@ -55,10 +55,9 @@ List @contexts with no previous created @context
 
     IF    '${kind}' == 'Hosted'
         ${entryFound}=    Run Keyword And Return Status
-        ...    Check Context Response Body Containing a list of identifiers
-        ...    ${response.json()}
-        ...    ${list_contexts}
-        ...    ${kind}
+        ...    Check Context Response Body Containing a list of identifiers    ${response.json()}
+        ...        ${list_contexts}
+        ...        ${kind}
         Should Not Be True    ${entryFound}
     ELSE IF    '${kind}' == 'ImplicitlyCreated'
         ${tmp}=    Create List    ${implicit_id}

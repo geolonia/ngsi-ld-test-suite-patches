@@ -12,7 +12,7 @@ Suite Teardown      Delete Initial Entities
 
 
 *** Test Cases ***
-003_02_01 Create a batch of two valid entities and one invalid entity
+003_02_01 Create A Batch Of Two Valid Entities And One Invalid Entity
     [Documentation]    Check that one can create a batch of two valid entities and one invalid entity
     [Tags]    be-create    5_6_7
     ${first_entity_id}=    Generate Random Building Entity Id

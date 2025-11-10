@@ -15,7 +15,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***
-033_05_01 Create one context source registration using the default context with JSON content type with Context
+033_05_01 Create One Context Source Registration Using The Default Context With JSON Content Type With Context
     [Documentation]    Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context and retrieve the information with ngsild context
     [Tags]    csr-create    6_3_5
     ${registration_id}=    Generate Random CSR Id
@@ -35,7 +35,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ...    ngsi-ld:default-context/Building
     ...    ${response1.json()}
 
-033_05_02 Create one context source registration using the default context with JSON content type without Context
+033_05_02 Create One Context Source Registration Using The Default Context With JSON Content Type Without Context
     [Documentation]    Check that the default @context is used if the Content-Type header is "application/json" and the Link header does not contain a JSON-LD @context and retrieve the information without ngsild context
     [Tags]    csr-create    6_3_5
     ${registration_id}=    Generate Random CSR Id

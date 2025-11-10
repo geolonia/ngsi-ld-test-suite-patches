@@ -16,7 +16,7 @@ ${registration_payload_file_path}=      context-source-registration-invalid-json
 
 
 *** Test Cases ***
-034_04_01 Update a context source registration if the request body is invalid
+034_04_01 Update A Context Source Registration If The Request Body Is Invalid
     [Documentation]    Check that one cannot update a context source registration if the request body is invalid
     [Tags]    csr-update    5_9_3
     ${response}=    Update Context Source Registration From File

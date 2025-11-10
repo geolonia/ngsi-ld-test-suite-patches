@@ -14,7 +14,7 @@ ${fragment_filename}=       vehicle-speed-two-datasetid-01-fragment.jsonld
 
 
 *** Test Cases ***
-011_03_01 Update entity attributes when the entity id is not known to the system
+011_03_01 Update Entity Attributes When The Entity Id Is Not Known To The System
     [Documentation]    Check that one cannot update entity attributes if the entity id or attributes are not known to the system
     [Tags]    ea-update    5_6_2
     ${entity_id}=    Generate Random Vehicle Entity Id

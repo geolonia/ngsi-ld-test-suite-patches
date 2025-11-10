@@ -16,10 +16,10 @@ ${vehicle_payload_file}=    vehicle-vocab-property-temporal-representation.jsonl
 
 
 *** Test Cases ***    REPRESENTATION    EXPECTATION_FILENAME
-020_16_01 Retrieve the normalized temporal representation of an entity with a VocabProperty property
+020_16_01 Retrieve The Normalized Temporal Representation Of An Entity With A VocabProperty Property
     [Tags]    te-retrieve    5_7_3    4_5_7    4_5_24    since_v1.7.1
     ${EMPTY}    vehicle-vocab-property-temporal-representation.json
-020_16_02 Retrieve the simplified temporal representation of an entity with a VocabProperty property
+020_16_02 Retrieve The Simplified Temporal Representation Of An Entity With A VocabProperty Property
     [Tags]    te-retrieve    5_7_3    4_5_9    4_5_24    since_v1.7.1
     temporalValues    vehicle-vocab-property-simplified-temporal-representation.json
 

@@ -17,7 +17,7 @@ ${status_code}=     204
 
 
 *** Test Cases ***    FRAGMENT_FILENAME    ATTRIBUTE_ID    EXPECTATION_FILENAME
-012_09_01 Check that you can partially update a VocabProperty property
+012_09_01 Check That You Can Partially Update A VocabProperty Property
     [Tags]    ea-partial-update    5_6_4    4_5_20    since_v1.7.1
     building-vocab-property-fragment.jsonld    vocabProperty    building-vocab-property-update.jsonld
 

@@ -18,13 +18,13 @@ ${entity_replacement_filename}      building-locatedAt-and-name.json
 
 
 *** Test Cases ***    FAULTY_ENTITY_ID    EXPECTED_STATUS_CODE
-056_02_01 Merge an existing entity giving an invalid Id
+056_02_01 Merge An Existing Entity Giving An Invalid Id
     [Tags]    e-merge    5_6_17    6_5_3_4    since_v1.6.1
     invalidUri    400
-056_02_02 Merge an existing entity without giving an Id
+056_02_02 Merge An Existing Entity Without Giving An Id
     [Tags]    e-merge    5_6_17    6_5_3_4    since_v1.6.1
     ${EMPTY}    400
-056_02_03 Merge an existing entity giving a nonexistent Id
+056_02_03 Merge An Existing Entity Giving A Nonexistent Id
     [Tags]    e-merge    5_6_17    6_5_3_4    since_v1.6.1
     urn:ngsi-ld:Building:Nonexistent    404
 

@@ -18,10 +18,10 @@ ${second_context_source_registration_payload_file_path}=    csourceRegistrations
 
 
 *** Test Cases ***    QUERY_PARAM_NAME    QUERY_PARAM_VALUE    EXPECTATION_FILE_PATH    EXPECTED_CONTEXT_SOURCE_REGISTRATION_IDS
-037_01_01 With list of entity types
+037_01_01 With List Of Entity Types
     [Tags]    csr-query    5_10_2
     type    Building    csourceRegistrations/expectations/context-source-registrations-037-01.json    ${second_context_source_registration_id}
-037_01_02 With list of attribute names
+037_01_02 With List Of Attribute Names
     [Tags]    csr-query    5_10_2
     attrs    name    csourceRegistrations/expectations/context-source-registrations-037-01.json    ${second_context_source_registration_id}
 

@@ -17,7 +17,7 @@ ${reason_204}=      No Content
 
 
 *** Test Cases ***    DETAILS    CONTEXT_TYPE
-053_02_01 Serve a @context with details set to True
+053_02_01 Serve A @context With Details Set To True
     [Tags]    ctx-serve    5_13_4    since_v1.5.1
     true    Hosted
 

@@ -20,7 +20,7 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 
 
 *** Test Cases ***
-046_15_01 Check that a notification is not sent if the throttling has not elapsed yet
+046_15_01 Check That A Notification Is Not Sent If The Throttling Has Not Elapsed Yet
     [Documentation]    If a Subscription defines a throttling member, a Notification shall not be sent if the throttling specified (in seconds) has not elapsed yet.
     [Tags]    sub-notification    5_8_6
 

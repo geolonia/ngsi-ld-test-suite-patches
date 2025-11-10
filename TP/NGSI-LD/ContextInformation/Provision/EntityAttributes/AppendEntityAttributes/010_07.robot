@@ -17,7 +17,7 @@ ${scope_fragment_filename}=     one-scope-fragment.json
 
 
 *** Test Cases ***
-010_07_01 Append scope to an entity with overwrite enabled
+010_07_01 Append Scope To An Entity With Overwrite Enabled
     [Documentation]    Check that scope is replaced if overwrite is enabled
     [Tags]    ea-append    5_6_3    4_18    since_v1.5.1
     ${response}=    Append Entity Attributes
@@ -34,7 +34,7 @@ ${scope_fragment_filename}=     one-scope-fragment.json
     ...    context=${ngsild_test_suite_context}
     Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}
 
-010_07_01 Append scope to an entity with overwrite disabled
+010_07_01 Append Scope To An Entity With Overwrite Disabled
     [Documentation]    Check that scope is appended if overwrite is disabled
     [Tags]    ea-append    5_6_3    4_18    since_v1.5.1
     ${response}=    Append Entity Attributes With Parameters

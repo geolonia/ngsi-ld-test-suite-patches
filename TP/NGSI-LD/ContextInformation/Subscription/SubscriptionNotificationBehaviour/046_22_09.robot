@@ -19,7 +19,7 @@ ${entity_expectation_file_path}=        entity-different-attributes-types-delete
 
 
 *** Test Cases ***
-046_22_09_01 Check that a notification is sent with matching entity when deleting via Merge Entity operation
+046_22_09_01 Check That A Notification Is Sent With Matching Entity When Deleting Via Merge Entity Operation
     [Documentation]    Delete an attribute via Merge Entity operation and check the received notification
     [Tags]    sub-notification    5_8_6    since_v1.6.1
 
@@ -38,7 +38,7 @@ ${entity_expectation_file_path}=        entity-different-attributes-types-delete
     ...    ${entity_expectation_file_path}
     ...    ${notification}
 
-046_22_09_02 Check that a notification is sent with matching entity when deleting via Update Attributes operation
+046_22_09_02 Check That A Notification Is Sent With Matching Entity When Deleting Via Update Attributes Operation
     [Documentation]    Delete an attribute via Update Attributes operation and check the received notification
     [Tags]    sub-notification    5_8_6    since_v1.6.1
 
@@ -57,7 +57,7 @@ ${entity_expectation_file_path}=        entity-different-attributes-types-delete
     ...    ${entity_expectation_file_path}
     ...    ${notification}
 
-046_22_09_03 Check that a notification is sent with matching entity when deleting via Partial Attribute Update operation
+046_22_09_03 Check That A Notification Is Sent With Matching Entity When Deleting Via Partial Attribute Update Operation
     [Documentation]    Delete an attribute via Update Partial Attribute Update operation and check the received notification
     [Tags]    sub-notification    5_8_6    since_v1.6.1
 

@@ -17,7 +17,7 @@ ${update_fragment_filename}=    fragmentEntities/simple-attributes-relationship-
 
 
 *** Test Cases ***
-005_03_01 Update a batch of non-existing and existing entities
+005_03_01 Update A Batch Of Non-existing And Existing Entities
     [Documentation]    Check that one can update a batch of non-existing and existing entities
     [Tags]    be-update    5_6_9
     ${first_existing_entity}=    Load Entity

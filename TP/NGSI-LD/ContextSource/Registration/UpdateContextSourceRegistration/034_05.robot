@@ -13,7 +13,7 @@ Test Template       Update A Context Source
 
 
 *** Test Cases ***    FILENAME    UPDATE_FILENAME
-034_05_01 Update a context source registration to never expire
+034_05_01 Update A Context Source Registration To Never Expire
     [Tags]    csr-update    5_9_3
     context-source-registration-with-expiration.jsonld    context-source-registration-null-expiresAt.json
 

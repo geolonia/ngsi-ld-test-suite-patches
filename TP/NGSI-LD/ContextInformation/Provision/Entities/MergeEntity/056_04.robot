@@ -17,16 +17,16 @@ ${entity_payload_filename}=     building-different-attributes-instances-and-type
 
 
 *** Test Cases ***    FILENAME    EXPECTATION_FILENAME
-056_04_01 Delete a Property instance
+056_04_01 Delete A Property Instance
     [Tags]    e-merge    5_6_17    6_5_3_4    4_5_5    since_v1.6.1
     fragmentEntities/ngsild-null/building-null-property-instance.jsonld    ngsild-null/building-deleted-property-instance.jsonld
-056_04_02 Delete a Relationship instance
+056_04_02 Delete A Relationship Instance
     [Tags]    e-merge    5_6_17    6_5_3_4    4_5_5    since_v1.6.1
     fragmentEntities/ngsild-null/building-null-relationship-instance.jsonld    ngsild-null/building-deleted-relationship-instance.jsonld
-056_04_03 Delete a GeoProperty instance
+056_04_03 Delete A GeoProperty Instance
     [Tags]    e-merge    5_6_17    6_5_3_4    4_5_5    since_v1.6.1
     fragmentEntities/ngsild-null/building-null-geoproperty-instance.jsonld    ngsild-null/building-deleted-geoproperty-instance.jsonld
-056_04_04 Delete a LanguageProperty instance
+056_04_04 Delete A LanguageProperty Instance
     [Tags]    e-merge    5_6_17    6_5_3_4    4_5_18    4_5_5    since_v1.6.1
     fragmentEntities/ngsild-null/building-null-languageproperty-instance.jsonld    ngsild-null/building-deleted-languageproperty-instance.jsonld
 

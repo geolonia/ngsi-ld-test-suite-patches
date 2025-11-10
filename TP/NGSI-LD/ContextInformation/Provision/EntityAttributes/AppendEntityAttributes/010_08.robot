@@ -18,7 +18,7 @@ ${expectation_filename}=                    building-observation-space-geoproper
 
 
 *** Test Cases ***
-010_08 Append observationSpace geospatial Property to an entity
+010_08 Append observationSpace Geospatial Property To An Entity
     [Documentation]    Check that one can append an observationSpace geospatial Property to an entity
     [Tags]    ea-append    5_6_3    4_7
     ${response}=    Append Entity Attributes

@@ -11,7 +11,7 @@ Test Setup          Setup Initial Entity
 
 
 *** Test Cases ***
-006_04_01 Delete a batch of existing entities with the same id
+006_04_01 Delete A Batch Of Existing Entities With The Same Id
     [Documentation]    Check that one can delete a batch entities with the same id
     [Tags]    be-delete    5_6_10    5_5_11    since_v1.5.1
     ${new_entity_id}=    Generate Random Building Entity Id

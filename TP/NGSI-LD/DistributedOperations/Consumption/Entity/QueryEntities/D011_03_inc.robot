@@ -9,8 +9,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Template      Setup Registration, Context Source Mock Server And Query The Context Broker With Type
-Test Teardown      Delete Registration And Stop Context Source Mock Server
+Test Teardown       Delete Registration And Stop Context Source Mock Server
+Test Template       Setup Registration, Context Source Mock Server And Query The Context Broker With Type
 
 
 *** Variables ***
@@ -19,22 +19,23 @@ ${entity_payload_filename}              vehicle-simple-attributes.json
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 
-*** Test Cases *** 
-D011_03_01_inc Query The Context Broker By Id using the queryEntity operation
+
+*** Test Cases ***
+D011_03_01_inc Query The Context Broker By Id Using The queryEntity Operation
     [Documentation]    Check that if one queries the Context Broker for type, and the registration only allows the queryEntity operation, the request is forwarded as expected
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2
-    [Template]     Setup Registration, Context Source Mock Server And Query The Context Broker With Type    
+    [Template]    Setup Registration, Context Source Mock Server And Query The Context Broker With Type
     queryEntity    GET    /ngsi-ld/v1/entities?type=Vehicle
-
-D011_03_02_inc Query The Context Broker By Id using the queryBatch operation
+D011_03_02_inc Query The Context Broker By Id Using The queryBatch Operation
     [Documentation]    Check that if one queries the Context Broker for type, and the registration only allows the queryBatch operation, the request is forwarded as expected
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2
-    [Template]     Setup Registration, Context Source Mock Server And Query The Context Broker With Type
+    [Template]    Setup Registration, Context Source Mock Server And Query The Context Broker With Type
     queryBatch    POST    /ngsi-ld/v1/entityOperations/query
+
 
 *** Keywords ***
 Setup Registration, Context Source Mock Server And Query The Context Broker With Type
-    [Arguments]    ${operation}    ${method}    ${url} 
+    [Arguments]    ${operation}    ${method}    ${url}
     ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
 
     ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
@@ -49,13 +50,12 @@ Setup Registration, Context Source Mock Server And Query The Context Broker With
     Start Context Source Mock Server
 
     ${entity_body}=    Load Entity    ${entity_payload_filename}    ${entity_id}
-    Set Stub Reply    ${method}   ${url}   200    ${entity_body}
+    Set Stub Reply    ${method}    ${url}    200    ${entity_body}
     @{entities_id}=    Create List    ${entity_id}
     ${response}=    Query Entities    entity_ids=${entities_id}    context=${ngsild_test_suite_context}
 
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Entities URIS set to    ${entities_id}    ${response.json()}
-
 
 Delete Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}

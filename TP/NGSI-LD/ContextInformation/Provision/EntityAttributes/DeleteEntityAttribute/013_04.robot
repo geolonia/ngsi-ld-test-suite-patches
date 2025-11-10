@@ -17,7 +17,7 @@ ${expectation_filename}=    building-minimal-compacted.json
 
 
 *** Test Cases ***
-013_04 Delete scope from an entity
+013_04 Delete Scope From An Entity
     [Documentation]    Check that one can delete a scope from an entity
     [Tags]    ea-delete    5_6_5    4_18    since_v1.5.1
     ${response}=    Delete Entity Attributes

@@ -19,19 +19,19 @@ ${reason_422}=      Unprocessable
 
 
 *** Test Cases ***    CONTEXTID    RELOAD    STATUSCODE    REASON    ERROR
-051_04_01 Delete a @contexts with a wrong id and reload set to true
+051_04_01 Delete A @contexts With A Wrong Id And Reload Set To True
     [Tags]    ctx-delete    5_13_5    since_v1.5.1
     wrong_id_context    true    400    ${reason_400}    ${ERROR_TYPE_BAD_REQUEST_DATA}
-051_04_02 Delete a @contexts with a wrong id and reload set to false
+051_04_02 Delete A @contexts With A Wrong Id And Reload Set To False
     [Tags]    ctx-delete    5_13_5    since_v1.5.1
     wrong_id_context    false    404    ${reason_404}    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
-051_04_03 Delete a @contexts with a wrong id and no reload value
+051_04_03 Delete A @contexts With A Wrong Id And No Reload Value
     [Tags]    ctx-delete    5_13_5    since_v1.5.1
     wrong_id_context    ${EMPTY}    404    ${reason_404}    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
-051_04_04 Delete a @contexts with a wrong id and wrong reload value
+051_04_04 Delete A @contexts With A Wrong Id And Wrong Reload Value
     [Tags]    ctx-delete    5_13_5    since_v1.5.1
     wrong_id_context    xxx    400    ${reason_400}    ${ERROR_TYPE_BAD_REQUEST_DATA}
-051_04_05 Delete a Hosted @contexts with a valid id and reload set to true
+051_04_05 Delete A Hosted @contexts With A Valid Id And Reload Set To True
     [Tags]    ctx-delete    5_13_5    since_v1.5.1
     ${uri}    true    400    ${reason_400}    ${ERROR_TYPE_BAD_REQUEST_DATA}
 

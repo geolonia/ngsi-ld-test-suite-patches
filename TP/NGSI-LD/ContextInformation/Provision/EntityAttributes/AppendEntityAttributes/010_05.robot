@@ -18,7 +18,7 @@ ${invalid_fragment_filename}=       invalid-fragment.jsonld
 
 
 *** Test Cases ***
-010_05_01 Append entity attributes with invalid entity fragments
+010_05_01 Append Entity Attributes With Invalid Entity Fragments
     [Documentation]    Check that one cannot append entity attributes with invalid entity fragments
     [Tags]    ea-append    5_6_3
     ${response}=    Append Entity Attributes

@@ -1,5 +1,4 @@
 *** Settings ***
-
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -17,6 +16,7 @@ ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 
+
 *** Test Cases ***
 D002_03_inc Delete Entity With Local Flag
     [Documentation]    Verify that, when one has an inclusive registration on a Context Broker, one is able to delete an entity with local flag and the operation should not be forwarded to the Context Source
@@ -25,6 +25,7 @@ D002_03_inc Delete Entity With Local Flag
     Check Response Status Code    204    ${response.status_code}
 
     Wait For No Request
+
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server

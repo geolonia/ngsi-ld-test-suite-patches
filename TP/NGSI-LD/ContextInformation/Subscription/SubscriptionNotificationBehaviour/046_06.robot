@@ -19,7 +19,7 @@ ${notification_server_send_url}=        http://${notification_server_host}:${not
 
 
 *** Test Cases ***
-046_06_01 Check that a notification is sent with all matching entities
+046_06_01 Check That A Notification Is Sent With All Matching Entities
     [Documentation]    Check that a notification is sent when an entity is created and entityCreated notification trigger is configured
     [Tags]    sub-notification    5_8_6    since_v1.6.1
     ${entity_id}=    Generate Random Building Entity Id

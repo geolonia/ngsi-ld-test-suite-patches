@@ -16,7 +16,7 @@ ${reason_204}=                          No Content
 
 
 *** Test Cases ***
-051_06_01 Delete a @context whose kind is ImplicitlyCreated without reload param
+051_06_01 Delete A @context Whose Kind Is ImplicitlyCreated Without Reload Param
     [Documentation]    Check that one can delete a ImplicitlyCreated @context
     [Tags]    ctx-serve    5_13_5    since_v1.5.1
 

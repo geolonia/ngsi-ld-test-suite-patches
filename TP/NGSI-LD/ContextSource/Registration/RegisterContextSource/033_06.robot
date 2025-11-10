@@ -12,7 +12,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***
-033_06_01 Create one context source registration containing a JSON-LD @context with a JSON content type
+033_06_01 Create One Context Source Registration Containing A JSON-LD @context With A JSON Content Type
     [Documentation]    Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is "application/json" and the request payload body (as JSON) contains a "@context" term
     [Tags]    csr-create    6_3_5
     ${registration_id}=    Generate Random CSR Id

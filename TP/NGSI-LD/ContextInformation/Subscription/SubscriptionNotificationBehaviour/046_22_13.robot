@@ -19,7 +19,7 @@ ${entity_expectation_file_path}=        entity-deleted-name-attribute-on-entity-
 
 
 *** Test Cases ***
-046_22_13 Check that a notification is sent with matching entity
+046_22_13 Check That A Notification Is Sent With Matching Entity
     [Documentation]    Delete an entity with a matching attribute and check the received notification
     [Tags]    sub-notification    5_8_6    since_v1.6.1
 

@@ -18,13 +18,13 @@ ${vehicle_payload_file}=    vehicle-temporal-representation-different-attributes
 
 
 *** Test Cases ***    ATTR_NAME    SIMPLIFIED_TEMPORAL_KEY    EXPECTATION_FILENAME
-020_18_01 With a Property
+020_18_01 With A Property
     [Tags]    te-retrieve    5_7_3    since_v1.6.1
     fuelLevel    values    vehicle-temporal-values-representation-property-020-18.jsonld
-020_18_02 With a Relationship
+020_18_02 With A Relationship
     [Tags]    te-retrieve    5_7_3    since_v1.6.1
     isParkedIn    objects    vehicle-temporal-values-representation-relationship-020-18.jsonld
-020_18_03 With a LanguageProperty
+020_18_03 With A LanguageProperty
     [Tags]    te-retrieve    5_7_3    4_5_18    since_v1.6.1
     name    languageMaps    vehicle-temporal-values-representation-languageproperty-020-18.jsonld
 

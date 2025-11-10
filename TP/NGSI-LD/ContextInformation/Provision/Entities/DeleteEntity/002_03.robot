@@ -12,7 +12,7 @@ ${expected_status_code}=    404
 
 
 *** Test Cases ***
-002_03_01 Delete an entity with an id not known to the system
+002_03_01 Delete An Entity With An Id Not Known To The System
     [Documentation]    Check that one cannot delete an entity if the entity id is not known to the system
     [Tags]    e-delete    5_6_6
     ${entity_id}=    Generate Random Building Entity Id

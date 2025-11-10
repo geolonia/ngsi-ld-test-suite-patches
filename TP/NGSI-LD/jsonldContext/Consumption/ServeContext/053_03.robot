@@ -19,7 +19,7 @@ ${reason_422}=      Unprocessable Content
 
 
 *** Test Cases ***    CONTEXTID    DETAILS    STATUSCODE    REASON    ERROR
-053_03_01 Serve a @contexts with a wrong id and correct details
+053_03_01 Serve A @contexts With A Wrong Id And Correct Details
     [Tags]    ctx-serve    5_13_4    since_v1.5.1
     wrong_id_context    true    404    ${reason_404}    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
 # Deactivated because of boolean parsing

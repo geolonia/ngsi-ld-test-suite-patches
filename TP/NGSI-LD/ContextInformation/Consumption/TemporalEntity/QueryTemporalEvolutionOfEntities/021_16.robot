@@ -18,7 +18,7 @@ ${second_vehicle_payload_file}=     2020-09-vehicle-temporal-representation.json
 
 
 *** Test Cases ***    PAYLOAD_FILE
-021_16_01 retrieve the entities via post
+021_16_01 Retrieve The Entities Via Post
     [Tags]    te-retrieve    5_7_3    6_3_10    since_v1.5.1
     entity-operations-before-query.jsonld
 

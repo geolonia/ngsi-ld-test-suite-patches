@@ -22,7 +22,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***
-D010_01_inc Retrieve entity on a Context Source from the Context Broker
+D010_01_inc Retrieve Entity On A Context Source From The Context Broker
     [Documentation]    Check that if one retrieves entity living on a Context Source from a Context Broker, entity gets returned
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_1
     ${entity_body}=    Load Entity    ${entity_payload_filename}    ${entity_id}

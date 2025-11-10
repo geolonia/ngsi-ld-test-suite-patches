@@ -18,7 +18,7 @@ ${expectation_file}=                vehicles-temporal-representation-021-04.json
 
 
 *** Test Cases ***
-021_04_01 Query the temporal evolution of entities using a context
+021_04_01 Query The Temporal Evolution Of Entities Using A Context
     [Documentation]    Check that one can query the temporal evolution of entities using a context
     [Tags]    te-query    5_7_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle

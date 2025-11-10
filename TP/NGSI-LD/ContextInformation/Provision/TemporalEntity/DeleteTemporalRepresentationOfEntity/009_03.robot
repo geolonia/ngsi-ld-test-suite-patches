@@ -12,7 +12,7 @@ ${status_code}=     404
 
 
 *** Test Cases ***
-009_03_01 Delete a temporal representation of an entity with an unknown entity id
+009_03_01 Delete A Temporal Representation Of An Entity With An Unknown Entity Id
     [Documentation]    Check that an error is raised if one deletes a temporal entity with a non-existing entity id
     [Tags]    te-delete    5_6_16
     ${temporal_entity_id}=    Generate Random Vehicle Entity Id

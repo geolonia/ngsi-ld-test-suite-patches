@@ -21,7 +21,7 @@ ${coordinates}=             [13.3986, 52.5547]
 
 
 *** Test Cases ***
-019_01_05 Query several entities based on a geoquery
+019_01_05 Query Several Entities Based On A Geoquery
     [Documentation]    Check that one can query entities based on a geoquery
     [Tags]    e-query    5_7_2
     @{entities_ids_to_be_compared}=    Create List    ${first_entity_id}    ${second_entity_id}

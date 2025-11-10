@@ -18,7 +18,7 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 
 
 *** Test Cases ***
-019_01_01 Query several entities based on ids
+019_01_01 Query Several Entities Based On Ids
     [Documentation]    Check that one can query several entities based on ids
     [Tags]    e-query    5_7_2
     @{entities_ids_to_be_compared}=    Create List    ${first_entity_id}    ${second_entity_id}

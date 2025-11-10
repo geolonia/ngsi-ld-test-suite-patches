@@ -18,7 +18,7 @@ ${building_filename}=                   building-location-attribute.jsonld
 
 
 *** Test Cases ***
-046_21_02 Check that a notification is sent with matching entity
+046_21_02 Check That A Notification Is Sent With Matching Entity
     [Documentation]    Delete an entity and check the received notification
     [Tags]    sub-notification    5_8_6    since_v1.6.1
 

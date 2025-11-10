@@ -19,7 +19,7 @@ ${entity_type}=                     https://ngsi-ld-test-suite/context#Building
 
 
 *** Test Cases ***
-019_05_01 Get an entity by id that can be returned in GeoJSON format
+019_05_01 Get An Entity By Id That Can Be Returned In GeoJSON Format
     [Documentation]    Check that the queried entities by id can be returned in GeoJSON format
     [Tags]    e-query    6_3_7
     ${entities_ids_to_be_retrieved}=    Catenate    SEPARATOR=,    ${first_entity_id}    ${second_entity_id}

@@ -12,7 +12,7 @@ ${filename}=    building-simple-attributes.json
 
 
 *** Test Cases ***
-001_08_01 Create one entity not containing a JSON-LD @context with a JSON-LD content type
+001_08_01 Create One Entity Not Containing A JSON-LD @context With A JSON-LD Content Type
     [Documentation]    Check that an HTTP error response of type BadRequestData is raised if the Content-Type header is "application/ld+json" and the request payload body does not contain a @context term
     [Tags]    e-create    6_3_5
     ${entity_id}=    Generate Random Building Entity Id

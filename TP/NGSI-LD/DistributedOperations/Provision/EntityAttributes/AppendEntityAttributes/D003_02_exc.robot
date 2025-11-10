@@ -19,6 +19,7 @@ ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${fragment_filename}                    vehicle-speed-isParked-fragment.json
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-speed-with-redirection-ops.jsonld
 
+
 *** Test Cases ***
 D003_02_exc Append Entity Attribute
     [Documentation]    Check that an entity attribute is appended and the exclusive registration forwards the request to the Context Source with the noOverwrite flag
@@ -31,10 +32,11 @@ D003_02_exc Append Entity Attribute
     ...    ${CONTENT_TYPE_JSON}
     ...    noOverwrite
     Wait for redirected request
-    Check Response Status Code    207   ${response.status_code}
+    Check Response Status Code    207    ${response.status_code}
 
     ${stub}=    Get Request Url Params    options
     Should Contain    ${stub}    noOverwrite
+
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server

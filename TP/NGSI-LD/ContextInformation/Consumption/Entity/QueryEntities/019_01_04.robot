@@ -21,7 +21,7 @@ ${attribute_subcategory}=           https://ngsi-ld-test-suite/context#subCatego
 
 
 *** Test Cases ***
-019_01_04 Query several entities based on attribute names
+019_01_04 Query Several Entities Based On Attribute Names
     [Documentation]    Check that one can query several entities based on attribute names
     [Tags]    e-query    5_7_2
     ${attributes_to_be_retrieved}=    Catenate

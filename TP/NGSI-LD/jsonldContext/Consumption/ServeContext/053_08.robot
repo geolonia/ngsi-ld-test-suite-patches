@@ -19,7 +19,7 @@ ${entityfile}=                          minimal-entity-using-@context.jsonld
 
 
 *** Test Cases ***
-053_08_01 Check that the numberOfHits is increased after using a ImplicitlyCreated context
+053_08_01 Check That The numberOfHits Is Increased After Using A ImplicitlyCreated Context
     [Documentation]    Check that the numberOfHits is increased after using a ImplicitlyCreated context
     [Tags]    ctx-serve    5_13_4    since_v1.5.1
 

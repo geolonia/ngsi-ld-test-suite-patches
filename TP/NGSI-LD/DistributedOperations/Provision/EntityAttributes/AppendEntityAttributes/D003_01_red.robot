@@ -1,5 +1,6 @@
 *** Settings ***
 Documentation       Check that if one request the Context Broker to append an attribute whose id matches two redirect registrations, the update is forwarded and the entity attributes are updated in both Context Sources
+
 Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
@@ -17,6 +18,7 @@ Test Teardown       Delete Registration And Stop Context Source Mock Server
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${fragment_filename}                    vehicle-speed-isParked-fragment.json
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
+
 
 *** Test Cases ***
 D003_01_red Append Entity Attribute
@@ -38,6 +40,7 @@ D003_01_red Append Entity Attribute
 
     ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}    local=true
     Check Response Status Code    404    ${response.status_code}
+
 
 *** Keywords ***
 Setup Registration And Start Context Source Mock Server
@@ -65,7 +68,7 @@ Setup Registration And Start Context Source Mock Server
     ...    endpoint=/broker2
     ${response}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response.status_code}
-    
+
     Start Context Source Mock Server
 
 Delete Registration And Stop Context Source Mock Server

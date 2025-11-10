@@ -19,9 +19,9 @@ ${non_existing_attribute_name}=     https://uri.etsi.org/ngsi-ld/default-context
 
 
 *** Test Cases ***    STATUS_CODE    FRAGMENT_FILENAME    EXPECTATION_FILENAME
-010_04_01 Append entity attributes and ignore existing multi-attribute instance
+010_04_01 Append Entity Attributes And Ignore Existing Multi-attribute Instance
     207    vehicle-attribute-to-add-fragment.jsonld    vehicle-speed-appended.jsonld
-010_04_02 Append entity attributes with a new multi-attribute instance
+010_04_02 Append Entity Attributes With A New Multi-attribute Instance
     204    vehicle-speed-different-datasetid-fragment.jsonld    vehicle-speed-different-datasetid.jsonld
 
 

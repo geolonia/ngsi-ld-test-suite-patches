@@ -17,22 +17,22 @@ ${filename}=    building-language-property.jsonld
 
 
 *** Test Cases ***    LANGUAGE_FILTER    OPTIONS    EXPECTATION_FILENAME
-018_07_01 Retrieve an entity using a specific natural language
+018_07_01 Retrieve An Entity Using A Specific Natural Language
     [Tags]    e-retrieve    5_7_1    4_15    since_v1.4.1
     fr    ${EMPTY}    building-language-property-fr-filter.jsonld
-018_07_02 Retrieve an entity using multiple natural languages with no ranked preference
+018_07_02 Retrieve An Entity Using Multiple Natural Languages With No Ranked Preference
     [Tags]    e-retrieve    5_7_1    4_15    since_v1.4.1
     fr-CH,fr    ${EMPTY}    building-language-property-fr-filter.jsonld
-018_07_03 Retrieve an entity with any supported language
+018_07_03 Retrieve An Entity With Any Supported Language
     [Tags]    e-retrieve    5_7_1    4_15    since_v1.4.1
     *    ${EMPTY}    building-language-property-any-language-filter.jsonld
-018_07_04 Retrieve an entity using multiple natural languages with ranked preferences
+018_07_04 Retrieve An Entity Using Multiple Natural Languages With Ranked Preferences
     [Tags]    e-retrieve    5_7_1    4_15    since_v1.4.1
     fr-CH,fr;q=0.9,en;q=0.8,*;q=0.5    ${EMPTY}    building-language-property-fr-filter.jsonld
-018_07_05 Retrieve an entity using a specific natural language with simplified representation
+018_07_05 Retrieve An Entity Using A Specific Natural Language With Simplified Representation
     [Tags]    e-retrieve    5_7_1    4_15    since_v1.4.1
     fr    keyValues    building-language-property-fr-filter-simplified.jsonld
-018_07_06 Retrieve an entity with any supported language with simplified representation
+018_07_06 Retrieve An Entity With Any Supported Language With Simplified Representation
     [Tags]    e-retrieve    5_7_1    4_15    since_v1.4.1
     *    keyValues    building-language-property-any-language-filter-simplified.jsonld
 

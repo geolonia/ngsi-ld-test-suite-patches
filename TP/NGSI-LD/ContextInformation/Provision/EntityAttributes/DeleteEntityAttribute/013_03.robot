@@ -17,11 +17,11 @@ ${filename}=        vehicle-two-datasetid-attributes.jsonld
 
 
 *** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID    DATASETID
-013_03_01 Delete an attribute when the Entity Id is not known to the system
+013_03_01 Delete An Attribute When The Entity Id Is Not Known To The System
     ${not_found_entity_id}    speed    urn:ngsi-ld:Property:gpsBxyz123-speed
-013_03_02 Delete an attribute when the Entity does not contain the target attribute id
+013_03_02 Delete An Attribute When The Entity Does Not Contain The Target Attribute Id
     ${valid_entity_id}    notFound    ${EMPTY}
-013_03_03 Delete an attribute when the Entity does not contain the target attribute with same datasetId
+013_03_03 Delete An Attribute When The Entity Does Not Contain The Target Attribute With Same datasetId
     ${valid_entity_id}    speed    urn:ngsi-ld:Property:notFound
 
 

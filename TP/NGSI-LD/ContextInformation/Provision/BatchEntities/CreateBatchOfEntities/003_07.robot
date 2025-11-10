@@ -11,7 +11,7 @@ Test Teardown       Delete Initial Entities
 
 
 *** Test Cases ***
-003_07_01 Create a batch of one entity using a JSON-LD @context obtained from the request payload
+003_07_01 Create A Batch Of One Entity Using A JSON-LD @context Obtained From The Request Payload
     [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" and the response attribute should be compacted as one used the same context as provided when creating the entity
     [Tags]    be-create    6_3_5
     ${entity_id}=    Generate Random Building Entity Id
@@ -30,7 +30,7 @@ Test Teardown       Delete Initial Entities
     ...    expected_attribute_name=almostFull
     ...    response_body=${response1.json()}
 
-003_07_02 Create a batch of one entity using a JSON-LD @context obtained from the request payload
+003_07_02 Create A Batch Of One Entity Using A JSON-LD @context Obtained From The Request Payload
     [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" and response attribute should not be compacted as one did not provide a context containing this term
     [Tags]    be-create    6_3_5
     ${entity_id}=    Generate Random Building Entity Id

@@ -18,10 +18,10 @@ ${vehicle_expectation_file}=    vehicle-temporal-representation-020-03.jsonld
 
 
 *** Test Cases ***    ATTRS    EXPECTED_RESULT
-020_03_01 With one attribute
+020_03_01 With One Attribute
     [Tags]    te-retrieve    5_7_3
     fuelLevel    vehicle-temporal-representation-020-03-01.jsonld
-020_03_02 With two attributes
+020_03_02 With Two Attributes
     [Tags]    te-retrieve    5_7_3
     fuelLevel,speed    vehicle-temporal-representation-020-03-02.jsonld
 

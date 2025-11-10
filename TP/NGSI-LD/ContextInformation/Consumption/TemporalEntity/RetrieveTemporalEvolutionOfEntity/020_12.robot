@@ -17,10 +17,10 @@ ${vehicle_payload_file}=    vehicle-language-property-temporal-representation.js
 
 
 *** Test Cases ***    REPRESENTATION    EXPECTATION_FILENAME
-020_12_01 Retrieve the normalized temporal representation of an entity with a LanguageProperty property
+020_12_01 Retrieve The Normalized Temporal Representation Of An Entity With A LanguageProperty Property
     [Tags]    te-retrieve    5_7_3    4_5_7    4_5_18    since_v1.4.1
     ${EMPTY}    vehicle-language-property-normalized-temporal-representation.jsonld
-020_12_02 Retrieve the simplified temporal representation of an entity with a LanguageProperty property
+020_12_02 Retrieve The Simplified Temporal Representation Of An Entity With A LanguageProperty Property
     [Tags]    te-retrieve    5_7_3    4_5_9    4_5_18    since_v1.4.1
     temporalValues    vehicle-language-property-simplified-temporal-representation.jsonld
 

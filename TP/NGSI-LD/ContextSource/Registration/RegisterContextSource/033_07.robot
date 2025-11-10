@@ -15,7 +15,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***
-033_07_01 Create one context source registration using a JSON-LD @context obtained from the request payload with Context
+033_07_01 Create One Context Source Registration Using A JSON-LD @context Obtained From The Request Payload With Context
     [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" and retrieve the information with ngsild context
     [Tags]    csr-create    6_3_5
     ${registration_id}=    Generate Random CSR Id
@@ -35,7 +35,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ...    Vehicle
     ...    ${response1.json()}
 
-033_07_02 Create one context source registration using a JSON-LD @context obtained from the request payload without Context
+033_07_02 Create One Context Source Registration Using A JSON-LD @context Obtained From The Request Payload Without Context
     [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" and retrieve the information without ngsild context
     [Tags]    csr-create    6_3_5
     ${registration_id}=    Generate Random CSR Id

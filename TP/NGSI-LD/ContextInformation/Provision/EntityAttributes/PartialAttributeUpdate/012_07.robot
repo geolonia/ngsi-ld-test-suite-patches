@@ -17,16 +17,16 @@ ${filename}=    building-different-default-attributes-instances-and-types.jsonld
 
 
 *** Test Cases ***    STATUS_CODE    ATTR_NAME    FRAGMENT_FILENAME    EXPECTATION_FILENAME
-012_07_01 Delete a Property
+012_07_01 Delete A Property
     [Tags]    ea-partial-update    5_6_4    6_7_3_1    since_v1.6.1
     204    name    ngsild-null/null-property-fragment.jsonld    ngsild-null/building-deleted-property-default-instance.jsonld
-012_07_02 Delete a Relationship
+012_07_02 Delete A Relationship
     [Tags]    ea-partial-update    5_6_4    6_7_3_1    since_v1.6.1
     204    locatedAt    ngsild-null/null-relationship-fragment.jsonld    ngsild-null/building-deleted-relationship-default-instance.jsonld
-012_07_03 Delete a GeoProperty
+012_07_03 Delete A GeoProperty
     [Tags]    ea-partial-update    5_6_4    6_7_3_1    since_v1.6.1
     204    location    ngsild-null/null-geoproperty-fragment.jsonld    ngsild-null/building-deleted-geoproperty-default-instance.jsonld
-012_07_04 Delete a LanguageProperty
+012_07_04 Delete A LanguageProperty
     [Tags]    ea-partial-update    5_6_4    6_7_3_1    4_5_18    since_v1.6.1
     204    street    ngsild-null/null-languageproperty-fragment.jsonld    ngsild-null/building-deleted-languageproperty-default-instance.jsonld
 

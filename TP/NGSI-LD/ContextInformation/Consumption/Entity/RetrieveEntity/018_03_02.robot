@@ -17,7 +17,7 @@ ${attribute_not_known}=     property_not_found
 
 
 *** Test Cases ***
-018_03_02 Get an entity if an attribute is not known to the system
+018_03_02 Get An Entity If An Attribute Is Not Known To The System
     [Documentation]    Check that one cannot get an entity if an attribute is not known to the system
     [Tags]    e-retrieve    5_7_1
     ${attributes_to_be_retrieved}=    Catenate    SEPARATOR=,    ${attribute_not_known}

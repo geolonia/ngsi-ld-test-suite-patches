@@ -18,11 +18,11 @@ ${reason_400}=                          Bad Request
 
 
 *** Test Cases ***    REGISTRATION_ID    FRAGMENT_FILENAME    EXPECTED_STATUS_CODE    PROBLEM_TYPE
-034_02_01 Update a context source registration by id if the Id is not a valid URI
+034_02_01 Update A Context Source Registration By Id If The Id Is Not A Valid URI
     invalidURI    fragments/context-source-registration-different-type.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
-034_02_02 Update a context source registration if the request body is not of the same data type
+034_02_02 Update A Context Source Registration If The Request Body Is Not Of The Same Data Type
     ${valid_registration_id}    fragments/context-source-registration-different-type.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
-034_02_03 Update a context source registration if one attempts to remove a mandatory property
+034_02_03 Update A Context Source Registration If One Attempts To Remove A Mandatory Property
     ${valid_registration_id}    context-source-registration-invalid.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 

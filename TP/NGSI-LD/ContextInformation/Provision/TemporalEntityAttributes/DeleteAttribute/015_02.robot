@@ -17,11 +17,11 @@ ${filename}=        vehicle-temporal-representation.jsonld
 
 
 *** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID
-015_02_01 Delete an attribute to a temporal representation of an entity with a missing entity id
+015_02_01 Delete An Attribute To A Temporal Representation Of An Entity With A Missing Entity Id
     ${EMPTY}    speed
-015_02_02 Delete an attribute to a temporal representation of an entity with an invalid entity id
+015_02_02 Delete An Attribute To A Temporal Representation Of An Entity With An Invalid Entity Id
     invalidId    speed
-015_02_03 Delete an attribute to a temporal representation of an entity with an invalid attribute id
+015_02_03 Delete An Attribute To A Temporal Representation Of An Entity With An Invalid Attribute Id
     ${valid_temporal_entity_id}    invalid(Name
 
 

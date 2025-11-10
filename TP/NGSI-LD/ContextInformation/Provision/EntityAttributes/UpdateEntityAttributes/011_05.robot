@@ -15,7 +15,7 @@ ${scope_fragment_filename}=     one-scope-fragment.json
 
 
 *** Test Cases ***
-011_05_01 Update scope to an entity already having a scope
+011_05_01 Update Scope To An Entity Already Having A Scope
     [Documentation]    Check that scope is replaced if entity already has a scope
     [Tags]    ea-append    5_6_2    4_18    since_v1.5.1
     [Setup]    Create Initial Entity    building-minimal-with-one-scope.json
@@ -33,7 +33,7 @@ ${scope_fragment_filename}=     one-scope-fragment.json
     ...    context=${ngsild_test_suite_context}
     Check Updated Resource Set To    ${entity_expectation_payload}    ${response.json()}
 
-011_05_02 Update scope to an entity not having a scope
+011_05_02 Update Scope To An Entity Not Having A Scope
     [Documentation]    Check that scope is not added if entity does not already have a scope
     [Tags]    ea-append    5_6_2    4_18    since_v1.5.1
     [Setup]    Create Initial Entity    building-minimal.json

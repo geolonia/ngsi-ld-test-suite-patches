@@ -19,11 +19,11 @@ ${attribute_id}=    speed
 
 
 *** Test Cases ***    DATASETID    DELETEALL    EXPECTATION_FILENAME
-013_01_01 Delete an attribute with the default instance
+013_01_01 Delete An Attribute With The Default Instance
     ${EMPTY}    false    vehicle-delete-default-speed.jsonld
-013_01_02 Delete an attribute with the datasetId
+013_01_02 Delete An Attribute With The datasetId
     urn:ngsi-ld:Property:gpsBxyz123-speed    false    vehicle-delete-datasetid-speed.jsonld
-013_01_03 Delete all target attribute instances
+013_01_03 Delete All Target Attribute Instances
     ${EMPTY}    true    vehicle-delete-deleteall-speed.jsonld
 
 

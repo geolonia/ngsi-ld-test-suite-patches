@@ -18,7 +18,7 @@ ${expectation_file}=                vehicles-temporal-representation-021-02.json
 
 
 *** Test Cases ***
-021_02_01 Query the temporal evolution of certain attributes of entities
+021_02_01 Query The Temporal Evolution Of Certain Attributes Of Entities
     [Documentation]    Check that one can query the temporal evolution of certain attributes of entities
     [Tags]    te-query    5_7_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle

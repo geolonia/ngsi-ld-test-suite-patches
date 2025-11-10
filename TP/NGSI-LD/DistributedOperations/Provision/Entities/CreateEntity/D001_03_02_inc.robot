@@ -20,7 +20,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***
-D001_03_02_inc Create entity already existing on both Context Broker and Context Source
+D001_03_02_inc Create Entity Already Existing On Both Context Broker And Context Source
     [Documentation]    Check that if one requests the Context Broker to create an entity that matches an inclusive registration and already exists both locally and remotely, this raises an error on both Context Broker and Context Source
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_1    6_3_3
     Set Stub Reply    POST    /ngsi-ld/v1/entities    409

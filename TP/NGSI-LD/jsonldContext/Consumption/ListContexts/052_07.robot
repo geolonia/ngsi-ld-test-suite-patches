@@ -21,7 +21,7 @@ ${content_type}=        application/json
 
 
 *** Test Cases ***    DETAILS    KIND
-052_07_01 List @contexts with details set to true and kind set to cached and with previously several add @contexts
+052_07_01 List @contexts With Details Set To True And Kind Set To Cached And With Previously Several Add @contexts
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     true    Cached
 # 052_05_04 List @contexts with details set to true and kind set to implicitlycreated and with previously several add @contexts

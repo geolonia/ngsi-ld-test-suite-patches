@@ -13,7 +13,7 @@ ${reason_404}=      Not Found
 
 
 *** Test Cases ***
-034_03_01 Update a context source registration by id if the id is not known to the system
+034_03_01 Update A Context Source Registration By Id If The Id Is Not Known To The System
     [Documentation]    Check that one cannot update a context source registration by id if the id is not known to the system
     [Tags]    csr-update    5_9_3
     ${registration_id}=    Generate Random CSR Id

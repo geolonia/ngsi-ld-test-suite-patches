@@ -23,10 +23,10 @@ ${filename}=    building-two-geometry-attributes.jsonld
 018_05_02 Normalized
     [Tags]    e-retrieve    6_3_7
     ${EMPTY}    ${EMPTY}    building-two-geometry-attribute-normalized.geojson
-018_05_03 with geometryProperty
+018_05_03 With geometryProperty
     [Tags]    e-retrieve    6_3_7
     ${EMPTY}    observationSpace    building-two-geometry-property-on-observation-space.geojson
-018_05_04 with nonexistent geometryProperty
+018_05_04 With Nonexistent geometryProperty
     [Tags]    e-retrieve    6_3_7
     ${EMPTY}    operationSpace    building-two-geometry-property-on-nonexistent-operation-space.geojson
 

@@ -12,7 +12,7 @@ ${registration_payload_file_path}=      context-source-registration-simple.jsonl
 
 
 *** Test Cases ***
-035_03_01 Delete a context source registration by id
+035_03_01 Delete A Context Source Registration By Id
     [Documentation]    Check that one cannot delete a context source registration by id if the id is not known to the system
     [Tags]    csr-delete    5_9_4
     ${registration_id}=    Generate Random CSR Id

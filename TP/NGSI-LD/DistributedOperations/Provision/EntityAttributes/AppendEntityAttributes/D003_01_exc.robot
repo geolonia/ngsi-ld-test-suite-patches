@@ -17,6 +17,7 @@ ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${fragment_filename}                    vehicle-speed-isParked-fragment.json
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-speed-with-redirection-ops.jsonld
 
+
 *** Test Cases ***
 D003_01_exc Append Entity Attribute
     [Documentation]    Check that an entity attribute is appended and the exclusive registration forwards the request to the Context Source
@@ -35,6 +36,7 @@ D003_01_exc Append Entity Attribute
     ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}    local=true
     ${body}=    Get From Dictionary    ${response.json()}    speed
     Should Not Contain    ${body}    speed
+
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server

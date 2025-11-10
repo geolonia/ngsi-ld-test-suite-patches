@@ -16,25 +16,25 @@ ${filename}     building-multi-instances-attributes.jsonld
 
 
 *** Test Cases ***    ATTRS    DATASET_ID    EXPECTATION_FILENAME
-019_12_01 filter based on attrs only
+019_12_01 Filter Based On Attrs Only
     [Tags]    e-query    4_5_5    5_7_2    since_v1.8.1
     name    ${EMPTY}    building-name-attribute.jsonld
-019_12_02 filter based on datasetId only
+019_12_02 Filter Based On datasetId Only
     [Tags]    e-query    4_5_5    5_7_2    since_v1.8.1
     ${EMPTY}    urn:ngsi-ld:Dataset:french-name    building-french-datasetid-only.jsonld
-019_12_03 filter based on two datasetIds
+019_12_03 Filter Based On Two datasetIds
     [Tags]    e-query    4_5_5    5_7_2    since_v1.8.1
     ${EMPTY}    urn:ngsi-ld:Dataset:french-name,urn:ngsi-ld:Dataset:spanish-name    building-two-datasetids.jsonld
-019_12_04 filter based on default instance
+019_12_04 Filter Based On Default Instance
     [Tags]    e-query    4_5_5    5_7_2    since_v1.8.1
     ${EMPTY}    @none    building-default-instances.jsonld
-019_12_05 filter based on attrs and default instance
+019_12_05 Filter Based On Attrs And Default Instance
     [Tags]    e-query    4_5_5    5_7_2    since_v1.8.1
     name    @none    building-name-attribute-default-instance.jsonld
-019_12_06 filter based on attrs and datasetId
+019_12_06 Filter Based On Attrs And datasetId
     [Tags]    e-query    4_5_5    5_7_2    since_v1.8.1
     name    urn:ngsi-ld:Dataset:german-name    building-name-attribute-german-instance.jsonld
-019_12_07 filter based on attrs and datasetId with no match
+019_12_07 Filter Based On Attrs And datasetId With No Match
     [Tags]    e-query    4_5_5    5_7_2    since_v1.8.1
     name    urn:ngsi-ld:Dataset:spanish-name    building-no-attributes.jsonld
 

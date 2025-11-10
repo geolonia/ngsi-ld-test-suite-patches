@@ -15,7 +15,7 @@ ${subscription_payload_file_path}=      subscriptions/subscription.jsonld
 
 
 *** Test Cases ***
-028_04_01 Create a subscription with an id known to the system
+028_04_01 Create A Subscription With An Id Known To The System
     [Documentation]    Check that one cannot create a subscription with an existing id
     [Tags]    sub-create    5_8_1
     ${response}=    Create Subscription

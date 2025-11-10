@@ -7,7 +7,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 
 *** Test Cases ***
-037_02_01 Query Context Source Registrations Without Entity Types and Attribute Names
+037_02_01 Query Context Source Registrations Without Entity Types And Attribute Names
     [Documentation]    Check that one cannot query context source registrations, if neither Entity types nor Attribute names are provided, an error of type 400 shall be raised.
     [Tags]    csr-query    5_10_2
     ${response}=    Query Context Source Registrations    context=${ngsild_test_suite_context}

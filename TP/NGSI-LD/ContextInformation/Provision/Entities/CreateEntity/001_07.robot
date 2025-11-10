@@ -15,7 +15,7 @@ ${filename}=    building-simple-attributes.jsonld
 
 
 *** Test Cases ***
-001_07_01 Create one entity using a JSON-LD @context obtained from the request payload with ld context
+001_07_01 Create One Entity Using A JSON-LD @context Obtained From The Request Payload With Ld Context
     [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" and retrieve with ld context
     [Tags]    e-create    6_3_5
     ${entity_id}=    Generate Random Building Entity Id
@@ -27,7 +27,7 @@ ${filename}=    building-simple-attributes.jsonld
     ...    expected_attribute_name=almostFull
     ...    response_body=${response1.json()}
 
-001_07_02 Create one entity using a JSON-LD @context obtained from the request payload without context
+001_07_02 Create One Entity Using A JSON-LD @context Obtained From The Request Payload Without Context
     [Documentation]    Check that the @context is obtained from the request payload body itself if the Content-Type header is "application/ld+json" and retrieve without context
     [Tags]    e-create    6_3_5
     ${entity_id}=    Generate Random Building Entity Id

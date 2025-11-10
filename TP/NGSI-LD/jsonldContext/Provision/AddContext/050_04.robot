@@ -20,7 +20,7 @@ ${content_type}=        application/json
 
 
 *** Test Cases ***
-050_04_01 Add a valid hosted @context with URIs and check that the URIs are Cached @contexts
+050_04_01 Add A Valid Hosted @context With URIs And Check That The URIs Are Cached @contexts
     [Documentation]    Check that one can add a @context
     [Tags]    ctx-add    5_13_2    since_v1.5.1
 

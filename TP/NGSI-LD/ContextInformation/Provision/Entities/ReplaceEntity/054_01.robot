@@ -18,7 +18,7 @@ ${expectation_filename}             building-locatedAt-and-name-normalized.jsonl
 
 
 *** Test Cases ***
-054_01_01 Replace an existing entity
+054_01_01 Replace An Existing Entity
     [Documentation]    Check that one can replace an existing entity and that its createdAt Temporal Property remains unchanged
     [Tags]    e-replace    5_6_18    6_5_3_3    since_v1.6.1
     ${entity}=    Load Entity

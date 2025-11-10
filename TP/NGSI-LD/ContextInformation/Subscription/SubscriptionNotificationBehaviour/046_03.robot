@@ -20,7 +20,7 @@ ${fragment_filename}=                   airQualityLevel-fragment.jsonld
 
 
 *** Test Cases ***
-046_03_01 Check that a notification is sent with all entities
+046_03_01 Check That A Notification Is Sent With All Entities
     [Documentation]    A notification with all subscribed Entities will be included if query or geoquery are not defined.
     [Tags]    sub-notification    5_8_6
 

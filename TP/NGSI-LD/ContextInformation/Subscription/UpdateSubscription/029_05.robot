@@ -18,7 +18,7 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
 
 
 *** Test Cases ***
-029_05_01 Update Subscription With Term to Uri Expansion with Context
+029_05_01 Update Subscription With Term To Uri Expansion With Context
     [Documentation]    Check that one can update a subcription: Term to URI expansion of Attribute names shall be observed
     [Tags]    sub-update    5_8_2
     ${response}=    Update Subscription
@@ -38,7 +38,7 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
     ...    ${response1.json()}
     ...    ${ignore_keys}
 
-029_05_02 Update Subscription With Term to Uri Expansion without Context
+029_05_02 Update Subscription With Term To Uri Expansion Without Context
     [Documentation]    Check that one can update a subcription: Term to URI expansion of Attribute names shall be observed
     [Tags]    sub-update    5_8_2
     ${response}=    Update Subscription

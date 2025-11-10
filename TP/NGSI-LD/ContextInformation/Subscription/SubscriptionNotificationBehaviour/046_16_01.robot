@@ -20,7 +20,7 @@ ${content_type}=                        application/ld+json
 
 
 *** Test Cases ***
-046_16_01 Check that a notification is sent with entity matching the entity type selection
+046_16_01 Check That A Notification Is Sent With Entity Matching The Entity Type Selection
     [Documentation]    If a subscription defines an entity type selection query, a notification shall be sent whenever an entity matches the query.
     [Tags]    sub-notification    5_8_6    since_v1.5.1
 

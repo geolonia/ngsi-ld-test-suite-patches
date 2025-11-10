@@ -19,11 +19,11 @@ ${attribute_id}=    fuelLevel
 
 
 *** Test Cases ***    DELETE_ALL    DATASET_ID    EXPECTATION_FILE
-015_01_01 Delete an attribute from a temporal representation of an entity without deleteAll/datasetId
+015_01_01 Delete An Attribute From A Temporal Representation Of An Entity Without deleteAll/datasetId
     false    ${EMPTY}    vehicle-temporal-representation-delete-fuelLevel.jsonld
-015_01_02 Delete an attribute from a temporal representation of an entity with datasetId
+015_01_02 Delete An Attribute From A Temporal Representation Of An Entity With datasetId
     false    urn:ngsi-ld:Vehicle:12345-fuel    vehicle-temporal-representation-delete-fuelLevel-datasetid.jsonld
-015_01_03 Delete an attribute from a temporal representation of an entity with deleteAll
+015_01_03 Delete An Attribute From A Temporal Representation Of An Entity With deleteAll
     true    ${EMPTY}    vehicle-temporal-representation-deleteall-fuelLevel.jsonld
 
 

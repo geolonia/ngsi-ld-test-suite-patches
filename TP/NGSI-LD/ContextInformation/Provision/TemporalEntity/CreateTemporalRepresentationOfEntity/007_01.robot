@@ -12,9 +12,9 @@ Test Template       Create Temporal Entity
 
 
 *** Test Cases ***    FILENAME    EXPECTATION_FILENAME    CONTENT_TYPE
-007_01_01 Create a temporal representation of an entity
+007_01_01 Create A Temporal Representation Of An Entity
     vehicle-create-temporal-representation.jsonld    vehicle-temporal-representation-create.jsonld    application/ld+json
-007_01_02 Create a temporal entity with no context
+007_01_02 Create A Temporal Entity With No Context
     vehicle-create-temporal-representation-without-context.jsonld    vehicle-temporal-representation-create-with-no-context.jsonld    application/json
 
 

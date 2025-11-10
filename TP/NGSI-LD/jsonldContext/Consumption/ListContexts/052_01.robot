@@ -14,28 +14,28 @@ ${reason_204}=      No Content
 
 
 *** Test Cases ***    DETAILS    KIND
-052_01_01 List @contexts with neither details or kind and not previously created @context
+052_01_01 List @contexts With Neither Details Or Kind And Not Previously Created @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     ${EMPTY}    ${EMPTY}
-052_01_02 List @contexts with no details and kind equal to hosted and not previously created @context
+052_01_02 List @contexts With No Details And Kind Equal To Hosted And Not Previously Created @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     ${EMPTY}    Hosted
-052_01_03 List @contexts with no details and kind equal to cached and not previously created @context
+052_01_03 List @contexts With No Details And Kind Equal To Cached And Not Previously Created @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     ${EMPTY}    Cached
-052_01_04 List @contexts with no details and kind equal to implicitlycreated and not previously created @context
+052_01_04 List @contexts With No Details And Kind Equal To Implicitlycreated And Not Previously Created @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     ${EMPTY}    ImplicitlyCreated
-052_01_05 List @contexts with details equal to false and no kind and not previously created @context
+052_01_05 List @contexts With Details Equal To False And No Kind And Not Previously Created @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     false    ${EMPTY}
-052_01_06 List @contexts with details equal to false and kind equal to hosted and not previously created @context
+052_01_06 List @contexts With Details Equal To False And Kind Equal To Hosted And Not Previously Created @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     false    Hosted
-052_01_07 List @contexts with details equal to false and kind equal to cached and not previously created @context
+052_01_07 List @contexts With Details Equal To False And Kind Equal To Cached And Not Previously Created @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     false    Cached
-052_01_08 List @contexts with details equal to false and kind equal to implicitlycreated and not previously created @context
+052_01_08 List @contexts With Details Equal To False And Kind Equal To Implicitlycreated And Not Previously Created @context
     [Tags]    ctx-list    5_13_3    since_v1.5.1
     false    ImplicitlyCreated
 

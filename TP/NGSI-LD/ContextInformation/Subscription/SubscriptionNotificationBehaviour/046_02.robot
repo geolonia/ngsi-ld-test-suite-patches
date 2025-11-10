@@ -19,7 +19,7 @@ ${entity_building_filepath}=            building-simple-attributes.jsonld
 
 
 *** Test Cases ***
-046_02_01 Check that a notification is sent on the timeInterval
+046_02_01 Check That A Notification Is Sent On The timeInterval
     [Documentation]    If a Subscription defines a timeInterval member, a Notification shall be sent periodically, when the time interval (in seconds) specified in such value field is reached, regardless of Attribute changes.
     [Tags]    sub-notification    5_8_6
     ${response}=    Setup Initial Subscriptions

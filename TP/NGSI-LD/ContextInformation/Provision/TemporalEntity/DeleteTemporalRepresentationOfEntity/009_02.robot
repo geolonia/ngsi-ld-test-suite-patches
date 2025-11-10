@@ -9,9 +9,9 @@ Test Template       Delete Temporal Entity
 
 
 *** Test Cases ***    ID    EXPECTED_STATUS_CODE    PROBLEM_TYPE
-009_02_01 Delete a temporal representation of an entity with an empty entity id
+009_02_01 Delete A Temporal Representation Of An Entity With An Empty Entity Id
     ${EMPTY}    405    ${EMPTY}
-009_02_02 Delete a temporal representation of an entity with an invalid entity id
+009_02_02 Delete A Temporal Representation Of An Entity With An Invalid Entity Id
     invalidId    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 

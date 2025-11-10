@@ -16,7 +16,7 @@ ${reason_200}=                          OK
 
 
 *** Test Cases ***
-053_07_01 Check that one can serve a ImplicitlyCreated @context with details set to true
+053_07_01 Check That One Can Serve A ImplicitlyCreated @context With Details Set To True
     [Documentation]    Check that one can serve a ImplicitlyCreated @context with details set to true
     [Tags]    sub-create    5_13_4    since_v1.5.1
 

@@ -18,7 +18,7 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 
 
 *** Test Cases ***
-019_02_01 Query one entity via POST Interaction based on id
+019_02_01 Query One Entity Via POST Interaction Based On Id
     [Documentation]    Check that one can query one entity via POST Interaction based on id
     [Tags]    e-query    5_7_2
     @{entities_ids_to_be_compared}=    Create List    ${first_entity_id}

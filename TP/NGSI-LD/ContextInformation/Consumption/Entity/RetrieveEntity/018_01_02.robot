@@ -19,7 +19,7 @@ ${attribute_subcategory}=           https://ngsi-ld-test-suite/context#subCatego
 
 
 *** Test Cases ***
-018_01_02 Query some attributes from an entity
+018_01_02 Query Some Attributes From An Entity
     [Documentation]    Check that one can query some attributes from an entity
     [Tags]    e-retrieve    5_7_1
     ${attributes_to_be_retrieved}=    Catenate

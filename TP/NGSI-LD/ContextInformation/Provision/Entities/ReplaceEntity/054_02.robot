@@ -18,13 +18,13 @@ ${entity_replacement_filename}      building-locatedAt-and-name.json
 
 
 *** Test Cases ***    FAULTY_ENTITY_ID    EXPECTED_STATUS_CODE
-054_02_01 Replace an existing entity giving an invalid Id
+054_02_01 Replace An Existing Entity Giving An Invalid Id
     [Tags]    e-replace    5_6_18    6_5_3_3    since_v1.6.1
     invalidUri    400
-054_02_02 Replace an existing entity without giving an Id
+054_02_02 Replace An Existing Entity Without Giving An Id
     [Tags]    e-replace    5_6_18    6_5_3_3    since_v1.6.1
     ${EMPTY}    400
-054_02_03 Replace an existing entity giving a nonexistent Id
+054_02_03 Replace An Existing Entity Giving A Nonexistent Id
     [Tags]    e-replace    5_6_18    6_5_3_3    since_v1.6.1
     urn:ngsi-ld:Building:Nonexistent    404
 

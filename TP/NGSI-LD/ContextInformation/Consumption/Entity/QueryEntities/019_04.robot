@@ -19,7 +19,7 @@ ${entity_type}=             https://ngsi-ld-test-suite/context#Building
 
 
 *** Test Cases ***
-019_04_01 Query entities in a simplified representation
+019_04_01 Query Entities In A Simplified Representation
     [Documentation]    Check that the queried entities by Id can be returned in a simplified representation
     [Tags]    e-query    6_3_7
     @{entities_ids_to_be_compared}=    Create List    ${first_entity_id}    ${second_entity_id}

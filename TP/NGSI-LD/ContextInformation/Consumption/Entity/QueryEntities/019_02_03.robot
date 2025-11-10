@@ -19,7 +19,7 @@ ${entity_id_pattern}=       urn:ngsi-ld:Building:.*
 
 
 *** Test Cases ***
-019_02_03 Query several entities via POST Interaction based on the given id pattern
+019_02_03 Query Several Entities Via POST Interaction Based On The Given Id Pattern
     [Documentation]    Check that one can query several entities via POST Interaction based on the given id pattern
     [Tags]    e-query    5_7_2
     @{entities_ids_to_be_compared}=    Create List    ${first_entity_id}    ${second_entity_id}

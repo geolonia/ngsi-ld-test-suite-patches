@@ -20,7 +20,7 @@ ${content_type}=                        application/ld+json
 
 
 *** Test Cases ***
-046_16_02 Check that a notification is not sent if the entity type does not match the entity type selection
+046_16_02 Check That A Notification Is Not Sent If The Entity Type Does Not Match The Entity Type Selection
     [Documentation]    If a subscription defines an entity type selection query, a notification shall not be sent if the entity type does not match the query
     [Tags]    sub-notification    5_8_6    since_v1.5.1
 

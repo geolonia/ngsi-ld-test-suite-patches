@@ -21,7 +21,7 @@ ${geoproperty}=     location
 
 
 *** Test Cases ***
-019_03_04 Query entities when the request has a wrong geometryProperty
+019_03_04 Query Entities When The Request Has A Wrong geometryProperty
     [Documentation]    Check that one cannot query entities if the request has a wrong geometryProperty
     [Tags]    e-query    5_7_2
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    ${entity_type}

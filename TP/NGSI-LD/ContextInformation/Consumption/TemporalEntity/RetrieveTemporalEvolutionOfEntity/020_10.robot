@@ -17,7 +17,7 @@ ${vehicle_expectation_file}=    vehicle-temporal-representation-020-10.jsonld
 
 
 *** Test Cases ***
-020_10_01 Retrieve the temporal evolution of an entity with the simplified temporal representation
+020_10_01 Retrieve The Temporal Evolution Of An Entity With The Simplified Temporal Representation
     [Documentation]    Check that one can retrieve the temporal evolution of an entity with the simplified temporal representation
     [Tags]    te-retrieve    5_7_3
     @{options}=    Create List    temporalValues

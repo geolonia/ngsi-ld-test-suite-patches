@@ -20,7 +20,7 @@ ${notification_server_send_url}=        http://${notification_server_host}:${not
 
 
 *** Test Cases ***
-046_12_01 Check that lastNotification is updated
+046_12_01 Check That lastNotification Is Updated
     [Documentation]    The status, lastNotification and lastSuccess members shall be updated with expected value and dates. This test will check these formats.
     [Tags]    sub-notification    5_8_6
 

@@ -15,7 +15,7 @@ ${reason_400}=                          Bad Request
 
 
 *** Test Cases ***
-051_07_01 Delete a ImplicitlyCreated @contexts with a valid id and reload set to true
+051_07_01 Delete A ImplicitlyCreated @contexts With A Valid Id And Reload Set To True
     [Documentation]    Check that one cannot delete a ImplicitlyCreated @context with reload set to true
     [Tags]    ctx-delete    5_13_5    since_v1.5.1
 

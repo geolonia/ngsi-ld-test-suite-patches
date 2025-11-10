@@ -15,7 +15,7 @@ ${filename}=    csourceRegistrations/context-source-registration.jsonld
 
 
 *** Test Cases ***
-033_03_01 Create a context source registration that already exists
+033_03_01 Create A Context Source Registration That Already Exists
     [Documentation]    Check that one cannot create a context source registration that already exists
     [Tags]    csr-create    5_9_2
     ${response}=    Create Context Source Registration With Return    ${updated_payload}

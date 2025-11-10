@@ -292,7 +292,8 @@ Check Response Body Containing Number Of Entities
     [Arguments]    ${expected_entity_type}    ${expected_length}    ${response_body}
 
     ${response_body_length}=    Get Length    ${response_body}
-    ${is_list}=    Run Keyword    Evaluate    type(${response_body})==list
+    ${is_list}=    Run Keyword
+    ...    Evaluate    type(${response_body})==list
 
     IF    ${is_list}
         Should Be Equal    ${response_body_length}    ${expected_length}
@@ -675,7 +676,8 @@ Check Context Response Body Containing a list of identifiers
             ${found}=    Set Variable    ${FALSE}
             FOR    ${index2}    ${respObj}    IN ENUMERATE    @{response_body}
                 ${uri}=    Evaluate    urllib.parse.unquote("${respObj['URL']}")    modules=urllib
-                ${entryFound}=    Run Keyword And Return Status    Should End With    ${uri}    ${uri_context}
+                ${entryFound}=    Run Keyword And Return Status
+                ...    Should End With    ${uri}    ${uri_context}
                 IF    ${entryFound}
                     IF    '${kind}' != ''
                         Check Context Response Body Containing Detailed Information    ${respObj}    ${kind}
@@ -694,7 +696,8 @@ Check Context Response Body Containing a list of identifiers
             ${found}=    Set Variable    ${FALSE}
             FOR    ${index2}    ${respObj}    IN ENUMERATE    @{response_body}
                 ${uri}=    Evaluate    urllib.parse.unquote("${respObj}")    modules=urllib
-                ${entryFound}=    Run Keyword And Return Status    Should End With    ${uri}    ${uri_context}
+                ${entryFound}=    Run Keyword And Return Status
+                ...    Should End With    ${uri}    ${uri_context}
                 IF    ${entryFound}
                     ${found}=    Set Variable    ${TRUE}
                     BREAK
@@ -833,9 +836,7 @@ Check Body With Alternatives
     ${result}=    Set Variable    ${False}
     FOR    ${alternative}    IN    @{alternatives}
         ${result}=    Run Keyword And Return Status
-        ...    Check Response Body Content
-        ...    expectation_filename=${alternative}
-        ...    response_body=${response_body}
+        ...    Check Response Body Content    expectation_filename=${alternative}    response_body=${response_body}
         IF    ${result}    BREAK
     END
     Should Be True    ${result}

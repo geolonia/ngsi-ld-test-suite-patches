@@ -18,9 +18,9 @@ ${status_code}=             400
 
 
 *** Test Cases ***    ID
-014_02_01 Add an attribute to a temporal representation of an entity with an empty entity id
+014_02_01 Add An Attribute To A Temporal Representation Of An Entity With An Empty Entity Id
     ${EMPTY}
-014_02_02 Add an attribute to a temporal representation of an entity with an invalid entity id
+014_02_02 Add An Attribute To A Temporal Representation Of An Entity With An Invalid Entity Id
     thisIsAninvalidId
 
 

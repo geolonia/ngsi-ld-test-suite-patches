@@ -18,7 +18,7 @@ ${expectation_file}=                vehicles-temporal-representation-021-08.json
 
 
 *** Test Cases ***
-021_08_01 Query the temporal evolution of entities matching the given NGSI-LD query
+021_08_01 Query The Temporal Evolution Of Entities Matching The Given NGSI-LD Query
     [Documentation]    Check that one can query the temporal evolution of entities matching the given NGSI-LD query
     [Tags]    te-query    5_7_4
     ${entity_types_to_be_retrieved}=    Catenate    SEPARATOR=,    Vehicle
