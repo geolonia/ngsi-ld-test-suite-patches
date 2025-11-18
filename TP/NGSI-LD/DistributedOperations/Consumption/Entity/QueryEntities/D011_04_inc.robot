@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Verify that, when one has an inclusive registration on a Context Broker and an entity only on a Context Source, if one queries the Context Broker Via Post the request gets forwarded to the Context Source correctly using the appropriate operation
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
@@ -14,9 +15,7 @@ Test Template       Setup Registration, Context Source Mock Server And Query The
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.json
-${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 
 
@@ -36,9 +35,9 @@ D011_04_02_inc Query The Context Broker By Id Via POST Using The queryEntity Ope
 *** Keywords ***
 Setup Registration, Context Source Mock Server And Query The Context Broker With Type Via POST
     [Arguments]    ${operation}    ${method}    ${url}
-    ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
 
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
     ${operations}=    Create List    ${operation}
     ${registration_payload}=    Prepare Context Source Registration From File

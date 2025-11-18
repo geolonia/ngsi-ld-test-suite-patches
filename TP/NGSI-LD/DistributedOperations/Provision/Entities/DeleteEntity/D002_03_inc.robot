@@ -11,9 +11,7 @@ Suite Teardown      Delete Created Entity And Registration And Stop Context Sour
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
-${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 
 
@@ -29,12 +27,12 @@ D002_03_inc Delete Entity With Local Flag
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
-    ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Check Response Status Code    201    ${response.status_code}
 
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
     ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}

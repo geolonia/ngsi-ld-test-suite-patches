@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Verify that, when one has an inclusive registration on a Context Broker and an entity only on a Context Source, a retrieval request to the Context Broker the request is forwarded correcty to the Context Source using the appropriate operation
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
@@ -14,9 +15,7 @@ Test Template       Setup Registration, Context Source Mock Server And Retrieve 
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.json
-${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 
 
@@ -41,13 +40,13 @@ D010_03_03_inc Retrieve Entity By Id Using The queryBatch Operation
 *** Keywords ***
 Setup Registration, Context Source Mock Server And Retrieve Entity
     [Arguments]    ${operation}    ${method}    ${url}
-    ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
 
     IF    '${operation}' == 'retrieveEntity'
         ${url}=    Set Variable    ${url}${entity_id}
     END
 
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
     ${operations}=    Create List    ${operation}
     ${registration_payload}=    Prepare Context Source Registration From File

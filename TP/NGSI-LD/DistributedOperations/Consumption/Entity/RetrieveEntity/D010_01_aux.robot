@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Verify that when an auxiliary registration exists on a Context Broker and an entity with the same ID exists both locally in the Context Broker and remotely in the Context Source with different attributes, a retrieval request to the Context Broker is correctly forwarded to the Context Source, and the response includes the local entity enriched with additional, non-conflicting attributes from the Context Source
 
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
@@ -14,10 +15,8 @@ Test Teardown       Delete Created Entity And Registration And Stop Context Sour
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.json
 ${entity_payload_filename2}             vehicle-simple-attributes-second.jsonld
-${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 ${fragment_filename}                    vehicle-brandname-fragment.json
 ${expected_attribute}                   brandName
@@ -43,13 +42,13 @@ D010_01_aux Retrieve Entity That Exists On Both The Context Source And The Conte
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
-    ${entity_id}=    Generate Random Entity Id    ${entity_id_prefix}
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
 
     ${response}=    Create Entity    ${entity_payload_filename2}    ${entity_id}
     Check Response Status Code    201    ${response.status_code}
 
-    ${registration_id}=    Generate Random Entity Id    ${registration_id_prefix}
+    ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
     ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
