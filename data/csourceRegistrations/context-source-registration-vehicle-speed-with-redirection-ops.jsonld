@@ -1,3 +1,4 @@
+
 {
   "id": "urn:ngsi-ld:ContextSourceRegistration:randomUUID",
   "type": "ContextSourceRegistration",
@@ -8,7 +9,6 @@
           "id": "urn:ngsi-ld:Vehicle:randomUUID",
           "type": "Vehicle"
         }
-
      ],
       "propertyNames":["speed"]
     }

@@ -1,0 +1,43 @@
+{
+  "tp_id": "TP/NGSI-LD/DistributedOperations/Prov/E/D007_01_red",
+  "test_objective": "Verify that, when one has a redirect registration on a Context Broker, one is able to replace the entities on the Context Sources",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clauses 4.3.3, 4.3.6.3, 5.6.18",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "4.3.3",
+    "4.3.6.3",
+    "5.6.18"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Entity Id And Registration And Start Context Source Mock Server",
+    "Delete Created Entity And Registration And Stop Context Source Mock Server"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity id set to ${entity_id}\n    and the SUT containing a Context Source Registration \n        with id equal to ${registration_id}\n        and payload set to ${registration_payload_file_path}\n    and the SUT containing a Context Source Mock Server\n}",
+  "test_cases": [
+    {
+      "name": "D007_01_red Replace Entity",
+      "permutation_tp_id": "TP/NGSI-LD/DistributedOperations/Prov/E/D007_01_red",
+      "doc": "Check that if one requests the Context Broker to replace an entity that matches redirect registrations, the entity is replaced on the Context Sources",
+      "tags": [
+        "4_3_3",
+        "4_3_6_3",
+        "5_6_18",
+        "cf_06",
+        "dist-ops",
+        "proxy-redirect",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Entity Id And Registration And Start Context Source Mock Server",
+      "teardown": "Delete Created Entity And Registration And Stop Context Source Mock Server",
+      "template": null,
+      "http_verb": "PUT",
+      "endpoint": "entities/{entity_id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "DistributedOperations/Provision/Entities/ReplaceEntity",
+  "robotfile": "D007_01_red"
+}
