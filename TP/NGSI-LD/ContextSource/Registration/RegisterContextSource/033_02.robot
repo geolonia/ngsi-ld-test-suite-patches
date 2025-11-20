@@ -19,5 +19,7 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
     ${response}=    Create Context Source Registration
     ...    ${csr_payload}
     Check Response Status Code    400    ${response.status_code}
-    Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_BAD_REQUEST_DATA}
-    Check Response Body Title When Using Session Request    ${response.json()}
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to
+    ...    ${response.json()}
+    ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}

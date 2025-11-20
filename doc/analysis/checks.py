@@ -52,12 +52,8 @@ class Checks:
                 Checks.check_response_body_containing_attribute_element,
             'Check Response Body Containing List Containing Context Source Registrations elements':
                 Checks.check_response_body_containing_list_containing_context_source_registrations_elements,
-            'Check Response Body Type When Using Session Request':
-                Checks.check_response_body_type_when_using_session_request,
             'Check Response Body Containing ProblemDetails Element Containing Type Element set to':
                 Checks.check_response_body_containing_problemdetails_element_containing_type_element_set_to,
-            'Check Response Body Title When Using Session Request':
-                Checks.check_response_body_title_when_using_session_request,
             'Check Response Body Containing a Boolean Attribute set to':
                 Checks.check_response_body_containing_a_boolean_attribute_set_to,
             'Check Response Body Contains DateTime Value':
@@ -106,8 +102,6 @@ class Checks:
                 Checks.should_be_true,
             'Check Response Body Content':
                 Checks.check_response_body_content,
-            'Check Retrieving Context Source Registration':
-                Checks.check_retrieving_context_source_registration,
             'Check JSON Value Not In Response Body':
                 Checks.check_json_value_not_in_response_body,
             'Check Response Reason set to':
@@ -116,8 +110,6 @@ class Checks:
                 Checks.check_response_does_not_contain_body,
             'Check Context Response Body Containing a list of identifiers':
                 Checks.check_context_response_body_containing_a_list_of_identifiers,
-            'Check Context Response Body Containing a JSONObject with details of the @contexts':
-                Checks.check_context_response_body_containing_a_jsonobject_with_details_of_the_contexts,
             'Check Context Response Body Content':
                 Checks.check_context_response_body_content,
             'Check Context Response Body Containing Detailed Information':
@@ -130,8 +122,6 @@ class Checks:
                 Checks.check_response_kind_set_to,
             'Check Cached @Contexts':
                 Checks.check_cached_contexts,
-            'Check Response Header is Empty':
-                Checks.check_response_header_is_empty,
             'Check Response Headers Link set to':
                 Checks.check_response_headers_link_set_to,
             'Check Response Headers Containing NGSILD-Results-Count Equals To' :
@@ -197,10 +187,6 @@ class Checks:
                 'params': ['expected_entity_id', 'response_headers'],
                 'position': [0, 1]
             },
-            'Check Response Body Title When Using Session Request': {
-                'params': ['response_body'],
-                'position': [0]
-            },
             'Check Response Body Containing EntityTypeInfo element': {
                 'params': ['expectation_filename', 'response_body'],
                 'position': [0, 1]
@@ -260,10 +246,6 @@ class Checks:
             'Check Response Body Containing EntityType element': {
                 'params': ['filename', 'response'],
                 'position': [0, 1]
-            },
-            'Check Response Body Type When Using Session Request': {
-                'params': ['type'],
-                'position': [1]
             },
             'Check Created Resource Set To': {
                 'params': ['created_resource', 'response_body', 'ignored_keys'],
@@ -347,10 +329,6 @@ class Checks:
                 'params': ['expression'],
                 'position': [0]
             },
-            'Check Retrieving Context Source Registration': {
-                'params': ['registration_id', 'context', 'accept', 'registration_payload'],
-                'position': [0, 1, 2, 3]
-            },
             'Check JSON Value Not In Response Body': {
                 'params': ['json_path_expr'],
                 'position': [0]
@@ -366,10 +344,6 @@ class Checks:
             'Check Context Response Body Containing a list of identifiers': {
                 'params': ['response_body', 'expected_length', 'list_contexts', 'kind'],
                 'position': []
-            },
-            'Check Context Response Body Containing a JSONObject with details of the @contexts': {
-                'params': ['response', 'expected_length', 'list_contexts'],
-                'position': [0, 1, 2]
             },
             'Check Context Response Body Content': {
                 'params': ['expectation_filename', 'response_body'],
@@ -393,10 +367,6 @@ class Checks:
             },
             'Check Cached @Contexts': {
                 'params': ['context'],
-                'position': [0]
-            },
-            'Check Response Header is Empty': {
-                'params': ['response_headers'],
                 'position': [0]
             },
             'Check Response Headers Link set to': {
@@ -492,10 +462,6 @@ class Checks:
                                     f"'{expected_parameters}', but received: {kwargs}")
 
         return response
-
-    @staticmethod
-    def check_response_header_is_empty(kwargs: list) -> str:
-        return "The response header contains an empty dictionary"
 
     @staticmethod
     def check_response_headers_link_set_to(kwargs: list) -> str:
@@ -673,17 +639,6 @@ class Checks:
         return response
 
     @staticmethod
-    def check_context_response_body_containing_a_jsonobject_with_details_of_the_contexts(kwargs: list) -> str:
-        if 'response' in kwargs and 'expected_length' in kwargs and 'list_contexts' in kwargs:
-            return (f"Response Body containing a Context element containing JSONObject with details of the contexts:\n"
-                    f"    * the expected length of contexts set to '{kwargs['expected_length']}'\n"
-                    f"    * the list of contexts URI set to '{kwargs['list_contexts']}'\n"
-                    f"    * response body to be checked set to '{kwargs['response']}'")
-        else:
-            raise Exception(f"ERROR, expected 'filename', 'temporal_entity_representation_id', and 'response_body' "
-                            f"attributes, received: '{kwargs}'")
-
-    @staticmethod
     def check_context_detailed_information_keys(kwargs: list) -> str:
         return (f"Check that the only allowed keys in the response body of a @context are 'URL', 'localId', 'kind', "
                 f"'timestamp', 'lastUsage', 'numberOfHits', 'extraInfo'")
@@ -751,30 +706,6 @@ class Checks:
                     response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
                 case 'ignore_core_context_version':
                     response = f"{response} and\n    Query Parameter: {key} set to '{value}'"
-                case 'checks':
-                    pass
-                case _:
-                    raise Exception(f"ERROR, unexpected attribute '{result}', the attributes expected are "
-                                    f"'{expected_parameters}', but received: {kwargs}")
-
-        return response
-
-    @staticmethod
-    def check_retrieving_context_source_registration(kwargs: list) -> str:
-        expected_parameters = ['registration_id', 'context', 'accept', 'registration_payload']
-
-        result = [x for x in kwargs if x not in expected_parameters]
-        response = "Check Retrieving Context Source Registration"
-        for key, value in kwargs.items():
-            match key:
-                case 'registration_id':
-                    response = f"{response} and\n    Query Parameter: registration_id set to '{value}'"
-                case 'context':
-                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
-                case 'accept':
-                    response = f"{response} and\n    Query Parameter: accept set to '{value}'"
-                case 'registration_payload':
-                    response = f"{response} and\n    Query Parameter: registration_payload set to '{value}'"
                 case 'checks':
                     pass
                 case _:
@@ -896,14 +827,6 @@ class Checks:
         return 'Response body set to list of all matching Context Source Registrations resolved against the default JSON-LD context'
 
     @staticmethod
-    def check_response_body_type_when_using_session_request(kwargs: list) -> str:
-        if 'type' in kwargs:
-            type = kwargs['type']
-            return f"Response Body containing the type '{type}'"
-        else:
-            raise Exception(f"ERROR, expected type attribute, but received: {kwargs}")
-
-    @staticmethod
     def check_response_body_containing_problemdetails_element_containing_type_element_set_to(kwargs: list) -> str:
         if 'type' in kwargs:
             type = kwargs['type']
@@ -921,10 +844,6 @@ class Checks:
                     f"Response Boty Title is not equal to Response Body Detail")
         else:
             raise Exception(f"ERROR, expected type attribute, but received: {kwargs}")
-
-    @staticmethod
-    def check_response_body_title_when_using_session_request(kwargs: list) -> str:
-        return "Response body containing 'title' element"
 
     @staticmethod
     def check_response_body_containing_problemdetails_element_containing_title_element(kwargs: list) -> str:
@@ -1257,11 +1176,8 @@ if __name__ == "__main__":
     print(data.get_checks(checks='Check Response Body Containing AttributeList element'))
     print(data.get_checks(checks='Check Response Body Containing Attribute element'))
     print(data.get_checks(checks='Check Response Body Containing List Containing Context Source Registrations elements'))
-    print(data.get_checks(checks='Check Response Body Type When Using Session Request',
-                          type='https://uri.etsi.org/ngsi-ld/errors/BadRequestData'))
     print(data.get_checks(checks='Check Response Body Containing ProblemDetails Element Containing Type Element set to',
                           type='https://uri.etsi.org/ngsi-ld/errors/BadRequestData'))
-    print(data.get_checks(checks='Check Response Body Title When Using Session Request'))
     print(data.get_checks(checks='Check Response Body Containing ProblemDetails Element Containing Title Element'))
     print(data.get_checks(checks='Check JSON Value In Response Body',
                           key="['information']['entities'][0]['type']",

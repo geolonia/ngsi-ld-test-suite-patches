@@ -5,7 +5,6 @@ Library     RequestsLibrary
 Library     Collections
 Library     JSONLibrary
 Library     String
-Resource    ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
 Resource    ${EXECDIR}/resources/ApiUtils/jsonldContext.resource
 
 
@@ -68,10 +67,6 @@ Check Response Body Is Empty
 Check Response Headers Containing Content-Type set to
     [Arguments]    ${expected_content_type_content}    ${response_headers}
     Should Be Equal    ${response_headers['Content-Type']}    ${expected_content_type_content}
-
-Check Response Header is Empty
-    [Arguments]    ${response_headers}
-    Dictionaries Should Be Equal    ${response_headers}    {}
 
 Check Response Headers Link Not Empty
     [Arguments]    ${response_headers}
@@ -404,17 +399,9 @@ Check Response Body Containing List Containing Context Source Registrations elem
     ...    group_by=id
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
-Check Response Body Type When Using Session Request
-    [Arguments]    ${response_body}    ${type}
-    Should Be Equal    ${response_body['type']}    ${type}
-
 Check Response Body Containing ProblemDetails Element Containing Type Element set to
     [Arguments]    ${response_body}    ${type}
     Should Be Equal    ${response_body['type']}    ${type}
-
-Check Response Body Title When Using Session Request
-    [Arguments]    ${response_body}
-    Should Not Be Empty    ${response_body['title']}
 
 Check Response Body Containing ProblemDetails Element Containing Title Element
     [Arguments]    ${response_body}
@@ -529,15 +516,6 @@ Check SUT Not Containing Resource
 Check SUT Not Containing Resources
     [Arguments]    ${response_body}
     Should Be Empty    ${response_body}
-
-Check Retrieving Context Source Registration
-    [Arguments]    ${registration_id}    ${context}    ${accept}    ${registration_payload}
-    ${response}=    Retrieve Context Source Registration
-    ...    context_source_registration_id=${registration_id}
-    ...    context=${context}
-    ...    accept=${accept}
-    ${ignored_attributes}=    Create List    ${status_regex_expr}    @context
-    Check Updated Resource Set To    ${registration_payload}    ${response.json()}    ${ignored_attributes}
 
 Check Response Body Might Contain Additional Members of the NotificationParams
     # Check the Additional Members 5.2.14.2 in the NotificationParams data structure
@@ -719,23 +697,6 @@ Check Context Response Body Containing a list of identifiers
         Should Be True    ${found}
     END
 
-Check Context Response Body Containing a list with several URLs
-    [Arguments]    ${response_body}    ${expected_length}    ${list_contexts}
-
-    Length Should Be
-    ...    ${response_body}
-    ...    ${expected_length}
-    ...    msg=The length of the strings array of @contexts is not ${expected_length}
-
-    Should Be Equal    ${response_body[0]}    ${core_context}
-
-    FOR    ${index}    ${uri_context}    IN ENUMERATE    @{list_contexts}
-        Log    URI: ${uri_context} index: ${index}
-        ${index}=    Evaluate    ${index} + 1
-
-        Should Be Equal    ${response_body[${index}]}    ${uri_context}
-    END
-
 Check Cached @Contexts
     [Arguments]    ${filename}
 
@@ -772,35 +733,6 @@ Check Context Detailed Information Keys
     Should Be Empty
     ...    ${actual_keys}
     ...    msg=The @context detailed information contains keys not expected: ${actual_keys}
-
-Check Context Response Body Containing a JSONObject with details of the @contexts
-    [Arguments]    ${response}    ${expected_length}    ${list_contexts}
-
-    ${obtained_length}=    Get Length    ${response}
-    Length Should Be
-    ...    ${response}
-    ...    ${expected_length}
-    ...    msg=The expected number of @contexts was ${expected_length} but we have obtained ${obtained_length}
-
-    FOR    ${index}    ${item}    IN ENUMERATE    @{response}
-        ${URL}=    Get From Dictionary    ${item}    URL
-        IF    '${URL}'=='${core_context}'
-            ${context_kind}=    Set Variable    Cached
-        ELSE
-            ${context_kind}=    Set Variable    Hosted
-        END
-
-        # Check mandatory keys in the response (URL, localId, kind, timestamp) and their possible values
-        Check Context Response Body Containing Detailed Information    ${item}    ${context_kind}
-
-        # Check optional keys in the response (lastUsage, numberOfHits, extraInfo) and their possible values
-        Check Response Body Might Contain Optional Fields    ${response}[0]    lastUsage
-        Check Response Body Might Contain Optional Fields    ${response}[0]    numberOfHits
-        Check Response Body Might Contain Optional Fields    ${response}[0]    extraInfo
-
-        # Check that there is no other keys
-        Check Context Detailed Information Keys    ${item}
-    END
 
 Check Context Response Body Containing a JSONObject with details of a ImplicitlyCreated @contexts
     [Arguments]    ${response}    ${expected_length}

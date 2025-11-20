@@ -34,8 +34,10 @@ Add an Attribute To a Temporal Entity From File
     ...    ${update_filename}
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${status_code}    ${response.status_code}
-    Check Response Body Type When Using Session Request    ${response.json()}    ${ERROR_TYPE_INVALID_REQUEST}
-    Check Response Body Title When Using Session Request    ${response.json()}
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to
+    ...    ${response.json()}
+    ...    ${ERROR_TYPE_INVALID_REQUEST}
+    Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 Initialize Test Case
     ${temporal_entity_representation_id}=    Generate Random Vehicle Entity Id
