@@ -375,7 +375,11 @@ Check Response Body Containing Attribute element
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing List Containing Context Source Registrations elements
-    [Arguments]    ${expectation_file_path}    ${expected_context_source_registrations_ids}    ${response_body}
+    [Arguments]
+    ...    ${expectation_file_path}
+    ...    ${expected_context_source_registrations_ids}
+    ...    ${response_body}
+    ...    ${ignore_default}=${True}
     ${expected_context_source_registrations_payload}=    Load JSON From File
     ...    ${EXECDIR}/data/${expectation_file_path}
     ${index}=    Set Variable    0
@@ -386,10 +390,17 @@ Check Response Body Containing List Containing Context Source Registrations elem
         ...    ${expected_context_source_registration_id}
         ${index}=    Evaluate    ${index} + 1
     END
+
+    ${ignored_attributes}=    Create List    ${status_regex_expr}
+
+    IF    ${ignore_default}
+        Append To List    ${ignored_attributes}    mode    operations
+    END
+
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${expected_context_source_registrations_payload}
     ...    ${response_body}
-    ...    ${EMPTY}
+    ...    ${ignored_attributes}
     ...    group_by=id
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 

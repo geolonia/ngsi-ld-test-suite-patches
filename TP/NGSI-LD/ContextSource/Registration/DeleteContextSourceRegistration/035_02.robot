@@ -30,7 +30,6 @@ Delete A Context Source
     [Arguments]    ${invalid_registration_id}    ${expected_status_code}    ${problem_type}
     ${response}=    Delete Context Source Registration With Return    ${invalid_registration_id}
     Check Response Status Code    ${expected_status_code}    ${response.status_code}
-    Check Response Body Is Empty    ${response}
     IF    "${problem_type}"!="${EMPTY}"
         Check Response Body Containing ProblemDetails Element Containing Type Element set to
         ...    ${response.json()}
