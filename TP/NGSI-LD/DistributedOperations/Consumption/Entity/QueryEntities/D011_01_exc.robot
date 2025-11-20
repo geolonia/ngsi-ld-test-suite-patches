@@ -1,0 +1,63 @@
+*** Settings ***
+Documentation       Verify that, when one has an exclusive registration on a Context Broker and a fragment of an entity on a Context Source, if one queries the Context Broker the query gets merged with the Context Source correctly
+
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
+Resource            ${EXECDIR}/resources/AssertionUtils.resource
+Resource            ${EXECDIR}/resources/JsonUtils.resource
+Resource            ${EXECDIR}/resources/MockServerUtils.resource
+
+Test Setup          Create Entity And Registration On The Context Broker And Start Context Source Mock Server
+Test Teardown       Delete Registration And Stop Context Source Mock Server
+
+
+*** Variables ***
+${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
+${entity_payload_filename}              vehicle-simple-attributes.jsonld
+${entity_speed_filename}                vehicle-speed-attribute.json
+${registration_id_prefix}               urn:ngsi-ld:Registration:
+${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-speed-with-redirection-ops.jsonld
+
+*** Test Cases ***
+D011_01_exc Query The Context Broker With Type
+    [Documentation]    Check that if one queries the Context Broker for type, entity with matching type on a Context Source gets merged correctly
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_7_2
+    ${entity_speed}=    Load Entity    ${entity_speed_filename}    ${entity_id}
+    Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities?type=Vehicle    200    ${entity_speed}
+    
+    ${response}=    Query Entities    entity_types=Vehicle    context=${ngsild_test_suite_context}
+    Check Response Status Code    200    ${response.status_code}
+
+    ${stub_count}=    Get Stub Count    GET    /broker1/ngsi-ld/v1/entities?type=Vehicle
+    Should Be True    ${stub_count} > 0
+
+    ${body}=    Get From Dictionary    ${response.json()}    speed
+    Should Contain    ${body}    speed
+
+*** Keywords ***
+Create Entity And Registration On The Context Broker And Start Context Source Mock Server
+    ${entity_id}=    Generate Random Vehicle Entity Id
+    Set Suite Variable    ${entity_id}
+
+    ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    local=true
+    Check Response Status Code    201    ${response.status_code}
+
+    ${registration_id}=    Generate Random CSR Id
+    Set Suite Variable    ${registration_id}
+    ${registration_payload}=    Prepare Context Source Registration From File
+    ...    ${registration_id}
+    ...    ${registration_payload_file_path}
+    ...    entity_id=${entity_id}
+    ...    mode=exclusive
+    ...    endpoint=/broker1
+    ${response1}=    Create Context Source Registration With Return    ${registration_payload}
+    Check Response Status Code    201    ${response1.status_code}
+    Start Context Source Mock Server
+
+Delete Registration And Stop Context Source Mock Server
+    Delete Context Source Registration    ${registration_id}
+    Delete Entity by Id    ${entity_id}
+    Stop Context Source Mock Server
