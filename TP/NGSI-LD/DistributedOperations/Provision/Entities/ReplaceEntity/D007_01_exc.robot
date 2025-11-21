@@ -19,6 +19,7 @@ ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${entity_replacement}                   vehicle-simple-different-attributes.json
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-speed-with-redirection-ops.jsonld
 
+
 *** Test Cases ***
 D007_01_exc Replace Entity
     [Documentation]    Check that if one requests the Context Broker to replace an entity that matches an exclusive registration, the entity is replaced on the Context Source too
@@ -37,14 +38,15 @@ D007_01_exc Replace Entity
 
     ${response}=    Retrieve Entity By Id    ${entity_id}    context=${ngsild_test_suite_context}    local=true
     ${body}=    Get From Dictionary    ${response.json()}    speed
-    Should Not Contain    ${body}     speed
+    Should Not Contain    ${body}    speed
+
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
     ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
 
-    ${response}=   Create Entity    ${entity_payload_filename}    ${entity_id}    local=true
+    ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    local=true
     Check Response Status Code    201    ${response.status_code}
 
     ${registration_id}=    Generate Random CSR Id

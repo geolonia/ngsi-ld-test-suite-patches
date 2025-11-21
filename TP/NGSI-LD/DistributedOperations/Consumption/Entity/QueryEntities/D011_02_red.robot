@@ -9,8 +9,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Template      Setup Registration, Context Source Mock Server And Query The Context Broker With Type
-Test Teardown      Delete Registration And Stop Context Source Mock Server
+Test Teardown       Delete Registration And Stop Context Source Mock Server
+Test Template       Setup Registration, Context Source Mock Server And Query The Context Broker With Type
 
 
 *** Variables ***
@@ -19,22 +19,23 @@ ${entity_payload_filename}              vehicle-simple-attributes.json
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 
-*** Test Cases *** 
-D011_02_01_red Query The Context Broker With Type with queryEntity
+
+*** Test Cases ***
+D011_02_01_red Query The Context Broker With Type With queryEntity
     [Documentation]    Verify that when querying by entity type with a redirect registration that supports queryEntity, the request is forwarded to the Context Source and entities are retrieved correctly
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-redirect    4_3_6_3    5_7_2
-    [Template]     Setup Registration, Context Source Mock Server And Query The Context Broker With Type    
+    [Template]    Setup Registration, Context Source Mock Server And Query The Context Broker With Type
     GET    /broker1/ngsi-ld/v1/entities?type=Vehicle
-
-D011_02_02_red Query The Context Broker With Type with queryBatch
+D011_02_02_red Query The Context Broker With Type With queryBatch
     [Documentation]    Verify that when querying by entity type with a redirect registration that supports queryBatch, the request is forwarded to the Context Source and entities are retrieved correctly
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-redirect    4_3_6_3    5_7_2
-    [Template]     Setup Registration, Context Source Mock Server And Query The Context Broker With Type
+    [Template]    Setup Registration, Context Source Mock Server And Query The Context Broker With Type
     POST    /broker1/ngsi-ld/v1/entityOperations/query
+
 
 *** Keywords ***
 Setup Registration, Context Source Mock Server And Query The Context Broker With Type
-    [Arguments]    ${method}    ${url} 
+    [Arguments]    ${method}    ${url}
     ${entity_id}=    Generate Random Vehicle Entity Id
 
     ${registration_id}=    Generate Random CSR Id
@@ -46,14 +47,14 @@ Setup Registration, Context Source Mock Server And Query The Context Broker With
     ...    endpoint=/broker1
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response1.status_code}
-    
+
     Start Context Source Mock Server
     ${entity_body}=    Load Entity    ${entity_payload_filename}    ${entity_id}
     @{entity_list}=    Create List    ${entity_body}
-    Set Stub Reply    ${method}   ${url}   200    ${entity_list}
+    Set Stub Reply    ${method}    ${url}    200    ${entity_list}
 
     @{entities_id}=    Create List    ${entity_id}
-    
+
     IF    '${method}' == 'GET'
         ${response}=    Query Entities    entity_types=Vehicle    context=${ngsild_test_suite_context}
     ELSE IF    '${method}' == 'POST'

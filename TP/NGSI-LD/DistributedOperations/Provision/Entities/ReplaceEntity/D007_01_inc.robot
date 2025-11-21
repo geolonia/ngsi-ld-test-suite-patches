@@ -40,13 +40,14 @@ D007_01_inc Replace Entity
     ${new_body}=    Set To Dictionary    ${response.json()}
     Should Not Be Equal    ${old_body}    ${new_body}
 
+
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
     ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
 
-    ${response}=    Create Entity Selecting Content Type    
-    ...    ${entity_payload_filename}    
+    ${response}=    Create Entity Selecting Content Type
+    ...    ${entity_payload_filename}
     ...    ${entity_id}
     ...    ${CONTENT_TYPE_JSON}
     ...    ${ngsild_test_suite_context}

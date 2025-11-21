@@ -14,10 +14,10 @@ ${unavailable_jsonldContext_subscription_file_path}=    subscriptions/subscripti
 
 
 *** Test Cases ***    FILE_NAME    EXPECTED_ERROR_TYPE    EXPECTED_STATUS_CODE
-028_07_01 Subscription with invalid jsonldContext
+028_07_01 Subscription With Invalid jsonldContext
     [Tags]    sub-create    5_8_1    since_v1.7.1
     ${invalid_jsonldContext_subscription_file_path}    ${ERROR_TYPE_BAD_REQUEST_DATA}    400
-028_07_02 Subscription with unavailable jsonldContext
+028_07_02 Subscription With Unavailable jsonldContext
     [Tags]    sub-create    5_8_1    since_v1.7.1
     ${unavailable_jsonldContext_subscription_file_path}    ${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}    503
 

@@ -20,7 +20,7 @@ ${entity_expectation_file_path}=        compacted-entity-with-jsonldContext-046-
 
 
 *** Test Cases ***
-046_20 Check that jsonldContext member in subscription is used when sending notifcations
+046_20 Check That jsonldContext Member In Subscription Is Used When Sending Notifcations
     [Documentation]    If a subscription has a jsonldContext member then it should be used when sending notifications
     [Tags]    sub-notification    5_8_6    since_v1.7.1
 

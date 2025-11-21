@@ -19,6 +19,7 @@ ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${entity_replacement}                   vehicle-simple-attributes-second.json
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 
+
 *** Test Cases ***
 D007_01_red Replace Entity
     [Documentation]    Check that if one requests the Context Broker to replace an entity that matches redirect registrations, the entity is replaced on the Context Sources
@@ -38,6 +39,7 @@ D007_01_red Replace Entity
     Should Be Equal    ${stub_count}    1
     ${stub_count}=    Get Stub Count    PUT    /broker2/ngsi-ld/v1/entities/${entity_id}
     Should Be Equal    ${stub_count}    1
+
 
 *** Keywords ***
 Setup Entity Id And Registration And Start Context Source Mock Server

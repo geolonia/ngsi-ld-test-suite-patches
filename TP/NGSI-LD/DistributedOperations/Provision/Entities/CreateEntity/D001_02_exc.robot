@@ -13,12 +13,14 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Test Setup          Create Entity And Registration On The Context Broker And Start Context Source Mock Server
 Test Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
 
+
 *** Variables ***
 ${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${entity_speed_filename}                vehicle-speed-attribute.jsonld
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-speed-with-default-ops.jsonld
+
 
 *** Test Cases ***
 D001_02_exc Create Entity Without Redirection Operations
@@ -31,7 +33,8 @@ D001_02_exc Create Entity Without Redirection Operations
 
     ${stub_count}=    Get Stub Count    POST    /broker1/ngsi-ld/v1/entities
     Should Be True    ${stub_count} == 0
-    
+
+
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
     ${entity_id}=    Generate Random Vehicle Entity Id

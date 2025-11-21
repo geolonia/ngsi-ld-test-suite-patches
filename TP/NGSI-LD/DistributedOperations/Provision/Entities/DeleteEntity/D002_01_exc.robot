@@ -13,6 +13,7 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Test Setup          Create Entity And Registration On The Context Broker And Start Context Source Mock Server
 Test Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
 
+
 *** Variables ***
 ${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
@@ -20,17 +21,19 @@ ${entity_speed_filename}                vehicle-speed-attribute.json
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-speed-with-redirection-ops.jsonld
 
+
 *** Test Cases ***
 D002_01_exc Delete Entity With Exclusive Registration
     [Documentation]    Check that the entity is deleted correctly in the Context Broker and in the Context Source.
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_6_6
     ${speed_entity}=    Load Entity    ${entity_speed_filename}    ${entity_id}
 
-    Set Stub Reply  DELETE    /broker1/ngsi-ld/v1/entities/${entity_id}    204
+    Set Stub Reply    DELETE    /broker1/ngsi-ld/v1/entities/${entity_id}    204
     ${response}=    Delete Entity by Id    ${entity_id}
     Check Response Status Code    204    ${response.status_code}
     ${stub_count}=    Get Stub Count    DELETE    /broker1/ngsi-ld/v1/entities/${entity_id}
     Should Be True    ${stub_count} > 0
+
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server

@@ -21,13 +21,14 @@ ${entity_speed_filename}                vehicle-speed-attribute.json
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-speed-with-redirection-ops.jsonld
 
+
 *** Test Cases ***
 D011_01_exc Query The Context Broker With Type
     [Documentation]    Check that if one queries the Context Broker for type, entity with matching type on a Context Source gets merged correctly
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_7_2
     ${entity_speed}=    Load Entity    ${entity_speed_filename}    ${entity_id}
     Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities?type=Vehicle    200    ${entity_speed}
-    
+
     ${response}=    Query Entities    entity_types=Vehicle    context=${ngsild_test_suite_context}
     Check Response Status Code    200    ${response.status_code}
 
@@ -36,6 +37,7 @@ D011_01_exc Query The Context Broker With Type
 
     ${body}=    Get From Dictionary    ${response.json()}    speed
     Should Contain    ${body}    speed
+
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server

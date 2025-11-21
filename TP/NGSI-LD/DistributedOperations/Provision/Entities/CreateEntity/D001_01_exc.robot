@@ -13,12 +13,14 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Test Setup          Create Entity And Registration On The Context Broker And Start Context Source Mock Server
 Test Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
 
+
 *** Variables ***
 ${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${entity_speed_filename}                vehicle-speed-attribute.jsonld
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-speed-with-redirection-ops.jsonld
+
 
 *** Test Cases ***
 D001_01_exc Create Entity With Exclusive Registration
@@ -34,6 +36,7 @@ D001_01_exc Create Entity With Exclusive Registration
     ${response}=    Retrieve Entity By Id    ${entity_id}    context=${ngsild_test_suite_context}    local=true
     ${body}=    Set To Dictionary    ${response.json()}
     Should Not Contain    ${body}    speed
+
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
