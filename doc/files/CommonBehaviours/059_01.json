@@ -1,0 +1,154 @@
+{
+  "tp_id": "TP/NGSI-LD/CB/HTTP/059_01",
+  "test_objective": "Check that sending an invalid parameter returns a 400 invalidRequest",
+  "reference": "ETSI GS CIM 009 V1.7.1 [], clauses 5.6.1, 5.6.11, 5.7.2, 5.7.5, 5.8.1, 6.3.20",
+  "config_id": "",
+  "parent_release": "v1.7.1",
+  "clauses": [
+    "5.6.1",
+    "5.6.11",
+    "5.7.2",
+    "5.7.5",
+    "5.8.1",
+    "6.3.20"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Call endpoint with invalid parameter"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n   the SUT containing an initial state\n}",
+  "test_cases": [
+    {
+      "name": "059_01_01 CreateEntity",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/059_01_01",
+      "doc": "Check that sending an invalid parameter returns a 400 invalidRequest",
+      "tags": [
+        "5_6_1",
+        "6_3_20",
+        "e-create",
+        "since_v1.7.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Call endpoint with invalid parameter",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Call Api Endpoint With Invalid Parameter with Response Status Code set to 400     and\n        Call Api Endpoint With Invalid Parameter with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        Call API Endpoint with: and\n    Method: method set to 'POST' and\n    Endpoint URL: endpoint_url set to 'entities' and\n    Filename: filename set to 'building-minimal.json' and\n    Extra param: extraParam set to '${additionalParam}'\n}",
+      "http_verb": "GET",
+      "endpoint": "{endpoint}/{params}"
+    },
+    {
+      "name": "059_01_02 QueryEntities",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/059_01_02",
+      "doc": "Check that sending an invalid parameter returns a 400 invalidRequest",
+      "tags": [
+        "5_7_2",
+        "6_3_20",
+        "e-query",
+        "since_v1.7.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Call endpoint with invalid parameter",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Call Api Endpoint With Invalid Parameter with Response Status Code set to 400     and\n        Call Api Endpoint With Invalid Parameter with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        Call API Endpoint with: and\n    Method: method set to 'GET' and\n    Endpoint URL: endpoint_url set to 'entities' and\n    Filename: filename set to 'building-minimal.json' and\n    Extra param: extraParam set to '${additionalParam}'\n}",
+      "http_verb": "GET",
+      "endpoint": "{endpoint}/{params}"
+    },
+    {
+      "name": "059_01_03 CreateTemporalEntity",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/059_01_03",
+      "doc": "Check that sending an invalid parameter returns a 400 invalidRequest",
+      "tags": [
+        "5_6_11",
+        "6_3_20",
+        "since_v1.7.1",
+        "te-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Call endpoint with invalid parameter",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Call Api Endpoint With Invalid Parameter with Response Status Code set to 400     and\n        Call Api Endpoint With Invalid Parameter with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        Call API Endpoint with: and\n    Method: method set to 'POST' and\n    Endpoint URL: endpoint_url set to 'temporal/entities' and\n    Filename: filename set to 'building-minimal.json' and\n    Extra param: extraParam set to '${additionalParam}'\n}",
+      "http_verb": "GET",
+      "endpoint": "{endpoint}/{params}"
+    },
+    {
+      "name": "059_01_04 QueryTemporalEntities",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/059_01_04",
+      "doc": "Check that sending an invalid parameter returns a 400 invalidRequest",
+      "tags": [
+        "5_7_2",
+        "6_3_20",
+        "since_v1.7.1",
+        "te-query"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Call endpoint with invalid parameter",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Call Api Endpoint With Invalid Parameter with Response Status Code set to 400     and\n        Call Api Endpoint With Invalid Parameter with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        Call API Endpoint with: and\n    Method: method set to 'GET' and\n    Endpoint URL: endpoint_url set to 'temporal/entities' and\n    Filename: filename set to 'building-minimal.json' and\n    Extra param: extraParam set to '${additionalParam}'\n}",
+      "http_verb": "GET",
+      "endpoint": "{endpoint}/{params}"
+    },
+    {
+      "name": "059_01_05 RetrieveEntityTypes",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/059_01_05",
+      "doc": "Check that sending an invalid parameter returns a 400 invalidRequest",
+      "tags": [
+        "5_7_5",
+        "6_3_20",
+        "ed-types",
+        "since_v1.7.1"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Call endpoint with invalid parameter",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Call Api Endpoint With Invalid Parameter with Response Status Code set to 400     and\n        Call Api Endpoint With Invalid Parameter with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        Call API Endpoint with: and\n    Method: method set to 'GET' and\n    Endpoint URL: endpoint_url set to 'types' and\n    Filename: filename set to 'building-minimal.json' and\n    Extra param: extraParam set to '${additionalParam}'\n}",
+      "http_verb": "GET",
+      "endpoint": "{endpoint}/{params}"
+    },
+    {
+      "name": "059_01_06 CreateSubscription",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/059_01_06",
+      "doc": "Check that sending an invalid parameter returns a 400 invalidRequest",
+      "tags": [
+        "5_8_1",
+        "6_3_20",
+        "since_v1.7.1",
+        "sub-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Call endpoint with invalid parameter",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Call Api Endpoint With Invalid Parameter with Response Status Code set to 400     and\n        Call Api Endpoint With Invalid Parameter with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        Call API Endpoint with: and\n    Method: method set to 'POST' and\n    Endpoint URL: endpoint_url set to 'subscriptions' and\n    Filename: filename set to 'building-minimal.json' and\n    Extra param: extraParam set to '${additionalParam}'\n}",
+      "http_verb": "GET",
+      "endpoint": "{endpoint}/{params}"
+    },
+    {
+      "name": "059_01_07 QuerySubscriptions",
+      "permutation_tp_id": "TP/NGSI-LD/CB/HTTP/059_01_07",
+      "doc": "Check that sending an invalid parameter returns a 400 invalidRequest",
+      "tags": [
+        "5_8_1",
+        "6_3_20",
+        "since_v1.7.1",
+        "sub-create"
+      ],
+      "setup": null,
+      "teardown": null,
+      "template": "Call endpoint with invalid parameter",
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Call Api Endpoint With Invalid Parameter with Response Status Code set to 400     and\n        Call Api Endpoint With Invalid Parameter with Response Body containing the type 'https://uri.etsi.org/ngsi-ld/errors/InvalidRequest'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        Call API Endpoint with: and\n    Method: method set to 'GET' and\n    Endpoint URL: endpoint_url set to 'subscriptions' and\n    Filename: filename set to 'building-minimal.json' and\n    Extra param: extraParam set to '${additionalParam}'\n}",
+      "http_verb": "GET",
+      "endpoint": "{endpoint}/{params}"
+    }
+  ],
+  "permutations": [
+    "when"
+  ],
+  "robotpath": "CommonBehaviours/CommonResponses/VerifyInvalidParameters",
+  "robotfile": "059_01"
+}

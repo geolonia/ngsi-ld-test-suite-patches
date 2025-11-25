@@ -91,7 +91,8 @@ class GenerateRobotData:
             'CommonResponses/VerifyMergePatchJson': 'HTTP',
             'CommonResponses/VerifyGETWithoutAccept': 'HTTP',
             'CommonResponses/VerifyUnsupportedMediaType': 'HTTP',
-            'CommonResponses/VerifyNotAcceptableMediaType': 'HTTP'
+            'CommonResponses/VerifyNotAcceptableMediaType': 'HTTP',
+            'CommonResponses/VerifyInvalidParameters': 'HTTP'
         }
         self.references = {
             'v1.3.1': 'ETSI GS CIM 009 V1.3.1 []'

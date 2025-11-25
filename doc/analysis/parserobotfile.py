@@ -369,12 +369,16 @@ class ParseRobotFile:
         return checks
 
     def generate_when_content(self, http_verb, endpoint, when):
-        if when.find("a subscription with id set to") == -1:
+        if when.find("a subscription with id set to") == -1 and when.find("Call API Endpoint with") == -1:
             url = f"URL set to '/ngsi-ld/v1/{endpoint}'"
             method = f"method set to '{http_verb}'"
             when = (f"when {{\n    the SUT receives a Request from the client containing:\n"
                     f"        {url}\n"
                     f"        {method}\n"
+                    f"        {when}\n"
+                    f"}}")
+        elif when.find("Call API Endpoint with") != -1:
+            when = (f"when {{\n    the SUT receives a Request from the client containing:\n"
                     f"        {when}\n"
                     f"}}")
         else:

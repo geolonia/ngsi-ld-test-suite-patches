@@ -20,6 +20,10 @@ class Requests:
                 'positions': [0],
                 'params': ['filename']
             },
+            'Call Api Endpoint With Invalid Parameter': {
+                'positions': [0, 1, 2, 3],
+                'params': ['method', 'endpoint', 'filename', 'extraParam']
+            },
             'Create Entity From JSON-LD Content': {
                 'positions': [0],
                 'params': ['content']
@@ -298,6 +302,8 @@ class Requests:
                 Requests.create_entity_selecting_content_type,
             'Create Entity From File':
                 Requests.create_entity_from_file,
+            'Call Api Endpoint With Invalid Parameter':
+                Requests.call_api_endpoint_with_invalid_parameter,
             'Create Or Update Temporal Representation Of Entity Selecting Content Type':
                 Requests.create_or_update_temporal_representation_of_entity_selecting_content_type,
             'Batch Create Entities':
@@ -632,6 +638,27 @@ class Requests:
             return result
         else:
             raise Exception(f"ERROR: expected filename attribute, but received {kwargs}")
+
+    @staticmethod
+    def call_api_endpoint_with_invalid_parameter(kwargs) -> str:
+        expected_parameters = ['method', 'endpoint', 'filename', 'extraParam']
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Call API Endpoint with:"
+        for key, value in kwargs.items():
+            match key:
+                case 'method':
+                    response = f"{response} and\n    Method: {key} set to '{value}'"
+                case 'endpoint':
+                    response = f"{response} and\n    Endpoint: {key} set to '{value}'"
+                case 'filename':
+                    response = f"{response} and\n    Filename: {key} set to '{value}'"
+                case 'extraParam':
+                    response = f"{response} and\n    Extra param: {key} set to '{value}'"
+                case _:
+                    raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
+        return response
 
     @staticmethod
     def batch_update_entities(kwargs) -> str:

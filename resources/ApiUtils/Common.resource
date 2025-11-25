@@ -1,18 +1,28 @@
 *** Settings ***
-Library     String
+Variables       ${EXECDIR}/resources/variables.py
+Library         ${EXECDIR}/libraries/logUtils.py
+Library         RequestsLibrary
+Library         OperatingSystem
+Library         Collections
+Library         JSONLibrary
+Library         String
 
 
 *** Variables ***
-${BUILDING_ID_PREFIX}           urn:ngsi-ld:Building:
-${BUS_ID_PREFIX}                urn:ngsi-ld:Bus:
-${CITY_ID_PREFIX}               urn:ngsi-ld:City:
-${PARKING_ID_PREFIX}            urn:ngsi-ld:OffStreetParking:
-${VEHICLE_ID_PREFIX}            urn:ngsi-ld:Vehicle:
+${BUILDING_ID_PREFIX}                   urn:ngsi-ld:Building:
+${BUS_ID_PREFIX}                        urn:ngsi-ld:Bus:
+${CITY_ID_PREFIX}                       urn:ngsi-ld:City:
+${PARKING_ID_PREFIX}                    urn:ngsi-ld:OffStreetParking:
+${VEHICLE_ID_PREFIX}                    urn:ngsi-ld:Vehicle:
 
-${SUBSCRIPTION_ID_PREFIX}=      urn:ngsi-ld:Subscription:
+${SUBSCRIPTION_ID_PREFIX}=              urn:ngsi-ld:Subscription:
 
-${CSR_ID_PREFIX}=               urn:ngsi-ld:ContextSourceRegistration:
+${CSR_ID_PREFIX}=                       urn:ngsi-ld:ContextSourceRegistration:
 
+${TEMPORAL_ENTITIES_ENDPOINT_PATH}      temporal/entities
+${ENTITIES_TYPES_ENDPOINT_PATH}         types
+
+${ERROR_TYPE_INVALID_REQUEST}           https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
 
 *** Keywords ***
 Build Context Link
@@ -51,3 +61,40 @@ Generate Random Subscription Id
 Generate Random CSR Id
     ${entity_id}=    Generate Random Id    ${CSR_ID_PREFIX}
     RETURN    ${entity_id}
+
+Call Api Endpoint With Invalid Parameter
+    [Arguments]    ${method}    ${endpoint}    ${filename}=${EMPTY}    ${extraParam}=${EMPTY}
+    IF    '${filename}' != "${EMPTY}"
+        ${file_content}=    Get File    ${EXECDIR}/data/${filename}
+    END
+
+    &{headers}=    Create Dictionary    Content-Type=application/ld+json
+
+    IF    '${extraParam}' != "${empty}"
+        ${params}=    Catenate    ?invalidParams=invalidValue&    ${extraParam}
+    ELSE
+        ${params}=    Catenate    ?invalidParams=invalidValue
+    END
+
+    # No multi method request function in the robotframework-requests library
+    IF    "${method}"=="GET"
+        ${response}=    GET
+        ...    url=${url}/${endpoint}${params}
+        ...    headers=${headers}
+        ...    expected_status=any
+    ELSE IF    "${method}"=="POST"
+        ${response}=    POST
+        ...    url=${url}/${endpoint}${params}
+        ...    json=${file_content}
+        ...    headers=${headers}
+        ...    expected_status=any
+    ELSE IF    "${method}"=="PUT"
+        ${response}=    PUT
+        ...    url=${url}/${endpoint}${params}
+        ...    json=${file_content}
+        ...    headers=${headers}
+        ...    expected_status=any
+    END
+
+    Output    ${response}    Call endpoint With Invalid Parameter
+    RETURN    ${response}
