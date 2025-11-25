@@ -39,7 +39,10 @@ Update A Context Source
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    ${expected_status_code}    ${response.status_code}
     Check Response Reason set to    ${response.reason}    ${reason_400}
-    Check Response Body Containing ProblemDetails Element    ${response.json()}    ${problem_type}
+
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to
+    ...    ${response.json()}
+    ...    ${problem_type}
 
 Create Initial Context Source Registration
     ${valid_registration_id}=    Generate Random CSR Id

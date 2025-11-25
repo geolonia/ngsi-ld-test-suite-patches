@@ -22,10 +22,13 @@ ${registration_payload_file_path}=      context-source-registration-invalid-json
     ${response}=    Update Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
+    ...    ${CONTENT_TYPE_JSON}
+
     Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}
-    ...    ${ERROR_TYPE_BAD_REQUEST_DATA}
+    ...    ${ERROR_TYPE_INVALID_REQUEST}
+
     Check Response Body Containing ProblemDetails Element Containing Title Element    ${response.json()}
 
 

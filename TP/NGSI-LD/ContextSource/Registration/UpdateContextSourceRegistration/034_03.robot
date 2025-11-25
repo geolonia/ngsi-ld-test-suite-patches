@@ -26,4 +26,6 @@ ${reason_404}=      Not Found
     ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    404    ${response.status_code}
     Check Response Reason set to    ${response.reason}    ${reason_404}
-    Check Response Body Containing ProblemDetails Element    ${response.json()}    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
+    Check Response Body Containing ProblemDetails Element Containing Type Element set to
+    ...    ${response.json()}
+    ...    ${ERROR_TYPE_RESOURCE_NOT_FOUND}

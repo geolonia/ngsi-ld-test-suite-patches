@@ -15,6 +15,7 @@ ${CONTENT_TYPE_JSON}                            application/json
 ${CONTENT_TYPE_LD_JSON}                         application/ld+json
 
 ${ERROR_TYPE_BAD_REQUEST_DATA}                  https://uri.etsi.org/ngsi-ld/errors/BadRequestData
+${ERROR_TYPE_INVALID_REQUEST}                   https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
 ${ERROR_TYPE_RESOURCE_NOT_FOUND}                https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
 
 ${response}                                     ${EMPTY}
@@ -121,13 +122,18 @@ Update Context Source Registration
     RETURN    ${response}
 
 Update Context Source Registration From File
-    [Arguments]    ${context_source_registration_id}    ${filename}
+    [Arguments]    ${context_source_registration_id}    ${filename}    ${content_type}    ${accept}=${EMPTY}
+
+    &{headers}=    Create Dictionary    Content-Type=${content_type}
+    IF    '${accept}'!=''    Set To Dictionary    ${headers}    Accept=${accept}
 
     ${file_content}=    Get File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${response}=    PATCH
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
     ...    data=${file_content}
+    ...    headers=${headers}
     ...    expected_status=any
+
     Output    ${response}    Update Context Source Registration From File
     RETURN    ${response}
 
