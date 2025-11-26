@@ -19,17 +19,19 @@ ${reason_400}=                          Bad Request
 
 *** Test Cases ***    REGISTRATION_ID    FRAGMENT_FILENAME    EXPECTED_STATUS_CODE    PROBLEM_TYPE
 034_02_01 Update A Context Source Registration By Id If The Id Is Not A Valid URI
+    [Tags]    csr-update    5_9_3
     invalidURI    fragments/context-source-registration-different-type.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 034_02_02 Update A Context Source Registration If The Request Body Is Not Of The Same Data Type
+    [Tags]    csr-update    5_9_3
     ${valid_registration_id}    fragments/context-source-registration-different-type.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 034_02_03 Update A Context Source Registration If One Attempts To Remove A Mandatory Property
+    [Tags]    csr-update    5_9_3
     ${valid_registration_id}    context-source-registration-invalid.jsonld    400    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 
 *** Keywords ***
 Update A Context Source
     [Documentation]    Check that one cannot update a context source registration under some conditions
-    [Tags]    csr-update    5_9_3
     [Arguments]    ${registration_id}    ${fragment_filename}    ${expected_status_code}    ${problem_type}
     ${fragment}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${fragment_filename}
     ${fragment_with_id}=    Update Value To JSON    ${fragment}    $.id    ${registration_id}

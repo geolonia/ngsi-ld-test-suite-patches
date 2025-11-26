@@ -19,13 +19,13 @@ ${reason_405}=                          Method Not Allowed
 
 *** Test Cases ***    FRAGMENT_FILENAME    EXPECTED_STATUS_CODE    REASON
 034_06_01 Update A Context Source Registration By Id If The Id Is Not Present
+    [Tags]    csr-update    5_9_3
     fragments/context-source-registration-different-type.jsonld    405    ${reason_405}
 
 
 *** Keywords ***
 Update A Context Source
     [Documentation]    Check that one cannot update a context source registration under some conditions
-    [Tags]    csr-update    5_9_3
     [Arguments]    ${fragment_filename}    ${expected_status_code}    ${reason}
     ${fragment}=    Load JSON From File    ${EXECDIR}/data/csourceRegistrations/${fragment_filename}
     ${fragment_with_id}=    Update Value To JSON    ${fragment}    $.id    ${EMPTY}

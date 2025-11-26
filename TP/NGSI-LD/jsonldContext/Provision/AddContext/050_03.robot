@@ -16,7 +16,7 @@ ${subscription_payload_file_path}=      jsonldContext/subscription-with-implicit
 *** Test Cases ***
 050_03_01 Check The Creation Of ImplicitelyCreted @context
     [Documentation]    Check that one can create a subscription
-    [Tags]    sub-create    5_13_2    since_v1.5.1
+    [Tags]    ctx-add    5_13_2    since_v1.5.1
     ${subscription_payload}=    Load JSON From File    ${EXECDIR}/data/${subscription_payload_file_path}
 
     ${subscription_id}=    Get Value From JSON    ${subscription_payload}    $..id
