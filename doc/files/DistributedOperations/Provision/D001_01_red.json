@@ -1,0 +1,43 @@
+{
+  "tp_id": "TP/NGSI-LD/DistributedOperations/Prov/E/D001_01_red",
+  "test_objective": "Verify that when two redirect registrations are configured on a Context Broker, it is possible to create entities in both Context Sources, but not directly in the Context Broker",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clauses 4.3.3, 4.3.6.3, 5.6.1",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "4.3.3",
+    "4.3.6.3",
+    "5.6.1"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Entity Id And Registration And Start Context Source Mock Server",
+    "Delete Registrations And Stop Context Source Mock Server"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity id set to ${entity_id}\n    and the SUT containing a Context Source Registration \n        with id equal to ${registration_id}\n        and payload set to ${registration_payload_file_path}\n    and the SUT containing a Context Source Mock Server\n}",
+  "test_cases": [
+    {
+      "name": "D001_01_red Create Entity On Both Context Sources",
+      "permutation_tp_id": "TP/NGSI-LD/DistributedOperations/Prov/E/D001_01_red",
+      "doc": "Check that if one requests the Context Broker to create an entity that matches two redirect registrations, this is created only on the Context Sources",
+      "tags": [
+        "4_3_3",
+        "4_3_6_3",
+        "5_6_1",
+        "cf_06",
+        "dist-ops",
+        "proxied-redirect",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Entity Id And Registration And Start Context Source Mock Server",
+      "teardown": "Delete Registrations And Stop Context Source Mock Server",
+      "template": null,
+      "http_verb": "POST",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "DistributedOperations/Provision/Entities/CreateEntity",
+  "robotfile": "D001_01_red"
+}
