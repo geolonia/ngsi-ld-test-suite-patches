@@ -38,7 +38,7 @@ class Requests:
             },
             'Query Entity': {
                 'positions': [],
-                'params': ['id', 'accept', 'attrs', 'context', 'geometryProperty', 'options', 'lang', 'join', 'joinLevel']
+                'params': ['id', 'accept', 'attrs', 'context', 'geometryProperty', 'options', 'format', 'lang', 'join', 'joinLevel']
             },
             'Retrieve Subscription': {
                 'positions': [],
@@ -70,7 +70,7 @@ class Requests:
                 'params': ['context', 'entity_types', 'entity_ids', 'entity_id_pattern',
                            'ngsild_query', 'csf', 'georel', 'geometry',
                            'coordinates', 'geoproperty', 'timerel', 'timeAt', 'endTimeAt',
-                           'attrs', 'limit', 'lastN', 'accept', 'options', 'datasetId',
+                           'attrs', 'limit', 'lastN', 'accept', 'options', 'format', 'datasetId',
                            'aggrMethods', 'aggrPeriodDuration']
             },
             'Query Temporal Representation Of Entities Via Post': {
@@ -813,7 +813,7 @@ class Requests:
 
     @staticmethod
     def query_entity(kwargs) -> str:
-        expected_parameters = ['id', 'accept', 'attrs', 'context', 'geometry_property', 'options', 'lang', 'join', 'joinLevel']
+        expected_parameters = ['id', 'accept', 'attrs', 'context', 'geometry_property', 'options', 'format', 'lang', 'join', 'joinLevel']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Get Entity Request:"
@@ -832,6 +832,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: geometryProperty set to '{value}'"
                 case 'options':
                     response = f"{response} and\n    Query Parameter: options set to '{value}'"
+                case 'format':
+                    response = f"{response} and\n    Query Parameter: format set to '{value}'"
                 case 'lang':
                     response = f"{response} and\n    Query Parameter: lang set to '{value}'"
                 case 'join':
@@ -1169,7 +1171,7 @@ class Requests:
         expected_parameters = ['context', 'entity_types', 'entity_ids', 'entity_id_pattern',
                                'ngsild_query', 'csf', 'georel', 'geometry',
                                'coordinates', 'geoproperty', 'timerel', 'timeAt','endTimeAt',
-                               'attrs', 'limit', 'lastN', 'accept', 'options', 'datasetId', 'aggrMethods','aggrPeriodDuration']
+                               'attrs', 'limit', 'lastN', 'accept', 'options', 'format', 'datasetId', 'aggrMethods','aggrPeriodDuration']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Query Temporal Representation of Entities"
@@ -1213,6 +1215,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: accept set to '{value}'"
                 case 'options':
                     response = f"{response} and\n    Query Parameter: options set to '{value}'"
+                case 'format':
+                    response = f"{response} and\n    Query Parameter: format set to '{value}'"
                 case 'aggrMethods':
                     response = f"{response} and\n    Query Parameter: aggrMethods set to '{value}'"
                 case 'aggrPeriodDuration':

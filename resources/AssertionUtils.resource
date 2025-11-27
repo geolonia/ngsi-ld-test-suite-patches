@@ -233,14 +233,14 @@ Check Response Body Containing EntityTemporal element
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing List Containing EntityTemporal elements
-    [Arguments]    ${filename}    ${response_body}
+    [Arguments]    ${filename}    ${response_body}    ${group_by}=id
     ${temporal_entities_representation_payload}=    Load JSON From File
     ...    ${EXECDIR}/data/temporalEntities/expectations/${filename}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${temporal_entities_representation_payload}
     ...    ${response_body}
     ...    ${instance_id_regex_expr}
-    ...    group_by=id
+    ...    group_by=${group_by}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
 Check Response Body Containing Subscription element

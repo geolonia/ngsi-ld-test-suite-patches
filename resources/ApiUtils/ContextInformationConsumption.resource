@@ -150,12 +150,14 @@ Query Entity
     ...    ${context}=${EMPTY}
     ...    ${geometryProperty}=${EMPTY}
     ...    ${options}=${EMPTY}
+    ...    ${format}=${EMPTY}
     ...    ${lang}=${EMPTY}
     ...    ${join}=${EMPTY}
     ...    ${joinLevel}=${EMPTY}
     ${attrs_length}=    Get Length    ${attrs}
     ${accept_length}=    Get Length    ${accept}
     ${options_length}=    Get Length    ${options}
+    ${format_length}=    Get Length    ${format}
     ${lang_length}=    Get Length    ${lang}
     &{headers}=    Create Dictionary
     &{params}=    Create Dictionary
@@ -174,6 +176,9 @@ Query Entity
     END
     IF    ${options_length}>0
         Set To Dictionary    ${params}    options=${options}
+    END
+    IF    ${format_length}>0
+        Set To Dictionary    ${params}    format=${format}
     END
     IF    ${lang_length}>0    Set To Dictionary    ${params}    lang=${lang}
     IF    '${join}'!=''    Set To Dictionary    ${params}    join=${join}

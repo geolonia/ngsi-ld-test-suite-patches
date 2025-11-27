@@ -40,6 +40,7 @@ Query Temporal Representation Of Entities
     ...    ${lastN}=${EMPTY}
     ...    ${accept}=${EMPTY}
     ...    ${options}=${EMPTY}
+    ...    ${format}=${EMPTY}
     ...    ${aggrMethods}=${EMPTY}
     ...    ${aggrPeriodDuration}=${EMPTY}
     ...    ${datasetId}=${EMPTY}
@@ -87,6 +88,7 @@ Query Temporal Representation Of Entities
     END
     IF    $limit!=''    Set To Dictionary    ${params}    limit=${limit}
     IF    $options!=''    Set To Dictionary    ${params}    options=${options}
+    IF    $format!=''    Set To Dictionary    ${params}    format=${format}
     IF    $aggrMethods!=''
         Set To Dictionary    ${params}    aggrMethods=${aggrMethods}
     END
