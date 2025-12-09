@@ -13,12 +13,10 @@ Resource            ${EXECDIR}/resources/MockServerUtils.resource
 Test Setup          Create Entity And Registration On The Context Broker And Start Context Source Mock Server
 Test Teardown       Delete Registration And Stop Context Source Mock Server
 
-
 *** Variables ***
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${fragment_filename}                    vehicle-speed-isParked-fragment.json
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
-
 
 *** Test Cases ***
 D003_02_inc Append Entity Attribute
@@ -44,7 +42,6 @@ D003_02_inc Append Entity Attribute
     ${new_body}=    Get From Dictionary    ${response.json()}    isParked
     Should Have Value In Json    ${response.json()}    $.speed
     Should Be Equal    ${old_body}    ${new_body}
-
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server

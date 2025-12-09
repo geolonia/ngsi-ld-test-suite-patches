@@ -1,0 +1,43 @@
+{
+  "tp_id": "TP/NGSI-LD/DistributedOperations/Prov/EAs/D006_02_exc",
+  "test_objective": "Check that if one request the Context Broker to delete an attribute with the deleteAll flag, all the instances of that attribute are deleted in the Context Source.",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clauses 4.3.3, 4.3.6.3, 5.6.5",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "4.3.3",
+    "4.3.6.3",
+    "5.6.5"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Entity And Registration On The Context Broker And Start Context Source Mock Server",
+    "Delete Registration And Stop Context Source Mock Server"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} on the Context Broker\n        with an id set to ${entity_id}\n        and payload set to ${entity_payload_filename}\n    and the SUT containing a Context Source Registration \n        with id equal to ${registration_id}\n        and payload set to ${registration_payload_file_path}\n    and the SUT containing a Context Source Mock Server\n}",
+  "test_cases": [
+    {
+      "name": "D006_02_exc Delete Entity Attributes",
+      "permutation_tp_id": "TP/NGSI-LD/DistributedOperations/Prov/EAs/D006_02_exc",
+      "doc": "Verify that, when one has an exclusive registration on a Context Broker with redirectionOps, one is able to delete entities attributes on a Context Source",
+      "tags": [
+        "4_3_3",
+        "4_3_6_3",
+        "5_6_5",
+        "cf_06",
+        "dist-ops",
+        "proxy-exclusive",
+        "since_v1.6.1"
+      ],
+      "setup": "Create Entity And Registration On The Context Broker And Start Context Source Mock Server",
+      "teardown": "Delete Registration And Stop Context Source Mock Server",
+      "template": null,
+      "http_verb": "DELETE",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}?${params_as_string}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "DistributedOperations/Provision/EntityAttributes/DeleteEntityAttributes",
+  "robotfile": "D006_02_exc"
+}
