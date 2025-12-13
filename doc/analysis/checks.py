@@ -138,6 +138,8 @@ class Checks:
                 Checks.check_data_is_empty,
             'Check Notification Containing Entity Element':
                 Checks.check_notification_containing_entity_element,
+            'Check Notification Containing Entities Elements':
+                Checks.check_notification_containing_entities_elements,
             'Check Body With Alternatives':
                 Checks.check_body_with_alternatives
         }
@@ -399,6 +401,10 @@ class Checks:
                 'position': [0]
             },
             'Check Notification Containing Entity Element': {
+                'params': ['filename', 'notification'],
+                'position': [0, 1]
+            },
+            'Check Notification Containing Entities Elements': {
                 'params': ['filename', 'notification'],
                 'position': [0, 1]
             },
@@ -1086,6 +1092,15 @@ class Checks:
     def check_notification_containing_entity_element(kwargs: list) -> str:
         if 'filename' in kwargs and 'notification' in kwargs:
             return f"Notification containing entity element set to '{kwargs['filename']}'"
+        else:
+            raise Exception(f"ERROR, Expected 'filename' and 'notification' but received: '{kwargs}'")
+
+    @staticmethod
+    def check_notification_containing_entities_elements(kwargs: list) -> str:
+        if 'filename' in kwargs and 'notification' in kwargs:
+            return f"Notification containing entities elements set to '{kwargs['filename']}'"
+        else:
+            raise Exception(f"ERROR, Expected 'filename' and 'notification' but received: '{kwargs}'")
 
     @staticmethod
     def check_content_range_part_equal(kwargs: list) -> str:

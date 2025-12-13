@@ -462,6 +462,18 @@ Check Notification Containing Entity Element
     ...    ${ignored_keys}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
+Check Notification Containing Entities Elements
+    [Arguments]    ${filename}    ${notification}
+    ${expected_entities_in_notification}=    Load JSON From File
+    ...    ${EXECDIR}/data/subscriptions/expectations/${filename}
+    ${ignored_keys}=    Create List    id
+    ${comparison_result}=    Compare Dictionaries Ignoring Keys
+    ...    expected=${expected_entities_in_notification}
+    ...    actual=${notification['data']}
+    ...    exclude_regex_paths=${ignored_keys}
+    ...    group_by=id
+    Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
+
 Check Pagination Prev And Next Headers
     [Arguments]    ${prev_link}    ${next_link}    ${response_headers}
     ${expected_links}=    Create List    ${prev_link}    ${next_link}

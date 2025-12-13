@@ -1,0 +1,41 @@
+{
+  "tp_id": "TP/NGSI-LD/CI/SUB/046_29",
+  "test_objective": "Check that a notification is sent with inline linked entity in simplified format when linking entity is updated",
+  "reference": "ETSI GS CIM 009 V1.8.1 [], clauses 4.5.23, 5.8.6",
+  "config_id": "",
+  "parent_release": "v1.8.1",
+  "clauses": [
+    "4.5.23",
+    "5.8.6"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Initial Subscription And Entity With Linked Entity",
+    "Delete Initial Subscription And Entity With Linked Entity"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Subscription ${subscription} \n        with an id set to ${subscription_id}\n        and a linking Entity ${linking_entity}\n        with an id set to ${linking_entity_id}\n        and a linked Entity ${linked_entity}\n        with an id set to ${linked_entity_id}\n}",
+  "test_cases": [
+    {
+      "name": "046_29_01 Check that a notification is sent with inline linked entity in simplified format",
+      "permutation_tp_id": "TP/NGSI-LD/CI/SUB/046_29_01",
+      "doc": "Create an attribute in linking entity and check the notification contains linked entity in simplified format",
+      "tags": [
+        "4_5_23",
+        "5_8_6",
+        "since_v1.8.1",
+        "sub-notification"
+      ],
+      "setup": "Create Initial Subscription And Entity With Linked Entity",
+      "teardown": "Delete Initial Subscription And Entity With Linked Entity",
+      "template": null,
+      "then": "then {\n    the SUT sends a valid Response for the operations:\n        Update Entity Attributes with Response Status Code set to 204     and\n        Notification with Notification containing entities elements set to 'entity-created-name-attribute-join-inline-simplified.json'\n}",
+      "when": "when {\n    the SUT receives a Request from the client containing:\n        URL set to '/ngsi-ld/v1/entities/{entityId}/attrs/{attributeId}'\n        method set to 'PATCH'\n        Update Entity Attributes and\n    Query Parameter: id set to '${linking_entity_id}' and\n    Query Parameter: fragment_filename set to 'name-fragment.jsonld' and\n    Query Parameter: content_type set to 'application/ld+json'\n}",
+      "http_verb": "PATCH",
+      "endpoint": "entities/{entityId}/attrs/{attributeId}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "ContextInformation/Subscription/SubscriptionNotificationBehaviour",
+  "robotfile": "046_29"
+}
