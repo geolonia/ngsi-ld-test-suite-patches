@@ -44,7 +44,7 @@ Create Subscription
         ...    Link=${context_link}
     END
     ${subscription_payload}=    Load JSON From File    ${EXECDIR}/data/${filename_path}
-    ${subscription}=    Update Value To JSON    ${subscription_payload}    $..id    ${subscription_id}
+    ${subscription}=    Update Value To JSON    ${subscription_payload}    $.id    ${subscription_id}
     ${response}=    POST
     ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}
     ...    json=${subscription}

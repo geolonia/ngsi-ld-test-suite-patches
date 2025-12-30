@@ -10,9 +10,13 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 *** Keywords ***
 Create Subscription And Entity
-    [Arguments]    ${subscription_payload_file_path}    ${building_filename}
+    [Arguments]    ${subscription_payload_file_path}    ${building_filename}    ${entity_id_suffix}=None
 
-    ${entity_id}=    Generate Random Building Entity Id
+    IF    '${entity_id_suffix}' == None
+        ${entity_id}=    Generate Random Building Entity Id
+    ELSE
+        ${entity_id}=    Catenate    ${BUILDING_ID_PREFIX}${entity_id_suffix}
+    END
     Set Suite Variable    ${entity_id}
     ${create_entity_response}=    Create Entity Selecting Content Type
     ...    ${building_filename}
