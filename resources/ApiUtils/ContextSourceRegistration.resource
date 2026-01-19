@@ -28,6 +28,7 @@ Prepare Context Source Registration From File
     ...    ${id}
     ...    ${registration_file}
     ...    ${entity_id}=${EMPTY}
+    ...    ${entity_id_pattern}=${EMPTY}
     ...    ${mode}=${EMPTY}
     ...    ${endpoint}=${EMPTY}
     ...    ${operations}=[]
@@ -43,6 +44,13 @@ Prepare Context Source Registration From File
     ...    ${context_source_url}${endpoint}
     IF    '${entity_id}' != ''
         ${dict}=    Create Dictionary    id=${entity_id}
+        ${registration_payload}=    Add Object To JSON
+        ...    ${registration_payload}
+        ...    $..entities[*]
+        ...    ${dict}
+    END
+        IF    '${entity_id_pattern}' != ''
+        ${dict}=    Create Dictionary    idPattern=${entity_id_pattern}
         ${registration_payload}=    Add Object To JSON
         ...    ${registration_payload}
         ...    $..entities[*]

@@ -1,0 +1,43 @@
+{
+  "tp_id": "TP/NGSI-LD/DistributedOperations/Prov/BatchEntities/UpsertBatchEntities/D013_02_inc",
+  "test_objective": "Check that one can update the content of a batch of entities on both Context Source and Context Broker thanks to a inclusive registration",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clauses 4.3.3, 4.3.6.2, 5.6.8",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "4.3.3",
+    "4.3.6.2",
+    "5.6.8"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Entity And Registration On The Context Broker And Start Context Source Mock Server",
+    "Delete Created Entity And Registration And Stop Context Source Mock Server"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity ${entity} on the Context Broker\n        with an id set to ${entity_id}\n        and payload set to ${entity_payload_filename}\n    and the SUT containing a Context Source Registration \n        with id equal to ${registration_id}\n        and payload set to ${registration_payload_file_path}\n    and the SUT containing a Context Source Mock Server\n}",
+  "test_cases": [
+    {
+      "name": "D013_02_inc Batch Upsert Entities With Inclusive Registration With Update Flag",
+      "permutation_tp_id": "TP/NGSI-LD/DistributedOperations/Prov/BatchEntities/UpsertBatchEntities/D013_02_inc",
+      "doc": "Check that if one requests the Context Broker to update a batch of entities that match an inclusive registration, these are updated on the Context Source too",
+      "tags": [
+        "4_3_3",
+        "4_3_6_2",
+        "5_6_8",
+        "additive-inclusive",
+        "cf_06",
+        "dist-ops",
+        "since_v1.6.1"
+      ],
+      "setup": "Create Entity And Registration On The Context Broker And Start Context Source Mock Server",
+      "teardown": "Delete Created Entity And Registration And Stop Context Source Mock Server",
+      "template": null,
+      "http_verb": "GET",
+      "endpoint": "entities/{id}"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "DistributedOperations/Provision/BatchEntities/UpsertBatchEntities",
+  "robotfile": "D013_02_inc"
+}
