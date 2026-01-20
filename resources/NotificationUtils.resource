@@ -6,6 +6,7 @@ Library             Collections
 Library             HttpCtrl.Server
 Library             ${EXECDIR}/libraries/assertionUtils.py
 Library             ${EXECDIR}/libraries/dateTimeUtils.py
+Library             ${EXECDIR}/libraries/logUtils.py
 Variables           ${EXECDIR}/resources/variables.py
 
 
