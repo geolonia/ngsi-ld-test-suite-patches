@@ -57,7 +57,7 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
     ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
-    ...    entity_pattern=${entity_pattern}
+    ...    entity_id_pattern=${entity_pattern}
     ...    mode=exclusive
     ...    endpoint=/broker1
     ${response}=    Create Context Source Registration With Return    ${registration_payload}

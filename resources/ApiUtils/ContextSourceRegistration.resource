@@ -49,7 +49,7 @@ Prepare Context Source Registration From File
         ...    $..entities[*]
         ...    ${dict}
     END
-        IF    '${entity_id_pattern}' != ''
+    IF    '${entity_id_pattern}' != ''
         ${dict}=    Create Dictionary    idPattern=${entity_id_pattern}
         ${registration_payload}=    Add Object To JSON
         ...    ${registration_payload}

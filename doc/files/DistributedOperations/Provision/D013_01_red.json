@@ -1,5 +1,5 @@
 {
-  "tp_id": "TP/NGSI-LD/DistributedOperations/Prov/BatchEntities/UpsertBatchEntities/D013_01_red",
+  "tp_id": "TP/NGSI-LD/DistributedOperations/Prov/BE/D013_01_red",
   "test_objective": "Check that one can replace the entire content of a batch of entities on the Context Source thanks to a redirect registration",
   "reference": "ETSI GS CIM 009 V1.6.1 [], clauses 4.3.3, 4.3.6.3, 5.6.8",
   "config_id": "",
@@ -19,7 +19,7 @@
   "test_cases": [
     {
       "name": "D013_01_red Batch Upsert Entities With Redirect Registration Without Update Flag",
-      "permutation_tp_id": "TP/NGSI-LD/DistributedOperations/Prov/BatchEntities/UpsertBatchEntities/D013_01_red",
+      "permutation_tp_id": "TP/NGSI-LD/DistributedOperations/Prov/BE/D013_01_red",
       "doc": "Check that if one requests the Context Broker to replace a batch of entities that match a redirect registration, these are replaced on the Context Source",
       "tags": [
         "4_3_3",
@@ -38,6 +38,6 @@
     }
   ],
   "permutations": [],
-  "robotpath": "DistributedOperations/Provision/BatchEntities/UpsertBatchEntities",
+  "robotpath": "DistributedOperations/Provision/BatchEntities/UpsertBatchOfEntities",
   "robotfile": "D013_01_red"
 }
