@@ -1,0 +1,43 @@
+{
+  "tp_id": "TP/NGSI-LD/DistributedOperations/Prov/BE/D015_01_exc",
+  "test_objective": "Check that one can delete a batch of entities on both Context Broker and Context Source thanks to an exclusive registration",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clauses 4.3.3, 4.3.6.3, 5.6.10",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "4.3.3",
+    "4.3.6.3",
+    "5.6.10"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Create Entities And Registration And Start Context Source Mock Server",
+    "Delete Registration And Stop Context Source Mock Server"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n        the SUT being in the \"initial state\" and\n        the SUT containing initial Entities ${first_entity_id} and ${second_entity_id} on the Context Broker\n            with payload set to ${entity_payload_filename}\n        and the SUT containing a Context Source Registration \n            with id equal to ${registration_id}\n            and payload set to ${registration_payload_file_path}\n        and the SUT containing a Context Source Mock Server\n    }",
+  "test_cases": [
+    {
+      "name": "D015_01_exc Delete Batch Of Entities On Both Context Broker And Context Source",
+      "permutation_tp_id": "TP/NGSI-LD/DistributedOperations/Prov/BE/D015_01_exc",
+      "doc": "Check that if one requests the Context Broker to delete a batch of entities that match an exclusive registration, this is deleted on the Context Source too",
+      "tags": [
+        "4_3_3",
+        "4_3_6_3",
+        "5_6_10",
+        "additive-exclusive",
+        "cf_06",
+        "dist-ops",
+        "since_v1.6.1"
+      ],
+      "setup": "Create Entities And Registration And Start Context Source Mock Server",
+      "teardown": "Delete Registration And Stop Context Source Mock Server",
+      "template": null,
+      "http_verb": "GET",
+      "endpoint": "entities/"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "DistributedOperations/Provision/BatchEntities/DeleteBatchOfEntities",
+  "robotfile": "D015_01_exc"
+}

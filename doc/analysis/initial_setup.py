@@ -48,7 +48,8 @@ class InitialSetup:
             'Setup Entity Id And Registration And Start Context Source Mock Server': InitialSetup.init_eid_and_csr_and_ms(),
             'Setup Registration And Start Context Source Mock Server': InitialSetup.init_csr_and_ms(),
             'Create Entity And Registration On The Context Broker And Start Context Source Mock Server': InitialSetup.init_local_entity_and_csr_and_ms(),
-            'Create Initial Cached @context from entity': InitialSetup.init_cached_context()
+            'Create Initial Cached @context from entity': InitialSetup.init_cached_context(),
+            'Create Entities And Registration And Start Context Source Mock Server': InitialSetup.init_entities_and_csr_and_ms(),
         }
 
         self.folder_test_suites = dirname(dirname(dirname(__file__)))
@@ -353,7 +354,20 @@ class InitialSetup:
     and the SUT containing a Context Source Mock Server
 }'''
         return data
-    
+
+    @staticmethod
+    def init_entities_and_csr_and_ms() -> str:
+        data = '''with {
+        the SUT being in the "initial state" and
+        the SUT containing initial Entities ${first_entity_id} and ${second_entity_id} on the Context Broker
+            with payload set to ${entity_payload_filename}
+        and the SUT containing a Context Source Registration 
+            with id equal to ${registration_id}
+            and payload set to ${registration_payload_file_path}
+        and the SUT containing a Context Source Mock Server
+    }'''
+        return data
+
     def get_property_values(self, root_folder: str, property_name: str) -> [str, str]:
         robot_files_without_setup = list()
         robot_files_with_setup = list()
