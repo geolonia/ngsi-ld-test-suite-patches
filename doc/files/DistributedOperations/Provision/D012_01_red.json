@@ -1,0 +1,43 @@
+{
+  "tp_id": "TP/NGSI-LD/DistributedOperations/Prov/BatchEntities/CreateBatchEntities/D012_01_red",
+  "test_objective": "Check that one can create a batch of entities on both Context Sources thanks to a redirect registration",
+  "reference": "ETSI GS CIM 009 V1.6.1 [], clauses 4.3.3, 4.3.6.3, 5.6.7",
+  "config_id": "",
+  "parent_release": "v1.6.1",
+  "clauses": [
+    "4.3.3",
+    "4.3.6.3",
+    "5.6.7"
+  ],
+  "pics_selection": "",
+  "keywords": [
+    "Setup Entity Id And Registration And Start Context Source Mock Server",
+    "Delete Registration And Stop Context Source Mock Server"
+  ],
+  "teardown": "None",
+  "initial_condition": "with {\n    the SUT being in the \"initial state\" and\n    the SUT containing an initial Entity id set to ${entity_id}\n    and the SUT containing a Context Source Registration \n        with id equal to ${registration_id}\n        and payload set to ${registration_payload_file_path}\n    and the SUT containing a Context Source Mock Server\n}",
+  "test_cases": [
+    {
+      "name": "D012_01_red Batch Create Entities With Redirect Registration",
+      "permutation_tp_id": "TP/NGSI-LD/DistributedOperations/Prov/BatchEntities/CreateBatchEntities/D012_01_red",
+      "doc": "Check that if one requests the Context Broker to create a batch of entities that match a redirect registration, these are created on the Context Source",
+      "tags": [
+        "4_3_3",
+        "4_3_6_3",
+        "5_6_7",
+        "cf_06",
+        "dist-ops",
+        "proxy-redirect",
+        "since_v1.6.1"
+      ],
+      "setup": "Setup Entity Id And Registration And Start Context Source Mock Server",
+      "teardown": "Delete Registration And Stop Context Source Mock Server",
+      "template": null,
+      "http_verb": "POST",
+      "endpoint": "entityOperations/create"
+    }
+  ],
+  "permutations": [],
+  "robotpath": "DistributedOperations/Provision/BatchEntities/CreateBatchEntities",
+  "robotfile": "D012_01_red"
+}
