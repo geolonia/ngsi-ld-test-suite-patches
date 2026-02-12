@@ -1,29 +1,29 @@
 # Automatic generation of documentation data (ETSI RGS CIM 013)
 
-These python code has been developed to facilitate the automatic generation of the test purposes descriptions in a JSON 
-format in order to generate afterward automatically the NGSI-LD Test Purposes Descriptions (ETSI RGS CIM 013) document.
+This Python code has been developed to facilitate the automatic generation of the test purposes descriptions in a JSON 
+format to automatically generate afterward the NGSI-LD Test Purposes Descriptions (ETSI RGS CIM 013) document.
 To achieve this purpose, we are defining a full Unit Test Suite with several Test Cases to check that we can generate
 the corresponding information of the Robot description files. 
 
 This approach has a clear advantage, from one side, we can generate the corresponding info for the ETSI document and
-for the other side, it can help us to know when a change in the Robot Description files were developed and therefore
-and update in the ETSI document (new version of the document) must be generated.
+for the other side, it can help us to know when a change in the Robot Description files was developed and therefore
+an update in the ETSI document (new version of the document) must be generated.
 
 ## Requirements
 
-These python code is developed under the scope of the overall NGSI-LD Test Suite Code, therefore we use the same
+This Python code is developed under the scope of the overall NGSI-LD Test Suite Code, therefore we use the same
 requirements and python virtual environment already defined in [README.md](../README.md).
 
 ## Structure
 
-The unit tests where divided into several groups following the NGSI-LD Test Suite Structure (ETSI RGS CIM 012) divided
+The unit tests are divided into several groups following the NGSI-LD Test Suite Structure (ETSI RGS CIM 012) divided
 in test groups and subgroups:
 
-- Group 1: Context Information (CI),  Provision (PROV), defined in the 
+- Group 1: Context Information (CI), Provision (PROV), defined in the 
 [test_ContextInformation_Provision.py](./tests/test_ContextInformation_Provision.py) file.
-- Group 2: Context Information (CI),  Consumption (CONS), defined in the 
+- Group 2: Context Information (CI), Consumption (CONS), defined in the 
 [test_ContextInformation_Consumption.py](./tests/test_ContextInformation_Consumption.py) file.
-- Group 3: Context Information (CI),  Subscription (SUB), defined in the 
+- Group 3: Context Information (CI), Subscription (SUB), defined in the 
 [test_ContextInformation_Subscription.py](./tests/test_ContextInformation_Subscription.py) file.
 - Group 4: Context Source (CS), Registration (REG), defined in the 
 [test_ContextSource_Registration.py](./tests/test_ContextSource_Registration.py) file.
@@ -33,27 +33,27 @@ in test groups and subgroups:
 [test_ContextSource_RegistrationSubscription.py](./tests/test_ContextSource_RegistrationSubscription.py) file.
 - Group 7: Common Behaviours (CB), defined in the 
 [test_CommonBehaviours.py](./tests/test_CommonBehaviours.py) file.
-- Group 8:  Storing, Managing and Serving @contexts (CTX), Consumption (CONS), defined in the 
+- Group 8: Storing, Managing and Serving @contexts (CTX), Consumption (CONS), defined in the 
 [test_jsonldContext_Consumption.py](./tests/test_jsonldContext_Consumption.py) file.
-- Group 9:  Storing, Managing and Serving @contexts (CTX), Provision (PROV), defined in the 
+- Group 9: Storing, Managing and Serving @contexts (CTX), Provision (PROV), defined in the 
 [test_jsonldContext_Provision.py](./tests/test_jsonldContext_Provision.py) file.
 
 Additionally, a specific unit test called [test_CheckTests.py](./tests/test_CheckTests.py) was created to check that all
 robot files have the corresponding unit tests. 
 
-Moreover, the folder [files](./files) contains the expected results of the execution of the Unit Tests, and they are 
+Moreover, the [files](./files) folder contains the expected results of the execution of the Unit Tests, and they are 
 divided into the NGSI-LD Test Suite Structure groups:
 
 - [CommonBehaviours](./files/CommonBehaviours) contains the expected results of the Common Behaviours robot files.
 - [ContextInformation](./files/ContextInformation) contains the expected results of the Context Information files.
 - [ContextSource](./files/ContextSource) contains the expected results of the Context Source files.
-- [jsonldContext](./files/jsonldContext) contains the expected results of the Storing, Managing and Serving @contexts 
-files.
-
+- [jsonldContext](./files/jsonldContext) contains the expected results of the Storing, Managing and Serving @contexts files.
 
 ## Execution
 
-You have several options to execute the tests. it was generated a set of PyCharm configuration files in the 
+### Using PyCharm
+
+You have several options to execute the tests. It was generated a set of PyCharm configuration files in the 
 [runConfigurations](../.idea/runConfigurations) folder to help in the execution of the unit tests from the IDE:
 
 - [All Unit Tests](../.idea/runConfigurations/All_Unit_Tests.xml) executes all Unit Tests associated to the robot files.
@@ -73,11 +73,10 @@ robot files.
 tests associated to the robot files.
 - [jsonldContext Consumption Unit Tests](../.idea/runConfigurations/jsonldContext_Consumption_Unit_Tests.xml) executes Storing, Managing and Serving @contexts - Consumption unit tests 
 associated to the robot files.
-- [jsonldContext Provision Unit Tests](../.idea/runConfigurations/jsonldContext_Provision_Unit_Tests.xml)  executes Storing, Managing and Serving @contexts - Provision unit tests 
+- [jsonldContext Provision Unit Tests](../.idea/runConfigurations/jsonldContext_Provision_Unit_Tests.xml) executes Storing, Managing and Serving @contexts - Provision unit tests 
 associated to the robot files.
-- [Generate Documentation Data](../.idea/runConfigurations/Generate_Documentation_Data.xml) executes Generate Document 
-Data unit tests associated to the unit test execution of a specific robot file (e.g. 047_01). The generated files are 
-located in the [results](./results) folder.
-- [Statistics Documentation Data](../.idea/runConfigurations/Statistics_Documentation_Data.xml) executes all the test 
-to generate the documentation and generate statistics about the execution. The generated files are located in the 
-[results](./results) folder, a special file called `testcases.json` is generated with a list of all generated data.
+- [Generate Documentation Data](../.idea/runConfigurations/Generate_Documentation_Data.xml) executes Generate Document Data unit tests associated to the unit test execution 
+of a specific robot file (e.g. 047_01). The generated files are located in the [results](./results) folder.
+- [Statistics Documentation Data](../.idea/runConfigurations/Statistics_Documentation_Data.xml) executes all the tests to generate the documentation and generate statistics about
+the execution. The generated files are located in the [results](./results) folder, a special file called `testcases.json`
+is generated with a list of all generated data.

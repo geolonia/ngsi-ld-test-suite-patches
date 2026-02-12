@@ -10,7 +10,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
 Test Teardown       Delete Registration And Stop Context Source Mock Server
-Test Template       Setup Registration, Context Source Mock Server And Query The Context Broker With Type
+Test Template       Setup Registration And Context Source Mock Server And Query The Context Broker With Type
 
 
 *** Variables ***
@@ -21,20 +21,19 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***
-D011_02_01_red Query The Context Broker With Type With queryEntity
+D011_02_red_01 Query The Context Broker With Type With queryEntity
     [Documentation]    Verify that when querying by entity type with a redirect registration that supports queryEntity, the request is forwarded to the Context Source and entities are retrieved correctly
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-redirect    4_3_6_3    5_7_2
-    [Template]    Setup Registration, Context Source Mock Server And Query The Context Broker With Type
     GET    /broker1/ngsi-ld/v1/entities?type=Vehicle
-D011_02_02_red Query The Context Broker With Type With queryBatch
+D011_02_red_02 Query The Context Broker With Type With queryBatch
     [Documentation]    Verify that when querying by entity type with a redirect registration that supports queryBatch, the request is forwarded to the Context Source and entities are retrieved correctly
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-redirect    4_3_6_3    5_7_2
-    [Template]    Setup Registration, Context Source Mock Server And Query The Context Broker With Type
     POST    /broker1/ngsi-ld/v1/entityOperations/query
 
 
 *** Keywords ***
-Setup Registration, Context Source Mock Server And Query The Context Broker With Type
+Setup Registration And Context Source Mock Server And Query The Context Broker With Type
+    [Documentation]    Verify that when querying by entity type with a redirect registration that supports the requested operation, the request is forwarded to the Context Source and entities are retrieved correctly
     [Arguments]    ${method}    ${url}
     ${entity_id}=    Generate Random Vehicle Entity Id
 

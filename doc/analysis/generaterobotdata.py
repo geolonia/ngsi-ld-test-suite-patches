@@ -422,8 +422,6 @@ class GenerateRobotData:
         tp_id = self.generate_name()
         reference, clauses = self.generate_reference(version=version)
 
-        # TODO: robotframework==7.0 has not property keywords in the class TestSuite(), we can get the data from
-        #  [x.to_dict()['name'] for x in list(self.suite.resource.keywords)] but with some differences in execution code
         self.test_suite = {
             'tp_id': tp_id,
             'test_objective': self.suite.doc,
@@ -432,7 +430,6 @@ class GenerateRobotData:
             'parent_release': version,
             'clauses': clauses,
             'pics_selection': str(),
-            # 'keywords': [str(x) for x in self.suite.keywords],
             'keywords': [x.to_dict()['name'] for x in list(self.suite.resource.keywords)],
             'teardown': str(self.suite.teardown),
             'initial_condition': str(),
@@ -551,14 +548,12 @@ class GenerateRobotData:
         return reference, clauses
 
     def generate_reference_template(self, version, need_tags=True):
-        # Get the list of arguments, we select the first one because the 2nd keyword corresponds
-        # to the teardown operation
-        args = [list(x.keywords)[0] for x in self.suite.tests]
+        args = [x.setup for x in self.suite.tests]
         args = [{str(x.parent): list(x.args)} for x in args]
         self.args = dict()
         _ = [self.args.update(x) for x in args]
 
-        template_name = list(set([list(x.keywords)[0].name for x in self.suite.tests]))[0]
+        template_name = list(set([x.setup for x in self.suite.tests]))[0]
 
         # Due to the information of the tags are contained in the Keyword description of the template, we need to
         # analyse the Keyword.

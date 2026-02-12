@@ -6,6 +6,8 @@ class Checks:
         self.checks = {
             'Check Response Status Code':
                 Checks.check_response_status_code,
+            'Check Response Body Is Empty':
+                Checks.check_response_body_is_empty,
             'Check Response Body Containing Array Of URIs set to':
                 Checks.check_response_body_containing_array_of_uris_set_to,
             'Check Response Body Containing Entities URIS set to' :
@@ -147,6 +149,10 @@ class Checks:
         self.args = {
             'Check Response Status Code': {
                 'params': ['status_code'],
+                'position': [0]
+            },
+            'Check Response Body Is Empty': {
+                'params': ['response_body'],
                 'position': [0]
             },
             'Check Response Body Containing Array Of URIs set to': {
@@ -502,6 +508,10 @@ class Checks:
     @staticmethod
     def check_response_does_not_contain_body(kwargs: list) -> str:
         return f"Response does not contain a body"
+
+    @staticmethod
+    def check_response_body_is_empty(kwargs: list) -> str:
+        return 'Response Body is empty'
 
     @staticmethod
     def check_response_body_containing_array_of_uris_set_to(kwargs: list) -> str:
@@ -1153,6 +1163,7 @@ if __name__ == "__main__":
 
     print(data.get_checks(checks='Check Response Status Code',
                           status_code=201))
+    print(data.get_checks(checks='Check Response Body Is Empty'))
     print(data.get_checks(checks='Check Response Body Containing Array Of URIs set to'))
     print(data.get_checks(checks='Check Response Body Containing Entities URIS set to'))
     print(data.get_checks(checks='Check Created Resources Set To'))

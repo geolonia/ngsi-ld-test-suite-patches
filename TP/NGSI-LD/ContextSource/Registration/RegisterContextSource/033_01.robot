@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Suite Teardown      Delete Created Context Source Registrations
-Test Template       Create Context Source Registration
+Test Template       Create Context Source Registration With Expiration Date
 
 
 *** Variables ***
@@ -31,14 +31,15 @@ ${registration_payload_file_path}=      csourceRegistrations/context-source-regi
 
 
 *** Keywords ***
-Create Context Source Registration
+Create Context Source Registration With Expiration Date
     [Documentation]    Check that one can create a context source registration with specific ID and expiration date
     [Arguments]    ${registration_payload_file_path}    ${has_mode}=${False}
     ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_payload_file_path}
     ${registration_payload}=    Update Value To JSON    ${payload}    $.id    ${registration_id}
-    ${response}=    Create Context Source Registration With Return    ${registration_payload}
+    ${response}=    Create Context Source Registration With Return
+    ...    ${registration_payload}
     Check Response Status Code    201    ${response.status_code}
     Check Response Headers Containing URI set to    ${registration_id}    ${response.headers}
     ${response1}=    Retrieve Context Source Registration

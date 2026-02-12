@@ -4,6 +4,10 @@ import re
 class Requests:
     def __init__(self, variables, apiutils_variables, config_file, template_params_value, test_name, name):
         self.op = {
+            'Create Entity': {
+                'positions': [0],
+                'params': ['filename']
+            },
             'Create Entity Selecting Content Type': {
                 'positions': [0, 2],
                 'params': ['filename', 'content_type']
@@ -296,6 +300,8 @@ class Requests:
         }
 
         self.description = {
+            'Create Entity':
+                Requests.create_entity,
             'Create Entity Selecting Content Type':
                 Requests.create_entity_selecting_content_type,
             'Create Subscription':
@@ -598,6 +604,15 @@ class Requests:
             position[k] = self.change_param_value_iter(value=v)
 
         return position
+
+    @staticmethod
+    def create_entity(kwargs) -> str:
+        if 'filename' in kwargs:
+            result = (f"Request Header['Content-Type'] set to 'application/ld+json' and\n "
+                      f"payload defined in file: '{kwargs['filename']}'")
+            return result
+        else:
+            raise Exception(f"ERROR: expected filename, but received {kwargs}")
 
     @staticmethod
     def create_entity_selecting_content_type(kwargs) -> str:

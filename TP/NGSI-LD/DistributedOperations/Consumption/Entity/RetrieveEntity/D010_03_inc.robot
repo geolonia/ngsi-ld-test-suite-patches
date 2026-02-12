@@ -11,7 +11,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
 Test Teardown       Delete Registration And Stop Context Source Mock Server
-Test Template       Setup Registration, Context Source Mock Server And Retrieve Entity
+Test Template       Setup Registration And Context Source Mock Server And Retrieve Entity
 
 
 *** Variables ***
@@ -20,25 +20,23 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***
-D010_03_01_inc Retrieve Entity By Id Using The retrieveEntity Operation
+D010_03_inc_01 Retrieve Entity By Id Using The retrieveEntity Operation
     [Documentation]    Check that if one retrieves entity living on a Context Source from a Context Broker, and the registration only allows the retrieveEntity operation, the request is forwarded as expected
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_1
-    [Template]    Setup Registration, Context Source Mock Server And Retrieve Entity
     retrieveEntity    GET    /ngsi-ld/v1/entities/
-D010_03_02_inc Retrieve Entity By Id Using The queryEntity Operation
+D010_03_inc_02 Retrieve Entity By Id Using The queryEntity Operation
     [Documentation]    Check that if one retrieves entity living on a Context Source from a Context Broker, and the registration only allows the queryEntity operation, the request is forwarded as expected
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_1
-    [Template]    Setup Registration, Context Source Mock Server And Retrieve Entity
     queryEntity    GET    /ngsi-ld/v1/entities?type=Vehicle
-D010_03_03_inc Retrieve Entity By Id Using The queryBatch Operation
+D010_03_inc_03 Retrieve Entity By Id Using The queryBatch Operation
     [Documentation]    Check that if one retrieves entity living on a Context Source from a Context Broker, and the registration only allows the queryBatch operation, the request is forwarded as expected
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_1
-    [Template]    Setup Registration, Context Source Mock Server And Retrieve Entity
     queryBatch    POST    /ngsi-ld/v1/entityOperations/query
 
 
 *** Keywords ***
-Setup Registration, Context Source Mock Server And Retrieve Entity
+Setup Registration And Context Source Mock Server And Retrieve Entity
+    [Documentation]    Check that if one retrieves entity living on a Context Source from a Context Broker, and the registration only allows the requested operation, the request is forwarded as expected
     [Arguments]    ${operation}    ${method}    ${url}
     ${entity_id}=    Generate Random Vehicle Entity Id
 

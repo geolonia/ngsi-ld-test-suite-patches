@@ -50,10 +50,12 @@ ${expected_expanded_subscription_payload_file_path}=    subscriptions/expectatio
     Check Response Body Is Empty    ${response}
     ${response1}=    Retrieve Subscription
     ...    id=${subscription_id}
+    ${ignore_keys}=    Create List    jsonldContext    timesFailed    timesSent    notificationTrigger
     Check Response Body Containing Subscription element
     ...    ${expected_expanded_subscription_payload_file_path}
     ...    ${subscription_id}
     ...    ${response1.json()}
+    ...    ${ignore_keys}
 
 
 *** Keywords ***

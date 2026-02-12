@@ -11,7 +11,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
 Test Teardown       Delete Registration And Stop Context Source Mock Server
-Test Template       Setup Registration, Context Source Mock Server And Query The Context Broker With Type
+Test Template       Setup Registration And Context Source Mock Server And Query The Context Broker With Type
 
 
 *** Variables ***
@@ -20,20 +20,19 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 
 
 *** Test Cases ***
-D011_03_01_inc Query The Context Broker By Id Using The queryEntity Operation
+D011_03_inc_01 Query The Context Broker By Id Using The queryEntity Operation
     [Documentation]    Check that if one queries the Context Broker for type, and the registration only allows the queryEntity operation, the request is forwarded as expected
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2
-    [Template]    Setup Registration, Context Source Mock Server And Query The Context Broker With Type
     queryEntity    GET    /ngsi-ld/v1/entities?type=Vehicle
-D011_03_02_inc Query The Context Broker By Id Using The queryBatch Operation
+D011_03_inc_02 Query The Context Broker By Id Using The queryBatch Operation
     [Documentation]    Check that if one queries the Context Broker for type, and the registration only allows the queryBatch operation, the request is forwarded as expected
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2
-    [Template]    Setup Registration, Context Source Mock Server And Query The Context Broker With Type
     queryBatch    POST    /ngsi-ld/v1/entityOperations/query
 
 
 *** Keywords ***
-Setup Registration, Context Source Mock Server And Query The Context Broker With Type
+Setup Registration And Context Source Mock Server And Query The Context Broker With Type
+    [Documentation]    Check that if one queries the Context Broker for type, and the registration only allows the requested operation, the request is forwarded as expected
     [Arguments]    ${operation}    ${method}    ${url}
     ${entity_id}=    Generate Random Vehicle Entity Id
 

@@ -1,8 +1,11 @@
 from re import compile
 from dataclasses import dataclass
+from typing import Any
+
 import dateTimeUtils
 from deepdiff import DeepDiff
 from deepdiff.helper import CannotCompare
+from deepdiff.operator import BaseOperatorPlus
 from prettydiff import get_annotated_lines_from_diff, diff_json, Flag
 from robot.api import logger
 
@@ -24,7 +27,7 @@ def wrap_context_to_list(context):
 core_context_pattern = compile(r'https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v\d\.\d.jsonld')
 
 
-class AnyCoreContextVersionOperator:
+class AnyCoreContextVersionOperator(BaseOperatorPlus):
     def match(self, level) -> bool:
         return level.path().endswith("['@context']")
 
@@ -32,10 +35,13 @@ class AnyCoreContextVersionOperator:
         actual_context = wrap_context_to_list(level.t2)
         return len(actual_context) == 1 and core_context_pattern.match(actual_context[0]) is not None
 
+    def normalize_value_for_hashing(self, parent, obj) -> Any:
+        return obj
 
-class StringOrSingleListContextOperator:
+
+class StringOrSingleListContextOperator(BaseOperatorPlus):
     def match(self, level) -> bool:
-        # The context can be at the root of the element to check... or deeper when we have list of elements
+        # The context can be at the root of the element to check... or deeper when we have a list of elements
         # So match on the end of the path
         return level.path().endswith("['@context']")
 
@@ -44,9 +50,12 @@ class StringOrSingleListContextOperator:
         actual_context = wrap_context_to_list(level.t2)
         return expected_context == actual_context
 
+    def normalize_value_for_hashing(self, parent, obj) -> Any:
+        return obj
+
 
 # for observedAt, check there is a strict equality between expected and actual
-class ObservedAtPropertyOperator:
+class ObservedAtPropertyOperator(BaseOperatorPlus):
     def match(self, level) -> bool:
         return level.path().endswith("['observedAt']")
 
@@ -55,9 +64,12 @@ class ObservedAtPropertyOperator:
         actual_datetime = dateTimeUtils.parse_ngsild_date(level.t2)
         return actual_datetime is not None and expected_datetime == actual_datetime
 
+    def normalize_value_for_hashing(self, parent, obj) -> Any:
+        return obj
 
-# for system generated temporal properties, only check it is present and has the correct format
-class SystemGeneratedTemporalPropertyOperator:
+
+# for system-generated temporal properties, only check it is present and has the correct format
+class SystemGeneratedTemporalPropertyOperator(BaseOperatorPlus):
     def match(self, level) -> bool:
         return (level.path().endswith("['createdAt']")
                 or level.path().endswith("['modifiedAt']")
@@ -66,6 +78,9 @@ class SystemGeneratedTemporalPropertyOperator:
     def give_up_diffing(self, level, diff_instance) -> bool:
         actual_datetime = dateTimeUtils.parse_ngsild_date(level.t2)
         return actual_datetime is not None
+
+    def normalize_value_for_hashing(self, parent, obj) -> Any:
+        return obj
 
 
 def compare_func(x, y, level=None):

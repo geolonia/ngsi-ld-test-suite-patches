@@ -30,16 +30,16 @@ D010_01_red Query Context Broker And Retrieve Entity By Id
     Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities/${entity_id}    200    ${entity_body}
     Set Stub Reply    GET    /broker2/ngsi-ld/v1/entities/${entity_id}    200    ${entity_body2}
 
-    ${response_query}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}
-    Check Response Status Code    200    ${response_query.status_code}
+    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}
+    Check Response Status Code    200    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    GET    /broker1/ngsi-ld/v1/entities/${entity_id}
     Should Be True    ${stub_count} > 0
     ${stub_count}=    Get Stub Count    GET    /broker2/ngsi-ld/v1/entities/${entity_id}
     Should Be True    ${stub_count} > 0
 
-    Should Have Value In Json    ${response_query.json()}    $.isParked
-    Should Have Value In Json    ${response_query.json()}    $.isParked2
+    Should Have Value In Json    ${response.json()}    $.isParked
+    Should Have Value In Json    ${response.json()}    $.isParked2
 
 
 *** Keywords ***
