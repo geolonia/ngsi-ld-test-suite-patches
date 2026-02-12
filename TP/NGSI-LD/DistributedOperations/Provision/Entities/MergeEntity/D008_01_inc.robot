@@ -24,7 +24,7 @@ D008_01_inc Merge Entity On Both Context Broker And Context Source
     [Documentation]    Check that if one requests the Context Broker to merge an entity that matches an inclusive registration, this is merged on the Context Source too
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_17
 
-    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
     ${old_isparked}=    Get From Dictionary    ${response.json()}    isParked2
     ${old_brandname}=    Get From Dictionary    ${response.json()}    brandName
 
@@ -38,7 +38,7 @@ D008_01_inc Merge Entity On Both Context Broker And Context Source
     ${stub_count}=    Get Stub Count    PATCH    /ngsi-ld/v1/entities/${entity_id}
     Should Be True    ${stub_count}  > 0
     
-    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
     ${new_brandname}=    Get From Dictionary    ${response.json()}    brandName
     ${new_isparked}=    Get From Dictionary    ${response.json()}    isParked2
     Should Be Equal    ${old_brandname}    ${new_brandname}

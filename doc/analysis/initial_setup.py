@@ -62,6 +62,9 @@ class InitialSetup:
         self.files_with_setup = list()
         self.files_without_setup = list()
 
+    def validate_setup_keys(self):
+        """Validates that all setup keys used in robot files are defined in self.init.
+        Should be called after all JSON files have been generated."""
         self.check_keys()
 
     @staticmethod
@@ -382,6 +385,9 @@ class InitialSetup:
                     with open(file_path, "r") as f:
                         try:
                             data = json.load(f)
+                            # Skip files that are arrays or don't have test_cases key
+                            if not isinstance(data, dict) or 'test_cases' not in data:
+                                continue
                             value = [x[property_name] for x in data['test_cases']]
 
                             status = all(item == value[0] for item in value)
@@ -400,8 +406,8 @@ class InitialSetup:
                                 robot_files_without_setup.append(file_path)
                             else:
                                 robot_files_with_setup.append(info)
-                        except (KeyError, json.JSONDecodeError):
-                            # Handle cases where the property is not found or file is not valid JSON
+                        except (KeyError, TypeError, json.JSONDecodeError):
+                            # Handle cases where the property is not found, wrong data type, or file is not valid JSON
                             pass
 
         return robot_files_with_setup, robot_files_without_setup

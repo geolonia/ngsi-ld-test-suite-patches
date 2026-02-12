@@ -25,7 +25,7 @@ D007_01_inc Replace Entity
     [Documentation]    Check that if one requests the Context Broker to replace an entity that matches an inclusive registration, this is replaced on the Context Source too
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_18
 
-    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
     ${old_body}=    Set To Dictionary    ${response.json()}
 
     Set Stub Reply    PUT    /ngsi-ld/v1/entities/${entity_id}    204
@@ -36,7 +36,7 @@ D007_01_inc Replace Entity
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
 
-    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
     ${new_body}=    Set To Dictionary    ${response.json()}
     Should Not Be Equal    ${old_body}    ${new_body}
 

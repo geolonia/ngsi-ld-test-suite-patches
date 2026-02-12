@@ -25,7 +25,7 @@ D005_01_exc Partial Partial Attribute Update
     [Documentation]    Check that if one request the Context Broker to partially update an attribute whose id matches an exclusive registration, this is updated on the Context Source
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_6_4
 
-    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}    local=true
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
     ${old_isparked}=    Get Value From Json    ${response.json()}    $.isParked2
 
     Set Stub Reply    PATCH    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/${attribute_id}    204
@@ -43,7 +43,7 @@ D005_01_exc Partial Partial Attribute Update
     ${payload}=    Evaluate    json.loads('''${request_payload}''')    json
     Should Contain    ${payload}    speed
 
-    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}    local=true
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
     ${new_isparked}=    Get Value From Json    ${response.json()}    $.isParked2
     Should Be Equal    ${new_isparked}    ${old_isparked}
     Should Not Contain    ${response.json()}    speed

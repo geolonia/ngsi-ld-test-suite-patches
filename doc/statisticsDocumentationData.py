@@ -1,9 +1,19 @@
+from genericpath import exists
+import os
 from generateDocumentationData import create_json_of_robotfile
 from os.path import dirname, join
 from os import walk
 from requests import delete, post
 import json
 import re
+from analysis.initial_setup import InitialSetup
+
+def locate_result_folder():
+    folder_test_suites = dirname(dirname(__file__)).replace("\\", "/")
+    folder_result_path = f"{folder_test_suites}/doc/results"
+    if not exists(folder_result_path):
+        return None
+    return folder_result_path
 
 if __name__ == "__main__":
     basedir = dirname(dirname(__file__))
@@ -16,6 +26,15 @@ if __name__ == "__main__":
     BASE_URL_OF_FORGE = (
         "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/blob/master/TP/NGSI-LD/"
     )
+
+    result_path = locate_result_folder()
+    if result_path is not None:
+        #delete the folder and all its content
+        for root, dirs, files in walk(result_path, topdown=False):
+            for name in files:
+                os.remove(join(root, name))
+            for name in dirs:
+                os.rmdir(join(root, name))  
 
     fullpath = basedir + "/TP/NGSI-LD"
     excluded_dirs = [""]
@@ -51,11 +70,20 @@ if __name__ == "__main__":
                     number_of_successes += 1
                     # we add it here because Fernando's code does not, in case of successful parsing
                     json_of_test_case["error_while_parsing"] = False
+                    
                     # establish the right configuration
-                    if json_of_test_case["robotpath"].startswith("ContextSource"):
-                        json_of_test_case["config_id"] = "CF_05"
-                    elif "cf_06" in json_of_test_case["test_cases"][0]["tags"]:
-                        json_of_test_case["config_id"] = "CF_06"
+                    tag_with_cf = None
+                    if "tags" in json_of_test_case:
+                        for tag in json_of_test_case["tags"]:
+                            if tag.startswith("cf_"):
+                                tag_with_cf = tag
+                                break
+                    if tag_with_cf is not None:
+                        json_of_test_case["config_id"] = tag_with_cf.upper()
+                    elif json_of_test_case["robotpath"].startswith("ContextInformation/Subscription/SubscriptionNotificationBehaviour"):
+                        json_of_test_case["config_id"] = "CF_02"
+                    elif json_of_test_case["robotpath"].startswith("ContextSource"):
+                        json_of_test_case["config_id"] = "CF_03"
                     else:
                         json_of_test_case["config_id"] = "CF_01"
 
@@ -241,3 +269,8 @@ if __name__ == "__main__":
     permutations_file = join(basedir, "doc", "results", "permutations.json")
     with open(permutations_file, "w") as fp:
         json.dump(obj=permutations, indent=2, fp=fp)
+
+    # Validate setup keys after all JSON files have been generated
+    print("\nValidating setup keys...\n")
+    initial_setup = InitialSetup()
+    initial_setup.validate_setup_keys()

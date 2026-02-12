@@ -34,7 +34,7 @@ D008_01_exc Merge Entity On Both Context Broker And Context Source
     ${stub_count}=    Get Stub Count    PATCH    /broker1/ngsi-ld/v1/entities/${entity_id}
     Should Be True    ${stub_count}  > 0
 
-    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}    local=true
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
     Should Not Contain    ${response}    speed
 
 *** Keywords ***

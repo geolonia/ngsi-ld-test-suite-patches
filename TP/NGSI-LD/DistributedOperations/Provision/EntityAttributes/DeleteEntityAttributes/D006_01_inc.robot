@@ -32,7 +32,7 @@ D006_01_inc Delete Entity Attributes
     Wait For Request
     Check Response Status Code    204    ${response.status_code}
 
-    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}    local=true
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
     Should Contain    ${response.json()}    speed
 
 *** Keywords ***
