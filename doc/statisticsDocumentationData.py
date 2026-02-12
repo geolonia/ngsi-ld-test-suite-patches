@@ -70,20 +70,12 @@ if __name__ == "__main__":
                     number_of_successes += 1
                     # we add it here because Fernando's code does not, in case of successful parsing
                     json_of_test_case["error_while_parsing"] = False
-                    
-                    # establish the right configuration
-                    tag_with_cf = None
-                    if "tags" in json_of_test_case:
-                        for tag in json_of_test_case["tags"]:
-                            if tag.startswith("cf_"):
-                                tag_with_cf = tag
-                                break
-                    if tag_with_cf is not None:
-                        json_of_test_case["config_id"] = tag_with_cf.upper()
-                    elif json_of_test_case["robotpath"].startswith("ContextInformation/Subscription/SubscriptionNotificationBehaviour"):
-                        json_of_test_case["config_id"] = "CF_02"
+                    if json_of_test_case["robotpath"].startswith("DistributedOperations"):
+                        json_of_test_case["config_id"] = "CF_04"
                     elif json_of_test_case["robotpath"].startswith("ContextSource"):
                         json_of_test_case["config_id"] = "CF_03"
+                    elif json_of_test_case["robotpath"].startswith("ContextInformation/Subscription/SubscriptionNotificationBehaviour"):
+                        json_of_test_case["config_id"] = "CF_02"
                     else:
                         json_of_test_case["config_id"] = "CF_01"
 
