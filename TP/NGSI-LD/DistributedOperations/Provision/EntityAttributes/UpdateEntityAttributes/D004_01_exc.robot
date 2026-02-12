@@ -31,7 +31,8 @@ D004_01_exc Create Entity and Registration And Start Context Source Mock Server
     ...    ${entity_id}
     ...    ${entity_newSpeed_filename}
     ...    ${CONTENT_TYPE_LD_JSON}
-    ${response}=    Check Response Status Code    204    ${response.status_code}
+
+    Check Response Status Code    204    ${response.status_code}
     
     ${stub_count}=    Get Stub Count    PATCH    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/
     Should Be True    ${stub_count} > 0

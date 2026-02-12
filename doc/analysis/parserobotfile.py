@@ -232,13 +232,18 @@ class ParseRobotFile:
             if len(values) != 0:
                 # We need to find the operation of the response
                 index = [test_content.find(x) for x in values]
-                index = [x for x in index if x != -1][0]
+                filtered_index = [x for x in index if x != -1]
+                
+                if len(filtered_index) > 0:
+                    index = filtered_index[0]
+                    substring = test_content[index:]
+                    end_line = substring.find('\n')
+                    substring = substring[0:end_line]
 
-                substring = test_content[index:]
-                end_line = substring.find('\n')
-                substring = substring[0:end_line]
-
-                operation = substring.split('    ')[1]
+                    operation = substring.split('    ')[1]
+                else:
+                    # No response variable found in test content, default to Notification
+                    operation = 'Notification'
             else:
                 # We have a notification operation
                 operation = 'Notification'
@@ -296,10 +301,13 @@ class ParseRobotFile:
             lines_starting_with_should = re.findall(r'^\s*Dictionary Should Contain Key.*', content, re.MULTILINE)
             _ = [new_list.append(x.strip()) for x in lines_starting_with_should]
 
+            lines_starting_with_should = re.findall(r'^\s*Dictionary Should Not Contain Key.*', content, re.MULTILINE)
+            _ = [new_list.append(x.strip()) for x in lines_starting_with_should]
+
             lines_starting_with_should = re.findall(r'^\s*Should Not Be Empty.*', content, re.MULTILINE)
             _ = [new_list.append(x.strip()) for x in lines_starting_with_should]
 
-            lines_starting_with_should = re.findall(r'^\s*Should be True.*', content, re.MULTILINE)
+            lines_starting_with_should = re.findall(r'^\s*Should [Bb]e True.*', content, re.MULTILINE)
             _ = [new_list.append(x.strip()) for x in lines_starting_with_should]
 
         return new_list
@@ -342,11 +350,11 @@ class ParseRobotFile:
             checks = [f"{x['operation']} received {x['checks']}" for x in content]
             if len(checks) > 1:
                 checks = "     and\n        ".join(checks)
-                checks = (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification containing:\n"
+                checks = (f"then {{\n    the Test System at '${{endpoint}}' receives a valid Notification containing:\n"
                           f"        {checks}\n}}")
             elif len(content) == 1:
                 checks = checks[0]
-                checks = (f"then {{\n    the client at '${{endpoint}}' receives a valid Notification containing:\n"
+                checks = (f"then {{\n    the Test System at '${{endpoint}}' receives a valid Notification containing:\n"
                           f"        {checks}\n}}")
                 # if content[0]['checks'].find('Waiting for no Notification') != -1:
                 #     # Waiting for no notification data
@@ -370,20 +378,21 @@ class ParseRobotFile:
 
     def generate_when_content(self, http_verb, endpoint, when):
         if when.find("a subscription with id set to") == -1 and when.find("Call API Endpoint with") == -1:
+            # print("http verb", http_verb, "endpoint", endpoint, "when", when)
             url = f"URL set to '/ngsi-ld/v1/{endpoint}'"
             method = f"method set to '{http_verb}'"
-            when = (f"when {{\n    the SUT receives a Request from the client containing:\n"
+            when = (f"when {{\n    the SUT receives a Request from the Test System containing:\n"
                     f"        {url}\n"
                     f"        {method}\n"
                     f"        {when}\n"
                     f"}}")
         elif when.find("Call API Endpoint with") != -1:
-            when = (f"when {{\n    the SUT receives a Request from the client containing:\n"
+            when = (f"when {{\n    the SUT receives a Request from the Test System containing:\n"
                     f"        {when}\n"
                     f"}}")
         else:
             # This is a Notification operation
-            when = f"The client at ${{endpoint}} receives a valid Notification containing {when}"
+            when = f"The Test System at ${{endpoint}} receives a valid Notification containing {when}"
         return when
 
     def get_data_check(self, test_case, checks, line):

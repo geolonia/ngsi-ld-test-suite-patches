@@ -59,14 +59,14 @@ Setup Registration And Context Source Mock Server And Query The Context Broker W
     @{entities_id}=    Create List    ${entity_id}
 
     IF    '${method}' == 'GET'
-        ${response}=    Query Entities    entity_types=Vehicle    context=${ngsild_test_suite_context}
+        ${response2}=    Query Entities    entity_types=Vehicle    context=${ngsild_test_suite_context}
     ELSE IF    '${method}' == 'POST'
         @{entities}=    Create List    ${entity_id}
-        ${response}=    Query Entities Via POST    entities=${entities}    context=${ngsild_test_suite_context}
+        ${response2}=    Query Entities Via POST    entities=${entities}    context=${ngsild_test_suite_context}
     END
 
-    Check Response Status Code    200    ${response.status_code}
-    Check Response Body Containing Entities URIS set to    ${entities_id}    ${response.json()}
+    Check Response Status Code    200    ${response2.status_code}
+    Check Response Body Containing Entities URIS set to    ${entities_id}    ${response2.json()}
 
 Delete Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}

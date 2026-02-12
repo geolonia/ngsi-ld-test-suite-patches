@@ -36,7 +36,7 @@ D007_01_inc Replace Entity
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
 
-    ${response}=    Retrieve Entity By Id    ${entity_id}    context=${ngsild_test_suite_context}
+    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}
     ${new_body}=    Set To Dictionary    ${response.json()}
     Should Not Be Equal    ${old_body}    ${new_body}
 

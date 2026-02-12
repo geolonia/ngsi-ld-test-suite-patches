@@ -98,9 +98,13 @@ class Checks:
                 Checks.should_be_equal,
             'Dictionary Should Contain Key':
                 Checks.dictionary_should_contain_key,
+            'Dictionary Should Not Contain Key':
+                Checks.dictionary_should_not_contain_key,
             'Should Not Be Empty':
                 Checks.should_not_be_empty,
             'Should be True':
+                Checks.should_be_true,
+            'Should Be True':
                 Checks.should_be_true,
             'Check Response Body Content':
                 Checks.check_response_body_content,
@@ -329,11 +333,19 @@ class Checks:
                 'params': ['dictionary', 'key'],
                 'position': [0, 1]
             },
+            'Dictionary Should Not Contain Key': {
+                'params': ['dictionary', 'key'],
+                'position': [0, 1]
+            },
             'Should Not Be Empty': {
                 'params': ['variable'],
                 'position': [0]
             },
             'Should be True': {
+                'params': ['expression'],
+                'position': [0]
+            },
+            'Should Be True': {
                 'params': ['expression'],
                 'position': [0]
             },
@@ -529,6 +541,13 @@ class Checks:
     def dictionary_should_contain_key(kwargs: list) -> str:
         if 'dictionary' in kwargs and 'key' in kwargs:
             return f"The dictionary `{kwargs['dictionary']}' should contain the key '{kwargs['key']}'"
+        else:
+            raise Exception(f"ERROR, Expected 'dictionary' and 'key' parameters but received: {kwargs}")
+    
+    @staticmethod
+    def dictionary_should_not_contain_key(kwargs: list) -> str:
+        if 'dictionary' in kwargs and 'key' in kwargs:
+            return f"The dictionary `{kwargs['dictionary']}' should not contain the key '{kwargs['key']}'"
         else:
             raise Exception(f"ERROR, Expected 'dictionary' and 'key' parameters but received: {kwargs}")
 

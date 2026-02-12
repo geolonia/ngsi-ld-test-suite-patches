@@ -278,10 +278,9 @@ class GenerateRobotData:
                                                                  request=request,
                                                                  params=params)
         
-        if 'dist-ops' not in self.test_cases[index]['tags']:
-            self.test_cases[index]['when'] = self.robot.generate_when_content(http_verb=self.test_cases[index]['http_verb'],
-                                                                            endpoint=self.test_cases[index]['endpoint'],
-                                                                            when=self.test_cases[index]['when'])
+        self.test_cases[index]['when'] = self.robot.generate_when_content(http_verb=self.test_cases[index]['http_verb'],
+                                                                        endpoint=self.test_cases[index]['endpoint'],
+                                                                        when=self.test_cases[index]['when'])
 
     def check_header_parameters(self, params: list, test: str):
         value = str()
@@ -451,46 +450,34 @@ class GenerateRobotData:
 
         # Get the Content-Type and Body associated to the Test
         # We need to check if the test is in the DistributedOperations group
-        if 'dist-ops' not in tags:
-            if len(self.args) != 0:
-                # We are talking about Test Cases with Test Template, so we need to check the keyword content with the
-                # definition of the template
+        if len(self.args) != 0:
+            # We are talking about Test Cases with Test Template, so we need to check the keyword content with the
+            # definition of the template
 
-                # Generate Checks for Test Data
-                then = self.robot.get_checks(test_name=test.template, apiutils=self.apiutils, name=test.name)
+            # Generate Checks for Test Data
+            then = self.robot.get_checks(test_name=test.template, apiutils=self.apiutils, name=test.name)
 
-                # Generate Request for Test Data
-                when = self.robot.get_request(test_name=test.template, name=test.name)
-            else:
-                # We are talking about a Test Cases without Test Template
-                # Generate Checks for Test Data
-                then = self.robot.get_checks(test_name=test.name, apiutils=self.apiutils, name=test.name)
-
-                # Generate Request for Test Data
-                when = self.robot.get_request(test_name=test.name, name=test.name)
-
-            test_case = {
-                'name': test.name,
-                'permutation_tp_id': f'{self.base_TP_id}/{test.name.split(" ")[0]}',
-                'doc': documentation,
-                'tags': tags,
-                'setup': test.setup.name,
-                'teardown': test.teardown.name,
-                'template': test.template,
-                'then': then,
-                'when': when
-            }
+            # Generate Request for Test Data
+            when = self.robot.get_request(test_name=test.template, name=test.name)
         else:
-            # If the test case is about DistributedOperations we don't want 'when' and 'this' in the generated documentation
-            test_case = {
-                'name': test.name,
-                'permutation_tp_id': f'{self.base_TP_id}/{test.name.split(" ")[0]}',
-                'doc': documentation,
-                'tags': tags,
-                'setup': test.setup.name,
-                'teardown': test.teardown.name,
-                'template': test.template,
-            }
+            # We are talking about a Test Cases without Test Template
+            # Generate Checks for Test Data
+            then = self.robot.get_checks(test_name=test.name, apiutils=self.apiutils, name=test.name)
+
+            # Generate Request for Test Data
+            when = self.robot.get_request(test_name=test.name, name=test.name)
+
+        test_case = {
+            'name': test.name,
+            'permutation_tp_id': f'{self.base_TP_id}/{test.name.split(" ")[0]}',
+            'doc': documentation,
+            'tags': tags,
+            'setup': test.setup.name,
+            'teardown': test.teardown.name,
+            'template': test.template,
+            'then': then,
+            'when': when
+        }
 
         try:
             self.test_suite['initial_condition'] = self.initial_conditions[test.setup.name]

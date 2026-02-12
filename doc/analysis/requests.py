@@ -447,6 +447,15 @@ class Requests:
         # New version
         #lines_starting_response = re.findall(r'^\s*\$\{response\}.*|^\s*\$\{notification\}.*', string, re.MULTILINE)
         lines_starting_response = re.findall(r'^\s*\$\{response\}.*', string, re.MULTILINE)
+        
+        # Filter out lines that are Check operations (assertions), not request operations
+        lines_starting_response = [line for line in lines_starting_response if 'Check Response Status Code' not in line and not re.search(r'\$\{response\}=\s+Check\s+', line)]
+        
+        # Also filter out empty or whitespace-only lines
+        lines_starting_response = [line for line in lines_starting_response if line.strip() != '']
+
+        if len(lines_starting_response) == 0:
+            raise Exception(f"Error: No valid response lines found in test case")
 
         # If there is more than one line, it means that the test case has several operations, all of them to
         # create the environment content to execute the last one, which is the correct one to test the Test Case
@@ -459,7 +468,10 @@ class Requests:
 
         index = string.find(response_to_check)
         aux = string[index:].split('\n')
-        aux = [x for x in aux if x != '']
+        aux = [x for x in aux if x.strip() != '']
+        
+        if len(aux) == 0 or aux[0].strip() == '':
+            raise Exception(f"Error: No valid content found after response line. response_to_check='{response_to_check}'")
 
         params = list()
         request = str()
@@ -469,7 +481,15 @@ class Requests:
             # the attributes are in the same line
             regex = r"\s*\$\{response\}=\s{4}(.*)"
             matches = re.finditer(regex, response_to_check, re.MULTILINE)
-            request = aux[0].split('    ')[2]
+            request_parts = aux[0].split('    ')
+            # Filter out empty strings and get the keyword (should be after ${response}=)
+            non_empty_parts = [x for x in request_parts if x != '']
+            if len(non_empty_parts) >= 2:
+                request_full = non_empty_parts[1]
+            else:
+                raise Exception(f"Error: unexpected format in line, received: '{aux[0]}', expected format: '    ${{response}}=    Keyword Name    params...'")
+            # Extract only the keyword name without parameters
+            request = re.split(r'\s{2,}', request_full)[0]
 
             # We have two options from here, or the parameters are defined in the same line or the parameters are defined in
             # following lines, next lines
@@ -485,12 +505,14 @@ class Requests:
 
             params = self.find_attributes_in_the_same_line(request_name=request, params=params)
         elif '    ...    ' in aux[1]:
-            request = aux[0].split('    ')
-            request = [x for x in request if x != ''][1]
+            request_parts = aux[0].split('    ')
+            request_full = [x for x in request_parts if x != ''][1]
+            # Extract only the keyword name without parameters
+            request = re.split(r'\s{2,}', request_full)[0]
             # We are in the case that the attributes are in following lines
             for i in range(1, len(aux)):
                 if '    ...    ' in aux[i]:
-                    regex = '(\s{4})*\s{4}\.{3}\s{4}(.*)'
+                    regex = r'(\s{4})*\s{4}\.{3}\s{4}(.*)'
                     param = re.match(pattern=regex, string=aux[i])
                     if aux:
                         params.append(param.groups()[1])
@@ -1311,7 +1333,7 @@ class Requests:
                                'attrs', 'context', 'geoproperty',
                                'options', 'limit', 'entity_id_pattern',
                                'scopeq', 'georel', 'coordinates', 'geometry', 'count' , 'q' , 'datasetId',
-                               'join', 'joinLevel']
+                               'join', 'joinLevel', 'local']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Get Entities Request:"
@@ -1354,6 +1376,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: join set to '{value}'"
                 case 'joinLevel':
                     response = f"{response} and\n    Query Parameter: joinLevel set to '{value}'"
+                case 'local':
+                    response = f"{response} and\n    Query Parameter: local set to '{value}'"
                 case _:
                     raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
                                     f"{expected_parameters}, but received: {kwargs}")

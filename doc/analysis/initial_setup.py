@@ -121,7 +121,7 @@ class InitialSetup:
     the SUT being in the "initial state" and
     the SUT containing initial Entities ${first_entity_id} and ${second_entity_id}
         each one having a linked entity with an id respectively set to ${first_linked_entity_id} and ${second_linked_entity_id}
-    }'''
+}'''
         return data
 
     @staticmethod
@@ -266,56 +266,56 @@ class InitialSetup:
     def create_set_contexts():
         data = '''with {
     the SUT containing a set of three Hosted @contexts and the default Cached Core Context.
-        }'''
+}'''
         return data
 
     @staticmethod
     def init_cached_context():
         data = '''with {
     the SUT containing a cached context from creating an entity.
-        }'''
+}'''
         return data
 
     @staticmethod
     def create_context():
         data = '''with {
     the SUT containing a Hosted @context and the default Cached Core Context.
-        }'''
+}'''
         return data
 
     @staticmethod
     def created_cached_context():
         data = '''with {
     the SUT containing a Cached @context added from a URL.
-            }'''
+}'''
         return data
 
     @staticmethod
     def create_implictlycreated_context():
         data = '''with {
     the SUT containing a ImplicitlyCreated @context created from a subscription query.
-            }'''
+}'''
         return data
 
     @staticmethod
     def create_hosted_context():
         data = '''with {
     the SUT containing a Hosted @context and the default Cached Core Context.
-            }'''
+}'''
         return data
 
     @staticmethod
     def create_from_external_server():
         data = '''with {
     the SUT containing a Cached @context created from a entity creation through downloading from external server.
-            }'''
+}'''
         return data
 
     @staticmethod
     def delete_core_context():
         data = '''with {
     the SUT containing a core context and it has been deleted with reload set to true.
-                }'''
+}'''
         return data
     
     @staticmethod
@@ -365,7 +365,7 @@ class InitialSetup:
             with id equal to ${registration_id}
             and payload set to ${registration_payload_file_path}
         and the SUT containing a Context Source Mock Server
-    }'''
+}'''
         return data
 
     def get_property_values(self, root_folder: str, property_name: str) -> [str, str]:
@@ -425,7 +425,7 @@ class InitialSetup:
             print()
 
     def generate_dictionaries(self):
-        folder = os.path.join(self.folder_test_suites, 'doc', 'files')
+        folder = os.path.join(self.folder_test_suites, 'doc', 'results')
         attribute = "setup"
 
         self.files_with_setup, self.files_without_setup = self.get_property_values(folder, attribute)
