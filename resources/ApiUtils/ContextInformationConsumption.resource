@@ -154,12 +154,16 @@ Retrieve Entity
     ...    ${lang}=${EMPTY}
     ...    ${join}=${EMPTY}
     ...    ${joinLevel}=${EMPTY}
+    ...    ${pick}=${EMPTY}
+    ...    ${omit}=${EMPTY}
     ...    ${local}=${EMPTY}
     ${attrs_length}=    Get Length    ${attrs}
     ${accept_length}=    Get Length    ${accept}
     ${options_length}=    Get Length    ${options}
     ${format_length}=    Get Length    ${format}
     ${lang_length}=    Get Length    ${lang}
+    ${pick_length}=    Get Length    ${pick}
+    ${omit_length}=    Get Length    ${omit}
     &{headers}=    Create Dictionary
     &{params}=    Create Dictionary
     IF    ${accept_length}>0
@@ -186,6 +190,8 @@ Retrieve Entity
     IF    '${join_level}'!=''
         Set To Dictionary    ${params}    joinLevel=${joinLevel}
     END
+    IF    ${pick_length}>0    Set To Dictionary    ${params}    pick=${pick}
+    IF    ${omit_length}>0    Set To Dictionary    ${params}    omit=${omit}
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
 
     ${response}=    GET
