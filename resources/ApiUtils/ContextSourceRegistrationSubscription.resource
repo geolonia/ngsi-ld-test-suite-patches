@@ -23,6 +23,7 @@ ${response}                                                     ${EMPTY}
 
 *** Keywords ***
 Create Context Source Registration Subscription
+    [Tags]    actor_context-subscriber
     [Arguments]    ${subscription_payload}    ${accept}=${EMPTY}    ${content_type}=${CONTENT_TYPE_LD_JSON}
 
     &{headers}=    Create Dictionary    Content-Type=${content_type}
@@ -38,6 +39,7 @@ Create Context Source Registration Subscription
     RETURN    ${response}
 
 Delete Context Source Registration Subscription
+    [Tags]    actor_context-subscriber
     [Arguments]    ${subscription_id}
 
     ${response}=    DELETE
@@ -46,6 +48,7 @@ Delete Context Source Registration Subscription
     RETURN    ${response}
 
 Query Context Source Registration Subscriptions
+    [Tags]    actor_context-subscriber
     [Arguments]    ${context}=${EMPTY}    ${limit}=${EMPTY}    ${page}=${EMPTY}    ${accept}=${EMPTY}
 
     &{headers}=    Create Dictionary
@@ -69,6 +72,7 @@ Query Context Source Registration Subscriptions
     RETURN    ${response}
 
 Retrieve Context Source Registration Subscription
+    [Tags]    actor_context-subscriber
     [Arguments]    ${subscription_id}    ${context}=${EMPTY}    ${accept}=${CONTENT_TYPE_JSON}
 
     &{headers}=    Create Dictionary
@@ -87,6 +91,7 @@ Retrieve Context Source Registration Subscription
     RETURN    ${response}
 
 Update Context Source Registration Subscription
+    [Tags]    actor_context-subscriber
     [Arguments]    ${subscription_id}    ${subscription_update_fragment}
 
     ${response}=    PATCH
@@ -97,6 +102,7 @@ Update Context Source Registration Subscription
     RETURN    ${response}
 
 Update Context Source Registration Subscription From File
+    [Tags]    actor_context-subscriber
     [Arguments]    ${subscription_id}    ${file_path}
     ${file_content}=    Get File    ${EXECDIR}/data/${file_path}
     ${response}=    PATCH

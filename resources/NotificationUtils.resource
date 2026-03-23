@@ -18,11 +18,13 @@ ${date_format_with_millis}      %Y-%m-%dT%H:%M:%S.%fZ
 
 *** Keywords ***
 Start Local Server
+    [Tags]    actor_notification-receiver
     [Arguments]    ${host}=${notification_server_host}    ${port}=${notification_server_port}
     # Initialize HTTP Client And Server
     Start Server    ${host}    ${port}
 
 Wait for notification
+    [Tags]    actor_notification-receiver
     [Arguments]    ${timeout}=${5}
     # HTTP server receives it and checks incoming request for correctness
     # .. "Wait For Request"
@@ -39,6 +41,7 @@ Wait for notification
     RETURN    ${notification}    ${headers}
 
 Wait for notification and validate it
+    [Tags]    actor_notification-receiver
     [Arguments]
     ...    ${expected_subscription_id}
     ...    ${expected_context_source_registration_ids}
@@ -82,6 +85,7 @@ Wait for notification and validate it
     END
 
 Wait for no notification
+    [Tags]    actor_notification-receiver
     [Arguments]    ${timeout}=${5}
     # HTTP server receives it and checks incoming request for correctness
     # .. "Wait For Request"
@@ -104,5 +108,6 @@ Check Notification Data Entities
     ...    ignore_order=True
 
 Stop Local Server
+    [Tags]    actor_notification-receiver
     # Terminate HTTP Server
     Stop Server

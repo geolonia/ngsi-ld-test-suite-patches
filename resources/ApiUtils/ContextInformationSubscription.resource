@@ -27,6 +27,7 @@ ${response}                                 ${EMPTY}
 
 *** Keywords ***
 Create Subscription
+    [Tags]    actor_context-subscriber
     [Arguments]
     ...    ${subscription_id}
     ...    ${filename_path}
@@ -54,6 +55,7 @@ Create Subscription
     RETURN    ${response}
 
 Create Subscription From File
+    [Tags]    actor_context-subscriber
     [Arguments]    ${filename}
     ${file_content}=    Get File    ${EXECDIR}/data/subscriptions/${filename}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
@@ -66,6 +68,7 @@ Create Subscription From File
     RETURN    ${response}
 
 Create Subscription From Subscription Payload
+    [Tags]    actor_context-subscriber
     [Arguments]
     ...    ${subscription_payload}
     ...    ${content_type}=${CONTENT_TYPE_LD_JSON}
@@ -90,6 +93,7 @@ Create Subscription From Subscription Payload
     RETURN    ${response}
 
 Delete Subscription
+    [Tags]    actor_context-subscriber
     [Arguments]    ${subscription_id}
     ${response}=    DELETE
     ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
@@ -98,6 +102,7 @@ Delete Subscription
     RETURN    ${response}
 
 Query Subscriptions
+    [Tags]    actor_context-subscriber
     [Arguments]    ${context}=${EMPTY}    ${limit}=${EMPTY}    ${offset}=${EMPTY}    ${accept}=${EMPTY}
 
     &{headers}=    Create Dictionary
@@ -123,6 +128,7 @@ Query Subscriptions
     RETURN    ${response}
 
 Retrieve Subscription
+    [Tags]    actor_context-subscriber
     [Arguments]    ${id}    ${accept}=${EMPTY}    ${context}=${EMPTY}    ${content_type}=${CONTENT_TYPE_JSON}
 
     &{headers}=    Create Dictionary    Content-Type=${content_type}
@@ -144,6 +150,7 @@ Retrieve Subscription
     RETURN    ${response}
 
 Update Subscription
+    [Tags]    actor_context-subscriber
     [Arguments]
     ...    ${subscription_id}
     ...    ${fragment_filename}
@@ -170,6 +177,7 @@ Update Subscription
     RETURN    ${response}
 
 Update Subscription With Payload
+    [Tags]    actor_context-subscriber
     [Arguments]    ${subscription_id}    ${payload}    ${content_type}    ${accept}=${EMPTY}    ${context}=${EMPTY}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     IF    '${accept}'!=''

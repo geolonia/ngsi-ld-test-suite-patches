@@ -21,6 +21,7 @@ ${ERROR_TYPE_BAD_REQUEST_DATA}      https://uri.etsi.org/ngsi-ld/errors/BadReque
 
 *** Keywords ***
 Add a new @context
+    [Tags]    actor_context-producer
     [Arguments]    ${filename}
 
     ${file_content}=    Get File    ${EXECDIR}/data/jsonldContext/${filename}
@@ -36,6 +37,7 @@ Add a new @context
     RETURN    ${response}
 
 Serve a @context
+    [Tags]    actor_context-consumer
     [Arguments]    ${contextId}    ${details}=${EMPTY}
     ${contextId}=    Replace String    ${contextId}    /ngsi-ld/v1/${JSONLDCONTEXTS_ENDPOINT_PATH}/    ${EMPTY}
     ${contextId}=    Evaluate    urllib.parse.quote("${contextId}", safe='')    modules=urllib
@@ -57,6 +59,7 @@ Serve a @context
     RETURN    ${response}
 
 Delete a @context
+    [Tags]    actor_context-producer
     [Arguments]    ${contextId}    ${reload}=${EMPTY}
     ${contextId}=    Replace String    ${contextId}    /ngsi-ld/v1/${JSONLDCONTEXTS_ENDPOINT_PATH}/    ${EMPTY}
     ${contextId}=    Evaluate    urllib.parse.quote("${contextId}", safe='')    modules=urllib
@@ -78,6 +81,7 @@ Delete a @context
     RETURN    ${response}
 
 List @contexts
+    [Tags]    actor_context-consumer
     [Arguments]    ${details}=${EMPTY}    ${kind}=${EMPTY}
 
     &{params}=    Create Dictionary

@@ -11,7 +11,9 @@ ${container_name}=      ngsi-ld-test-suite-mosquitto-container
 
 *** Keywords ***
 Start Mqtt Server
+    [Tags]    actor_notification-receiver
     [Arguments]    ${conf_file_name}    ${port}
+
     ${request} =    Set Variable
     ...    docker run -d -p ${port}:1883 -v "${CURDIR}/mosquitto/${conf_file_name}:/mosquitto/config/mosquitto.conf" -v "${CURDIR}/mosquitto/mosquitto_pwd:/mosquitto/config/mosquitto_pwd" --name "${container_name}" eclipse-mosquitto:2.0.18-openssl
 
@@ -26,5 +28,6 @@ Start Mqtt Server
     END
 
 Stop Mqtt Server
+    [Tags]    actor_notification-receiver
     ${request} =    Set Variable    docker container rm -f "${container_name}"
     Run Process    ${request}    shell=yes

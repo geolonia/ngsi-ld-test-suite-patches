@@ -10,6 +10,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 *** Keywords ***
 Create Subscription And Entity
+    [Tags]    actor_context-subscriber    actor_context-producer
     [Arguments]    ${subscription_payload_file_path}    ${building_filename}    ${entity_id_suffix}=None
 
     IF    '${entity_id_suffix}' == None
@@ -35,6 +36,7 @@ Create Subscription And Entity
     Check Response Status Code    201    ${create_subscription_response.status_code}
 
 Create Subscription And Entity With Linked Entity
+    [Tags]    actor_context-subscriber    actor_context-producer
     [Arguments]
     ...    ${subscription_payload_file_path}
     ...    ${linking_entity_filename}

@@ -40,6 +40,7 @@ ${response}                                 ${EMPTY}
 
 *** Keywords ***
 Append Entity Attributes
+    [Tags]    actor_context-producer
     [Arguments]    ${id}    ${fragment_filename}    ${content_type}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     ${file_content}=    Get File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
@@ -52,6 +53,7 @@ Append Entity Attributes
     RETURN    ${response}
 
 Append Entity Attributes With Parameters
+    [Tags]    actor_context-producer
     [Arguments]    ${id}    ${fragment_filename}    ${content_type}    ${options}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     ${fragment_payload}=    Load JSON From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
@@ -64,6 +66,7 @@ Append Entity Attributes With Parameters
     RETURN    ${response}
 
 Batch Create Entities
+    [Tags]    actor_context-producer
     [Arguments]
     ...    @{entities_to_be_created}
     ...    ${content_type}=${CONTENT_TYPE_LD_JSON}
@@ -89,6 +92,7 @@ Batch Create Entities
     RETURN    ${response}
 
 Batch Delete Entities
+    [Tags]    actor_context-producer
     [Arguments]    ${entities_ids_to_be_deleted}    ${teardown}=False
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
@@ -100,6 +104,7 @@ Batch Delete Entities
     RETURN    ${response}
 
 Batch Request Entities From File
+    [Tags]    actor_context-producer
     [Arguments]    ${batchOperation}    ${filename}
     ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
     ${endpoint_url}=    Get From Dictionary    ${BATCH_OPERATION_ENDPOINT_MAPPING}    ${batchOperation}
@@ -113,6 +118,7 @@ Batch Request Entities From File
     RETURN    ${response}
 
 Batch Update Entities
+    [Tags]    actor_context-producer
     [Arguments]    @{entities_to_be_updated}    ${overwrite_option}=${EMPTY}
     @{params}=    Create List
     IF    '${overwrite_option}'!=''
@@ -129,6 +135,7 @@ Batch Update Entities
     RETURN    ${response}
 
 Batch Merge Entities
+    [Tags]    actor_context-producer
     [Arguments]    @{entities_to_be_merged}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
@@ -140,6 +147,7 @@ Batch Merge Entities
     RETURN    ${response}
 
 Batch Upsert Entities
+    [Tags]    actor_context-producer
     [Arguments]    @{entities_to_be_upserted}    ${update_option}=replace
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
@@ -151,6 +159,7 @@ Batch Upsert Entities
     RETURN    ${response}
 
 Create Entity
+    [Tags]    actor_context-producer
     [Arguments]    ${filename}    ${entity_id}    ${local}=${EMPTY}
     &{params}=    Create Dictionary
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
@@ -167,6 +176,7 @@ Create Entity
     RETURN    ${response}
 
 Create Entity selecting @context
+    [Tags]    actor_context-producer
     [Arguments]    ${filename}    ${context}    ${entity_id}=${EMPTY}
     ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/jsonldContext/${filename}
     ${entity}=    Update Value To JSON    ${entity_payload}    $..@context    ${context}
@@ -185,6 +195,7 @@ Create Entity selecting @context
     RETURN    ${response}
 
 Create Entity Selecting Content Type
+    [Tags]    actor_context-producer
     [Arguments]    ${filename}    ${entity_id}    ${content_type}    ${context}=${EMPTY}    ${accept}=${EMPTY}
     ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/${filename}
     ${entity}=    Update Value To JSON    ${entity_payload}    $.id    ${entity_id}
@@ -207,6 +218,7 @@ Create Entity Selecting Content Type
     RETURN    ${response}
 
 Create Entity From File
+    [Tags]    actor_context-producer
     [Arguments]    ${filename}
     ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
@@ -219,6 +231,7 @@ Create Entity From File
     RETURN    ${response}
 
 Create Entity From JSON-LD Content
+    [Tags]    actor_context-producer
     [Arguments]    ${content}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
@@ -230,6 +243,7 @@ Create Entity From JSON-LD Content
     RETURN    ${response}
 
 Delete Entity Attributes
+    [Tags]    actor_context-producer
     [Arguments]    ${entityId}    ${attributeId}    ${datasetId}    ${deleteAll}    ${context}=${EMPTY}
     &{headers}=    Create Dictionary    Content-Type=${CONTENT_TYPE_JSON}
     IF    '${context}'!='${EMPTY}'
@@ -254,6 +268,7 @@ Delete Entity Attributes
     RETURN    ${response}
 
 Delete Entity
+    [Tags]    actor_context-producer
     [Arguments]    ${id}    ${local}=${EMPTY}
     &{params}=    Create Dictionary
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
@@ -268,6 +283,7 @@ Delete Entity
     RETURN    ${response}
 
 Partial Update Entity Attributes
+    [Tags]    actor_context-producer
     [Arguments]
     ...    ${entityId}
     ...    ${attributeId}
@@ -295,6 +311,7 @@ Partial Update Entity Attributes
     RETURN    ${response}
 
 Update Entity Attributes
+    [Tags]    actor_context-producer
     [Arguments]    ${id}    ${fragment_filename}    ${content_type}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     ${file_content}=    Get File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
@@ -307,6 +324,7 @@ Update Entity Attributes
     RETURN    ${response}
 
 Replace Entity
+    [Tags]    actor_context-producer
     [Arguments]
     ...    ${entity_id}
     ...    ${filename}
@@ -331,6 +349,7 @@ Replace Entity
     RETURN    ${response}
 
 Replace Entity Selecting Content Type
+    [Tags]    actor_context-producer
     [Arguments]
     ...    ${entity_id}
     ...    ${entity_fragment}
@@ -352,6 +371,7 @@ Replace Entity Selecting Content Type
     RETURN    ${response}
 
 Merge Entity
+    [Tags]    actor_context-producer
     [Arguments]
     ...    ${entity_id}
     ...    ${entity_filename}
@@ -375,6 +395,7 @@ Merge Entity
     RETURN    ${response}
 
 Replace Attribute Selecting Content Type
+    [Tags]    actor_context-producer
     [Arguments]
     ...    ${entity_id}
     ...    ${attr_id}

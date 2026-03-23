@@ -17,6 +17,7 @@ ${response}                                     ${EMPTY}
 
 *** Keywords ***
 Query Context Source Registrations
+    [Tags]    actor_context-consumer
     [Arguments]
     ...    ${context}=${EMPTY}
     ...    ${id}=${EMPTY}
@@ -82,6 +83,7 @@ Query Context Source Registrations
     RETURN    ${response}
 
 Query Context Source Registrations With Return
+    [Tags]    actor_context-consumer
     [Arguments]
     ...    ${context}=${EMPTY}
     ...    ${id}=${EMPTY}
@@ -143,6 +145,7 @@ Query Context Source Registrations With Return
     RETURN    ${response}
 
 Retrieve Context Source Registration
+    [Tags]    actor_context-consumer
     [Arguments]    ${context_source_registration_id}    ${context}=${EMPTY}    ${accept}=${EMPTY}
 
     &{headers}=    Create Dictionary

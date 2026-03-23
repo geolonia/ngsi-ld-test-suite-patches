@@ -21,6 +21,7 @@ ${response}                                     ${EMPTY}
 
 *** Keywords ***
 Query Temporal Representation Of Entities
+    [Tags]    actor_context-consumer
     [Arguments]
     ...    ${context}=${EMPTY}
     ...    ${entity_types}=${EMPTY}
@@ -108,6 +109,7 @@ Query Temporal Representation Of Entities
     RETURN    ${response}
 
 Query Temporal Representation Of Entities Via Post
+    [Tags]    actor_context-consumer
     [Arguments]    ${query_file_name}    ${content_type}=${CONTENT_TYPE_JSON}    ${context}=${EMPTY}
     ${headers}=    Create Dictionary
     Set To Dictionary    ${headers}    Content-Type    ${content_type}
@@ -196,6 +198,7 @@ Query Temporal Representation Of Entities With Return
     RETURN    ${response}
 
 Retrieve Temporal Representation Of Entity
+    [Tags]    actor_context-consumer
     [Arguments]
     ...    ${temporal_entity_representation_id}
     ...    ${attrs}=${EMPTY}

@@ -49,7 +49,7 @@ Prepare Context Source Registration From File
         ...    $..entities[*]
         ...    ${dict}
     END
-        IF    '${entity_id_pattern}' != ''
+    IF    '${entity_id_pattern}' != ''
         ${dict}=    Create Dictionary    idPattern=${entity_id_pattern}
         ${registration_payload}=    Add Object To JSON
         ...    ${registration_payload}
@@ -73,6 +73,7 @@ Prepare Context Source Registration From File
     RETURN    ${registration_payload}
 
 Create Context Source Registration
+    [Tags]    actor_context-producer
     [Arguments]    ${context_source_registration_payload}
 
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
@@ -85,6 +86,7 @@ Create Context Source Registration
     RETURN    ${response}
 
 Create Context Source Registration With Return
+    [Tags]    actor_context-producer
     [Arguments]    ${payload}    ${content_type}=${CONTENT_TYPE_LD_JSON}    ${context}=${EMPTY}    ${accept}=${EMPTY}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     IF    '${accept}'!=''
@@ -105,6 +107,7 @@ Create Context Source Registration With Return
     RETURN    ${response}
 
 Delete Context Source Registration
+    [Tags]    actor_context-producer
     [Arguments]    ${context_source_registration_id}
 
     ${response}=    DELETE    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
@@ -112,6 +115,7 @@ Delete Context Source Registration
     RETURN    ${response}
 
 Delete Context Source Registration With Return
+    [Tags]    actor_context-producer
     [Arguments]    ${registration_id}
     ${response}=    DELETE
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
@@ -120,6 +124,7 @@ Delete Context Source Registration With Return
     RETURN    ${response}
 
 Update Context Source Registration
+    [Tags]    actor_context-producer
     [Arguments]    ${context_source_registration_id}    ${update_fragment}
 
     ${response}=    PATCH
@@ -130,6 +135,7 @@ Update Context Source Registration
     RETURN    ${response}
 
 Update Context Source Registration From File
+    [Tags]    actor_context-producer
     [Arguments]    ${context_source_registration_id}    ${filename}    ${content_type}    ${accept}=${EMPTY}
 
     &{headers}=    Create Dictionary    Content-Type=${content_type}
@@ -146,6 +152,7 @@ Update Context Source Registration From File
     RETURN    ${response}
 
 Update Context Source Registration With Return
+    [Tags]    actor_context-producer
     [Arguments]    ${registration_id}    ${fragment}    ${content_type}    ${accept}=${EMPTY}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     IF    '${accept}'!=''    Set To Dictionary    ${headers}    Accept=${accept}

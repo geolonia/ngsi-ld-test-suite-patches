@@ -26,6 +26,7 @@ ${response}                                 ${EMPTY}
 
 *** Keywords ***
 Query Entities
+    [Tags]    actor_context-consumer
     [Arguments]
     ...    ${entity_ids}=${EMPTY}
     ...    ${entity_types}=${EMPTY}
@@ -107,6 +108,7 @@ Query Entities
     RETURN    ${response}
 
 Query Entities Via POST
+    [Tags]    actor_context-consumer
     [Arguments]
     ...    ${entities}=${EMPTY}
     ...    ${content_type}=${CONTENT_TYPE_JSON}
@@ -143,6 +145,7 @@ Query Entities Via POST
     RETURN    ${response}
 
 Retrieve Entity
+    [Tags]    actor_context-consumer
     [Arguments]
     ...    ${id}
     ...    ${accept}=${EMPTY}
@@ -203,6 +206,7 @@ Retrieve Entity
     RETURN    ${response}
 
 Retrieve Attribute
+    [Tags]    actor_context-consumer
     [Arguments]    ${attribute_name}    ${context}=${EMPTY}    ${accept}=${EMPTY}
 
     &{headers}=    Create Dictionary
@@ -223,6 +227,7 @@ Retrieve Attribute
     RETURN    ${response}
 
 Retrieve Attributes
+    [Tags]    actor_context-consumer
     [Arguments]    ${context}=${EMPTY}    ${details}=false    ${accept}=${EMPTY}
 
     &{headers}=    Create Dictionary
@@ -246,6 +251,7 @@ Retrieve Attributes
     RETURN    ${response}
 
 Retrieve Entity Type
+    [Tags]    actor_context-consumer
     [Arguments]    ${type}    ${context}=${EMPTY}    ${accept}=${EMPTY}
 
     &{headers}=    Create Dictionary
@@ -266,6 +272,7 @@ Retrieve Entity Type
     RETURN    ${response}
 
 Retrieve Entity Types
+    [Tags]    actor_context-consumer
     [Arguments]    ${context}=${EMPTY}    ${details}=false    ${accept}=${EMPTY}
 
     &{headers}=    Create Dictionary
