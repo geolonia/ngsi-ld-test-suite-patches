@@ -1,0 +1,33 @@
+{
+  "id": "urn:ngsi-ld:OffStreetParking:1",
+  "type": "OffStreetParking",
+  "name": {
+    "type": "Property",
+    "value": "Downtown One"
+  },
+  "location": {
+    "type": "GeoProperty",
+    "value": {
+      "type": "Point",
+      "coordinates": [
+        -8.9,
+        42.2
+      ] ,
+    "observedAt": "2021-04-04T11:45:00Z"
+    }
+  }, 
+  "@context": [
+    {
+      "OffStreetParking": "https://ngsi-ld-test-suite/context#OffStreetParking",
+      "Vehicle": "https://ngsi-ld-test-suite/context#Vehicle",
+      "availableSpotsNumber": "https://ngsi-ld-test-suite/context#availableSpotsNumber",
+      "brandName": "https://ngsi-ld-test-suite/context#brandName",
+      "isParked": "https://ngsi-ld-test-suite/context#isParked",
+      "name": "https://ngsi-ld-test-suite/context#name",
+      "source": "https://ngsi-ld-test-suite/context#source",
+      "speed": "https://ngsi-ld-test-suite/context#speed",
+      "totalSpotsNumber": "https://ngsi-ld-test-suite/context#totalSpotsNumber"
+    },
+    "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
+  ]
+}

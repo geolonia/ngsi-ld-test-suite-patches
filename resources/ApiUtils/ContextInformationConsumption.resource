@@ -160,6 +160,8 @@ Retrieve Entity
     ...    ${pick}=${EMPTY}
     ...    ${omit}=${EMPTY}
     ...    ${local}=${EMPTY}
+    ...    ${broker_url}=${EMPTY}
+
     ${attrs_length}=    Get Length    ${attrs}
     ${accept_length}=    Get Length    ${accept}
     ${options_length}=    Get Length    ${options}
@@ -167,6 +169,7 @@ Retrieve Entity
     ${lang_length}=    Get Length    ${lang}
     ${pick_length}=    Get Length    ${pick}
     ${omit_length}=    Get Length    ${omit}
+    ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
     &{headers}=    Create Dictionary
     &{params}=    Create Dictionary
     IF    ${accept_length}>0
@@ -198,7 +201,7 @@ Retrieve Entity
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
 
     ${response}=    GET
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}
+    ...    url=${final_url}/${ENTITIES_ENDPOINT_PATH}${id}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any

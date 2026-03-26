@@ -160,14 +160,15 @@ Batch Upsert Entities
 
 Create Entity
     [Tags]    actor_context-producer
-    [Arguments]    ${filename}    ${entity_id}    ${local}=${EMPTY}
+    [Arguments]    ${filename}    ${entity_id}    ${local}=${EMPTY}    ${broker_url}=${EMPTY}
     &{params}=    Create Dictionary
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
     ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/${filename}
     ${entity}=    Update Value To JSON    ${entity_payload}    $.id    ${entity_id}
+    ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    url=${final_url}/${ENTITIES_ENDPOINT_PATH}
     ...    json=${entity}
     ...    params=${params}
     ...    headers=${headers}
@@ -219,11 +220,12 @@ Create Entity Selecting Content Type
 
 Create Entity From File
     [Tags]    actor_context-producer
-    [Arguments]    ${filename}
+    [Arguments]    ${filename}    ${broker_url}=${EMPTY}
     ${file_content}=    Get File    ${EXECDIR}/data/entities/${filename}
+    ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    url=${final_url}/${ENTITIES_ENDPOINT_PATH}
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
@@ -269,11 +271,12 @@ Delete Entity Attributes
 
 Delete Entity
     [Tags]    actor_context-producer
-    [Arguments]    ${id}    ${local}=${EMPTY}
+    [Arguments]    ${id}    ${local}=${EMPTY}    ${broker_url}=${EMPTY}
     &{params}=    Create Dictionary
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
+    ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
     ${response}=    DELETE
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}
+    ...    url=${final_url}/${ENTITIES_ENDPOINT_PATH}${id}
     ...    params=${params}
     ...    expected_status=any
     IF    ${delete_temporal_on_core_delete}

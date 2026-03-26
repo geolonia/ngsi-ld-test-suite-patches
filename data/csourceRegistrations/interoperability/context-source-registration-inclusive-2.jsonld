@@ -1,0 +1,22 @@
+{
+  "id": "urn:ngsi-ld:ContextSourceRegistration:Inclusive:2",
+  "type": "ContextSourceRegistration",
+  "information": [
+    {
+      "entities": [
+        {
+          "type": "OffStreetParking"
+        }
+      ],
+      "propertyNames": [
+        "availableSpotsNumber",
+        "totalSpotsNumber"			
+      ]
+    }
+  ],
+  "mode": "inclusive",
+  "endpoint": "xxx",
+  "@context":[
+    "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
+ ]
+}

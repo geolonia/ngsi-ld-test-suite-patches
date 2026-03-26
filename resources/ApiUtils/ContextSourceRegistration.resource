@@ -31,9 +31,11 @@ Prepare Context Source Registration From File
     ...    ${entity_id_pattern}=${EMPTY}
     ...    ${mode}=${EMPTY}
     ...    ${endpoint}=${EMPTY}
+    ...    ${broker_url}=${EMPTY}
     ...    ${operations}=[]
 
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_file}
+    ${final_context_source_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${context_source_url}
     ${registration_payload}=    Update Value To JSON
     ...    ${payload}
     ...    $.id
@@ -41,7 +43,7 @@ Prepare Context Source Registration From File
     ${registration_payload}=    Update Value To JSON
     ...    ${registration_payload}
     ...    $..endpoint
-    ...    ${context_source_url}${endpoint}
+    ...    ${final_context_source_url}${endpoint}
     IF    '${entity_id}' != ''
         ${dict}=    Create Dictionary    id=${entity_id}
         ${registration_payload}=    Add Object To JSON
@@ -87,8 +89,9 @@ Create Context Source Registration
 
 Create Context Source Registration With Return
     [Tags]    actor_context-producer
-    [Arguments]    ${payload}    ${content_type}=${CONTENT_TYPE_LD_JSON}    ${context}=${EMPTY}    ${accept}=${EMPTY}
+    [Arguments]    ${payload}    ${content_type}=${CONTENT_TYPE_LD_JSON}    ${context}=${EMPTY}    ${accept}=${EMPTY}    ${broker_url}=${EMPTY}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
+    ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
     IF    '${accept}'!=''
         Set To Dictionary    ${headers}    Accept=${context}
     END
@@ -99,7 +102,7 @@ Create Context Source Registration With Return
         ...    Link=${context_link}
     END
     ${response}=    POST
-    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
+    ...    url=${final_url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
     ...    json=${payload}
     ...    headers=${headers}
     ...    expected_status=any
@@ -108,17 +111,19 @@ Create Context Source Registration With Return
 
 Delete Context Source Registration
     [Tags]    actor_context-producer
-    [Arguments]    ${context_source_registration_id}
+    [Arguments]    ${context_source_registration_id}    ${broker_url}=${EMPTY}
 
-    ${response}=    DELETE    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
+    ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
+    ${response}=    DELETE    url=${final_url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
     Output    ${response}    Delete Context Source Registration
     RETURN    ${response}
 
 Delete Context Source Registration With Return
     [Tags]    actor_context-producer
-    [Arguments]    ${registration_id}
+    [Arguments]    ${registration_id}    ${broker_url}=${EMPTY}
+    ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
     ${response}=    DELETE
-    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
+    ...    url=${final_url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
     ...    expected_status=any
     Output    ${response}    Delete Context Source Registration
     RETURN    ${response}

@@ -166,6 +166,22 @@ test launch command followed by the file name.
   - You should configure your broker accordingly
 
 
+- Interoperability tests (IOP_CNF_*) :
+  - The Interoperability tests assumes that it will manage multiple brokers
+  - Multiple NGSI-LD brokers will be running simultaneously on different ports
+  - The broker URLs will be passed as a variable by terminal
+
+  The following example shows how to run an interoperability test with multiple brokers: 
+
+  ```
+    robot --variable b1_url:http://localhost:8080/ngsi-ld/v1 \
+      --variable b2_url:http://localhost:8081/ngsi-ld/v1 \
+      --variable b3_url:http://localhost:8082/ngsi-ld/v1 \
+      --variable b4_url:http://localhost:8083/ngsi-ld/v1 \
+      --variable b5_url:http://localhost:8084/ngsi-ld/v1 \
+      ./TP/NGSI-LD/Interoperability/Provision/Entities/CreateEntity/IOP_CNF_01_01.robot
+  ```
+
 ## Test Suite Management (tsm)
 
 The `tsm` script is designed to facilitate the selection and execution of the Test Suite, especially if not all the 
