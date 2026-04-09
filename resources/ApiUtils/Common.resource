@@ -23,6 +23,8 @@ ${TEMPORAL_ENTITIES_ENDPOINT_PATH}      temporal/entities
 ${ENTITIES_TYPES_ENDPOINT_PATH}         types
 
 ${ERROR_TYPE_INVALID_REQUEST}           https://uri.etsi.org/ngsi-ld/errors/InvalidRequest
+${ERROR_TYPE_RESOURCE_NOT_FOUND}        https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
+
 
 *** Keywords ***
 Build Context Link
