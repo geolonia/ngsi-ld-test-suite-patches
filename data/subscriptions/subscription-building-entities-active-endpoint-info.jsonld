@@ -9,7 +9,7 @@
    "notification":{
       "format": "normalized",
       "endpoint":{
-         "uri":"http://my.endpoint.org/notify",
+         "uri":"http://localhost:1111/notify",
          "accept":"application/json",
          "receiverInfo": [
             { "key": "X-Additional-Key", "value": "Value" }

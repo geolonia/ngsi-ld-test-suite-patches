@@ -1248,7 +1248,7 @@ if __name__ == "__main__":
     print(data.get_checks(checks='Check SUT Not Containing Resources'))
     print(data.get_checks(checks='Check NotificationParams',
                           format="keyValues",
-                          uri="http://my.endpoint.org/notify",
+                          uri="http://localhost:1111/notify",
                           accept="application/json",
                           status="ok",
                           timesSent="1"))

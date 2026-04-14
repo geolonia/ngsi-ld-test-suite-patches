@@ -1,7 +1,7 @@
 {
    "format":"keyValues",
    "endpoint":{
-      "uri":"http://my.endpoint.org/notify",
+      "uri":"http://localhost:1111/notify",
       "accept":"application/json"
    },
    "status":"ok",
