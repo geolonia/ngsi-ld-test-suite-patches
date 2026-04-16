@@ -49,6 +49,7 @@ Query Entities
     ...    ${joinLevel}=${EMPTY}
     ...    ${pick}=${EMPTY}
     ...    ${omit}=${EMPTY}
+    ...    ${orderBy}=${EMPTY}
     ${attrs_length}=    Get Length    ${attrs}
     ${accept_length}=    Get Length    ${accept}
     ${options_length}=    Get Length    ${options}
@@ -56,6 +57,7 @@ Query Entities
     ${entity_types_length}=    Get Length    ${entity_types}
     ${pick_length}=    Get Length    ${pick}
     ${omit_length}=    Get Length    ${omit}
+    ${orderBy_length}=    Get Length    ${orderBy}
     &{headers}=    Create Dictionary
     &{params}=    Create Dictionary
     IF    ${accept_length}>0
@@ -104,6 +106,9 @@ Query Entities
     END
     IF    ${pick_length}>0    Set To Dictionary    ${params}    pick=${pick}
     IF    ${omit_length}>0    Set To Dictionary    ${params}    omit=${omit}
+    IF    ${orderBy_length}>0
+        Set To Dictionary    ${params}    orderBy=${orderBy}
+    END
 
     ${response}=    GET
     ...    url=${url}/${ENTITIES_ENDPOINT_PATH}

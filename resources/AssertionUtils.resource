@@ -37,13 +37,13 @@ Check Response Body Containing Array Of URIs set to
     Lists Should Be Equal    ${expected_entities_ids}    ${response_body}    ignore_order=True
 
 Check Response Body Containing Entities URIS set to
-    [Arguments]    ${expected_entities_ids}    ${response_body}
+    [Arguments]    ${expected_entities_ids}    ${response_body}    ${ignore_order}=True
     @{response_entities_ids}=    Create List
     FOR    ${entity}    IN    @{response_body}
         Append To List    ${response_entities_ids}    ${entity['id']}
     END
 
-    Lists Should Be Equal    ${expected_entities_ids}    ${response_entities_ids}    ignore_order=True
+    Lists Should Be Equal    ${expected_entities_ids}    ${response_entities_ids}    ignore_order=${ignore_order}
 
 Check Response Body Content
     [Arguments]    ${expectation_filename}    ${response_body}    ${additional_ignored_path}=${EMPTY}
