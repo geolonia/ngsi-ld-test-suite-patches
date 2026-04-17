@@ -97,6 +97,11 @@ Call Api Endpoint With Invalid Parameter
         ...    json=${file_content}
         ...    headers=${headers}
         ...    expected_status=any
+    ELSE IF    "${method}"=="DELETE"
+        ${response}=    DELETE
+        ...    url=${url}/${endpoint}${params}
+        ...    headers=${headers}
+        ...    expected_status=any
     END
 
     Output    ${response}    Call endpoint With Invalid Parameter

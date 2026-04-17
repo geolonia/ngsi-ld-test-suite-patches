@@ -34,6 +34,9 @@ ${filename}=    building-minimal.json
 059_01_07 QuerySubscriptions
     [Tags]    sub-create    5_8_1    6_3_20    since_v1.7.1
     GET    subscriptions
+059_01_08 PurgeEntities
+    [Tags]    e-purge    5_6_21    6_4_3_3    since_v1.9.1
+    DELETE    entities
 
 
 *** Keywords ***

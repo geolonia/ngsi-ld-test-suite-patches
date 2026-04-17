@@ -121,6 +121,10 @@ class Requests:
                 'positions': [0, 1, 2, 3],
                 'params': ['entity_id', 'entity_fragment', 'content_type', 'context']
             },
+            'Purge Entities': {
+                'positions': [],
+                'params': ['type', 'id', 'q', 'keep', 'drop', 'context', 'local']
+            },
             'Merge Entity': {
                 'positions': [0, 1, 2, 3],
                 'params': ['entity_id', 'entity_filename', 'content_type', 'context']
@@ -343,6 +347,8 @@ class Requests:
                 Requests.replace_entity,
             'Replace Entity Selecting Content Type':
                 Requests.replace_entity_selecting_content_type,
+            'Purge Entities':
+                Request.purge_entities,
             'Merge Entity':
                 Requests.merge_entity,
             'Replace Attribute Selecting Content Type':
@@ -1519,6 +1525,35 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: entity_fragment set to '{value}'"
                 case 'content_type':
                     response = f"{response} and\n    Query Parameter: content_type set to '{value}'"
+                case 'context':
+                    response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case _:
+                    raise Exception(f"ERROR: unexpected attribute {result}, the attributes expected are "
+                                    f"{expected_parameters}, but received: {kwargs}")
+
+        return response
+
+    @staticmethod
+    def purge_entities(kwargs) -> str:
+        expected_parameters = ['type', 'id', 'q', 'keep', 'drop', 'context', 'local']
+
+        if 'context' not in kwargs:
+            kwargs['context'] = '${EMPTY}'
+
+        result = [x for x in kwargs if x not in expected_parameters]
+        response = "Purge Entities"
+        for key, value in kwargs.items():
+            match key:
+                case 'type':
+                    response = f"{response} and\n    Query Parameter: type set to '{value}'"
+                case 'id':
+                    response = f"{response} and\n    Query Parameter: id set to '{value}'"
+                case 'q':
+                    response = f"{response} and\n    Query Parameter: q set to '{value}'"
+                case 'keep':
+                    response = f"{response} and\n    Query Parameter: keep set to '{value}'"
+                case 'drop':
+                    response = f"{response} and\n    Query Parameter: drop set to '{value}'"
                 case 'context':
                     response = f"{response} and\n    Query Parameter: context set to '{value}'"
                 case _:

@@ -13,9 +13,11 @@ Resource            ${EXECDIR}/resources/MockServerUtils.resource
 Test Setup          Create Entity And Registration On The Context Broker And Start Context Source Mock Server
 Test Teardown       Delete Registrations And Stop Context Source Mock Server
 
+
 *** Variables ***
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
+
 
 *** Test Cases ***
 D017_01_inc Purge Entities On Both Context Broker And Context Source
@@ -23,7 +25,7 @@ D017_01_inc Purge Entities On Both Context Broker And Context Source
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_21
 
     Set Stub Reply    DELETE    /ngsi-ld/v1/entities?type=Vehicle    204
-    ${response}=    Purge Entities    entity_types=Vehicle    context=${ngsild_test_suite_context}
+    ${response}=    Purge Entities    type=Vehicle    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    DELETE    /ngsi-ld/v1/entities?type=Vehicle
@@ -31,6 +33,7 @@ D017_01_inc Purge Entities On Both Context Broker And Context Source
 
     ${response}=    Retrieve Entity    ${entity_id}
     Check Response Status Code    404    ${response.status_code}
+
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server

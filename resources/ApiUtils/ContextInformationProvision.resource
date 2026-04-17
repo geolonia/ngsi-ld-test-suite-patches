@@ -377,6 +377,39 @@ Replace Entity Selecting Content Type
     Output    ${response}    Replace Entity Selecting Content Type
     RETURN    ${response}
 
+Purge Entities
+    [Tags]    actor_context-producer
+    [Arguments]
+    ...    ${type}=${EMPTY}
+    ...    ${id}=${EMPTY}
+    ...    ${q}=${EMPTY}
+    ...    ${keep}=${EMPTY}
+    ...    ${drop}=${EMPTY}
+    ...    ${context}=${EMPTY}
+    ...    ${local}=${EMPTY}
+    &{headers}=    Create Dictionary
+    IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
+        Set To Dictionary
+        ...    ${headers}
+        ...    Link=${context_link}
+    END
+    &{params}=    Create Dictionary
+    IF    '${type}'!=''    Set To Dictionary    ${params}    type=${type}
+    IF    '${id}'!=''    Set To Dictionary    ${params}    id=${id}
+    IF    '${q}'!=''    Set To Dictionary    ${params}    q=${q}
+    IF    '${keep}'!=''    Set To Dictionary    ${params}    keep=${keep}
+    IF    '${drop}'!=''    Set To Dictionary    ${params}    drop=${drop}
+    IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
+
+    ${response}=    DELETE
+    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
+    Output    ${response}    Purge Entities
+    RETURN    ${response}
+
 Merge Entity
     [Tags]    actor_context-producer
     [Arguments]
