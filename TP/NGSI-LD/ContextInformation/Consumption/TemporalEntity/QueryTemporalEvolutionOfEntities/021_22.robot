@@ -18,15 +18,15 @@ ${bus_payload_file}=                2020-08-bus-temporal-representation.jsonld
 
 
 *** Test Cases ***    PICK    OMIT    ATTRS
-020_22_01 RetrieveWithSameEntityMemberInPickAndOmit
+021_22_01 RetrieveWithSameEntityMemberInPickAndOmit
     [Documentation]    Check that a BadRequestDataException is returned if an entity member is present in pick and omit
     [Tags]    te-query    5_7_4    4_2_1    since_v1.8.1
     speed    speed    ${EMPTY}
-020_22_02 RetrieveWithPickAndAttrs
+021_22_02 RetrieveWithPickAndAttrs
     [Documentation]    Check that a BadRequestDataException is returned if pick and attrs query params are present
     [Tags]    te-query    5_7_4    4_2_1    since_v1.8.1
     speed    ${EMPTY}    fuelLevel
-020_22_03 RetrieveWithOmitAndAttrs
+021_22_03 RetrieveWithOmitAndAttrs
     [Documentation]    Check that a BadRequestDataException is returned if omit and attrs query params are present
     [Tags]    te-query    5_7_4    4_2_1    since_v1.8.1
     ${EMPTY}    speed    fuelLevel

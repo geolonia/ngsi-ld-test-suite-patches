@@ -13,12 +13,14 @@ Resource            ${EXECDIR}/resources/MockServerUtils.resource
 Test Setup          Setup Registration And Start Context Source Mock Server
 Test Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
 
+
 *** Variables ***
 ${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-different-attributes.jsonld
 ${entity_attribute_filename}            fragmentEntities/vehicle-speed-two-datasetid-01-fragment.json
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
+
 
 *** Test Cases ***
 D009_01_red Replace Entity Attribute
@@ -46,14 +48,15 @@ D009_01_red Replace Entity Attribute
     Should Be Equal    ${stub_count}    1
 
     Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities/${entity_id}    200    ${entity_id}
-    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}    
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
     ${new_attribute}=    Get From Dictionary    ${response.json()}    speed
     Should Be Equal    ${attribute_payload}[speed][value]    ${new_attribute}[value]
 
     Set Stub Reply    GET    /broker2/ngsi-ld/v1/entities/${entity_id}    200    ${entity_id}
-    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}    
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
     ${new_attribute}=    Get From Dictionary    ${response.json()}    speed
     Should Be Equal    ${attribute_payload}[speed][value]    ${new_attribute}[value]
+
 
 *** Keywords ***
 Setup Registration And Start Context Source Mock Server

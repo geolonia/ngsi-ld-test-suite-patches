@@ -39,7 +39,7 @@ D009_01_inc Replace Entity Attribute
     Check Response Status Code    204    ${response.status_code}
 
     Set Stub Reply    GET    /ngsi-ld/v1/entities/${entity_id}    200    ${entity_id}
-    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
     ${new_attribute}=    Get From Dictionary    ${response.json()}    speed
     Should Be Equal    ${attribute_payload}[speed][value]    ${new_attribute}[value]
 

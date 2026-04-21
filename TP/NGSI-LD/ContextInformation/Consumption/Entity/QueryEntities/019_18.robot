@@ -13,15 +13,15 @@ Test Template       Query Entities With Invalid Pick Or Omit Query Params Usage
 
 
 *** Test Cases ***    PICK    OMIT    ATTRS
-018_18_01 RetrieveWithSameEntityMemberInPickAndOmit
+019_18_01 RetrieveWithSameEntityMemberInPickAndOmit
     [Documentation]    Check that a BadRequestDataException is returned if an entity member is present in pick and omit
     [Tags]    e-query    5_7_2    4_21    since_v1.8.1
     name    name    ${EMPTY}
-018_18_02 RetrieveWithPickAndAttrs
+019_18_02 RetrieveWithPickAndAttrs
     [Documentation]    Check that a BadRequestDataException is returned if pick and attrs query params are present
     [Tags]    e-query    5_7_2    4_21    since_v1.8.1
     name    ${EMPTY}    category
-018_18_03 RetrieveWithOmitAndAttrs
+019_18_03 RetrieveWithOmitAndAttrs
     [Documentation]    Check that a BadRequestDataException is returned if omit and attrs query params are present
     [Tags]    e-query    5_7_2    4_21    since_v1.8.1
     ${EMPTY}    name    category

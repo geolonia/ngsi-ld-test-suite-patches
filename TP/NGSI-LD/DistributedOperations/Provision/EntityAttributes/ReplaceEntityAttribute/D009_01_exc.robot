@@ -42,7 +42,7 @@ D009_01_exc Replace Entity Attribute
     Should Be Equal    ${stub_count}    1
 
     Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities/${entity_id}    200    ${entity_id}
-    ${response}=    Retrieve Entity by Id    ${entity_id}    context=${ngsild_test_suite_context}
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
     ${new_attribute}=    Get From Dictionary    ${response.json()}    speed
     Should Be Equal    ${attribute_payload}[speed][value]    ${new_attribute}[value]
 
