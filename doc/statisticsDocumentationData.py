@@ -36,19 +36,23 @@ if __name__ == "__main__":
             for name in dirs:
                 os.rmdir(join(root, name))  
 
-    fullpath = basedir + "/TP/NGSI-LD"
+    fullpath = [
+        (basedir + "/TP/NGSI-LD", "TP"),
+        (basedir + "/IOP_TP/NGSI-LD", "IOP")
+    ]
+
     excluded_dirs = [""]
-    for root, dirs, files in walk(fullpath):
-        if root == fullpath:
+    for path_info, label in fullpath:
+        for root, dirs, files in walk(path_info):
             dirs[:] = [d for d in dirs if d not in excluded_dirs]
-        for filename in files:
-            if filename.endswith(ROBOT_FILE_EXTENSION):
-                number_of_all_testcases += 1
-                name_of_test_case = filename[: -len(ROBOT_FILE_EXTENSION)]
-                json_of_test_case = create_json_of_robotfile(name_of_test_case, True)
-                statistics[name_of_test_case] = dict()
-                strippedpath = root[len(fullpath) + 1 :]
-                statistics[name_of_test_case]["path"] = strippedpath
+            for filename in files:
+                if filename.endswith(ROBOT_FILE_EXTENSION):
+                    number_of_all_testcases += 1
+                    name_of_test_case = filename[: -len(ROBOT_FILE_EXTENSION)]
+                    json_of_test_case = create_json_of_robotfile(name_of_test_case, True)
+                    statistics[name_of_test_case] = dict()
+                    strippedpath = root[len(path_info) + 1 :]
+                    statistics[name_of_test_case]["path"] = strippedpath
                 if (
                     "error_while_parsing" in json_of_test_case
                     and json_of_test_case["error_while_parsing"]
@@ -70,7 +74,9 @@ if __name__ == "__main__":
                     number_of_successes += 1
                     # we add it here because Fernando's code does not, in case of successful parsing
                     json_of_test_case["error_while_parsing"] = False
-                    if json_of_test_case["robotpath"].startswith("DistributedOperations"):
+                    if json_of_test_case["robotpath"].startswith("Interoperability"):
+                            json_of_test_case["config_id"] = "CF_06"
+                    elif json_of_test_case["robotpath"].startswith("DistributedOperations"):
                         json_of_test_case["config_id"] = "CF_04"
                     elif json_of_test_case["robotpath"].startswith("ContextSource"):
                         json_of_test_case["config_id"] = "CF_03"
@@ -249,6 +255,21 @@ if __name__ == "__main__":
                     if len(unpacked_testcase["clauses"]) > 1:
                         print("MULTIPLE CLAUSES in " + ptpid)
                     permutations.append(unpacked_testcase)
+                elif "permutation_iop_id" in permutation_body:
+                    # we do not want to add the IOP permutations to the list of permutations, 
+                    # but we want to check that they are correctly parsed and that they have a robotlink
+                    permutation_body["stripped_permutation_tp_id"] = ptpid[
+                        ptpid.rindex("/") + 1 :
+                    ]
+
+                    # use the stripped_permutation_tp_id as text of the link
+                    permutation_body["robotlink"] = (
+                        '<a href="'
+                        + fullurl
+                        + '">'
+                        + permutation_body["stripped_permutation_tp_id"]
+                        + "</a>"
+                    )
                 else:
                     print("NO PERMUTATION TP ID")
                     exit(1)

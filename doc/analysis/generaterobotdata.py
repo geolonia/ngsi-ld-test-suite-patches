@@ -15,8 +15,14 @@ class GenerateRobotData:
 
         self.config_variables = ParseVariablesFile()
         self.robot = ParseRobotFile(filename=robot_file, execdir=execdir, config_file=self.config_variables)
-        self.apiutils = [ParseApiUtilsFile(filename=file) for file in self.robot.resource_files]
-        self.robot.set_apiutils(self.apiutils)
+        
+        self.file_type = self.robot.file_type
+        
+        if self.file_type == "IOP":
+            self.apiutils = []
+        else:  # TP
+            self.apiutils = [ParseApiUtilsFile(filename=file) for file in self.robot.resource_files]
+            self.robot.set_apiutils(self.apiutils)
 
         self.test_cases = list()
         self.test_suite = dict()
@@ -114,12 +120,22 @@ class GenerateRobotData:
         self.initial_setup = InitialSetup()
 
     def get_info(self):
-        self.test_suite['robotpath'] = (self.robot_file.replace(f'{self.execdir}/TP/NGSI-LD/', '')
-                                        .replace(f'/{self.robot.test_suite}.robot', ''))
+        robot_path = self.robot_file.replace(f'{self.execdir}/TP/NGSI-LD/', '')
+        if robot_path == self.robot_file:
+            robot_path = self.robot_file.replace(f'{self.execdir}/IOP_TP/NGSI-LD/', '')
+        
+        self.test_suite['robotpath'] = robot_path.replace(f'/{self.robot.test_suite}.robot', '')
         self.test_suite['robotfile'] = self.robot.test_suite
         return self.test_suite
 
     def parse_robot(self):
+        if self.file_type == "IOP":
+            self.parse_robot_iop()
+        else:
+            self.parse_robot_tp()
+    
+    def parse_robot_tp(self):
+        """Parse TP (Test Procedure) robot file with full complexity"""
         self.start_suite()
         _ = [self.visit_test(test=x) for x in self.suite.tests]
 
@@ -133,6 +149,22 @@ class GenerateRobotData:
         self.test_suite['initial_condition'] = self.generate_initial_condition()
 
         # Generate the parent release and correct the reference in case that the tags include information since_v1.x.y
+        self.get_version()
+    
+    def parse_robot_iop(self):
+        """Parse IOP (Interoperability) robot file with simplified structure"""
+        self.start_suite_iop()
+        
+        # Extract suite-level setup and teardown once
+        suite_setup = self.robot.get_iop_test_setup()
+        suite_teardown = self.robot.get_iop_test_teardown()
+        
+        # Process each test case in the IOP file
+        for test_name in self.robot.test_case_names:
+            self.visit_test_iop(test_name=test_name, suite_setup=suite_setup, suite_teardown=suite_teardown)
+        
+        self.test_suite['test_cases'] = self.test_cases
+
         self.get_version()
 
     def get_version(self):
@@ -609,3 +641,78 @@ class GenerateRobotData:
             reference = f'{self.references[version]}, clauses {", ".join(clauses)}'
 
         return reference, clauses
+    
+    def start_suite_iop(self):
+        """Initialize test suite for IOP files with simplified structure"""
+        version = 'v1.3.1'
+        tp_id = self.generate_name_iop()
+        reference, clauses = self.generate_reference(version=version)
+        # Add test case documentation
+        if self.robot.test_case_names:
+            test_doc = self.robot.get_iop_documentation_data(test_name=self.robot.test_case_names[0])
+
+        self.test_suite = {
+            'tp_id': tp_id,
+            'test_objective': self.suite.doc,
+            'reference': reference,
+            'config_id': str(),
+            'parent_release': version,
+            'clauses': clauses,
+            'pics_selection': str(),
+            'keywords': [x.to_dict()['name'] for x in list(self.suite.resource.keywords)],
+            'initial_conditions': test_doc,
+            'teardown': str(self.suite.teardown),
+            'test_cases': list()
+        }
+
+    def visit_test_iop(self, test_name: str, suite_setup: str = "", suite_teardown: str = ""):
+        """Process a single IOP test case"""
+        # Get test information from the parsed robot file
+        tags = self.robot.get_iop_test_tags(test_name)
+        comments = self.robot.get_iop_comments(test_name)
+        
+        test_case = {
+            'name': test_name,
+            'permutation_iop_id': self.base_TP_id,
+            'tags': tags,
+            'test_steps': comments
+        }
+        
+        self.test_cases.append(test_case)
+    
+        
+    def generate_name_iop(self) -> str:
+        robot_path = self.robot_file.replace('\\', "/")
+        
+        # Extract the relative path from IOP_TP onwards
+        if 'IOP_TP/NGSI-LD' in robot_path:
+            start_idx = robot_path.find('IOP_TP/NGSI-LD')
+            relative_path = robot_path[start_idx:]
+            
+            parts = relative_path.split('/')
+            
+            abbreviations = {
+                'Consumption': 'Cons',
+                'Provision': 'Prov',
+                'Entity': 'E',
+                'Entities': 'E'
+            }
+            
+            abbreviated_parts = []
+            for part in parts[:5]: 
+                if part in abbreviations:
+                    abbreviated_parts.append(abbreviations[part])
+                else:
+                    abbreviated_parts.append(part)
+            
+            # Get the test file name (without .robot extension)
+            test_name = self.robot.test_suite
+            
+            # Construct the TP ID
+            tp_id = '/'.join(abbreviated_parts) + '/' + test_name
+            self.base_TP_id = tp_id
+            return tp_id
+        
+        # Fallback if pattern not found
+        return f"IOP_TP/NGSI-LD/{self.robot.test_suite}"
+    

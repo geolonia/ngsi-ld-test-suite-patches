@@ -54,24 +54,37 @@ def find_robot_file(basedir: str, filename: str):
     filename = f"{filename}.robot"
     for root, dirs, files in walk(basedir):
         if filename in files:
-            return root.replace(f"{basedir}/TP/NGSI-LD", ""), f"{root}/{filename}"
-
+            if "/TP/NGSI-LD" in root:
+                return root.replace(f"{basedir}/TP/NGSI-LD", ""), f"{root}/{filename}"
+            elif "/IOP_TP/NGSI-LD" in root:
+                return root.replace(f"{basedir}/IOP_TP/NGSI-LD", ""), f"{root}/{filename}"
     return None, None
 
 
 if __name__ == "__main__":
-    # Call with the folder below /TP/NGSI-LD which contains the robot file with name args[0]
+    # Call with the folder below /TP/NGSI-LD or /IOP_TP/NGSI-LD which contains the robot file with name args[0]
     args = argv[1:]
     if len(args) == 0:
-        tp_root_name = dirname(dirname(__file__)).replace("\\", "/")
-        robot_file_tbp = f"{tp_root_name}/TP/NGSI-LD/"
-        robot_file_tbp = robot_file_tbp.replace("\\", "/")
-        for root, dirs, files in walk(robot_file_tbp):
+        basedir = dirname(dirname(__file__)).replace("\\", "/")
+        
+        # Process all TP files
+        tp_path = f"{basedir}/TP/NGSI-LD"
+        for root, dirs, files in walk(tp_path):
             for file in files:
                 if file.endswith(".robot"):
                     filename = file.replace(".robot", "")
                     print(f"Generating json for {filename}")
                     create_json_of_robotfile(filename, computestatistics=True)
+        
+        # Process all IOP files
+        iop_path = f"{basedir}/IOP_TP/NGSI-LD"
+        if exists(iop_path):
+            for root, dirs, files in walk(iop_path):
+                for file in files:
+                    if file.endswith(".robot"):
+                        filename = file.replace(".robot", "")
+                        print(f"Generating json for {filename}")
+                        create_json_of_robotfile(filename, computestatistics=True)
     else:
         robot_file_tbp = args[0]
         resulting_json = create_json_of_robotfile(robot_file_tbp)

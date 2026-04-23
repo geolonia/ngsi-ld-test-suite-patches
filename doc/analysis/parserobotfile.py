@@ -7,6 +7,7 @@ from analysis.requests import Requests
 class ParseRobotFile:
     def __init__(self, filename: str, execdir: str, config_file):
         self.test_suite = os.path.basename(filename).split('.')[0]
+        self.filename = filename
 
         with open(filename, 'r') as file:
             # Read the contents of the file
@@ -21,10 +22,17 @@ class ParseRobotFile:
         self.test_template_name = str()
         self.template_params_value = dict()
         self.check_template()
+        self.file_type = self._detect_file_type()
 
-        self.get_variables_data()
-        self.get_apiutils_path()
-        self.get_test_cases()
+        # Parse based on file type
+        if self.file_type == "IOP":
+            self.settings_documentation = self.get_iop_settings_documentation()
+            self.get_iop_variables_data()
+            self.get_iop_test_cases()
+        else:  # TP
+            self.get_variables_data()
+            self.get_apiutils_path()
+            self.get_test_cases()
 
         self.config_file = config_file
 
@@ -36,6 +44,17 @@ class ParseRobotFile:
             self.test_template_name = aux[0]
         else:
             self.test_template_name = ''
+
+    def _detect_file_type(self) -> str:
+        """
+        Detect if this is an IOP or TP (Test Procedure) file.
+        Returns:
+            "IOP" or "TP"
+        """
+        if 'IOP_TP' in self.filename:
+            return "IOP"
+        
+        return "TP"
 
     def set_apiutils(self, apiutils):
         self.apiutils = apiutils
@@ -559,3 +578,180 @@ class ParseRobotFile:
                             result = aux
 
         return result
+    
+    def get_iop_settings_documentation(self) -> str:
+        """Extract Documentation from *** Settings *** section for IOP files."""
+        string = self.get_substring(initial_string='*** Settings ***\n', final_string='*** Variables ***', include=False)
+        pattern = r'Documentation\s+(.*?)(?=\n)'
+        match = re.search(pattern, string, re.MULTILINE)
+        if match:
+            return match.group(1).strip()
+        return ""
+    
+    def get_iop_test_setup(self) -> str:
+        """Extract Test Setup from *** Settings *** section (suite-level for IOP files)."""
+        string = self.get_substring(initial_string='*** Settings ***\n', final_string='*** Variables ***', include=False)
+        pattern = r'Test Setup\s+(.*?)(?=\n)'
+        match = re.search(pattern, string, re.MULTILINE)
+        if match:
+            return match.group(1).strip()
+        return ""
+    
+    def get_iop_test_teardown(self) -> str:
+        """Extract Test Teardown from *** Settings *** section (suite-level for IOP files)."""
+        string = self.get_substring(initial_string='*** Settings ***\n', final_string='*** Variables ***', include=False)
+        pattern = r'Test Teardown\s+(.*?)(?=\n)'
+        match = re.search(pattern, string, re.MULTILINE)
+        if match:
+            return match.group(1).strip()
+        return ""
+    
+    def get_iop_variables_data(self):
+        """Extract variables from *** Variables *** section for IOP files."""
+        string = self.get_substring(initial_string='*** Variables ***\n', final_string='*** ', include=False)
+
+        # Pattern: ${VAR_NAME}    value
+        regex = r"\$\{([^}]+)\}\s+(.+?)(?=\n|$)"
+        matches = re.finditer(regex, string, re.MULTILINE)
+        
+        for match in matches:
+            if len(match.groups()) == 2:
+                var_name = match.group(1)
+                var_value = match.group(2).strip()
+                self.variables[f'${{{var_name}}}'] = var_value
+
+    def get_iop_test_cases(self):
+        """Extract test cases from *** Test Cases *** section for IOP files."""
+        index_start_test_cases = self.file_contents.find('*** Test Cases ***')
+        if index_start_test_cases == -1:
+            self.test_cases = dict()
+            self.test_case_names = list()
+            return
+        
+        index_start_keywords = self.file_contents.find('*** Keywords ***')
+        if index_start_keywords == -1:
+            string_test_cases = self.file_contents[index_start_test_cases + len('*** Test Cases ***') + 1:]
+        else:
+            string_test_cases = self.file_contents[index_start_test_cases + len('*** Test Cases ***') + 1:index_start_keywords]
+
+        # Extract test case names
+        pattern = r'^([A-Z0-9_]+[ ].*)$'
+        matches = list(re.finditer(pattern, string_test_cases, re.MULTILINE))
+
+        if not matches:
+            self.test_cases = dict()
+            self.test_case_names = list()
+            return
+
+        # Extract positions and names
+        indexes = [match.start() for match in matches]
+        self.test_case_names = [match.group(1).strip() for match in matches]
+
+        # Extract test case content
+        self.test_cases = dict()
+        for i in range(len(indexes) - 1):
+            content = string_test_cases[indexes[i]:indexes[i + 1]]
+            self.test_cases[self.test_case_names[i]] = content
+
+        # Add last test case
+        if len(indexes) > 0:
+            self.test_cases[self.test_case_names[-1]] = string_test_cases[indexes[-1]:]
+
+    def _get_documentation_content(self, test_name: str) -> str:
+        """Helper: Extract raw documentation content after [Documentation] until next keyword block."""
+        if test_name not in self.test_cases:
+            return ""
+        
+        test_content = self.test_cases[test_name]
+        match = re.search(r'\[Documentation\]\s*', test_content)
+        if not match:
+            return ""
+        
+        start_pos = match.end()
+        doc_section = re.search(r'(.*?)(?=\n\s*\[|\Z)', test_content[start_pos:], re.MULTILINE | re.DOTALL)
+        return doc_section.group(1) if doc_section else ""
+
+    def get_iop_documentation_data(self, test_name: str) -> dict:
+        """Extract documentation in the Test Cases."""
+        if test_name not in self.test_cases:
+            return " "
+        
+        doc_content = self._get_documentation_content(test_name)
+        if not doc_content:
+            return " "
+        
+        # Split by LABEL: pattern and capture the labels
+        parts = re.split(r'([A-Za-z\s\-]+):\s*', doc_content)
+        sections = {
+            parts[i].strip().lower().replace(' ', '_').replace('-', '_'):
+            re.sub(r'\n\s*\.{3}\s*', ' ', parts[i + 1].strip()).replace('\n', ' ').strip().rstrip('.')
+            for i in range(1, len(parts), 2) if i + 1 < len(parts)
+        }
+
+        return sections
+
+    def get_iop_test_tags(self, test_name: str) -> list:
+        """Extract [Tags] from a specific IOP test case."""
+        if test_name not in self.test_cases:
+            return []
+
+        test_content = self.test_cases[test_name]
+        pattern = r'\[Tags\]\s*(.*?)(?=\n\s+\[|\n\s*$)'
+        match = re.search(pattern, test_content, re.MULTILINE | re.DOTALL)
+
+        if not match:
+            return []
+
+        tags_text = match.group(1)
+        return [tag.strip() for tag in tags_text.split() if tag.strip()]
+
+    def get_iop_comments(self, test_name: str) -> list:
+        """Extract comments from a specific IOP test case."""
+        if test_name not in self.test_cases:
+            return []
+
+        test_content = self.test_cases[test_name]
+        comments = re.findall(r'^\s*#(.+?)$', test_content, re.MULTILINE)
+        return [comment.strip() for comment in comments]
+
+    def get_iop_setup(self, test_name: str) -> str:
+        """Extract [Setup] from a specific IOP test case."""
+        if test_name not in self.test_cases:
+            return ""
+
+        test_content = self.test_cases[test_name]
+        pattern = r'\[Setup\]\s*(.*?)(?=\n\s+\[|\n\s*$)'
+        match = re.search(pattern, test_content, re.MULTILINE | re.DOTALL)
+
+        if not match:
+            return ""
+
+        setup_text = match.group(1).strip()
+        return setup_text
+
+    def get_iop_teardown(self, test_name: str) -> str:
+        """Extract [Teardown] from a specific IOP test case."""
+        if test_name not in self.test_cases:
+            return ""
+
+        test_content = self.test_cases[test_name]
+        pattern = r'\[Teardown\]\s*(.*?)(?=\n\s+\[|\n\s*$)'
+        match = re.search(pattern, test_content, re.MULTILINE | re.DOTALL)
+
+        if not match:
+            return ""
+
+        teardown_text = match.group(1).strip()
+        return teardown_text
+
+    def get_iop_test_info(self, test_name: str) -> dict:
+        """Get all information for a specific IOP test case."""
+        return {
+            'tp_id': test_name,
+            'documentation': self.get_iop_test_documentation(test_name),
+            'tags': self.get_iop_test_tags(test_name),
+            'comments': self.get_iop_comments(test_name),
+            'variables': self.variables,
+            'resource_files': self.resource_files,
+            'test_cases': self.test_case_names
+        }
