@@ -308,3 +308,70 @@ Retrieve Entity Types
     ...    expected_status=any
     Output    ${response}    Retrieve Entity Types
     RETURN    ${response}
+
+Purge Entities
+    [Arguments]
+    ...    ${entity_types}=${EMPTY}
+    ...    ${entity_ids}=${EMPTY}
+    ...    ${attrs}=${EMPTY}
+    ...    ${attrs_exclude}=${EMPTY}
+    ...    ${entity_id_pattern}=${EMPTY}
+    ...    ${q}=${EMPTY}
+    ...    ${georel}=${EMPTY}
+    ...    ${geometry}=${EMPTY}
+    ...    ${geoproperty}=${EMPTY}
+    ...    ${scopeq}=${EMPTY}
+    ...    ${datasetId}=${EMPTY}
+    ...    ${context}=${EMPTY}
+    ...    ${broker_url}=${EMPTY}
+    ${attrs_length}=    Get Length    ${attrs}
+    ${attrs_exclude_length}=    Get Length    ${attrs_exclude}
+    ${entity_ids_length}=    Get Length    ${entity_ids}
+    ${entity_types_length}=    Get Length    ${entity_types}
+    &{headers}=    Create Dictionary
+    &{params}=    Create Dictionary
+    IF    '${context}'!=''
+        ${context_link}=    Build Context Link    ${context}
+        Set To Dictionary    ${headers}    Link=${context_link}
+    END
+    IF    ${attrs_length}>0
+        Set To Dictionary    ${params}    attrs=${attrs}
+    END
+    IF    ${attrs_exclude_length}>0
+        Set To Dictionary    ${params}    excludedAttrs=${attrs_exclude}
+    END
+    IF    ${entity_ids_length}>0
+        Set To Dictionary    ${params}    id=${entity_ids}
+    END
+    IF    ${entity_types_length}>0
+        Set To Dictionary    ${params}    type=${entity_types}
+    END
+    IF    '${entity_id_pattern}'!=''
+        Set To Dictionary    ${params}    idPattern=${entity_id_pattern}
+    END
+    IF    '${q}'!=''
+        Set To Dictionary    ${params}    q=${q}
+    END
+    IF    '${georel}'!=''
+        Set To Dictionary    ${params}    georel=${georel}
+    END
+    IF    '${geometry}'!=''
+        Set To Dictionary    ${params}    geometry=${geometry}
+    END
+    IF    '${geoproperty}'!=''
+        Set To Dictionary    ${params}    geoproperty=${geoproperty}
+    END
+    IF    '${scopeq}'!=''
+        Set To Dictionary    ${params}    scopeQ=${scopeq}
+    END
+    IF    '${datasetId}'!=''
+        Set To Dictionary    ${params}    datasetId=${datasetId}
+    END
+    ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
+    ${response}=    DELETE
+    ...    url=${final_url}${ENTITIES_ENDPOINT_PATH}
+    ...    headers=${headers}
+    ...    params=${params}
+    ...    expected_status=any
+    Output    ${response}    Purge Entities
+    RETURN    ${response}
