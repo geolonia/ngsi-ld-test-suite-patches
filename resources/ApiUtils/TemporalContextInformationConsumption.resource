@@ -49,6 +49,7 @@ Query Temporal Representation Of Entities
     ...    ${pick}=${EMPTY}
     ...    ${omit}=${EMPTY}
     ...    ${orderBy}=${EMPTY}
+    ...    ${local}=${EMPTY}
     ${entity_types_length}=    Get Length    ${entity_types}
     ${entity_ids_length}=    Get Length    ${entity_ids}
     ${attrs_length}=    Get Length    ${attrs}
@@ -115,6 +116,7 @@ Query Temporal Representation Of Entities
     IF    ${timeproperty_length}>0
         Set To Dictionary    ${params}    timeproperty=${timeproperty}
     END
+    IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
 
     ${response}=    GET
     ...    url=${temporal_api_url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}

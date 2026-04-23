@@ -76,7 +76,7 @@ class Requests:
                            'ngsild_query', 'csf', 'georel', 'geometry',
                            'coordinates', 'geoproperty', 'timerel', 'timeAt', 'endTimeAt',
                            'attrs', 'limit', 'lastN', 'accept', 'options', 'format', 'datasetId',
-                           'aggrMethods', 'aggrPeriodDuration', 'pick', 'omit']
+                           'aggrMethods', 'aggrPeriodDuration', 'pick', 'omit', 'local']
             },
             'Query Temporal Representation Of Entities Via Post': {
                 'positions': [],
@@ -96,7 +96,7 @@ class Requests:
                            'attrs', 'context', 'geoproperty',
                            'options', 'limit', 'entity_id_pattern',
                            'scopeq', 'georel', 'coordinates', 'geometry', 'count', 'q', 'datasetId',
-                           'join', 'joinLevel', 'pick', 'omit', 'orderBy']
+                           'join', 'joinLevel', 'pick', 'omit', 'orderBy', 'local']
             },
             'Query Entities Via POST': {
                 'positions': [],
@@ -1211,7 +1211,7 @@ class Requests:
                                'ngsild_query', 'csf', 'georel', 'geometry',
                                'coordinates', 'geoproperty', 'timerel', 'timeAt','endTimeAt',
                                'attrs', 'limit', 'lastN', 'accept', 'options', 'format', 'datasetId', 'aggrMethods',
-                               'aggrPeriodDuration', 'pick', 'omit', 'orderBy', 'timeproperty']
+                               'aggrPeriodDuration', 'pick', 'omit', 'orderBy', 'timeproperty', 'local']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Query Temporal Representation of Entities"
@@ -1271,6 +1271,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: omit set to '{value}'"
                 case 'orderBy':
                     response = f"{response} and\n    Query Parameter: orderBy set to '{value}'"
+                case 'local':
+                    response = f"{response} and\n    Query Parameter: local set to '{value}'"
 
             # If an exact match is not confirmed, this last case will be used if provided
                 case _:
@@ -1350,7 +1352,7 @@ class Requests:
                                'attrs', 'context', 'geoproperty',
                                'options', 'limit', 'entity_id_pattern',
                                'scopeq', 'georel', 'coordinates', 'geometry', 'count' , 'q' , 'datasetId',
-                               'join', 'joinLevel', 'pick', 'omit', 'local', 'orderBy']
+                               'join', 'joinLevel', 'pick', 'omit', 'local', 'orderBy', 'local']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Get Entities Request:"
