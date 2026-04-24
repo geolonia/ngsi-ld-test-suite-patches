@@ -127,6 +127,10 @@ Query Entities Via POST
     ...    ${context}=${EMPTY}
     ...    ${attrs}=${EMPTY}
     ...    ${geometry_property}=${EMPTY}
+    ...    ${join}=${EMPTY}
+    ...    ${joinLevel}=${EMPTY}
+    ...    ${local}=${EMPTY}
+    ...    ${options}=${EMPTY}
     &{headers}=    Create Dictionary
     Set To Dictionary    ${headers}    Content-Type    ${content_type}
     Set To Dictionary    ${headers}    Accept    ${accept}
@@ -136,6 +140,13 @@ Query Entities Via POST
         ...    ${headers}
         ...    Link=${context_link}
     END
+
+    &{params}=    Create Dictionary
+    IF    '${options}'!=''
+        Set To Dictionary    ${params}    options=${options}
+    END
+    IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
+
     &{body}=    Create Dictionary
     Set To Dictionary    ${body}    type=Query
     ${entities_length}=    Get Length    ${entities}
@@ -147,10 +158,16 @@ Query Entities Via POST
     IF    '${geometry_property}'!=''
         Set To Dictionary    ${body}    geometryProperty=${geometry_property}
     END
+    IF    '${join}'!=''    Set To Dictionary    ${body}    join=${join}
+    IF    '${join_level}'!=''
+        Set To Dictionary    ${body}    joinLevel=${joinLevel}
+    END
+
     ${response}=    POST
     ...    url=${url}/${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}
     ...    json=${body}
     ...    headers=${headers}
+    ...    params=${params}
     ...    expected_status=any
     Output    ${response}    Query Entities Via POST
     RETURN    ${response}

@@ -101,7 +101,7 @@ class Requests:
             'Query Entities Via POST': {
                 'positions': [],
                 'params': ['entities', 'content_type', 'accept',
-                           'context', 'attrs', 'geometry_property']
+                           'context', 'attrs', 'geometry_property', 'join', 'joinLevel', 'options', 'local']
             },
             'Retrieve Temporal Representation Of Entity': {
                 'positions': [],
@@ -1410,7 +1410,8 @@ class Requests:
         return response
 
     def query_entities_via_post(kwargs) -> str:
-        expected_parameters = ['entities', 'content_type', 'accept', 'attrs', 'geometry_property']
+        expected_parameters = ['entities', 'content_type', 'accept', 'attrs', 'geometry_property', 'join',
+                               'joinLevel', 'options', 'local']
 
         if 'content_type' not in kwargs:
             kwargs['content_type'] = 'application/json'
@@ -1434,6 +1435,14 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: attrs set to '{value}'"
                 case 'geometry_property':
                     response = f"{response} and\n    Query Parameter: geoproperty set to '{value}'"
+                case 'join':
+                    response = f"{response} and\n    Query Parameter: join set to '{value}'"
+                case 'joinLevel':
+                    response = f"{response} and\n    Query Parameter: joinLevel set to '{value}'"
+                case 'options':
+                    response = f"{response} and\n    Query Parameter: options set to '{value}'"
+                case 'local':
+                    response = f"{response} and\n    Query Parameter: local set to '{value}'"
                 case _:
                     raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
                                     f"{expected_parameters}, but received: {kwargs}")
