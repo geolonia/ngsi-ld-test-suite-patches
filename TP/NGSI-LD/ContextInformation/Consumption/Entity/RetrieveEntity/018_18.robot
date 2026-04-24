@@ -28,6 +28,30 @@ ${filename}=    building-simple-attributes.jsonld
     [Documentation]    Check that a BadRequestDataException is returned if omit and attrs query params are present
     [Tags]    e-retrieve    5_7_1    4_21    since_v1.8.1
     ${EMPTY}    name    category
+018_18_04 RetrieveWithInvalidCharacter
+    [Documentation]    Check that a BadRequestDataException is returned if an invalid character is present
+    [Tags]    e-retrieve    5_7_1    4_21    since_v1.8.1
+    id;name    ${EMPTY}    ${EMPTY}
+018_18_05 RetrieveWithUnclosedBrace
+    [Documentation]    Check that a BadRequestDataException is returned if a brace is not closed
+    [Tags]    e-retrieve    5_7_1    4_21    since_v1.8.1
+    id,locatedAt{name    ${EMPTY}    ${EMPTY}
+018_18_06 RetrieveWithDoubleBraces
+    [Documentation]    Check that a BadRequestDataException is returned if a double brace is present
+    [Tags]    e-retrieve    5_7_1    4_21    since_v1.8.1
+    id,locatedAt{{name}    ${EMPTY}    ${EMPTY}
+018_18_07 RetrieveWithConsecutiveSeparators
+    [Documentation]    Check that a BadRequestDataException is returned if consecutive separators are present
+    [Tags]    e-retrieve    5_7_1    4_21    since_v1.8.1
+    id,,name    ${EMPTY}    ${EMPTY}
+018_18_08 RetrieveWithExpressionStartingWithSpecialCharacter
+    [Documentation]    Check that a BadRequestDataException is returned if expression starts with a special character
+    [Tags]    e-retrieve    5_7_1    4_21    since_v1.8.1
+    id,locatedAt{,name}    ${EMPTY}    ${EMPTY}
+018_18_09 RetrieveWithExpressionContainingNoAttribute
+    [Documentation]    Check that a BadRequestDataException is returned if expression does not contain an attribute
+    [Tags]    e-retrieve    5_7_1    4_21    since_v1.8.1
+    id,locatedAt{}    ${EMPTY}    ${EMPTY}
 
 
 *** Keywords ***

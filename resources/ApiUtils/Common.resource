@@ -12,6 +12,7 @@ Library         String
 ${BUILDING_ID_PREFIX}                   urn:ngsi-ld:Building:
 ${BUS_ID_PREFIX}                        urn:ngsi-ld:Bus:
 ${CITY_ID_PREFIX}                       urn:ngsi-ld:City:
+${COUNTRY_ID_PREFIX}                    urn:ngsi-ld:Country:
 ${PARKING_ID_PREFIX}                    urn:ngsi-ld:OffStreetParking:
 ${VEHICLE_ID_PREFIX}                    urn:ngsi-ld:Vehicle:
 

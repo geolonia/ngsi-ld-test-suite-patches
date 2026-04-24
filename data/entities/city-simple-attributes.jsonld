@@ -9,6 +9,10 @@
         "type": "Property",
         "value": "Paris is the capital and largest city of France"
     },
+    "isInCountry": {
+      "type": "Relationship",
+      "object": "urn:ngsi-ld:Country:France"
+    },
     "@context": [
       "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
     ]

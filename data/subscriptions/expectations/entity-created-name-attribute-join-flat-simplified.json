@@ -9,6 +9,7 @@
     "id": "urn:ngsi-ld:City:Paris",
     "type": "City",
     "description": "Paris is the capital and largest city of France",
-    "name": "Paris"
+    "name": "Paris",
+    "isInCountry": "urn:ngsi-ld:Country:France"
   }
 ]

@@ -1,7 +1,6 @@
 [
     {
-        "id": "urn:ngsi-ld:Building:046_26:EiffelTower",
-        "type": "Building",
+        "id": "urn:ngsi-ld:Building:018-20",
         "locatedAt": {
             "type": "Relationship",
             "object": "urn:ngsi-ld:City:Paris"
@@ -9,11 +8,6 @@
     },
     {
         "id": "urn:ngsi-ld:City:Paris",
-        "type": "City",
-        "description": {
-            "type": "Property",
-            "value": "Paris is the capital and largest city of France"
-        },
         "name": {
             "type": "Property",
             "value": "Paris"
@@ -21,6 +15,13 @@
         "isInCountry": {
             "type": "Relationship",
             "object": "urn:ngsi-ld:Country:France"
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:Country:France",
+        "description": {
+            "type": "Property",
+            "value": "France is an European country"
         }
     }
 ]
