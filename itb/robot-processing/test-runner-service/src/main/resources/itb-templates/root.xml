@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testcase id="${dynamicTestId}" xmlns="http://www.gitb.com/tdl/v1/" xmlns:gitb="http://www.gitb.com/core/v1/">
+	<metadata>
+ 		<gitb:name>${dynamicTestName}</gitb:name>
+		<gitb:version>1.0</gitb:version>
+		<gitb:description>${dynamicDescription}</gitb:description>
+	</metadata>
+    <imports>
+        <artifact name="freemarkerTemplateFile">resources/test-request.json</artifact>
+    </imports>
+	<actors>
+		
