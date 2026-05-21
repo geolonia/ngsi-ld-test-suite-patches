@@ -4,6 +4,9 @@
  		<gitb:name>${dynamicTestName}</gitb:name>
 		<gitb:version>1.0</gitb:version>
 		<gitb:description>${dynamicDescription}</gitb:description>
+        <gitb:documentation><![CDATA[
+            <p>This test case comes from the <a href="https://forge.etsi.org/rep/cim/ngsi-ld-test-suite"><b>NGSI-LD Robot Framework</b></a> repository </p>
+        ]]></gitb:documentation>
 	</metadata>
     <imports>
         <artifact name="freemarkerTemplateFile">resources/test-request.json</artifact>
