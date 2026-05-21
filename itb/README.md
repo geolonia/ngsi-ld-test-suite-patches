@@ -22,16 +22,21 @@ Attach your context broker to the ITB network:
 ### Access ITB
 The ITB UI is available at: http://localhost:9000
 
-```docker logs -f <itb-uiHost:Port>```
-
-In these logs you will find the password for a first connection, the username being by default "admin@itb"
+The default logs are :
+user
+change_this_password
 
 ### Import Test Suites
 
-```curl -iX POST 'http://localhost:8080/api/init' -d '{}' -H 'Content-type: application/json'```
+By default the official Robot NGSI-LD Test Suite will be imported to ITB
+But note that you can also import your own Test Suite if you have forked and modify it for example
+
+You would need to "initialize" again running the command
+
+```curl -iX POST 'http://localhost:8080/api/init' -d '{<link_to_your_repository>}' -H 'Content-type: application/json'```
 
 This will trigger the initialization of the external service.
-This will git clone the ETSI NGSI-LD Robot Framework Test Suite.
+This will git clone your test suite.
 From the test files, the service generate their ITB version and deploy them in ITB.
 
 ### Configure your SUT
