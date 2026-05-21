@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     git \
     zip \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt /tmp/requirements.txt
@@ -29,12 +30,14 @@ RUN mkdir -p /opt/robot-tests/working-repo /opt/robot-tests/listeners && \
 COPY itb/robot-processing/test-runner-service/src/main/resources/listeners /opt/robot-tests/listeners
 
 ENV PYTHONPATH="/opt/robot-tests"
-
 ENV PATH="/opt/venv/bin:$PATH"
 
 WORKDIR /app
 
 COPY --from=builder /app/target/test-runner-service-*.jar app.jar
 
+COPY itb/robot-processing/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 EXPOSE 8080
-CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["/entrypoint.sh"]
