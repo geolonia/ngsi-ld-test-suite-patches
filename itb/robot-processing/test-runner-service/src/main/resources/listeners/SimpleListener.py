@@ -141,9 +141,10 @@ class SimpleListener:
                 self.current_actor = self.actor_stack.pop()
             except:
                 self.current_actor = "DefaultActor"
-            if self.current_actor not in suite["actors"] :
-                suite["actors"].append(self.current_actor)
         
+        if self.current_actor not in suite["actors"] :
+            suite["actors"].append(self.current_actor)
+            
         entry.update({
             "actor": self.current_actor
         })
