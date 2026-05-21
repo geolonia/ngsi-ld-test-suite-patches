@@ -5,6 +5,7 @@ Library         RequestsLibrary
 Library         OperatingSystem
 Library         Collections
 Library         JSONLibrary
+Library         HttpCtrl.Server
 Resource        ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource        ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
 Resource        ${EXECDIR}/resources/JsonUtils.resource
@@ -271,13 +272,16 @@ Delete Entity Attributes
 
 Delete Entity
     [Tags]    actor_context-producer
-    [Arguments]    ${id}    ${local}=${EMPTY}    ${broker_url}=${EMPTY}
+    [Arguments]    ${id}    ${local}=${EMPTY}    ${broker_url}=${EMPTY}    ${via}=${EMPTY}
     &{params}=    Create Dictionary
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
     ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
+    &{headers}=    Create Dictionary    
+    IF    '${via}'!=''    Set To Dictionary    ${headers}    Via    ${via}    
     ${response}=    DELETE
     ...    url=${final_url}/${ENTITIES_ENDPOINT_PATH}${id}
     ...    params=${params}
+    ...    headers=${headers}
     ...    expected_status=any
     IF    ${delete_temporal_on_core_delete}
         Delete Temporal Representation Of Entity    ${id}
