@@ -112,6 +112,7 @@ public class XmlGeneratorService {
         xml.append(generateBlock("test-suite-root.xml", rootData));
 
         List<String> testIds = getFileNamesWithoutExtension(dir);
+        testIds.sort(String.CASE_INSENSITIVE_ORDER);
         for (String testId : testIds) {
             Map<String, Object> data = new HashMap<>();
             data.put("dynamicTestId", testId);
