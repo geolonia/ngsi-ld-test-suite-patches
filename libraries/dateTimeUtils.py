@@ -19,17 +19,16 @@ def parse_ngsild_date(date_string):
     :param date_string: string to check for date
     """
     try:
-        # timestamp with milliseconds separated by a comma (v1.3+)
-        match = re.match(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2},\d{1,6}Z", date_string)
+        # timestamp with fractional seconds, separated by a comma (v1.3+) or a
+        # dot (v1.4+). RFC 3339 allows arbitrary fractional precision, and some
+        # brokers emit nanoseconds (9 digits); Python's %f caps at 6, so the
+        # fraction is truncated to microseconds before parsing.
+        match = re.match(r"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})[.,](\d+)Z", date_string)
         if match:
-            return datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%S,%fZ")
+            seconds, fraction = match.group(1), match.group(2)[:6]
+            return datetime.strptime(f"{seconds}.{fraction}Z", "%Y-%m-%dT%H:%M:%S.%fZ")
 
-        # timestamp with milliseconds separated by a dot (v1.4+)
-        match = re.match(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{1,6}Z", date_string)
-        if match:
-            return datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%S.%fZ")
-
-        # timestamp without milliseconds
+        # timestamp without fractional seconds
         match = re.match(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", date_string)
         if match:
             return datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%SZ")
