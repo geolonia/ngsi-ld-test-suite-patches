@@ -1,5 +1,7 @@
 *** Settings ***
-Documentation       Verify that, when one has an inclusive registration on a Context Broker, one entity on it and another on a Context Source, if one queries the Context Broker the query gets forwarded to the Context Source correctly
+Documentation       Verify that, when one has an inclusive registration on a Context Broker, one entity on it and
+...                 another on a Context Source, if one queries the Context Broker the query gets forwarded to the
+...                 Context Source correctly
 
 Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -18,17 +20,19 @@ Test Teardown       Delete Created Entity And Registration And Stop Context Sour
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${entity_payload_filename2}             vehicle-simple-attributes-second.json
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
-${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-entities.jsonld
+${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 
 
 *** Test Cases ***
 D011_01_03_inc Query The Context Broker With Type And Attribute
-    [Documentation]    Check that if one queries for attribute present in an entity on a Context Source, only that entity gets returned
+    [Documentation]    Check that if one queries for attribute present in an entity on a Context Source, only that
+    ...    entity gets returned
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2
-    ${entity_body}=    Load Entity    ${entity_payload_filename2}    ${second_entity_id}
-    Set Stub Reply    GET    /ngsi-ld/v1/entities?type=Vehicle    200    ${entity_body}
+    ${serialized_entity}=    Load Entity As Serialized Array    ${entity_payload_filename2}    ${second_entity_id}
+    Set Stub Reply    GET    /ngsi-ld/v1/entities?attrs=isParked2&type=Vehicle    200    ${serialized_entity}
 
     ${response}=    Query Entities    entity_types=Vehicle    attrs=isParked2    context=${ngsild_test_suite_context}
+
     Check Response Status Code    200    ${response.status_code}
     @{entities_id}=    Create List    ${second_entity_id}
     Check Response Body Containing Entities URIS set to    ${entities_id}    ${response.json()}

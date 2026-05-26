@@ -1,5 +1,7 @@
 *** Settings ***
-Documentation       Verify that, when one has an inclusive registration on a Context Broker and an entity only on a Context Source, if one queries the Context Broker the query gets forwarded to the Context Source correctly
+Documentation       Verify that, when one has an inclusive registration on a Context Broker and an entity only on a
+...                 Context Source, if one queries the Context Broker the query gets forwarded to the Context Source
+...                 correctly
 
 Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -15,16 +17,17 @@ Test Teardown       Delete Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
-${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 
 
 *** Test Cases ***
 D011_01_02_inc Query The Context Broker With Type And Missing Attribute
-    [Documentation]    Check that if one queries for type and an attribute that is missing, no entity gets returned
+    [Documentation]    Check that if one queries for type and an attribute that is missing, no entity gets returned.
+    ...    Contrast with D011_01_04, where a local entity also exists but also lacks the queried attribute.
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2
-    ${entity_body}=    Load Entity    ${entity_payload_filename}    ${entity_id}
-    Set Stub Reply    GET    /ngsi-ld/v1/entities?type=Vehicle    200    ${entity_body}
+    ${empty_response}=    Create Empty Array Result
+    Set Stub Reply    GET    /ngsi-ld/v1/entities?attrs=speed&type=Vehicle    200    ${empty_response}
+
     ${response}=    Query Entities    entity_types=Vehicle    attrs=speed    context=${ngsild_test_suite_context}
 
     Check Response Status Code    200    ${response.status_code}

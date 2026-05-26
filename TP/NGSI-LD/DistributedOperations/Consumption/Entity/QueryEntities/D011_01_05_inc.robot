@@ -1,5 +1,7 @@
 *** Settings ***
-Documentation       Verify that, when one has an inclusive registration on a Context Broker, entities with same id on the Context Broker and on a Context Source, if one queries the Context Broker the query gets forwarded to the Context Source correctly
+Documentation       Verify that, when one has an inclusive registration on a Context Broker, entities with same id on
+...                 the Context Broker and on a Context Source, if one queries the Context Broker the query gets
+...                 forwarded to the Context Source correctly
 
 Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -15,7 +17,6 @@ Test Teardown       Delete Created Entity And Registration And Stop Context Sour
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.json
 ${entity_payload_filename2}             vehicle-simple-different-attributes.jsonld
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
@@ -23,16 +24,16 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 
 *** Test Cases ***
 D011_01_05_inc Query The Context Broker With Type
-    [Documentation]    Check that entities on the Context Broker and Context Source with the same id get merged and returned as one entity
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-auxiliary    4_3_6_2    5_7_2
-    ${entity_body}=    Load Entity    ${entity_payload_filename}    ${entity_id}
-    Set Stub Reply    GET    /ngsi-ld/v1/entities?type=Vehicle    200    ${entity_body}
+    [Documentation]    Check that entities on the Context Broker and Context Source with the same id get merged and
+    ...    returned as one entity
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2
+    ${serialized_entity}=    Load Entity As Serialized Array    ${entity_payload_filename}    ${entity_id}
+    Set Stub Reply    GET    /ngsi-ld/v1/entities?type=Vehicle    200    ${serialized_entity}
 
-    @{entities_id}=    Create List    ${entity_id}
-    ${expected}=    Load JSON From File    ${EXECDIR}/data/entities/${entity_payload_filename}
-    ${expected2}=    Load JSON From File    ${EXECDIR}/data/entities/${entity_payload_filename2}
     ${response}=    Query Entities    entity_types=Vehicle    context=${ngsild_test_suite_context}
+
     Check Response Status Code    200    ${response.status_code}
+    @{entities_id}=    Create List    ${entity_id}
     Check Response Body Containing Entities URIS set to    ${entities_id}    ${response.json()}
     Should Have Value In Json    ${response.json()[0]}    $.brandName
     Should Have Value In Json    ${response.json()[0]}    $.speed

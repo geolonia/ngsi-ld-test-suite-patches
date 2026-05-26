@@ -1,5 +1,7 @@
 *** Settings ***
-Documentation       Verify that, when one has an inclusive registration on a Context Broker, one entity on it and another on a Context Source, if one queries the Context Broker the query gets forwarded to the Context Source correctly
+Documentation       Verify that, when one has an inclusive registration on a Context Broker, an entity exists on both
+...                 the Context Broker and a Context Source, and one queries for an attribute absent from both entities,
+...                 an empty result is returned
 
 Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -15,32 +17,29 @@ Test Teardown       Delete Created Entity And Registration And Stop Context Sour
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
-${entity_payload_filename}              vehicle-simple-attributes.json
 ${entity_payload_filename2}             vehicle-simple-attributes-second.jsonld
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 
 
 *** Test Cases ***
 D011_01_04_inc Query The Context Broker With Type And Attribute In Neither
-    [Documentation]    Check that if one queries for attribute present in neither of the entities, neither of them gets returned
+    [Documentation]    Check that if one queries for attribute present in neither of the entities, neither of them gets
+    ...    returned. Contrast with D011_01_02, where no local entity exists at all.
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2
-    ${entity_body}=    Load Entity    ${entity_payload_filename}    ${first_entity_id}
-    Set Stub Reply    GET    /ngsi-ld/v1/entities?type=Vehicle    200    ${entity_body}
+    ${empty_response}=    Create Empty Array Result
+    Set Stub Reply    GET    /ngsi-ld/v1/entities?attrs=speed&type=Vehicle    200    ${empty_response}
 
     ${response}=    Query Entities    entity_types=Vehicle    attrs=speed    context=${ngsild_test_suite_context}
+
     Check Response Status Code    200    ${response.status_code}
     Should Be Empty    ${response.json()}
 
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
-    ${first_entity_id}=    Generate Random Vehicle Entity Id
-    Set Suite Variable    ${first_entity_id}
-
-    ${second_entity_id}=    Generate Random Vehicle Entity Id
-    Set Suite Variable    ${second_entity_id}
-    ${response1}=    Create Entity    ${entity_payload_filename2}    ${second_entity_id}
+    ${entity_id}=    Generate Random Vehicle Entity Id
+    Set Suite Variable    ${entity_id}
+    ${response1}=    Create Entity    ${entity_payload_filename2}    ${entity_id}
     Check Response Status Code    201    ${response1.status_code}
 
     ${registration_id}=    Generate Random CSR Id
@@ -54,5 +53,5 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
 
 Delete Created Entity And Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
-    Delete Entity    ${second_entity_id}
+    Delete Entity    ${entity_id}
     Stop Context Source Mock Server

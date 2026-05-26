@@ -90,8 +90,13 @@ class HttpStubContainer(metaclass=Singleton):
                     if criteria_url != stub_url_components[0]:
                         return False
 
-                    # extraction of attributes from the response body
-                    attributes = [key.lower() for key in json.loads(stub.response.get_body())]
+                    # extraction of attributes from the response body (only works when response body is a dictionary)
+                    # return an empty array if response body is an array
+                    parsed_body = json.loads(stub.response.get_body())
+                    if isinstance(parsed_body, list):
+                        attributes = []
+                    else:
+                        attributes = [key.lower() for key in parsed_body]
                     # criteria parameters should be separated to check if attributes are into the response body
                     if ('attrs' in parse_qs(criteria_url_components[1])):
                         criteria_parse = parse_qs(criteria_url_components[1])['attrs']

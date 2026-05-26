@@ -13,17 +13,19 @@ Resource            ${EXECDIR}/resources/MockServerUtils.resource
 Test Setup          Create Entity And Registration On The Context Broker And Start Context Source Mock Server
 Test Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
 
+
 *** Variables ***
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${entity_speed_payload_filename}        vehicle-speed-attribute.jsonld
 ${entity_pattern}                       urn:ngsi-ld:Vehicle:*
-${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-speed-batch-ops.jsonld
+${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-speed-with-batch-ops.jsonld
+
 
 *** Test Cases ***
 D012_01_exc Batch Create Entities With Exclusive Registration
     [Documentation]    Check that if one requests the Context Broker to create a batch of entities that match an exclusive registration, these are created on the Context Source too
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_6_7
-    
+
     ${first_speed_entity}=    Load Entity    ${entity_speed_payload_filename}    ${first_entity_id}
     ${second_speed_entity}=    Load Entity    ${entity_speed_payload_filename}    ${second_entity_id}
     @{entities_to_be_created}=    Create List    ${first_speed_entity}    ${second_speed_entity}
@@ -38,6 +40,7 @@ D012_01_exc Batch Create Entities With Exclusive Registration
 
     ${stub_count}=    Get Stub Count    POST    /broker1/ngsi-ld/v1/entityOperations/create
     Should Be Equal    ${stub_count}    1
+
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server

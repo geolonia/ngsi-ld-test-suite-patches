@@ -1,12 +1,10 @@
 *** Settings ***
 Library         String
-Library         DateTime
 Library         JSONLibrary
 Variables       ${EXECDIR}/resources/variables.py
 
 
 *** Variables ***
-${date_format}=                 %Y-%m-%dT%H:%M:%SZ
 ${notification_server_url}=     http://${notification_server_host}:${notification_server_port}/notify
 ${context_source_url}=          http://${context_source_host}:${context_source_port}
 
@@ -27,6 +25,14 @@ Load Test Sample
     END
 
     RETURN    ${test_sample}
+
+Load Entity As Serialized Array
+    [Arguments]    ${entity_file_name}    ${entity_id}
+
+    ${entity}=    Load Test Sample    entities/${entity_file_name}    ${entity_id}
+    ${entity_as_list}=    Create List    ${entity}
+    ${serialized_entity}=    Convert JSON To String    ${entity_as_list}
+    RETURN    ${serialized_entity}
 
 Load Subscription Sample With Reachable Endpoint
     [Arguments]
@@ -79,3 +85,8 @@ Upsert Element In Entity
 
     ${updated_entity}=    Add Object To JSON    ${initial_entity}    ${jsonPath}    ${fragment}
     RETURN    ${updated_entity}
+
+Create Empty Array Result
+    ${empty_list}=    Create List
+    ${empty_response}=    Convert JSON To String    ${empty_list}
+    RETURN    ${empty_response}

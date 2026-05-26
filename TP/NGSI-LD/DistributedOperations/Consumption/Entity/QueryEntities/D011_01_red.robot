@@ -1,5 +1,6 @@
 *** Settings ***
-Documentation       Verify that, when one has a redirect registration and an entity on a Context Source, if one queries the Context Broker the query gets forwarded to the Context Source correctly
+Documentation       Verify that, when one has a redirect registration and an entity on a Context Source, if one queries
+...                 the Context Broker the query gets forwarded to the Context Source correctly
 
 Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -15,18 +16,18 @@ Test Teardown       Delete Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.json
-${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 
 
 *** Test Cases ***
 D011_01_red Query The Context Broker With Type
-    [Documentation]    Check that if one queries the Context Broker for type, entity with matching type on a Context Source gets returned
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_3    5_7_2
-    ${entity_body}=    Load Entity    ${entity_payload_filename}    ${entity_id}
-    Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities?type=Vehicle    200    ${entity_body}
+    [Documentation]    Check that if one queries the Context Broker for type, entity with matching type on a Context
+    ...    Source gets returned
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-redirect    4_3_6_3    5_7_2
+    ${serialized_entity}=    Load Entity As Serialized Array    ${entity_payload_filename}    ${entity_id}
+    Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities?type=Vehicle    200    ${serialized_entity}
+
     ${response}=    Query Entities    entity_types=Vehicle    context=${ngsild_test_suite_context}
 
     Check Response Status Code    200    ${response.status_code}
@@ -52,5 +53,4 @@ Setup Registration And Start Context Source Mock Server
 
 Delete Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
-    Delete Entity    ${entity_id}
     Stop Context Source Mock Server

@@ -14,7 +14,7 @@ Test Template       Receive cSourceNotification For Newly Matching Context Sourc
 
 
 *** Variables ***
-${first_context_source_registration_payload_file_path}=     csourceRegistrations/context-source-registration-vehicle-entities.jsonld
+${first_context_source_registration_payload_file_path}=     csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 ${second_context_source_registration_payload_file_path}=    csourceRegistrations/context-source-registration-bus-entities.jsonld
 ${subscription_payload_file_path}=                          csourceSubscriptions/subscription.jsonld
 

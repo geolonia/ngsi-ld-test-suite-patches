@@ -18,7 +18,7 @@ Test Teardown       Delete Created Entity And Registration And Stop Context Sour
 ${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
 ${registration_id_prefix}               urn:ngsi-ld:Registration:
-${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-speed-with-default-ops.jsonld
+${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 
 
 *** Test Cases ***

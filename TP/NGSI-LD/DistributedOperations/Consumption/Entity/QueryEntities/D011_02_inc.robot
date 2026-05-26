@@ -1,5 +1,6 @@
 *** Settings ***
-Documentation       Verify that, when one has an inclusive registration on a Context Broker and an entity only on a Context Source, if one queries the Context Broker with local flag entity not found error is raised
+Documentation       Verify that, when one has an inclusive registration on a Context Broker and an entity only on a
+...                 Context Source, if one queries the Context Broker with local flag entity not found error is raised
 
 Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
@@ -23,11 +24,15 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 D011_02_inc Query The Context Broker With Local Flag
     [Documentation]    Check that if one queries with the local flag, no entity from Context Source gets returned
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2    6_3_18
-    ${entity_body}=    Load Entity    ${entity_payload_filename}    ${entity_id}
-    Set Stub Reply    GET    /ngsi-ld/v1/entities?type=Vehicle    200    ${entity_body}
+    ${serialized_entity}=    Load Entity As Serialized Array    ${entity_payload_filename}    ${entity_id}
+    Set Stub Reply    GET    /ngsi-ld/v1/entities?type=Vehicle    200    ${serialized_entity}
+
     ${response}=    Query Entities    entity_types=Vehicle    context=${ngsild_test_suite_context}    local=true
+
     Check Response Status Code    200    ${response.status_code}
     Should Be Empty    ${response.json()}
+    ${stub_count}=    Get Stub Count    GET    /ngsi-ld/v1/entities?type=Vehicle
+    Should Be True    ${stub_count} == 0
 
 
 *** Keywords ***
