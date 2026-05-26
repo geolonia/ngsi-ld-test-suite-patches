@@ -386,7 +386,7 @@ Purge Entities
     END
     ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
     ${response}=    DELETE
-    ...    url=${final_url}${ENTITIES_ENDPOINT_PATH}
+    ...    url=${final_url}/${ENTITIES_ENDPOINT_PATH}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any

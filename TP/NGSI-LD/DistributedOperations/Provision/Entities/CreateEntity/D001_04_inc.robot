@@ -31,7 +31,7 @@ D001_04_inc Create Entity With Local Flag
 
 *** Keywords ***
 Setup Entity Id And Registration And Start Context Source Mock Server
-    ${entity_id}=    Generate Random Vehice Id
+    ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
 
     ${registration_id}=    Generate Random CSR Id

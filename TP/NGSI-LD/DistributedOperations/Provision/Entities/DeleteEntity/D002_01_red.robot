@@ -25,8 +25,8 @@ D002_01_red Delete Entities On Both Context Sources
     [Documentation]    Verify that, when one has a redirect registration on a Context Broker, one is able to delete entities on both Context Sources
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxied-redirect    4_3_6_3    5_6_6
 
-    Set Stub Reply  POST    /broker1/ngsi-ld/v1/entities/${entity_id}    201
-    Set Stub Reply  POST    /broker2/ngsi-ld/v1/entities/${entity_id2}    201
+    Set Stub Reply  POST    /broker1/ngsi-ld/v1/entities    201
+    Set Stub Reply  POST    /broker2/ngsi-ld/v1/entities    201
 
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Check Response Status Code    201    ${response.status_code}
