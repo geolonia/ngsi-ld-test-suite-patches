@@ -28,7 +28,7 @@ ${subscription_payload_file_path}=                      csourceSubscriptions/sub
     Set Suite Variable    ${context_source_registration_id}
     ${response}=    Create Context Source Registration    ${context_source_registration_payload}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
-    Wait for notification and validate it
+    Wait for CSource notification and validate it
     ...    expected_subscription_id=${subscription_id}
     ...    expected_context_source_registration_ids=${expected_context_source_registration_ids}
     ...    expected_trigger_reason=newlyMatching

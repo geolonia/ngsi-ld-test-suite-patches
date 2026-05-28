@@ -39,7 +39,7 @@ Receive cSourceNotification For Newly Matching Context Source Registrations
     ${response}=    Update Context Source Registration Subscription
     ...    ${subscription_id}
     ...    ${subscription_update_fragment}
-    Wait for notification and validate it
+    Wait for CSource notification and validate it
     ...    expected_subscription_id=${subscription_id}
     ...    expected_context_source_registration_ids=${notification_csr_ids}
     ...    expected_trigger_reason=newlyMatching

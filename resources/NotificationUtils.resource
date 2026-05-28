@@ -11,9 +11,7 @@ Variables           ${EXECDIR}/resources/variables.py
 
 
 *** Variables ***
-${notification_type}            ContextSource Notfication
-${date_format}                  %Y-%m-%dT%H:%M:%SZ
-${date_format_with_millis}      %Y-%m-%dT%H:%M:%S.%fZ
+${notification_type}            ContextSourceNotification
 
 
 *** Keywords ***
@@ -40,7 +38,7 @@ Wait for notification
     Output Notification    ${notification}    ${notification_headers}    Wait for notification
     RETURN    ${notification}    ${headers}
 
-Wait for notification and validate it
+Wait for CSource notification and validate it
     [Tags]    actor_notification-receiver
     [Arguments]
     ...    ${expected_subscription_id}
@@ -65,13 +63,16 @@ Wait for notification and validate it
     Output Notification    ${notification}    ${notification_headers}    Wait for notification
     Should Be Equal    ${notification}[type]    ${notification_type}
     Should Be Equal    ${notification}[subscriptionId]    ${expected_subscription_id}
-    ${is_date}=    Is Date    ${notification}[notifiedAt]    ${date_format}
-    Should Be True    ${is_date}
+    # notifiedAt is an RFC 3339 timestamp and may carry fractional seconds
+    # (e.g. 2026-05-27T10:28:22.317Z). Validate with the millis-tolerant parser
+    # used for createdAt/modifiedAt, not a fixed second-precision format.
+    ${notified_at_date}=    Parse Ngsild Date    ${notification}[notifiedAt]
+    Should Not Be Equal    ${notified_at_date}    ${None}
     ${index}=    Set Variable    0
     FOR    ${expected_context_source_registration_id}    IN    @{expected_context_source_registration_ids}
         List Should Contain Value
         ...    ${expected_context_source_registration_ids}
-        ...    ${notification}[data][${index}][@id]
+        ...    ${notification}[data][${index}][id]
         ${index}=    Evaluate    ${index} + 1
     END
     Should Be Equal    '${notification_data_length}'    '${expected_notification_data_length}'

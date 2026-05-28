@@ -42,7 +42,7 @@ Receive cSourceNotification For Matching Context Source Registrations On Managem
     ${response1}=    Create Context Source Registration    ${context_source_registration_payload}
     Check Response Status Code    201    ${response1.status_code}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
-    Wait for notification and validate it
+    Wait for CSource notification and validate it
     ...    expected_subscription_id=${subscription_id}
     ...    expected_context_source_registration_ids=${expected_context_source_registration_ids}
     ...    expected_trigger_reason=newlyMatching

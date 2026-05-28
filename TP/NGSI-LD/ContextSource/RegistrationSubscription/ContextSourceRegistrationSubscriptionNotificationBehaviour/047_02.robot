@@ -24,7 +24,7 @@ ${update_fragment_file_path}=                           csourceRegistrations/fra
     [Tags]    csrsub-notification    5_11_7
     ${update_fragment}=    Load Test Sample    ${update_fragment_file_path}
     ${response}=    Update Context Source Registration    ${context_source_registration_id}    ${update_fragment}
-    Wait for notification and validate it
+    Wait for CSource notification and validate it
     ...    expected_subscription_id=${subscription_id}
     ...    expected_context_source_registration_ids=${expected_context_source_registration_ids}
     ...    expected_trigger_reason=updated
@@ -53,7 +53,7 @@ Create Initial Context Source Registration and Context Source Registration Subsc
     Check Response Status Code    201    ${create_csrsub_response.status_code}
     @{expected_context_source_registration_ids}=    Create List    ${context_source_registration_id}
     Set Suite Variable    ${expected_context_source_registration_ids}
-    Wait for notification and validate it
+    Wait for CSource notification and validate it
     ...    expected_subscription_id=${subscription_id}
     ...    expected_context_source_registration_ids=${expected_context_source_registration_ids}
     ...    expected_trigger_reason=newlyMatching

@@ -2331,3 +2331,47 @@ Verified: with the stub, the create + 201 check pass and the test
 proceeds exactly like `D018_02` (it then reaches the actual
 loop-detection / Via assertions). Implemented in branch
 `fix/d018-stub-forwarded-create`.
+**Fix wanted:** add `...    expected_status=any` to the `DELETE` call in
+`Delete Context Source Registration Subscription`, matching the other
+keywords in the file. **Verified:** with the one-line fix both tests pass
+(and `042_01_01`, the happy-path delete, still passes).
+## 75. `047_10`–`047_15` — CSource-notification validator carries three fixture bugs
+
+**Hit:** the CSource-notification tests `047_10_01`, `047_11_01`,
+`047_11_02`, `047_12_01`, `047_13_01`, `047_14_01`, `047_15_01` all fail.
+They share the keyword `Wait for notification and validate it` in
+`resources/NotificationUtils.resource`, which validates the received
+`ContextSourceNotification` against three things that are each wrong in
+the fixture — each one masked the next until fixed:
+
+1. **Type literal misspelled.** `${notification_type}` read
+   `ContextSource Notfication` (a stray space plus a missing `i`). The
+   `type` member emitted by a conformant broker is `ContextSourceNotification`
+   (single token, per NGSI-LD TS 104-175 § 5.2.x), so the comparison could
+   never pass. → correct the literal.
+
+2. **`notifiedAt` validated with a fixed second-precision format.** The
+   check was `Is Date  ${notification}[notifiedAt]  ${date_format}` with
+   `${date_format}=%Y-%m-%dT%H:%M:%SZ` — no fractional seconds. `notifiedAt`
+   is an RFC 3339 timestamp and brokers legitimately emit milliseconds
+   (e.g. `2026-05-27T10:28:22.317Z`), which `strptime` then rejects. → use
+   the millis-tolerant `Parse Ngsild Date` (the same parser already used
+   for `createdAt`/`modifiedAt`, and the one hardened on `develop` for
+   arbitrary fractional precision). The now-unused `${date_format}` /
+   `${date_format_with_millis}` variables are removed.
+
+3. **Registration id looked up as `@id`.** The data loop read
+   `${notification}[data][${index}][@id]`, but the notification is normal
+   compacted NGSI-LD JSON — the registration identifier key is `id`
+   (the broker emits `id`, `type`, `information`, `endpoint`, all
+   compacted; `@id` is the expanded JSON-LD form, not present). → look up
+   `id`.
+
+**Impact / broker:** none — the broker is correct on all three; the
+defects are entirely test-side.
+
+**Fix wanted:** all three corrections in the shared keyword in
+`resources/NotificationUtils.resource`. **Verified:** with the three fixes
+the seven tests pass (full broker run; the same dir in isolation is partly
+masked by HttpCtrl-mock `Wait For Request` timeouts, but the seven are not
+among the timeouts and pass cleanly).
