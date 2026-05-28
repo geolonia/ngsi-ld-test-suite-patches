@@ -22,6 +22,11 @@ D018_03 Check Via Header Forwarding To Context Source
     [Documentation]    Verify that the request contains the Via header from both the Context Broker and the Context Source
     [Tags]    since_v1.8.1    dist-ops    4_3_3    cf_06    additive-inclusive    5_6_6    6_3_18
 
+    # The inclusive registration (endpoint=/broker1) forwards the create to the
+    # mock; that forward must be answered so the operation returns 201 (cf.
+    # sibling D018_02, which stubs the same reply). The DELETE forward below is
+    # already stubbed; the POST one was missing.
+    Set Stub Reply    POST    /broker1/ngsi-ld/v1/entities    201
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Check Response Status Code    201    ${response.status_code}
 

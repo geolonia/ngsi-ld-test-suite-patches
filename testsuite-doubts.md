@@ -2292,28 +2292,42 @@ the existing coordinate shape) — but then the test is no
 longer a "Within Polygon" test, so option 1 is the right
 fix.
 
-## 76. `042_02_01` / `042_03_01` — Delete CSR-subscription keyword raises on the 4xx it is meant to assert
+## 74. `D018_01` / `D018_03` — forwarded-create reply not stubbed (sibling `D018_02` stubs it), so the inclusive forward yields 207
 
-**Hit:** `042_02_01` (delete with invalid URI, expects **400**
-`BadRequestData`) and `042_03_01` (delete unknown id, expects **404**
-`ResourceNotFound`) both fail with an `HTTPError` exception
-(`400 Client Error` / `404 Client Error`) raised *before* the
-`Check Response Status Code` assertion is reached.
+**Hit:** `D018_01` (loop detection) and `D018_03` (Via-header
+forwarding) fail at setup — `Create Entity` returns **207**, the
+test asserts **201** — so they never reach their actual assertion
+(loop-detection 508 / Via comparison).
 
-**Why:** the keyword `Delete Context Source Registration Subscription` in
-`resources/ApiUtils/ContextSourceRegistrationSubscription.resource` issues
-its `DELETE` without `expected_status=any`, so RequestsLibrary raises on
-any status ≥ 400. These two are negative-path tests that *expect* a 4xx,
-so the keyword aborts before they can assert it. Every sibling keyword in
-the same file already carries `expected_status=any` (lines 37, 70, 89,
-100, 111), as does the regular `Delete Subscription` keyword — the Delete
-keyword here is simply the one that was missed.
+**Where:** both register an **inclusive** CSR pointing at the
+HttpCtrl mock and then call `Create Entity`, but neither stubs a
+reply for the forwarded create. Their sibling `D018_02` does
+(`Set Stub Reply POST /broker1/ngsi-ld/v1/entities 201`) and
+passes. `D018_03` even stubs the DELETE forward
+(`Set Stub Reply DELETE …/entities/${entity_id} 204`) but not the
+POST.
 
-**Impact / broker:** none — the broker correctly returns 400 for an
-invalid URI and 404 for an unknown subscription, with the right
-ProblemDetails. The defect is entirely test-side.
+**Why it's wrong:** with an inclusive registration the create is
+also forwarded to the registered source. If that forward isn't
+answered, a broker that surfaces the unanswered forward as a
+partial success returns 207. The test assumes 201 — i.e. it
+implicitly assumes the forward is answered — but never arranges
+the answer. Whether a *failed* inclusive-write forward should
+downgrade the operation to 207 at all is itself a spec ambiguity
+(see `spec-doubts-2.md` #90 in the TS 104-175 repo), so the test
+must not depend on a broker's choice there; it should stub the
+forward like `D018_02`.
 
-**Fix wanted:** add `...    expected_status=any` to the `DELETE` call in
-`Delete Context Source Registration Subscription`, matching the other
-keywords in the file. **Verified:** with the one-line fix both tests pass
-(and `042_01_01`, the happy-path delete, still passes).
+**Impact / broker:** the broker returns 201 when the inclusive
+forward succeeds (proven by `D018_02`) and 207 when it fails —
+defensible either way. The inconsistency is in the test, not the
+broker.
+
+**Fix wanted:** add `Set Stub Reply POST <path> 201` before
+`Create Entity` in `D018_01` and `D018_03`, mirroring `D018_02` —
+path `/ngsi-ld/v1/entities` for `D018_01` (default endpoint) and
+`/broker1/ngsi-ld/v1/entities` for `D018_03` (`endpoint=/broker1`).
+Verified: with the stub, the create + 201 check pass and the test
+proceeds exactly like `D018_02` (it then reaches the actual
+loop-detection / Via assertions). Implemented in branch
+`fix/d018-stub-forwarded-create`.
