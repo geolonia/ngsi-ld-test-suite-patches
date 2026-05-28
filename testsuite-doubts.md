@@ -2291,3 +2291,29 @@ Or the geometry param should switch to `LineString` (with
 the existing coordinate shape) — but then the test is no
 longer a "Within Polygon" test, so option 1 is the right
 fix.
+
+## 76. `042_02_01` / `042_03_01` — Delete CSR-subscription keyword raises on the 4xx it is meant to assert
+
+**Hit:** `042_02_01` (delete with invalid URI, expects **400**
+`BadRequestData`) and `042_03_01` (delete unknown id, expects **404**
+`ResourceNotFound`) both fail with an `HTTPError` exception
+(`400 Client Error` / `404 Client Error`) raised *before* the
+`Check Response Status Code` assertion is reached.
+
+**Why:** the keyword `Delete Context Source Registration Subscription` in
+`resources/ApiUtils/ContextSourceRegistrationSubscription.resource` issues
+its `DELETE` without `expected_status=any`, so RequestsLibrary raises on
+any status ≥ 400. These two are negative-path tests that *expect* a 4xx,
+so the keyword aborts before they can assert it. Every sibling keyword in
+the same file already carries `expected_status=any` (lines 37, 70, 89,
+100, 111), as does the regular `Delete Subscription` keyword — the Delete
+keyword here is simply the one that was missed.
+
+**Impact / broker:** none — the broker correctly returns 400 for an
+invalid URI and 404 for an unknown subscription, with the right
+ProblemDetails. The defect is entirely test-side.
+
+**Fix wanted:** add `...    expected_status=any` to the `DELETE` call in
+`Delete Context Source Registration Subscription`, matching the other
+keywords in the file. **Verified:** with the one-line fix both tests pass
+(and `042_01_01`, the happy-path delete, still passes).

@@ -44,6 +44,7 @@ Delete Context Source Registration Subscription
 
     ${response}=    DELETE
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
+    ...    expected_status=any
     Output    ${response}    Delete Context Source Registration Subscription
     RETURN    ${response}
 
