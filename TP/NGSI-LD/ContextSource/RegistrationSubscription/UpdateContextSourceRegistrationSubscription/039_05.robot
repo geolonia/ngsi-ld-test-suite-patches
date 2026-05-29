@@ -25,7 +25,7 @@ ${subscription_update_fragment_file_path}=      csourceSubscriptions/fragments/s
     Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element
     ...    response_body=${response.json()}
-    ...    problem_type=${ERROR_TYPE_BAD_REQUEST_DATA}
+    ...    problem_type=${ERROR_TYPE_INVALID_REQUEST}
 
 
 *** Keywords ***

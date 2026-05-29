@@ -2416,3 +2416,15 @@ ProblemDetails. The defect is entirely test-side.
 `Delete Context Source Registration Subscription`, matching the other
 keywords in the file. **Verified:** with the one-line fix both tests pass
 (and `042_01_01`, the happy-path delete, still passes).
+
+## 77. `039_05_01` — invalid-JSON test expects BadRequestData, but spec § 8 says InvalidRequest
+
+**Hit:** `039_05_01 Update Context Source Registration Subscription With Invalid JSON Fragment` sends a fragment with a syntactic JSON error (`,,`) and asserts `ProblemDetails.type == https://uri.etsi.org/ngsi-ld/errors/BadRequestData`. A spec-conformant broker returns `InvalidRequest`, so the test fails.
+
+**Spec:** TS 104-175 § 8: "If the request payload body is not a valid JSON document then an error of type **InvalidRequest** shall be raised. If the data included by the JSON-LD document is not syntactically correct, according to the @context or the API data type definitions, then an error of type **BadRequestData** shall be raised." So malformed JSON → InvalidRequest; valid JSON with bad data → BadRequestData.
+
+**Impact / broker:** none. Every other invalid-JSON test in the suite (`001_02`, `003_03`, `004_06`, `005_04`, `006_03`, `007_02`, `014_04`, `028_02`, `057_03`) correctly expects `INVALID_REQUEST`. 039_05_01 is the outlier — looks like the author copy-pasted from a *bad-data* test by mistake.
+
+**Fix wanted:** swap the assertion to `ERROR_TYPE_INVALID_REQUEST`. One-line change.
+
+**Status:** RESOLVED — fixed in this MR.
