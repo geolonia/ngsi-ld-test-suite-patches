@@ -308,6 +308,8 @@ that the spec doesn't mandate.
 
 ## 10. `043_01_*` + `028_07_02` expects HTTP 503 for `LdContextNotAvailable`; spec says 504
 
+**Status:** RESOLVED — fixed in MR !269.
+
 **Hit:** `043_01_01`, `043_01_02`, `043_01_03`, `043_01_04`, `043_01_05`
 — "Verify receiving 503 - LdContextNotAvailable error if remote
 JSON-LD @context cannot be retrieved" across Create Entity / Create
@@ -418,6 +420,8 @@ similar.
 
 
 ## 13. `028_01_01 / 029_05_* / 029_06_01 / 030_03_01` deep-diff response against request — disallows spec defaults
+
+**Status:** RESOLVED — fixed in MR !269.
 
 **Hit:** these Subscription Create / Update / Retrieve tests build a
 request payload, send it, then compare the response body to the
@@ -2294,6 +2298,8 @@ fix.
 
 ## 74. `D018_01` / `D018_03` — forwarded-create reply not stubbed (sibling `D018_02` stubs it), so the inclusive forward yields 207
 
+**Status:** RESOLVED — fixed in MR !270.
+
 **Hit:** `D018_01` (loop detection) and `D018_03` (Via-header
 forwarding) fail at setup — `Create Entity` returns **207**, the
 test asserts **201** — so they never reach their actual assertion
@@ -2331,11 +2337,11 @@ Verified: with the stub, the create + 201 check pass and the test
 proceeds exactly like `D018_02` (it then reaches the actual
 loop-detection / Via assertions). Implemented in branch
 `fix/d018-stub-forwarded-create`.
-**Fix wanted:** add `...    expected_status=any` to the `DELETE` call in
-`Delete Context Source Registration Subscription`, matching the other
-keywords in the file. **Verified:** with the one-line fix both tests pass
-(and `042_01_01`, the happy-path delete, still passes).
+
+
 ## 75. `047_10`–`047_15` — CSource-notification validator carries three fixture bugs
+
+**Status:** RESOLVED — fixed in MR !271.
 
 **Hit:** the CSource-notification tests `047_10_01`, `047_11_01`,
 `047_11_02`, `047_12_01`, `047_13_01`, `047_14_01`, `047_15_01` all fail.
@@ -2375,3 +2381,32 @@ defects are entirely test-side.
 the seven tests pass (full broker run; the same dir in isolation is partly
 masked by HttpCtrl-mock `Wait For Request` timeouts, but the seven are not
 among the timeouts and pass cleanly).
+
+
+## 76. `042_02_01` / `042_03_01` — Delete CSR-subscription keyword raises on the 4xx it is meant to assert
+
+**Status:** RESOLVED — fixed in MR !272.
+
+**Hit:** `042_02_01` (delete with invalid URI, expects **400**
+`BadRequestData`) and `042_03_01` (delete unknown id, expects **404**
+`ResourceNotFound`) both fail with an `HTTPError` exception
+(`400 Client Error` / `404 Client Error`) raised *before* the
+`Check Response Status Code` assertion is reached.
+
+**Why:** the keyword `Delete Context Source Registration Subscription` in
+`resources/ApiUtils/ContextSourceRegistrationSubscription.resource` issues
+its `DELETE` without `expected_status=any`, so RequestsLibrary raises on
+any status ≥ 400. These two are negative-path tests that *expect* a 4xx,
+so the keyword aborts before they can assert it. Every sibling keyword in
+the same file already carries `expected_status=any` (lines 37, 70, 89,
+100, 111), as does the regular `Delete Subscription` keyword — the Delete
+keyword here is simply the one that was missed.
+
+**Impact / broker:** none — the broker correctly returns 400 for an
+invalid URI and 404 for an unknown subscription, with the right
+ProblemDetails. The defect is entirely test-side.
+
+**Fix wanted:** add `...    expected_status=any` to the `DELETE` call in
+`Delete Context Source Registration Subscription`, matching the other
+keywords in the file. **Verified:** with the one-line fix both tests pass
+(and `042_01_01`, the happy-path delete, still passes).
