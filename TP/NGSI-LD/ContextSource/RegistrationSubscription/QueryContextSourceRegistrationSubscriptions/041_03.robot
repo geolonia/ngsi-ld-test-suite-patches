@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation       Check that one can query context source registration subscriptions with providing page and limit parameters for pagination
+Documentation       Check that one can query context source registration subscriptions with providing offset and limit parameters for pagination
 
 Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
@@ -8,7 +8,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 
 Test Setup          Setup Initial Context Source Registration Subscriptions
 Test Teardown       Delete Created Context Source Registration Subscriptions
-Test Template       Query Context Source Registration Subscriptions With Limit And Page Parameters
+Test Template       Query Context Source Registration Subscriptions With Limit And Offset Parameters
 
 
 *** Variables ***
@@ -17,26 +17,26 @@ ${second_subscription_payload_file_path}=       csourceSubscriptions/subscriptio
 ${third_subscription_payload_file_path}=        csourceSubscriptions/subscription-geoQ.jsonld
 
 
-*** Test Cases ***    LIMIT    PAGE    EXPECTED_SUBSCRIPTION_NUMBER    PREV_LINK    NEXT_LINK
+*** Test Cases ***    LIMIT    OFFSET    EXPECTED_SUBSCRIPTION_NUMBER    PREV_LINK    NEXT_LINK
 041_03_01 Query Second Subscription
     [Tags]    csrsub-query    5_11_5
-    ${1}    ${2}    ${1}    </ngsi-ld/v1/csourceSubscriptions?limit=1&page=1>;rel="prev";type="application/ld+json"    </ngsi-ld/v1/csourceSubscriptions?limit=1&page=3>;rel="next";type="application/ld+json"
+    ${1}    ${1}    ${1}    </ngsi-ld/v1/csourceSubscriptions?limit=1&offset=0>;rel="prev";type="application/ld+json"    </ngsi-ld/v1/csourceSubscriptions?limit=1&offset=2>;rel="next";type="application/ld+json"
 041_03_02 Query Last Subscription
     [Tags]    csrsub-query    5_11_5
-    ${2}    ${2}    ${1}    </ngsi-ld/v1/csourceSubscriptions?limit=2&page=1>;rel="prev";type="application/ld+json"    ${EMPTY}
+    ${2}    ${2}    ${1}    </ngsi-ld/v1/csourceSubscriptions?limit=2&offset=0>;rel="prev";type="application/ld+json"    ${EMPTY}
 041_03_03 Query All Subscriptions
     [Tags]    csrsub-query    5_11_5
-    ${15}    ${1}    ${3}    ${EMPTY}    ${EMPTY}
+    ${15}    ${0}    ${3}    ${EMPTY}    ${EMPTY}
 
 
 *** Keywords ***
-Query Context Source Registration Subscriptions With Limit And Page Parameters
-    [Documentation]    Check that one can query context source registration subscriptions with providing page and limit parameters for pagination
-    [Arguments]    ${limit}    ${page}    ${expected_subscription_number}    ${prev_link}    ${next_link}
+Query Context Source Registration Subscriptions With Limit And Offset Parameters
+    [Documentation]    Check that one can query context source registration subscriptions with providing offset and limit parameters for pagination
+    [Arguments]    ${limit}    ${offset}    ${expected_subscription_number}    ${prev_link}    ${next_link}
     ${response}=    Query Context Source Registration Subscriptions
     ...    context=${ngsild_test_suite_context}
     ...    limit=${limit}
-    ...    page=${page}
+    ...    offset=${offset}
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing Number Of Entities
     ...    Subscription

@@ -61,6 +61,11 @@ Serve a @context
 Delete a @context
     [Tags]    actor_context-producer
     [Arguments]    ${contextId}    ${reload}=${EMPTY}
+    # Strip an absolute broker URL (http(s)://host/ngsi-ld/v1/jsonldContexts/<id>)
+    # or the path prefix alone, leaving only the localId. Anchoring on the
+    # absolute form prevents a leftover "http://host" prefix in front of the
+    # localId when callers pass a fully-qualified URL.
+    ${contextId}=    Remove String Using Regexp    ${contextId}    ^https?://[^/]+/ngsi-ld/v1/${JSONLDCONTEXTS_ENDPOINT_PATH}/
     ${contextId}=    Replace String    ${contextId}    /ngsi-ld/v1/${JSONLDCONTEXTS_ENDPOINT_PATH}/    ${EMPTY}
     ${contextId}=    Evaluate    urllib.parse.quote("${contextId}", safe='')    modules=urllib
     IF    '${reload}'!=''

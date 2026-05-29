@@ -348,6 +348,8 @@ failing 5 tests for a spec-correct broker.
 
 ## 11. `051_07_01` extracts the full URL field instead of the localId for DELETE
 
+**Status:** RESOLVED — fixed in this MR (caller-side + [[#19]] keyword-side).
+
 **Hit:** `TP/NGSI-LD/jsonldContext/Provision/DeleteContext/051_07.robot`
 "Delete A ImplicitlyCreated @contexts With A Valid Id And Reload Set To
 True". Expects 400 BadRequestData; broker returns 404 ResourceNotFound.
@@ -565,6 +567,8 @@ emits 504 per spec.
 
 ## 19. `051_07_01` — Robot's URL stripping mangles the implicit URL
 
+**Status:** RESOLVED — fixed in this MR (keyword now anchors on absolute URLs too).
+
 **Hit:** the `Delete a @context` keyword strips the prefix
 `/ngsi-ld/v1/jsonldContexts/` from an absolute URL. When the broker
 returns the implicit context's URL as
@@ -779,6 +783,8 @@ For the tests to expect 1, the fixtures must either (a) count all three CSRs as 
 
 
 ## 29. TS 104-175 § 7.4 / 041_03_01..03 — `?page=` is not a NGSI-LD pagination parameter
+
+**Status:** RESOLVED — fixed in this MR.
 
 **Hit:** Tests 041_03_01, 041_03_02, 041_03_03 query CSR subscriptions with `GET /csourceSubscriptions?limit=1&page=2` (and `page=3`). Expect 200 with the entity at that page.
 

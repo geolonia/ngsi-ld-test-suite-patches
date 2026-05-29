@@ -49,7 +49,7 @@ Delete Context Source Registration Subscription
 
 Query Context Source Registration Subscriptions
     [Tags]    actor_context-subscriber
-    [Arguments]    ${context}=${EMPTY}    ${limit}=${EMPTY}    ${page}=${EMPTY}    ${accept}=${EMPTY}
+    [Arguments]    ${context}=${EMPTY}    ${limit}=${EMPTY}    ${offset}=${EMPTY}    ${accept}=${EMPTY}
 
     &{headers}=    Create Dictionary
     &{params}=    Create Dictionary
@@ -61,7 +61,7 @@ Query Context Source Registration Subscriptions
         ...    Link=${context_link}
     END
     IF    '${limit}'!=''    Set To Dictionary    ${params}    limit=${limit}
-    IF    '${page}'!=''    Set To Dictionary    ${params}    page=${page}
+    IF    '${offset}'!=''    Set To Dictionary    ${params}    offset=${offset}
 
     ${response}=    GET
     ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}

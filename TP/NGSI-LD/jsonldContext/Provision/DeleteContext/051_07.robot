@@ -47,6 +47,10 @@ Create initial ImplicitlyCreated @context
 
     ${data}=    Get From List    ${response.json()}    0
     ${implicit_id}=    Get From Dictionary    ${data}    URL
+    # Take only the localId (last path segment). The URL field is a full
+    # broker URL (http://host/ngsi-ld/v1/jsonldContexts/<id>) and TS 104-175
+    # § 13.5.3 says the DELETE path takes the locally unique id, not the URL.
+    ${implicit_id}=    Evaluate    '${implicit_id}'.split('/')[-1]
 
     Set Global Variable    ${implicit_id}
     Set Suite Variable    ${subscription_id}

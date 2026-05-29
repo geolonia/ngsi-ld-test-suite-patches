@@ -1,30 +1,30 @@
 *** Settings ***
-Documentation       Check that one cannot query context source registration subscriptions with invalid page and limit parameters
+Documentation       Check that one cannot query context source registration subscriptions with invalid offset and limit parameters
 
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistrationSubscription.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 
-Test Template       Query Context Source Registration Subscriptions With Invalid Limit And Page Parameters
+Test Template       Query Context Source Registration Subscriptions With Invalid Limit And Offset Parameters
 
 
-*** Test Cases ***    LIMIT    PAGE
+*** Test Cases ***    LIMIT    OFFSET
 041_04_01 Invalid Limit
     [Tags]    csrsub-query    5_11_5
     ${-5}    ${2}
-041_04_02 Invalid Page
+041_04_02 Invalid Offset
     [Tags]    csrsub-query    5_11_5
     ${2}    ${-3}
-041_04_03 Invalid Limit And Page
+041_04_03 Invalid Limit And Offset
     [Tags]    csrsub-query    5_11_5
-    ${0}    ${0}
+    ${0}    ${-1}
 
 
 *** Keywords ***
-Query Context Source Registration Subscriptions With Invalid Limit And Page Parameters
-    [Documentation]    Check that one cannot query context source registration subscriptions with invalid page and limit parameters
-    [Arguments]    ${limit}    ${page}
-    ${response}=    Query Context Source Registration Subscriptions    limit=${limit}    page=${page}
+Query Context Source Registration Subscriptions With Invalid Limit And Offset Parameters
+    [Documentation]    Check that one cannot query context source registration subscriptions with invalid offset and limit parameters
+    [Arguments]    ${limit}    ${offset}
+    ${response}=    Query Context Source Registration Subscriptions    limit=${limit}    offset=${offset}
     Check Response Status Code    400    ${response.status_code}
     Check Response Body Containing ProblemDetails Element Containing Type Element set to
     ...    ${response.json()}
