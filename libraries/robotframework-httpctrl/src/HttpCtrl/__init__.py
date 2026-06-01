@@ -1118,7 +1118,9 @@ class Server:
             raise AssertionError(message_error)
         
         criteria = HttpStubCriteria(method=method, url=url)
-        response = Response(int(status), None, json.dumps(body), None, None)
+        if not isinstance(body, (str, bytes)) and body is not None:
+            body = json.dumps(body)
+        response = Response(int(status), None, body, None, None)
         HttpStubContainer().add(criteria, response)
 
     def get_stub(self, method, url):

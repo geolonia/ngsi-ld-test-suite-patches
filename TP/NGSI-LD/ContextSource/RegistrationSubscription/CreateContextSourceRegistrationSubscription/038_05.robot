@@ -12,6 +12,7 @@ Suite Teardown      Delete Created Context Source Registration Subscriptions
 
 *** Variables ***
 ${subscription_payload_file_path}=      csourceSubscriptions/subscription-expiresAt.jsonld
+${date_format}=                         %Y-%m-%dT%H:%M:%SZ
 
 
 *** Test Cases ***

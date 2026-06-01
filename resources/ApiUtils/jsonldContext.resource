@@ -17,6 +17,7 @@ ${response}                         ${EMPTY}
 
 ${ERROR_OPERATION_NOT_SUPPORTED}    https://uri.etsi.org/ngsi-ld/errors/OperationNotSupported
 ${ERROR_TYPE_BAD_REQUEST_DATA}      https://uri.etsi.org/ngsi-ld/errors/BadRequestData
+${ERROR_TYPE_RESOURCE_NOT_FOUND}    https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound
 
 
 *** Keywords ***

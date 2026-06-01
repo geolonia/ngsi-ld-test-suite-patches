@@ -2428,3 +2428,242 @@ keywords in the file. **Verified:** with the one-line fix both tests pass
 **Fix wanted:** swap the assertion to `ERROR_TYPE_INVALID_REQUEST`. One-line change.
 
 **Status:** RESOLVED — fixed in this MR.
+
+## 78. Test-infra housekeeping bundle: missing keywords, variables, fixture cleanups
+
+Two small, independent test-suite issues that each prevented one or a few
+tests from reaching the broker. Bundled into one MR for low-noise review.
+
+**78a) `038_05_01` — undefined `${date_format}` variable**
+
+`038_05.robot` referenced `${date_format}` in its body but had no
+corresponding Variables-section entry. **Fix:** added the standard
+`%Y-%m-%dT%H:%M:%SZ` definition in that file's Variables section, matching
+sibling test files (`046_07/11`).
+
+**78b) `053_03_01 / 051_04_02 / 051_04_03` — `Variable '${ERROR_TYPE_RESOURCE_NOT_FOUND}' not found`**
+
+`${ERROR_TYPE_RESOURCE_NOT_FOUND}` was defined in some resource files but not
+in `resources/ApiUtils/jsonldContext.resource` (which the three failing tests
+use exclusively). **Fix:** added the standard mapping
+`https://uri.etsi.org/ngsi-ld/errors/ResourceNotFound` to that file's
+Variables section, alongside the existing `ERROR_TYPE_BAD_REQUEST_DATA`.
+
+**Status:** RESOLVED — both items fixed in this MR.
+
+**Items removed from the original bundle after MR review (2026-05-30):**
+
+- `001_05_02 / 003_05_02 almostFull` — broker-side bug (@vocab over-stripping
+  when the user @context defines the same short name to a different IRI).
+  The expected `ngsi-ld:default-context/almostFull` form is correct per the
+  JSON-LD compaction algorithm. Filed as a broker issue.
+- `038_01_01 / 040_01_01 notificationTrigger` — broker-side bug. TS
+  104-175 § 5.2 Subscription table is explicit: `notificationTrigger`
+  *"is not applicable and shall be ignored if the Subscription data type
+  is used for a Context Source Registration Subscription"*. The broker
+  shouldn't be auto-populating it on CSR subs; filed separately.
+- `021_15_* / 029_10_01 DateTime keyword resolution` — likely env-delta
+  on the reporter side (Robot 7.4.1 / Python 3.14.4) rather than a
+  genuinely missing import; the tests have been passing on Forge CI for
+  years. Pulled from the MR pending re-verification on a clean checkout.
+
+## 79. `D011_02_exc_01` — mock stub URL keys on `attrs=` but broker forwards `pick=`
+
+**Files:**
+- `TP/NGSI-LD/DistributedOperations/Consumption/Entity/QueryEntities/D011_02_exc.robot`
+
+**Symptom:** broker query forward returns 200 with the entity skeleton but
+no `speed` attribute; `Should Have Value In Json $.speed` fails.
+
+**Cause:** the test sets the CSR mock stub URL to
+`${url}?type=Vehicle&id=${entity_id}&attrs=speed` and only replies with the
+speed-bearing payload when that exact URL is hit. The broker forwards the
+query with `pick=speed` (the current-spec attribute-projection parameter,
+since `attrs=` is the deprecated v1.6 form). The stub URL doesn't match, so
+the mock returns its default empty reply and the assertion fails.
+
+This was found on swBroker, where the @vocab over-stripping bug previously
+masked the issue by causing a different failure mode upstream. Once the
+broker bug was fixed, the stub-URL mismatch surfaced.
+
+All NGSI-LD payloads in this test use the same compound test-suite context
+(`ngsi-ld-test-suite-compound.jsonld`), so the parameter mismatch is purely
+`attrs` vs `pick`, not a context-resolution issue:
+
+- entity create — `vehicle-simple-attributes.jsonld` carries the compound context
+- CSR registration — same compound context, `propertyNames:["speed"]`
+- query — `context=${ngsild_test_suite_context}` resolves to the same URL
+- mock stub reply (`vehicle-speed-attribute.json`) has no `@context` at all
+
+**Fix:** change the stub URL in the `GET` branch to use `pick=speed`
+instead of `attrs=speed`. Check `D011_02_red_01` / `D011_02_inc_01` and
+any other sibling that builds stub URLs from `attrs=` for the same pattern.
+
+**Spec angle:** § 5.7.2 (Query Entities) and § 6.3.2 list `pick` and `omit`
+as the projection parameters; `attrs=` is not in the v1.9 parameter table.
+The spec could be clearer that distributed-operation forwards must
+translate any legacy `attrs=` from a 1.6-era CSR into `pick=` so that mock
+test stubs written against the modern spec match the forwarded URL.
+
+## 80. `046_22_08` — `deleteAll=${true}` serializes as `deleteAll=True` (capital T)
+
+**Files:**
+- `TP/NGSI-LD/ContextInformation/Subscription/SubscriptionNotificationBehaviour/046_22_08.robot`
+
+**Symptom:** broker returns 400 BadRequestData on the DELETE attribute
+call:
+```
+"detail": "'deleteAll' must be 'true' or 'false' (lowercase); got 'True'"
+```
+
+**Cause:** the test passes `deleteAll=${true}` (Robot Framework boolean
+literal) to the `Delete Entity Attributes` keyword. The keyword in
+`ContextInformationProvision.resource:248` appends it to the URL as
+`deleteAll=${true}` → which Robot serializes to the string `"True"`
+(capital T). The broker correctly rejects this per the strict-case URL
+parameter rule.
+
+NGSI-LD § 4 and RFC 3986 § 6.2.2.1 both require URL parameter values to
+be case-sensitive; the spec uses the literal lowercase tokens `true` /
+`false` everywhere. swBroker enforces this strictly (parseBool in
+`ldUrlParams.c`); accepting `True` / `TRUE` / etc. would be a silent
+deviation from the spec.
+
+All ten sibling tests `046_22_01`..`046_22_07`/`09`..`11` pass
+`deleteAll=${EMPTY}` (omit the parameter entirely), so this is a
+one-off bug isolated to `046_22_08`.
+
+**Fix:** change `deleteAll=${true}` to the literal string `deleteAll=true`
+in `046_22_08.robot:30`. The keyword's existing serialization will then
+produce the lowercase form the broker (and the spec) expect.
+
+**Related:** when this is fixed, the test will progress past the URL-param
+rejection and into the actual notification-trigger logic — which is what
+the test is intended to exercise. The current 400 short-circuits the
+whole assertion.
+
+**80b) `Create Subscription And Entity` keyword — `${entity_id_suffix}=None` default never falls through to `Generate Random Building Entity Id`**
+
+The trace for 046_22_08 (and all sibling 046_22_* tests) shows the
+entity URL as `urn:ngsi-ld:Building:None` — a literal "None" suffix
+rather than the intended random-uuid. Source in
+`resources/SubscriptionUtils.resource:14`:
+
+```robot
+[Arguments]    ${subscription_payload_file_path}    ${building_filename}    ${entity_id_suffix}=None
+
+IF    '${entity_id_suffix}' == None
+    ${entity_id}=    Generate Random Building Entity Id
+ELSE
+    ${entity_id}=    Catenate    ${BUILDING_ID_PREFIX}${entity_id_suffix}
+END
+```
+
+Two layered bugs:
+
+1. The argument default `${entity_id_suffix}=None` makes the default
+   value the literal string `"None"`, not Robot's `${None}` (Python
+   `None`). To get the actual `None` object the default would need to
+   be `${entity_id_suffix}=${None}`.
+
+2. The condition `'${entity_id_suffix}' == None` compares the
+   stringified `'None'` against Python's `None` (built-in identifier in
+   Robot evaluator). Strings never compare equal to NoneType in
+   Python, so the IF branch (which calls
+   `Generate Random Building Entity Id`) never fires — every caller
+   that omits the suffix ends up with `urn:ngsi-ld:Building:None`.
+
+The tests "work" because each setup creates the entity with that fixed
+id and the teardown deletes it again — a single test's create / use /
+delete cycle is consistent. But:
+
+- Any test parallelism would break with a collision on `:None`.
+- Cross-test state leak between siblings is hidden by the matching
+  delete in teardown — but the entity briefly exists for two adjacent
+  tests at the same time during the Robot run, which is unintentional.
+- The keyword's `Generate Random Building Entity Id` branch is dead
+  code today.
+
+**Fix:** change the default and the condition to be consistent. Either:
+- `${entity_id_suffix}=${None}` + `IF '${entity_id_suffix}' == 'None'` (compare against the string), OR
+- `${entity_id_suffix}=${EMPTY}` + `IF '${entity_id_suffix}' == ''`
+
+The second form matches the convention already used elsewhere in the
+suite (`deleteAll=${EMPTY}` etc.).
+
+## 82. `D010_01_exc` / `D002_02_exc` / `D003_02_exc` / `D004_01_exc` — distop tests surfaced as test-side after § 9.3.3 enforcement
+
+The triage of four distop "later error" failures (from the `lowercase
+boolean URL params` MR (#81)) found four distinct test-side problems
+behind them. Brokers that strictly validate exclusive registrations per
+§ 9.3.3 and `application/ld+json` body shape per § 5.6.2 will reject
+the tests' fixtures and keyword setup. Each item below stands on its
+own; group them here because the same audit pass surfaced all four.
+
+**82a) `D010_01_exc` — stub-count assertion checks the wrong URL pattern**
+
+- Stub registered at `/broker1/ngsi-ld/v1/entities/${entity_id}` (by-id)
+- Assertion at line 34 counts hits at `/broker1/ngsi-ld/v1/entities?type=Vehicle` (by-type listing)
+
+The broker correctly forwards a by-id retrieve for an exclusive CSR
+that pins a specific entity id — the by-id stub matches. The by-type
+stub-count URL never matches by construction and always returns 0, so
+`Should Be True ${stub_count} > 0` always fails. **Fix:** change the
+`Get Stub Count` URL in line 34 to the by-id pattern actually
+registered at line 29.
+
+**82b) `D002_02_exc` — fixture invalid for exclusive mode (§ 9.3.3)**
+
+The test uses
+`csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld`
+as an exclusive CSR. The fixture's `information[0].entities[0]`
+declares only `{"type": "Vehicle"}` — a type-only group selector. Per
+§ 9.3.3, exclusive registrations "shall always relate to specific
+Attributes found on a single Entity" — both a specific entity id AND
+attribute names are mandatory. swBroker (and any spec-strict broker)
+now rejects the CSR creation with **400 BadRequestData**; the test's
+setup then fails (`Check Response Status Code 201` doesn't see 201).
+
+The same fixture, used as a redirect CSR (e.g. `D010_02_red.robot`),
+is fine — § 9.3.3 only constrains exclusive mode. The fix is to give
+this test its own fixture (or extend
+`vehicle-redirection-ops.jsonld` keeping the original redirect-mode
+behaviour intact) that adds `propertyNames` matching what the test
+actually exercises. The test name "Delete Entity Without Redirection
+Operations" is also slightly misleading — per § 9.2,
+`redirectionOps` includes `deleteEntity`, so the premise that "this
+CSR doesn't support delete" doesn't hold with the listed operation
+set.
+
+**82c) `D003_02_exc` — `application/json` body without Link header doesn't propagate the test-suite context to attribute matching**
+
+The test POSTs `data/entities/fragmentEntities/vehicle-speed-isParked-fragment.json`
+to `/entities/{id}/attrs/` with `Content-Type: application/json` and
+no Link header. The fragment carries no `@context`, so the broker
+expands `speed` against the **core** context →
+`https://uri.etsi.org/ngsi-ld/default-context/speed`. The CSR was
+registered with `${ngsild_test_suite_context}` so its `propertyNames:
+["speed"]` claim expanded to a different IRI. The two don't match,
+the broker doesn't forward to the CS, and `Wait for redirected request`
+times out.
+
+The test should either send the body as `application/ld+json` with a
+root `@context`, OR pass a Link header carrying
+`${ngsild_test_suite_context}`, so the broker's attr expansion lines
+up with the CSR's. Same pattern probably affects other
+`Append Entity Attributes With Parameters` callers.
+
+**82d) `D004_01_exc` — fragment placeholder `randomUUID` is never substituted**
+
+`Update Entity Attributes` (`ContextInformationProvision.resource:248`)
+reads the fragment file (`vehicle-speed-different-attribute.jsonld`)
+verbatim and PATCHes it. The fixture's root carries
+`"id": "urn:ngsi-ld:Vehicle:randomUUID"` — never replaced with the
+actual `${entity_id}` the test set up. The broker correctly returns
+**400 BadRequestData** with `"Entity Id Mismatch"` because the body id
+doesn't match the URL id.
+
+**Fix:** mirror what `Create Entity` does — substitute the body's
+`$.id` with the actual `${entity_id}` before PATCHing. Or omit the
+`id` from the fragment entirely (PATCH attrs doesn't need it).
+
