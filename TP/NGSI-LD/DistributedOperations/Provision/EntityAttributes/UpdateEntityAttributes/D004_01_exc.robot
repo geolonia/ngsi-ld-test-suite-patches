@@ -42,7 +42,7 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
     ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
 
-    ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    local=${True}
+    ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    local=true
     Check Response Status Code    201    ${response.status_code}
 
     ${registration_id}=    Generate Random CSR Id

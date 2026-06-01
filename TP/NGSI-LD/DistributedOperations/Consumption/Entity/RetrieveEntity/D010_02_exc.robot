@@ -28,7 +28,7 @@ D010_02_exc Query Context Broker And Retrieve Entity By Id
     ${entity_speed}=    Load Entity    ${entity_speed_filename}    ${entity_id}
     Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities/${entity_id}    200    ${entity_speed}
 
-    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=${True}
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
     Dictionary Should Not Contain Key    ${response.json()}    speed
     
 *** Keywords ***
@@ -36,7 +36,7 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
         ${entity_id}=    Generate Random Vehicle Entity Id
         Set Suite Variable   ${entity_id}
 
-        ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    local=${True}
+        ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    local=true
         Check Response Status Code    201    ${response.status_code}
 
         ${registration_id}=    Generate Random CSR Id

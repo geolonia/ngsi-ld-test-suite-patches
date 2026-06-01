@@ -33,7 +33,7 @@ D010_02_red Query Context Broker And Retrieve Entity By Id
     ${response}=    Retrieve Entity
     ...    ${entity_id}
     ...    context=${ngsild_test_suite_context}
-    ...    local=${true}
+    ...    local=true
     Check Response Status Code    404    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    GET    /broker1/ngsi-ld/v1/entities/${entity_id}

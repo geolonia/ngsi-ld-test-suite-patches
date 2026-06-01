@@ -27,7 +27,7 @@ ${entity_expectation_file_path}=        entity-deleted-name-attribute-instance-n
     ...    entityId=${entity_id}
     ...    attributeId=name
     ...    datasetId=${EMPTY}
-    ...    deleteAll=${true}
+    ...    deleteAll=true
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
 
