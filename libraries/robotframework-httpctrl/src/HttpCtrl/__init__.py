@@ -1090,7 +1090,10 @@ class Server:
 
         `status` [in] (int|string): HTTP status code for response that is used by server stub.
 
-        `body` [in] (string|bytes): Response body that is used by server stub.
+        `body` [in] (string|bytes|None or any JSON-serialisable Python object): Response body that is used by server stub.
+            A `str` or `bytes` body is sent on the wire as-is — useful when the caller has already serialised
+            JSON (e.g. via `Convert JSON To String`). Any other non-`None` value is run through `json.dumps()`
+            so callers can also pass a Python `dict` / `list` directly. `None` sends an empty body.
 
         Example how to set stub to reply automatically to request `POST` `/api/v1/request` by status `200`.
 
@@ -1118,6 +1121,13 @@ class Server:
             raise AssertionError(message_error)
         
         criteria = HttpStubCriteria(method=method, url=url)
+        # Auto-serialise non-string bodies (e.g. Python dicts / lists) so callers
+        # can pass either a Python data structure OR an already-serialised JSON
+        # string. The previous unconditional `json.dumps(body)` double-encoded
+        # string bodies — a stub body of `'[{"id":"X"}]'` (e.g. from
+        # `Convert JSON To String`) was sent on the wire as
+        # `'"[{\\"id\\":\\"X\\"}]"'` and parsed by the client as a string, not
+        # an array.
         if not isinstance(body, (str, bytes)) and body is not None:
             body = json.dumps(body)
         response = Response(int(status), None, body, None, None)
