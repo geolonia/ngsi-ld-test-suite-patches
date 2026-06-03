@@ -33,6 +33,7 @@ D014_02_red Update Batch Entities With noOverwrite Option
     ${response}=    Batch Update Entities    @{entities_to_be_updated}    overwrite_option=noOverwrite
     Check Response Status Code    204    ${response.status_code}
 
+    Wait for redirected request
     ${stub}=    Get Request Url Params    options
     Should Contain    ${stub}    noOverwrite
 

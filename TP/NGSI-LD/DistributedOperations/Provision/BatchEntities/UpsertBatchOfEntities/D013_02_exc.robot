@@ -34,10 +34,10 @@ D013_02_exc Batch Upsert Entities With Exclusive Registration With Update Flag
     ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}    update_option=update
     Check Response Status Code    204    ${response.status_code}
 
+    Wait for redirected request
     ${stub}=    Get Request Url Params    options
     Should Contain    ${stub}    update
 
-    Wait for redirected request
     ${request_payload}=    Get Request Body
     ${payload}=    Evaluate    json.loads('''${request_payload}''')    json
     Should Contain    ${payload}    ${new_first_entity}

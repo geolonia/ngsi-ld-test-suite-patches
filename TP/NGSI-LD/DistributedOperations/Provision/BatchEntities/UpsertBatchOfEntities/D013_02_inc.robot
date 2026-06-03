@@ -34,6 +34,7 @@ D013_02_inc Batch Upsert Entities With Inclusive Registration With Update Flag
     ${response}=    Batch Upsert Entities    @{entities_to_be_upserted}    update_option=update
     Check Response Status Code    204    ${response.status_code}
 
+    Wait for redirected request
     ${stub}=    Get Request Url Params    options
     Should Contain    ${stub}    update
 
