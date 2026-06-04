@@ -53,7 +53,7 @@ Setup Entity Id And Registration And Start Context Source Mock Server
     ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
-    ...    entity_pattern=${entity_pattern}
+    ...    entity_id_pattern=${entity_pattern}
     ...    mode=redirect
     ...    endpoint=/broker1
     ${response}=    Create Context Source Registration With Return    ${registration_payload}
