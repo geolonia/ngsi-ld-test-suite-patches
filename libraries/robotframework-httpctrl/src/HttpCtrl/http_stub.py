@@ -85,9 +85,11 @@ class HttpStubContainer(metaclass=Singleton):
                 if '?' in stub.criteria.url:
                     stub_url_components = stub.criteria.url.split('?')
 
-                    # the last slash should be removed
+                    # the last slash should be removed (on BOTH sides — a stub
+                    # registered with a trailing `/` must still match a request
+                    # whose path also ends with `/`)
                     criteria_url = criteria_url_components[0].rstrip("/")
-                    if criteria_url != stub_url_components[0]:
+                    if criteria_url != stub_url_components[0].rstrip("/"):
                         return False
 
                     # extraction of attributes from the response body (only works when response body is a dictionary)
@@ -127,7 +129,7 @@ class HttpStubContainer(metaclass=Singleton):
             
             # if the method is not GET, we should ignore parameters and check if the url is the same
             else:
-                if stub.criteria.url == criteria_url_components[0].rstrip("/"):
+                if stub.criteria.url.rstrip("/") == criteria_url_components[0].rstrip("/"):
                     # if the request is a query via POST, we should have a specific check
                     if stub.criteria.url == "/ngsi-ld/v1/entityoperations/query":
                         response_body = json.loads(stub.response.get_body())
@@ -143,7 +145,7 @@ class HttpStubContainer(metaclass=Singleton):
                             return False
                     return True
         
-        if stub.criteria.url == criteria.url.rstrip("/"):
+        if stub.criteria.url.rstrip("/") == criteria.url.rstrip("/"):
             # if the request is a query via POST, we should have a specific check
             if stub.criteria.url == "/ngsi-ld/v1/entityoperations/query":
                 response_body = json.loads(stub.response.get_body())
