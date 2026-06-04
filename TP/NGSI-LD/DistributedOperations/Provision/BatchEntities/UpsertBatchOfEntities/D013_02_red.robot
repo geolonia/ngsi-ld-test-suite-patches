@@ -45,9 +45,9 @@ D013_02_red Batch Upsert Entities With Redirect Registration With Update Flag
     Should Contain    ${payload}    ${new_second_entity}
     
     ${stub_count}=    Get Stub Count    POST    /broker1/ngsi-ld/v1/entityOperations/upsert
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
     ${stub_count}=    Get Stub Count    POST    /broker2/ngsi-ld/v1/entityOperations/upsert
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
 
 *** Keywords ***
 Setup Entity Id And Registration And Start Context Source Mock Server

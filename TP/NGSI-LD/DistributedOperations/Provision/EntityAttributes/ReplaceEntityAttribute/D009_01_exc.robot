@@ -39,7 +39,7 @@ D009_01_exc Replace Entity Attribute
     Check Response Status Code    204    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    PUT    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/speed
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
 
     Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities/${entity_id}    200    ${entity_id}
     ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}

@@ -46,7 +46,7 @@ D013_01_inc Batch Upsert Entities With Inclusive Registration Without Update Fla
     Check Updated Resources Set To    ${entities_to_be_upserted}    ${response1.json()}    ignored_keys=${context_regex_expr}
 
     ${stub_count}=    Get Stub Count    POST    /ngsi-ld/v1/entityOperations/upsert
-    Should Be Equal   ${stub_count}    1
+    Should Be Equal As Integers   ${stub_count}    1
 
     ${new_brandname}=    Get Value From Json    ${response1.json()[0]}    $.brandName
     Should Not Be Equal    ${old_brandname}    ${new_brandname}

@@ -29,7 +29,7 @@ D012_01_inc Batch Create Entities With Inclusive Registration
     Check Response Status Code    201    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    POST    /ngsi-ld/v1/entityOperations/create
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
 
     @{ignore_keys}=    Create List    @context    speed
     ${entities_to_be_queried}=    Catenate    SEPARATOR=,    ${first_entity_id}    ${second_entity_id}

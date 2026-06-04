@@ -34,9 +34,9 @@ D014_01_red Update Batch Entities without noOverwrite Option
     Check Response Status Code    204    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    POST    /broker1/ngsi-ld/v1/entityOperations/update
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
     ${stub_count}=    Get Stub Count    POST    /broker2/ngsi-ld/v1/entityOperations/update
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
 
 *** Keywords ***
 Setup Registration And Start Context Source Mock Server

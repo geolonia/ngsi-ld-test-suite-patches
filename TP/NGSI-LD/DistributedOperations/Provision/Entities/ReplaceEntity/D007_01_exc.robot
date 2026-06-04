@@ -34,7 +34,7 @@ D007_01_exc Replace Entity
     Check Response Status Code    204    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    PUT    /broker1/ngsi-ld/v1/entities/${entity_id}
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
 
     ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
     ${body}=    Get From Dictionary    ${response.json()}    speed

@@ -32,9 +32,9 @@ D003_01_red Append Entity Attribute
     Check Response Status Code    204    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    POST    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
     ${stub_count}=    Get Stub Count    POST    /broker2/ngsi-ld/v1/entities/${entity_id}/attrs/
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
 
     ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
     Check Response Status Code    404    ${response.status_code}

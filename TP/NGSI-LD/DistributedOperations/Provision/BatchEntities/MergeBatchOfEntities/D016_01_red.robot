@@ -40,9 +40,9 @@ D016_01_red Merge Batch Entities On The Context Source
     Check Response Status Code    204    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    POST    /broker1/ngsi-ld/v1/entityOperations/merge
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
     ${stub_count}=    Get Stub Count    POST    /broker2/ngsi-ld/v1/entityOperations/merge
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
 
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{entities_ids_to_be_merged}
     ${response}=    Query Entities

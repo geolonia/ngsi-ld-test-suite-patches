@@ -39,7 +39,7 @@ D012_01_exc Batch Create Entities With Exclusive Registration
     Check Response Status Code    201    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    POST    /broker1/ngsi-ld/v1/entityOperations/create
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
 
 
 *** Keywords ***

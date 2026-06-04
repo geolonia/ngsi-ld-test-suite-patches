@@ -36,9 +36,9 @@ D007_01_red Replace Entity
     Check Response Status Code    204    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    PUT    /broker1/ngsi-ld/v1/entities/${entity_id}
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
     ${stub_count}=    Get Stub Count    PUT    /broker2/ngsi-ld/v1/entities/${entity_id}
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
 
 
 *** Keywords ***

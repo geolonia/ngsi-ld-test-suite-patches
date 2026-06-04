@@ -35,7 +35,7 @@ D003_01_inc Append Entity Attribute
     Check Response Status Code    204    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    POST    /ngsi-ld/v1/entities/${entity_id}/attrs/
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
 
     ${response}=    Retrieve Entity    ${entity_id}
     ${new_body}=    Get From Dictionary    ${response.json()}    isParked

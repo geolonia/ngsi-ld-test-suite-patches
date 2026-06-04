@@ -26,7 +26,7 @@ D015_01_exc Delete Batch Of Entities On Both Context Broker And Context Source
     Check Response Body Is Empty    ${response}
 
     ${stub_count}=    Get Stub Count    POST    /broker1/ngsi-ld/v1/entityOperations/delete
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
 
     ${expected_entities_ids}=    Catenate    SEPARATOR=,    @{entities_ids_to_be_deleted}
     ${response}=    Query Entities

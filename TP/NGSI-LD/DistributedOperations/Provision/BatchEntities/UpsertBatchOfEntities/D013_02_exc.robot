@@ -44,7 +44,7 @@ D013_02_exc Batch Upsert Entities With Exclusive Registration With Update Flag
     Should Contain    ${payload}    ${new_second_entity}
     
     ${stub_count}=    Get Stub Count    POST    /broker1/ngsi-ld/v1/entityOperations/upsert
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server

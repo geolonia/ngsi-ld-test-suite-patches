@@ -37,9 +37,9 @@ D014_02_red Update Batch Entities With noOverwrite Option
     Should Contain    ${stub}    noOverwrite
 
     ${stub_count}=    Get Stub Count    POST    /broker1/ngsi-ld/v1/entityOperations/update
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
     ${stub_count}=    Get Stub Count    POST    /broker2/ngsi-ld/v1/entityOperations/update
-    Should Be Equal    ${stub_count}    1
+    Should Be Equal As Integers    ${stub_count}    1
 
 *** Keywords ***
 Setup Registration And Start Context Source Mock Server
