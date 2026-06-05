@@ -22,7 +22,10 @@ ${subscription_id}=                     ${EMPTY}
     ${response}=    Create Context Source Registration Subscription    ${subscription_payload}
 
     Dictionary Should Contain Key    ${response.headers}    Location    msg=HTTP Headers do not contain key 'Location'
-    ${subscription_id}=    Get From Dictionary    ${response.headers}    Location
+    ${location}=    Get From Dictionary    ${response.headers}    Location
+    # Location is a URI reference (RFC 9110 § 10.2.2) — typically the resource
+    # path /ngsi-ld/v1/csourceSubscriptions/<id>. Extract the generated id.
+    ${subscription_id}=    Fetch From Right    ${location}    /
     Set Suite Variable    ${subscription_id}
 
     Check Response Status Code    201    ${response.status_code}
@@ -32,7 +35,18 @@ ${subscription_id}=                     ${EMPTY}
     ...    subscription_id=${subscription_id}
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
-    ${ignored_attributes}=    Create List    ${id_regex_expr}    ${status_regex_expr}
+    # Ignore the Additional Members ('lastFailure', 'lastNotification', 'timesFailed',
+    # 'timesSent', 'status'), both at root level and inside 'notification' (clause
+    # 5.2.14), where they may have been set already by the initial notification sent
+    # upon subscription creation (clause 12.4.7).
+    ${ignored_attributes}=    Create List
+    ...    ${id_regex_expr}
+    ...    ${status_regex_expr}
+    ...    ${lastfailure_regex_expr}
+    ...    ${lastNotification_regex_expr}
+    ...    ${timesFailed_regex_expr}
+    ...    ${timesSent_regex_expr}
+    ...    ${notification_result_regex_expr}
     Check Created Resource Set To    ${subscription_payload}    ${response1.json()}    ${ignored_attributes}
 
 

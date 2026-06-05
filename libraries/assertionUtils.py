@@ -98,10 +98,16 @@ def compare_dictionaries_ignoring_keys(expected, actual, exclude_regex_paths, ig
     :param exclude_regex_paths: list of regex paths of keys to be ignored
     :param ignore_core_context_version: whether any core context version is allowed in the results
     :param group_by: a key to group the results, useful for lists of results
+
+    threshold_to_diff_deeper=0: since deepdiff 8, when more than 1/3 of a dict's keys
+    differ, DeepDiff reports the whole dict as changed instead of descending into it,
+    which silently bypasses exclude_regex_paths targeting the nested keys (e.g. the
+    broker-computed Additional Members inside 'notification'). 0 restores per-key diffs.
     """
 
     if group_by is not None and ignore_core_context_version:
         res = DeepDiff(expected, actual, exclude_regex_paths=exclude_regex_paths, ignore_order=True, verbose_level=1,
+                       threshold_to_diff_deeper=0,
                        iterable_compare_func=compare_func,
                        custom_operators=[
                            AnyCoreContextVersionOperator(),
@@ -111,6 +117,7 @@ def compare_dictionaries_ignoring_keys(expected, actual, exclude_regex_paths, ig
                        group_by=group_by)
     elif group_by is not None:
         res = DeepDiff(expected, actual, exclude_regex_paths=exclude_regex_paths, ignore_order=True, verbose_level=1,
+                       threshold_to_diff_deeper=0,
                        iterable_compare_func=compare_func,
                        custom_operators=[
                            StringOrSingleListContextOperator(),
@@ -120,6 +127,7 @@ def compare_dictionaries_ignoring_keys(expected, actual, exclude_regex_paths, ig
                        group_by=group_by)
     elif ignore_core_context_version:
         res = DeepDiff(expected, actual, exclude_regex_paths=exclude_regex_paths, ignore_order=True, verbose_level=1,
+                       threshold_to_diff_deeper=0,
                        iterable_compare_func=compare_func,
                        custom_operators=[
                            AnyCoreContextVersionOperator(),
@@ -128,6 +136,7 @@ def compare_dictionaries_ignoring_keys(expected, actual, exclude_regex_paths, ig
                        ])
     else:
         res = DeepDiff(expected, actual, exclude_regex_paths=exclude_regex_paths, ignore_order=True, verbose_level=1,
+                       threshold_to_diff_deeper=0,
                        iterable_compare_func=compare_func,
                        custom_operators=[
                            StringOrSingleListContextOperator(),

@@ -20,6 +20,7 @@ ${lastNotification_regex_expr}=             root\\['lastNotification'\\]
 ${timesFailed_regex_expr}=                  root\\['timesFailed'\\]
 ${timesSent_regex_expr}=                    root\\['timesSent'\\]
 ${is_active_expr}=                          root\\['isActive'\\]
+${notification_result_regex_expr}=          \\['notification'\\]\\['(lastNotification|lastSuccess|lastFailure|timesSent|timesFailed|status)'\\]
 ${context_source_ignored_regex_expr}=       root\\['@context'\\]
 
 
