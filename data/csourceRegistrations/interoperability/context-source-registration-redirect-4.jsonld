@@ -1,0 +1,23 @@
+{
+  "id": "urn:ngsi-ld:ContextSourceRegistration:Redirect:4",
+  "type": "ContextSourceRegistration",
+  "information": [
+    {
+      "entities": [
+        {
+          "type": "Vehicle",
+          "id": "urn:ngsi-ld:Vehicle:2"
+        }
+      ],
+      "propertyNames": [
+        "location"		
+      ]
+    }
+  ],
+  "mode": "redirect",
+  "operations": ["redirectionOps"],
+  "endpoint": "xxx",
+  "@context":[
+    "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
+  ]
+}

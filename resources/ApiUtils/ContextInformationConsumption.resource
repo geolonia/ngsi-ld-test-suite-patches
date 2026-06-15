@@ -50,6 +50,8 @@ Query Entities
     ...    ${pick}=${EMPTY}
     ...    ${omit}=${EMPTY}
     ...    ${orderBy}=${EMPTY}
+    ...    ${broker_url}=${EMPTY}
+    ${final_url}=    Set Variable If    '${broker_url}'!=''    ${broker_url}    ${url}
     ${attrs_length}=    Get Length    ${attrs}
     ${accept_length}=    Get Length    ${accept}
     ${options_length}=    Get Length    ${options}
@@ -111,7 +113,7 @@ Query Entities
     END
 
     ${response}=    GET
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    url=${final_url}/${ENTITIES_ENDPOINT_PATH}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
@@ -131,6 +133,8 @@ Query Entities Via POST
     ...    ${joinLevel}=${EMPTY}
     ...    ${local}=${EMPTY}
     ...    ${options}=${EMPTY}
+    ...    ${broker_url}=${EMPTY}
+    ${final_url}=    Set Variable If    '${broker_url}'!=''    ${broker_url}    ${url}
     &{headers}=    Create Dictionary
     Set To Dictionary    ${headers}    Content-Type    ${content_type}
     Set To Dictionary    ${headers}    Accept    ${accept}
@@ -164,7 +168,7 @@ Query Entities Via POST
     END
 
     ${response}=    POST
-    ...    url=${url}/${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}
+    ...    url=${final_url}/${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}
     ...    json=${body}
     ...    headers=${headers}
     ...    params=${params}

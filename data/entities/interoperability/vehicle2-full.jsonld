@@ -1,23 +1,33 @@
 {
-  "id": "urn:ngsi-ld:OffStreetParking:2",
-  "type": "OffStreetParking",
-  "name": {
-    "type": "Property",    
-    "value": "Downtown Two"
-  },
-  "availableSpotsNumber": {
-    "type": "Property",
-    "value": 87,
-    "observedAt": "2017-07-29T12:10:02Z",
-    "reliability": {
-      "type": "Property",
-      "value": 0.55
-    }
-  },
-  "totalSpotsNumber": {
-    "type": "Property",
-    "value": 150
-  },
+    "id": "urn:ngsi-ld:Vehicle:2",
+    "type": "Vehicle",
+    "brandName": {
+        "type": "Property",
+        "value": "Brand2"
+    },
+    "speed": {
+        "type": "Property",
+        "value": 5,
+        "source": {
+            "type": "Property",
+            "value": "Speedometer"
+        } 
+    },
+    "isParked": {
+        "type": "Relationship",
+        "object": "urn:ngsi-ld:OffStreetParking:2",
+        "observedAt": "2017-07-30T12:00:04Z"
+    },
+    "location": {
+      "type": "GeoProperty",
+      "value": {
+        "type": "Point",
+        "coordinates": [
+          -9.45,
+          40.2
+        ]
+      }
+    }, 
   "@context": [
     {
       "OffStreetParking": "https://ngsi-ld-test-suite/context#OffStreetParking",
