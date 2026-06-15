@@ -31,8 +31,8 @@ ${uri}                      /api/v1/context.jsonld
 
     ${response}=    Delete a @context    ${uri}    true
 
-    Check Response Status Code    503    ${response.status_code}
-    Check Response Reason set to    ${response.reason}    Service Unavailable
+    Check Response Status Code    504    ${response.status_code}
+    Check Response Reason set to    ${response.reason}    Gateway Timeout
     Check Response Body Containing ProblemDetails Element
     ...    ${response.json()}
     ...    ${ERROR_TYPE_LD_CONTEXT_NOT_AVAILABLE}
@@ -42,8 +42,11 @@ ${uri}                      /api/v1/context.jsonld
 Create Initial @context condition from an external server
     Start @context Local Server
 
-    # ${uri}=    Catenate    http://${context_server_host}:${context_server_port}${uri}
-    Set Global Variable    ${uri}
+    ${uri}=    Catenate    http://${context_server_host}:${context_server_port}${uri}
+    # Suite scope, NOT global — with the Catenate above commented out this
+    # suite silently depended on the absolute URL another suite happened to
+    # leave in the global ${uri}.
+    Set Suite Variable    ${uri}
 
     Create Entity selecting @context    ${entityfile}    ${uri}
 

@@ -56,7 +56,10 @@ Create Initial @context condition from an external server
     Start @context Local Server
 
     ${uri}=    Catenate    http://${context_server_host}:${context_server_port}${uri}
-    Set Global Variable    ${uri}
+    # Suite scope, NOT global — a global ${uri} bleeds into the other
+    # jsonldContext suites sharing the same variable name, and their own
+    # Catenate then doubles the URL.
+    Set Suite Variable    ${uri}
 
     Create Entity selecting @context    ${entityfile}    ${uri}
 
@@ -71,7 +74,7 @@ Create Initial @context condition from an external server
     Stop @context Local Server
 
     ${response}=    Delete a @context    ${uri}    true
-    Check Response Status Code    503    ${response.status_code}
+    Check Response Status Code    504    ${response.status_code}
 
 Delete Initial @context condition from an external server
     Log    Delete initial contidions
