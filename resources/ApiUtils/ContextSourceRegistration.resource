@@ -33,7 +33,6 @@ Prepare Context Source Registration From File
     ...    ${endpoint}=${EMPTY}
     ...    ${broker_url}=${EMPTY}
     ...    ${operations}=[]
-
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_file}
     ${final_context_source_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${context_source_url}
     ${registration_payload}=    Update Value To JSON
