@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation       Check temporal pagination is applied when querying the temporal evolution of entities
 
+Library             DateTime
 Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/ApiUtils/TemporalContextInformationProvision.resource
