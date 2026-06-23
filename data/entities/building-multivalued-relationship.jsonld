@@ -1,0 +1,14 @@
+{
+    "id": "urn:ngsi-ld:Building:randomUUID",
+    "type": "Building",
+    "locatedAt": {
+        "type": "Relationship",
+        "object": [
+            "urn:ngsi-ld:City:Paris",
+            "urn:ngsi-ld:City:Lyon"
+        ]
+    },
+    "@context": [
+        "https://easy-global-market.github.io/ngsild-api-data-models/ngsildTestSuite/ngsildTestSuiteV1.8-compound.jsonld"
+    ]
+}

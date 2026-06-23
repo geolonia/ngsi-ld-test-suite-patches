@@ -22,6 +22,8 @@ ${status_code}=     204
     vehicle-isparked-fragment.jsonld    isParked    vehicle-isparked-update.jsonld
 012_01_02 Check That One Can Partially Update An Attribute By Specifying The datasetId
     vehicle-speed-equal-datasetid-fragment.jsonld    speed    vehicle-update-speed.jsonld
+012_01_03 Check That One Can Partially Update A Relationship To Multiple Objects
+    vehicle-isparked-multivalued-relationship-012-01-03-fragment.jsonld    isParked    vehicle-isparked-multivalued-relationship-012-01-03.jsonld
 
 
 *** Keywords ***

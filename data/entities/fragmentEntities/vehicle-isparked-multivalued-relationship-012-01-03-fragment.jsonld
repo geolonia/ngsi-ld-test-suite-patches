@@ -1,0 +1,9 @@
+{
+  "object": [
+    "urn:ngsi-ld:OffStreetParking:Downtown1",
+    "urn:ngsi-ld:OffStreetParking:Downtown2"
+  ],
+  "@context": [
+    "https://easy-global-market.github.io/ngsild-api-data-models/ngsildTestSuite/ngsildTestSuiteV1.8-compound.jsonld"
+  ]
+}

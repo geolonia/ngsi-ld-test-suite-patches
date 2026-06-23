@@ -27,6 +27,9 @@ Test Template       Create Entity Scenarios
 001_01_05 EntityWithNonCoreGeoProperty
     [Tags]    e-create    5_6_1
     building-non-core-geoproperty-attribute.jsonld    application/ld+json
+001_01_06 EntityWithMultivaluedRelationship
+    [Tags]    e-create    5_6_1    since_v1.8.1
+    building-multivalued-relationship.jsonld    application/ld+json
 
 
 *** Keywords ***

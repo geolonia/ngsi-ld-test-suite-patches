@@ -29,6 +29,9 @@ ${entity_payload_filename}=     merge/building-merge-data.jsonld
 056_01_04 MergePropertyWithPartialData
     [Tags]    e-merge    5_6_17    6_5_3_4    since_v1.6.1
     merge/building-only-airQualityLevel-value.jsonld    merge/building-with-changed-airQualityLevel.jsonld
+056_01_05 MergeMultivaluedRelationship
+    [Tags]    e-merge    5_6_17    6_5_3_4    since_v1.6.1
+    building-multivalued-relationship.jsonld    merge/building-with-multivalued-relationship-056-01-05.jsonld
 
 
 *** Keywords ***

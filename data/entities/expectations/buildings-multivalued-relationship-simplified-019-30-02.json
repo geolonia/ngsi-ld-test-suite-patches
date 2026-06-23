@@ -1,0 +1,10 @@
+[
+  {
+    "id": "urn:ngsi-ld:Building:019-30",
+    "type": "Building",
+    "locatedAt": [
+      "urn:ngsi-ld:City:Paris",
+      "urn:ngsi-ld:City:Lyon"
+    ]
+  }
+]

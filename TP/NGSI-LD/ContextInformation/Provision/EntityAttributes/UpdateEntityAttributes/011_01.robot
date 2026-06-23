@@ -25,6 +25,8 @@ ${filename}=    vehicle-two-datasetid-attributes.jsonld
     204    vehicle-speed-two-datasetid-03-fragment.jsonld    expectations/vehicle-multi-attributes.jsonld
 011_01_04 Check That One Can Change The Type Of An Existing Attribute
     204    vehicle-speed-two-datasetid-04-fragment.jsonld    expectations/vehicle-update-attributes-new-attribute-type.jsonld
+011_01_05 Check That One Can Update An Existing Relationship To Multiple Objects
+    204    vehicle-isparked-multivalued-relationship-011-01-05-fragment.jsonld    expectations/vehicle-isparked-multivalued-relationship-011-01-05.jsonld
 
 
 *** Keywords ***
