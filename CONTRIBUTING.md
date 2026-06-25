@@ -16,7 +16,6 @@ Thank you for contributing! This document explains the conventions and rules all
   - [Keywords](#keywords)
   - [Test data files](#test-data-files)
 - [Updating the documentation](#updating-the-documentation)
-- [Running the unit tests](#running-the-unit-tests)
 - [Self-review checklist](#self-review-checklist)
 
 ---
@@ -51,7 +50,7 @@ This project uses **[Conventional Commits](https://www.conventionalcommits.org/)
 | `chore`    | Tooling, configuration, dependencies, CI/CD changes         |
 | `refactor` | Internal restructuring with no behaviour change             |
 | `docs`     | Documentation-only changes                                  |
-| `test`     | Changes to the unit test suite under `doc/tests/`           |
+| `test`     | Changes to the documentation generation tooling under `doc/`|
 
 The scope (in parentheses) is optional but encouraged when the change is limited to a specific API group or
 subsystem, e.g. `feat(subscription)`, `fix(temporal)`, `chore(robocop)`.
@@ -187,30 +186,39 @@ python3 scripts/find_unused_test_data.py
 
 ## Updating the documentation
 
-The test suite ships with an auto-generated documentation system. Changes that affect the documentation must be
-accompanied by the appropriate updates.
+The test suite ships with an auto-generated documentation system that produces the deliverable listing every
+Test Case of the Test Suite. The documentation is regenerated when a new version of the deliverable is needed:
 
-**When a new Test Case is created:**
+```bash
+cd doc ; python statisticsDocumentationData.py
+```
 
-1. Declare it in `doc/tests/test_{group}.py`.
-2. Run the documentation generator for the new TC:
-   ```bash
-   python doc/generateDocumentationData.py {new_tc_id}
-   ```
-3. Copy the generated file to the correct group folder:
-   ```bash
-   cp doc/results/{new_tc_id}.json doc/files/{group}/{subgroup}/
-   ```
-4. Update `doc/analysis/initial_setup.py` if a new setup keyword was introduced.
-5. Update `doc/analysis/requests.py` if a new request parameter or endpoint was added.
+This walks every `.robot` file and reports how many Test Cases failed to be parsed. The documentation is
+considered healthy when it reports **`0` failures**. Run it after any change that could affect generation — and
+between deliveries — to confirm the documentation still generates successfully and that no drift was introduced.
 
-**When a new permutation is added to an existing Test Case:**
+> **Note:** the per-Test-Case JSON files are **no longer versioned**. There is no manual "copy the generated
+> JSON into `doc/files/`" step anymore: the generator writes to `doc/results/` (git-ignored), which is
+> overwritten on each run. As a result, legitimate changes to a Test Case (adding/removing a tag, rewording its
+> documentation, …) require no committed JSON update and never fail documentation generation.
 
-Run the documentation generator for the affected TC and copy the output, as above.
+For generation to keep succeeding, keep the following declarations in sync with the `.robot` files:
 
-**When a new directory of Test Cases is created:**
+- **New assertion keyword** — declare it in `doc/analysis/checks.py` (`self.checks` and `self.args`) with a
+  method that returns its documentation string.
+- **New endpoint keyword** — declare it in `doc/analysis/requests.py` (`self.op` and `self.description`) with
+  its documentation method.
+- **New request/query parameter** on an existing endpoint — add it to that endpoint's `expected_parameters` and
+  its `match` cases in `doc/analysis/requests.py`.
+- **New setup/teardown keyword** — declare it in `doc/analysis/initial_setup.py` (or reuse an existing name).
+- **New directory of Test Cases** — declare it in `doc/analysis/generaterobotdata.py` along with its acronym.
 
-Declare it in `doc/analysis/generaterobotdata.py` along with its acronym.
+When `statisticsDocumentationData.py` reports a failure, its message points at the cause — most often a keyword
+used in a `.robot` file but not declared above, a setup keyword name that does not match `initial_setup.py`, or a
+Test Case whose name does not match its file name.
+
+To inspect the generated documentation of a single Test Case, run `python doc/generateDocumentationData.py
+{tc_id}`; it writes `doc/results/{tc_id}.json` (git-ignored) for you to review.
 
 ### Generate documentation for support keywords
 
@@ -222,19 +230,6 @@ the following command:
 And, to generate documentation for the Test Cases:
 
 ```$ python3  -m robot.testdoc  TP/NGSI-LD  api_docs/TestCases.html```
-
----
-
-## Running the unit tests
-
-Before submitting, verify that the documentation unit tests pass:
-
-```bash
-python -m unittest discover -s ./doc/tests -t ./doc
-```
-
-These tests detect undeclared Test Cases and inconsistencies between the test suite files and the documentation
-metadata. A failing unit test indicates either a missing declaration or a stale JSON documentation file.
 
 ---
 
@@ -279,7 +274,6 @@ Before opening a merge request, confirm the following:
 - [ ] The pre-commit hook ran without errors (or reformatted files were re-staged).
 - [ ] New Test Cases follow the naming convention (`XXX_YY_NN`) and carry the required tags.
 - [ ] New or modified keywords are declared in the relevant `doc/analysis/` files.
-- [ ] Documentation data has been regenerated for any new or modified Test Case.
 - [ ] New test data files have been placed in the correct `data/` subdirectory.
 - [ ] No unused test data files were introduced (`find_unused_test_data.py` returns no new entries).
-- [ ] `python -m unittest discover -s ./doc/tests -t ./doc` passes locally.
+- [ ] Documentation still generates without failures (`cd doc ; python statisticsDocumentationData.py` reports `0` failures).

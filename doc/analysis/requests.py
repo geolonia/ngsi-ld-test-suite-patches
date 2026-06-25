@@ -32,6 +32,10 @@ class Requests:
                 'positions': [0],
                 'params': ['content']
             },
+            'Get Request Headers': {
+                'positions': [],
+                'params': []
+            },
             'Batch Create Entities': {
                 'positions': [1],
                 'params': ['content_type']
@@ -309,6 +313,8 @@ class Requests:
                 Requests.create_entity_selecting_content_type,
             'Create Entity From File':
                 Requests.create_entity_from_file,
+            'Get Request Headers':
+                Requests.get_request_headers,
             'Call Api Endpoint With Invalid Parameter':
                 Requests.call_api_endpoint_with_invalid_parameter,
             'Create Or Update Temporal Representation Of Entity Selecting Content Type':
@@ -348,7 +354,7 @@ class Requests:
             'Replace Entity Selecting Content Type':
                 Requests.replace_entity_selecting_content_type,
             'Purge Entities':
-                Request.purge_entities,
+                Requests.purge_entities,
             'Merge Entity':
                 Requests.merge_entity,
             'Replace Attribute Selecting Content Type':
@@ -1187,8 +1193,12 @@ class Requests:
             raise Exception(f"ERROR: expected context, content and filename attributes, but received {kwargs}")
 
     @staticmethod
+    def get_request_headers(kwargs) -> str:
+        return "Get the headers of the last request received by the Test System"
+
+    @staticmethod
     def query_context_source_registration_subscriptions(kwargs) -> str:
-        expected_parameters = ['context', 'limit', 'page', 'accept']
+        expected_parameters = ['context', 'limit', 'offset', 'page', 'accept']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Query Context Source Registration Subscriptions"
@@ -1198,6 +1208,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: context set to '{value}'"
                 case 'limit':
                     response = f"{response} and\n    Query Parameter: limit set to '{value}'"
+                case 'offset':
+                    response = f"{response} and\n    Query Parameter: offset set to '{value}'"
                 case 'page':
                     response = f"{response} and\n    Query Parameter: page set to '{value}'"
                 case 'accept':
@@ -1556,6 +1568,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: drop set to '{value}'"
                 case 'context':
                     response = f"{response} and\n    Query Parameter: context set to '{value}'"
+                case 'local':
+                    response = f"{response} and\n    Query Parameter: local set to '{value}'"
                 case _:
                     raise Exception(f"ERROR: unexpected attribute {result}, the attributes expected are "
                                     f"{expected_parameters}, but received: {kwargs}")

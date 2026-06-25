@@ -11,7 +11,7 @@ Test Teardown       Delete Created Entities
 
 
 *** Test Cases ***
-060_03_02 Purge All Entities In Local Mode
+060_03_03 Purge All Entities In Local Mode
     [Documentation]    Check that purge entities deletes all entities in local mode
     [Tags]    e-purge    5_6_21    6_4_3_3    since_v1.9.1
 

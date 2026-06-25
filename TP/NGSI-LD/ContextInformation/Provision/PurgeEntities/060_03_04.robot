@@ -11,7 +11,7 @@ Test Teardown       Delete Created Entities
 
 
 *** Test Cases ***
-060_03_01 Purge Entities Matching Type
+060_03_04 Purge Entities Matching Type
     [Documentation]    Check that purge entities deletes matching a type and an id
     [Tags]    e-purge    5_6_21    6_4_3_3    since_v1.9.1
 

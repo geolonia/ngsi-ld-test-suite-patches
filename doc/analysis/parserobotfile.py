@@ -291,7 +291,7 @@ class ParseRobotFile:
             # then we need to check the 'Should be Equal' sentences
             pattern = \
                 (r'(Wait for no notification)|'
-                 r'(Wait for notification and validate it)|'
+                 r'(Wait for CSource notification and validate it)|'
                  r'(Wait for notification)([ ]{4}(.*))?')
 
             param = re.findall(pattern=pattern, string=content, flags=re.MULTILINE)
@@ -299,8 +299,8 @@ class ParseRobotFile:
                 data = tuple(element for element in param[i] if element != '')
 
                 match data[0]:
-                    case 'Wait for notification and validate it':
-                        new_list.append(f'Wait for notification and validate it')
+                    case 'Wait for CSource notification and validate it':
+                        new_list.append(f'Wait for CSource notification and validate it')
                     case 'Wait for no notification':
                         new_list.append(f'Wait for no notification')
                     case 'Wait for notification':

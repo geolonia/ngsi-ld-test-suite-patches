@@ -92,8 +92,8 @@ class Checks:
                 Checks.wait_for_notification,
             'Wait for no notification':
                 Checks.wait_for_no_notification,
-            'Wait for notification and validate it':
-                Checks.wait_for_notification_and_validate_it,
+            'Wait for CSource notification and validate it':
+                Checks.wait_for_csource_notification_and_validate_it,
             'Should be Equal':
                 Checks.should_be_equal,
             'Dictionary Should Contain Key':
@@ -307,7 +307,7 @@ class Checks:
                 'params': ['timeout'],
                 'position': []
             },
-            'Wait for notification and validate it': {
+            'Wait for CSource notification and validate it': {
                 'params': ['expected_subscription_id', 'expected_context_source_registration_ids',
                            'expected_trigger_reason', 'expected_notification_data_entities',
                            'timeout'],
@@ -453,7 +453,7 @@ class Checks:
         return result
 
     @staticmethod
-    def wait_for_notification_and_validate_it(kwargs: list) -> str:
+    def wait_for_csource_notification_and_validate_it(kwargs: list) -> str:
         expected_parameters = ['expected_subscription_id', 'expected_context_source_registration_ids',
                                'expected_trigger_reason', 'expected_notification_data_entities',
                                'timeout']
@@ -465,7 +465,7 @@ class Checks:
             kwargs['timeout'] = '5'
 
         result = [x for x in kwargs if x not in expected_parameters]
-        response = "Waiting for Notification and validate it"
+        response = "Waiting for CSource Notification and validate it"
         for key, value in kwargs.items():
             match key:
                 case 'expected_subscription_id':

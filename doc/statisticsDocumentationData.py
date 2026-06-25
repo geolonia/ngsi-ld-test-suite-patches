@@ -53,66 +53,66 @@ if __name__ == "__main__":
                     statistics[name_of_test_case] = dict()
                     strippedpath = root[len(path_info) + 1 :]
                     statistics[name_of_test_case]["path"] = strippedpath
-                if (
-                    "error_while_parsing" in json_of_test_case
-                    and json_of_test_case["error_while_parsing"]
-                ):
-                    statistics[name_of_test_case]["failed"] = True
-                    number_of_failures += 1
-                    # we create a dummy entry in the "sub" test_cases, which has a "permutation_tp_id" equal to the
-                    # robotfile. We do not forget to add a trailing slash that will be removed later, and a tail _XX
-                    # which will allow matching from the googlesheet?
-                    json_of_test_case["test_cases"] = [
-                        {
-                            "permutation_tp_id": "/"
-                            + json_of_test_case["robotfile"]
-                            + "_XX"
-                        }
-                    ]
-                else:
-                    statistics[name_of_test_case]["failed"] = False
-                    number_of_successes += 1
-                    # we add it here because Fernando's code does not, in case of successful parsing
-                    json_of_test_case["error_while_parsing"] = False
-                    if json_of_test_case["robotpath"].startswith("Interoperability"):
-                            json_of_test_case["config_id"] = "CF_06"
-                    elif json_of_test_case["robotpath"].startswith("DistributedOperations"):
-                        json_of_test_case["config_id"] = "CF_04"
-                    elif json_of_test_case["robotpath"].startswith("ContextSource"):
-                        json_of_test_case["config_id"] = "CF_03"
-                    elif json_of_test_case["robotpath"].startswith("ContextInformation/Subscription/SubscriptionNotificationBehaviour"):
-                        json_of_test_case["config_id"] = "CF_02"
+                    if (
+                        "error_while_parsing" in json_of_test_case
+                        and json_of_test_case["error_while_parsing"]
+                    ):
+                        statistics[name_of_test_case]["failed"] = True
+                        number_of_failures += 1
+                        # we create a dummy entry in the "sub" test_cases, which has a "permutation_tp_id" equal to the
+                        # robotfile. We do not forget to add a trailing slash that will be removed later, and a tail _XX
+                        # which will allow matching from the googlesheet?
+                        json_of_test_case["test_cases"] = [
+                            {
+                                "permutation_tp_id": "/"
+                                + json_of_test_case["robotfile"]
+                                + "_XX"
+                            }
+                        ]
                     else:
-                        json_of_test_case["config_id"] = "CF_01"
+                        statistics[name_of_test_case]["failed"] = False
+                        number_of_successes += 1
+                        # we add it here because Fernando's code does not, in case of successful parsing
+                        json_of_test_case["error_while_parsing"] = False
+                        if json_of_test_case["robotpath"].startswith("Interoperability"):
+                                json_of_test_case["config_id"] = "CF_06"
+                        elif json_of_test_case["robotpath"].startswith("DistributedOperations"):
+                            json_of_test_case["config_id"] = "CF_04"
+                        elif json_of_test_case["robotpath"].startswith("ContextSource"):
+                            json_of_test_case["config_id"] = "CF_03"
+                        elif json_of_test_case["robotpath"].startswith("ContextInformation/Subscription/SubscriptionNotificationBehaviour"):
+                            json_of_test_case["config_id"] = "CF_02"
+                        else:
+                            json_of_test_case["config_id"] = "CF_01"
 
-                    # upgrade the version and add the reference in square brackets
-                    json_of_test_case["reference"] = re.sub(
-                        r"V1\.[3-6]\.1 \[\]",
-                        "V1.6.1 [1]",
-                        json_of_test_case["reference"],
-                    )
-
-                    # now for each permutation inside this test case, create the permutation's correct parent_release
-                    if "test_cases" in json_of_test_case:
-                        # grab everything that is a permutation_body inside the "sub" test_cases,
-                        for permutation_body in json_of_test_case["test_cases"]:
-                            # default parent release
-                            parent_release = "v1.3.1"
-                            for tag in permutation_body["tags"]:
-                                if tag.startswith("since_"):
-                                    parts = tag.split("_")
-                                    # the suffix
-                                    parent_release = parts[-1]
-                            permutation_body["permutation_parent_release"] = (
-                                parent_release
-                            )
-                    else:
-                        print(
-                            "NO PERMUTATIONS in TESTCASE??? "
-                            + json_of_test_case["tp_id"]
+                        # upgrade the version and add the reference in square brackets
+                        json_of_test_case["reference"] = re.sub(
+                            r"V1\.[3-6]\.1 \[\]",
+                            "V1.6.1 [1]",
+                            json_of_test_case["reference"],
                         )
-                        exit(1)
-                testcases.append(json_of_test_case)
+
+                        # now for each permutation inside this test case, create the permutation's correct parent_release
+                        if "test_cases" in json_of_test_case:
+                            # grab everything that is a permutation_body inside the "sub" test_cases,
+                            for permutation_body in json_of_test_case["test_cases"]:
+                                # default parent release
+                                parent_release = "v1.3.1"
+                                for tag in permutation_body["tags"]:
+                                    if tag.startswith("since_"):
+                                        parts = tag.split("_")
+                                        # the suffix
+                                        parent_release = parts[-1]
+                                permutation_body["permutation_parent_release"] = (
+                                    parent_release
+                                )
+                        else:
+                            print(
+                                "NO PERMUTATIONS in TESTCASE??? "
+                                + json_of_test_case["tp_id"]
+                            )
+                            exit(1)
+                    testcases.append(json_of_test_case)
     print()
     print()
     print()
