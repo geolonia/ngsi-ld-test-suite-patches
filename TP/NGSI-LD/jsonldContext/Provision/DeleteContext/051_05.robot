@@ -43,9 +43,6 @@ Create Initial @context condition from an external server
     Start @context Local Server
 
     ${uri}=    Catenate    http://${context_server_host}:${context_server_port}${uri}
-    # Suite scope, NOT global — with the Catenate above commented out this
-    # suite silently depended on the absolute URL another suite happened to
-    # leave in the global ${uri}.
     Set Suite Variable    ${uri}
 
     Create Entity selecting @context    ${entityfile}    ${uri}
