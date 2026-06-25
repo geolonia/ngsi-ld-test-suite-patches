@@ -52,7 +52,6 @@ Create Initial @context condition from an external server
     Set Global Variable    ${first_existing_entity_id}
 
     ${uri}=    Catenate    SEPARATOR=    http://${context_server_host}:${context_server_port}    ${uri}
-    # Suite scope, NOT global.
     Set Suite Variable    ${uri}
 
     Create Entity selecting @context    ${entityfile}    ${uri}    ${first_existing_entity_id}
