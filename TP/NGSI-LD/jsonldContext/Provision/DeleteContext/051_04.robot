@@ -21,9 +21,6 @@ ${reason_422}=      Unprocessable
 *** Test Cases ***    CONTEXTID    RELOAD    STATUSCODE    REASON    ERROR
 051_04_01 Delete A @contexts With A Wrong Id And Reload Set To True
     [Tags]    ctx-delete    5_13_5    since_v1.5.1
-    # An identifier that "does not correspond to any existing entry" is
-    # ResourceNotFound (clause 13.5.4) — reload only enters the picture for
-    # an EXISTING @context.
     wrong_id_context    true    404    ${reason_404}    ${ERROR_TYPE_RESOURCE_NOT_FOUND}
 051_04_02 Delete A @contexts With A Wrong Id And Reload Set To False
     [Tags]    ctx-delete    5_13_5    since_v1.5.1
