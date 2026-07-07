@@ -1,0 +1,15 @@
+{
+  "id": "urn:ngsi-ld:Building:randomUUID",
+  "type": "Building",
+  "buildingDetails": {
+    "type": "Property",
+    "value": {
+      "category": "commercial",
+      "floors": 5,
+      "deprecated": true
+    }
+  },
+  "@context": [
+    "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
+  ]
+}

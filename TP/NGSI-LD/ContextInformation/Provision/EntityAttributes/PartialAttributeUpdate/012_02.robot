@@ -19,22 +19,29 @@ ${status_code}=     400
 *** Test Cases ***    ENTITY_ID    ATTRIBUTE_ID    FRAGMENT_FILENAME
 012_02_01 Make A Partial Attribute Update If The Entity Id Is Not Present
     [Documentation]    Check that one cannot perform a partial update on an entity attribute with missing entity id
+    [Tags]    ea-partial-update    5_6_4
     ${EMPTY}    speed    vehicle-speed-equal-datasetid-fragment.jsonld
 012_02_02 Make A Partial Attribute Update If The Entity Id Is Not A Valid URI
     [Documentation]    Check that one cannot perform a partial update on an entity attribute with invalid entity id
+    [Tags]    ea-partial-update    5_6_4
     thisisaninvaliduri    speed    vehicle-speed-equal-datasetid-fragment.jsonld
 012_02_03 Make A Partial Attribute Update If The Attribute Type Does Not Match
     [Documentation]    Check that one cannot perform a partial update on an entity attribute with a different attribute type
+    [Tags]    ea-partial-update    5_6_4
     ${valid_entity_id}    speed    vehicle-speed-equal-datasetid-different-type-fragment.jsonld
 012_02_04 Make A Partial Attribute Update If The Entity Fragment Is Empty
     [Documentation]    Check that one cannot perform a partial update on an entity attribute with an empty fragment
+    [Tags]    ea-partial-update    5_6_4
     ${valid_entity_id}    speed    empty-fragment.json
+012_02_05 PartialUpdateSettingDatasetIdToNull
+    [Documentation]    Check that one cannot perform a partial update on an entity attribute with a null datasetId
+    [Tags]    ea-partial-update    5_6_4    since_v1.6.1
+    ${valid_entity_id}    speed    ngsild-null/null-datasetid-fragment.jsonld
 
 
 *** Keywords ***
 Update Attributes
     [Documentation]    Check that one cannot perform a partial update on an entity attribute in some conditions
-    [Tags]    ea-partial-update    5_6_4
     [Arguments]    ${entity_id}    ${attribute_id}    ${fragment_filename}
     ${response}=    Partial Update Entity Attributes
     ...    entityId=${entity_id}

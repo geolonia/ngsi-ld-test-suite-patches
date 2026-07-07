@@ -20,6 +20,9 @@ Test Template       Create Entity With Invalid Request Scenarios
 001_02_04 EntityWithInvalidType
     [Tags]    e-create    5_6_1
     invalid-type.jsonld    ${ERROR_TYPE_BAD_REQUEST_DATA}
+001_02_05 EntityWithNullValueProperty
+    [Tags]    e-create    5_6_1    since_v1.6.1
+    fragmentEntities/ngsild-null/building-null-value-property.jsonld    ${ERROR_TYPE_BAD_REQUEST_DATA}
 
 
 *** Keywords ***

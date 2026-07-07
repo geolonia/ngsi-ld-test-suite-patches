@@ -1,12 +1,11 @@
 {
-  "id": "urn:ngsi-ld:Building:1",
+  "id": "urn:ngsi-ld:Building:randomUUID",
   "type": "Building",
-  "name": {
+  "buildingDetails": {
     "type": "Property",
-    "value": "A",
-    "subProperty": {
-      "type": "Property",
-      "value": 1
+    "value": {
+      "category": "leisure",
+      "deprecated": false
     }
   },
   "@context": "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"

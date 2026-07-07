@@ -165,7 +165,7 @@ Check Response Body Containing Update Result
 Check Response Body Containing Entity element
     [Arguments]    ${expectation_filename}    ${entity_id}    ${response_body}    ${ignore_core_context_version}=False
     ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/expectations/${expectation_filename}
-    ${entity}=    Update Value To JSON    ${entity_payload}    $..id    ${entity_id}
+    ${entity}=    Update Value To JSON    ${entity_payload}    $.id    ${entity_id}
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${entity}
     ...    ${response_body}
