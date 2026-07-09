@@ -15,8 +15,8 @@ Test Template       Retrieve Entity With Linked Entity
 ${building_id_prefix}=                  urn:ngsi-ld:Building:
 ${city_id_prefix}=                      urn:ngsi-ld:City:
 ${country_id_prefix}=                   urn:ngsi-ld:Country:
-${linking_entity_filename}=             building-relationship.jsonld
-${level_1_linked_entity_filename}=      city-relationship.jsonld
+${linking_entity_filename}=             building-relationship-with-objectType.jsonld
+${level_1_linked_entity_filename}=      city-relationship-with-objectType.jsonld
 ${level_2_linked_entity_filename}=      country-minimal.jsonld
 
 

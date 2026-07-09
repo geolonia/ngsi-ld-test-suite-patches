@@ -13,7 +13,7 @@ Test Teardown       Delete Created Entity And Linked Entity
 *** Variables ***
 ${building_id_prefix}=          urn:ngsi-ld:Building:
 ${city_id_prefix}=              urn:ngsi-ld:City:
-${linking_entity_filename}=     building-relationship.jsonld
+${linking_entity_filename}=     building-relationship-with-objectType.jsonld
 ${linked_entity_filename}=      city-minimal.jsonld
 
 
