@@ -25,7 +25,7 @@ ${b4_url}
 
 *** Test Cases ***
 IOP_003_03_01 Query Entities Of Type OffstreetParking Via GET
-    [Documentation]    Pre-conditions: No user context. Data only on leaves. B contains OffStreetParking2 without location. C contains OffStreetParking1. D contains OffStreetParking1 without location.
+    [Documentation]    Pre-conditions: no user context. Data only on leaves. B contains OffStreetParking:2 without location. C contains OffStreetParking:1. D contains OffStreetParking:1 without location.
     ...                Registrations established: Auxiliary in A to B. Inclusive in A to C. Inclusive in A to D.
     [Tags]    since_v1.6.1    iop    cnf_03    4_3_3    additive-inclusive    additive-auxiliary    4_3_6    5_7_2    6_4_3_1
 

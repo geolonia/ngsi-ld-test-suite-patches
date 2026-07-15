@@ -24,7 +24,7 @@ ${b4_url}
 
 *** Test Cases ***
 IOP_002_02_01 Retrieve OffStreetParking:1
-    [Documentation]    Pre-conditions: no user context. Data only on leaves. B contains OffStreetParking1 without location. C contains OffStreetParking1. D contains OffStreetParking2.
+    [Documentation]    Pre-conditions: no user context. Data only on leaves. B contains OffStreetParking:1 without location. C contains OffStreetParking:1. D contains OffStreetParking:2.
     ...                Registrations established: Inclusive in A to B. Redirect in A to C. Redirect in A to D.
     [Tags]    since_v1.6.1    iop    cnf_02    4_3_3    additive-inclusive    proxy-redirect    4_3_6    5_7_1
 

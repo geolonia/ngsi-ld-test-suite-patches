@@ -24,7 +24,7 @@ ${b4_url}
 
 *** Test Cases ***
 IOP_001_03_02 Create Partial OffStreetParking:1
-    [Documentation]    Pre-conditions: No user context. No data in any broker.
+    [Documentation]    Pre-conditions: no user context. No data in any broker.
     ...                Registrations established: Auxiliary in A to B. Inclusive in A to C. Inclusive in A to D.
     [Tags]    since_v1.6.1    iop    cnf_03    4_3_3    additive-inclusive    additive-auxiliary    4_3_6    5_6_1
 

@@ -27,7 +27,7 @@ ${b4_url}
 
 *** Test Cases ***
 IOP_003_02_01 Query Entities Of Type OffstreetParking Via GET
-    [Documentation]    Pre-conditions: no user context. Data on every broker. B contains OffStreetParking1 without location and OffStreetParking2 without location. C contains OffStreetParking1 and OffStreetParking2. D contains OffStreetParking2 with location and name only.
+    [Documentation]    Pre-conditions: no user context. Data on every broker. B contains OffStreetParking:1 without location and OffStreetParking:2 without location. C contains OffStreetParking:1 and OffStreetParking:2. D contains OffStreetParking:2 with location and name only.
     ...                Registrations established: Inclusive in A to B. Redirect in A to C. Redirect in A to D.
     [Tags]    since_v1.6.1    iop    cnf_02    4_3_3    additive-inclusive    proxy-redirect    4_3_6    5_7_2    6_4_3_1
 
@@ -54,7 +54,7 @@ IOP_003_02_01 Query Entities Of Type OffstreetParking Via GET
     @{entities_b4}=    Set Variable    ${response.json()}
     ${b4_payload}=    Get From List   ${entities_b4}    0
     
-    #Agent checks that OffstreetParking1 in A has the same availableSpotsNumber and totalSpotsNumber as the one in B and the same location attribute found in C. The OffstreetParking2 entity in A contains the attributes of both OffstreetParking2 availableSpotsNumber and totalSpotsNumber in C and the same location found in D.
+    #Agent checks that OffstreetParking:1 in A has the same availableSpotsNumber and totalSpotsNumber as the one in B and the same location attribute found in C. The OffstreetParking:2 entity in A contains the attributes of both OffstreetParking:2 availableSpotsNumber and totalSpotsNumber in C and the same location found in D.
     Should Be Equal    ${first_payload}[availableSpotsNumber]    ${first_b2_payload}[availableSpotsNumber]
     Should Be Equal    ${first_payload}[totalSpotsNumber]    ${first_b2_payload}[totalSpotsNumber]
     Should Be Equal    ${first_payload}[location]    ${b3_payload}[location]

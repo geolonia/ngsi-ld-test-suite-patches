@@ -28,8 +28,8 @@ ${b5_url}
 
 *** Test Cases ***
 IOP_002_04_02 Retrieve OffStreetParking:1 Location Attribute
-    [Documentation]    Pre-conditions: no user context. Data on every broker. A contains OffStreetParking1 without location. B contains OffStreetParking1 without location. C contains OffStreetParking1 without location. D contains OffStreetParking1. E contains OffStreetParking1 with location and name only.
-    ...                Registrations established: Auxiliary in A to B and  Inclusive in A to C. Redirect in B to D and Redirect in B to E. Exclusive in C to E.
+    [Documentation]    Pre-conditions: no user context. Data on every broker. A contains OffStreetParking:1 without location. B contains OffStreetParking:1 without location. C contains OffStreetParking:1 without location. D contains OffStreetParking:1. E contains OffStreetParking:1 with location and name only.
+    ...                Registrations established: Auxiliary in A to B. Inclusive in A to C. Redirect in B to D. Redirect in B to E. Exclusive in C to E.
     [Tags]    since_v1.6.1    iop    cnf_04    4_3_3    additive-inclusive    additive-auxiliary    proxy-redirect    proxy-exclusive    4_3_6    5_7_1
 
     #Client retrieves OffStreetParking:1 in A and checks for a successful response.

@@ -30,8 +30,8 @@ ${b5_url}
 
 *** Test Cases ***
 IOP_003_04_02 Query Entities Of Type OffstreetParking Via POST
-    [Documentation]    Pre-conditions: No user context. Data only on leaves. D contains OffStreetParking:1 with location and name only and OffStreetParking2. E contains OffStreetParking:1 and OffStreetParking:2 with location and name only.
-    ...                Registrations established: Auxiliary in A to B and Inclusive in A to C. Redirect in B to D and Redirect in B to E. Exclusive in C to E.
+    [Documentation]    Pre-conditions: no user context. Data only on leaves. D contains OffStreetParking:1 with location and name only and OffStreetParking:2. E contains OffStreetParking:1 and OffStreetParking:2 with location and name only.
+    ...                Registrations established: Auxiliary in A to B. Inclusive in A to C. Redirect in B to D. Redirect in B to E. Exclusive in C to E.
     [Tags]    since_v1.6.1    iop    cnf_04    4_3_3    additive-inclusive    additive-auxiliary    proxy-exclusive    proxy-redirect    4_3_6    5_7_2    6_23_2_1
 
     #Client queries all entities with type OffstreetParking in A and checks for a successful response.

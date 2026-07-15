@@ -25,7 +25,7 @@ ${b4_url}
 
 *** Test Cases ***
 IOP_002_03_01 Retrieve OffStreetParking:1
-    [Documentation]    Pre-conditions: no user context. Data on every broker. A contains OffStreetParking1 without location. B contains OffStreetParking1. C contains OffStreetParking1 without location. D contains OffStreetParking2.
+    [Documentation]    Pre-conditions: no user context. Data on every broker. A contains OffStreetParking:1 without location. B contains OffStreetParking:1. C contains OffStreetParking:1 without location. D contains OffStreetParking:2.
     ...                Registrations established: Auxiliary in A to B. Inclusive in A to C. Inclusive in A to D.
     [Tags]    since_v1.6.1    iop    cnf_03    4_3_3    additive-inclusive    additive-auxiliary    4_3_6    5_7_1
 

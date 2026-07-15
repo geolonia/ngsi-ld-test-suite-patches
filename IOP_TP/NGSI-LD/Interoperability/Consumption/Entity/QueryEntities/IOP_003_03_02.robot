@@ -26,7 +26,7 @@ ${b4_url}
 
 *** Test Cases ***
 IOP_003_03_02 Query Entities Of Type OffstreetParking And Vehicle with attrs
-    [Documentation]    Pre-conditions: No user context. Data only on leaves. B contains Vehicle:1. C contains OffStreetParking:1 with location and name only. D contains OffStreetParking:1, OffStreetParking:2 and Vehicle2.
+    [Documentation]    Pre-conditions: no user context. Data only on leaves. B contains Vehicle:1. C contains OffStreetParking:1 with location and name only. D contains OffStreetParking:1, OffStreetParking:2 and Vehicle:2.
     ...                Registrations established: Auxiliary in A to B. Inclusive in A to C. Inclusive in A to D.
     [Tags]    since_v1.6.1    iop    cnf_03    4_3_3    additive-inclusive    additive-auxiliary    4_3_6    5_7_2    6_4_3_1
 

@@ -23,7 +23,7 @@ ${b3_url}
 
 *** Test Cases ***
 IOP_003_01_01 Query Entities Of Type OffstreetParking Via GET
-    [Documentation]    Pre-conditions: no user context. Data only on leaves. B contains OffStreetParking1 and OffStreetParking2 without location and totalSpotsNumber. C contains OffStreetParking2.
+    [Documentation]    Pre-conditions: no user context. Data only on leaves. B contains OffStreetParking:1 and OffStreetParking:2 without location and totalSpotsNumber. C contains OffStreetParking:2.
     ...                Registrations established: Inclusive in A to B. Exclusive in A to C.
     [Tags]    since_v1.6.1    iop    cnf_01    4_3_3    additive-inclusive    proxy-exclusive    4_3_6    5_7_2    6_4_3_1
 
@@ -46,7 +46,7 @@ IOP_003_01_01 Query Entities Of Type OffstreetParking Via GET
     @{second_expected_payload}=    Set Variable    ${response.json()}
     Check Response Body Containing Entities URIS set to    ${entity_id}    ${response.json()}
 
-    #Agent checks that OffstreetParking1 in A is the same as the one in B and that OffstreetParking2 in A contains the attributes of both OffstreetParking2 in B and C.
+    #Agent checks that OffstreetParking:1 in A is the same as the one in B and that OffstreetParking:2 in A contains the attributes of both OffstreetParking:2 in B and C.
     Should Be Equal    ${payload}\[OffstreetParking1]    ${first_expected_payload}\[OffstreetParking1]
     Should Contain    ${payload}\[OffstreetParking2]    ${first_expected_payload}\[OffstreetParking2][totalSpotsNumber]
     Should Contain    ${payload}\[OffstreetParking2]    ${second_expected_payload}\[OffstreetParking2][location]

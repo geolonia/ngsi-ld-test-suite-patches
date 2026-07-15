@@ -25,7 +25,7 @@ ${b3_url}
 
 *** Test Cases ***
 IOP_001_01_02 Create OffStreetParking:2
-    [Documentation]    Pre-conditions: No user context. No data in any broker.
+    [Documentation]    Pre-conditions: no user context. No data in any broker.
     ...                Registrations established: Inclusive in A to B. Exclusive in A to C.
     [Tags]    since_v1.6.1    iop    cnf_01    4_3_3    additive-inclusive    proxy-exclusive    4_3_6    5_6_1
 
