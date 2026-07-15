@@ -23,7 +23,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D017_01_exc Purge Entities On Both Context Broker And Context Source
     [Documentation]    Verify that, when one has an exclusive registration on a Context Broker, one is able to purge entities based on type on both Context Broker and Context Source
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_6_21
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_6_21
 
     Set Stub Reply    POST    /broker1/ngsi-ld/v1/entities    201
     ${speed_entity}=    Create Entity    ${speed_entity_filename}    ${entity_id}

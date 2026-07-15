@@ -18,7 +18,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D002_03_inc Delete Entity With Local Flag
     [Documentation]    Verify that, when one has an inclusive registration on a Context Broker, one is able to delete an entity with local flag and the operation should not be forwarded to the Context Source
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_6    6_3_18
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_6    6_3_18
     ${response}=    Delete Entity    ${entity_id}    local=true
     Check Response Status Code    204    ${response.status_code}
 

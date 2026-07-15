@@ -25,7 +25,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D009_01_red Replace Entity Attribute
     [Documentation]    Check that one can replace an existing entity attribute, the changes will be forwarded to the Context Sources thanks to the redirect registrations
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-redirect    4_3_6_3    5_6_19    6_3_18
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-redirect    4_3_6_3    5_6_19    6_3_18
 
     Set Stub Reply    POST    /broker1/ngsi-ld/v1/entities    201    ${entity_id}
     Set Stub Reply    POST    /broker2/ngsi-ld/v1/entities    201    ${entity_id}

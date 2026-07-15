@@ -21,7 +21,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D012_01_inc Batch Create Entities With Inclusive Registration
     [Documentation]    Check that if one requests the Context Broker to create a batch of entities that match an inclusive registration, these are created on the Context Source too
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_7
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_7
     
     Set Stub Reply    POST    /ngsi-ld/v1/entityOperations/create    201
     ${response}=    Batch Create Entities

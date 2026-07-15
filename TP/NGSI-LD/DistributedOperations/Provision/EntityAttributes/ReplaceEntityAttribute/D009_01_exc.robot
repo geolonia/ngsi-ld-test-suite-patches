@@ -25,7 +25,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D009_01_exc Replace Entity Attribute
     [Documentation]    Check that one can replace an existing entity attribute, the changes will be forwarded to the Context Source thanks to an exclusive registration
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_6_19    6_3_18
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_6_19    6_3_18
 
     ${attribute_payload}=    Load Entity    ${entity_attribute_filename}    ${entity_id}
     Set Stub Reply    PUT    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/speed    204

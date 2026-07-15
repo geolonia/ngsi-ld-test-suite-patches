@@ -680,13 +680,17 @@ class ParseRobotFile:
         if not doc_content:
             return " "
         
-        # Split by LABEL: pattern and capture the labels
-        parts = re.split(r'([A-Za-z\s\-]+):\s*', doc_content)
-        sections = {
-            parts[i].strip().lower().replace(' ', '_').replace('-', '_'):
-            re.sub(r'\n\s*\.{3}\s*', ' ', parts[i + 1].strip()).replace('\n', ' ').strip().rstrip('.')
-            for i in range(1, len(parts), 2) if i + 1 < len(parts)
-        }
+        label_pattern = re.compile(
+            r'(?:\A[ \t]*|\n[ \t]*\.{3}[ \t]+)([A-Za-z][A-Za-z \-]*):[ \t]*',
+            re.MULTILINE
+        )
+        matches = list(label_pattern.finditer(doc_content))
+        sections = {}
+        for index, match in enumerate(matches):
+            end = matches[index + 1].start() if index + 1 < len(matches) else len(doc_content)
+            key = match.group(1).strip().lower().replace(' ', '_').replace('-', '_')
+            value = re.sub(r'\n\s*\.{3}\s*', ' ', doc_content[match.end():end])
+            sections[key] = value.replace('\n', ' ').strip().rstrip('.')
 
         return sections
 

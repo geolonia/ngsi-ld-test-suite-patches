@@ -21,7 +21,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D012_01_red Batch Create Entities With Redirect Registration
     [Documentation]    Check that if one requests the Context Broker to create a batch of entities that match a redirect registration, these are created on the Context Source
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-redirect    4_3_6_3    5_6_7
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-redirect    4_3_6_3    5_6_7
 
     ${first_entity}=    Load Entity    ${entity_payload_filename}    ${first_entity_id}
     ${second_entity}=    Load Entity    ${entity_payload_filename}    ${second_entity_id}

@@ -22,7 +22,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D002_01_inc Delete Entities On Both Context Broker And Context Source
     [Documentation]    Verify that, when one has an inclusive registration on a Context Broker, one is able to delete entities on both Context Broker and Context Source
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_6
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_6
     Set Stub Reply    DELETE    /ngsi-ld/v1/entities/${entity_id}    204
     ${response}=    Delete Entity    ${entity_id}
     Check Response Status Code    204    ${response.status_code}

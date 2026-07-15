@@ -19,7 +19,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D015_01_inc Delete Batch Of Entities On Both Context Broker And Context Source
     [Documentation]    Check that if one requests the Context Broker to delete a batch of entities that match an inclusive registration, this is deleted on the Context Source too
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_10
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_10
 
     Set Stub Reply    POST    /ngsi-ld/v1/entityOperations/delete    204
     ${response}=    Batch Delete Entities    entities_ids_to_be_deleted=@{entities_ids_to_be_deleted}

@@ -22,7 +22,7 @@ ${registration_payload_file_path}           csourceRegistrations/context-source-
 *** Test Cases ***
 D013_01_red Batch Upsert Entities With Redirect Registration Without Update Flag
     [Documentation]    Check that if one requests the Context Broker to replace a batch of entities that match a redirect registration, these are replaced on the Context Source
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-redirect    4_3_6_3    5_6_8
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-redirect    4_3_6_3    5_6_8
 
     ${new_first_entity}=    Load Entity    ${new_entity_payload_filename}    ${first_entity_id}
     ${new_second_entity}=    Load Entity    ${new_entity_payload_filename}    ${second_entity_id}

@@ -23,7 +23,7 @@ ${context_regex_expr}                       root\\[.*\\]\\['@context'\\]\\[1\\]
 *** Test Cases ***
 D013_01_inc Batch Upsert Entities With Inclusive Registration Without Update Flag
     [Documentation]    Check that if one requests the Context Broker to replace a batch of entities that match an inclusive registration, these are replaced on the Context Source too
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_8
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_8
 
     ${response}=    Retrieve Entity    ${first_entity_id}    context=${ngsild_test_suite_context}
     ${old_brandname}=    Get Value From Json    ${response.json()}    $.brandName

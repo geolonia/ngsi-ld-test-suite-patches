@@ -49,7 +49,11 @@ if __name__ == "__main__":
                 if filename.endswith(ROBOT_FILE_EXTENSION):
                     number_of_all_testcases += 1
                     name_of_test_case = filename[: -len(ROBOT_FILE_EXTENSION)]
-                    json_of_test_case = create_json_of_robotfile(name_of_test_case, True)
+                    json_of_test_case = create_json_of_robotfile(
+                        name_of_test_case,
+                        True,
+                        robot_file=join(root, filename).replace("\\", "/"),
+                    )
                     statistics[name_of_test_case] = dict()
                     strippedpath = root[len(path_info) + 1 :]
                     statistics[name_of_test_case]["path"] = strippedpath
@@ -75,7 +79,7 @@ if __name__ == "__main__":
                         # we add it here because Fernando's code does not, in case of successful parsing
                         json_of_test_case["error_while_parsing"] = False
                         if json_of_test_case["robotpath"].startswith("Interoperability"):
-                                json_of_test_case["config_id"] = "CF_06"
+                                json_of_test_case["config_id"] = "IOP"
                         elif json_of_test_case["robotpath"].startswith("DistributedOperations"):
                             json_of_test_case["config_id"] = "CF_04"
                         elif json_of_test_case["robotpath"].startswith("ContextSource"):

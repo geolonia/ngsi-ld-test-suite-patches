@@ -23,7 +23,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D001_01_red Create Entity On Both Context Sources
     [Documentation]    Check that if one requests the Context Broker to create an entity that matches two redirect registrations, this is created only on the Context Sources
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxied-redirect    4_3_6_3    5_6_1
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxied-redirect    4_3_6_3    5_6_1
     Set Stub Reply    POST    /broker1/ngsi-ld/v1/entities    201
     Set Stub Reply    POST    /broker2/ngsi-ld/v1/entities    201
 

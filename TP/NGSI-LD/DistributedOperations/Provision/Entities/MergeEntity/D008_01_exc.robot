@@ -22,7 +22,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D008_01_exc Merge Entity On Both Context Broker And Context Source
     [Documentation]    Check that if one requests the Context Broker to merge an entity that matches an exclusive registration, this is merged on the Context Source.
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_6_17
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_6_17
 
     Set Stub Reply    PATCH    /broker1/ngsi-ld/v1/entities/${entity_id}    204
     ${response}=    Merge Entity

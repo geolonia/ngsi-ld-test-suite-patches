@@ -23,7 +23,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D007_01_exc Replace Entity
     [Documentation]    Check that if one requests the Context Broker to replace an entity that matches an exclusive registration, the entity is replaced on the Context Source too
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_6_18
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_6_18
 
     Set Stub Reply    PUT    /broker1/ngsi-ld/v1/entities/${entity_id}    204
     ${response}=    Replace Entity

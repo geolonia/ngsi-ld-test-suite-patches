@@ -21,10 +21,10 @@ ${b2_url}
 ${b3_url}
 
 *** Test Cases ***
-IOP_CNF_01_01 Retrieve OffStreetParking:1
+IOP_002_01_01 Retrieve OffStreetParking:1
     [Documentation]    Pre-conditions: no user context. Data only on leaves. B contains OffStreetParking1 and OffStreetParking2. C contains OffStreetParking2.
     ...                Registrations established: Inclusive in A to B. Exclusive in A to C.
-    [Tags]    since_v1.6.1    iop    4_3_3    cf_06    additive-inclusive    proxy-exclusive    4_3_6    5_7_1
+    [Tags]    since_v1.6.1    iop    cnf_01    4_3_3    additive-inclusive    proxy-exclusive    4_3_6    5_7_1
 
     #Client retrieves OffStreetParking:1 in A and checks for a successful response. 
     ${response}=    Retrieve Entity    ${entity_id1}    broker_url=${b1_url}

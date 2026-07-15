@@ -23,7 +23,7 @@ ${fragment_filename}                    vehicle-brandname-complete-fragment.json
 *** Test Cases ***
 D004_01_inc Query The Context Broker With Type
     [Documentation]    Check that if one request the Context Broker to update an entity that matches an inclusive registration, this is updated on the Context Source too
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_2
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_2
 
     Set Stub Reply    PATCH    /ngsi-ld/v1/entities/${entity_id}/attrs    204
     ${response}=    Update Entity Attributes

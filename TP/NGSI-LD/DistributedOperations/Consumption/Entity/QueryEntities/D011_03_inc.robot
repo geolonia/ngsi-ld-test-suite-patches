@@ -25,12 +25,12 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 D011_03_inc_01 Query The Context Broker Via GET Using queryEntity
     [Documentation]    Check that if one queries the Context Broker for type, and the registration only allows the
     ...    queryEntity operation, the request is forwarded as expected
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_7_2
     queryEntity    GET    /ngsi-ld/v1/entities
 D011_03_inc_02 Query The Context Broker Via POST Using queryBatch
     [Documentation]    Check that if one queries the Context Broker for type, and the registration only allows the
     ...    queryBatch operation, the request is forwarded as expected
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_7_2
     queryBatch    POST    /ngsi-ld/v1/entityOperations/query
 
 

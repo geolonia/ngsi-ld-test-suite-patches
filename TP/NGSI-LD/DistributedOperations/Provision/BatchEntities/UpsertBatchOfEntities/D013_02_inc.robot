@@ -22,7 +22,7 @@ ${registration_payload_file_path}           csourceRegistrations/context-source-
 *** Test Cases ***
 D013_02_inc Batch Upsert Entities With Inclusive Registration With Update Flag
     [Documentation]    Check that if one requests the Context Broker to update a batch of entities that match an inclusive registration, these are updated on the Context Source too
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_8
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_8
     ${response}=    Retrieve Entity    ${first_entity_id}    context=${ngsild_test_suite_context}
     ${old_body}=    Get From Dictionary    ${response.json()}    brandName
 

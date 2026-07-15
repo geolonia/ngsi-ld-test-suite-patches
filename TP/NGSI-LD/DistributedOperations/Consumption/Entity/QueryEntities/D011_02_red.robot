@@ -24,12 +24,12 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 D011_02_red_01 Query The Context Broker With Type With queryEntity
     [Documentation]    Verify that when querying by entity type with a redirect registration that supports queryEntity,
     ...    the request is forwarded to the Context Source and entities are retrieved correctly
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-redirect    4_3_6_3    5_7_2
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-redirect    4_3_6_3    5_7_2
     GET    /broker1/ngsi-ld/v1/entities?type=Vehicle
 D011_02_red_02 Query The Context Broker With Type With queryBatch
     [Documentation]    Verify that when querying by entity type with a redirect registration that supports queryBatch,
     ...    the request is forwarded to the Context Source and entities are retrieved correctly
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-redirect    4_3_6_3    5_7_2
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-redirect    4_3_6_3    5_7_2
     POST    /broker1/ngsi-ld/v1/entityOperations/query
 
 

@@ -24,12 +24,12 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 D011_02_exc_01 Query The Context Broker With Type With queryEntity
     [Documentation]    Check that if one queries the Context Broker for type, and the registration only allows the
     ...    queryEntity operation, the request is forwarded as expected
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_7_2
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_7_2
     GET    /broker1/ngsi-ld/v1/entities
 D011_02_exc_02 Query The Context Broker With Type With queryBatch
     [Documentation]    Check that if one queries the Context Broker for type, and the registration only allows the
     ...    queryBatch operation, the request is forwarded as expected
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_7_2
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_7_2
     POST    /broker1/ngsi-ld/v1/entityOperations/query
 
 

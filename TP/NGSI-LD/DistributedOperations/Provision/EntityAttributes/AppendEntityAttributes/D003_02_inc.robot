@@ -21,7 +21,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D003_02_inc Append Entity Attribute
     [Documentation]    Check that an entity attribute is appended and the inclusive registration forwards the request to the Context Source with the noOverwrite flag
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_3
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_3
 
     ${response}=    Retrieve Entity    ${entity_id}
     ${old_body}=    Get From Dictionary    ${response.json()}    isParked

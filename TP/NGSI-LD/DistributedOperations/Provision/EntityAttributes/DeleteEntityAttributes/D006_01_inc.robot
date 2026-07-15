@@ -20,7 +20,7 @@ ${attribute_id}                         speed
 *** Test Cases ***
 D006_01_inc Delete Entity Attributes
     [Documentation]    Verify that, when one has an inclusive registration on a Context Broker with redirectionOps, one is able to delete entities attributes on a Context Source too
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_5
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_5
 
     Set Stub Reply    DELETE    /ngsi-ld/v1/entities/${entity_id}/attrs/${attribute_id}    204
     ${response}=    Delete Entity Attributes

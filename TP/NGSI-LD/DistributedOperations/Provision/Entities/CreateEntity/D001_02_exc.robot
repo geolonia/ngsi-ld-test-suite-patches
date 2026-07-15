@@ -25,7 +25,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D001_02_exc Create Entity Without Redirection Operations
     [Documentation]    Check that the entity cannot be created in the Context Source. The creation shall raise a conflict error.
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_6_1
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_6_1
 
     Set Stub Reply    POST    /broker1/ngsi-ld/v1/entities    409
     ${response}=    Create Entity    ${entity_speed_filename}    ${entity_id}

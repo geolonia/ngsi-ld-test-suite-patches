@@ -21,7 +21,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D003_01_red Append Entity Attribute
     [Documentation]    Check that an entity attribute is appended and the redirect registration forwards the request to the Context Sources
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-redirect    4_3_6_3    5_6_3
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-redirect    4_3_6_3    5_6_3
 
     Set Stub Reply    POST    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/    204
     Set Stub Reply    POST    /broker2/ngsi-ld/v1/entities/${entity_id}/attrs/    204

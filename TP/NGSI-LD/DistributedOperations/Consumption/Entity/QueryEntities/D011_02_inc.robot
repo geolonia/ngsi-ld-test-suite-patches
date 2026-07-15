@@ -23,7 +23,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D011_02_inc Query The Context Broker With Local Flag
     [Documentation]    Check that if one queries with the local flag, no entity from Context Source gets returned
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2    6_3_18
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_7_2    6_3_18
     ${serialized_entity}=    Load Entity As Serialized Array    ${entity_payload_filename}    ${entity_id}
     Set Stub Reply    GET    /ngsi-ld/v1/entities?type=Vehicle    200    ${serialized_entity}
 

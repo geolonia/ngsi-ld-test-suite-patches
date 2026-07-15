@@ -21,7 +21,7 @@ ${attribute_id}                         speed
 *** Test Cases ***
 D006_02_exc Delete Entity Attributes
     [Documentation]    Verify that, when one has an exclusive registration on a Context Broker with redirectionOps, one is able to delete entities attributes on a Context Source
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_6_5
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_6_5
 
     Set Stub Reply    DELETE    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/${attribute_id}    204
     ${response}=    Delete Entity Attributes

@@ -24,10 +24,10 @@ ${b3_url}
 ${b4_url}
 
 *** Test Cases ***
-IOP_CNF_03_02 Retrieve OffStreetParking:1 Location Attribute
+IOP_002_03_02 Retrieve OffStreetParking:1 Location Attribute
     [Documentation]    Pre-conditions: no user context. Data on every broker. A contains OffStreetParking1 without location. B contains OffStreetParking1. C contains OffStreetParking1 with location and name only. D contains OffStreetParking1 without location.
     ...                Registrations established: Auxiliary in A to B. Inclusive in A to C. Inclusive in A to D.
-    [Tags]    since_v1.6.1    iop    4_3_3    cf_06    additive-inclusive    additive-auxiliary    4_3_6    5_7_1
+    [Tags]    since_v1.6.1    iop    cnf_03    4_3_3    additive-inclusive    additive-auxiliary    4_3_6    5_7_1
 
     #Client retrieves OffStreetParking:1 in A and checks for a partial successful. The entity returned should only contain the location attribute.
     ${response}=    Retrieve Entity    ${entity_id}    broker_url=${b1_url}

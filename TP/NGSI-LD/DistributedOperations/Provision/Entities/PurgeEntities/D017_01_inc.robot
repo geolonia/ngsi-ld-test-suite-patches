@@ -22,7 +22,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D017_01_inc Purge Entities On Both Context Broker And Context Source
     [Documentation]    Verify that, when one has an inclusive registration on a Context Broker, one is able to purge entities based on type on both Context Broker and Context Source
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_21
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_21
 
     Set Stub Reply    DELETE    /ngsi-ld/v1/entities?type=Vehicle    204
     ${response}=    Purge Entities    type=Vehicle    context=${ngsild_test_suite_context}

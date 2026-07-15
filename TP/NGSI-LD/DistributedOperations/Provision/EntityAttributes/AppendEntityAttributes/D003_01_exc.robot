@@ -20,7 +20,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D003_01_exc Append Entity Attribute
     [Documentation]    Check that an entity attribute is appended and the exclusive registration forwards the request to the Context Source
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_6_3
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_6_3
 
     Set Stub Reply    POST    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/    204
     ${response}=    Append Entity Attributes

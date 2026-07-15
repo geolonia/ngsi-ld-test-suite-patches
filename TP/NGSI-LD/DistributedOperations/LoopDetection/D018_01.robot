@@ -20,7 +20,7 @@ ${registration_payload_file_path}    csourceRegistrations/context-source-registr
 *** Test Cases ***
 D018_01 Loop Detection With Via Header
     [Documentation]    Verify that a loop is detected when the Via header contains the broker's identifier.
-    [Tags]    since_v1.8.1    dist-ops    4_3_3    cf_06    5_6_6    6_3_18
+    [Tags]    since_v1.8.1    dist-ops    4_3_3    cf_04    5_6_6    6_3_18
 
     # The inclusive registration forwards the create to the mock; that forward
     # must be answered so the operation returns 201 (cf. sibling D018_02, which

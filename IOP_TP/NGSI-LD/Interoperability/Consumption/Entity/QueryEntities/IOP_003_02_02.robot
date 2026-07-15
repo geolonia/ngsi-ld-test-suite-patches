@@ -29,10 +29,10 @@ ${b3_url}
 ${b4_url}
 
 *** Test Cases ***
-IOP_CNF_02_02 Query Entities Of Type OffstreetParking And Vehicle with attrs
+IOP_003_02_02 Query Entities Of Type OffstreetParking And Vehicle with attrs
     [Documentation]    Pre-conditions: no user context. Data only on leaves. B contains OffStreetParking1 and Vehicle1. C contains OffStreetParking1 with location and name only and OffStreetParking2. D contains OffStreetParking2 with location and name only and Vehicle2.
     ...                Registrations established: Inclusive in A to B. Redirect in A to C. Redirect in A to D.
-    [Tags]    since_v1.6.1    iop    4_3_3    cf_06    additive-inclusive    proxy-redirect    4_3_6    5_7_2    6_4_3_1
+    [Tags]    since_v1.6.1    iop    cnf_02    4_3_3    additive-inclusive    proxy-redirect    4_3_6    5_7_2    6_4_3_1
 
     #Client queries all entities with type OffstreetParking and Vehicle in A and checks for a successful response that contains the location attribute for all entities.
     ${response}=    Query Entities    entity_types=OffstreetParking,Vehicle    attrs=location    broker_url=${b1_url}

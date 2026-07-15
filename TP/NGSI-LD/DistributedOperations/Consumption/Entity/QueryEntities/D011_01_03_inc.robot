@@ -27,7 +27,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 D011_01_03_inc Query The Context Broker With Type And Attribute
     [Documentation]    Check that if one queries for attribute present in an entity on a Context Source, only that
     ...    entity gets returned
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_7_2
     ${serialized_entity}=    Load Entity As Serialized Array    ${entity_payload_filename2}    ${second_entity_id}
     Set Stub Reply    GET    /ngsi-ld/v1/entities?attrs=isParked2&type=Vehicle    200    ${serialized_entity}
 

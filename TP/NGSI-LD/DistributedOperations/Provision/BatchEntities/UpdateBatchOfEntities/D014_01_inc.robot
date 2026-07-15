@@ -22,7 +22,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases *** 
 D014_01_inc Update Batch Entities without noOverwrite Option
     [Documentation]    Check that if one request the Context Broker to update a batch of entities that match an inclusive registration, they are updated on the Context Source too
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_9
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_9
 
     ${first_update_entity}=    Load Entity    ${update_payload_filename}    ${first_entity_id}
     ${second_update_entity}=    Load Entity    ${update_payload_filename}    ${second_entity_id}

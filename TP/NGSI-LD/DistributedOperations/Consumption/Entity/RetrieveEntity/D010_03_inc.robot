@@ -22,15 +22,15 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D010_03_inc_01 Retrieve Entity By Id Using The retrieveEntity Operation
     [Documentation]    Check that if one retrieves entity living on a Context Source from a Context Broker, and the registration only allows the retrieveEntity operation, the request is forwarded as expected
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_1
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_7_1
     retrieveEntity    GET    /ngsi-ld/v1/entities/
 D010_03_inc_02 Retrieve Entity By Id Using The queryEntity Operation
     [Documentation]    Check that if one retrieves entity living on a Context Source from a Context Broker, and the registration only allows the queryEntity operation, the request is forwarded as expected
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_1
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_7_1
     queryEntity    GET    /ngsi-ld/v1/entities?type=Vehicle
 D010_03_inc_03 Retrieve Entity By Id Using The queryBatch Operation
     [Documentation]    Check that if one retrieves entity living on a Context Source from a Context Broker, and the registration only allows the queryBatch operation, the request is forwarded as expected
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_1
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_7_1
     queryBatch    POST    /ngsi-ld/v1/entityOperations/query
 
 

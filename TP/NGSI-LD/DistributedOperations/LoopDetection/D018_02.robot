@@ -24,7 +24,7 @@ ${registration_payload_file_path}    csourceRegistrations/context-source-registr
 *** Test Cases ***
 D018_02_01 Check Post Via Header Forwarding To Context Source
     [Documentation]    Verify that the request contains the POST Via header when forwarding operations to the Context Source
-    [Tags]    since_v1.8.1    dist-ops    4_3_3    cf_06    additive-inclusive    5_6_6    6_3_18
+    [Tags]    since_v1.8.1    dist-ops    4_3_3    cf_04    additive-inclusive    5_6_6    6_3_18
 
     Set Stub Reply    POST    /broker1/ngsi-ld/v1/entities    201
     ${response}=    Create Entity    ${second_entity_payload_filename}    ${entity_id2}
@@ -37,7 +37,7 @@ D018_02_01 Check Post Via Header Forwarding To Context Source
 
 D018_02_02 Check Update Via Header Forwarding To Context Source
     [Documentation]    Verify that the request contains the PATCH Via header when forwarding operations to the Context Source
-    [Tags]    since_v1.8.1    dist-ops    4_3_3    cf_06    additive-inclusive    5_6_6    6_3_18
+    [Tags]    since_v1.8.1    dist-ops    4_3_3    cf_04    additive-inclusive    5_6_6    6_3_18
 
     Set Stub Reply    PATCH    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/    204
     ${response}=    Update Entity Attributes
@@ -53,7 +53,7 @@ D018_02_02 Check Update Via Header Forwarding To Context Source
 
 D018_02_03 Check Delete Via Header Forwarding To Context Source
     [Documentation]    Verify that the request contains the DELETE Via header when forwarding operations to the Context Source
-    [Tags]    since_v1.8.1    dist-ops    4_3_3    cf_06    additive-inclusive    5_6_6    6_3_18
+    [Tags]    since_v1.8.1    dist-ops    4_3_3    cf_04    additive-inclusive    5_6_6    6_3_18
 
     Set Stub Reply    DELETE    /broker1/ngsi-ld/v1/entities/${entity_id}    204
     ${response}=    Delete Entity    ${entity_id}
@@ -66,7 +66,7 @@ D018_02_03 Check Delete Via Header Forwarding To Context Source
 
 D018_02_04 Check Put Via Header Forwarding To Context Source
     [Documentation]    Verify that the request contains the PUT Via header when forwarding operations to the Context Source
-    [Tags]    since_v1.8.1    dist-ops    4_3_3    cf_06    additive-inclusive    5_6_6    6_3_18
+    [Tags]    since_v1.8.1    dist-ops    4_3_3    cf_04    additive-inclusive    5_6_6    6_3_18
 
     Set Stub Reply    PUT    /broker1/ngsi-ld/v1/entities/${entity_id}    204
     ${response}=    Replace Entity
@@ -83,7 +83,7 @@ D018_02_04 Check Put Via Header Forwarding To Context Source
 
 D018_02_05 Check Get Via Header Forwarding To Context Source
     [Documentation]    Verify that the request contains the GET Via header when forwarding operations to the Context Source
-    [Tags]    since_v1.8.1    dist-ops    4_3_3    cf_06    additive-inclusive    5_6_6    6_3_18
+    [Tags]    since_v1.8.1    dist-ops    4_3_3    cf_04    additive-inclusive    5_6_6    6_3_18
 
     Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities/${entity_id}    200
     ${response}=    Retrieve Entity    ${entity_id}

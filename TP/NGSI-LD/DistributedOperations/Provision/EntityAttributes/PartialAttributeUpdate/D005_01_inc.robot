@@ -24,7 +24,7 @@ ${attribute_id}                         speed
 *** Test Cases ***
 D005_01_inc Partial Partial Attribute Update
     [Documentation]    Check that if one request the Context Broker to partially update an attribute whose id matches an inclusive registration, this is updated on the Context Source too
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_6_4
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_4
 
     ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
     ${old_isparked}=    Get Value From Json    ${response.json()}    $.isParked2

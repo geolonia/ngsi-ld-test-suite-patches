@@ -23,7 +23,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases *** 
 D010_02_exc Query Context Broker And Retrieve Entity By Id
     [Documentation]    Check that if one retrieves a fragmented entity locally, the response does not contain the exclusive attribute
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_7_1
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_7_1
     
     ${entity_speed}=    Load Entity    ${entity_speed_filename}    ${entity_id}
     Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities/${entity_id}    200    ${entity_speed}

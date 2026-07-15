@@ -25,7 +25,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D001_01_exc Create Entity With Exclusive Registration
     [Documentation]    Check that the entity is created correctly on both the Context Broker and the Context Source. The entity shall be retrieved correctly.
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_6_1
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_6_1
     Set Stub Reply    POST    /broker1/ngsi-ld/v1/entities    201
     ${speed_entity}=    Create Entity    ${entity_speed_filename}    ${entity_id}
     Check Response Status Code    201    ${speed_entity.status_code}

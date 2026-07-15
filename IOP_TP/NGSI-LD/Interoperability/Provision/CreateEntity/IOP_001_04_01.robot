@@ -26,10 +26,10 @@ ${b4_url}
 ${b5_url}
 
 *** Test Cases ***
-IOP_CNF_04_01 Create OffStreetParking:1
+IOP_001_04_01 Create OffStreetParking:1
     [Documentation]    Pre-conditions: No user context. No data in any broker.
     ...                Registrations established: Auxiliary in A to B. Inclusive in A to C. Redirect in B to D. Redirect in B to E. Exclusive in C to E.
-    [Tags]    since_v1.6.1    iop    4_3_3    cf_06    additive-inclusive    additive-auxiliary    proxy-exclusive    proxy-redirect    4_3_6    5_6_1
+    [Tags]    since_v1.6.1    iop    cnf_04    4_3_3    additive-inclusive    additive-auxiliary    proxy-exclusive    proxy-redirect    4_3_6    5_6_1
 
     #Create the full entity of OffStreetParking:1 in A and check for a successful response
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    broker_url=${b1_url}

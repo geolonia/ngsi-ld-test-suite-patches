@@ -25,7 +25,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 D011_01_04_inc Query The Context Broker With Type And Attribute In Neither
     [Documentation]    Check that if one queries for attribute present in neither of the entities, neither of them gets
     ...    returned. Contrast with D011_01_02, where no local entity exists at all.
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_2
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_7_2
     ${empty_response}=    Create Empty Array Result
     Set Stub Reply    GET    /ngsi-ld/v1/entities?attrs=speed&type=Vehicle    200    ${empty_response}
 

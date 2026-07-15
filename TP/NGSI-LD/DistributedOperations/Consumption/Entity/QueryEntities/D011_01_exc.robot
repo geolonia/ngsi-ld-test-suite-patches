@@ -26,7 +26,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 D011_01_exc Query The Context Broker With Type
     [Documentation]    Check that if one queries the Context Broker for type, entity with matching type on a Context
     ...    Source gets merged correctly
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_7_2
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_7_2
     ${serialized_entity}=    Load Entity As Serialized Array    ${entity_speed_filename}    ${entity_id}
     Set Stub Reply
     ...    GET

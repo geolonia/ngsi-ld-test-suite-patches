@@ -24,7 +24,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D012_01_exc Batch Create Entities With Exclusive Registration
     [Documentation]    Check that if one requests the Context Broker to create a batch of entities that match an exclusive registration, these are created on the Context Source too
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_6_7
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_6_7
 
     ${first_speed_entity}=    Load Entity    ${entity_speed_payload_filename}    ${first_entity_id}
     ${second_speed_entity}=    Load Entity    ${entity_speed_payload_filename}    ${second_entity_id}

@@ -24,7 +24,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D010_02_red Query Context Broker And Retrieve Entity By Id
     [Documentation]    Check that when retrieving an entity locally, the Context Broker does not forward the request to the Context Sources and raises an error.
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-redirect    4_3_6_3    5_7_1
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-redirect    4_3_6_3    5_7_1
     ${entity_body}=    Load Entity    ${entity_payload_filename}    ${entity_id}
     ${entity_body2}=    Load Entity    ${entity_payload_filename2}    ${entity_id}
     Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities/${entity_id}    200    ${entity_body}

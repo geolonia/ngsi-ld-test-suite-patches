@@ -23,7 +23,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D010_02_inc Retrieve Entity On A Context Source From The Context Broker With Local Flag
     [Documentation]    Check that if one retrieves entity living on a Context Source from a Context Broker with local flag, entity not found error is raised
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-inclusive    4_3_6_2    5_7_1    6_3_18
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_7_1    6_3_18
     ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
 
     Wait For No Request

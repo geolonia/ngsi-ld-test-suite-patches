@@ -24,7 +24,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D002_02_exc Delete Entity Without Redirection Operations
     [Documentation]    Check that the deletion is not forwarded to the Context Source due to a lack of redirection operations in the registration.
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_6_6
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_6_6
 
     Set Stub Reply    DELETE    /broker1/ngsi-ld/v1/entities/${entity_id}    207
     ${response}=    Delete Entity    ${entity_id}

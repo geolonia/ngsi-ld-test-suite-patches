@@ -22,7 +22,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D016_01_exc Merge Batch Entities On Both Context Broker And Context Source
     [Documentation]    Check that if one requests the Context Broker to merge a batch of entities that match an exclusive registration, they are merged on the Context Source too.
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-exclusive    4_3_6_3    5_6_20
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_6_20
     
     ${new_first_entity}=    Load Entity    ${entity_second_payload_filename}    ${first_entity_id}
     ${new_second_entity}=    Load Entity    ${entity_second_payload_filename}    ${second_entity_id}

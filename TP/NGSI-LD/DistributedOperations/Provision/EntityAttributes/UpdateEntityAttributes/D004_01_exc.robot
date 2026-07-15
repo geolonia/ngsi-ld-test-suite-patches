@@ -24,7 +24,7 @@ ${registration_payload_file_path}       csourceRegistrations/context-source-regi
 *** Test Cases ***
 D004_01_exc Create Entity and Registration And Start Context Source Mock Server
     [Documentation]    Check that the entity is updated correctly in the Context Source via redirectionOps
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    proxy-redirect    4_3_6_3    5_6_2
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-redirect    4_3_6_3    5_6_2
 
     Set Stub Reply    PATCH    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/    204
     ${response}=    Update Entity Attributes

@@ -20,7 +20,7 @@ ${registration_payload_file_path}    csourceRegistrations/context-source-registr
 *** Test Cases ***
 D018_03 Check Via Header Forwarding To Context Source
     [Documentation]    Verify that the request contains the Via header from both the Context Broker and the Context Source
-    [Tags]    since_v1.8.1    dist-ops    4_3_3    cf_06    additive-inclusive    5_6_6    6_3_18
+    [Tags]    since_v1.8.1    dist-ops    4_3_3    cf_04    additive-inclusive    5_6_6    6_3_18
 
     # The inclusive registration (endpoint=/broker1) forwards the create to the
     # mock; that forward must be answered so the operation returns 201 (cf.

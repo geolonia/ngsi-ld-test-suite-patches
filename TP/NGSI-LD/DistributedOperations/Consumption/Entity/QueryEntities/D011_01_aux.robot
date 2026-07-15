@@ -29,7 +29,7 @@ ${expected_attribute}                   brandName
 *** Test Cases ***
 D011_01_aux Query Entities That Exists On Both The Context Source And The Context Broker From The Context Broker
     [Documentation]    Check that if one queries the Context Broker for type, entities get merged correctly
-    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_06    additive-auxiliary    4_3_6_2    5_7_1
+    [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-auxiliary    4_3_6_2    5_7_1
     ${entity_fragment}=    Load JSON From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
     ${serialized_entity}=    Load Entity As Serialized Array    ${entity_payload_filename}    ${entity_id}
     Set Stub Reply    GET    /ngsi-ld/v1/entities?type=Vehicle    200    ${serialized_entity}
