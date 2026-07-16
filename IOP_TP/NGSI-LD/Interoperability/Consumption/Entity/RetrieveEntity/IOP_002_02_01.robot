@@ -1,12 +1,8 @@
 *** Settings ***
-Documentation       Four brokers are set up A, B, C and D. A has three registrations, one inclusive for the entity created in B, one redirect for the entity created in C and one redirect for the entity created in D. Check that the entity returned from A has attributes from the entities in B and C.
+Documentation       Four brokers are set up A, B, C and D. A has three registrations, one inclusive for the entity created in B, one redirect for the entity created in C and one redirect for the entity created in D.
+...                 Check that the entity returned from A has attributes from the entities in B and C.
 
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
-Resource            ${EXECDIR}/resources/AssertionUtils.resource
-Resource            ${EXECDIR}/resources/JsonUtils.resource
+Resource            ${EXECDIR}/resources/IOPUtils/InteroperabilityUtils.resource
 
 Test Setup          Setup Initial Context Source Registrations
 Test Teardown       Delete Entities and Delete Registrations
@@ -17,10 +13,10 @@ ${first_full_entity_payload_filename}          interoperability/offstreet-parkin
 ${second_full_entity_payload_filename}         interoperability/offstreet-parking2-full.jsonld
 ${inclusive_registration_payload_file_path}    csourceRegistrations/interoperability/context-source-registration-inclusive-2.jsonld
 ${redirect_registration_payload_file_path}     csourceRegistrations/interoperability/context-source-registration-redirect-2.jsonld
-${b1_url}
-${b2_url}
-${b3_url}
-${b4_url}
+${broker_A_url}
+${broker_B_url}
+${broker_C_url}
+${broker_D_url}
 
 *** Test Cases ***
 IOP_002_02_01 Retrieve OffStreetParking:1
@@ -29,16 +25,16 @@ IOP_002_02_01 Retrieve OffStreetParking:1
     [Tags]    since_v1.6.1    iop    cnf_02    4_3_3    additive-inclusive    proxy-redirect    4_3_6    5_7_1
 
     #Client retrieves OffStreetParking:1 in A and checks for a partial successful. The entity returned should be the whole entity.
-    ${response}=    Retrieve Entity    ${entity_id}    broker_url=${b1_url}
+    ${response}=    Retrieve Entity    ${entity_id}    broker_url=${broker_A_url}
     Check Response Status Code    207    ${response.status_code}
     ${payload}=    Set To Dictionary    ${response.json()}
     Should Be Equal    ${payload}    ${first_full_entity_payload_filename}
 
     #Client retrieves OffStreetParking:1 in B and C.
-    ${response}=    Retrieve Entity    ${entity_id}    broker_url=${b2_url}
+    ${response}=    Retrieve Entity    ${entity_id}    broker_url=${broker_B_url}
     ${first_expected_payload}=    Set To Dictionary    ${response.json()}
 
-    ${response}=    Retrieve Entity    ${entity_id}    broker_url=${b3_url}
+    ${response}=    Retrieve Entity    ${entity_id}    broker_url=${broker_C_url}
     ${second_expected_payload}=    Set To Dictionary    ${response.json()}
 
     #Client checks that the entity returned from A has attributes from the entities in B and C.
@@ -48,52 +44,41 @@ IOP_002_02_01 Retrieve OffStreetParking:1
 
 *** Keywords ***
 Setup Initial Context Source Registrations
+
     ${entity_id}=    Generate Random Parking Entity Id
     Set Suite Variable    ${entity_id}
-    ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    broker_url=${b2_url}
+    ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    broker_url=${broker_B_url}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Create Entity    ${first_full_entity_payload_filename}    ${entity_id}    broker_url=${b3_url}
+    ${response}=    Create Entity    ${first_full_entity_payload_filename}    ${entity_id}    broker_url=${broker_C_url}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Create Entity    ${second_full_entity_payload_filename}    ${entity_id}    broker_url=${b4_url}
+    ${response}=    Create Entity    ${second_full_entity_payload_filename}    ${entity_id}    broker_url=${broker_D_url}
     Check Response Status Code    201    ${response.status_code}
 
-    ${registration_id1}=     Generate Random CSR Id
-    Set Suite Variable    ${registration_id1}
-    ${registration_payload}=    Prepare Context Source Registration From File
-    ...    ${registration_id1}
+    @{first_set}=    Create List
+    ...    ${entity_id}
     ...    ${inclusive_registration_payload_file_path}
-    ...    entity_id=${entity_id}
-    ...    broker_url=${b2_url}
-    ...    mode=inclusive
-    ${response}=    Create Context Source Registration With Return    ${registration_payload}    broker_url=${b1_url}
-    Check Response Status Code    201    ${response.status_code}
+    ...    inclusive
+    ...    ${broker_B_url}
+    ...    ${broker_A_url}
 
-    ${registration_id2}=     Generate Random CSR Id
-    Set Suite Variable    ${registration_id2}
-    ${registration_payload}=    Prepare Context Source Registration From File
-    ...    ${registration_id2}
+    @{second_set}=    Create List
+    ...    ${entity_id}
     ...    ${redirect_registration_payload_file_path}
-    ...    entity_id=${entity_id}
-    ...    broker_url=${b3_url}
-    ...    mode=redirect
-    ${response}=    Create Context Source Registration With Return    ${registration_payload}    broker_url=${b1_url}
-    Check Response Status Code    201    ${response.status_code}
+    ...    redirect
+    ...    ${broker_C_url}
+    ...    ${broker_A_url}
 
-    ${registration_id3}=     Generate Random CSR Id
-    Set Suite Variable    ${registration_id3}
-    ${registration_payload}=    Prepare Context Source Registration From File
-    ...    ${registration_id3}
+    @{third_set}=    Create List
+    ...    ${entity_id}
     ...    ${redirect_registration_payload_file_path}
-    ...    entity_id=${entity_id}
-    ...    broker_url=${b4_url}
-    ...    mode=redirect
-    ${response}=    Create Context Source Registration With Return    ${registration_payload}    broker_url=${b1_url}
-    Check Response Status Code    201    ${response.status_code}
+    ...    redirect
+    ...    ${broker_D_url}
+    ...    ${broker_A_url}
+
+    @{second_configuration}=    Create List    ${first_set}    ${second_set}    ${third_set}
+    Compose IOP Configuration    ${second_configuration}
 
 Delete Entities And Delete Registrations
-    Delete Context Source Registration    ${registration_id1}    broker_url=${b1_url}
-    Delete Context Source Registration    ${registration_id2}    broker_url=${b1_url}
-    Delete Context Source Registration    ${registration_id3}    broker_url=${b1_url}
-    Delete Entity    ${entity_id}    broker_url=${b2_url}
-    Delete Entity    ${entity_id}    broker_url=${b3_url}
-    Delete Entity    ${entity_id}    broker_url=${b4_url}
+    @{broker_count}=    Create List    ${broker_A_url}    ${broker_B_url}    ${broker_C_url}    ${broker_D_url}
+    @{entities_to_delete}=    Create List    ${entity_id}
+    Delete Registrations And Entities    ${broker_count}    ${entities_to_delete}

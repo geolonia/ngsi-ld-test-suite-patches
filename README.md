@@ -164,15 +164,17 @@ test launch command followed by the file name.
   - The Interoperability tests assume that it will manage multiple brokers
   - Multiple NGSI-LD brokers will be running simultaneously on different ports
   - Terminal will pass the broker URLs as a variable
+  - All broker environments are initialized as empty. Test-specific entities and source registrations are dynamically
+    created during the setup phase of each test case. 
 
   The following example shows how to run an interoperability test with multiple brokers: 
 
   ```
-    robot --variable b1_url:http://localhost:8080/ngsi-ld/v1 \
-      --variable b2_url:http://localhost:8081/ngsi-ld/v1 \
-      --variable b3_url:http://localhost:8082/ngsi-ld/v1 \
-      --variable b4_url:http://localhost:8083/ngsi-ld/v1 \
-      --variable b5_url:http://localhost:8084/ngsi-ld/v1 \
+    robot --variable broker_A_url:http://localhost:8080/ngsi-ld/v1 \
+      --variable broker_B_url:http://localhost:8081/ngsi-ld/v1 \
+      --variable broker_C_url:http://localhost:8082/ngsi-ld/v1 \
+      --variable broker_D_url:http://localhost:8083/ngsi-ld/v1 \
+      --variable broker_E_url:http://localhost:8084/ngsi-ld/v1 \
       ./TP/NGSI-LD/Interoperability/Provision/Entities/CreateEntity/IOP_CNF_01_01.robot
   ```
 
