@@ -31,7 +31,7 @@ Create Context Source Registration Subscription
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
     ${response}=    POST
-    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}
     ...    json=${subscription_payload}
     ...    headers=${headers}
     ...    expected_status=any
@@ -43,7 +43,7 @@ Delete Context Source Registration Subscription
     [Arguments]    ${subscription_id}
 
     ${response}=    DELETE
-    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     Output    ${response}    Delete Context Source Registration Subscription
     RETURN    ${response}
 
@@ -64,7 +64,7 @@ Query Context Source Registration Subscriptions
     IF    '${offset}'!=''    Set To Dictionary    ${params}    offset=${offset}
 
     ${response}=    GET
-    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
@@ -84,7 +84,7 @@ Retrieve Context Source Registration Subscription
         ...    Link=${context_link}
     END
     ${response}=    GET
-    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     ...    headers=${headers}
     ...    expected_status=any
     Output    ${response}    Retrieve Context Source Registration Subscription
@@ -95,7 +95,7 @@ Update Context Source Registration Subscription
     [Arguments]    ${subscription_id}    ${subscription_update_fragment}
 
     ${response}=    PATCH
-    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     ...    json=${subscription_update_fragment}
     ...    expected_status=any
     Output    ${response}    Update Context Source Registration Subscription
@@ -106,7 +106,7 @@ Update Context Source Registration Subscription From File
     [Arguments]    ${subscription_id}    ${file_path}
     ${file_content}=    Get File    ${EXECDIR}/data/${file_path}
     ${response}=    PATCH
-    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_SUBSCRIPTION_ENDPOINT_PATH}/${subscription_id}
     ...    data=${file_content}
     ...    expected_status=any
     Output    ${response}    Update Context Source Registration Subscription From File

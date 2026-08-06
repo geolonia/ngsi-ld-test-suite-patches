@@ -37,7 +37,7 @@ robot --variable b1_url:<broker1_url> \
       --variable b3_url:<broker3_url> \
       --variable b4_url:<broker4_url> \
       --variable b5_url:<broker5_url> \
-      --outputdir ./results ./TP/NGSI-LD/Interoperability
+      --outputdir ./results ./IOP_TP/NGSI-LD/Interoperability
 
 #run specific interoperability test suite with multiple brokers
 robot --variable b1_url:<broker1_url> \
@@ -45,4 +45,4 @@ robot --variable b1_url:<broker1_url> \
       --variable b3_url:<broker3_url> \
       --variable b4_url:<broker4_url> \
       --variable b5_url:<broker5_url> \
-      --outputdir ./results ./TP/NGSI-LD/Interoperability/Provision/Entities/CreateEntity/IOP_CNF_01_01.robot
+      --outputdir ./results ./IOP_TP/NGSI-LD/Interoperability/Provision/CreateEntity/IOP_001_01_01.robot

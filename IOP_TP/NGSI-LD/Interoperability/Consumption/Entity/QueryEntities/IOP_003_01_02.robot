@@ -1,103 +1,166 @@
 *** Settings ***
-Documentation       Three brokers are set up A, B and C. A has two registrations, one inclusive for the entities created in B and one exclusive for the entity created in C.
-...                 The client sends and HTTP POST request to check that the entities can be queried from all brokers.
+Documentation       Three brokers are set up b1, b2 and b3. b1 has two registrations, one inclusive for the entities in b2 and one exclusive for the entity in b3.
+...                 Check that OffStreetParking:1 in b1 contains availableSpotsNumber and totalSpotsNumber from b2. Check that OffStreetParking:2 in b1 contains availableSpotsNumber from b2 and location from b3.
 
 Resource            ${EXECDIR}/resources/IOPUtils/InteroperabilityUtils.resource
 
-Test Setup          Setup Initial Context Source Registrations
 Test Teardown       Delete Entities and Delete Registrations
+Test Template       Run Interoperability Scenario
+
 
 *** Variables ***
-${first_entity_payload_filename}               interoperability/offstreet-parking1-full.jsonld
-${second_entity_payload_filename}              interoperability/offstreet-parking2-full.jsonld
-${third_entity_payload_filename}               interoperability/offstreet-parking2-no-location-and-totalspotsnumber.jsonld
-${inclusive_registration_payload_file_path}    csourceRegistrations/interoperability/context-source-registration-inclusive-2.jsonld
-${exclusive_registration_payload_file_path}    csourceRegistrations/interoperability/context-source-registration-exclusive-2.jsonld
-${broker_A_url}
-${broker_B_url}
-${broker_C_url}
+${first_entity_payload_filename}                interoperability/full-version-of-OffStreetParking1.jsonld
+${second_entity_payload_filename}               interoperability/full-version-of-OffStreetParking2.jsonld
+${third_entity_payload_filename}                interoperability/offStreetParking2-without-location-and-totalSpotsNumber.jsonld
+${inclusive_registration_payload_file_path}     csourceRegistrations/interoperability/context-source-registration-inclusive-2.jsonld
+${exclusive_registration_payload_file_path}     csourceRegistrations/interoperability/context-source-registration-exclusive-2.jsonld
+${b1_url}                                       ${EMPTY}
+${b2_url}                                       ${EMPTY}
+${b3_url}                                       ${EMPTY}
+
 
 *** Test Cases ***
-IOP_003_01_02 Query Entities Of Type OffstreetParking Via POST
-    [Documentation]    Pre-conditions: no user context. Data only on leaves. B contains OffStreetParking:1 and OffStreetParking:2 without location and totalSpotsNumber. C contains OffStreetParking:2.
-    ...                Registrations established: Inclusive in A to B. Exclusive in A to C.
-    [Tags]    since_v1.6.1    iop    cnf_01    4_3_3    additive-inclusive    proxy-exclusive    4_3_6    5_7_2    6_23_2_1
+IOP_003_01_02_01 Query Entities Of Type OffstreetParking Via POST With Default Context
+    [Tags]
+    ...    since_v1.6.1
+    ...    iop
+    ...    cnf_01
+    ...    4_3_3
+    ...    additive-inclusive
+    ...    proxy-exclusive
+    ...    4_3_6
+    ...    5_7_2
+    ...    6_23_2_1
+    ...    default-context
+    [Setup]    Setup Initial Context Source Registrations    ${core_context}
+    ${core_context}
+IOP_003_01_02_02 Query Entities Of Type OffstreetParking Via POST With User Context
+    [Tags]
+    ...    since_v1.6.1
+    ...    iop
+    ...    cnf_01
+    ...    4_3_3
+    ...    additive-inclusive
+    ...    proxy-exclusive
+    ...    4_3_6
+    ...    5_7_2
+    ...    6_23_2_1
+    ...    user-context
+    [Setup]    Setup Initial Context Source Registrations    ${ngsild_test_suite_context}
+    ${ngsild_test_suite_context}
 
-    #Agent queries all entities with type OffstreetParking in A and checks for a successful response that contains the attributes of both entities in B and C.
-    @{entities}=    Create List    ${entity_id}    ${second_entity_id}
-    ${response}=    Query Entities Via POST   entities=${entities}    broker_url=${broker_A_url}
-    Check Response Status Code    200    ${response.status_code}
-    @{payload}=    Set Variable   ${response.json()}
-    Should Contain    ${payload}\[OffstreetParking1]    availableSpotsNumber
-    Should Contain    ${payload}\[OffstreetParking1]    totalSpotsNumber
-    Should Contain    ${payload}\[OffstreetParking2]    availableSpotsNumber
-    Should Contain    ${payload}\[OffstreetParking2]    location
-
-    #Agent queries all entities with type OffstreetParking in B and C
-    ${response}=    Query Entities Via POST   entities=${entities}    broker_url=${broker_B_url}
-    @{first_expected_payload}=    Set Variable    ${response.json()}
-    Check Response Body Containing Entities URIS set to    ${entities}    ${response.json()}
-
-    ${response}=    Query Entities Via POST   entities=${entity_id}    broker_url=${broker_C_url}
-    @{second_expected_payload}=    Set Variable    ${response.json()}
-    Check Response Body Containing Entities URIS set to    ${entity_id}    ${response.json()}
-
-    #Agent checks that OffstreetParking:1 in A is the same as the one in B and that OffstreetParking:2 in A contains the attributes of both OffstreetParking:2 in B and C.
-    Should Be Equal    ${payload}\[OffstreetParking1]    ${first_expected_payload}\[OffstreetParking1]
-    Should Contain    ${payload}\[OffstreetParking2]    ${first_expected_payload}\[OffstreetParking2][totalSpotsNumber]
-    Should Contain    ${payload}\[OffstreetParking2]    ${second_expected_payload}\[OffstreetParking2][location]
 
 *** Keywords ***
-Setup Initial Context Source Registrations
+Run Interoperability Scenario
+    [Arguments]    ${context}
 
-    ${entity_id}=    Generate Random Parking Entity Id
-    Set Suite Variable    ${entity_id}
-    ${second_entity_id}=    Generate Random Parking Entity Id
-    Set Suite Variable    ${second_entity_id}
+    # Client sends an HTTP POST request to b1 to retrieve all Entities with type OffstreetParking
+    &{entity_selector}=    Create Dictionary    type=OffStreetParking
+    @{entities}=    Create List    ${entity_selector}
+    ${response_b1}=    Query Entities Via POST
+    ...    entities=${entities}
+    ...    broker_url=${b1_url}
+    ...    context=${context}
+
+    # Agent checks that a success response has been returned and that the following Entities were returned:
+    # - OffstreetParking:1 with the attributes availableSpotsNumber and totalSpotsNumber
+    # - OffstreetParking:2 with the attributes availableSpotsNumber and location
+    Check Response Status Code    200    ${response_b1.status_code}
+    ${expected_b1_ids}=    Create List    ${first_entity_id}    ${second_entity_id}
+    Check Response Body Containing Entities URIS set to    ${expected_b1_ids}    ${response_b1.json()}
+    ${first_entity_b1}=    Get Value From JSON    ${response_b1.json()}    $[?(@.id=='${first_entity_id}')]
+    ${second_entity_b1}=    Get Value From JSON    ${response_b1.json()}    $[?(@.id=='${second_entity_id}')]
+
+    # Client sends an HTTP POST request to b2 to retrieve all Entities with type OffstreetParking
+    ${response_b2}=    Query Entities Via POST
+    ...    entities=${entities}
+    ...    broker_url=${b2_url}
+    ...    context=${context}
+    Check Response Status Code    200    ${response_b2.status_code}
+    ${expected_b2_ids}=    Create List    ${first_entity_id}    ${second_entity_id}
+    Check Response Body Containing Entities URIS set to    ${expected_b2_ids}    ${response_b2.json()}
+    ${first_entity_b2}=    Get Value From JSON    ${response_b2.json()}    $[?(@.id=='${first_entity_id}')]
+    ${second_entity_b2}=    Get Value From JSON    ${response_b2.json()}    $[?(@.id=='${second_entity_id}')]
+
+    # Client sends an HTTP POST request to b3 to retrieve all Entities with type OffstreetParking
+    ${response_b3}=    Query Entities Via POST
+    ...    entities=${entities}
+    ...    broker_url=${b3_url}
+    ...    context=${context}
+    Check Response Status Code    200    ${response_b3.status_code}
+    ${expected_b3_ids}=    Create List    ${second_entity_id}
+    Check Response Body Containing Entities URIS set to    ${expected_b3_ids}    ${response_b3.json()}
+    ${second_entity_b3}=    Get Value From JSON    ${response_b3.json()}    $[?(@.id=='${second_entity_id}')]
+
+    # Agent checks that b2 returns OffstreetParking:1 and OffstreetParking:2 and b3 returns OffstreetParking:2
+    ${expected_first_b2}=    Load Entity    ${first_entity_payload_filename}    ${first_entity_id}
+    Check Resource Set To    ${expected_first_b2}    ${first_entity_b2}[0]
+    ${expected_second_b2}=    Load Entity    ${third_entity_payload_filename}    ${second_entity_id}
+    Check Resource Set To    ${expected_second_b2}    ${second_entity_b2}[0]
+    ${expected_second_b3}=    Load Entity    ${second_entity_payload_filename}    ${second_entity_id}
+    Check Resource Set To    ${expected_second_b3}    ${second_entity_b3}[0]
+
+    # Agent checks that OffstreetParking:1 returned in step (2) matches b2 and OffstreetParking:2 combines b2 and b3
+    ${expected_first_b1}=    Load Entity    ${first_entity_payload_filename}    ${first_entity_id}
+    Keep In Dictionary    ${expected_first_b1}    id    type    availableSpotsNumber    totalSpotsNumber
+    Set To Dictionary
+    ...    ${expected_first_b1}
+    ...    availableSpotsNumber=${first_entity_b2}[0][availableSpotsNumber]
+    ...    totalSpotsNumber=${first_entity_b2}[0][totalSpotsNumber]
+    Check Resource Set To    ${expected_first_b1}    ${first_entity_b1}[0]
+
+    ${expected_second_b1}=    Load Entity    ${third_entity_payload_filename}    ${second_entity_id}
+    Keep In Dictionary    ${expected_second_b1}    id    type    availableSpotsNumber
+    Set To Dictionary
+    ...    ${expected_second_b1}
+    ...    availableSpotsNumber=${second_entity_b2}[0][availableSpotsNumber]
+    ...    location=${second_entity_b3}[0][location]
+    Check Resource Set To    ${expected_second_b1}    ${second_entity_b1}[0]
+
+Setup Initial Context Source Registrations
+    [Arguments]    ${context}
+    Set Test Variable    ${first_entity_id}    urn:ngsi-ld:OffStreetParking:1
+    Set Test Variable    ${second_entity_id}    urn:ngsi-ld:OffStreetParking:2
 
     ${response}=    Create Entity
     ...    ${first_entity_payload_filename}
-    ...    ${entity_id}
-    ...    broker_url=${broker_B_url}
+    ...    ${first_entity_id}
+    ...    broker_url=${b2_url}
+    ...    context=${context}
     Check Response Status Code    201    ${response.status_code}
 
     ${response}=    Create Entity
     ...    ${third_entity_payload_filename}
     ...    ${second_entity_id}
-    ...    broker_url=${broker_B_url}
+    ...    broker_url=${b2_url}
+    ...    context=${context}
     Check Response Status Code    201    ${response.status_code}
 
     ${response}=    Create Entity
     ...    ${second_entity_payload_filename}
-    ...    ${entity_id}
-    ...    broker_url=${broker_C_url}
+    ...    ${second_entity_id}
+    ...    broker_url=${b3_url}
+    ...    context=${context}
     Check Response Status Code    201    ${response.status_code}
 
     @{first_set}=    Create List
-    ...    ${entity_id}
+    ...    ${EMPTY}
     ...    ${inclusive_registration_payload_file_path}
     ...    inclusive
-    ...    ${broker_B_url}
-    ...    ${broker_A_url}
+    ...    ${b2_url}
+    ...    ${b1_url}
 
     @{second_set}=    Create List
-    ...    ${second_entity_id}
-    ...    ${inclusive_registration_payload_file_path}
-    ...    inclusive
-    ...    ${broker_B_url}
-    ...    ${broker_A_url}
-
-    @{third_set}=    Create List
-    ...    ${entity_id}
+    ...    ${EMPTY}
     ...    ${exclusive_registration_payload_file_path}
     ...    exclusive
-    ...    ${broker_C_url}
-    ...    ${broker_A_url}
+    ...    ${b3_url}
+    ...    ${b1_url}
 
-    @{first_configuration}=    Create List    ${first_set}    ${second_set}    ${third_set}
-    Compose IOP Configuration    ${first_configuration}
+    @{first_configuration}=    Create List    ${first_set}    ${second_set}
+    Compose IOP Configuration    ${first_configuration}    ld_context=${context}
 
 Delete Entities And Delete Registrations
-    @{broker_count}=    Create List    ${broker_A_url}    ${broker_B_url}    ${broker_C_url}
-    @{entities_to_delete}=    Create List    ${entity_id}    ${second_entity_id}
+    @{broker_count}=    Create List    ${b1_url}    ${b2_url}    ${b3_url}
+    @{entities_to_delete}=    Create List    ${first_entity_id}    ${second_entity_id}
     Delete Registrations And Entities    ${broker_count}    ${entities_to_delete}

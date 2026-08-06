@@ -1,5 +1,5 @@
-url = 'http://localhost:8080/ngsi-ld/v1'
-temporal_api_url = 'http://localhost:8080/ngsi-ld/v1'
+url = 'http://localhost:8080'
+temporal_api_url = 'http://localhost:8080'
 ngsild_test_suite_context = 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld'
 notification_server_host = '0.0.0.0'
 notification_server_port = 8085

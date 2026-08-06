@@ -1,0 +1,19 @@
+{
+  "id": "urn:ngsi-ld:OffStreetParking:2",
+  "type": "OffStreetParking",
+  "name": {
+    "type": "Property",
+    "value": "Downtown Two"
+  },
+  "location": {
+    "type": "GeoProperty",
+    "value": {
+      "type": "Point",
+      "coordinates": [
+        -8.46,
+        41.25
+      ]
+    },
+    "observedAt": "2021-04-04T11:46:00Z"
+  }
+}

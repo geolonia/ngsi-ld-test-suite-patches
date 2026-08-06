@@ -10,13 +10,13 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup          Setup Entity Id And Registration And Start Context Source Mock Server
-Test Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
+Suite Setup          Setup Entity Id And Registration And Start Context Source Mock Server
+Suite Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
-${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
+${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 
 
 *** Test Cases ***
@@ -27,7 +27,6 @@ D001_01_inc Create Entity On Both Context Broker And Context Source
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Check Response Status Code    201    ${response.status_code}
 
-    Wait for redirected request
     ${request_payload}=    Get Request Body
     ${payload_list}=    Evaluate    [json.loads('''${request_payload}''')]    json
     @{entities_id}=    Create List    ${entity_id}

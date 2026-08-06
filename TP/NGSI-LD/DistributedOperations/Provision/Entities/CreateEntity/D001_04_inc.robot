@@ -11,7 +11,7 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
 Suite Setup         Setup Entity Id And Registration And Start Context Source Mock Server
-Test Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
+Suite Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
 
 
 *** Variables ***

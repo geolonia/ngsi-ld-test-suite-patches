@@ -8,12 +8,128 @@ import json
 import re
 from analysis.initial_setup import InitialSetup
 
+
+def replace_test_step_filename_variables(testcase: dict, robot_file: str) -> None:
+    with open(robot_file, "r", encoding="utf-8") as fp:
+        robot_content = fp.read()
+
+    variables_section = re.search(
+        r"^\*\*\* Variables \*\*\*\s*$"
+        r"(?P<variables>.*?)"
+        r"(?=^\*\*\* .+ \*\*\*\s*$|\Z)",
+        robot_content,
+        re.MULTILINE | re.DOTALL,
+    )
+    if variables_section is None:
+        return
+
+    variables = dict(
+        re.findall(
+            r"^\s*(\$\{[^}]+\})\s{2,}(.+?)\s*$",
+            variables_section.group("variables"),
+            re.MULTILINE,
+        )
+    )
+
+    def replace_variables(value):
+        if isinstance(value, list):
+            return [replace_variables(item) for item in value]
+        if not isinstance(value, str):
+            return value
+
+        return re.sub(
+            r"\$\{[^}]+\}",
+            lambda match: os.path.basename(
+                variables.get(match.group(0), match.group(0))
+            ),
+            value,
+        )
+
+    for test_case in testcase.get("test_cases", []):
+        if "test_steps" in test_case:
+            test_case["test_steps"] = replace_variables(test_case["test_steps"])
+
+
 def locate_result_folder():
     folder_test_suites = dirname(dirname(__file__)).replace("\\", "/")
     folder_result_path = f"{folder_test_suites}/doc/results"
     if not exists(folder_result_path):
         return None
     return folder_result_path
+
+
+def generate_interoperability_payload_bodies(basedir: str) -> dict:
+    source_groups = (
+        (
+            join(basedir, "data", "entities", "interoperability"),
+            "type",
+            (
+                ("OffStreetParking", "4.1.1.1"),
+                ("Vehicle", "4.1.1.2"),
+            ),
+        ),
+        (
+            join(basedir, "data", "csourceRegistrations", "interoperability"),
+            "mode",
+            (
+                ("inclusive", "4.1.3.1"),
+                ("auxiliary", "4.1.3.2"),
+                ("exclusive", "4.1.3.3"),
+                ("redirect", "4.1.3.4"),
+            ),
+        ),
+    )
+
+    result = {}
+    filenames = set()
+
+    for source_index, (source_folder, classifier, clauses) in enumerate(source_groups):
+        payloads = {value: [] for value, _ in clauses}
+
+        for filename in sorted(os.listdir(source_folder), key=str.lower):
+            source_file = join(source_folder, filename)
+            if not os.path.isfile(source_file) or not filename.lower().endswith((".json", ".jsonld")):
+                continue
+
+            if filename in filenames:
+                raise ValueError(f"Duplicate interoperability payload filename '{filename}'")
+            filenames.add(filename)
+
+            try:
+                with open(source_file, "r", encoding="utf-8") as fp:
+                    payload = json.load(fp)
+            except json.JSONDecodeError as error:
+                raise ValueError(f"Invalid JSON in interoperability payload '{source_file}'") from error
+
+            if not isinstance(payload, dict):
+                raise ValueError(f"Interoperability payload '{source_file}' must contain a JSON object")
+
+            classifier_value = payload.get(classifier)
+            if classifier_value not in payloads:
+                raise ValueError(
+                    f"Unsupported or missing '{classifier}' value in interoperability payload '{source_file}'"
+                )
+            payloads[classifier_value].append((filename, payload))
+
+        for classifier_value, clause_number in clauses:
+            for figure_number, (filename, payload) in enumerate(payloads[classifier_value], start=1):
+                figure_label = os.path.splitext(filename)[0].replace("-", " ")
+                result[filename] = {
+                    "data": payload,
+                    "clause_number": clause_number,
+                    "figure_string": f"Figure {clause_number}-{figure_number}",
+                    "figure_label": figure_label[:1].upper() + figure_label[1:],
+                }
+
+        if source_index == 0:
+            result["Attribute Fragments"] = None
+
+    output_file = join(basedir, "doc", "results", "interoperability_payload_bodies.jsonld")
+    with open(output_file, "w", encoding="utf-8") as fp:
+        json.dump(obj=result, indent=2, fp=fp)
+
+    return result
+
 
 if __name__ == "__main__":
     basedir = dirname(dirname(__file__))
@@ -49,11 +165,17 @@ if __name__ == "__main__":
                 if filename.endswith(ROBOT_FILE_EXTENSION):
                     number_of_all_testcases += 1
                     name_of_test_case = filename[: -len(ROBOT_FILE_EXTENSION)]
+                    robot_file = join(root, filename).replace("\\", "/")
                     json_of_test_case = create_json_of_robotfile(
                         name_of_test_case,
                         True,
-                        robot_file=join(root, filename).replace("\\", "/"),
+                        robot_file=robot_file,
                     )
+                    if label == "IOP":
+                        replace_test_step_filename_variables(
+                            testcase=json_of_test_case,
+                            robot_file=robot_file,
+                        )
                     statistics[name_of_test_case] = dict()
                     strippedpath = root[len(path_info) + 1 :]
                     statistics[name_of_test_case]["path"] = strippedpath
@@ -286,6 +408,8 @@ if __name__ == "__main__":
     permutations_file = join(basedir, "doc", "results", "permutations.json")
     with open(permutations_file, "w") as fp:
         json.dump(obj=permutations, indent=2, fp=fp)
+
+    generate_interoperability_payload_bodies(basedir=basedir)
 
     # Validate setup keys after all JSON files have been generated
     print("\nValidating setup keys...\n")

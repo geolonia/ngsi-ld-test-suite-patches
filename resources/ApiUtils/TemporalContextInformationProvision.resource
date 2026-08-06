@@ -28,7 +28,7 @@ Append Attribute To Temporal Entity
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     ${file_content}=    Get File    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
     ${response}=    POST
-    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs
+    ...    url=${url}${NGSI_LD_API_PATH}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
@@ -48,7 +48,7 @@ Create Or Update Temporal Representation Of Entity Selecting Content Type
         Set To Dictionary    ${headers}    Accept    ${accept}
     END
     ${response}=    POST
-    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/
+    ...    url=${url}${NGSI_LD_API_PATH}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/
     ...    json=${temporal_entity_representation}
     ...    headers=${headers}
     ...    expected_status=any
@@ -66,7 +66,7 @@ Create Temporal Representation Of Entity
 
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
     ...    json=${temporal_entity_representation}
     ...    headers=${headers}
     ...    expected_status=any
@@ -79,7 +79,7 @@ Create Temporal Representation Of Entity Selecting Content Type
     ${file_content}=    Get File    ${EXECDIR}/data/temporalEntities/${filename}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     ${response}=    POST
-    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
@@ -111,7 +111,7 @@ Delete Attribute From Temporal Entity
     END
     ${params_as_string}=    Catenate    SEPARATOR=&    @{params}
     ${response}=    DELETE
-    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${entityId}/attrs/${attributeId}?${params_as_string}
+    ...    url=${url}${NGSI_LD_API_PATH}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${entityId}/attrs/${attributeId}?${params_as_string}
     ...    headers=${headers}
     ...    expected_status=any
     Output    ${response}    Delete Attribute From Temporal Entity
@@ -128,7 +128,7 @@ Delete Attribute Instance From Temporal Entity
         ...    Link=${context_link}
     END
     ${response}=    DELETE
-    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}
+    ...    url=${url}${NGSI_LD_API_PATH}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}
     ...    headers=${headers}
     ...    expected_status=any
     Output    ${response}    Delete Attribute Instance From Temporal Entity
@@ -139,7 +139,7 @@ Delete Temporal Representation Of Entity
     [Arguments]    ${temporal_entity_representation_id}
 
     ${response}=    DELETE
-    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
     ...    expected_status=any
     Output    ${response}    Delete Temporal Representation Of Entity
     RETURN    ${response}
@@ -148,7 +148,7 @@ Delete Temporal Representation Of Entity With Returning Response
     [Tags]    actor_context-producer
     [Arguments]    ${temporal_entity_representation_id}
     ${response}=    DELETE
-    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
     ...    expected_status=any
     Output    ${response}    Delete Temporal Representation Of Entity
     RETURN    ${response}
@@ -171,7 +171,7 @@ Modify Attribute Instance From Temporal Entity
     END
     ${fragment_payload}=    Load JSON From File    ${EXECDIR}/data/temporalEntities/fragments/${fragment_filename}
     ${response}=    PATCH
-    ...    url=${url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}
+    ...    url=${url}${NGSI_LD_API_PATH}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_id}/attrs/${attributeId}/${instanceId}
     ...    json=${fragment_payload}
     ...    headers=${headers}
     ...    expected_status=any

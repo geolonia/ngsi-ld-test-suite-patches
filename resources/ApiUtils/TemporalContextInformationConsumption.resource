@@ -119,7 +119,7 @@ Query Temporal Representation Of Entities
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
 
     ${response}=    GET
-    ...    url=${temporal_api_url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
+    ...    url=${temporal_api_url}${NGSI_LD_API_PATH}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
@@ -139,7 +139,7 @@ Query Temporal Representation Of Entities Via Post
     END
     ${query_payload}=    Load JSON From File    ${EXECDIR}/data/temporalEntities/${query_file_name}
     ${response}=    POST
-    ...    url=${temporal_api_url}/${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}/query
+    ...    url=${temporal_api_url}${NGSI_LD_API_PATH}/${TEMPORAL_ENTITY_OPERATIONS_ENDPOINT_PATH}/query
     ...    json=${query_payload}
     ...    headers=${headers}
     ...    expected_status=any
@@ -208,7 +208,7 @@ Query Temporal Representation Of Entities With Return
     IF    '${limit}'!=''    Set To Dictionary    ${params}    limit=${limit}
 
     ${response}=    GET
-    ...    url=${temporal_api_url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
+    ...    url=${temporal_api_url}${NGSI_LD_API_PATH}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
@@ -271,7 +271,7 @@ Retrieve Temporal Representation Of Entity
     IF    ${omit_length}>0    Set To Dictionary    ${params}    omit=${omit}
 
     ${response}=    GET
-    ...    url=${temporal_api_url}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
+    ...    url=${temporal_api_url}${NGSI_LD_API_PATH}/${TEMPORAL_ENTITIES_ENDPOINT_PATH}/${temporal_entity_representation_id}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any

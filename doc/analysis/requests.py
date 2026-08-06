@@ -47,7 +47,7 @@ class Requests:
             'Retrieve Entity': {
                 'positions': [],
                 'params': ['id', 'accept', 'attrs', 'context', 'geometryProperty', 'options', 'format', 'lang',
-                           'join', 'joinLevel', 'pick', 'omit', 'local']
+                           'join', 'joinLevel', 'pick', 'omit', 'local', 'type']
             },
             'Retrieve Subscription': {
                 'positions': [],
@@ -858,7 +858,7 @@ class Requests:
     @staticmethod
     def retrieve_entity(kwargs) -> str:
         expected_parameters = ['id', 'accept', 'attrs', 'context', 'geometry_property', 'options', 'format', 'lang',
-                               'join', 'joinLevel', 'local']
+                               'join', 'joinLevel', 'local', 'type']
 
         result = [x for x in kwargs if x not in expected_parameters]
         response = "Retrieve Entity Request:"
@@ -891,6 +891,8 @@ class Requests:
                     response = f"{response} and\n    Query Parameter: omit set to '{value}'"
                 case 'local':
                     response = f"{response} and\n    Query Parameter: local set to '{value}'"
+                case 'type':
+                    response = f"{response} and\n    Query Parameter: type set to '{value}'"
                 case _:
                     raise Exception(f"ERROR: unexpected attribute(s) {result}, the attributes expected are "
                                     f"{expected_parameters}, but received: {kwargs}")

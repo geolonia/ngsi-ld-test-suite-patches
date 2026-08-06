@@ -1,8 +1,8 @@
 {
     "testName": "${testName}",
     "parameters": {
-        "url": "${url}/ngsi-ld/v1",
-        "temporal_api_url": "${temporalApiUrl}/ngsi-ld/v1",
+        "url": "${url}",
+        "temporal_api_url": "${temporalApiUrl}",
         "ngsild_test_suite_context": "${ngsildTestSuiteContext}",
         "notification_server_host": "${notificationServerHost}",
         "notification_server_port": "${notificationServerPort}",

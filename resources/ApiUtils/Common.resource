@@ -9,6 +9,8 @@ Library         String
 
 
 *** Variables ***
+${NGSI_LD_API_PATH}                     /ngsi-ld/v1
+
 ${BUILDING_ID_PREFIX}                   urn:ngsi-ld:Building:
 ${BUS_ID_PREFIX}                        urn:ngsi-ld:Bus:
 ${CITY_ID_PREFIX}                       urn:ngsi-ld:City:
@@ -82,24 +84,24 @@ Call Api Endpoint With Invalid Parameter
     # No multi method request function in the robotframework-requests library
     IF    "${method}"=="GET"
         ${response}=    GET
-        ...    url=${url}/${endpoint}${params}
+        ...    url=${url}${NGSI_LD_API_PATH}/${endpoint}${params}
         ...    headers=${headers}
         ...    expected_status=any
     ELSE IF    "${method}"=="POST"
         ${response}=    POST
-        ...    url=${url}/${endpoint}${params}
+        ...    url=${url}${NGSI_LD_API_PATH}/${endpoint}${params}
         ...    json=${file_content}
         ...    headers=${headers}
         ...    expected_status=any
     ELSE IF    "${method}"=="PUT"
         ${response}=    PUT
-        ...    url=${url}/${endpoint}${params}
+        ...    url=${url}${NGSI_LD_API_PATH}/${endpoint}${params}
         ...    json=${file_content}
         ...    headers=${headers}
         ...    expected_status=any
     ELSE IF    "${method}"=="DELETE"
         ${response}=    DELETE
-        ...    url=${url}/${endpoint}${params}
+        ...    url=${url}${NGSI_LD_API_PATH}/${endpoint}${params}
         ...    headers=${headers}
         ...    expected_status=any
     END

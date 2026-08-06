@@ -5,17 +5,16 @@
     {
       "entities": [
         {
-          "id": "urn:ngsi-ld:OffStreetParking:2"
+          "id": "urn:ngsi-ld:OffStreetParking:2",
+          "type": "OffStreetParking"
         }
       ],
       "propertyNames": [
-        "totalSpotsNumber"		
+        "totalSpotsNumber"	
       ]
     }
   ],
   "mode": "exclusive",
-  "endpoint": "xxx",
-  "@context":[
-    "https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld"
-  ]
+  "operations": ["redirectionOps"],
+  "endpoint": "xxx"
 }

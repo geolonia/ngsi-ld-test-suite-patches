@@ -3,6 +3,7 @@ Documentation       Mock http server for subscriber
 
 Library             HttpCtrl.Server
 Variables           ${EXECDIR}/resources/variables.py
+Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
 
 
 *** Keywords ***
@@ -23,7 +24,7 @@ Wait for redirected request
 
 Answer to Create Entity
     [Tags]    actor_remote-broker
-    Set Stub Reply    POST    /ngsi-ld/v1/entities    201
+    Set Stub Reply    POST    ${NGSI_LD_API_PATH}/entities    201
 
 Stop Context Source Mock Server
     [Tags]    actor_remote-broker

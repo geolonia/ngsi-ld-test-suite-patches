@@ -75,7 +75,7 @@ Query Context Source Registrations
     IF    '${offset}'!=''    Set To Dictionary    ${params}    offset=${offset}
 
     ${response}=    GET
-    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
@@ -137,7 +137,7 @@ Query Context Source Registrations With Return
     IF    '${offset}'!=''    Set To Dictionary    ${params}    offset=${offset}
 
     ${response}=    GET
-    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
@@ -157,7 +157,7 @@ Retrieve Context Source Registration
         ...    Link=${context_link}
     END
     ${response}=    GET
-    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
     ...    headers=${headers}
     ...    expected_status=any
     Output    ${response}    Retrieve Context Source Registration

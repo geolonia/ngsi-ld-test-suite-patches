@@ -173,6 +173,25 @@ Check Response Body Containing Entity element
     ...    ${ignore_core_context_version}
     Should Be Empty    ${comparison_result}    msg=${comparison_result.pretty()}
 
+Check Response Body Containing Entity element by id
+    [Arguments]    ${expectation_filename}    ${entity_id}    ${response_body}    ${ignore_core_context_version}=False
+    ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/expectations/${expectation_filename}
+    IF    isinstance($response_body, list)
+        ${filtered_response_body}=    Evaluate    next((entity for entity in $response_body if entity["id"] == "${entity_id}"), None)
+        IF    $filtered_response_body is None
+            Fail    Entity with id ${entity_id} not found in response body
+        END
+    ELSE
+        Should Be Equal    ${response_body}[id]    ${entity_id}
+        ${filtered_response_body}=    Set Variable    ${response_body}
+    END
+
+    Check Response Body Containing Entity element
+    ...    ${expectation_filename}
+    ...    ${entity_id}
+    ...    ${filtered_response_body}
+    ...    ${ignore_core_context_version}
+
 Check Response Body Containing List Containing Entity Elements
     [Arguments]
     ...    ${expectation_filename}

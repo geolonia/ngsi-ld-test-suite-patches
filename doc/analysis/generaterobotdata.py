@@ -1,10 +1,11 @@
-from os.path import dirname
+from os.path import basename, dirname
 from robot.api import TestSuiteBuilder
 from analysis.parserobotfile import ParseRobotFile
 from analysis.parseapiutilsfile import ParseApiUtilsFile
 from analysis.parsevariablesfile import ParseVariablesFile
 from analysis.initial_setup import InitialSetup
 from re import match, findall, finditer, sub, MULTILINE
+from urllib.parse import urlparse
 
 
 class GenerateRobotData:
@@ -552,6 +553,9 @@ class GenerateRobotData:
         tags = [x.tags for x in self.suite.tests]
         tags = [element for sublist in tags for element in sublist if element[0].isdigit()]
 
+        if self.file_type == "IOP":
+            return self.generate_reference_testcases(tags=tags, version=version)
+
         if len(tags) == 0:
             # We have different tests cases that call a test template, maybe the Tags are defined in the template
             reference, clauses = self.generate_reference_template(version=version)
@@ -647,9 +651,6 @@ class GenerateRobotData:
         version = 'v1.3.1'
         tp_id = self.generate_name_iop()
         reference, clauses = self.generate_reference(version=version)
-        # Add test case documentation
-        if self.robot.test_case_names:
-            test_doc = self.robot.get_iop_documentation_data(test_name=self.robot.test_case_names[0])
 
         self.test_suite = {
             'tp_id': tp_id,
@@ -660,9 +661,309 @@ class GenerateRobotData:
             'clauses': clauses,
             'pics_selection': str(),
             'keywords': [x.to_dict()['name'] for x in list(self.suite.resource.keywords)],
-            'initial_conditions': test_doc,
             'teardown': str(self.suite.teardown),
             'test_cases': list()
+        }
+
+        if len(self.robot.test_case_names) == 1:
+            self.test_suite['initial_conditions'] = self.generate_iop_initial_conditions(
+                test_name=self.robot.test_case_names[0]
+            )
+
+    def _get_iop_setup(self, test_name: str):
+        test = next((item for item in self.suite.tests if item.name == test_name), None)
+        if test is None:
+            raise ValueError(f"IOP test '{test_name}' was not found")
+
+        setup_name = test.setup.name
+        setup = next((item for item in self.suite.resource.keywords if item.name == setup_name), None)
+        if setup is None:
+            raise ValueError(f"IOP setup keyword '{setup_name}' was not found")
+
+        return test, setup
+
+    @staticmethod
+    def _iop_setup_variables(test, setup) -> dict:
+        argument_names = set(setup.args.argument_names)
+        positional = []
+        named = []
+
+        for argument in (str(item) for item in test.setup.args):
+            name, separator, value = argument.partition('=')
+            if separator and name in argument_names:
+                named.append((name, value))
+            else:
+                positional.append(argument)
+
+        mapped_positional, mapped_named = setup.args.map(positional, named)
+        variables = {
+            f'${{{name}}}': str(value)
+            for name, value in zip(setup.args.positional, mapped_positional)
+        }
+        variables.update(
+            (f'${{{name}}}', str(value))
+            for name, value in mapped_named
+        )
+
+        for name, value in setup.args.defaults.items():
+            variables.setdefault(f'${{{name}}}', str(value))
+
+        return variables
+
+    def _resolve_iop_value(
+        self,
+        value: str,
+        field: str,
+        setup_variables: dict | None = None,
+    ) -> str:
+        original = str(value)
+        result = original
+        visited = set()
+
+        while match(r'^\$\{[^}]+\}$', result):
+            if result in visited:
+                raise ValueError(f"{field} variable '{original}' contains a circular reference")
+            visited.add(result)
+
+            if setup_variables is not None and result in setup_variables:
+                result = str(setup_variables[result])
+                continue
+
+            if result in self.robot.variables:
+                result = str(self.robot.variables[result])
+                continue
+
+            try:
+                result = str(self.config_variables.get_variable(result))
+            except KeyError as error:
+                raise ValueError(f"{field} variable '{result}' is not defined") from error
+
+        return result
+
+    def _iop_filename(self, value: str, field: str) -> str:
+        resolved = self._resolve_iop_value(value=value, field=field)
+        path = urlparse(resolved).path.replace('\\', '/').rstrip('/')
+        filename = basename(path)
+        if filename == '':
+            raise ValueError(f"{field} value '{resolved}' does not contain a filename")
+        return filename
+
+    def _iop_broker_name(self, value: str) -> str:
+        original = str(value)
+        result = original
+        visited = set()
+
+        while result not in visited:
+            broker_match = match(r'^\$\{(b\d+)_url\}$', result)
+            if broker_match is not None:
+                return broker_match.group(1)
+
+            visited.add(result)
+            if result not in self.robot.variables:
+                break
+            result = str(self.robot.variables[result])
+
+        raise ValueError(f"Create Entity broker variable '{original}' is invalid")
+
+    @staticmethod
+    def _create_entity_arguments(args) -> dict:
+        signature = ('filename', 'entity_id', 'local', 'broker_url', 'context')
+        values = {}
+        position = 0
+
+        for argument in (str(item) for item in args):
+            key, separator, value = argument.partition('=')
+            if separator and key in signature:
+                values[key] = value
+                continue
+
+            while position < len(signature) and signature[position] in values:
+                position += 1
+            if position >= len(signature):
+                raise ValueError(f"Create Entity has an unexpected argument '{argument}'")
+            values[signature[position]] = argument
+            position += 1
+
+        return values
+
+    @staticmethod
+    def _compose_iop_configuration_context(args) -> str:
+        for argument in (str(item) for item in args):
+            key, separator, value = argument.partition('=')
+            if separator and key == 'ld_context':
+                return value
+
+        if len(args) > 1:
+            return str(args[1])
+        return '${ngsild_test_suite_context}'
+
+    def _iop_context_kind(
+        self,
+        value: str,
+        field: str,
+        setup_variables: dict,
+    ) -> tuple[str, bool]:
+        resolved = self._resolve_iop_value(
+            value=value,
+            field=field,
+            setup_variables=setup_variables,
+        )
+        core_context = self._resolve_iop_value(
+            value='${core_context}',
+            field='Core context',
+        )
+        test_suite_context = self._resolve_iop_value(
+            value='${ngsild_test_suite_context}',
+            field='Test suite context',
+        )
+        return (
+            'Default context' if resolved == core_context else 'User context',
+            resolved == test_suite_context,
+        )
+
+    def generate_iop_preconditions(self, test_name: str) -> list:
+        test, setup = self._get_iop_setup(test_name=test_name)
+        data = []
+        context_operations = []
+        setup_variables = self._iop_setup_variables(test=test, setup=setup)
+
+        for keyword in setup.body:
+            if keyword.name == 'Set Test Variable' and len(keyword.args) >= 2:
+                setup_variables[str(keyword.args[0])] = str(keyword.args[1])
+                continue
+
+            if keyword.name == 'Compose IOP Configuration':
+                context_kind, is_test_suite_context = self._iop_context_kind(
+                    value=self._compose_iop_configuration_context(keyword.args),
+                    field='Compose IOP Configuration context',
+                    setup_variables=setup_variables,
+                )
+                context_operations.append((
+                    'registrations',
+                    context_kind,
+                    is_test_suite_context,
+                ))
+                continue
+
+            if keyword.name != 'Create Entity':
+                continue
+
+            arguments = self._create_entity_arguments(keyword.args)
+            if 'filename' not in arguments:
+                raise ValueError('Create Entity does not define a payload filename')
+            if 'broker_url' not in arguments:
+                raise ValueError('Create Entity does not define broker_url')
+
+            broker = self._iop_broker_name(arguments['broker_url'])
+            payload_filename = self._iop_filename(
+                value=arguments['filename'],
+                field='Create Entity payload'
+            )
+            data.append(f"{broker} contains {payload_filename}.")
+
+            context_kind, is_test_suite_context = self._iop_context_kind(
+                value=arguments.get('context', '${ngsild_test_suite_context}'),
+                field='Create Entity context',
+                setup_variables=setup_variables,
+            )
+            entity_id = self._resolve_iop_value(
+                value=arguments['entity_id'],
+                field='Create Entity entity ID',
+                setup_variables=setup_variables,
+            )
+            context_operations.append((
+                'entity',
+                context_kind,
+                is_test_suite_context,
+                entity_id,
+                broker,
+            ))
+
+        if not context_operations or all(
+            operation[1] == 'Default context'
+            for operation in context_operations
+        ):
+            context_top_level = 'No user context used.'
+            contexts = []
+        elif all(operation[2] for operation in context_operations):
+            context_top_level = 'User context used in every operation.'
+            contexts = []
+        else:
+            context_top_level = 'The following user contexts are used:'
+            contexts = []
+            for operation in context_operations:
+                if operation[0] == 'entity':
+                    _, context_kind, _, entity_id, broker = operation
+                    contexts.append(
+                        f"{context_kind} when creating the entity with id {entity_id} "
+                        f"in broker {broker}."
+                    )
+                else:
+                    _, context_kind, _ = operation
+                    contexts.append(
+                        f"{context_kind} when creating the registrations in all brokers."
+                    )
+
+        return [
+            {
+                'type': 'context',
+                'top-level': context_top_level,
+                'nested-object': contexts
+            },
+            {
+                'type': 'data',
+                'top-level': (
+                    'Data in following brokers:'
+                    if data else
+                    'No data in any broker.'
+                ),
+                'nested-object': data
+            }
+        ]
+
+    def generate_iop_registrations(self, test_name: str) -> list:
+        """Generate the registration description from the test setup."""
+        _, setup = self._get_iop_setup(test_name=test_name)
+        modes = {'inclusive', 'exclusive', 'redirect', 'auxiliary'}
+        registrations = []
+
+        for keyword in setup.body:
+            if keyword.name != 'Create List' or len(keyword.args) != 5:
+                continue
+
+            mode = str(keyword.args[2]).lower()
+            if mode not in modes:
+                continue
+
+            payload_filename = self._iop_filename(
+                value=str(keyword.args[1]),
+                field='Registration payload'
+            )
+            brokers = []
+            for broker_variable in (str(keyword.args[4]), str(keyword.args[3])):
+                broker_match = match(r'^\$\{(b\d+)_url\}$', broker_variable)
+                if broker_match is None:
+                    raise ValueError(
+                        f"Registration broker variable '{broker_variable}' is invalid"
+                    )
+                brokers.append(broker_match.group(1))
+
+            registrations.append((
+                int(brokers[0][1:]),
+                int(brokers[1][1:]),
+                (
+                    f"{mode.capitalize()} {brokers[0]} to {brokers[1]} "
+                    f"(Figure {payload_filename})."
+                )
+            ))
+
+        registrations.sort(key=lambda item: (item[0], item[1]))
+        return list(dict.fromkeys(item[2] for item in registrations))
+
+    def generate_iop_initial_conditions(self, test_name: str) -> dict:
+        return {
+            'pre_conditions': self.generate_iop_preconditions(test_name=test_name),
+            'registrations_established': self.generate_iop_registrations(test_name=test_name)
         }
 
     def visit_test_iop(self, test_name: str, suite_setup: str = "", suite_teardown: str = ""):
@@ -675,7 +976,8 @@ class GenerateRobotData:
             'name': test_name,
             'permutation_iop_id': self.base_TP_id,
             'tags': tags,
-            'test_steps': comments
+            'test_steps': comments,
+            'initial_conditions': self.generate_iop_initial_conditions(test_name=test_name)
         }
         
         self.test_cases.append(test_case)
@@ -715,4 +1017,3 @@ class GenerateRobotData:
         
         # Fallback if pattern not found
         return f"IOP_TP/NGSI-LD/{self.robot.test_suite}"
-    

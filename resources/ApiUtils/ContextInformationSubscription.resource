@@ -47,7 +47,7 @@ Create Subscription
     ${subscription_payload}=    Load JSON From File    ${EXECDIR}/data/${filename_path}
     ${subscription}=    Update Value To JSON    ${subscription_payload}    $.id    ${subscription_id}
     ${response}=    POST
-    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${SUBSCRIPTION_ENDPOINT_PATH}
     ...    json=${subscription}
     ...    headers=${headers}
     ...    expected_status=any
@@ -60,7 +60,7 @@ Create Subscription From File
     ${file_content}=    Get File    ${EXECDIR}/data/subscriptions/${filename}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${SUBSCRIPTION_ENDPOINT_PATH}
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
@@ -85,7 +85,7 @@ Create Subscription From Subscription Payload
         ...    Link=${context_link}
     END
     ${response}=    POST
-    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${SUBSCRIPTION_ENDPOINT_PATH}
     ...    json=${subscription_payload}
     ...    headers=${headers}
     ...    expected_status=any
@@ -96,7 +96,7 @@ Delete Subscription
     [Tags]    actor_context-subscriber
     [Arguments]    ${subscription_id}
     ${response}=    DELETE
-    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
     ...    expected_status=any
     Output    ${response}    Delete Subscription
     RETURN    ${response}
@@ -120,7 +120,7 @@ Query Subscriptions
     END
 
     ${response}=    GET
-    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${SUBSCRIPTION_ENDPOINT_PATH}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
@@ -143,7 +143,7 @@ Retrieve Subscription
     END
 
     ${response}=    GET
-    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${SUBSCRIPTION_ENDPOINT_PATH}${id}
     ...    headers=${headers}
     ...    expected_status=any
     Output    ${response}    Retrieve Subscription
@@ -169,7 +169,7 @@ Update Subscription
     END
     ${subscription_update_fragment}=    Load JSON From File    ${EXECDIR}/data/${fragment_filename}
     ${response}=    PATCH
-    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
     ...    json=${subscription_update_fragment}
     ...    headers=${headers}
     ...    expected_status=any
@@ -190,7 +190,7 @@ Update Subscription With Payload
         ...    Link=${context_link}
     END
     ${response}=    PATCH
-    ...    url=${url}/${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${SUBSCRIPTION_ENDPOINT_PATH}${subscription_id}
     ...    json=${payload}
     ...    headers=${headers}
     ...    expected_status=any

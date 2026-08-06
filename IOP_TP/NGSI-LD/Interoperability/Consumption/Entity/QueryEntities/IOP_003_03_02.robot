@@ -1,126 +1,215 @@
 *** Settings ***
-Documentation       Four brokers are set up A, B, C and D. A has three registrations, one auxiliary for the entities created in B, one inclusive for the entities created in C and one inclusive for the entity created in D.
-...                 Check that queried entities returned from B, C and D match the attributes from the entities in A.
+Documentation       Four brokers are set up b1, b2, b3 and b4. b1 has three registrations, one auxiliary for the entities in b2, one inclusive for the entities in b3 and one inclusive for the entity in b4.
+...                 Check that the OffStreetParking:1 entity in b1 has the same name and location attributes as the ones in b3. Check that the OffStreetParking:1 entity in b1 has the same availableSpotsNumber and totalSpotsNumber attributes as the one in b4. Check that the OffStreetParking:2 entity is the same as the one in b4. Check that the Vehicle:1 entity in b1 is the same as the one in b2.
 
 Resource            ${EXECDIR}/resources/IOPUtils/InteroperabilityUtils.resource
 
-Test Setup          Setup Initial Context Source Registrations
 Test Teardown       Delete Entities and Delete Registrations
+Test Template       Run Interoperability Scenario
+
 
 *** Variables ***
-${first_vehicle_payload_filename}               interoperability/vehicle1-full.jsonld
-${second_vehicle_payload_filename}              interoperability/vehicle2-full.jsonld
-${first_full_offstreet_payload_filename}        interoperability/offstreet-parking1-full.jsonld
-${second_full_offstreet_payload_filename}       interoperability/offstreet-parking2-full.jsonld
-${parking_location_name_payload_filename}       interoperability/offstreet-parking1-location-and-name.jsonld
+${first_vehicle_payload_filename}               interoperability/full-version-of-Vehicle1.jsonld
+${second_vehicle_payload_filename}              interoperability/full-version-of-Vehicle2.jsonld
+${first_full_offstreet_payload_filename}        interoperability/full-version-of-OffStreetParking1.jsonld
+${second_full_offstreet_payload_filename}       interoperability/full-version-of-OffStreetParking2.jsonld
+${parking_location_name_payload_filename}       interoperability/offStreetParking1-with-location-and-name-only.jsonld
 ${inclusive_registration_payload_file_path}     csourceRegistrations/interoperability/context-source-registration-inclusive-1.jsonld
 ${auxiliary_registration_payload_file_path}     csourceRegistrations/interoperability/context-source-registration-auxiliary-3.jsonld
-${broker_A_url}
-${broker_B_url}
-${broker_C_url}
-${broker_D_url}
+${b1_url}                                       ${EMPTY}
+${b2_url}                                       ${EMPTY}
+${b3_url}                                       ${EMPTY}
+${b4_url}                                       ${EMPTY}
+
 
 *** Test Cases ***
-IOP_003_03_02 Query Entities Of Type OffstreetParking And Vehicle with attrs
-    [Documentation]    Pre-conditions: no user context. Data only on leaves. B contains Vehicle:1. C contains OffStreetParking:1 with location and name only. D contains OffStreetParking:1, OffStreetParking:2 and Vehicle:2.
-    ...                Registrations established: Auxiliary in A to B. Inclusive in A to C. Inclusive in A to D.
-    [Tags]    since_v1.6.1    iop    cnf_03    4_3_3    additive-inclusive    additive-auxiliary    4_3_6    5_7_2    6_4_3_1
+IOP_003_03_02_01 Query Entities Of Type OffstreetParking And Vehicle With Attrs With Default Context
+    [Tags]
+    ...    since_v1.6.1
+    ...    iop
+    ...    cnf_03
+    ...    4_3_3
+    ...    additive-inclusive
+    ...    additive-auxiliary
+    ...    4_3_6
+    ...    5_7_2
+    ...    6_4_3_1
+    ...    default-context
+    [Setup]    Setup Initial Context Source Registrations    ${core_context}
+    ${core_context}
+IOP_003_03_02_02 Query Entities Of Type OffstreetParking And Vehicle With Attrs With User Context
+    [Tags]
+    ...    since_v1.6.1
+    ...    iop
+    ...    cnf_03
+    ...    4_3_3
+    ...    additive-inclusive
+    ...    additive-auxiliary
+    ...    4_3_6
+    ...    5_7_2
+    ...    6_4_3_1
+    ...    user-context
+    [Setup]    Setup Initial Context Source Registrations    ${ngsild_test_suite_context}
+    ${ngsild_test_suite_context}
 
-    #Client retrieves the location property from all entities with type OffstreetParking and Vehicle in A and checks for a successful response.
-    ${response}=    Query Entities    entity_types=OffstreetParking,Vehicle    attrs=location    broker_url=${broker_A_url}
-    Check Response Status Code    200    ${response.status_code}
-
-    &{payload}=    Evaluate    {i['id']: i for i in ${response.json()}}
-    ${first_parking_payload}=    Get From Dictionary    ${payload}    OffstreetParking:1
-    ${second_parking_payload}=    Get From Dictionary    ${payload}    OffstreetParking:2
-    ${first_vehicle}=    Get From Dictionary    ${payload}    Vehicle:1
-    Should Contain    ${first_parking_payload}    location
-    Should Contain    ${second_parking_payload}    location
-
-    #Client queries all entities with type OffstreetParking and Vehicle in B, C and D.
-    ${response}=    Query Entities    entity_types=OffstreetParking,Vehicle    attrs=location    broker_url=${broker_B_url}
-    ${payload}=    Evaluate    {i['id']: i for i in ${response.json()}}
-    ${expected_entity1}=    Get From Dictionary    ${payload}    Vehicle:1
-
-    ${response}=    Query Entities    entity_types=OffstreetParking,Vehicle    attrs=location    broker_url=${broker_C_url}
-    ${payload}=    Evaluate    {i['id']: i for i in ${response.json()}}
-    ${expected_entity2}=    Get From Dictionary    ${payload}    OffstreetParking:1
-
-    ${response}=    Query Entities    entity_types=OffstreetParking,Vehicle    attrs=location    broker_url=${broker_D_url}
-    ${payload}=    Evaluate    {i['id']: i for i in ${response.json()}}
-    ${expected_entity3}=    Get From Dictionary    ${payload}    OffstreetParking:1
-    ${expected_entity4}=    Get From Dictionary    ${payload}    OffstreetParking:2
-
-    #Client checks that the attributes of the entities in A are the same as the ones in B, C and D.
-    Should Be Equal    ${first_parking_payload}[name]    ${expected_entity2}[name]
-    Should Be Equal    ${first_parking_payload}[location]    ${expected_entity2}[location]
-    Should Be Equal    ${first_parking_payload}[availableSpotsNumber]    ${expected_entity3}[availableSpotsNumber]
-    Should Be Equal    ${first_parking_payload}[totalSpotsNumber]    ${expected_entity3}[totalSpotsNumber]
-    Should Be Equal    ${second_parking_payload}    ${expected_entity4}
-    Should Be Equal    ${first_vehicle}    ${expected_entity1}
 
 *** Keywords ***
+Run Interoperability Scenario
+    [Arguments]    ${context}
+
+    # Client sends an HTTP GET request to b1 to retrieve the "location" Property from all Entities having type OffstreetParking or Vehicle
+    ${response_b1}=    Query Entities
+    ...    entity_types=OffStreetParking,Vehicle
+    ...    attrs=location
+    ...    broker_url=${b1_url}
+    ...    context=${context}
+
+    # Agent checks that a success response has been returned with OffstreetParking:1, OffstreetParking:2 and Vehicle:1
+    Check Response Status Code    200    ${response_b1.status_code}
+    ${expected_b1_ids}=    Create List
+    ...    ${first_parking_entity_id}
+    ...    ${second_parking_entity_id}
+    ...    ${first_vehicle_entity_id}
+    Check Response Body Containing Entities URIS set to    ${expected_b1_ids}    ${response_b1.json()}
+    ${first_parking_b1}=    Get Value From JSON    ${response_b1.json()}    $[?(@.id=='${first_parking_entity_id}')]
+    ${second_parking_b1}=    Get Value From JSON    ${response_b1.json()}    $[?(@.id=='${second_parking_entity_id}')]
+    ${first_vehicle_b1}=    Get Value From JSON    ${response_b1.json()}    $[?(@.id=='${first_vehicle_entity_id}')]
+
+    # Client sends an HTTP GET request to b2 to retrieve the "location" Property from Entities having type OffstreetParking or Vehicle
+    ${response_b2}=    Query Entities
+    ...    entity_types=OffStreetParking,Vehicle
+    ...    attrs=location
+    ...    broker_url=${b2_url}
+    ...    context=${context}
+    Check Response Status Code    200    ${response_b2.status_code}
+    ${expected_b2_ids}=    Create List    ${first_vehicle_entity_id}
+    Check Response Body Containing Entities URIS set to    ${expected_b2_ids}    ${response_b2.json()}
+    ${first_vehicle_b2}=    Get Value From JSON    ${response_b2.json()}    $[?(@.id=='${first_vehicle_entity_id}')]
+
+    # Client sends an HTTP GET request to b3 to retrieve the "location" Property from Entities having type OffstreetParking or Vehicle
+    ${response_b3}=    Query Entities
+    ...    entity_types=OffStreetParking,Vehicle
+    ...    attrs=location
+    ...    broker_url=${b3_url}
+    ...    context=${context}
+    Check Response Status Code    200    ${response_b3.status_code}
+    ${expected_b3_ids}=    Create List    ${first_parking_entity_id}
+    Check Response Body Containing Entities URIS set to    ${expected_b3_ids}    ${response_b3.json()}
+    ${first_parking_b3}=    Get Value From JSON    ${response_b3.json()}    $[?(@.id=='${first_parking_entity_id}')]
+
+    # Client sends an HTTP GET request to b4 to retrieve the "location" Property from Entities having type OffstreetParking or Vehicle
+    ${response_b4}=    Query Entities
+    ...    entity_types=OffStreetParking,Vehicle
+    ...    attrs=location
+    ...    broker_url=${b4_url}
+    ...    context=${context}
+    Check Response Status Code    200    ${response_b4.status_code}
+    ${expected_b4_ids}=    Create List
+    ...    ${first_parking_entity_id}
+    ...    ${second_parking_entity_id}
+    ...    ${second_vehicle_entity_id}
+    Check Response Body Containing Entities URIS set to    ${expected_b4_ids}    ${response_b4.json()}
+    ${first_parking_b4}=    Get Value From JSON    ${response_b4.json()}    $[?(@.id=='${first_parking_entity_id}')]
+    ${second_parking_b4}=    Get Value From JSON    ${response_b4.json()}    $[?(@.id=='${second_parking_entity_id}')]
+    ${second_vehicle_b4}=    Get Value From JSON    ${response_b4.json()}    $[?(@.id=='${second_vehicle_entity_id}')]
+
+    ${first_parking_expected}=    Load Entity
+    ...    ${parking_location_name_payload_filename}
+    ...    ${first_parking_entity_id}
+    Keep In Dictionary    ${first_parking_expected}    id    type    location
+    Check Resource Set To    ${first_parking_expected}    ${first_parking_b3}[0]
+    ${first_parking_b4_expected}=    Load Entity
+    ...    ${first_full_offstreet_payload_filename}
+    ...    ${first_parking_entity_id}
+    Keep In Dictionary    ${first_parking_b4_expected}    id    type    location
+    Check Resource Set To    ${first_parking_b4_expected}    ${first_parking_b4}[0]
+    ${second_parking_expected}=    Load Entity
+    ...    ${second_full_offstreet_payload_filename}
+    ...    ${second_parking_entity_id}
+    Keep In Dictionary    ${second_parking_expected}    id    type    location
+    Check Resource Set To    ${second_parking_expected}    ${second_parking_b4}[0]
+    ${first_vehicle_expected}=    Load Entity    ${first_vehicle_payload_filename}    ${first_vehicle_entity_id}
+    ${first_vehicle_location_expected}=    Load Entity
+    ...    ${first_vehicle_payload_filename}
+    ...    ${first_vehicle_entity_id}
+    Keep In Dictionary    ${first_vehicle_location_expected}    id    type    location
+    Check Resource Set To    ${first_vehicle_location_expected}    ${first_vehicle_b2}[0]
+    ${second_vehicle_expected}=    Load Entity    ${second_vehicle_payload_filename}    ${second_vehicle_entity_id}
+    Keep In Dictionary    ${second_vehicle_expected}    id    type    location
+    Check Resource Set To    ${second_vehicle_expected}    ${second_vehicle_b4}[0]
+
+    # Agent checks that OffstreetParking:1 matches b3, OffstreetParking:2 matches b4 and Vehicle:1 comes from b2
+    Check Resource Set To    ${first_parking_b3}[0]    ${first_parking_b1}[0]
+    Check Resource Set To    ${second_parking_b4}[0]    ${second_parking_b1}[0]
+    Check Resource Set To    ${first_vehicle_expected}    ${first_vehicle_b1}[0]
+
 Setup Initial Context Source Registrations
+    [Arguments]    ${context}
+    Set Test Variable    ${first_parking_entity_id}    urn:ngsi-ld:OffStreetParking:1
+    Set Test Variable    ${second_parking_entity_id}    urn:ngsi-ld:OffStreetParking:2
+    Set Test Variable    ${first_vehicle_entity_id}    urn:ngsi-ld:Vehicle:1
+    Set Test Variable    ${second_vehicle_entity_id}    urn:ngsi-ld:Vehicle:2
 
-    ${parking_entity_id1}=    Generate Random Parking Entity Id
-    Set Suite Variable    ${parking_entity_id1}
-    ${parking_entity_id2}=    Generate Random Parking Entity Id
-    Set Suite Variable    ${parking_entity_id2}
-    ${vehicle_entity_id1}=    Generate Random Vehicle Entity Id
-    Set Suite Variable    ${vehicle_entity_id1}
-    ${vehicle_entity_id2}=    Generate Random Vehicle Entity Id
-    Set Suite Variable    ${vehicle_entity_id2}
-
-    ${response}=    Create Entity    ${first_vehicle_payload_filename}    ${vehicle_entity_id1}    broker_url=${broker_B_url}
+    ${response}=    Create Entity
+    ...    ${first_vehicle_payload_filename}
+    ...    ${first_vehicle_entity_id}
+    ...    broker_url=${b2_url}
+    ...    context=${context}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Create Entity    ${parking_location_name_payload_filename}    ${parking_entity_id1}    broker_url=${broker_C_url}
+    ${response}=    Create Entity
+    ...    ${parking_location_name_payload_filename}
+    ...    ${first_parking_entity_id}
+    ...    broker_url=${b3_url}
+    ...    context=${context}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Create Entity    ${second_full_offstreet_payload_filename}    ${parking_entity_id1}    broker_url=${broker_D_url}
+    ${response}=    Create Entity
+    ...    ${first_full_offstreet_payload_filename}
+    ...    ${first_parking_entity_id}
+    ...    broker_url=${b4_url}
+    ...    context=${context}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Create Entity    ${second_full_offstreet_payload_filename}    ${parking_entity_id2}    broker_url=${broker_D_url}
+    ${response}=    Create Entity
+    ...    ${second_full_offstreet_payload_filename}
+    ...    ${second_parking_entity_id}
+    ...    broker_url=${b4_url}
+    ...    context=${context}
     Check Response Status Code    201    ${response.status_code}
-    ${response}=    Create Entity    ${second_vehicle_payload_filename}    ${vehicle_entity_id2}    broker_url=${broker_D_url}
+    ${response}=    Create Entity
+    ...    ${second_vehicle_payload_filename}
+    ...    ${second_vehicle_entity_id}
+    ...    broker_url=${b4_url}
+    ...    context=${context}
     Check Response Status Code    201    ${response.status_code}
 
     @{first_set}=    Create List
-    ...    ${vehicle_entity_id1}
+    ...    ${EMPTY}
     ...    ${auxiliary_registration_payload_file_path}
     ...    auxiliary
-    ...    ${broker_B_url}
-    ...    ${broker_A_url}
+    ...    ${b2_url}
+    ...    ${b1_url}
 
     @{second_set}=    Create List
-    ...    ${parking_entity_id1}
+    ...    ${EMPTY}
     ...    ${inclusive_registration_payload_file_path}
     ...    inclusive
-    ...    ${broker_C_url}
-    ...    ${broker_A_url}
+    ...    ${b3_url}
+    ...    ${b1_url}
 
     @{third_set}=    Create List
-    ...    ${vehicle_entity_id2}
+    ...    ${EMPTY}
     ...    ${inclusive_registration_payload_file_path}
     ...    inclusive
-    ...    ${broker_D_url}
-    ...    ${broker_A_url}
+    ...    ${b4_url}
+    ...    ${b1_url}
 
-    @{fourth_set}=    Create List
-    ...    ${parking_entity_id1}
-    ...    ${inclusive_registration_payload_file_path}
-    ...    inclusive
-    ...    ${broker_C_url}
-    ...    ${broker_A_url}
-
-    @{fifth_set}=    Create List
-    ...    ${parking_entity_id2}
-    ...    ${inclusive_registration_payload_file_path}
-    ...    inclusive
-    ...    ${broker_D_url}
-    ...    ${broker_A_url}
-    
-    @{third_configuration}=    Create List    ${first_set}    ${second_set}    ${third_set}    ${fourth_set}    ${fifth_set}
-    Compose IOP Configuration    ${third_configuration}
+    @{third_configuration}=    Create List    ${first_set}    ${second_set}    ${third_set}
+    Compose IOP Configuration    ${third_configuration}    ld_context=${context}
 
 Delete Entities And Delete Registrations
-    @{broker_count}=    Create List    ${broker_A_url}    ${broker_B_url}    ${broker_C_url}    ${broker_D_url}
-    @{entities_to_delete}=    Create List    ${vehicle_entity_id1}    ${vehicle_entity_id2}    ${parking_entity_id1}    ${parking_entity_id2}
+    @{broker_count}=    Create List    ${b1_url}    ${b2_url}    ${b3_url}    ${b4_url}
+    @{entities_to_delete}=    Create List
+    ...    ${first_vehicle_entity_id}
+    ...    ${second_vehicle_entity_id}
+    ...    ${first_parking_entity_id}
+    ...    ${second_parking_entity_id}
     Delete Registrations And Entities    ${broker_count}    ${entities_to_delete}

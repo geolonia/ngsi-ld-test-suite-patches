@@ -58,10 +58,10 @@ taking into account the content of `requirements.txt` file. Further details on e
 
 In the `resources/variables.py` file, configure the following parameters:
 
-- `url` : It is the url of the context broker which is to be tested (including the `/ngsi-ld/v1` path, 
-e.g., http://localhost:8080/ngsi-ld/v1).
+- `url` : It is the base URL of the context broker which is to be tested (without the `/ngsi-ld/v1` path,
+e.g., http://localhost:8080).
 - `temporal_api_url` : This is the url of the GET temporal operation API, in case that a Context Broker splits 
-this portion of the API (e.g., http://localhost:8080/ngsi-ld/v1).
+this portion of the API (without the `/ngsi-ld/v1` path, e.g., http://localhost:8080).
 - `ngsild_test_suite_context` : This is the url of the default context used in the ETSI NGSI-LD requests 
 (e.g. 'https://forge.etsi.org/rep/cim/ngsi-ld-test-suite/-/raw/develop/resources/jsonld-contexts/ngsi-ld-test-suite-compound.jsonld').
 - `notification_server_host` and `notification_server_port` : This is the address and port used to create the local 
@@ -170,12 +170,12 @@ test launch command followed by the file name.
   The following example shows how to run an interoperability test with multiple brokers: 
 
   ```
-    robot --variable broker_A_url:http://localhost:8080/ngsi-ld/v1 \
-      --variable broker_B_url:http://localhost:8081/ngsi-ld/v1 \
-      --variable broker_C_url:http://localhost:8082/ngsi-ld/v1 \
-      --variable broker_D_url:http://localhost:8083/ngsi-ld/v1 \
-      --variable broker_E_url:http://localhost:8084/ngsi-ld/v1 \
-      ./TP/NGSI-LD/Interoperability/Provision/Entities/CreateEntity/IOP_CNF_01_01.robot
+    robot --variable b1_url:http://localhost:8080 \
+      --variable b2_url:http://localhost:8081 \
+      --variable b3_url:http://localhost:8082 \
+      --variable b4_url:http://localhost:8083 \
+      --variable b5_url:http://localhost:8084 \
+      ./IOP_TP/NGSI-LD/Interoperability/Provision/CreateEntity/IOP_001_01_01.robot
   ```
 
 ### Generate output file details only for failed tests

@@ -33,8 +33,14 @@ Prepare Context Source Registration From File
     ...    ${endpoint}=${EMPTY}
     ...    ${broker_url}=${EMPTY}
     ...    ${operations}=[]
+    ...    ${context}=${EMPTY}
     ${payload}=    Load JSON From File    ${EXECDIR}/data/${registration_file}
-    ${final_context_source_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${context_source_url}
+    IF    '${context}' != '${EMPTY}'
+        ${context_member}=    Create Dictionary    @context=${context}
+        ${payload}=    Add Object To JSON    ${payload}    $    ${context_member}
+    END
+    ${final_context_source_url}=    Set Variable If    '${endpoint}' != ''    ${endpoint}    ${context_source_url}
+
     ${registration_payload}=    Update Value To JSON
     ...    ${payload}
     ...    $.id
@@ -42,7 +48,7 @@ Prepare Context Source Registration From File
     ${registration_payload}=    Update Value To JSON
     ...    ${registration_payload}
     ...    $..endpoint
-    ...    ${final_context_source_url}${endpoint}
+    ...    ${final_context_source_url}
     IF    '${entity_id}' != ''
         ${dict}=    Create Dictionary    id=${entity_id}
         ${registration_payload}=    Add Object To JSON
@@ -79,7 +85,7 @@ Create Context Source Registration
 
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
     ...    json=${context_source_registration_payload}
     ...    headers=${headers}
     ...    expected_status=any
@@ -88,7 +94,12 @@ Create Context Source Registration
 
 Create Context Source Registration With Return
     [Tags]    actor_context-producer
-    [Arguments]    ${payload}    ${content_type}=${CONTENT_TYPE_LD_JSON}    ${context}=${EMPTY}    ${accept}=${EMPTY}    ${broker_url}=${EMPTY}
+    [Arguments]
+    ...    ${payload}
+    ...    ${content_type}=${CONTENT_TYPE_LD_JSON}
+    ...    ${context}=${EMPTY}
+    ...    ${accept}=${EMPTY}
+    ...    ${broker_url}=${EMPTY}
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
     IF    '${accept}'!=''
@@ -101,7 +112,7 @@ Create Context Source Registration With Return
         ...    Link=${context_link}
     END
     ${response}=    POST
-    ...    url=${final_url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
+    ...    url=${final_url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}
     ...    json=${payload}
     ...    headers=${headers}
     ...    expected_status=any
@@ -113,7 +124,8 @@ Delete Context Source Registration
     [Arguments]    ${context_source_registration_id}    ${broker_url}=${EMPTY}
 
     ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
-    ${response}=    DELETE    url=${final_url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
+    ${response}=    DELETE
+    ...    url=${final_url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
     Output    ${response}    Delete Context Source Registration
     RETURN    ${response}
 
@@ -122,7 +134,7 @@ Delete Context Source Registration With Return
     [Arguments]    ${registration_id}    ${broker_url}=${EMPTY}
     ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
     ${response}=    DELETE
-    ...    url=${final_url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
+    ...    url=${final_url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
     ...    expected_status=any
     Output    ${response}    Delete Context Source Registration
     RETURN    ${response}
@@ -132,7 +144,7 @@ Update Context Source Registration
     [Arguments]    ${context_source_registration_id}    ${update_fragment}
 
     ${response}=    PATCH
-    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
     ...    json=${update_fragment}
     ...    expected_status=any
     Output    ${response}    Update Context Source Registration
@@ -147,7 +159,7 @@ Update Context Source Registration From File
 
     ${file_content}=    Get File    ${EXECDIR}/data/csourceRegistrations/${filename}
     ${response}=    PATCH
-    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${context_source_registration_id}
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
@@ -161,7 +173,7 @@ Update Context Source Registration With Return
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     IF    '${accept}'!=''    Set To Dictionary    ${headers}    Accept=${accept}
     ${response}=    PATCH
-    ...    url=${url}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${CONTEXT_SOURCE_REGISTRATION_ENDPOINT_PATH}/${registration_id}
     ...    json=${fragment}
     ...    headers=${headers}
     ...    expected_status=any

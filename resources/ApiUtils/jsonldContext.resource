@@ -4,6 +4,7 @@ Library         ${EXECDIR}/libraries/logUtils.py
 Library         Collections
 Library         RequestsLibrary
 Library         OperatingSystem
+Resource        ${EXECDIR}/resources/ApiUtils/Common.resource
 
 
 *** Variables ***
@@ -29,7 +30,7 @@ Add a new @context
 
     &{headers}=    Create Dictionary    Content-Type=application/json
     ${response}=    POST
-    ...    url=${url}/${JSONLDCONTEXTS_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${JSONLDCONTEXTS_ENDPOINT_PATH}
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
@@ -40,19 +41,19 @@ Add a new @context
 Serve a @context
     [Tags]    actor_context-consumer
     [Arguments]    ${contextId}    ${details}=${EMPTY}
-    ${contextId}=    Replace String    ${contextId}    /ngsi-ld/v1/${JSONLDCONTEXTS_ENDPOINT_PATH}/    ${EMPTY}
+    ${contextId}=    Replace String    ${contextId}    ${NGSI_LD_API_PATH}/${JSONLDCONTEXTS_ENDPOINT_PATH}/    ${EMPTY}
     ${contextId}=    Evaluate    urllib.parse.quote("${contextId}", safe='')    modules=urllib
     IF    '${details}'!=''
         &{params}=    Create Dictionary
         Set To Dictionary    ${params}    details=${details}
 
         ${response}=    GET
-        ...    url=${url}/${JSONLDCONTEXTS_ENDPOINT_PATH}/${contextId}
+        ...    url=${url}${NGSI_LD_API_PATH}/${JSONLDCONTEXTS_ENDPOINT_PATH}/${contextId}
         ...    params=${params}
         ...    expected_status=any
     ELSE
         ${response}=    GET
-        ...    url=${url}/${JSONLDCONTEXTS_ENDPOINT_PATH}/${contextId}
+        ...    url=${url}${NGSI_LD_API_PATH}/${JSONLDCONTEXTS_ENDPOINT_PATH}/${contextId}
         ...    expected_status=any
     END
 
@@ -66,20 +67,22 @@ Delete a @context
     # or the path prefix alone, leaving only the localId. Anchoring on the
     # absolute form prevents a leftover "http://host" prefix in front of the
     # localId when callers pass a fully-qualified URL.
-    ${contextId}=    Remove String Using Regexp    ${contextId}    ^https?://[^/]+/ngsi-ld/v1/${JSONLDCONTEXTS_ENDPOINT_PATH}/
-    ${contextId}=    Replace String    ${contextId}    /ngsi-ld/v1/${JSONLDCONTEXTS_ENDPOINT_PATH}/    ${EMPTY}
+    ${contextId}=    Remove String Using Regexp
+    ...    ${contextId}
+    ...    ^https?://[^/]+${NGSI_LD_API_PATH}/${JSONLDCONTEXTS_ENDPOINT_PATH}/
+    ${contextId}=    Replace String    ${contextId}    ${NGSI_LD_API_PATH}/${JSONLDCONTEXTS_ENDPOINT_PATH}/    ${EMPTY}
     ${contextId}=    Evaluate    urllib.parse.quote("${contextId}", safe='')    modules=urllib
     IF    '${reload}'!=''
         &{params}=    Create Dictionary
         Set To Dictionary    ${params}    reload=${reload}
 
         ${response}=    DELETE
-        ...    url=${url}/${JSONLDCONTEXTS_ENDPOINT_PATH}/${contextId}
+        ...    url=${url}${NGSI_LD_API_PATH}/${JSONLDCONTEXTS_ENDPOINT_PATH}/${contextId}
         ...    params=${params}
         ...    expected_status=any
     ELSE
         ${response}=    DELETE
-        ...    url=${url}/${JSONLDCONTEXTS_ENDPOINT_PATH}/${contextId}
+        ...    url=${url}${NGSI_LD_API_PATH}/${JSONLDCONTEXTS_ENDPOINT_PATH}/${contextId}
         ...    expected_status=any
     END
 
@@ -94,7 +97,7 @@ List @contexts
 
     IF    '${details}'=='' and '${kind}'==''
         ${response}=    GET
-        ...    url=${url}/${JSONLDCONTEXTS_ENDPOINT_PATH}
+        ...    url=${url}${NGSI_LD_API_PATH}/${JSONLDCONTEXTS_ENDPOINT_PATH}
         ...    expected_status=any
     ELSE
         IF    '${details}'!=''
@@ -107,7 +110,7 @@ List @contexts
         ${params_as_string}=    Evaluate    '&'.join(${string_list})
 
         ${response}=    GET
-        ...    url=${url}/${JSONLDCONTEXTS_ENDPOINT_PATH}?${params_as_string}
+        ...    url=${url}${NGSI_LD_API_PATH}/${JSONLDCONTEXTS_ENDPOINT_PATH}?${params_as_string}
         ...    expected_status=any
     END
 

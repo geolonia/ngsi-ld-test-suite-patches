@@ -46,7 +46,7 @@ Append Entity Attributes
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     ${file_content}=    Get File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
     ${response}=    POST
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}/attrs/
+    ...    url=${url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}${id}/attrs/
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
@@ -59,7 +59,7 @@ Append Entity Attributes With Parameters
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     ${fragment_payload}=    Load JSON From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
     ${response}=    POST
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}/attrs/?options=${options}
+    ...    url=${url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}${id}/attrs/?options=${options}
     ...    json=${fragment_payload}
     ...    headers=${headers}
     ...    expected_status=any
@@ -85,7 +85,7 @@ Batch Create Entities
         ...    Link=${context_link}
     END
     ${response}=    POST
-    ...    url=${url}/${BATCH_CREATE_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${BATCH_CREATE_ENDPOINT_PATH}
     ...    json=@{entities_to_be_created}
     ...    headers=${headers}
     ...    expected_status=any
@@ -97,7 +97,7 @@ Batch Delete Entities
     [Arguments]    ${entities_ids_to_be_deleted}    ${teardown}=False
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${url}/${BATCH_DELETE_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${BATCH_DELETE_ENDPOINT_PATH}
     ...    json=@{entities_ids_to_be_deleted}
     ...    headers=${headers}
     ...    expected_status=any
@@ -111,7 +111,7 @@ Batch Request Entities From File
     ${endpoint_url}=    Get From Dictionary    ${BATCH_OPERATION_ENDPOINT_MAPPING}    ${batchOperation}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${url}/${endpoint_url}
+    ...    url=${url}${NGSI_LD_API_PATH}/${endpoint_url}
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
@@ -128,7 +128,7 @@ Batch Update Entities
     ${params_as_string}=    Catenate    SEPARATOR=&    @{params}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${url}/${BATCH_UPDATE_ENDPOINT_PATH}?${params_as_string}
+    ...    url=${url}${NGSI_LD_API_PATH}/${BATCH_UPDATE_ENDPOINT_PATH}?${params_as_string}
     ...    json=@{entities_to_be_updated}
     ...    headers=${headers}
     ...    expected_status=any
@@ -140,7 +140,7 @@ Batch Merge Entities
     [Arguments]    @{entities_to_be_merged}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${url}/${BATCH_MERGE_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${BATCH_MERGE_ENDPOINT_PATH}
     ...    json=@{entities_to_be_merged}
     ...    headers=${headers}
     ...    expected_status=any
@@ -152,7 +152,7 @@ Batch Upsert Entities
     [Arguments]    @{entities_to_be_upserted}    ${update_option}=replace
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${url}/${BATCH_UPSERT_ENDPOINT_PATH}?options=${update_option}
+    ...    url=${url}${NGSI_LD_API_PATH}/${BATCH_UPSERT_ENDPOINT_PATH}?options=${update_option}
     ...    json=@{entities_to_be_upserted}
     ...    headers=${headers}
     ...    expected_status=any
@@ -161,15 +161,22 @@ Batch Upsert Entities
 
 Create Entity
     [Tags]    actor_context-producer
-    [Arguments]    ${filename}    ${entity_id}    ${local}=${EMPTY}    ${broker_url}=${EMPTY}
+    [Arguments]
+    ...    ${filename}
+    ...    ${entity_id}
+    ...    ${local}=${EMPTY}
+    ...    ${broker_url}=${EMPTY}
+    ...    ${context}=${ngsild_test_suite_context}
     &{params}=    Create Dictionary
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
     ${entity_payload}=    Load JSON From File    ${EXECDIR}/data/entities/${filename}
     ${entity}=    Update Value To JSON    ${entity_payload}    $.id    ${entity_id}
+    ${context_member}=    Create Dictionary    @context=${context}
+    ${entity}=    Add Object To JSON    ${entity}    $    ${context_member}
     ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${final_url}/${ENTITIES_ENDPOINT_PATH}
+    ...    url=${final_url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}
     ...    json=${entity}
     ...    params=${params}
     ...    headers=${headers}
@@ -189,7 +196,7 @@ Create Entity selecting @context
 
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}
     ...    json=${entity}
     ...    headers=${headers}
     ...    expected_status=any
@@ -212,7 +219,7 @@ Create Entity Selecting Content Type
         ...    Link=${context_link}
     END
     ${response}=    POST
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}
     ...    json=${entity}
     ...    headers=${headers}
     ...    expected_status=any
@@ -226,7 +233,7 @@ Create Entity From File
     ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${final_url}/${ENTITIES_ENDPOINT_PATH}
+    ...    url=${final_url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
@@ -238,7 +245,7 @@ Create Entity From JSON-LD Content
     [Arguments]    ${content}
     &{headers}=    Create Dictionary    Content-Type=application/ld+json
     ${response}=    POST
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}
     ...    json=${content}
     ...    headers=${headers}
     ...    expected_status=any
@@ -264,7 +271,7 @@ Delete Entity Attributes
     END
     ${params_as_string}=    Catenate    SEPARATOR=&    @{params}
     ${response}=    DELETE
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}?${params_as_string}
+    ...    url=${url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}?${params_as_string}
     ...    headers=${headers}
     ...    expected_status=any
     Output    ${response}    Delete Entity Attributes
@@ -276,10 +283,10 @@ Delete Entity
     &{params}=    Create Dictionary
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
     ${final_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${url}
-    &{headers}=    Create Dictionary    
-    IF    '${via}'!=''    Set To Dictionary    ${headers}    Via    ${via}    
+    &{headers}=    Create Dictionary
+    IF    '${via}'!=''    Set To Dictionary    ${headers}    Via    ${via}
     ${response}=    DELETE
-    ...    url=${final_url}/${ENTITIES_ENDPOINT_PATH}${id}
+    ...    url=${final_url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}${id}
     ...    params=${params}
     ...    headers=${headers}
     ...    expected_status=any
@@ -310,7 +317,7 @@ Partial Update Entity Attributes
     END
     ${fragment_payload}=    Load JSON From File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
     ${response}=    PATCH
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}
+    ...    url=${url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}${entityId}/attrs/${attributeId}
     ...    json=${fragment_payload}
     ...    headers=${headers}
     ...    expected_status=any
@@ -323,7 +330,7 @@ Update Entity Attributes
     &{headers}=    Create Dictionary    Content-Type=${content_type}
     ${file_content}=    Get File    ${EXECDIR}/data/entities/fragmentEntities/${fragment_filename}
     ${response}=    PATCH
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${id}/attrs/
+    ...    url=${url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}${id}/attrs/
     ...    data=${file_content}
     ...    headers=${headers}
     ...    expected_status=any
@@ -348,7 +355,7 @@ Replace Entity
         ...    Link=${context_link}
     END
     ${response}=    PUT
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entity_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}${entity_id}
     ...    headers=${headers}
     ...    json=${entity}
     ...    expected_status=any
@@ -370,7 +377,7 @@ Replace Entity Selecting Content Type
         ...    Link=${context_link}
     END
     ${response}=    PUT
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entity_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}${entity_id}
     ...    headers=${headers}
     ...    json=${entity_fragment}
     ...    expected_status=any
@@ -403,7 +410,7 @@ Purge Entities
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
 
     ${response}=    DELETE
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
@@ -427,7 +434,7 @@ Merge Entity
         ...    Link=${context_link}
     END
     ${response}=    PATCH
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entity_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}${entity_id}
     ...    headers=${headers}
     ...    json=${entity}
     ...    expected_status=any
@@ -450,7 +457,7 @@ Replace Attribute Selecting Content Type
         ...    Link=${context_link}
     END
     ${response}=    PUT
-    ...    url=${url}/${ENTITIES_ENDPOINT_PATH}${entity_id}/attrs/${attr_id}
+    ...    url=${url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}${entity_id}/attrs/${attr_id}
     ...    headers=${headers}
     ...    json=${attribute_fragment}
     ...    expected_status=any

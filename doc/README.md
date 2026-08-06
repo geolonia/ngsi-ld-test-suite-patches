@@ -49,6 +49,32 @@ divided into the NGSI-LD Test Suite Structure groups:
 - [ContextSource](./files/ContextSource) contains the expected results of the Context Source files.
 - [jsonldContext](./files/jsonldContext) contains the expected results of the Storing, Managing and Serving @contexts files.
 
+## Rules for writing tests
+
+When writing interoperability tests, store each payload as a valid UTF-8 JSON object with a unique, descriptive, hyphen-separated `.json` or `.jsonld` filename in either [`data/entities/interoperability`](../data/entities/interoperability) or [`data/csourceRegistrations/interoperability`](../data/csourceRegistrations/interoperability). Entity payloads must contain a `type` value of exactly `OffStreetParking` or `Vehicle`, while context source registration payloads must contain a `mode` value of exactly `inclusive`, `auxiliary`, `exclusive`, or `redirect`; these values determine the documentation clause, and the filename determines the generated figure label. When introducing another type, mode, or clause, update the mappings in [`statisticsDocumentationData.py`](./statisticsDocumentationData.py).
+
+State the test objective with the suite-level `Documentation` setting in the `*** Settings ***` section. Use `...` continuation lines when the objective spans multiple lines. For interoperability tests, a test-level `[Documentation]` setting is not used to populate `test_objective`.
+
+The documentation generator infers preconditions from the keyword selected by `Test Setup`, including test-specific setup overrides and their positional or named arguments. Place the relevant `Create Entity` and `Create List` calls directly in that setup keyword; calls made only in the test body or indirectly through another user keyword are not considered. A `Create Entity` call must provide the payload filename and a broker variable resolving to `${bN_url}` through the `broker_url` argument. It generates text stating that broker `bN` contains that payload. `${core_context}` is classified as the default context, while `${ngsild_test_suite_context}` and other context values are classified as user contexts. A registration is inferred only from a `Create List` call having exactly five arguments in the following order: entity information, registration payload, registration mode, target broker URL, and registering broker URL. Its mode must be one of `inclusive`, `auxiliary`, `exclusive`, or `redirect`, and its broker variables must use the `${bN_url}` form. Every generated IOP permutation contains its own `initial_conditions`; suite-level `initial_conditions` is emitted only for files containing one test case.
+
+Add `[Tags]` to every test case. Use an `iop` tag for interoperability tests, one `cnf_NN` tag identifying the applicable configuration, numeric clause tags written with underscores such as `4_3_3`, and a `since_vX.Y.Z` tag identifying the first supported release. The numeric tags are converted to specification clause numbers, and all test cases in one file must use the same release tag. Add `default-context` or `user-context` to context permutations and registration-behaviour tags such as `additive-inclusive`, `additive-auxiliary`, `proxy-exclusive`, or `proxy-redirect` when applicable. Tags may continue on lines beginning with `...`; the continuation marker is discarded.
+
+Write every documentation step as a standalone line comment immediately before the Robot Framework statement it describes. A comment such as `# Client sends an HTTP GET request to b1` becomes one generated test step. For IOP test templates, place shared steps in the template keyword; the generator uses them when a permutation has no inline comments. Inline test-case comments override template comments. To add details beneath a step, place consecutive comments beginning with `# -` after a normal parent comment. Do not use a `# -` item without a preceding parent step, and do not rely on setup or trailing comments.
+
+When a documentation step refers to a payload that is created, returned, or compared, include the Robot Framework variable containing its path instead of writing the payload description or figure number manually. The variable must be declared in the `*** Variables ***` section and resolve to the relevant payload file. For example:
+
+```robotframework
+*** Variables ***
+${entity_payload_filename}    interoperability/full-version-of-OffStreetParking1.jsonld
+
+*** Test Cases ***
+IOP_001_01_01 Create OffStreetParking:1
+    # Client sends an HTTP POST request to b1 to create the entity defined in ${entity_payload_filename}
+    ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    broker_url=${b1_url}
+```
+
+During statistics generation, `${entity_payload_filename}` in the generated step is replaced with `full-version-of-OffStreetParking1.jsonld`. Only the filename is emitted; the directory path is removed. Do not include explicit figure numbers because the documentation generator infers the corresponding figure from the filename.
+
 ## Execution
 
 ### Using PyCharm

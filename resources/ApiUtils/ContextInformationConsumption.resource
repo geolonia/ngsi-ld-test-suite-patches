@@ -113,7 +113,7 @@ Query Entities
     END
 
     ${response}=    GET
-    ...    url=${final_url}/${ENTITIES_ENDPOINT_PATH}
+    ...    url=${final_url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
@@ -168,7 +168,7 @@ Query Entities Via POST
     END
 
     ${response}=    POST
-    ...    url=${final_url}/${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}
+    ...    url=${final_url}${NGSI_LD_API_PATH}/${ENTITY_OPERATIONS_QUERY_ENDPOINT_PATH}
     ...    json=${body}
     ...    headers=${headers}
     ...    params=${params}
@@ -193,6 +193,7 @@ Retrieve Entity
     ...    ${omit}=${EMPTY}
     ...    ${local}=${EMPTY}
     ...    ${broker_url}=${EMPTY}
+    ...    ${type}=${EMPTY}
 
     ${attrs_length}=    Get Length    ${attrs}
     ${accept_length}=    Get Length    ${accept}
@@ -231,9 +232,10 @@ Retrieve Entity
     IF    ${pick_length}>0    Set To Dictionary    ${params}    pick=${pick}
     IF    ${omit_length}>0    Set To Dictionary    ${params}    omit=${omit}
     IF    '${local}'!=''    Set To Dictionary    ${params}    local=${local}
+    IF    '${type}'!=''    Set To Dictionary    ${params}    type=${type}
 
     ${response}=    GET
-    ...    url=${final_url}/${ENTITIES_ENDPOINT_PATH}${id}
+    ...    url=${final_url}${NGSI_LD_API_PATH}/${ENTITIES_ENDPOINT_PATH}${id}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
@@ -255,7 +257,7 @@ Retrieve Attribute
         ...    Link=${context_link}
     END
     ${response}=    GET
-    ...    url=${url}/${ATTRIBUTES_ENDPOINT_PATH}/${attribute_name}
+    ...    url=${url}${NGSI_LD_API_PATH}/${ATTRIBUTES_ENDPOINT_PATH}/${attribute_name}
     ...    headers=${headers}
     ...    expected_status=any
     Output    ${response}    Retrieve Attribute
@@ -278,7 +280,7 @@ Retrieve Attributes
     END
     Set To Dictionary    ${params}    details=${details}
     ${response}=    GET
-    ...    url=${url}/${ATTRIBUTES_ENDPOINT_PATH}
+    ...    url=${url}${NGSI_LD_API_PATH}/${ATTRIBUTES_ENDPOINT_PATH}
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any
@@ -300,7 +302,7 @@ Retrieve Entity Type
         ...    Link=${context_link}
     END
     ${response}=    GET
-    ...    url=${url}/${ENTITIES_TYPES_ENDPOINT_PATH}/${type}
+    ...    url=${url}${NGSI_LD_API_PATH}/${ENTITIES_TYPES_ENDPOINT_PATH}/${type}
     ...    headers=${headers}
     ...    expected_status=any
     Output    ${response}    Retrieve Entity Type
@@ -323,7 +325,7 @@ Retrieve Entity Types
     END
     Set To Dictionary    ${params}    details=${details}
     ${response}=    GET
-    ...    url=${url}/${ENTITIES_TYPES_ENDPOINT_PATH}/
+    ...    url=${url}${NGSI_LD_API_PATH}/${ENTITIES_TYPES_ENDPOINT_PATH}/
     ...    headers=${headers}
     ...    params=${params}
     ...    expected_status=any

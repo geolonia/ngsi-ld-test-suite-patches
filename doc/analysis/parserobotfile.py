@@ -657,66 +657,73 @@ class ParseRobotFile:
         if len(indexes) > 0:
             self.test_cases[self.test_case_names[-1]] = string_test_cases[indexes[-1]:]
 
-    def _get_documentation_content(self, test_name: str) -> str:
-        """Helper: Extract raw documentation content after [Documentation] until next keyword block."""
-        if test_name not in self.test_cases:
-            return ""
-        
-        test_content = self.test_cases[test_name]
-        match = re.search(r'\[Documentation\]\s*', test_content)
-        if not match:
-            return ""
-        
-        start_pos = match.end()
-        doc_section = re.search(r'(.*?)(?=\n\s*\[|\Z)', test_content[start_pos:], re.MULTILINE | re.DOTALL)
-        return doc_section.group(1) if doc_section else ""
-
-    def get_iop_documentation_data(self, test_name: str) -> dict:
-        """Extract documentation in the Test Cases."""
-        if test_name not in self.test_cases:
-            return " "
-        
-        doc_content = self._get_documentation_content(test_name)
-        if not doc_content:
-            return " "
-        
-        label_pattern = re.compile(
-            r'(?:\A[ \t]*|\n[ \t]*\.{3}[ \t]+)([A-Za-z][A-Za-z \-]*):[ \t]*',
-            re.MULTILINE
-        )
-        matches = list(label_pattern.finditer(doc_content))
-        sections = {}
-        for index, match in enumerate(matches):
-            end = matches[index + 1].start() if index + 1 < len(matches) else len(doc_content)
-            key = match.group(1).strip().lower().replace(' ', '_').replace('-', '_')
-            value = re.sub(r'\n\s*\.{3}\s*', ' ', doc_content[match.end():end])
-            sections[key] = value.replace('\n', ' ').strip().rstrip('.')
-
-        return sections
-
     def get_iop_test_tags(self, test_name: str) -> list:
         """Extract [Tags] from a specific IOP test case."""
         if test_name not in self.test_cases:
             return []
 
         test_content = self.test_cases[test_name]
-        pattern = r'\[Tags\]\s*(.*?)(?=\n\s+\[|\n\s*$)'
-        match = re.search(pattern, test_content, re.MULTILINE | re.DOTALL)
+        pattern = r'^[ \t]*\[Tags\][ \t]*(?P<tags>[^\n]*(?:\n[ \t]*\.{3}[^\n]*)*)'
+        match = re.search(pattern, test_content, re.MULTILINE)
 
         if not match:
             return []
 
-        tags_text = match.group(1)
-        return [tag.strip() for tag in tags_text.split() if tag.strip()]
+        tags_text = match.group('tags')
+        return [tag for tag in tags_text.split() if tag != '...']
+
+    def get_iop_keyword_content(self, keyword_name: str) -> str:
+        """Extract one keyword from the IOP Keywords section."""
+        index_start = self.file_contents.find('*** Keywords ***')
+        if index_start == -1:
+            return ""
+
+        keywords = self.file_contents[index_start + len('*** Keywords ***'):]
+        next_section = re.search(r'^\*{3} .+ \*{3}\s*$', keywords, re.MULTILINE)
+        if next_section:
+            keywords = keywords[:next_section.start()]
+
+        matches = list(re.finditer(r'^(?!\s|#)(?P<name>.+?)\s*$', keywords, re.MULTILINE))
+        normalized_name = re.sub(r'[ _]+', '', keyword_name).lower()
+
+        for index, match in enumerate(matches):
+            candidate = re.sub(r'[ _]+', '', match.group('name')).lower()
+            if candidate != normalized_name:
+                continue
+
+            end = matches[index + 1].start() if index + 1 < len(matches) else len(keywords)
+            return keywords[match.start():end]
+
+        return ""
 
     def get_iop_comments(self, test_name: str) -> list:
-        """Extract comments from a specific IOP test case."""
+        """Extract comments from an IOP test or its suite-level template."""
         if test_name not in self.test_cases:
             return []
 
         test_content = self.test_cases[test_name]
-        comments = re.findall(r'^\s*#(.+?)$', test_content, re.MULTILINE)
-        return [comment.strip() for comment in comments]
+        raw_comments = re.findall(r'^\s*#(.+?)$', test_content, re.MULTILINE)
+        if not raw_comments and self.test_template_name:
+            template_content = self.get_iop_keyword_content(self.test_template_name)
+            raw_comments = re.findall(r'^\s*#(.+?)$', template_content, re.MULTILINE)
+
+        comments = []
+        nested_comments = None
+
+        for raw_comment in raw_comments:
+            comment = raw_comment.strip()
+            if comment.startswith('-'):
+                if not comments:
+                    raise ValueError(f"IOP test '{test_name}' has a list item without a parent step")
+                if nested_comments is None:
+                    nested_comments = []
+                    comments.append(nested_comments)
+                nested_comments.append(comment[1:].strip())
+            else:
+                comments.append(comment)
+                nested_comments = None
+
+        return comments
 
     def get_iop_setup(self, test_name: str) -> str:
         """Extract [Setup] from a specific IOP test case."""
