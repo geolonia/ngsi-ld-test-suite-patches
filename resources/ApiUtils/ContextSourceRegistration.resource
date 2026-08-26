@@ -39,7 +39,7 @@ Prepare Context Source Registration From File
         ${context_member}=    Create Dictionary    @context=${context}
         ${payload}=    Add Object To JSON    ${payload}    $    ${context_member}
     END
-    ${final_context_source_url}=    Set Variable If    '${endpoint}' != ''    ${endpoint}    ${context_source_url}
+    ${final_context_source_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${context_source_url}
 
     ${registration_payload}=    Update Value To JSON
     ...    ${payload}
@@ -48,7 +48,7 @@ Prepare Context Source Registration From File
     ${registration_payload}=    Update Value To JSON
     ...    ${registration_payload}
     ...    $..endpoint
-    ...    ${final_context_source_url}
+    ...    ${final_context_source_url}${endpoint}
     IF    '${entity_id}' != ''
         ${dict}=    Create Dictionary    id=${entity_id}
         ${registration_payload}=    Add Object To JSON
