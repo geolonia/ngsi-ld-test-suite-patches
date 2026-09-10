@@ -25,7 +25,9 @@
                 "fr": "Grand Place",
                 "nl": "Grote Markt"
             },
-            "languageMap": "urn:ngsi-ld:null"
+            "languageMap": {
+                "@none": "urn:ngsi-ld:null"
+            }
         },
         "locatedAt": {
             "type": "Relationship",
