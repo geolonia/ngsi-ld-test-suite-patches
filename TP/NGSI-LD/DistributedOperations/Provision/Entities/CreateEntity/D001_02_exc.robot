@@ -10,8 +10,8 @@ Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 
-Suite Setup          Create Entity And Registration On The Context Broker And Start Context Source Mock Server
-Suite Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
+Test Setup          Create Entity And Registration On The Context Broker And Start Context Source Mock Server
+Test Teardown       Delete Created Entity And Registration And Stop Context Source Mock Server
 
 
 *** Variables ***

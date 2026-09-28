@@ -10,8 +10,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Suite Setup          Setup Registration And Start Context Source Mock Server
-Suite Teardown       Delete Created Registration And Stop Context Source Mock Server
+Test Setup          Setup Registration And Start Context Source Mock Server
+Test Teardown       Delete Created Registration And Stop Context Source Mock Server
 
 
 *** Variables ***

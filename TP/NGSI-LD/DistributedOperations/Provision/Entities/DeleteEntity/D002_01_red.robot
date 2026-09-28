@@ -9,8 +9,8 @@ Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
 
-Test Setup         Setup Entity Id And Registration And Start Context Source Mock Server
-Test Teardown      Delete Registrations And Stop Context Source Mock Server
+Test Setup          Setup Entity Id And Registration And Start Context Source Mock Server
+Test Teardown       Delete Registrations And Stop Context Source Mock Server
 
 
 *** Variables ***
