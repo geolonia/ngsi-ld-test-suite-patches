@@ -34,6 +34,7 @@ D006_01_inc Delete Entity Attributes
 
     ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
     Should Contain    ${response.json()}    speed
+    Should Contain    ${response.json()}[speed]    datasetId
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server

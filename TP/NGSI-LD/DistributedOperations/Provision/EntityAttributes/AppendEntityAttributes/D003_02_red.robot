@@ -31,11 +31,14 @@ D003_02_red Append Entity Attribute
     ...    ${fragment_filename}
     ...    ${CONTENT_TYPE_JSON}
     ...    noOverwrite
-    Wait for redirected request
     Check Response Status Code    207   ${response.status_code}
 
-    ${stub}=    Get Request Url Params    options
-    Should Contain    ${stub}    noOverwrite
+    Should Contain    ${response.request.url}    options=noOverwrite
+
+    ${stub_count}=    Get Stub Count    POST    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/
+    Should Be Equal As Integers    ${stub_count}    1
+    ${stub_count}=    Get Stub Count    POST    /broker2/ngsi-ld/v1/entities/${entity_id}/attrs/
+    Should Be Equal As Integers    ${stub_count}    1
 
 *** Keywords ***
 Setup Registration And Start Context Source Mock Server

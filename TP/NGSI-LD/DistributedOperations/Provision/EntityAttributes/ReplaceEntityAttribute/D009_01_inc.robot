@@ -15,12 +15,10 @@ Test Teardown       Delete Created Entity And Registration And Stop Context Sour
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-different-attributes.jsonld
-${entity_attribute_filename}            fragmentEntities/vehicle-speed-two-datasetid-01-fragment.json
-${registration_id_prefix}               urn:ngsi-ld:Registration:
+${entity_attribute_filename}            fragmentEntities/vehicle-speed-two-datasetid-05-fragment.json
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
-
+${attribute_name}                       speed
 
 *** Test Cases ***
 D009_01_inc Replace Entity Attribute
@@ -28,21 +26,19 @@ D009_01_inc Replace Entity Attribute
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_19    6_3_18
 
     ${attribute_payload}=    Load Entity    ${entity_attribute_filename}    ${entity_id}
-    Set Stub Reply    PUT    /ngsi-ld/v1/entities/${entity_id}/attrs/speed    204
+    Set Stub Reply    PUT    /ngsi-ld/v1/entities/${entity_id}/attrs/${attribute_name}    204
 
     ${response}=    Replace Attribute Selecting Content Type
     ...    entity_id=${entity_id}
-    ...    attr_id=speed
+    ...    attr_id=${attribute_name}
     ...    attribute_fragment=${attribute_payload}
     ...    content_type=${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
 
-    Set Stub Reply    GET    /ngsi-ld/v1/entities/${entity_id}    200    ${entity_id}
     ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
-    ${new_attribute}=    Get From Dictionary    ${response.json()}    speed
-    Should Be Equal    ${attribute_payload}[speed][value]    ${new_attribute}[value]
-
+    Check Response Status Code    200    ${response.status_code}
+    Should Be Equal    ${attribute_payload}[value]    ${response.json()}[${attribute_name}][value]
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server

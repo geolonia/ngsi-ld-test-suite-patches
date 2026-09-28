@@ -30,11 +30,11 @@ D003_02_exc Append Entity Attribute
     ...    ${fragment_filename}
     ...    ${CONTENT_TYPE_JSON}
     ...    noOverwrite
-    Wait for redirected request
     Check Response Status Code    207   ${response.status_code}
+    Should Contain    ${response.request.url}    options=noOverwrite
 
-    ${stub}=    Get Request Url Params    options
-    Should Contain    ${stub}    noOverwrite
+    ${stub_count}=    Get Stub Count    POST    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/
+    Should Be Equal As Integers    ${stub_count}    1
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server

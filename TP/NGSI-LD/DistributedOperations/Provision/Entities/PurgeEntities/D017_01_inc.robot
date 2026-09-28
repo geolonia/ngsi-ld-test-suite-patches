@@ -24,16 +24,16 @@ D017_01_inc Purge Entities On Both Context Broker And Context Source
     [Documentation]    Verify that, when one has an inclusive registration on a Context Broker, one is able to purge entities based on type on both Context Broker and Context Source
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_21
 
-    Set Stub Reply    DELETE    /ngsi-ld/v1/entities?type=Vehicle    204
-    ${response}=    Purge Entities    type=Vehicle    context=${ngsild_test_suite_context}
+    Set Stub Reply    DELETE    /ngsi-ld/v1/entities?type=Vehicle&id=${entity_id}    204
+    ${response}=    Purge Entities    type=Vehicle    id=${entity_id}    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
 
-    ${stub_count}=    Get Stub Count    DELETE    /ngsi-ld/v1/entities?type=Vehicle
+    ${stub_count}=    Get Stub Count    DELETE    /ngsi-ld/v1/entities?type=Vehicle&id=${entity_id}
     Should Be True    ${stub_count} > 0
 
-    ${response}=    Retrieve Entity    ${entity_id}
+    Set Stub Reply    GET    /ngsi-ld/v1/entities/${entity_id}    404
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
     Check Response Status Code    404    ${response.status_code}
-
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
@@ -47,6 +47,7 @@ Create Entity And Registration On The Context Broker And Start Context Source Mo
     ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
+    ...    entity_id=${entity_id}
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response1.status_code}
     Start Context Source Mock Server

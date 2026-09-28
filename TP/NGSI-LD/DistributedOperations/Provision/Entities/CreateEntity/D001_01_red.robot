@@ -14,9 +14,7 @@ Test Teardown       Delete Registrations And Stop Context Source Mock Server
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
-${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 
 
@@ -67,6 +65,7 @@ Setup Entity Id And Registration And Start Context Source Mock Server
     Check Response Status Code    201    ${response2.status_code}
     
     Start Context Source Mock Server
+
 Delete Registrations And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
     Delete Context Source Registration    ${registration_id2}

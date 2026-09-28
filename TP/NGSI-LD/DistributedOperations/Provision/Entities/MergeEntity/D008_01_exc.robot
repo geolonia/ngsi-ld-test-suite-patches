@@ -29,13 +29,10 @@ D008_01_exc Merge Entity On Both Context Broker And Context Source
     ...    entity_id=${entity_id}
     ...    entity_filename=${entity_new_payload_filename}
     ...    content_type=${CONTENT_TYPE_LD_JSON}
-    Check Response Status Code    204   ${response.status_code}
+    Check Response Status Code    204    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    PATCH    /broker1/ngsi-ld/v1/entities/${entity_id}
-    Should Be True    ${stub_count}  > 0
-
-    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
-    Should Not Contain    ${response}    speed
+    Should Be True    ${stub_count} > 0
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server

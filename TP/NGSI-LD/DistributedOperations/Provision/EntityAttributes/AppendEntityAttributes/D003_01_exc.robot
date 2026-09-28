@@ -1,9 +1,10 @@
 *** Settings ***
 Documentation       Check that when appending entity attributes to an entity with an exclusive registration, the attributes managed locally are updated on the Context Broker, while attributes managed with the exclusive registration are updated in the Context Source.
 
-Resource            ${EXECDIR}/resources/ApiUtils/Common.resource
-Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
 Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceRegistration.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextSourceDiscovery.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationProvision.resource
+Resource            ${EXECDIR}/resources/ApiUtils/ContextInformationConsumption.resource
 Resource            ${EXECDIR}/resources/AssertionUtils.resource
 Resource            ${EXECDIR}/resources/JsonUtils.resource
 Resource            ${EXECDIR}/resources/MockServerUtils.resource
@@ -33,15 +34,14 @@ D003_01_exc Append Entity Attribute
     Should Be Equal As Integers    ${stub_count}    1
 
     ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
-    ${body}=    Get From Dictionary    ${response.json()}    speed
-    Should Not Contain    ${body}    speed
+    Should Not Contain    ${response.json()}    speed
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
     ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
 
-    ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    local=true
+    ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Check Response Status Code    201    ${response.status_code}
 
     ${registration_id}=    Generate Random CSR Id

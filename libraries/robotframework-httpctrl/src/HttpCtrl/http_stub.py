@@ -118,10 +118,28 @@ class HttpStubContainer(metaclass=Singleton):
                 
                 # we should check if an id is into the url
                 if "urn" in stub.criteria.url:
+                    # some brokers keep the id as the last path segment and
+                    # only append extra query params (e.g. .../entities/{id}?sysAttrs=true);
+                    # in that case the stub's full url (id included) already
+                    # matches the request path as-is
+                    if criteria_url_components[0].rstrip("/") == stub.criteria.url.rstrip("/"):
+                        return True
+
+                    # other brokers drop the id from the path entirely and
+                    # send it as a query parameter instead (e.g. distributed
+                    # retrieveEntity forwarded as GET .../entities?id=...&type=...);
+                    # there the base path (id excluded) must still match
+                    # exactly so a request to broker2 can't be satisfied by a
+                    # stub registered for broker1 (or vice versa), and the id
+                    # pieces are looked for in the query string instead
                     stub_url = stub.criteria.url.split("/")
+                    stub_prefix = "/".join(stub_url[:-1]).rstrip("/")
+                    if criteria_url_components[0].rstrip("/") != stub_prefix:
+                        return False
+
                     id = stub_url[-1].split(":")
                     for elements in id:
-                        if elements not in (criteria.url):
+                        if elements not in criteria_url_components[1]:
                             return False
                     return True
                 else:

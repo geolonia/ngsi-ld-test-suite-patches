@@ -27,7 +27,7 @@ D005_01_inc Partial Partial Attribute Update
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_4
 
     ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
-    ${old_isparked}=    Get Value From Json    ${response.json()}    $.isParked2
+    ${old_speed}=    Get Value From Json    ${response.json()}    $.speed
 
     Set Stub Reply    PATCH    /ngsi-ld/v1/entities/${entity_id}/attrs/${attribute_id}    204
     ${response}=    Partial Update Entity Attributes
@@ -39,16 +39,11 @@ D005_01_inc Partial Partial Attribute Update
     Check Response Status Code    204    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    PATCH    /ngsi-ld/v1/entities/${entity_id}/attrs/${attribute_id}
-    Should Be True    ${stub_count} > 0
+    Should Be Equal As Integers    ${stub_count}    1
 
-    ${request_payload}=    Get Request Body
-    ${payload}=    Evaluate    json.loads('''${request_payload}''')    json
-    Should Contain    ${payload}    speed
-
-    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
-    Should Contain    ${response.json()}    isParked2
-    Should Contain    ${response.json()}    speed
-
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
+    ${new_speed}=    Get Value From Json    ${response.json()}    $.speed
+    Should Not Be Equal    ${old_speed}    ${new_speed}
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server

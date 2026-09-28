@@ -14,9 +14,7 @@ Test Teardown       Delete Registrations And Stop Context Source Mock Server
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
-${registration_id_prefix}               urn:ngsi-ld:Registration:
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 
 
@@ -35,12 +33,12 @@ D002_01_red Delete Entities On Both Context Sources
 
     Set Stub Reply  DELETE    /broker1/ngsi-ld/v1/entities/${entity_id}    204
     Set Stub Reply  DELETE    /broker2/ngsi-ld/v1/entities/${entity_id2}    204
-    
+
     ${response}=    Delete Entity    ${entity_id}
     Check Response Status Code    204    ${response.status_code}  
     ${response}=    Delete Entity    ${entity_id2}
     Check Response Status Code    204    ${response.status_code}
-    
+
     ${stub_count}=    Get Stub Count    DELETE    /broker1/ngsi-ld/v1/entities/${entity_id}
     Should Be True    ${stub_count} > 0
     ${stub_count}=    Get Stub Count    DELETE    /broker2/ngsi-ld/v1/entities/${entity_id2}

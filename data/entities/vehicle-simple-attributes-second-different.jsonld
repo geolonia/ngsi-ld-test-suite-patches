@@ -7,8 +7,7 @@
         "source": {
             "type": "Property",
             "value": "Speedometer"
-        },
-        "datasetId": "urn:ngsi-ld:Property:speedometerA4567-speed2" 
+        }
     },
     "isParked2": {
         "type": "Relationship",

@@ -20,7 +20,7 @@ Compose IOP Configuration
         ${entity_id}=    Get From List    ${sets}[${i}]    0
         ${registration_filename}=    Get From List    ${sets}[${i}]    1
         ${mode}=    Get From List    ${sets}[${i}]    2
-        ${endpoint}=    Get From List    ${sets}[${i}]    3
+        ${source_broker_url}=    Get From List    ${sets}[${i}]    3
         ${registration_broker_url}=    Get From List    ${sets}[${i}]    4
         ${registration_id${i+1}}=    Generate Random CSR Id
         Set Suite Variable    ${registration_id${i+1}}
@@ -31,7 +31,8 @@ Compose IOP Configuration
         ...    ${registration_filename}
         ...    entity_id=${entity_id}
         ...    mode=${mode}
-        ...    endpoint=${endpoint}
+        ...    broker_url=${source_broker_url}
+        ...    endpoint=${EMPTY}
         ...    context=${ld_context}
         ${response}=    Create Context Source Registration With Return
         ...    ${registration_payload}

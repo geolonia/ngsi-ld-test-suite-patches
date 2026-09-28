@@ -15,7 +15,7 @@ Test Teardown       Delete Registrations And Stop Context Source Mock Server
 
 
 *** Variables ***
-${entity_payload_filename}              vehicle-simple-attributes.jsonld
+${entity_payload_filename}              vehicle-simple-different-attributes.jsonld
 ${speed_entity_filename}                vehicle-speed-attribute.jsonld
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-speed-with-redirection-ops.jsonld
 
@@ -25,32 +25,28 @@ D017_01_exc Purge Entities On Both Context Broker And Context Source
     [Documentation]    Verify that, when one has an exclusive registration on a Context Broker, one is able to purge entities based on type on both Context Broker and Context Source
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_6_21
 
-    Set Stub Reply    POST    /broker1/ngsi-ld/v1/entities    201
-    ${speed_entity}=    Create Entity    ${speed_entity_filename}    ${entity_id}
-
-    Set Stub Reply    DELETE    /broker1/ngsi-ld/v1/entities?type=Vehicle    204
-    ${response}=    Purge Entities    type=Vehicle    context=${ngsild_test_suite_context}
+    Set Stub Reply    DELETE    /broker1/ngsi-ld/v1/entities?type=Vehicle&id=${entity_id}    204
+    ${response}=    Purge Entities    type=Vehicle    id=${entity_id}    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
 
-    ${stub_count}=    Get Stub Count    DELETE    /broker1/ngsi-ld/v1/entities?type=Vehicle
+    ${stub_count}=    Get Stub Count    DELETE    /broker1/ngsi-ld/v1/entities?type=Vehicle&id=${entity_id}
     Should Be True    ${stub_count} > 0
 
-    ${response}=    Retrieve Entity    ${entity_id}
+    Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities/${entity_id}    404
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
     Check Response Status Code    404    ${response.status_code}
-
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
     ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
-    ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    local=true
-    Check Response Status Code    201    ${response.status_code}
 
     ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
     ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
+    ...    entity_id=${entity_id}
     ...    endpoint=/broker1
     ...    mode=exclusive
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}

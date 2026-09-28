@@ -15,45 +15,41 @@ Test Teardown       Delete Created Entity And Registration And Stop Context Sour
 
 
 *** Variables ***
-${entity_id_prefix}                     urn:ngsi-ld:Vehicle:
 ${entity_payload_filename}              vehicle-simple-different-attributes.jsonld
-${entity_attribute_filename}            fragmentEntities/vehicle-speed-two-datasetid-01-fragment.json
-${registration_id_prefix}               urn:ngsi-ld:Registration:
+${entity_attribute_filename}            fragmentEntities/vehicle-speed-two-datasetid-05-fragment.json
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-speed-with-redirection-ops.jsonld
-
+${attribute_name}                       speed
 
 *** Test Cases ***
 D009_01_exc Replace Entity Attribute
     [Documentation]    Check that one can replace an existing entity attribute, the changes will be forwarded to the Context Source thanks to an exclusive registration
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_6_19    6_3_18
 
+    Set Stub Reply    POST    /broker1/ngsi-ld/v1/entities   201
+    ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
+    Check Response Status Code    201    ${response.status_code}
+
     ${attribute_payload}=    Load Entity    ${entity_attribute_filename}    ${entity_id}
-    Set Stub Reply    PUT    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/speed    204
+    Set Stub Reply    PUT    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/${attribute_name}    204
 
     ${response}=    Replace Attribute Selecting Content Type
     ...    entity_id=${entity_id}
-    ...    attr_id=speed
+    ...    attr_id=${attribute_name}
     ...    attribute_fragment=${attribute_payload}
     ...    content_type=${CONTENT_TYPE_JSON}
     ...    context=${ngsild_test_suite_context}
     Check Response Status Code    204    ${response.status_code}
 
-    ${stub_count}=    Get Stub Count    PUT    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/speed
+    ${stub_count}=    Get Stub Count    PUT    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/${attribute_name}
     Should Be Equal As Integers    ${stub_count}    1
 
-    Set Stub Reply    GET    /broker1/ngsi-ld/v1/entities/${entity_id}    200    ${entity_id}
-    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
-    ${new_attribute}=    Get From Dictionary    ${response.json()}    speed
-    Should Be Equal    ${attribute_payload}[speed][value]    ${new_attribute}[value]
-
+    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
+    Should Not Contain    ${response.json()}    ${attribute_name}
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
     ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
-
-    ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}    local=true
-    Check Response Status Code    201    ${response.status_code}
 
     ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}

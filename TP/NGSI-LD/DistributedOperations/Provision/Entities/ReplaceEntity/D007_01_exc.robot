@@ -37,8 +37,7 @@ D007_01_exc Replace Entity
     Should Be Equal As Integers    ${stub_count}    1
 
     ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}    local=true
-    ${body}=    Get From Dictionary    ${response.json()}    speed
-    Should Not Contain    ${body}    speed
+    Should Not Contain    ${response.json()}    speed
 
 
 *** Keywords ***

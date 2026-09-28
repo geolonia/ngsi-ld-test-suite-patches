@@ -39,7 +39,8 @@ Prepare Context Source Registration From File
         ${context_member}=    Create Dictionary    @context=${context}
         ${payload}=    Add Object To JSON    ${payload}    $    ${context_member}
     END
-    ${final_context_source_url}=    Set Variable If    '${endpoint}' != ''    ${endpoint}    ${context_source_url}
+    ${final_broker_url}=    Set Variable If    '${broker_url}' != ''    ${broker_url}    ${context_source_url}
+    ${final_context_source_url}=    Set Variable    ${final_broker_url}${endpoint}
 
     ${registration_payload}=    Update Value To JSON
     ...    ${payload}

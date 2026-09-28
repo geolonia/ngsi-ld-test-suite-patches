@@ -32,11 +32,9 @@ D003_02_inc Append Entity Attribute
     ...    ${fragment_filename}
     ...    ${CONTENT_TYPE_JSON}
     ...    noOverwrite
-    Wait For Request
     Check Response Status Code    207    ${response.status_code}
-
-    ${stub}=    Get Request Url Params    options
-    Should Contain    ${stub}    noOverwrite
+    
+    Should Contain    ${response.request.url}    options=noOverwrite
 
     ${response}=    Retrieve Entity    ${entity_id}
     ${new_body}=    Get From Dictionary    ${response.json()}    isParked

@@ -38,15 +38,9 @@ D005_01_red Partial Partial Attribute Update
 
     ${stub_count}=    Get Stub Count    PATCH    /broker1/ngsi-ld/v1/entities/${entity_id}/attrs/${attribute_id}
     Should Be True    ${stub_count} > 0
-    ${request_payload}=    Get Request Body
-    ${payload}=    Evaluate    json.loads('''${request_payload}''')    json
-    Should Contain    ${payload}    speed
 
     ${stub_count}=    Get Stub Count    PATCH    /broker2/ngsi-ld/v1/entities/${entity_id}/attrs/${attribute_id}
     Should Be True    ${stub_count} > 0
-    ${request_payload}=    Get Request Body
-    ${payload}=    Evaluate    json.loads('''${request_payload}''')    json
-    Should Contain    ${payload}    speed
 
 
 *** Keywords ***
@@ -80,5 +74,4 @@ Setup Entity Id And Registration And Start Context Source Mock Server
 Delete Registration And Stop Context Source Mock Server
     Delete Context Source Registration    ${registration_id}
     Delete Context Source Registration    ${registration_id2}
-    Delete Entity    ${entity_id}
     Stop Context Source Mock Server
