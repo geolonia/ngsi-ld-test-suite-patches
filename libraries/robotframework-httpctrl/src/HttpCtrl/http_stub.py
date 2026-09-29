@@ -147,6 +147,18 @@ class HttpStubContainer(metaclass=Singleton):
             
             # if the method is not GET, we should ignore parameters and check if the url is the same
             else:
+                # The stub has a query, for example D017_01_inc:
+                #   DELETE /entities?type=Vehicle&id=...
+                # The check below compares the stub with the request path only, so it
+                # is never true for such a stub. Then the full URLs are compared as
+                # plain text, and a percent-encoded id (id=urn%3Angsi-ld%3A...) never
+                # matches id=urn:ngsi-ld:... Both are the same query, so compare the
+                # decoded parameters.
+                stub_path, _, stub_query = stub.criteria.url.partition('?')
+                if stub_query and \
+                        stub_path.rstrip("/") == criteria_url_components[0].rstrip("/") and \
+                        parse_qs(stub_query) == parse_qs(criteria_url_components[1]):
+                    return True
                 if stub.criteria.url.rstrip("/") == criteria_url_components[0].rstrip("/"):
                     # if the request is a query via POST, we should have a specific check
                     if stub.criteria.url == "/ngsi-ld/v1/entityoperations/query":
