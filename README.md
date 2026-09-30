@@ -1,60 +1,38 @@
 # NGSI-LD Test Suite — Geolonia patches
 
-A working fork of the [ETSI NGSI-LD Test Suite](https://forge.etsi.org/rep/cim/ngsi-ld-test-suite),
-used to track defects we find in the suite, develop fixes for them in the open, and hand the
-upstream maintainers a link to a patch.
+Fixes for bugs we find in the [ETSI NGSI-LD Test Suite](https://forge.etsi.org/rep/cim/ngsi-ld-test-suite).
+Each bug has a public issue here, and each fix has its own branch that the suite's maintainers can take.
 
-**This is not a distribution of the test suite, and not affiliated with or endorsed by ETSI.**
-If you want the test suite, get it from upstream:
+This is not a copy of the suite to use, and it is not linked to or endorsed by ETSI.
+To run the suite, get it from the link above.
 
-    https://forge.etsi.org/rep/cim/ngsi-ld-test-suite
+## Why
 
-## Why this exists
+We run the suite against NGSI-LD context brokers, including our own (GeonicDB). This finds bugs
+in the suite as well as in brokers. Reporting upstream needs an ETSI account, or an email to
+`ngsi-ld@etsi.org`, which keeps the discussion private. Here the report, the fix and the
+reasoning are public.
 
-We run the suite continuously against four NGSI-LD Context Brokers, which turns up bugs in the
-suite as well as in brokers. Reporting them was the awkward part:
+If the maintainers would rather take this work into their own project, so would we.
 
-* The upstream tracker on forge.etsi.org is readable by anyone but needs an ETSI Online account
-  to write to, and their contribution flow expects a branch inside the project.
-* The address upstream publishes for outside reports is `ngsi-ld@etsi.org`, which works but puts
-  the discussion in private mail.
+## Branches
 
-Neither gives us somewhere public to keep the reasoning, the patch, and the history of what we
-changed and why. This repository is that place. Every finding gets an issue, every fix gets a
-branch off pristine `develop`, and upstream gets a link they can `git fetch` or a patch they can
-`git am` — whichever they prefer.
-
-If the maintainers would rather host this work themselves, we would rather that too. An account
-on forge and this repository goes read-only.
-
-## How it is laid out
-
-| Branch | What it is |
+| Branch | Contents |
 |---|---|
-| `develop` | Pristine mirror of upstream `develop`. Fast-forward only. Never edited. |
-| `about` | This page. An orphan branch, so the mirror stays byte-identical to upstream. |
-| `fix/*` | One branch per defect, based on pristine `develop`, following upstream's `CONTRIBUTING.md`. |
+| `develop` | An exact copy of upstream `develop`. We never change it. |
+| `fix/<name>` | One fix, starting from `develop`. |
+| `about` | Only this README, so `develop` stays an exact copy. |
 
-Because `develop` is untouched, a patch we offer is exactly our own commits and nothing else:
+To get a fix as a patch file:
 
-    git format-patch develop..fix/<branch>
+    git format-patch develop..fix/<name>
 
-## One rule we hold ourselves to
+## We don't score brokers with this fork
 
-**We never measure a broker against this fork.** Our published conformance figures are scored
-against a pinned upstream revision, and only ever that. A vendor that edits the test suite and
-then reports its own score against the edited suite is marking its own homework, and we build
-both a broker and the testbed that scores it — so the line has to be bright. Fixes live here;
-measurements come from upstream.
-
-Our measurements, and the reasoning behind every figure, are in
-[geolonia/geonicdb-compliance](https://github.com/geolonia/geonicdb-compliance).
+Our published results always use an unchanged upstream version of the suite, never these fixes.
+We build a broker ourselves, so we must not grade it with a suite we have edited.
 
 ## Licence
 
-The test suite is ETSI's, licensed BSD-3-Clause, and `LICENSE` is retained unchanged on every
-branch that carries suite code. Our own commits are offered under the same terms so upstream can
-take them without friction.
-
-ETSI's name appears here only to say factually where the code comes from, never to endorse or
-promote anything of ours.
+The test suite belongs to ETSI and is licensed BSD-3-Clause. `LICENSE` is unchanged.
+Our fixes use the same licence, so upstream can take them as they are.
