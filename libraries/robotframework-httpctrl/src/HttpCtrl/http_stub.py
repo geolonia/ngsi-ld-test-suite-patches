@@ -14,6 +14,41 @@ from urllib.parse import parse_qs, unquote
 from HttpCtrl.utils.singleton import Singleton
 
 
+def _same_type(requested, stubbed):
+    # The mock does not read @context. So when the broker sends the full
+    # type IRI (https://ngsi-ld-test-suite/context#Vehicle), compare only
+    # the last part of it (Vehicle).
+    if not isinstance(requested, str) or not isinstance(stubbed, str):
+        return requested == stubbed
+    return requested == stubbed or requested.endswith("#" + stubbed) or requested.endswith("/" + stubbed)
+
+
+def _query_reply_matches(reply_text, request_bytes):
+    # A POST /entityOperations/query stub matches when one entity in its
+    # response body (an object or an array) fits the first entity selector
+    # of the request.
+    if request_bytes is None:
+        # count() finds a stub by method and URL only, without a request body.
+        return True
+    try:
+        selector = json.loads(request_bytes.decode('utf-8'))["entities"][0]
+    except (ValueError, KeyError, IndexError, TypeError, AttributeError):
+        return False
+    if not isinstance(selector, dict) or ("type" not in selector and "id" not in selector):
+        return False
+    reply = json.loads(reply_text)
+    ids = selector.get("id") if isinstance(selector.get("id"), list) else [selector.get("id")]
+    for entity in (reply if isinstance(reply, list) else [reply]):
+        if not isinstance(entity, dict):
+            continue
+        if "type" in selector and not _same_type(selector["type"], entity.get("type")):
+            continue
+        if "id" in selector and entity.get("id") not in ids:
+            continue
+        return True
+    return False
+
+
 class HttpStubCriteria:
     def __init__(self, **kwargs):
         self.method = kwargs.get('method', None)
@@ -167,33 +202,13 @@ class HttpStubContainer(metaclass=Singleton):
                 if stub.criteria.url.rstrip("/") == criteria_url_components[0].rstrip("/"):
                     # if the request is a query via POST, we should have a specific check
                     if stub.criteria.url == "/ngsi-ld/v1/entityoperations/query":
-                        response_body = json.loads(stub.response.get_body())
-                        body_str = body.decode('utf-8')
-                        request_body = json.loads(body_str)
-                        # check if the request body contains the same type as the response body
-                        if "type" in request_body["entities"][0] or "id" in request_body["entities"][0]:
-                            if request_body["entities"][0]["type"] != response_body["type"]:
-                                return False
-                            if request_body["entities"][0]["id"] != response_body["id"]:
-                                return False
-                        else:
-                            return False
+                        return _query_reply_matches(stub.response.get_body(), body)
                     return True
         
         if stub.criteria.url.rstrip("/") == criteria.url.rstrip("/"):
             # if the request is a query via POST, we should have a specific check
             if stub.criteria.url == "/ngsi-ld/v1/entityoperations/query":
-                response_body = json.loads(stub.response.get_body())
-                body_str = body.decode('utf-8')
-                request_body = json.loads(body_str)
-                # check if the request body contains the same type as the response body
-                if "type" in request_body["entities"][0] or "id" in request_body["entities"][0]:
-                    if request_body["entities"][0]["type"] != response_body["type"]:
-                        return False
-                    if request_body["entities"][0]["id"] != response_body["id"]:
-                        return False
-                else:
-                    return False
+                return _query_reply_matches(stub.response.get_body(), body)
             return True
 
         return False
