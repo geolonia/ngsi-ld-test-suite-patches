@@ -7,6 +7,8 @@ To get a fix as a patch file, add `.patch` to the pull request URL, for example:
 
     https://github.com/geolonia/ngsi-ld-test-suite-patches/pull/8.patch
 
+Some suite files use CRLF line endings, so apply a patch with `git am --keep-cr` (or `git apply`).
+
 - This is not a copy of the suite to use. To run the suite, get it from ETSI.
 - This repository is not linked to ETSI, and ETSI does not endorse it.
 - Our published test results always use the unchanged suite from ETSI, never these fixes.
