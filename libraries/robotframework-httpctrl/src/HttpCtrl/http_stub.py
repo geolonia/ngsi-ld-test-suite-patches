@@ -10,7 +10,7 @@ Copyright: The 3-Clause BSD License
 
 from threading import Lock
 import json
-from urllib.parse import parse_qs
+from urllib.parse import parse_qs, unquote
 from HttpCtrl.utils.singleton import Singleton
 
 
@@ -82,6 +82,10 @@ class HttpStubContainer(metaclass=Singleton):
             
             # distribution brokers may add optional parameters to the url, so we should check if the url is valid even though it is not the same as the stub's url
             if criteria.method == "GET":
+                # Decode the query first. A broker may percent-encode values
+                # (id=urn%3Angsi-ld%3A...). This is the same query as the stub's
+                # id=urn:ngsi-ld:..., but the text checks below would not find it.
+                criteria_query = unquote(criteria_url_components[1])
                 if '?' in stub.criteria.url:
                     stub_url_components = stub.criteria.url.split('?')
 
@@ -112,7 +116,7 @@ class HttpStubContainer(metaclass=Singleton):
                     # Flatten the list to get a list of key-value elements
                     stub_params_components = [element for param in stub_params for element in param.split("=")]
                     for param in stub_params_components:
-                        if param not in criteria_url_components[1]:
+                        if param not in criteria_query:
                             return False
                     return True
                 
@@ -139,7 +143,7 @@ class HttpStubContainer(metaclass=Singleton):
 
                     id = stub_url[-1].split(":")
                     for elements in id:
-                        if elements not in criteria_url_components[1]:
+                        if elements not in criteria_query:
                             return False
                     return True
                 else:
