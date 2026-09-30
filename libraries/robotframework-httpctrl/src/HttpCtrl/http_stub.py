@@ -92,11 +92,12 @@ class HttpStubContainer(metaclass=Singleton):
                     if criteria_url != stub_url_components[0].rstrip("/"):
                         return False
 
-                    # extraction of attributes from the response body (only works when response body is a dictionary)
-                    # return an empty array if response body is an array
+                    # Collect the attribute names from the response body. If the body
+                    # is an array (a query response always is), use the names of all
+                    # entities in it.
                     parsed_body = json.loads(stub.response.get_body())
                     if isinstance(parsed_body, list):
-                        attributes = []
+                        attributes = [key.lower() for item in parsed_body if isinstance(item, dict) for key in item]
                     else:
                         attributes = [key.lower() for key in parsed_body]
                     # criteria parameters should be separated to check if attributes are into the response body
