@@ -15,7 +15,7 @@ To get a fix as a patch file, add `.patch` to the pull request URL, for example:
 <details>
 <summary>Details for reviewers and AI agents</summary>
 
-### Why this repository exists
+## Why this repository exists
 
 We run the suite against NGSI-LD context brokers, including our own (GeonicDB). This finds bugs
 in the suite, not only in the brokers. To report a bug to ETSI, you need an ETSI account, or you
@@ -24,7 +24,7 @@ fix and the reasons are public.
 
 If the ETSI maintainers want to take this work into their own project, we would like that too.
 
-### Branches
+## Branches
 
 | Branch | Contents |
 |---|---|
@@ -35,7 +35,7 @@ If the ETSI maintainers want to take this work into their own project, we would 
 Each fix is a draft pull request from its `fix/<name>` branch into `develop`. The pull requests
 are only for discussion. They are never merged here.
 
-### Why test results never use this fork
+## Why test results never use this fork
 
 We build a broker (GeonicDB) and also the test setup that measures it. If we measured our broker
 with a suite that we changed, nobody could trust the results. So the fixes are only here, and
