@@ -16,7 +16,7 @@
       "typeName":"https://ngsi-ld-test-suite/context#Vehicle",
       "attributeNames":[
          "https://ngsi-ld-test-suite/context#brandName",
-         "isParked"
+         "https://ngsi-ld-test-suite/context#isParked"
       ]
    }
 ]

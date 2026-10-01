@@ -19,7 +19,7 @@ ${entity_payload_filename}              vehicle-simple-attributes.json
 ${entity_payload_filename2}             vehicle-simple-attributes-second.jsonld
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-complete.jsonld
 ${fragment_filename}                    vehicle-brandname-fragment.json
-${expected_attribute}                   brandName
+${expected_attribute}                   https://ngsi-ld-test-suite/context#brandName
 
 
 *** Test Cases ***
@@ -35,7 +35,7 @@ D010_01_aux Retrieve Entity That Exists On Both The Context Source And The Conte
     # mock ends up sending headers only). Serialise to a JSON string first.
     ${entity_body_json}=    Evaluate    json.dumps($entity_body)    json
     Set Stub Reply    GET    /ngsi-ld/v1/entities/${entity_id}    200    ${entity_body_json}
-    ${response}=    Retrieve Entity    ${entity_id}    context=${ngsild_test_suite_context}
+    ${response}=    Retrieve Entity    ${entity_id}
 
     Check Response Status Code    200    ${response.status_code}
     Check Response Body Containing an Attribute set to

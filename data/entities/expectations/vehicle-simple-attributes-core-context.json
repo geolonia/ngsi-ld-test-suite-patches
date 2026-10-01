@@ -5,7 +5,7 @@
     "type": "Property",
     "value": "Mercedes"
   },
-  "isParked": {
+  "https://ngsi-ld-test-suite/context#isParked": {
     "type": "Relationship",
     "providedBy": {
       "type": "Relationship",

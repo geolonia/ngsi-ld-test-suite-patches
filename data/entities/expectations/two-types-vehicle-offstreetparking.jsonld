@@ -6,7 +6,7 @@
             "type": "Property",
             "value": "Mercedes"
         },
-        "isParked": {
+        "https://ngsi-ld-test-suite/context#isParked": {
             "type": "Relationship",
             "providedBy": {
                 "type": "Relationship",
@@ -28,7 +28,7 @@
                 "type": "Relationship",
                 "object": "urn:ngsi-ld:Camera:C1"
             },
-            "reliability": {
+            "https://ngsi-ld-test-suite/context#reliability": {
                 "type": "Property",
                 "value": 0.7
             },

@@ -16,7 +16,7 @@ ${building_filename}=       building-minimal.jsonld
 ${vehicle_filename}=        vehicle-simple-attributes.jsonld
 ${expectation_filename}=    vehicle-simple-attributes-core-context.json
 ${attribute_brandname}=     https://ngsi-ld-test-suite/context#brandName
-${attribute_isparked}=      https://uri.etsi.org/ngsi-ld/default-context/isParked
+${attribute_isparked}=      https://ngsi-ld-test-suite/context#isParked
 
 
 *** Test Cases ***

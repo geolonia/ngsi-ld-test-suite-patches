@@ -16,8 +16,10 @@ Test Teardown       Delete Registration And Stop Context Source Mock Server
 
 *** Variables ***
 ${entity_payload_filename}              vehicle-simple-attributes.jsonld
-${fragment_filename}                    vehicle-speed-isParked-fragment.json
+${fragment_filename}                    vehicle-speed-isParked-fragment.jsonld
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
+${expected_attribute_isParked}          https://ngsi-ld-test-suite/context#isParked
+${expected_attribute_speed}             https://ngsi-ld-test-suite/context#speed
 
 *** Test Cases ***
 D003_01_inc Append Entity Attribute
@@ -25,22 +27,22 @@ D003_01_inc Append Entity Attribute
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    additive-inclusive    4_3_6_2    5_6_3
 
     ${response}=    Retrieve Entity    ${entity_id}
-    ${old_body}=    Get From Dictionary    ${response.json()}    isParked
+    ${old_body}=    Get From Dictionary    ${response.json()}    ${expected_attribute_isParked}
 
     Set Stub Reply    POST    /ngsi-ld/v1/entities/${entity_id}/attrs/    204
     ${response}=    Append Entity Attributes
     ...    ${entity_id}
     ...    ${fragment_filename}
-    ...    ${CONTENT_TYPE_JSON}
+    ...    ${CONTENT_TYPE_LD_JSON}
     Check Response Status Code    204    ${response.status_code}
 
     ${stub_count}=    Get Stub Count    POST    /ngsi-ld/v1/entities/${entity_id}/attrs/
     Should Be Equal As Integers    ${stub_count}    1
 
     ${response}=    Retrieve Entity    ${entity_id}
-    ${new_body}=    Get From Dictionary    ${response.json()}    isParked
+    ${new_body}=    Get From Dictionary    ${response.json()}    ${expected_attribute_isParked}
 
-    Should Have Value In Json    ${response.json()}    $.speed
+    Should Contain    ${response.json()}    ${expected_attribute_speed}
     Should Not Be Equal    ${old_body}    ${new_body}
 
 *** Keywords ***
