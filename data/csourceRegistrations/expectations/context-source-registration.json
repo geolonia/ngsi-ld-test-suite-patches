@@ -6,7 +6,7 @@
        "entities": [
            {
            "id": "urn:ngsi-ld:Vehicle:A456",
-           "type": ["Vehicle"]
+           "type": "Vehicle"
            }
        ],
        "propertyNames": ["brandName","speed"],
@@ -16,11 +16,11 @@
        "entities": [
            {
                "idPattern": ".*downtown$",
-               "type": ["OffStreetParking"]
+               "type": "OffStreetParking"
            },
            {
                "idPattern": ".*47$",
-               "type": ["OffStreetParking"]
+               "type": "OffStreetParking"
            }
        ],
        "propertyNames": ["availableSpotNumber","totalSpotNumber"],
