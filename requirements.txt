@@ -5,6 +5,9 @@ robotframework-requests==0.9.7
 deepdiff==8.6.1
 prettydiff==0.1.0
 paho-mqtt==1.6.1
-robotframework-httpctrl==0.3.3
+# The mock server is the vendored copy in libraries/robotframework-httpctrl/, not PyPI's 0.3.3:
+# the stub matching the distributed-operation tests rely on (!282, !284, !311) and the keyword
+# `Get Request Url Params` they call exist only there.
+-e ./libraries/robotframework-httpctrl/
 robotframework-robocop==7.2.0
 robotframework-mqttlibrary==0.7.1.post3

@@ -20,9 +20,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt /tmp/requirements.txt
+COPY libraries/robotframework-httpctrl /tmp/libraries/robotframework-httpctrl
 
+# From /tmp: requirements.txt names the vendored HttpCtrl by a path relative to the working directory
 RUN python3 -m venv /opt/venv \
-    && /opt/venv/bin/pip install -r /tmp/requirements.txt
+    && cd /tmp && /opt/venv/bin/pip install -r /tmp/requirements.txt
         
 RUN mkdir -p /opt/robot-tests/working-repo /opt/robot-tests/listeners && \
     chown -R 1000:1000 /opt/robot-tests
