@@ -15,7 +15,7 @@ Test Teardown       Delete Registration And Stop Context Source Mock Server
 
 
 *** Variables ***
-${entity_payload_filename}              vehicle-simple-different-attributes.jsonld
+${entity_payload_filename}              vehicle-speed-attribute.jsonld
 ${fragment_filename}                    vehicle-speed-two-datasetid-01-fragment.jsonld
 ${registration_payload_file_path}       csourceRegistrations/context-source-registration-vehicle-redirection-ops.jsonld
 ${attribute_id}                         speed
