@@ -43,7 +43,11 @@ D016_01_inc Merge Batch Entities On Both Context Broker And Context Source
     ...    context=${ngsild_test_suite_context}
     ...    accept=${CONTENT_TYPE_LD_JSON}
     
-    Should Contain    ${response.json()}    speed
+    ${entities}=    Set Variable    ${response.json()}
+    Length Should Be    ${entities}    2
+    FOR    ${entity}    IN    @{entities}
+        Dictionary Should Contain Key    ${entity}    speed
+    END
 
 *** Keywords ***
 Create Entity And Registration On The Context Broker And Start Context Source Mock Server
