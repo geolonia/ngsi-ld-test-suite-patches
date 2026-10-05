@@ -51,7 +51,9 @@ These scripts develop a set of operations, the same in the different Operating S
 - Cloning the NGSI-LD Test Suite repository in the local folder and create the corresponding Python Virtual Environment
 taking into account the content of `requirements.txt` file. Further details on each library can be found in 
 [PyPi](https://pypi.org/) and 
-[Robot Framework Standard Libraries](http://robotframework.org/robotframework/#standard-libraries).
+[Robot Framework Standard Libraries](http://robotframework.org/robotframework/#standard-libraries), except for HttpCtrl, 
+which is not installed from PyPI but from the vendored copy in
+[`libraries/robotframework-httpctrl`](libraries/robotframework-httpctrl).
 
 
 ## Configure the Test Suite
@@ -208,7 +210,7 @@ the pre-commit formatting hook, Test Case authoring rules, documentation update 
 * [JSON Library](https://github.com/robotframework-thailand/robotframework-jsonlibrary)
 * [Requests Library](https://github.com/MarketSquare/robotframework-requests)
 * [Deep Diff](https://github.com/seperman/deepdiff)
-* [HttpCtrl Library](https://github.com/annoviko/robotframework-httpctrl)
+* [HttpCtrl Library](libraries/robotframework-httpctrl) (vendored copy with ETSI patches, forked from [upstream](https://github.com/annoviko/robotframework-httpctrl))
 * [Robotidy Library ](https://github.com/MarketSquare/robotframework-tidy)
 
 

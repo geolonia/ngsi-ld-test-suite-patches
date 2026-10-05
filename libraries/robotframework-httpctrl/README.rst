@@ -38,7 +38,7 @@ Dependencies
 Setup
 ============
 
-Make sure to add the src/ directory to your PYTHONPATH. This allows Python and Robot Framework to correctly locate the HttpCtrl modules.
+In the NGSI-LD Test Suite, this library is installed in editable mode by ``pip install -r requirements.txt`` (see the ``requirements.txt`` file at the repository root).
 
 
 Brief Overview of the Library Content
