@@ -27,6 +27,7 @@ D001_01_inc Create Entity On Both Context Broker And Context Source
     ${response}=    Create Entity    ${entity_payload_filename}    ${entity_id}
     Check Response Status Code    201    ${response.status_code}
 
+    Wait For Request
     ${request_payload}=    Get Request Body
     ${payload_list}=    Evaluate    [json.loads('''${request_payload}''')]    json
     @{entities_id}=    Create List    ${entity_id}
@@ -44,10 +45,12 @@ Setup Entity Id And Registration And Start Context Source Mock Server
 
     ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
+    ${operations}=    Create List    createEntity
     ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
     ...    entity_id=${entity_id}
+    ...    operations=${operations}
     ${response}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response.status_code}
 
