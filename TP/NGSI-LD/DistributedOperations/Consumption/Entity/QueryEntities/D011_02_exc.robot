@@ -25,19 +25,19 @@ D011_02_exc_01 Query The Context Broker With Type With queryEntity
     [Documentation]    Check that if one queries the Context Broker for type, and the registration only allows the
     ...    queryEntity operation, the request is forwarded as expected
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_7_2
-    GET    /broker1/ngsi-ld/v1/entities
+    queryEntity    GET    /broker1/ngsi-ld/v1/entities
 D011_02_exc_02 Query The Context Broker With Type With queryBatch
     [Documentation]    Check that if one queries the Context Broker for type, and the registration only allows the
     ...    queryBatch operation, the request is forwarded as expected
     [Tags]    since_v1.6.1    dist-ops    4_3_3    cf_04    proxy-exclusive    4_3_6_3    5_7_2
-    POST    /broker1/ngsi-ld/v1/entityOperations/query
+    queryBatch    POST    /broker1/ngsi-ld/v1/entityOperations/query
 
 
 *** Keywords ***
 Setup Registration And Context Source Mock Server And Query The Context Broker With Type
     [Documentation]    Check that if one queries the Context Broker for type, and the registration only allows the
     ...    requested operation, the request is forwarded as expected
-    [Arguments]    ${method}    ${url}
+    [Arguments]    ${operation}    ${method}    ${url}
     ${entity_id}=    Generate Random Vehicle Entity Id
     Set Suite Variable    ${entity_id}
 
@@ -46,12 +46,14 @@ Setup Registration And Context Source Mock Server And Query The Context Broker W
 
     ${registration_id}=    Generate Random CSR Id
     Set Suite Variable    ${registration_id}
+    ${operations}=    Create List    ${operation}
     ${registration_payload}=    Prepare Context Source Registration From File
     ...    ${registration_id}
     ...    ${registration_payload_file_path}
     ...    entity_id=${entity_id}
     ...    mode=exclusive
     ...    endpoint=/broker1
+    ...    operations=${operations}
     ${response1}=    Create Context Source Registration With Return    ${registration_payload}
     Check Response Status Code    201    ${response1.status_code}
     Start Context Source Mock Server
