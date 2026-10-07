@@ -290,10 +290,9 @@ Check Response Body Containing List Containing Subscription elements
     END
     ${ignored_keys}=    Create List
     ...    ${context_regex_expr}
-    ...    "jsonldContext"
-    ...    "timesFailed"
-    ...    "timesSent"
-    ...    "notificationTrigger"
+    ...    root\\[\\d+\\]\\['jsonldContext'\\]
+    ...    root\\[\\d+\\]\\['notification'\\]\\['(lastNotification|lastSuccess|lastFailure|timesSent|timesFailed|status)'\\]
+    ...    root\\[\\d+\\]\\['notificationTrigger'\\]
     ${comparison_result}=    Compare Dictionaries Ignoring Keys
     ...    ${subscription_payload}
     ...    ${response_body}
