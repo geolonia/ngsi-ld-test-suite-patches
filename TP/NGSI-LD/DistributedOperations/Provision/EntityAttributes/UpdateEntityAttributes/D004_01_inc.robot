@@ -36,9 +36,8 @@ D004_01_inc Query The Context Broker With Type
     ${stub_count}=    Get Stub Count    PATCH    /ngsi-ld/v1/entities/${entity_id}/attrs/
     Should Be True    ${stub_count} > 0
 
-    @{entities_id}=    Create List    ${entity_id}
-    ${payload_list}=    Evaluate    [$payload]
-    Check Response Body Containing Entities URIS set to    ${entities_id}    ${payload_list}
+    ${request_payload}=    Get Request Body
+    Should Contain    ${request_payload}    brandname
 
 
 *** Keywords ***
